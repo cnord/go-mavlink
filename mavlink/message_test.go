@@ -24,7 +24,7 @@ func TestRoundTrip(t *testing.T) {
 
 		var buf bytes.Buffer
 
-		if err := NewEncoder(&buf).EncodePacket(&pkt); err != nil {
+		if err := NewEncoder(&buf).EncodePacket(&pkt, 1); err != nil {
 			t.Errorf("Encode fail %q", err)
 		}
 
@@ -53,7 +53,16 @@ func TestDecode(t *testing.T) {
 	pktbytes := []byte{0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E}
 	_, err := NewDecoder(bytes.NewBuffer(pktbytes)).Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
+	}
+}
+
+func TestDecodeMavlink2(t *testing.T) {
+	// decode a known good byte stream
+	pktbytes := []byte{0xFD, 0x0D, 0x00, 0x00, 0x8A, 0x02, 0xFC, 0x04, 0x00, 0x00, 0xE5, 0xF2, 0x41, 0x21, 0x09, 0x7E, 0x3B, 0x16, 0x00, 0x00, 0x01, 0x00, 0x6B, 0x4A, 0x83}
+	_, err := NewDecoder(bytes.NewBuffer(pktbytes)).Decode()
+	if err != nil {
+		t.Errorf("Decode fail: %s\n", err)
 	}
 }
 
@@ -65,12 +74,12 @@ func TestDecodeTwoMessages(t *testing.T) {
 
 	msg1, err := decoder.Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 
 	msg2, err := decoder.Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 
 	if reflect.DeepEqual(msg1, msg2) {
@@ -83,7 +92,7 @@ func TestDecodeFalseStart(t *testing.T) {
 	pktbytes := []byte{0xfe, 0x00, 0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E}
 	_, err := NewDecoder(bytes.NewBuffer(pktbytes)).Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 }
 
@@ -98,7 +107,7 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 		_, err = decoder.Decode()
 	}
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 
 	pktbytes = append([]byte{0x00, 0xfe, 0x01, 0x02, 0xfe, 0x03, 0x04, 0x05, 0xfe, 0x07, 0x08, 0x09, 0x0a}, pktbytes[:]...)
@@ -109,7 +118,7 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 		_, err = decoder.Decode()
 	}
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 }
 
@@ -121,12 +130,12 @@ func TestDecodeFalseStartTwoMessages(t *testing.T) {
 
 	msg1, err := decoder.Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 
 	msg2, err := decoder.Decode()
 	if err != nil {
-		t.Errorf("Decode fail:", err)
+		t.Errorf("Decode fail: %s\n", err)
 	}
 
 	if reflect.DeepEqual(msg1, msg2) {
@@ -148,7 +157,7 @@ func TestDialects(t *testing.T) {
 		Freemem: 10,
 	}
 
-	err := enc.Encode(0x1, 0x1, mi)
+	err := enc.Encode(0x1, 0x1, mi, 1)
 	if err != ErrUnknownMsgID {
 		t.Errorf("encode expected ErrUnknownMsgID, got %q", err)
 	}
@@ -157,7 +166,7 @@ func TestDialects(t *testing.T) {
 
 	// add the dialect, and ensure it succeeds
 	enc.Dialects.Add(DialectArdupilotmega)
-	if err = enc.Encode(0x1, 0x1, mi); err != nil {
+	if err = enc.Encode(0x1, 0x1, mi, 1); err != nil {
 		t.Errorf("Encode fail %q", err)
 	}
 
@@ -169,7 +178,7 @@ func TestDialects(t *testing.T) {
 	dec.Dialects.Add(DialectArdupilotmega)
 
 	// re-encode the msg, and decode it again after adding the required dialect
-	if err = enc.Encode(0x1, 0x1, mi); err != nil {
+	if err = enc.Encode(0x1, 0x1, mi, 1); err != nil {
 		t.Errorf("Encode fail %q", err)
 	}
 

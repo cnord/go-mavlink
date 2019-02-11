@@ -15,10 +15,13 @@ import (
 //go:generate mavgen -f ../mavlink-upstream/message_definitions/v1.0/matrixpilot.xml
 //go:generate mavgen -f ../mavlink-upstream/message_definitions/v1.0/ualberta.xml
 
+
 const (
-	startByte        = 0xfe
+	ctxMavlink1      = 0xfe
+	ctxMavlink2      = 0xfd
 	numChecksumBytes = 2
-	hdrLen           = 6
+	hdrLenMavlink1   = 6
+	hdrLenMavlink2   = 10
 )
 
 var (
@@ -26,7 +29,7 @@ var (
 	ErrCrcFail      = errors.New("checksum did not match")
 )
 
-type MessageID uint8
+type MessageID uint16
 
 // basic type for encoding/decoding mavlink messages.
 // use the Pack() and Unpack() routines on specific message
@@ -42,12 +45,15 @@ type Message interface {
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
 type Packet struct {
-	SeqID    uint8     // Sequence of packet
-	SysID    uint8     // ID of message sender system/aircraft
-	CompID   uint8     // ID of the message sender component
-	MsgID    MessageID // ID of message in payload
-	Payload  []byte
-	Checksum uint16
+	InCompatFlags uint8	  // incompat flags
+	CompatFlags   uint8	  // compat flags
+	SeqID         uint8     // Sequence of packet
+	SysID     	  uint8     // ID of message sender system/aircraft
+	CompID    	  uint8     // ID of the message sender component
+	DialectID 	  uint8
+	MsgID     	  MessageID // ID of message in payload
+	Payload   	  []byte
+	Checksum  	  uint16
 }
 
 type Decoder struct {
@@ -95,13 +101,30 @@ func NewEncoder(w io.Writer) *Encoder {
 }
 
 // helper to create packet w/header populated with received bytes
-func newPacketFromBytes(b []byte) (*Packet, int) {
-	return &Packet{
-		SeqID:  b[1],
-		SysID:  b[2],
-		CompID: b[3],
-		MsgID:  MessageID(b[4]),
-	}, int(b[0])
+func newPacketFromBytes(b []byte, mavlinkVersion int) (*Packet, int) {
+	if(mavlinkVersion == 2){
+		return &Packet{
+			InCompatFlags: b[1],
+			CompatFlags: b[2],
+			SeqID:  b[2],
+			SysID:  b[4],
+			CompID: b[5],
+			DialectID: uint8(0), // mavgen.py ignore this field
+			MsgID:  MessageID(b[6] + (b[7] << 8)),
+		}, int(b[0])
+	}else if(mavlinkVersion == 1){
+		return &Packet{
+			InCompatFlags: uint8(0),
+			CompatFlags: uint8(0),
+			SeqID:  b[1],
+			SysID:  b[2],
+			CompID: b[3],
+			DialectID: uint8(0),
+			MsgID:  MessageID(b[4]),
+		}, int(b[0])
+	}else{
+		return nil, 0
+	}
 }
 
 // Decoder reads and parses from its reader
@@ -111,11 +134,23 @@ func newPacketFromBytes(b []byte) (*Packet, int) {
 func (dec *Decoder) Decode() (*Packet, error) {
 	for {
 		startFoundInBuffer := false
+		var (
+			mavlinkVersion 	int
+			hdrLen 			int
+		)
 		// discard bytes in buffer before start byte
 		for i, b := range dec.buffer {
-			if b == startByte {
+			if b == ctxMavlink2 {
 				dec.buffer = dec.buffer[i:]
 				startFoundInBuffer = true
+				mavlinkVersion = 2
+				hdrLen = hdrLenMavlink2
+				break
+			}else if b == ctxMavlink1 {
+				dec.buffer = dec.buffer[i:]
+				startFoundInBuffer = true
+				mavlinkVersion = 1
+				hdrLen = hdrLenMavlink1
 				break
 			}
 		}
@@ -127,8 +162,15 @@ func (dec *Decoder) Decode() (*Packet, error) {
 				if err != nil {
 					return nil, err
 				}
-				if c == startByte {
+				if c == ctxMavlink2 {
 					dec.buffer = append(dec.buffer, c)
+					mavlinkVersion = 2
+					hdrLen = hdrLenMavlink2
+					break
+				}else if c == ctxMavlink1 {
+					dec.buffer = append(dec.buffer, c)
+					mavlinkVersion = 1
+					hdrLen = hdrLenMavlink1
 					break
 				}
 			}
@@ -164,7 +206,7 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		// don't include start byte
 		hdr = dec.buffer[1:hdrLen]
 
-		p, payloadLen := newPacketFromBytes(hdr)
+		p, payloadLen := newPacketFromBytes(hdr, mavlinkVersion)
 
 		crc := x25.New()
 		crc.Write(hdr)
@@ -198,13 +240,24 @@ func (dec *Decoder) Decode() (*Packet, error) {
 
 // Decode a packet from a previously received buffer (such as a UDP packet),
 // b must contain a complete message
-func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {
+func (dec *Decoder) DecodeBytes(b []byte, mavlinkVersion int) (*Packet, error) {
+	var(
+		hdrLen int
+		startByte byte
+	)
+	if(mavlinkVersion == 2){
+		hdrLen = hdrLenMavlink2
+		startByte = ctxMavlink2
+	}else if(mavlinkVersion == 1){
+		hdrLen = hdrLenMavlink1
+		startByte = ctxMavlink1
+	}
 
 	if len(b) < hdrLen || b[0] != startByte {
 		return nil, errors.New("invalid header")
 	}
 
-	p, payloadLen := newPacketFromBytes(b[1:])
+	p, payloadLen := newPacketFromBytes(b[1:], mavlinkVersion)
 
 	crc := x25.New()
 	p.Payload = b[hdrLen : hdrLen+payloadLen]
@@ -230,7 +283,7 @@ func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {
 // helper that accepts a Message, internally converts it to a Packet,
 // sets the Packet's SeqID based on the
 // and then writes it to its writer via EncodePacket()
-func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
+func (enc *Encoder) Encode(sysID, compID uint8, m Message, mavlinkVersion int) error {
 	var p Packet
 	if err := m.Pack(&p); err != nil {
 		return err
@@ -238,19 +291,27 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 
 	p.SysID, p.CompID = sysID, compID
 
-	return enc.EncodePacket(&p)
+	return enc.EncodePacket(&p, mavlinkVersion)
 }
 
 // Encode writes p to its writer
-func (enc *Encoder) EncodePacket(p *Packet) error {
-
-	crc := x25.New()
+func (enc *Encoder) EncodePacket(p *Packet, mavlinkVersion int) error {
+	var(
+		hdr []byte
+	)
+	if(mavlinkVersion == 2){
+		hdr = []byte{ctxMavlink2, uint8(0), uint8(0), byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(0), uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF)}
+	}else if(mavlinkVersion == 1){
+		hdr = []byte{ctxMavlink1, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}
+	}
 
 	// header
-	hdr := []byte{startByte, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}
 	if err := enc.writeAndCheck(hdr); err != nil {
 		return err
 	}
+
+	crc := x25.New()
+
 	crc.Write(hdr[1:]) // don't include start byte
 
 	// payload
