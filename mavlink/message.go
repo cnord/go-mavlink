@@ -73,7 +73,7 @@ type Encoder struct {
 
 func NewDecoder(r io.Reader) *Decoder {
 	d := &Decoder{
-		Dialects: DialectSlice{DialectCommon},
+		Dialects: DialectSlice{DialectDefault},
 	}
 
 	if v, ok := r.(*bufio.Reader); ok {
@@ -88,7 +88,7 @@ func NewDecoder(r io.Reader) *Decoder {
 func NewEncoder(w io.Writer) *Encoder {
 
 	e := &Encoder{
-		Dialects: DialectSlice{DialectCommon},
+		Dialects: DialectSlice{DialectDefault},
 	}
 
 	if v, ok := w.(*bufio.Writer); ok {

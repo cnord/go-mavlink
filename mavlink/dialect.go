@@ -5,7 +5,7 @@ package mavlink
 // so a list of dialects must be provided to an Encoder/Decoder in
 // order to specify which packets to use for the conflicting IDs.
 //
-// The 'DialectCommon' dialect is added to all Encoders/Decoders by default.
+// The 'DialectDefault' dialect is declare dialect_default.go
 type Dialect struct {
 	Name                      string
 	crcExtras                 map[MessageID]uint8
