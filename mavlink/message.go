@@ -140,17 +140,17 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		)
 		// discard bytes in buffer before start byte
 		for i, b := range dec.buffer {
-			if b == ctxMavlink2 {
-				dec.buffer = dec.buffer[i:]
-				startFoundInBuffer = true
-				mavlinkVersion = 2
-				hdrLen = hdrLenMavlink2
-				break
-			}else if b == ctxMavlink1 {
+			if b == ctxMavlink1 {
 				dec.buffer = dec.buffer[i:]
 				startFoundInBuffer = true
 				mavlinkVersion = 1
 				hdrLen = hdrLenMavlink1
+				break
+			}else if b == ctxMavlink2 {
+				dec.buffer = dec.buffer[i:]
+				startFoundInBuffer = true
+				mavlinkVersion = 2
+				hdrLen = hdrLenMavlink2
 				break
 			}
 		}
@@ -162,15 +162,15 @@ func (dec *Decoder) Decode() (*Packet, error) {
 				if err != nil {
 					return nil, err
 				}
-				if c == ctxMavlink2 {
-					dec.buffer = append(dec.buffer, c)
-					mavlinkVersion = 2
-					hdrLen = hdrLenMavlink2
-					break
-				}else if c == ctxMavlink1 {
+				if c == ctxMavlink1 {
 					dec.buffer = append(dec.buffer, c)
 					mavlinkVersion = 1
 					hdrLen = hdrLenMavlink1
+					break
+				}else if c == ctxMavlink2 {
+					dec.buffer = append(dec.buffer, c)
+					mavlinkVersion = 2
+					hdrLen = hdrLenMavlink2
 					break
 				}
 			}
