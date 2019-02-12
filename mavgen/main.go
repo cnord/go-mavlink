@@ -1,22 +1,27 @@
 package main
 
-//go:generate go-bindata -nometadata -nocompress -nomemcopy -o generated_assets.go ../mavlink/
+//go:generate templify message.template
+//go:generate templify dialect.template
 
 import (
-	"bytes"
 	"flag"
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+
+	"text/template"
+
 	"github.com/iancoleman/strcase"
 )
 
 var (
-	infile          = flag.String("f", "", "mavlink definition file input")
-	outfile         = flag.String("o", "", "output file name; default input.go")
-	packetmode      = flag.Bool("p", false, "packet mode. if set mavgen will be create nessesary go-sources")
-	version      	= flag.String("v", "0.0.0-alpha", "version of mavlink dialect (usage with -p flag)")
+	infile         = flag.String("f", "", "mavlink definition file input")
+	outfile        = flag.String("o", "", "output file name; default input.go")
+	packetmode     = flag.Bool("p", false, "packet mode. if set mavgen will be create nessesary go-sources")
+	version        = flag.String("v", "0.0.0-alpha", "version of mavlink dialect (usage with -p flag)")
+	mavlinkVersion = flag.Int("m", 2, "version of mavlink protocol (default 2)")
 )
 
 const (
@@ -54,10 +59,22 @@ func main() {
 	}
 	if *packetmode {
 		dialectDir := filepath.Dir(dialectFileName) + string(filepath.Separator)
+		dialectName := "Dialect" + strcase.ToCamel(d.Name)
 
-		message, err := MavlinkMessageGoBytes()
+		data := struct {
+			Mavlink2    bool
+			Mavlink1    bool
+			DialectName string
+		}{
+			Mavlink2:    *mavlinkVersion&(1<<1) > 0,
+			Mavlink1:    *mavlinkVersion&(1<<0) > 0,
+			DialectName: dialectName,
+		}
+
+		t, err := template.New("message").Parse(messageTemplate())
+
 		if err != nil {
-			log.Fatal("couldn't get message template: ", err)
+			log.Fatal("couldn't parse file: ", err)
 		}
 
 		messageFile, err := os.Create(dialectDir + "message.go")
@@ -67,40 +84,24 @@ func main() {
 		defer messageFile.Close()
 
 		messageFile.Write([]byte(generatedHeader))
-		for _, l := range bytes.Split(message, []byte("\n")){
-			line := string(l) + "\n";
-			if !strings.Contains(line, "//go:generate") {
-				nm, err := messageFile.Write([]byte(line))
-				if err == nil && nm != len(line) {
-					log.Fatal("error on write line '%s' to file message.go: %s", string(line), err)
-				}
-			}
-		}
 
-		commonDialect, err := MavlinkDialectGoBytes()
+		t.Execute(messageFile, data)
+
+		t, err = template.New("dialect").Parse(dialectTemplate())
+
 		if err != nil {
-			log.Fatal("couldn't get dialect template: ", err)
+			log.Fatal("couldn't parse file: ", err)
 		}
 
-		commonDialectFile, err := os.Create(dialectDir + "dialect.go")
+		dialectFile, err := os.Create(dialectDir + "dialect.go")
 		if err != nil {
 			log.Fatal("couldn't open output: ", err)
 		}
-		defer commonDialectFile.Close()
+		defer dialectFile.Close()
 
-		commonDialectFile.Write([]byte(generatedHeader))
-		nd, err := commonDialectFile.Write(commonDialect)
-		if err == nil && nd != len(commonDialect) {
-			log.Fatal("error on write dialect.go: ", err)
-		}
+		dialectFile.Write([]byte(generatedHeader))
 
-		defaultDialectFile, err := os.Create(dialectDir + "dialect_default.go")
-		if err != nil {
-			log.Fatal("couldn't open output: ", err)
-		}
-		defer defaultDialectFile.Close()
-
-		defaultDialectFile.Write([]byte(generatedHeader+"package mavlink\n\nvar DialectDefault = Dialect"+strcase.ToCamel(d.Name)+"\n"))
+		t.Execute(dialectFile, data)
 
 		versionFile, err := os.Create(dialectDir + "version.go")
 		if err != nil {
@@ -108,7 +109,7 @@ func main() {
 		}
 		defer versionFile.Close()
 
-		versionFile.Write([]byte(generatedHeader+"package mavlink\n\nconst Version = \""+*version+"\"\n"))
+		versionFile.Write([]byte(generatedHeader + "package mavlink\n\nconst (\n\tVersion = \"" + *version + "\"\n\tMavlinkVersion = " + strconv.Itoa(*mavlinkVersion) + "\n)\n"))
 	}
 }
 

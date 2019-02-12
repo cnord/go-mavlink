@@ -8,3 +8,7 @@ mavgen/mavgen
 
 # idea
 .idea
+
+# generated sources
+mavgen/message.go
+mavgen/dialect.go
