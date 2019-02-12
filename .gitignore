@@ -5,3 +5,9 @@ mavgen/mavgen
 
 # os x cruft
 .DS_Store
+
+# idea
+.idea
+
+# generated_assets
+mavgen/generated_assets.go
