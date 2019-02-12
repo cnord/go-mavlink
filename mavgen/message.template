@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 	"sync"
-	"github.com/cnord/go-mavlink/x25"
+	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
 const (
@@ -56,7 +56,7 @@ type Packet struct {
 type Decoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id decoded
-	Dialect   DialectSlice // dialects that can be decoded
+	Dialects  DialectSlice // dialects that can be decoded
 	br        *bufio.Reader
 	buffer    []byte // stores bytes we've read from br
 }

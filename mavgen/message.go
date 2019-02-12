@@ -16,7 +16,7 @@ func messageTemplate() string {
 		"\t\"errors\"\n" +
 		"\t\"io\"\n" +
 		"\t\"sync\"\n" +
-		"\t\"github.com/cnord/go-mavlink/x25\"\n" +
+		"\t\"github.com/asmyasnikov/go-mavlink/x25\"\n" +
 		")\n" +
 		"\n" +
 		"const (\n" +
@@ -67,7 +67,7 @@ func messageTemplate() string {
 		"type Decoder struct {\n" +
 		"\tsync.Mutex\n" +
 		"\tCurrSeqID uint8        // last seq id decoded\n" +
-		"\tDialect   DialectSlice // dialects that can be decoded\n" +
+		"\tDialects  DialectSlice // dialects that can be decoded\n" +
 		"\tbr        *bufio.Reader\n" +
 		"\tbuffer    []byte // stores bytes we've read from br\n" +
 		"}\n" +
