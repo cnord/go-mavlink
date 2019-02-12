@@ -8,6 +8,3 @@ mavgen/mavgen
 
 # idea
 .idea
-
-# generated_assets
-mavgen/generated_assets.go
