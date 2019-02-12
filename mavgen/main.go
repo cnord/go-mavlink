@@ -108,7 +108,7 @@ func main() {
 		}
 		defer versionFile.Close()
 
-		versionFile.Write([]byte(generatedHeader+"package mavlink\n\nvar Version = \""+*version+"\"\n"))
+		versionFile.Write([]byte(generatedHeader+"package mavlink\n\nconst Version = \""+*version+"\"\n"))
 	}
 }
 
