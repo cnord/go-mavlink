@@ -1,8 +1,6 @@
 # go-mavlink
 
-a [Go](http://golang.org/) package for reading/writing [mavlink](http://qgroundcontrol.org/mavlink/start) messages.
-
-Forked from: https://github.com/cnord/go-mavlink with updates to V2_EXTENSION messages.
+a [Go](http://golang.org/) package for reading/writing [mavlink](http://qgroundcontrol.org/mavlink/start) 1.0 and 2.0 messages.
 
 ## installation
 
