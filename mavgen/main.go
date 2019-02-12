@@ -16,6 +16,7 @@ var (
 	infile          = flag.String("f", "", "mavlink definition file input")
 	outfile         = flag.String("o", "", "output file name; default input.go")
 	packetmode      = flag.Bool("p", false, "packet mode. if set mavgen will be create nessesary go-sources")
+	version      	= flag.String("v", "0.0.0-alpha", "version of mavlink dialect (usage with -p flag)")
 )
 
 const (
@@ -100,6 +101,14 @@ func main() {
 		defer defaultDialectFile.Close()
 
 		defaultDialectFile.Write([]byte(generatedHeader+"package mavlink\n\nvar DialectDefault = Dialect"+strcase.ToCamel(d.Name)+"\n"))
+
+		versionFile, err := os.Create(dialectDir + "version.go")
+		if err != nil {
+			log.Fatal("couldn't open output: ", err)
+		}
+		defer versionFile.Close()
+
+		versionFile.Write([]byte(generatedHeader+"package mavlink\n\nvar Version = \""+*version+"\"\n"))
 	}
 }
 
