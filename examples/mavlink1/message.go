@@ -8,7 +8,7 @@ import (
 	"errors"
 	"io"
 	"sync"
-	"github.com/cnord/go-mavlink/x25"
+	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
 const (
@@ -49,7 +49,7 @@ type Packet struct {
 type Decoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id decoded
-	Dialect   DialectSlice // dialects that can be decoded
+	Dialects  DialectSlice // dialects that can be decoded
 	br        *bufio.Reader
 	buffer    []byte // stores bytes we've read from br
 }
@@ -159,7 +159,7 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		// don't include start byte
 		hdr = dec.buffer[1:hdrLen]
 
-		p, payloadLen := newPacketFromBytes(hdr, mavlinkVersion)
+		p, payloadLen := newPacketFromBytes(hdr)
 
 		crc := x25.New()
 		crc.Write(hdr)
@@ -194,7 +194,7 @@ func (dec *Decoder) Decode() (*Packet, error) {
 // Decode a packet from a previously received buffer (such as a UDP packet),
 // b must contain a complete message
 func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {
-	if len(b) < hdrLen || b[0] != startByte {
+	if len(b) < hdrLen || b[0] != magicNumber {
 		return nil, errors.New("invalid header")
 	}
 
@@ -232,13 +232,12 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 
 	p.SysID, p.CompID = sysID, compID
 
-	return enc.EncodePacket(&p, mavlinkVersion)
+	return enc.EncodePacket(&p)
 }
 
 // Encode writes p to its writer
 func (enc *Encoder) EncodePacket(p *Packet) error {
-hdr = []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}
-	// header
+hdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}// header
 	if err := enc.writeAndCheck(hdr); err != nil {
 		return err
 	}

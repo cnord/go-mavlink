@@ -49,19 +49,19 @@ func messageTemplate() string {
 		"{{- if .Mavlink2 -}}\n" +
 		"\tInCompatFlags uint8\t  // incompat flags\n" +
 		"\tCompatFlags   uint8\t  // compat flags\n" +
-		"{{- end}}\n" +
+		"{{- end }}\n" +
 		"\tSeqID         uint8     // Sequence of packet\n" +
 		"\tSysID     \t  uint8     // ID of message sender system/aircraft\n" +
 		"\tCompID    \t  uint8     // ID of the message sender component\n" +
-		"{{- if .Mavlink2 -}}\n" +
+		"{{- if .Mavlink2 }}\n" +
 		"\tDialectID \t  uint8\n" +
-		"{{- end}}\n" +
+		"{{ end }}\n" +
 		"\tMsgID     \t  MessageID // ID of message in payload\n" +
 		"\tPayload   \t  []byte\n" +
 		"\tChecksum  \t  uint16\n" +
-		"{{- if .Mavlink2 -}}\n" +
+		"{{ if .Mavlink2 }}\n" +
 		"\tSignature \t  []byte\n" +
-		"{{- end}}\n" +
+		"{{- end }}\n" +
 		"}\n" +
 		"\n" +
 		"type Decoder struct {\n" +
@@ -111,18 +111,18 @@ func messageTemplate() string {
 		"// helper to create packet w/header populated with received bytes\n" +
 		"func newPacketFromBytes(b []byte) (*Packet, int) {\n" +
 		"\treturn &Packet{\n" +
-		"{{- if .Mavlink2 -}}\n" +
+		"{{- if .Mavlink2}}\n" +
 		"\t\tInCompatFlags: b[1],\n" +
 		"\t\tCompatFlags: b[2],\n" +
-		"{{- end -}}\n" +
+		"{{- end}}\n" +
 		"\t\tSeqID:  b[ {{- if .Mavlink2 -}} 3 {{- else -}} 1 {{- end -}} ],\n" +
 		"\t\tSysID:  b[ {{- if .Mavlink2 -}} 4 {{- else -}} 2 {{- end -}} ],\n" +
 		"\t\tCompID: b[ {{- if .Mavlink2 -}} 5 {{- else -}} 2 {{- end -}} ],\n" +
-		"{{- if .Mavlink2 -}}\n" +
+		"{{- if .Mavlink2}}\n" +
 		"\t\tDialectID: uint8(0), // mavgen.py ignore this field\n" +
 		"{{- end}}\n" +
 		"\t\tMsgID:  MessageID( {{- if .Mavlink2 -}} b[6] + (b[7] << 8) {{- else -}} b[4] {{- end -}} ),\n" +
-		"{{- if .Mavlink2 -}}\n" +
+		"{{- if .Mavlink2}}\n" +
 		"\t\tSignature: []byte{}, // mavgen.py ignore this field\n" +
 		"{{- end}}\n" +
 		"\t}, int(b[0])\n" +
@@ -188,7 +188,7 @@ func messageTemplate() string {
 		"\t\t// don't include start byte\n" +
 		"\t\thdr = dec.buffer[1:hdrLen]\n" +
 		"\n" +
-		"\t\tp, payloadLen := newPacketFromBytes(hdr, mavlinkVersion)\n" +
+		"\t\tp, payloadLen := newPacketFromBytes(hdr)\n" +
 		"\n" +
 		"\t\tcrc := x25.New()\n" +
 		"\t\tcrc.Write(hdr)\n" +
@@ -223,7 +223,7 @@ func messageTemplate() string {
 		"// Decode a packet from a previously received buffer (such as a UDP packet),\n" +
 		"// b must contain a complete message\n" +
 		"func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {\n" +
-		"\tif len(b) < hdrLen || b[0] != startByte {\n" +
+		"\tif len(b) < hdrLen || b[0] != magicNumber {\n" +
 		"\t\treturn nil, errors.New(\"invalid header\")\n" +
 		"\t}\n" +
 		"\n" +
@@ -261,16 +261,16 @@ func messageTemplate() string {
 		"\n" +
 		"\tp.SysID, p.CompID = sysID, compID\n" +
 		"\n" +
-		"\treturn enc.EncodePacket(&p, mavlinkVersion)\n" +
+		"\treturn enc.EncodePacket(&p)\n" +
 		"}\n" +
 		"\n" +
 		"// Encode writes p to its writer\n" +
 		"func (enc *Encoder) EncodePacket(p *Packet) error {\n" +
-		"{{if .Mavlink2 -}}\n" +
-		"\thdr := []byte{ctxMavlink2, uint8(0), uint8(0), byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(0), uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF)}\n" +
+		"{{if .Mavlink2 }}\n" +
+		"\thdr := []byte{magicNumber, uint8(0), uint8(0), byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(0), uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF)}\n" +
 		"{{- else -}}\n" +
-		"\thdr = []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}\n" +
-		"{{- end }}\n" +
+		"\thdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}\n" +
+		"{{- end -}}\n" +
 		"\t// header\n" +
 		"\tif err := enc.writeAndCheck(hdr); err != nil {\n" +
 		"\t\treturn err\n" +

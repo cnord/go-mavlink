@@ -52,8 +52,6 @@ func main() {
 	}
 	defer dialectFile.Close()
 
-	dialectFile.Write([]byte(generatedHeader))
-
 	if err := d.GenerateGo(dialectFile); err != nil {
 		log.Fatal("couldn't write to output: ", err)
 	}

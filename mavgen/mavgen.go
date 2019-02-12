@@ -372,6 +372,13 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	var bb bytes.Buffer
 
+	bb.WriteString("//////////////////////////////////////////////////\n")
+	bb.WriteString("//\n")
+	bb.WriteString("// NOTE: do not edit,\n")
+	bb.WriteString("// this file created automatically by mavgen.go\n")
+	bb.WriteString("//\n")
+	bb.WriteString("//////////////////////////////////////////////////\n\n")
+
 	bb.WriteString("package mavlink\n\n")
 
 	bb.WriteString("import (\n")
@@ -379,13 +386,6 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString("\"fmt\"\n")
 	bb.WriteString("\"math\"\n")
 	bb.WriteString(")\n")
-
-	bb.WriteString("//////////////////////////////////////////////////\n")
-	bb.WriteString("//\n")
-	bb.WriteString("// NOTE: do not edit,\n")
-	bb.WriteString("// this file created automatically by mavgen.go\n")
-	bb.WriteString("//\n")
-	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
 	err := d.generateEnums(&bb)
 	d.generateClasses(&bb)
