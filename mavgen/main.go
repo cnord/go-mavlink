@@ -1,6 +1,6 @@
 package main
 
-//go:generate go-bindata -o generated_assets.go ../mavlink/
+//go:generate go-bindata -nometadata -nocompress -nomemcopy -o generated_assets.go ../mavlink/
 
 import (
 	"bytes"
@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"github.com/iancoleman/strcase"
 )
 
 var (
@@ -37,21 +38,21 @@ func main() {
 		log.Fatal("parse fail: ", err)
 	}
 
-	dialectFile := findOutFile()
+	dialectFileName := findOutFile()
 
-	dialectOut, err := os.Create(dialectFile)
+	dialectFile, err := os.Create(dialectFileName)
 	if err != nil {
 		log.Fatal("couldn't open output: ", err)
 	}
-	defer dialectOut.Close()
+	defer dialectFile.Close()
 
-	dialectOut.Write([]byte(generatedHeader))
+	dialectFile.Write([]byte(generatedHeader))
 
-	if err := d.GenerateGo(dialectOut); err != nil {
+	if err := d.GenerateGo(dialectFile); err != nil {
 		log.Fatal("couldn't write to output: ", err)
 	}
 	if *packetmode {
-		dialectDir := filepath.Dir(dialectFile) + string(filepath.Separator)
+		dialectDir := filepath.Dir(dialectFileName) + string(filepath.Separator)
 
 		message, err := MavlinkMessageGoBytes()
 		if err != nil {
@@ -91,6 +92,14 @@ func main() {
 		if err == nil && nd != len(commonDialect) {
 			log.Fatal("error on write dialect.go: ", err)
 		}
+
+		defaultDialectFile, err := os.Create(dialectDir + "dialect_default.go")
+		if err != nil {
+			log.Fatal("couldn't open output: ", err)
+		}
+		defer defaultDialectFile.Close()
+
+		defaultDialectFile.Write([]byte(generatedHeader+"package mavlink\n\nvar DialectDefault = Dialect"+strcase.ToCamel(d.Name)+"\n"))
 	}
 }
 
