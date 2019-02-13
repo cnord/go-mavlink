@@ -6,7 +6,6 @@ package main
 import (
 	"bytes"
 	"flag"
-	"fmt"
 	"go/format"
 	"log"
 	"os"
@@ -35,8 +34,6 @@ func main() {
 	log.SetFlags(0)
 	log.SetPrefix("mavgen: ")
 	flag.Parse()
-
-	fmt.Printf("go-mavgen version %s\n\n", Version)
 
 	fin, err := os.Open(*infile)
 	if err != nil {
