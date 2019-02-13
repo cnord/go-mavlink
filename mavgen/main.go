@@ -4,8 +4,10 @@ package main
 //go:generate templify dialect.template
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
+	"go/format"
 	"log"
 	"os"
 	"path/filepath"
@@ -86,7 +88,18 @@ func main() {
 
 		messageFile.Write([]byte(generatedHeader))
 
-		t.Execute(messageFile, data)
+		var buffer bytes.Buffer
+		if err := t.Execute(&buffer, data); err != nil {
+			log.Fatal("couldn't execute template for message.go: ", err)
+		}
+		formatted, err := format.Source(buffer.Bytes())
+		if err != nil {
+			log.Fatal("couldn't format generated message.go: ", err)
+			messageFile.Write(buffer.Bytes())
+		}else{
+			messageFile.Write(formatted)
+		}
+		buffer.Reset()
 
 		t, err = template.New("dialect").Parse(dialectTemplate())
 
@@ -102,7 +115,17 @@ func main() {
 
 		dialectFile.Write([]byte(generatedHeader))
 
-		t.Execute(dialectFile, data)
+		if err := t.Execute(&buffer, data); err != nil {
+			log.Fatal("couldn't execute template for dialect.go: ", err)
+		}
+		formatted, err = format.Source(buffer.Bytes())
+		if err != nil {
+			log.Fatal("couldn't format generated dialect.go: ", err)
+			dialectFile.Write(buffer.Bytes())
+		}else{
+			dialectFile.Write(formatted)
+		}
+		buffer.Reset()
 
 		versionFile, err := os.Create(dialectDir + "version.go")
 		if err != nil {
@@ -110,7 +133,13 @@ func main() {
 		}
 		defer versionFile.Close()
 
-		versionFile.Write([]byte(generatedHeader + "package mavlink\n\nconst (\n\tVersion = \"" + *version + "\"\n\tMavlinkVersion = " + strconv.Itoa(*mavlinkVersion) + "\n)\n"))
+		formatted, err = format.Source([]byte(generatedHeader + "package mavlink\n\nconst (\n\tVersion = \"" + *version + "\"\n\tMavlinkVersion = " + strconv.Itoa(*mavlinkVersion) + "\n)\n"))
+		if err != nil {
+			log.Fatal("couldn't format generated version.go: ", err)
+			versionFile.Write(buffer.Bytes())
+		}else{
+			versionFile.Write(formatted)
+		}
 	}
 }
 

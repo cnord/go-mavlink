@@ -30,7 +30,7 @@ func messageTemplate() string {
 		"\tErrCrcFail      = errors.New(\"checksum did not match\")\n" +
 		")\n" +
 		"\n" +
-		"type MessageID {{if .Mavlink2 -}} uint16 {{else}} uint8 {{- end}}\n" +
+		"type MessageID {{if .Mavlink2 -}} uint32 {{else}} uint8 {{- end}}\n" +
 		"\n" +
 		"// basic type for encoding/decoding mavlink messages.\n" +
 		"// use the Pack() and Unpack() routines on specific message\n" +
@@ -53,15 +53,9 @@ func messageTemplate() string {
 		"\tSeqID         uint8     // Sequence of packet\n" +
 		"\tSysID     \t  uint8     // ID of message sender system/aircraft\n" +
 		"\tCompID    \t  uint8     // ID of the message sender component\n" +
-		"{{- if .Mavlink2 }}\n" +
-		"\tDialectID \t  uint8\n" +
-		"{{ end }}\n" +
 		"\tMsgID     \t  MessageID // ID of message in payload\n" +
 		"\tPayload   \t  []byte\n" +
 		"\tChecksum  \t  uint16\n" +
-		"{{ if .Mavlink2 }}\n" +
-		"\tSignature \t  []byte\n" +
-		"{{- end }}\n" +
 		"}\n" +
 		"\n" +
 		"type Decoder struct {\n" +
@@ -118,13 +112,7 @@ func messageTemplate() string {
 		"\t\tSeqID:  b[ {{- if .Mavlink2 -}} 3 {{- else -}} 1 {{- end -}} ],\n" +
 		"\t\tSysID:  b[ {{- if .Mavlink2 -}} 4 {{- else -}} 2 {{- end -}} ],\n" +
 		"\t\tCompID: b[ {{- if .Mavlink2 -}} 5 {{- else -}} 2 {{- end -}} ],\n" +
-		"{{- if .Mavlink2}}\n" +
-		"\t\tDialectID: uint8(0), // mavgen.py ignore this field\n" +
-		"{{- end}}\n" +
-		"\t\tMsgID:  MessageID( {{- if .Mavlink2 -}} b[6] + (b[7] << 8) {{- else -}} b[4] {{- end -}} ),\n" +
-		"{{- if .Mavlink2}}\n" +
-		"\t\tSignature: []byte{}, // mavgen.py ignore this field\n" +
-		"{{- end}}\n" +
+		"\t\tMsgID:  MessageID( {{- if .Mavlink2 -}} b[6] + (b[7] << 8) + (b[8] << 16) {{- else -}} b[4] {{- end -}} ),\n" +
 		"\t}, int(b[0])\n" +
 		"}\n" +
 		"\n" +
@@ -149,9 +137,13 @@ func messageTemplate() string {
 		"\t\t\tfor {\n" +
 		"\t\t\t\tc, err := dec.br.ReadByte()\n" +
 		"\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\treturn nil, err\n" +
-		"\t\t\t\t}\n" +
-		"\t\t\t\tif c == magicNumber {\n" +
+		"\t\t\t\t\tif len(dec.buffer) > 0 {\n" +
+		"\t\t\t\t\t\tdec.buffer = dec.buffer[1:]\n" +
+		"\t\t\t\t\t\tcontinue\n" +
+		"\t\t\t\t\t}else{\n" +
+		"\t\t\t\t\t\treturn nil, err\n" +
+		"\t\t\t\t\t}\n" +
+		"                }else if c == magicNumber {\n" +
 		"\t\t\t\t\tdec.buffer = append(dec.buffer, c)\n" +
 		"\t\t\t\t\tbreak\n" +
 		"\t\t\t\t}\n" +
@@ -173,13 +165,28 @@ func messageTemplate() string {
 		"\t\tpayloadLen := int(dec.buffer[1])\n" +
 		"\t\tpacketLen := hdrLen + payloadLen + numChecksumBytes\n" +
 		"\t\tbytesNeeded := packetLen - len(dec.buffer)\n" +
-		"\t\tif bytesNeeded > 0 {\n" +
+		"\t\tfor len(dec.buffer) < packetLen {\n" +
 		"\t\t\tbytesRead := make([]byte, bytesNeeded)\n" +
-		"\t\t\tn, err := io.ReadAtLeast(dec.br, bytesRead, bytesNeeded)\n" +
+		"\t\t\tn, err := io.ReadAtLeast(dec.br, bytesRead, 1)\n" +
 		"\t\t\tif err != nil {\n" +
-		"\t\t\t\treturn nil, err\n" +
+		"\t\t\t\tif len(dec.buffer) > 0 {\n" +
+		"\t\t\t\t\tdec.buffer = dec.buffer[1:]\n" +
+		"\t\t\t\t\tif dec.buffer[0] == magicNumber {\n" +
+		"\t\t\t\t\t\tbreak\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t}else{\n" +
+		"\t\t\t\t\treturn nil, err\n" +
+		"\t\t\t\t}\n" +
+		"\t\t\t} else if n > 0 {\n" +
+		"\t\t\t\tdec.buffer = append(dec.buffer, bytesRead[:n]...)\n" +
+		"\t\t\t} else {\n" +
+		"\t\t\t\tdec.buffer = dec.buffer[1:]\n" +
+		"\t\t\t\treturn nil, errors.New(\"EOF\")\n" +
 		"\t\t\t}\n" +
-		"\t\t\tdec.buffer = append(dec.buffer, bytesRead[:n]...)\n" +
+		"\t\t}\n" +
+		"\t\tif len(dec.buffer) < packetLen {\n" +
+		"\t\t\tdec.buffer = dec.buffer[1:]\n" +
+		"\t\t\tcontinue\n" +
 		"\t\t}\n" +
 		"\n" +
 		"\t\t// hdr contains LENGTH, SEQ, SYSID, COMPID, MSGID\n" +
@@ -267,7 +274,7 @@ func messageTemplate() string {
 		"// Encode writes p to its writer\n" +
 		"func (enc *Encoder) EncodePacket(p *Packet) error {\n" +
 		"{{if .Mavlink2 }}\n" +
-		"\thdr := []byte{magicNumber, uint8(0), uint8(0), byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(0), uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF)}\n" +
+		"\thdr := []byte{magicNumber, byte(len(p.Payload)), uint8(0), uint8(0), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF), uint8((p.MsgID >> 16) & 0xFF)}\n" +
 		"{{- else -}}\n" +
 		"\thdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}\n" +
 		"{{- end -}}\n" +
