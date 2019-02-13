@@ -6,15 +6,15 @@ package mavlink
 import (
 	"bufio"
 	"errors"
+	"github.com/asmyasnikov/go-mavlink/x25"
 	"io"
 	"sync"
-	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
 const (
 	numChecksumBytes = 2
 	magicNumber      = 0xfd
-	hdrLen   		 = 10
+	hdrLen           = 10
 )
 
 var (
@@ -22,7 +22,7 @@ var (
 	ErrCrcFail      = errors.New("checksum did not match")
 )
 
-type MessageID uint16 
+type MessageID uint32
 
 // basic type for encoding/decoding mavlink messages.
 // use the Pack() and Unpack() routines on specific message
@@ -37,18 +37,15 @@ type Message interface {
 // wire type for encoding/decoding mavlink messages.
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
-type Packet struct {InCompatFlags uint8	  // incompat flags
-	CompatFlags   uint8	  // compat flags
+type Packet struct {
+	InCompatFlags uint8     // incompat flags
+	CompatFlags   uint8     // compat flags
 	SeqID         uint8     // Sequence of packet
-	SysID     	  uint8     // ID of message sender system/aircraft
-	CompID    	  uint8     // ID of the message sender component
-	DialectID 	  uint8
-
-	MsgID     	  MessageID // ID of message in payload
-	Payload   	  []byte
-	Checksum  	  uint16
-
-	Signature 	  []byte
+	SysID         uint8     // ID of message sender system/aircraft
+	CompID        uint8     // ID of the message sender component
+	MsgID         MessageID // ID of message in payload
+	Payload       []byte
+	Checksum      uint16
 }
 
 type Decoder struct {
@@ -97,11 +94,13 @@ func NewEncoder(w io.Writer) *Encoder {
 
 // helper to create packet w/header populated with received bytes
 func newPacketFromBytes(b []byte) (*Packet, int) {
-	return &Packet{InCompatFlags: b[1],
-		CompatFlags: b[2],SeqID:  b[3],
-		SysID:  b[4],
-		CompID: b[5],DialectID: uint8(0), // mavgen.py ignore this field
-		MsgID:  MessageID(b[6] + (b[7] << 8)),Signature: []byte{}, // mavgen.py ignore this field
+	return &Packet{
+		InCompatFlags: b[1],
+		CompatFlags:   b[2],
+		SeqID:         b[3],
+		SysID:         b[4],
+		CompID:        b[5],
+		MsgID:         MessageID(b[6] + (b[7] << 8) + (b[8] << 16)),
 	}, int(b[0])
 }
 
@@ -126,9 +125,13 @@ func (dec *Decoder) Decode() (*Packet, error) {
 			for {
 				c, err := dec.br.ReadByte()
 				if err != nil {
-					return nil, err
-				}
-				if c == magicNumber {
+					if len(dec.buffer) > 0 {
+						dec.buffer = dec.buffer[1:]
+						continue
+					} else {
+						return nil, err
+					}
+				} else if c == magicNumber {
 					dec.buffer = append(dec.buffer, c)
 					break
 				}
@@ -150,13 +153,28 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		payloadLen := int(dec.buffer[1])
 		packetLen := hdrLen + payloadLen + numChecksumBytes
 		bytesNeeded := packetLen - len(dec.buffer)
-		if bytesNeeded > 0 {
+		for len(dec.buffer) < packetLen {
 			bytesRead := make([]byte, bytesNeeded)
-			n, err := io.ReadAtLeast(dec.br, bytesRead, bytesNeeded)
+			n, err := io.ReadAtLeast(dec.br, bytesRead, 1)
 			if err != nil {
-				return nil, err
+				if len(dec.buffer) > 0 {
+					dec.buffer = dec.buffer[1:]
+					if dec.buffer[0] == magicNumber {
+						break
+					}
+				} else {
+					return nil, err
+				}
+			} else if n > 0 {
+				dec.buffer = append(dec.buffer, bytesRead[:n]...)
+			} else {
+				dec.buffer = dec.buffer[1:]
+				return nil, errors.New("EOF")
 			}
-			dec.buffer = append(dec.buffer, bytesRead[:n]...)
+		}
+		if len(dec.buffer) < packetLen {
+			dec.buffer = dec.buffer[1:]
+			continue
 		}
 
 		// hdr contains LENGTH, SEQ, SYSID, COMPID, MSGID
@@ -244,7 +262,7 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 // Encode writes p to its writer
 func (enc *Encoder) EncodePacket(p *Packet) error {
 
-	hdr := []byte{magicNumber, uint8(0), uint8(0), byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(0), uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF)}// header
+	hdr := []byte{magicNumber, byte(len(p.Payload)), uint8(0), uint8(0), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF), uint8((p.MsgID >> 16) & 0xFF)} // header
 	if err := enc.writeAndCheck(hdr); err != nil {
 		return err
 	}

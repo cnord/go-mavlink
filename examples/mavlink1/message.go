@@ -6,15 +6,15 @@ package mavlink
 import (
 	"bufio"
 	"errors"
+	"github.com/asmyasnikov/go-mavlink/x25"
 	"io"
 	"sync"
-	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
 const (
 	numChecksumBytes = 2
 	magicNumber      = 0xfe
-	hdrLen   		 = 6
+	hdrLen           = 6
 )
 
 var (
@@ -22,7 +22,7 @@ var (
 	ErrCrcFail      = errors.New("checksum did not match")
 )
 
-type MessageID  uint8
+type MessageID uint8
 
 // basic type for encoding/decoding mavlink messages.
 // use the Pack() and Unpack() routines on specific message
@@ -38,12 +38,12 @@ type Message interface {
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
 type Packet struct {
-	SeqID         uint8     // Sequence of packet
-	SysID     	  uint8     // ID of message sender system/aircraft
-	CompID    	  uint8     // ID of the message sender component
-	MsgID     	  MessageID // ID of message in payload
-	Payload   	  []byte
-	Checksum  	  uint16
+	SeqID    uint8     // Sequence of packet
+	SysID    uint8     // ID of message sender system/aircraft
+	CompID   uint8     // ID of the message sender component
+	MsgID    MessageID // ID of message in payload
+	Payload  []byte
+	Checksum uint16
 }
 
 type Decoder struct {
@@ -92,7 +92,8 @@ func NewEncoder(w io.Writer) *Encoder {
 
 // helper to create packet w/header populated with received bytes
 func newPacketFromBytes(b []byte) (*Packet, int) {
-	return &Packet{SeqID:  b[1],
+	return &Packet{
+		SeqID:  b[1],
 		SysID:  b[2],
 		CompID: b[2],
 		MsgID:  MessageID(b[4]),
@@ -120,9 +121,13 @@ func (dec *Decoder) Decode() (*Packet, error) {
 			for {
 				c, err := dec.br.ReadByte()
 				if err != nil {
-					return nil, err
-				}
-				if c == magicNumber {
+					if len(dec.buffer) > 0 {
+						dec.buffer = dec.buffer[1:]
+						continue
+					} else {
+						return nil, err
+					}
+				} else if c == magicNumber {
 					dec.buffer = append(dec.buffer, c)
 					break
 				}
@@ -144,13 +149,28 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		payloadLen := int(dec.buffer[1])
 		packetLen := hdrLen + payloadLen + numChecksumBytes
 		bytesNeeded := packetLen - len(dec.buffer)
-		if bytesNeeded > 0 {
+		for len(dec.buffer) < packetLen {
 			bytesRead := make([]byte, bytesNeeded)
-			n, err := io.ReadAtLeast(dec.br, bytesRead, bytesNeeded)
+			n, err := io.ReadAtLeast(dec.br, bytesRead, 1)
 			if err != nil {
-				return nil, err
+				if len(dec.buffer) > 0 {
+					dec.buffer = dec.buffer[1:]
+					if dec.buffer[0] == magicNumber {
+						break
+					}
+				} else {
+					return nil, err
+				}
+			} else if n > 0 {
+				dec.buffer = append(dec.buffer, bytesRead[:n]...)
+			} else {
+				dec.buffer = dec.buffer[1:]
+				return nil, errors.New("EOF")
 			}
-			dec.buffer = append(dec.buffer, bytesRead[:n]...)
+		}
+		if len(dec.buffer) < packetLen {
+			dec.buffer = dec.buffer[1:]
+			continue
 		}
 
 		// hdr contains LENGTH, SEQ, SYSID, COMPID, MSGID
@@ -237,7 +257,7 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 
 // Encode writes p to its writer
 func (enc *Encoder) EncodePacket(p *Packet) error {
-hdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)}// header
+	hdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)} // header
 	if err := enc.writeAndCheck(hdr); err != nil {
 		return err
 	}

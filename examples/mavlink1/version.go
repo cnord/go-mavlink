@@ -4,6 +4,6 @@
 package mavlink
 
 const (
-	Version = "0.0.0-alpha"
+	Version        = "devel"
 	MavlinkVersion = 1
 )
