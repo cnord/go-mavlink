@@ -148,23 +148,6 @@ func UpperCamelCase(s string) string {
 	return b.String()
 }
 
-// LowerCamelCase function convert names to lower camel case
-func LowerCamelCase(s string) string {
-	var b bytes.Buffer
-	for _, frag := range strings.Split(s, "_") {
-		if len(frag) > 0 && b.Len() > 0 {
-			word := strings.ToUpper(frag[:1]) + strings.ToLower(frag[1:])
-			if word == "Id" {
-				word = "ID"
-			}
-			b.WriteString(word)
-		} else {
-			b.WriteString(strings.ToLower(frag[:]))
-		}
-	}
-	return b.String()
-}
-
 // helper to pack a single element into a payload.
 // can be called for a single field, or an element within a field's array.
 func (f *MessageField) payloadPackPrimitive(offset, name string) string {

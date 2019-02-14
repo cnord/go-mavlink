@@ -22,8 +22,11 @@ func (x *X25) WriteByte(b byte) error {
 
 // Write function append byte slice into crc accumulation
 func (x *X25) Write(p []byte) (n int, err error) {
-	for _, b := range p {
-		x.WriteByte(b)
+	for i, b := range p {
+		err := x.WriteByte(b)
+		if err != nil {
+			return i - 1, err
+		}
 	}
 	return len(p), nil
 }

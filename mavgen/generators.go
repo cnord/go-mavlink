@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"go/format"
 	"log"
 	"os"
@@ -80,18 +81,27 @@ func generateCode(dialectDir string, data templateData, templateName string, tmp
 	}
 	defer file.Close()
 
-	file.Write([]byte(generatedHeader))
+	n, err := file.Write([]byte(generatedHeader))
+	if err != nil {
+		return err
+	} else if n < len(generatedHeader) {
+		return errors.New("couldn't write NO-EDIT header")
+	}
 
 	var buffer bytes.Buffer
 	if err := t.Execute(&buffer, data); err != nil {
-		log.Fatal("couldn't execute template for message.go: ", err)
+		return err
 	}
 	formatted, err := format.Source(buffer.Bytes())
 	if err != nil {
-		log.Fatal("couldn't format generated message.go: ", err)
-		file.Write(buffer.Bytes())
-	} else {
-		file.Write(formatted)
+		log.Fatal("couldn't format generated "+templateName+".go: ", err)
+		formatted = buffer.Bytes()
+	}
+	n, err = file.Write(formatted)
+	if err != nil {
+		return err
+	} else if n < len(formatted) {
+		return errors.New("couldn't write body of " + templateName + ".go")
 	}
 	return nil
 }
