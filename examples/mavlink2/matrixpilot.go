@@ -29,39 +29,45 @@ const (
 	MAV_CMD_PREFLIGHT_STORAGE_ADVANCED = 0 // Request storage of different parameter values and logs. This command will be only accepted if in pre-flight mode.
 )
 
+// FlexifunctionSet struct (generated typeinfo)
 // Depreciated but used as a compiler flag.  Do not remove
 type FlexifunctionSet struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
-func (self *FlexifunctionSet) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionSet) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_SET
 }
 
-func (self *FlexifunctionSet) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionSet) MsgName() string {
 	return "FlexifunctionSet"
 }
 
-func (self *FlexifunctionSet) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionSet) Pack(p *Packet) error {
 	payload := make([]byte, 2)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionSet) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionSet) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
 	return nil
 }
 
+// FlexifunctionReadReq struct (generated typeinfo)
 // Reqest reading of flexifunction data
 type FlexifunctionReadReq struct {
 	ReadReqType     int16 // Type of flexifunction data requested
@@ -70,37 +76,42 @@ type FlexifunctionReadReq struct {
 	TargetComponent uint8 // Component ID
 }
 
-func (self *FlexifunctionReadReq) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionReadReq) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_READ_REQ
 }
 
-func (self *FlexifunctionReadReq) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionReadReq) MsgName() string {
 	return "FlexifunctionReadReq"
 }
 
-func (self *FlexifunctionReadReq) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionReadReq) Pack(p *Packet) error {
 	payload := make([]byte, 6)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.ReadReqType))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.DataIndex))
-	payload[4] = byte(self.TargetSystem)
-	payload[5] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ReadReqType))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.DataIndex))
+	payload[4] = byte(m.TargetSystem)
+	payload[5] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionReadReq) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionReadReq) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
-	self.ReadReqType = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.DataIndex = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.TargetSystem = uint8(p.Payload[4])
-	self.TargetComponent = uint8(p.Payload[5])
+	m.ReadReqType = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.DataIndex = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.TargetSystem = uint8(p.Payload[4])
+	m.TargetComponent = uint8(p.Payload[5])
 	return nil
 }
 
+// FlexifunctionBufferFunction struct (generated typeinfo)
 // Flexifunction type and parameters for component at function index from buffer
 type FlexifunctionBufferFunction struct {
 	FuncIndex       uint16   // Function index
@@ -112,47 +123,52 @@ type FlexifunctionBufferFunction struct {
 	Data            [48]int8 // Settings data
 }
 
-func (self *FlexifunctionBufferFunction) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionBufferFunction) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION
 }
 
-func (self *FlexifunctionBufferFunction) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionBufferFunction) MsgName() string {
 	return "FlexifunctionBufferFunction"
 }
 
-func (self *FlexifunctionBufferFunction) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionBufferFunction) Pack(p *Packet) error {
 	payload := make([]byte, 58)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.FuncIndex))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.FuncCount))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.DataAddress))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.DataSize))
-	payload[8] = byte(self.TargetSystem)
-	payload[9] = byte(self.TargetComponent)
-	for i, v := range self.Data {
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.FuncIndex))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.FuncCount))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.DataAddress))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.DataSize))
+	payload[8] = byte(m.TargetSystem)
+	payload[9] = byte(m.TargetComponent)
+	for i, v := range m.Data {
 		payload[10+i*1] = byte(v)
 	}
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionBufferFunction) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionBufferFunction) Unpack(p *Packet) error {
 	if len(p.Payload) < 58 {
 		return fmt.Errorf("payload too small")
 	}
-	self.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.FuncCount = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.DataAddress = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.DataSize = uint16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.TargetSystem = uint8(p.Payload[8])
-	self.TargetComponent = uint8(p.Payload[9])
-	for i := 0; i < len(self.Data); i++ {
-		self.Data[i] = int8(p.Payload[10+i*1])
+	m.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.FuncCount = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.DataAddress = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.DataSize = uint16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.TargetSystem = uint8(p.Payload[8])
+	m.TargetComponent = uint8(p.Payload[9])
+	for i := 0; i < len(m.Data); i++ {
+		m.Data[i] = int8(p.Payload[10+i*1])
 	}
 	return nil
 }
 
+// FlexifunctionBufferFunctionAck struct (generated typeinfo)
 // Flexifunction type and parameters for component at function index from buffer
 type FlexifunctionBufferFunctionAck struct {
 	FuncIndex       uint16 // Function index
@@ -161,37 +177,42 @@ type FlexifunctionBufferFunctionAck struct {
 	TargetComponent uint8  // Component ID
 }
 
-func (self *FlexifunctionBufferFunctionAck) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionBufferFunctionAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION_ACK
 }
 
-func (self *FlexifunctionBufferFunctionAck) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionBufferFunctionAck) MsgName() string {
 	return "FlexifunctionBufferFunctionAck"
 }
 
-func (self *FlexifunctionBufferFunctionAck) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 	payload := make([]byte, 6)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.FuncIndex))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.Result))
-	payload[4] = byte(self.TargetSystem)
-	payload[5] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.FuncIndex))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
+	payload[4] = byte(m.TargetSystem)
+	payload[5] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
-	self.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.TargetSystem = uint8(p.Payload[4])
-	self.TargetComponent = uint8(p.Payload[5])
+	m.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.TargetSystem = uint8(p.Payload[4])
+	m.TargetComponent = uint8(p.Payload[5])
 	return nil
 }
 
+// FlexifunctionDirectory struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
 type FlexifunctionDirectory struct {
 	TargetSystem    uint8    // System ID
@@ -202,45 +223,50 @@ type FlexifunctionDirectory struct {
 	DirectoryData   [48]int8 // Settings data
 }
 
-func (self *FlexifunctionDirectory) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionDirectory) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY
 }
 
-func (self *FlexifunctionDirectory) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionDirectory) MsgName() string {
 	return "FlexifunctionDirectory"
 }
 
-func (self *FlexifunctionDirectory) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionDirectory) Pack(p *Packet) error {
 	payload := make([]byte, 53)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.DirectoryType)
-	payload[3] = byte(self.StartIndex)
-	payload[4] = byte(self.Count)
-	for i, v := range self.DirectoryData {
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.DirectoryType)
+	payload[3] = byte(m.StartIndex)
+	payload[4] = byte(m.Count)
+	for i, v := range m.DirectoryData {
 		payload[5+i*1] = byte(v)
 	}
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionDirectory) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionDirectory) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.DirectoryType = uint8(p.Payload[2])
-	self.StartIndex = uint8(p.Payload[3])
-	self.Count = uint8(p.Payload[4])
-	for i := 0; i < len(self.DirectoryData); i++ {
-		self.DirectoryData[i] = int8(p.Payload[5+i*1])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.DirectoryType = uint8(p.Payload[2])
+	m.StartIndex = uint8(p.Payload[3])
+	m.Count = uint8(p.Payload[4])
+	for i := 0; i < len(m.DirectoryData); i++ {
+		m.DirectoryData[i] = int8(p.Payload[5+i*1])
 	}
 	return nil
 }
 
+// FlexifunctionDirectoryAck struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
 type FlexifunctionDirectoryAck struct {
 	Result          uint16 // result of acknowledge, 0=fail, 1=good
@@ -251,41 +277,46 @@ type FlexifunctionDirectoryAck struct {
 	Count           uint8  // count of directory entries to write
 }
 
-func (self *FlexifunctionDirectoryAck) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionDirectoryAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY_ACK
 }
 
-func (self *FlexifunctionDirectoryAck) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionDirectoryAck) MsgName() string {
 	return "FlexifunctionDirectoryAck"
 }
 
-func (self *FlexifunctionDirectoryAck) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionDirectoryAck) Pack(p *Packet) error {
 	payload := make([]byte, 7)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Result))
-	payload[2] = byte(self.TargetSystem)
-	payload[3] = byte(self.TargetComponent)
-	payload[4] = byte(self.DirectoryType)
-	payload[5] = byte(self.StartIndex)
-	payload[6] = byte(self.Count)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Result))
+	payload[2] = byte(m.TargetSystem)
+	payload[3] = byte(m.TargetComponent)
+	payload[4] = byte(m.DirectoryType)
+	payload[5] = byte(m.StartIndex)
+	payload[6] = byte(m.Count)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionDirectoryAck) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionDirectoryAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Result = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.TargetSystem = uint8(p.Payload[2])
-	self.TargetComponent = uint8(p.Payload[3])
-	self.DirectoryType = uint8(p.Payload[4])
-	self.StartIndex = uint8(p.Payload[5])
-	self.Count = uint8(p.Payload[6])
+	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.TargetSystem = uint8(p.Payload[2])
+	m.TargetComponent = uint8(p.Payload[3])
+	m.DirectoryType = uint8(p.Payload[4])
+	m.StartIndex = uint8(p.Payload[5])
+	m.Count = uint8(p.Payload[6])
 	return nil
 }
 
+// FlexifunctionCommand struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
 type FlexifunctionCommand struct {
 	TargetSystem    uint8 // System ID
@@ -293,68 +324,78 @@ type FlexifunctionCommand struct {
 	CommandType     uint8 // Flexifunction command type
 }
 
-func (self *FlexifunctionCommand) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionCommand) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND
 }
 
-func (self *FlexifunctionCommand) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionCommand) MsgName() string {
 	return "FlexifunctionCommand"
 }
 
-func (self *FlexifunctionCommand) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionCommand) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.CommandType)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.CommandType)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionCommand) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionCommand) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.CommandType = uint8(p.Payload[2])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.CommandType = uint8(p.Payload[2])
 	return nil
 }
 
+// FlexifunctionCommandAck struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
 type FlexifunctionCommandAck struct {
 	CommandType uint16 // Command acknowledged
 	Result      uint16 // result of acknowledge
 }
 
-func (self *FlexifunctionCommandAck) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FlexifunctionCommandAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND_ACK
 }
 
-func (self *FlexifunctionCommandAck) MsgName() string {
+// MsgName (generated function)
+func (m *FlexifunctionCommandAck) MsgName() string {
 	return "FlexifunctionCommandAck"
 }
 
-func (self *FlexifunctionCommandAck) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FlexifunctionCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 4)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.CommandType))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.Result))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.CommandType))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FlexifunctionCommandAck) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FlexifunctionCommandAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
-	self.CommandType = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.CommandType = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
 	return nil
 }
 
+// SerialUdbExtraF2A struct (generated typeinfo)
 // Backwards compatible MAVLink version of SERIAL_UDB_EXTRA - F2: Format Part A
 type SerialUdbExtraF2A struct {
 	SueTime           uint32 // Serial UDB Extra Time
@@ -386,83 +427,88 @@ type SerialUdbExtraF2A struct {
 	SueStatus         uint8  // Serial UDB Extra Status
 }
 
-func (self *SerialUdbExtraF2A) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF2A) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_A
 }
 
-func (self *SerialUdbExtraF2A) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF2A) MsgName() string {
 	return "SerialUdbExtraF2A"
 }
 
-func (self *SerialUdbExtraF2A) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF2A) Pack(p *Packet) error {
 	payload := make([]byte, 61)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.SueTime))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.SueLatitude))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.SueLongitude))
-	binary.LittleEndian.PutUint32(payload[12:], uint32(self.SueAltitude))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(self.SueWaypointIndex))
-	binary.LittleEndian.PutUint16(payload[18:], uint16(self.SueRmat0))
-	binary.LittleEndian.PutUint16(payload[20:], uint16(self.SueRmat1))
-	binary.LittleEndian.PutUint16(payload[22:], uint16(self.SueRmat2))
-	binary.LittleEndian.PutUint16(payload[24:], uint16(self.SueRmat3))
-	binary.LittleEndian.PutUint16(payload[26:], uint16(self.SueRmat4))
-	binary.LittleEndian.PutUint16(payload[28:], uint16(self.SueRmat5))
-	binary.LittleEndian.PutUint16(payload[30:], uint16(self.SueRmat6))
-	binary.LittleEndian.PutUint16(payload[32:], uint16(self.SueRmat7))
-	binary.LittleEndian.PutUint16(payload[34:], uint16(self.SueRmat8))
-	binary.LittleEndian.PutUint16(payload[36:], uint16(self.SueCog))
-	binary.LittleEndian.PutUint16(payload[38:], uint16(self.SueSog))
-	binary.LittleEndian.PutUint16(payload[40:], uint16(self.SueCpuLoad))
-	binary.LittleEndian.PutUint16(payload[42:], uint16(self.SueAirSpeed3dimu))
-	binary.LittleEndian.PutUint16(payload[44:], uint16(self.SueEstimatedWind0))
-	binary.LittleEndian.PutUint16(payload[46:], uint16(self.SueEstimatedWind1))
-	binary.LittleEndian.PutUint16(payload[48:], uint16(self.SueEstimatedWind2))
-	binary.LittleEndian.PutUint16(payload[50:], uint16(self.SueMagfieldearth0))
-	binary.LittleEndian.PutUint16(payload[52:], uint16(self.SueMagfieldearth1))
-	binary.LittleEndian.PutUint16(payload[54:], uint16(self.SueMagfieldearth2))
-	binary.LittleEndian.PutUint16(payload[56:], uint16(self.SueSvs))
-	binary.LittleEndian.PutUint16(payload[58:], uint16(self.SueHdop))
-	payload[60] = byte(self.SueStatus)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTime))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueLatitude))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.SueLongitude))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.SueAltitude))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.SueWaypointIndex))
+	binary.LittleEndian.PutUint16(payload[18:], uint16(m.SueRmat0))
+	binary.LittleEndian.PutUint16(payload[20:], uint16(m.SueRmat1))
+	binary.LittleEndian.PutUint16(payload[22:], uint16(m.SueRmat2))
+	binary.LittleEndian.PutUint16(payload[24:], uint16(m.SueRmat3))
+	binary.LittleEndian.PutUint16(payload[26:], uint16(m.SueRmat4))
+	binary.LittleEndian.PutUint16(payload[28:], uint16(m.SueRmat5))
+	binary.LittleEndian.PutUint16(payload[30:], uint16(m.SueRmat6))
+	binary.LittleEndian.PutUint16(payload[32:], uint16(m.SueRmat7))
+	binary.LittleEndian.PutUint16(payload[34:], uint16(m.SueRmat8))
+	binary.LittleEndian.PutUint16(payload[36:], uint16(m.SueCog))
+	binary.LittleEndian.PutUint16(payload[38:], uint16(m.SueSog))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.SueCpuLoad))
+	binary.LittleEndian.PutUint16(payload[42:], uint16(m.SueAirSpeed3dimu))
+	binary.LittleEndian.PutUint16(payload[44:], uint16(m.SueEstimatedWind0))
+	binary.LittleEndian.PutUint16(payload[46:], uint16(m.SueEstimatedWind1))
+	binary.LittleEndian.PutUint16(payload[48:], uint16(m.SueEstimatedWind2))
+	binary.LittleEndian.PutUint16(payload[50:], uint16(m.SueMagfieldearth0))
+	binary.LittleEndian.PutUint16(payload[52:], uint16(m.SueMagfieldearth1))
+	binary.LittleEndian.PutUint16(payload[54:], uint16(m.SueMagfieldearth2))
+	binary.LittleEndian.PutUint16(payload[56:], uint16(m.SueSvs))
+	binary.LittleEndian.PutUint16(payload[58:], uint16(m.SueHdop))
+	payload[60] = byte(m.SueStatus)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF2A) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF2A) Unpack(p *Packet) error {
 	if len(p.Payload) < 61 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueLatitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueLongitude = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueAltitude = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.SueWaypointIndex = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	self.SueRmat0 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	self.SueRmat1 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	self.SueRmat2 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	self.SueRmat3 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	self.SueRmat4 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
-	self.SueRmat5 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
-	self.SueRmat6 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
-	self.SueRmat7 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
-	self.SueRmat8 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
-	self.SueCog = uint16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	self.SueSog = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	self.SueCpuLoad = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
-	self.SueAirSpeed3dimu = uint16(binary.LittleEndian.Uint16(p.Payload[42:]))
-	self.SueEstimatedWind0 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
-	self.SueEstimatedWind1 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
-	self.SueEstimatedWind2 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
-	self.SueMagfieldearth0 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
-	self.SueMagfieldearth1 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
-	self.SueMagfieldearth2 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
-	self.SueSvs = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
-	self.SueHdop = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
-	self.SueStatus = uint8(p.Payload[60])
+	m.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueLatitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueLongitude = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueAltitude = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueWaypointIndex = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
+	m.SueRmat0 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
+	m.SueRmat1 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
+	m.SueRmat2 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
+	m.SueRmat3 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
+	m.SueRmat4 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
+	m.SueRmat5 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
+	m.SueRmat6 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
+	m.SueRmat7 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
+	m.SueRmat8 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
+	m.SueCog = uint16(binary.LittleEndian.Uint16(p.Payload[36:]))
+	m.SueSog = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
+	m.SueCpuLoad = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
+	m.SueAirSpeed3dimu = uint16(binary.LittleEndian.Uint16(p.Payload[42:]))
+	m.SueEstimatedWind0 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
+	m.SueEstimatedWind1 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
+	m.SueEstimatedWind2 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
+	m.SueMagfieldearth0 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
+	m.SueMagfieldearth1 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
+	m.SueMagfieldearth2 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
+	m.SueSvs = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
+	m.SueHdop = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
+	m.SueStatus = uint8(p.Payload[60])
 	return nil
 }
 
+// SerialUdbExtraF2B struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA - F2: Part B
 type SerialUdbExtraF2B struct {
 	SueTime                uint32 // Serial UDB Extra Time
@@ -517,129 +563,134 @@ type SerialUdbExtraF2B struct {
 	SueMemoryStackFree     int16  // Serial UDB Extra Stack Memory Free
 }
 
-func (self *SerialUdbExtraF2B) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF2B) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_B
 }
 
-func (self *SerialUdbExtraF2B) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF2B) MsgName() string {
 	return "SerialUdbExtraF2B"
 }
 
-func (self *SerialUdbExtraF2B) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF2B) Pack(p *Packet) error {
 	payload := make([]byte, 108)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.SueTime))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.SueFlags))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.SueBaromPress))
-	binary.LittleEndian.PutUint32(payload[12:], uint32(self.SueBaromAlt))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(self.SuePwmInput1))
-	binary.LittleEndian.PutUint16(payload[18:], uint16(self.SuePwmInput2))
-	binary.LittleEndian.PutUint16(payload[20:], uint16(self.SuePwmInput3))
-	binary.LittleEndian.PutUint16(payload[22:], uint16(self.SuePwmInput4))
-	binary.LittleEndian.PutUint16(payload[24:], uint16(self.SuePwmInput5))
-	binary.LittleEndian.PutUint16(payload[26:], uint16(self.SuePwmInput6))
-	binary.LittleEndian.PutUint16(payload[28:], uint16(self.SuePwmInput7))
-	binary.LittleEndian.PutUint16(payload[30:], uint16(self.SuePwmInput8))
-	binary.LittleEndian.PutUint16(payload[32:], uint16(self.SuePwmInput9))
-	binary.LittleEndian.PutUint16(payload[34:], uint16(self.SuePwmInput10))
-	binary.LittleEndian.PutUint16(payload[36:], uint16(self.SuePwmInput11))
-	binary.LittleEndian.PutUint16(payload[38:], uint16(self.SuePwmInput12))
-	binary.LittleEndian.PutUint16(payload[40:], uint16(self.SuePwmOutput1))
-	binary.LittleEndian.PutUint16(payload[42:], uint16(self.SuePwmOutput2))
-	binary.LittleEndian.PutUint16(payload[44:], uint16(self.SuePwmOutput3))
-	binary.LittleEndian.PutUint16(payload[46:], uint16(self.SuePwmOutput4))
-	binary.LittleEndian.PutUint16(payload[48:], uint16(self.SuePwmOutput5))
-	binary.LittleEndian.PutUint16(payload[50:], uint16(self.SuePwmOutput6))
-	binary.LittleEndian.PutUint16(payload[52:], uint16(self.SuePwmOutput7))
-	binary.LittleEndian.PutUint16(payload[54:], uint16(self.SuePwmOutput8))
-	binary.LittleEndian.PutUint16(payload[56:], uint16(self.SuePwmOutput9))
-	binary.LittleEndian.PutUint16(payload[58:], uint16(self.SuePwmOutput10))
-	binary.LittleEndian.PutUint16(payload[60:], uint16(self.SuePwmOutput11))
-	binary.LittleEndian.PutUint16(payload[62:], uint16(self.SuePwmOutput12))
-	binary.LittleEndian.PutUint16(payload[64:], uint16(self.SueImuLocationX))
-	binary.LittleEndian.PutUint16(payload[66:], uint16(self.SueImuLocationY))
-	binary.LittleEndian.PutUint16(payload[68:], uint16(self.SueImuLocationZ))
-	binary.LittleEndian.PutUint16(payload[70:], uint16(self.SueLocationErrorEarthX))
-	binary.LittleEndian.PutUint16(payload[72:], uint16(self.SueLocationErrorEarthY))
-	binary.LittleEndian.PutUint16(payload[74:], uint16(self.SueLocationErrorEarthZ))
-	binary.LittleEndian.PutUint16(payload[76:], uint16(self.SueOscFails))
-	binary.LittleEndian.PutUint16(payload[78:], uint16(self.SueImuVelocityX))
-	binary.LittleEndian.PutUint16(payload[80:], uint16(self.SueImuVelocityY))
-	binary.LittleEndian.PutUint16(payload[82:], uint16(self.SueImuVelocityZ))
-	binary.LittleEndian.PutUint16(payload[84:], uint16(self.SueWaypointGoalX))
-	binary.LittleEndian.PutUint16(payload[86:], uint16(self.SueWaypointGoalY))
-	binary.LittleEndian.PutUint16(payload[88:], uint16(self.SueWaypointGoalZ))
-	binary.LittleEndian.PutUint16(payload[90:], uint16(self.SueAeroX))
-	binary.LittleEndian.PutUint16(payload[92:], uint16(self.SueAeroY))
-	binary.LittleEndian.PutUint16(payload[94:], uint16(self.SueAeroZ))
-	binary.LittleEndian.PutUint16(payload[96:], uint16(self.SueBaromTemp))
-	binary.LittleEndian.PutUint16(payload[98:], uint16(self.SueBatVolt))
-	binary.LittleEndian.PutUint16(payload[100:], uint16(self.SueBatAmp))
-	binary.LittleEndian.PutUint16(payload[102:], uint16(self.SueBatAmpHours))
-	binary.LittleEndian.PutUint16(payload[104:], uint16(self.SueDesiredHeight))
-	binary.LittleEndian.PutUint16(payload[106:], uint16(self.SueMemoryStackFree))
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTime))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueFlags))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.SueBaromPress))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.SueBaromAlt))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.SuePwmInput1))
+	binary.LittleEndian.PutUint16(payload[18:], uint16(m.SuePwmInput2))
+	binary.LittleEndian.PutUint16(payload[20:], uint16(m.SuePwmInput3))
+	binary.LittleEndian.PutUint16(payload[22:], uint16(m.SuePwmInput4))
+	binary.LittleEndian.PutUint16(payload[24:], uint16(m.SuePwmInput5))
+	binary.LittleEndian.PutUint16(payload[26:], uint16(m.SuePwmInput6))
+	binary.LittleEndian.PutUint16(payload[28:], uint16(m.SuePwmInput7))
+	binary.LittleEndian.PutUint16(payload[30:], uint16(m.SuePwmInput8))
+	binary.LittleEndian.PutUint16(payload[32:], uint16(m.SuePwmInput9))
+	binary.LittleEndian.PutUint16(payload[34:], uint16(m.SuePwmInput10))
+	binary.LittleEndian.PutUint16(payload[36:], uint16(m.SuePwmInput11))
+	binary.LittleEndian.PutUint16(payload[38:], uint16(m.SuePwmInput12))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.SuePwmOutput1))
+	binary.LittleEndian.PutUint16(payload[42:], uint16(m.SuePwmOutput2))
+	binary.LittleEndian.PutUint16(payload[44:], uint16(m.SuePwmOutput3))
+	binary.LittleEndian.PutUint16(payload[46:], uint16(m.SuePwmOutput4))
+	binary.LittleEndian.PutUint16(payload[48:], uint16(m.SuePwmOutput5))
+	binary.LittleEndian.PutUint16(payload[50:], uint16(m.SuePwmOutput6))
+	binary.LittleEndian.PutUint16(payload[52:], uint16(m.SuePwmOutput7))
+	binary.LittleEndian.PutUint16(payload[54:], uint16(m.SuePwmOutput8))
+	binary.LittleEndian.PutUint16(payload[56:], uint16(m.SuePwmOutput9))
+	binary.LittleEndian.PutUint16(payload[58:], uint16(m.SuePwmOutput10))
+	binary.LittleEndian.PutUint16(payload[60:], uint16(m.SuePwmOutput11))
+	binary.LittleEndian.PutUint16(payload[62:], uint16(m.SuePwmOutput12))
+	binary.LittleEndian.PutUint16(payload[64:], uint16(m.SueImuLocationX))
+	binary.LittleEndian.PutUint16(payload[66:], uint16(m.SueImuLocationY))
+	binary.LittleEndian.PutUint16(payload[68:], uint16(m.SueImuLocationZ))
+	binary.LittleEndian.PutUint16(payload[70:], uint16(m.SueLocationErrorEarthX))
+	binary.LittleEndian.PutUint16(payload[72:], uint16(m.SueLocationErrorEarthY))
+	binary.LittleEndian.PutUint16(payload[74:], uint16(m.SueLocationErrorEarthZ))
+	binary.LittleEndian.PutUint16(payload[76:], uint16(m.SueOscFails))
+	binary.LittleEndian.PutUint16(payload[78:], uint16(m.SueImuVelocityX))
+	binary.LittleEndian.PutUint16(payload[80:], uint16(m.SueImuVelocityY))
+	binary.LittleEndian.PutUint16(payload[82:], uint16(m.SueImuVelocityZ))
+	binary.LittleEndian.PutUint16(payload[84:], uint16(m.SueWaypointGoalX))
+	binary.LittleEndian.PutUint16(payload[86:], uint16(m.SueWaypointGoalY))
+	binary.LittleEndian.PutUint16(payload[88:], uint16(m.SueWaypointGoalZ))
+	binary.LittleEndian.PutUint16(payload[90:], uint16(m.SueAeroX))
+	binary.LittleEndian.PutUint16(payload[92:], uint16(m.SueAeroY))
+	binary.LittleEndian.PutUint16(payload[94:], uint16(m.SueAeroZ))
+	binary.LittleEndian.PutUint16(payload[96:], uint16(m.SueBaromTemp))
+	binary.LittleEndian.PutUint16(payload[98:], uint16(m.SueBatVolt))
+	binary.LittleEndian.PutUint16(payload[100:], uint16(m.SueBatAmp))
+	binary.LittleEndian.PutUint16(payload[102:], uint16(m.SueBatAmpHours))
+	binary.LittleEndian.PutUint16(payload[104:], uint16(m.SueDesiredHeight))
+	binary.LittleEndian.PutUint16(payload[106:], uint16(m.SueMemoryStackFree))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF2B) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF2B) Unpack(p *Packet) error {
 	if len(p.Payload) < 108 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueFlags = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueBaromPress = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueBaromAlt = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.SuePwmInput1 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	self.SuePwmInput2 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	self.SuePwmInput3 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	self.SuePwmInput4 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	self.SuePwmInput5 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	self.SuePwmInput6 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
-	self.SuePwmInput7 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
-	self.SuePwmInput8 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
-	self.SuePwmInput9 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
-	self.SuePwmInput10 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
-	self.SuePwmInput11 = int16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	self.SuePwmInput12 = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	self.SuePwmOutput1 = int16(binary.LittleEndian.Uint16(p.Payload[40:]))
-	self.SuePwmOutput2 = int16(binary.LittleEndian.Uint16(p.Payload[42:]))
-	self.SuePwmOutput3 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
-	self.SuePwmOutput4 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
-	self.SuePwmOutput5 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
-	self.SuePwmOutput6 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
-	self.SuePwmOutput7 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
-	self.SuePwmOutput8 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
-	self.SuePwmOutput9 = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
-	self.SuePwmOutput10 = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
-	self.SuePwmOutput11 = int16(binary.LittleEndian.Uint16(p.Payload[60:]))
-	self.SuePwmOutput12 = int16(binary.LittleEndian.Uint16(p.Payload[62:]))
-	self.SueImuLocationX = int16(binary.LittleEndian.Uint16(p.Payload[64:]))
-	self.SueImuLocationY = int16(binary.LittleEndian.Uint16(p.Payload[66:]))
-	self.SueImuLocationZ = int16(binary.LittleEndian.Uint16(p.Payload[68:]))
-	self.SueLocationErrorEarthX = int16(binary.LittleEndian.Uint16(p.Payload[70:]))
-	self.SueLocationErrorEarthY = int16(binary.LittleEndian.Uint16(p.Payload[72:]))
-	self.SueLocationErrorEarthZ = int16(binary.LittleEndian.Uint16(p.Payload[74:]))
-	self.SueOscFails = int16(binary.LittleEndian.Uint16(p.Payload[76:]))
-	self.SueImuVelocityX = int16(binary.LittleEndian.Uint16(p.Payload[78:]))
-	self.SueImuVelocityY = int16(binary.LittleEndian.Uint16(p.Payload[80:]))
-	self.SueImuVelocityZ = int16(binary.LittleEndian.Uint16(p.Payload[82:]))
-	self.SueWaypointGoalX = int16(binary.LittleEndian.Uint16(p.Payload[84:]))
-	self.SueWaypointGoalY = int16(binary.LittleEndian.Uint16(p.Payload[86:]))
-	self.SueWaypointGoalZ = int16(binary.LittleEndian.Uint16(p.Payload[88:]))
-	self.SueAeroX = int16(binary.LittleEndian.Uint16(p.Payload[90:]))
-	self.SueAeroY = int16(binary.LittleEndian.Uint16(p.Payload[92:]))
-	self.SueAeroZ = int16(binary.LittleEndian.Uint16(p.Payload[94:]))
-	self.SueBaromTemp = int16(binary.LittleEndian.Uint16(p.Payload[96:]))
-	self.SueBatVolt = int16(binary.LittleEndian.Uint16(p.Payload[98:]))
-	self.SueBatAmp = int16(binary.LittleEndian.Uint16(p.Payload[100:]))
-	self.SueBatAmpHours = int16(binary.LittleEndian.Uint16(p.Payload[102:]))
-	self.SueDesiredHeight = int16(binary.LittleEndian.Uint16(p.Payload[104:]))
-	self.SueMemoryStackFree = int16(binary.LittleEndian.Uint16(p.Payload[106:]))
+	m.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueFlags = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueBaromPress = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueBaromAlt = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SuePwmInput1 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
+	m.SuePwmInput2 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
+	m.SuePwmInput3 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
+	m.SuePwmInput4 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
+	m.SuePwmInput5 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
+	m.SuePwmInput6 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
+	m.SuePwmInput7 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
+	m.SuePwmInput8 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
+	m.SuePwmInput9 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
+	m.SuePwmInput10 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
+	m.SuePwmInput11 = int16(binary.LittleEndian.Uint16(p.Payload[36:]))
+	m.SuePwmInput12 = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
+	m.SuePwmOutput1 = int16(binary.LittleEndian.Uint16(p.Payload[40:]))
+	m.SuePwmOutput2 = int16(binary.LittleEndian.Uint16(p.Payload[42:]))
+	m.SuePwmOutput3 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
+	m.SuePwmOutput4 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
+	m.SuePwmOutput5 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
+	m.SuePwmOutput6 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
+	m.SuePwmOutput7 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
+	m.SuePwmOutput8 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
+	m.SuePwmOutput9 = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
+	m.SuePwmOutput10 = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
+	m.SuePwmOutput11 = int16(binary.LittleEndian.Uint16(p.Payload[60:]))
+	m.SuePwmOutput12 = int16(binary.LittleEndian.Uint16(p.Payload[62:]))
+	m.SueImuLocationX = int16(binary.LittleEndian.Uint16(p.Payload[64:]))
+	m.SueImuLocationY = int16(binary.LittleEndian.Uint16(p.Payload[66:]))
+	m.SueImuLocationZ = int16(binary.LittleEndian.Uint16(p.Payload[68:]))
+	m.SueLocationErrorEarthX = int16(binary.LittleEndian.Uint16(p.Payload[70:]))
+	m.SueLocationErrorEarthY = int16(binary.LittleEndian.Uint16(p.Payload[72:]))
+	m.SueLocationErrorEarthZ = int16(binary.LittleEndian.Uint16(p.Payload[74:]))
+	m.SueOscFails = int16(binary.LittleEndian.Uint16(p.Payload[76:]))
+	m.SueImuVelocityX = int16(binary.LittleEndian.Uint16(p.Payload[78:]))
+	m.SueImuVelocityY = int16(binary.LittleEndian.Uint16(p.Payload[80:]))
+	m.SueImuVelocityZ = int16(binary.LittleEndian.Uint16(p.Payload[82:]))
+	m.SueWaypointGoalX = int16(binary.LittleEndian.Uint16(p.Payload[84:]))
+	m.SueWaypointGoalY = int16(binary.LittleEndian.Uint16(p.Payload[86:]))
+	m.SueWaypointGoalZ = int16(binary.LittleEndian.Uint16(p.Payload[88:]))
+	m.SueAeroX = int16(binary.LittleEndian.Uint16(p.Payload[90:]))
+	m.SueAeroY = int16(binary.LittleEndian.Uint16(p.Payload[92:]))
+	m.SueAeroZ = int16(binary.LittleEndian.Uint16(p.Payload[94:]))
+	m.SueBaromTemp = int16(binary.LittleEndian.Uint16(p.Payload[96:]))
+	m.SueBatVolt = int16(binary.LittleEndian.Uint16(p.Payload[98:]))
+	m.SueBatAmp = int16(binary.LittleEndian.Uint16(p.Payload[100:]))
+	m.SueBatAmpHours = int16(binary.LittleEndian.Uint16(p.Payload[102:]))
+	m.SueDesiredHeight = int16(binary.LittleEndian.Uint16(p.Payload[104:]))
+	m.SueMemoryStackFree = int16(binary.LittleEndian.Uint16(p.Payload[106:]))
 	return nil
 }
 
+// SerialUdbExtraF4 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F4: format
 type SerialUdbExtraF4 struct {
 	SueRollStabilizationAilerons uint8 // Serial UDB Extra Roll Stabilization with Ailerons Enabled
@@ -654,49 +705,54 @@ type SerialUdbExtraF4 struct {
 	SueRacingMode                uint8 // Serial UDB Extra Firmware racing mode enabled
 }
 
-func (self *SerialUdbExtraF4) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF4) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F4
 }
 
-func (self *SerialUdbExtraF4) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF4) MsgName() string {
 	return "SerialUdbExtraF4"
 }
 
-func (self *SerialUdbExtraF4) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF4) Pack(p *Packet) error {
 	payload := make([]byte, 10)
-	payload[0] = byte(self.SueRollStabilizationAilerons)
-	payload[1] = byte(self.SueRollStabilizationRudder)
-	payload[2] = byte(self.SuePitchStabilization)
-	payload[3] = byte(self.SueYawStabilizationRudder)
-	payload[4] = byte(self.SueYawStabilizationAileron)
-	payload[5] = byte(self.SueAileronNavigation)
-	payload[6] = byte(self.SueRudderNavigation)
-	payload[7] = byte(self.SueAltitudeholdStabilized)
-	payload[8] = byte(self.SueAltitudeholdWaypoint)
-	payload[9] = byte(self.SueRacingMode)
+	payload[0] = byte(m.SueRollStabilizationAilerons)
+	payload[1] = byte(m.SueRollStabilizationRudder)
+	payload[2] = byte(m.SuePitchStabilization)
+	payload[3] = byte(m.SueYawStabilizationRudder)
+	payload[4] = byte(m.SueYawStabilizationAileron)
+	payload[5] = byte(m.SueAileronNavigation)
+	payload[6] = byte(m.SueRudderNavigation)
+	payload[7] = byte(m.SueAltitudeholdStabilized)
+	payload[8] = byte(m.SueAltitudeholdWaypoint)
+	payload[9] = byte(m.SueRacingMode)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF4) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF4) Unpack(p *Packet) error {
 	if len(p.Payload) < 10 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueRollStabilizationAilerons = uint8(p.Payload[0])
-	self.SueRollStabilizationRudder = uint8(p.Payload[1])
-	self.SuePitchStabilization = uint8(p.Payload[2])
-	self.SueYawStabilizationRudder = uint8(p.Payload[3])
-	self.SueYawStabilizationAileron = uint8(p.Payload[4])
-	self.SueAileronNavigation = uint8(p.Payload[5])
-	self.SueRudderNavigation = uint8(p.Payload[6])
-	self.SueAltitudeholdStabilized = uint8(p.Payload[7])
-	self.SueAltitudeholdWaypoint = uint8(p.Payload[8])
-	self.SueRacingMode = uint8(p.Payload[9])
+	m.SueRollStabilizationAilerons = uint8(p.Payload[0])
+	m.SueRollStabilizationRudder = uint8(p.Payload[1])
+	m.SuePitchStabilization = uint8(p.Payload[2])
+	m.SueYawStabilizationRudder = uint8(p.Payload[3])
+	m.SueYawStabilizationAileron = uint8(p.Payload[4])
+	m.SueAileronNavigation = uint8(p.Payload[5])
+	m.SueRudderNavigation = uint8(p.Payload[6])
+	m.SueAltitudeholdStabilized = uint8(p.Payload[7])
+	m.SueAltitudeholdWaypoint = uint8(p.Payload[8])
+	m.SueRacingMode = uint8(p.Payload[9])
 	return nil
 }
 
+// SerialUdbExtraF5 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F5: format
 type SerialUdbExtraF5 struct {
 	SueYawkpAileron float32 // Serial UDB YAWKP_AILERON Gain for Proporional control of navigation
@@ -705,37 +761,42 @@ type SerialUdbExtraF5 struct {
 	SueRollkd       float32 // Serial UDB Extra ROLLKD Gain for Rate control of roll stabilization
 }
 
-func (self *SerialUdbExtraF5) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF5) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F5
 }
 
-func (self *SerialUdbExtraF5) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF5) MsgName() string {
 	return "SerialUdbExtraF5"
 }
 
-func (self *SerialUdbExtraF5) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF5) Pack(p *Packet) error {
 	payload := make([]byte, 16)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.SueYawkpAileron))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.SueYawkdAileron))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SueRollkp))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.SueRollkd))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueYawkpAileron))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueYawkdAileron))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueRollkp))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollkd))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF5) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF5) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueYawkpAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueYawkdAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueRollkp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueRollkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueYawkpAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueYawkdAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueRollkp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueRollkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
 	return nil
 }
 
+// SerialUdbExtraF6 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F6: format
 type SerialUdbExtraF6 struct {
 	SuePitchgain     float32 // Serial UDB Extra PITCHGAIN Proportional Control
@@ -745,39 +806,44 @@ type SerialUdbExtraF6 struct {
 	SueElevatorBoost float32 // Gain For Boosting Manual Elevator control When Plane Stabilized
 }
 
-func (self *SerialUdbExtraF6) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF6) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F6
 }
 
-func (self *SerialUdbExtraF6) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF6) MsgName() string {
 	return "SerialUdbExtraF6"
 }
 
-func (self *SerialUdbExtraF6) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF6) Pack(p *Packet) error {
 	payload := make([]byte, 20)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.SuePitchgain))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.SuePitchkd))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SueRudderElevMix))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.SueRollElevMix))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.SueElevatorBoost))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SuePitchgain))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SuePitchkd))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueRudderElevMix))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollElevMix))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueElevatorBoost))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF6) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF6) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SuePitchgain = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SuePitchkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueRudderElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueRollElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.SueElevatorBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.SuePitchgain = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SuePitchkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueRudderElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueRollElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueElevatorBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
 	return nil
 }
 
+// SerialUdbExtraF7 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F7: format
 type SerialUdbExtraF7 struct {
 	SueYawkpRudder  float32 // Serial UDB YAWKP_RUDDER Gain for Proporional control of navigation
@@ -788,41 +854,46 @@ type SerialUdbExtraF7 struct {
 	SueRtlPitchDown float32 // Serial UDB Extra Return To Landing - Angle to Pitch Plane Down
 }
 
-func (self *SerialUdbExtraF7) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF7) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F7
 }
 
-func (self *SerialUdbExtraF7) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF7) MsgName() string {
 	return "SerialUdbExtraF7"
 }
 
-func (self *SerialUdbExtraF7) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF7) Pack(p *Packet) error {
 	payload := make([]byte, 24)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.SueYawkpRudder))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.SueYawkdRudder))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SueRollkpRudder))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.SueRollkdRudder))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.SueRudderBoost))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.SueRtlPitchDown))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueYawkpRudder))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueYawkdRudder))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueRollkpRudder))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollkdRudder))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueRudderBoost))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.SueRtlPitchDown))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF7) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF7) Unpack(p *Packet) error {
 	if len(p.Payload) < 24 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueYawkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueYawkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueRollkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueRollkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.SueRudderBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.SueRtlPitchDown = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.SueYawkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueYawkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueRollkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueRollkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueRudderBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.SueRtlPitchDown = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
 	return nil
 }
 
+// SerialUdbExtraF8 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F8: format
 type SerialUdbExtraF8 struct {
 	SueHeightTargetMax    float32 // Serial UDB Extra HEIGHT_TARGET_MAX
@@ -834,43 +905,48 @@ type SerialUdbExtraF8 struct {
 	SueAltHoldPitchHigh   float32 // Serial UDB Extra ALT_HOLD_PITCH_HIGH
 }
 
-func (self *SerialUdbExtraF8) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF8) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F8
 }
 
-func (self *SerialUdbExtraF8) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF8) MsgName() string {
 	return "SerialUdbExtraF8"
 }
 
-func (self *SerialUdbExtraF8) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF8) Pack(p *Packet) error {
 	payload := make([]byte, 28)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.SueHeightTargetMax))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.SueHeightTargetMin))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SueAltHoldThrottleMin))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.SueAltHoldThrottleMax))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.SueAltHoldPitchMin))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.SueAltHoldPitchMax))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.SueAltHoldPitchHigh))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueHeightTargetMax))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueHeightTargetMin))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueAltHoldThrottleMin))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueAltHoldThrottleMax))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueAltHoldPitchMin))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.SueAltHoldPitchMax))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.SueAltHoldPitchHigh))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF8) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF8) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueHeightTargetMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueHeightTargetMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueAltHoldThrottleMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueAltHoldThrottleMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.SueAltHoldPitchMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.SueAltHoldPitchMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.SueAltHoldPitchHigh = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.SueHeightTargetMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueHeightTargetMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueAltHoldThrottleMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueAltHoldThrottleMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueAltHoldPitchMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.SueAltHoldPitchMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.SueAltHoldPitchHigh = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
 	return nil
 }
 
+// SerialUdbExtraF13 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F13: format
 type SerialUdbExtraF13 struct {
 	SueLatOrigin int32 // Serial UDB Extra MP Origin Latitude
@@ -879,37 +955,42 @@ type SerialUdbExtraF13 struct {
 	SueWeekNo    int16 // Serial UDB Extra GPS Week Number
 }
 
-func (self *SerialUdbExtraF13) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF13) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F13
 }
 
-func (self *SerialUdbExtraF13) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF13) MsgName() string {
 	return "SerialUdbExtraF13"
 }
 
-func (self *SerialUdbExtraF13) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF13) Pack(p *Packet) error {
 	payload := make([]byte, 14)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.SueLatOrigin))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.SueLonOrigin))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.SueAltOrigin))
-	binary.LittleEndian.PutUint16(payload[12:], uint16(self.SueWeekNo))
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueLatOrigin))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueLonOrigin))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.SueAltOrigin))
+	binary.LittleEndian.PutUint16(payload[12:], uint16(m.SueWeekNo))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF13) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF13) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueLatOrigin = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueLonOrigin = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueAltOrigin = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.SueWeekNo = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
+	m.SueLatOrigin = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueLonOrigin = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueAltOrigin = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueWeekNo = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
 	return nil
 }
 
+// SerialUdbExtraF14 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F14: format
 type SerialUdbExtraF14 struct {
 	SueTrapSource     uint32 // Serial UDB Extra Type Program Address of Last Trap
@@ -925,117 +1006,132 @@ type SerialUdbExtraF14 struct {
 	SueFlightPlanType uint8  // Serial UDB Extra Type of Flight Plan
 }
 
-func (self *SerialUdbExtraF14) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF14) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F14
 }
 
-func (self *SerialUdbExtraF14) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF14) MsgName() string {
 	return "SerialUdbExtraF14"
 }
 
-func (self *SerialUdbExtraF14) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF14) Pack(p *Packet) error {
 	payload := make([]byte, 17)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.SueTrapSource))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.SueRcon))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.SueTrapFlags))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.SueOscFailCount))
-	payload[10] = byte(self.SueWindEstimation)
-	payload[11] = byte(self.SueGpsType)
-	payload[12] = byte(self.SueDr)
-	payload[13] = byte(self.SueBoardType)
-	payload[14] = byte(self.SueAirframe)
-	payload[15] = byte(self.SueClockConfig)
-	payload[16] = byte(self.SueFlightPlanType)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTrapSource))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.SueRcon))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueTrapFlags))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueOscFailCount))
+	payload[10] = byte(m.SueWindEstimation)
+	payload[11] = byte(m.SueGpsType)
+	payload[12] = byte(m.SueDr)
+	payload[13] = byte(m.SueBoardType)
+	payload[14] = byte(m.SueAirframe)
+	payload[15] = byte(m.SueClockConfig)
+	payload[16] = byte(m.SueFlightPlanType)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF14) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF14) Unpack(p *Packet) error {
 	if len(p.Payload) < 17 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueTrapSource = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueRcon = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.SueTrapFlags = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.SueOscFailCount = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.SueWindEstimation = uint8(p.Payload[10])
-	self.SueGpsType = uint8(p.Payload[11])
-	self.SueDr = uint8(p.Payload[12])
-	self.SueBoardType = uint8(p.Payload[13])
-	self.SueAirframe = uint8(p.Payload[14])
-	self.SueClockConfig = uint8(p.Payload[15])
-	self.SueFlightPlanType = uint8(p.Payload[16])
+	m.SueTrapSource = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueRcon = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.SueTrapFlags = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.SueOscFailCount = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.SueWindEstimation = uint8(p.Payload[10])
+	m.SueGpsType = uint8(p.Payload[11])
+	m.SueDr = uint8(p.Payload[12])
+	m.SueBoardType = uint8(p.Payload[13])
+	m.SueAirframe = uint8(p.Payload[14])
+	m.SueClockConfig = uint8(p.Payload[15])
+	m.SueFlightPlanType = uint8(p.Payload[16])
 	return nil
 }
 
+// SerialUdbExtraF15 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F15 format
 type SerialUdbExtraF15 struct {
-	SueIdVehicleModelName    [40]uint8 // Serial UDB Extra Model Name Of Vehicle
-	SueIdVehicleRegistration [20]uint8 // Serial UDB Extra Registraton Number of Vehicle
+	SueIDVehicleModelName    [40]uint8 // Serial UDB Extra Model Name Of Vehicle
+	SueIDVehicleRegistration [20]uint8 // Serial UDB Extra Registraton Number of Vehicle
 }
 
-func (self *SerialUdbExtraF15) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF15) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F15
 }
 
-func (self *SerialUdbExtraF15) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF15) MsgName() string {
 	return "SerialUdbExtraF15"
 }
 
-func (self *SerialUdbExtraF15) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF15) Pack(p *Packet) error {
 	payload := make([]byte, 60)
-	copy(payload[0:], self.SueIdVehicleModelName[:])
-	copy(payload[40:], self.SueIdVehicleRegistration[:])
+	copy(payload[0:], m.SueIDVehicleModelName[:])
+	copy(payload[40:], m.SueIDVehicleRegistration[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF15) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF15) Unpack(p *Packet) error {
 	if len(p.Payload) < 60 {
 		return fmt.Errorf("payload too small")
 	}
-	copy(self.SueIdVehicleModelName[:], p.Payload[0:40])
-	copy(self.SueIdVehicleRegistration[:], p.Payload[40:60])
+	copy(m.SueIDVehicleModelName[:], p.Payload[0:40])
+	copy(m.SueIDVehicleRegistration[:], p.Payload[40:60])
 	return nil
 }
 
+// SerialUdbExtraF16 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F16 format
 type SerialUdbExtraF16 struct {
-	SueIdLeadPilot    [40]uint8 // Serial UDB Extra Name of Expected Lead Pilot
-	SueIdDiyDronesUrl [70]uint8 // Serial UDB Extra URL of Lead Pilot or Team
+	SueIDLeadPilot    [40]uint8 // Serial UDB Extra Name of Expected Lead Pilot
+	SueIDDiyDronesUrl [70]uint8 // Serial UDB Extra URL of Lead Pilot or Team
 }
 
-func (self *SerialUdbExtraF16) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF16) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F16
 }
 
-func (self *SerialUdbExtraF16) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF16) MsgName() string {
 	return "SerialUdbExtraF16"
 }
 
-func (self *SerialUdbExtraF16) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF16) Pack(p *Packet) error {
 	payload := make([]byte, 110)
-	copy(payload[0:], self.SueIdLeadPilot[:])
-	copy(payload[40:], self.SueIdDiyDronesUrl[:])
+	copy(payload[0:], m.SueIDLeadPilot[:])
+	copy(payload[40:], m.SueIDDiyDronesUrl[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF16) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF16) Unpack(p *Packet) error {
 	if len(p.Payload) < 110 {
 		return fmt.Errorf("payload too small")
 	}
-	copy(self.SueIdLeadPilot[:], p.Payload[0:40])
-	copy(self.SueIdDiyDronesUrl[:], p.Payload[40:110])
+	copy(m.SueIDLeadPilot[:], p.Payload[0:40])
+	copy(m.SueIDDiyDronesUrl[:], p.Payload[40:110])
 	return nil
 }
 
+// Altitudes struct (generated typeinfo)
 // The altitude measured by sensors and IMU
 type Altitudes struct {
 	TimeBootMs     uint32 // Timestamp (milliseconds since system boot)
@@ -1047,43 +1143,48 @@ type Altitudes struct {
 	AltExtra       int32  // Extra altitude above ground in meters, expressed as * 1000 (millimeters)
 }
 
-func (self *Altitudes) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Altitudes) MsgID() MessageID {
 	return MSG_ID_ALTITUDES
 }
 
-func (self *Altitudes) MsgName() string {
+// MsgName (generated function)
+func (m *Altitudes) MsgName() string {
 	return "Altitudes"
 }
 
-func (self *Altitudes) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Altitudes) Pack(p *Packet) error {
 	payload := make([]byte, 28)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.TimeBootMs))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.AltGps))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.AltImu))
-	binary.LittleEndian.PutUint32(payload[12:], uint32(self.AltBarometric))
-	binary.LittleEndian.PutUint32(payload[16:], uint32(self.AltOpticalFlow))
-	binary.LittleEndian.PutUint32(payload[20:], uint32(self.AltRangeFinder))
-	binary.LittleEndian.PutUint32(payload[24:], uint32(self.AltExtra))
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.AltGps))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.AltImu))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.AltBarometric))
+	binary.LittleEndian.PutUint32(payload[16:], uint32(m.AltOpticalFlow))
+	binary.LittleEndian.PutUint32(payload[20:], uint32(m.AltRangeFinder))
+	binary.LittleEndian.PutUint32(payload[24:], uint32(m.AltExtra))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Altitudes) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Altitudes) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.AltGps = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.AltImu = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.AltBarometric = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.AltOpticalFlow = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.AltRangeFinder = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.AltExtra = int32(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.AltGps = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.AltImu = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.AltBarometric = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.AltOpticalFlow = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.AltRangeFinder = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.AltExtra = int32(binary.LittleEndian.Uint32(p.Payload[24:]))
 	return nil
 }
 
+// Airspeeds struct (generated typeinfo)
 // The airspeed measured by sensors and IMU
 type Airspeeds struct {
 	TimeBootMs         uint32 // Timestamp (milliseconds since system boot)
@@ -1095,43 +1196,48 @@ type Airspeeds struct {
 	Aoy                int16  // Yaw angle sensor, degrees * 10
 }
 
-func (self *Airspeeds) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Airspeeds) MsgID() MessageID {
 	return MSG_ID_AIRSPEEDS
 }
 
-func (self *Airspeeds) MsgName() string {
+// MsgName (generated function)
+func (m *Airspeeds) MsgName() string {
 	return "Airspeeds"
 }
 
-func (self *Airspeeds) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Airspeeds) Pack(p *Packet) error {
 	payload := make([]byte, 16)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.TimeBootMs))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.AirspeedImu))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.AirspeedPitot))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.AirspeedHotWire))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.AirspeedUltrasonic))
-	binary.LittleEndian.PutUint16(payload[12:], uint16(self.Aoa))
-	binary.LittleEndian.PutUint16(payload[14:], uint16(self.Aoy))
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.AirspeedImu))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.AirspeedPitot))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.AirspeedHotWire))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.AirspeedUltrasonic))
+	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Aoa))
+	binary.LittleEndian.PutUint16(payload[14:], uint16(m.Aoy))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Airspeeds) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Airspeeds) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.AirspeedImu = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.AirspeedPitot = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.AirspeedHotWire = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.AirspeedUltrasonic = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	self.Aoa = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	self.Aoy = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
+	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.AirspeedImu = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.AirspeedPitot = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.AirspeedHotWire = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.AirspeedUltrasonic = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.Aoa = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
+	m.Aoy = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
 	return nil
 }
 
+// SerialUdbExtraF17 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F17 format
 type SerialUdbExtraF17 struct {
 	SueFeedForward float32 // SUE Feed Forward Gain
@@ -1139,35 +1245,40 @@ type SerialUdbExtraF17 struct {
 	SueTurnRateFbw float32 // SUE Max Turn Rate in Fly By Wire Mode
 }
 
-func (self *SerialUdbExtraF17) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF17) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F17
 }
 
-func (self *SerialUdbExtraF17) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF17) MsgName() string {
 	return "SerialUdbExtraF17"
 }
 
-func (self *SerialUdbExtraF17) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF17) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.SueFeedForward))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.SueTurnRateNav))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SueTurnRateFbw))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueFeedForward))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueTurnRateNav))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueTurnRateFbw))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF17) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF17) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueFeedForward = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.SueTurnRateNav = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SueTurnRateFbw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueFeedForward = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.SueTurnRateNav = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SueTurnRateFbw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
 	return nil
 }
 
+// SerialUdbExtraF18 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F18 format
 type SerialUdbExtraF18 struct {
 	AngleOfAttackNormal   float32 // SUE Angle of Attack Normal
@@ -1177,39 +1288,44 @@ type SerialUdbExtraF18 struct {
 	ReferenceSpeed        float32 // SUE reference_speed
 }
 
-func (self *SerialUdbExtraF18) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF18) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F18
 }
 
-func (self *SerialUdbExtraF18) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF18) MsgName() string {
 	return "SerialUdbExtraF18"
 }
 
-func (self *SerialUdbExtraF18) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF18) Pack(p *Packet) error {
 	payload := make([]byte, 20)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.AngleOfAttackNormal))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.AngleOfAttackInverted))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.ElevatorTrimNormal))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.ElevatorTrimInverted))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.ReferenceSpeed))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.AngleOfAttackNormal))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.AngleOfAttackInverted))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.ElevatorTrimNormal))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.ElevatorTrimInverted))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.ReferenceSpeed))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF18) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF18) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
-	self.AngleOfAttackNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.AngleOfAttackInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.ElevatorTrimNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.ElevatorTrimInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.ReferenceSpeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.AngleOfAttackNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.AngleOfAttackInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.ElevatorTrimNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.ElevatorTrimInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.ReferenceSpeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
 	return nil
 }
 
+// SerialUdbExtraF19 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F19 format
 type SerialUdbExtraF19 struct {
 	SueAileronOutputChannel  uint8 // SUE aileron output channel
@@ -1222,45 +1338,50 @@ type SerialUdbExtraF19 struct {
 	SueRudderReversed        uint8 // SUE rudder reversed
 }
 
-func (self *SerialUdbExtraF19) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF19) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F19
 }
 
-func (self *SerialUdbExtraF19) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF19) MsgName() string {
 	return "SerialUdbExtraF19"
 }
 
-func (self *SerialUdbExtraF19) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF19) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	payload[0] = byte(self.SueAileronOutputChannel)
-	payload[1] = byte(self.SueAileronReversed)
-	payload[2] = byte(self.SueElevatorOutputChannel)
-	payload[3] = byte(self.SueElevatorReversed)
-	payload[4] = byte(self.SueThrottleOutputChannel)
-	payload[5] = byte(self.SueThrottleReversed)
-	payload[6] = byte(self.SueRudderOutputChannel)
-	payload[7] = byte(self.SueRudderReversed)
+	payload[0] = byte(m.SueAileronOutputChannel)
+	payload[1] = byte(m.SueAileronReversed)
+	payload[2] = byte(m.SueElevatorOutputChannel)
+	payload[3] = byte(m.SueElevatorReversed)
+	payload[4] = byte(m.SueThrottleOutputChannel)
+	payload[5] = byte(m.SueThrottleReversed)
+	payload[6] = byte(m.SueRudderOutputChannel)
+	payload[7] = byte(m.SueRudderReversed)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF19) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF19) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueAileronOutputChannel = uint8(p.Payload[0])
-	self.SueAileronReversed = uint8(p.Payload[1])
-	self.SueElevatorOutputChannel = uint8(p.Payload[2])
-	self.SueElevatorReversed = uint8(p.Payload[3])
-	self.SueThrottleOutputChannel = uint8(p.Payload[4])
-	self.SueThrottleReversed = uint8(p.Payload[5])
-	self.SueRudderOutputChannel = uint8(p.Payload[6])
-	self.SueRudderReversed = uint8(p.Payload[7])
+	m.SueAileronOutputChannel = uint8(p.Payload[0])
+	m.SueAileronReversed = uint8(p.Payload[1])
+	m.SueElevatorOutputChannel = uint8(p.Payload[2])
+	m.SueElevatorReversed = uint8(p.Payload[3])
+	m.SueThrottleOutputChannel = uint8(p.Payload[4])
+	m.SueThrottleReversed = uint8(p.Payload[5])
+	m.SueRudderOutputChannel = uint8(p.Payload[6])
+	m.SueRudderReversed = uint8(p.Payload[7])
 	return nil
 }
 
+// SerialUdbExtraF20 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F20 format
 type SerialUdbExtraF20 struct {
 	SueTrimValueInput1  int16 // SUE UDB PWM Trim Value on Input 1
@@ -1278,55 +1399,60 @@ type SerialUdbExtraF20 struct {
 	SueNumberOfInputs   uint8 // SUE Number of Input Channels
 }
 
-func (self *SerialUdbExtraF20) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF20) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F20
 }
 
-func (self *SerialUdbExtraF20) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF20) MsgName() string {
 	return "SerialUdbExtraF20"
 }
 
-func (self *SerialUdbExtraF20) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF20) Pack(p *Packet) error {
 	payload := make([]byte, 25)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.SueTrimValueInput1))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.SueTrimValueInput2))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.SueTrimValueInput3))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.SueTrimValueInput4))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.SueTrimValueInput5))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.SueTrimValueInput6))
-	binary.LittleEndian.PutUint16(payload[12:], uint16(self.SueTrimValueInput7))
-	binary.LittleEndian.PutUint16(payload[14:], uint16(self.SueTrimValueInput8))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(self.SueTrimValueInput9))
-	binary.LittleEndian.PutUint16(payload[18:], uint16(self.SueTrimValueInput10))
-	binary.LittleEndian.PutUint16(payload[20:], uint16(self.SueTrimValueInput11))
-	binary.LittleEndian.PutUint16(payload[22:], uint16(self.SueTrimValueInput12))
-	payload[24] = byte(self.SueNumberOfInputs)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueTrimValueInput1))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueTrimValueInput2))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.SueTrimValueInput3))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueTrimValueInput4))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueTrimValueInput5))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.SueTrimValueInput6))
+	binary.LittleEndian.PutUint16(payload[12:], uint16(m.SueTrimValueInput7))
+	binary.LittleEndian.PutUint16(payload[14:], uint16(m.SueTrimValueInput8))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.SueTrimValueInput9))
+	binary.LittleEndian.PutUint16(payload[18:], uint16(m.SueTrimValueInput10))
+	binary.LittleEndian.PutUint16(payload[20:], uint16(m.SueTrimValueInput11))
+	binary.LittleEndian.PutUint16(payload[22:], uint16(m.SueTrimValueInput12))
+	payload[24] = byte(m.SueNumberOfInputs)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF20) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF20) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueTrimValueInput1 = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.SueTrimValueInput2 = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.SueTrimValueInput3 = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.SueTrimValueInput4 = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.SueTrimValueInput5 = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.SueTrimValueInput6 = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	self.SueTrimValueInput7 = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	self.SueTrimValueInput8 = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
-	self.SueTrimValueInput9 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	self.SueTrimValueInput10 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	self.SueTrimValueInput11 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	self.SueTrimValueInput12 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	self.SueNumberOfInputs = uint8(p.Payload[24])
+	m.SueTrimValueInput1 = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.SueTrimValueInput2 = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.SueTrimValueInput3 = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.SueTrimValueInput4 = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.SueTrimValueInput5 = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.SueTrimValueInput6 = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.SueTrimValueInput7 = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
+	m.SueTrimValueInput8 = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
+	m.SueTrimValueInput9 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
+	m.SueTrimValueInput10 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
+	m.SueTrimValueInput11 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
+	m.SueTrimValueInput12 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
+	m.SueNumberOfInputs = uint8(p.Payload[24])
 	return nil
 }
 
+// SerialUdbExtraF21 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F21 format
 type SerialUdbExtraF21 struct {
 	SueAccelXOffset int16 // SUE X accelerometer offset
@@ -1337,41 +1463,46 @@ type SerialUdbExtraF21 struct {
 	SueGyroZOffset  int16 // SUE Z gyro offset
 }
 
-func (self *SerialUdbExtraF21) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF21) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F21
 }
 
-func (self *SerialUdbExtraF21) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF21) MsgName() string {
 	return "SerialUdbExtraF21"
 }
 
-func (self *SerialUdbExtraF21) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF21) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.SueAccelXOffset))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.SueAccelYOffset))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.SueAccelZOffset))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.SueGyroXOffset))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.SueGyroYOffset))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.SueGyroZOffset))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueAccelXOffset))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueAccelYOffset))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.SueAccelZOffset))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueGyroXOffset))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueGyroYOffset))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.SueGyroZOffset))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF21) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF21) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueAccelXOffset = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.SueAccelYOffset = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.SueAccelZOffset = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.SueGyroXOffset = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.SueGyroYOffset = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.SueGyroZOffset = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.SueAccelXOffset = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.SueAccelYOffset = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.SueAccelZOffset = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.SueGyroXOffset = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.SueGyroYOffset = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.SueGyroZOffset = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
 	return nil
 }
 
+// SerialUdbExtraF22 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F22 format
 type SerialUdbExtraF22 struct {
 	SueAccelXAtCalibration int16 // SUE X accelerometer at calibration time
@@ -1382,38 +1513,42 @@ type SerialUdbExtraF22 struct {
 	SueGyroZAtCalibration  int16 // SUE Z gyro at calibration time
 }
 
-func (self *SerialUdbExtraF22) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SerialUdbExtraF22) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F22
 }
 
-func (self *SerialUdbExtraF22) MsgName() string {
+// MsgName (generated function)
+func (m *SerialUdbExtraF22) MsgName() string {
 	return "SerialUdbExtraF22"
 }
 
-func (self *SerialUdbExtraF22) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SerialUdbExtraF22) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.SueAccelXAtCalibration))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.SueAccelYAtCalibration))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.SueAccelZAtCalibration))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.SueGyroXAtCalibration))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.SueGyroYAtCalibration))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.SueGyroZAtCalibration))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueAccelXAtCalibration))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueAccelYAtCalibration))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.SueAccelZAtCalibration))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueGyroXAtCalibration))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueGyroYAtCalibration))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.SueGyroZAtCalibration))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SerialUdbExtraF22) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SerialUdbExtraF22) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.SueAccelXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.SueAccelYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.SueAccelZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.SueGyroXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.SueGyroYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.SueGyroZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.SueAccelXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.SueAccelYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.SueAccelZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.SueGyroXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.SueGyroYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.SueGyroZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
 	return nil
 }
 
@@ -1449,7 +1584,7 @@ const (
 )
 
 // DialectMatrixpilot is the dialect represented by matrixpilot.xml
-var DialectMatrixpilot *Dialect = &Dialect{
+var DialectMatrixpilot = &Dialect{
 	Name: "matrixpilot",
 	crcExtras: map[MessageID]uint8{
 		MSG_ID_FLEXIFUNCTION_SET:                 181,
@@ -1480,7 +1615,7 @@ var DialectMatrixpilot *Dialect = &Dialect{
 		MSG_ID_SERIAL_UDB_EXTRA_F21:              134,
 		MSG_ID_SERIAL_UDB_EXTRA_F22:              91,
 	},
-	messageConstructorByMsgId: map[MessageID]func(*Packet) Message{
+	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_FLEXIFUNCTION_SET: func(pkt *Packet) Message {
 			msg := new(FlexifunctionSet)
 			msg.Unpack(pkt)

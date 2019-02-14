@@ -4,6 +4,8 @@
 package mavlink
 
 const (
-	Version        = "devel"
+	// Version of mavgen which generate this code or user defined (by mavgen flag -v) version of dialect
+	Version = "devel"
+	// MavlinkVersion is a user defined (by mavgen flag -m) version of mavlink protcol
 	MavlinkVersion = 2
 )

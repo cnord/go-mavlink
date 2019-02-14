@@ -37,6 +37,7 @@ const (
 	PILOT_ROTO   = 2 //  Rotomotion mode
 )
 
+// NavFilterBias struct (generated typeinfo)
 // Accelerometer and Gyro biases from the navigation filter
 type NavFilterBias struct {
 	Usec   uint64  // Timestamp (microseconds)
@@ -48,43 +49,48 @@ type NavFilterBias struct {
 	Gyro2  float32 // b_f[2]
 }
 
-func (self *NavFilterBias) MsgID() MessageID {
+// MsgID (generated function)
+func (m *NavFilterBias) MsgID() MessageID {
 	return MSG_ID_NAV_FILTER_BIAS
 }
 
-func (self *NavFilterBias) MsgName() string {
+// MsgName (generated function)
+func (m *NavFilterBias) MsgName() string {
 	return "NavFilterBias"
 }
 
-func (self *NavFilterBias) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *NavFilterBias) Pack(p *Packet) error {
 	payload := make([]byte, 32)
-	binary.LittleEndian.PutUint64(payload[0:], uint64(self.Usec))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Accel0))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.Accel1))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.Accel2))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.Gyro0))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.Gyro1))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.Gyro2))
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Accel0))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Accel1))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Accel2))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Gyro0))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Gyro1))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Gyro2))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *NavFilterBias) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *NavFilterBias) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	self.Accel0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Accel1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Accel2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Gyro0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.Gyro1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.Gyro2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
+	m.Accel0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Accel1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Accel2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Gyro0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.Gyro1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.Gyro2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
 	return nil
 }
 
+// RadioCalibration struct (generated typeinfo)
 // Complete set of calibration parameters for the radio
 type RadioCalibration struct {
 	Aileron  [3]uint16 // Aileron setpoints: left, center, right
@@ -95,65 +101,70 @@ type RadioCalibration struct {
 	Throttle [5]uint16 // Throttle curve setpoints (every 25%)
 }
 
-func (self *RadioCalibration) MsgID() MessageID {
+// MsgID (generated function)
+func (m *RadioCalibration) MsgID() MessageID {
 	return MSG_ID_RADIO_CALIBRATION
 }
 
-func (self *RadioCalibration) MsgName() string {
+// MsgName (generated function)
+func (m *RadioCalibration) MsgName() string {
 	return "RadioCalibration"
 }
 
-func (self *RadioCalibration) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *RadioCalibration) Pack(p *Packet) error {
 	payload := make([]byte, 42)
-	for i, v := range self.Aileron {
+	for i, v := range m.Aileron {
 		binary.LittleEndian.PutUint16(payload[0+i*2:], uint16(v))
 	}
-	for i, v := range self.Elevator {
+	for i, v := range m.Elevator {
 		binary.LittleEndian.PutUint16(payload[6+i*2:], uint16(v))
 	}
-	for i, v := range self.Rudder {
+	for i, v := range m.Rudder {
 		binary.LittleEndian.PutUint16(payload[12+i*2:], uint16(v))
 	}
-	for i, v := range self.Gyro {
+	for i, v := range m.Gyro {
 		binary.LittleEndian.PutUint16(payload[18+i*2:], uint16(v))
 	}
-	for i, v := range self.Pitch {
+	for i, v := range m.Pitch {
 		binary.LittleEndian.PutUint16(payload[22+i*2:], uint16(v))
 	}
-	for i, v := range self.Throttle {
+	for i, v := range m.Throttle {
 		binary.LittleEndian.PutUint16(payload[32+i*2:], uint16(v))
 	}
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *RadioCalibration) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *RadioCalibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
-	for i := 0; i < len(self.Aileron); i++ {
-		self.Aileron[i] = uint16(binary.LittleEndian.Uint16(p.Payload[0+i*2:]))
+	for i := 0; i < len(m.Aileron); i++ {
+		m.Aileron[i] = uint16(binary.LittleEndian.Uint16(p.Payload[0+i*2:]))
 	}
-	for i := 0; i < len(self.Elevator); i++ {
-		self.Elevator[i] = uint16(binary.LittleEndian.Uint16(p.Payload[6+i*2:]))
+	for i := 0; i < len(m.Elevator); i++ {
+		m.Elevator[i] = uint16(binary.LittleEndian.Uint16(p.Payload[6+i*2:]))
 	}
-	for i := 0; i < len(self.Rudder); i++ {
-		self.Rudder[i] = uint16(binary.LittleEndian.Uint16(p.Payload[12+i*2:]))
+	for i := 0; i < len(m.Rudder); i++ {
+		m.Rudder[i] = uint16(binary.LittleEndian.Uint16(p.Payload[12+i*2:]))
 	}
-	for i := 0; i < len(self.Gyro); i++ {
-		self.Gyro[i] = uint16(binary.LittleEndian.Uint16(p.Payload[18+i*2:]))
+	for i := 0; i < len(m.Gyro); i++ {
+		m.Gyro[i] = uint16(binary.LittleEndian.Uint16(p.Payload[18+i*2:]))
 	}
-	for i := 0; i < len(self.Pitch); i++ {
-		self.Pitch[i] = uint16(binary.LittleEndian.Uint16(p.Payload[22+i*2:]))
+	for i := 0; i < len(m.Pitch); i++ {
+		m.Pitch[i] = uint16(binary.LittleEndian.Uint16(p.Payload[22+i*2:]))
 	}
-	for i := 0; i < len(self.Throttle); i++ {
-		self.Throttle[i] = uint16(binary.LittleEndian.Uint16(p.Payload[32+i*2:]))
+	for i := 0; i < len(m.Throttle); i++ {
+		m.Throttle[i] = uint16(binary.LittleEndian.Uint16(p.Payload[32+i*2:]))
 	}
 	return nil
 }
 
+// UalbertaSysStatus struct (generated typeinfo)
 // System status specific to ualberta uav
 type UalbertaSysStatus struct {
 	Mode    uint8 // System mode, see UALBERTA_AUTOPILOT_MODE ENUM
@@ -161,32 +172,36 @@ type UalbertaSysStatus struct {
 	Pilot   uint8 // Pilot mode, see UALBERTA_PILOT_MODE
 }
 
-func (self *UalbertaSysStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *UalbertaSysStatus) MsgID() MessageID {
 	return MSG_ID_UALBERTA_SYS_STATUS
 }
 
-func (self *UalbertaSysStatus) MsgName() string {
+// MsgName (generated function)
+func (m *UalbertaSysStatus) MsgName() string {
 	return "UalbertaSysStatus"
 }
 
-func (self *UalbertaSysStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *UalbertaSysStatus) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.Mode)
-	payload[1] = byte(self.NavMode)
-	payload[2] = byte(self.Pilot)
+	payload[0] = byte(m.Mode)
+	payload[1] = byte(m.NavMode)
+	payload[2] = byte(m.Pilot)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *UalbertaSysStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *UalbertaSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Mode = uint8(p.Payload[0])
-	self.NavMode = uint8(p.Payload[1])
-	self.Pilot = uint8(p.Payload[2])
+	m.Mode = uint8(p.Payload[0])
+	m.NavMode = uint8(p.Payload[1])
+	m.Pilot = uint8(p.Payload[2])
 	return nil
 }
 
@@ -198,14 +213,14 @@ const (
 )
 
 // DialectUalberta is the dialect represented by ualberta.xml
-var DialectUalberta *Dialect = &Dialect{
+var DialectUalberta = &Dialect{
 	Name: "ualberta",
 	crcExtras: map[MessageID]uint8{
 		MSG_ID_NAV_FILTER_BIAS:     34,
 		MSG_ID_RADIO_CALIBRATION:   71,
 		MSG_ID_UALBERTA_SYS_STATUS: 15,
 	},
-	messageConstructorByMsgId: map[MessageID]func(*Packet) Message{
+	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_NAV_FILTER_BIAS: func(pkt *Packet) Message {
 			msg := new(NavFilterBias)
 			msg.Unpack(pkt)

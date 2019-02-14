@@ -384,6 +384,7 @@ const (
 	DEVICE_OP_BUSTYPE_SPI = 1 // SPI Device operation
 )
 
+// SensorOffsets struct (generated typeinfo)
 // Offsets and calibrations values for hardware sensors. This makes it easier to debug the calibration process.
 type SensorOffsets struct {
 	MagDeclination float32 // magnetic declination (radians)
@@ -400,53 +401,58 @@ type SensorOffsets struct {
 	MagOfsZ        int16   // magnetometer Z offset
 }
 
-func (self *SensorOffsets) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SensorOffsets) MsgID() MessageID {
 	return MSG_ID_SENSOR_OFFSETS
 }
 
-func (self *SensorOffsets) MsgName() string {
+// MsgName (generated function)
+func (m *SensorOffsets) MsgName() string {
 	return "SensorOffsets"
 }
 
-func (self *SensorOffsets) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SensorOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 42)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.MagDeclination))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.RawPress))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.RawTemp))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.GyroCalX))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.GyroCalY))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.GyroCalZ))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.AccelCalX))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.AccelCalY))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.AccelCalZ))
-	binary.LittleEndian.PutUint16(payload[36:], uint16(self.MagOfsX))
-	binary.LittleEndian.PutUint16(payload[38:], uint16(self.MagOfsY))
-	binary.LittleEndian.PutUint16(payload[40:], uint16(self.MagOfsZ))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.MagDeclination))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.RawPress))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.RawTemp))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.GyroCalX))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.GyroCalY))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.GyroCalZ))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.AccelCalX))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.AccelCalY))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.AccelCalZ))
+	binary.LittleEndian.PutUint16(payload[36:], uint16(m.MagOfsX))
+	binary.LittleEndian.PutUint16(payload[38:], uint16(m.MagOfsY))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.MagOfsZ))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SensorOffsets) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SensorOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
-	self.MagDeclination = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.RawPress = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.RawTemp = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.GyroCalX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.GyroCalY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.GyroCalZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.AccelCalX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.AccelCalY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.AccelCalZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.MagOfsX = int16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	self.MagOfsY = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	self.MagOfsZ = int16(binary.LittleEndian.Uint16(p.Payload[40:]))
+	m.MagDeclination = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.RawPress = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.RawTemp = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.GyroCalX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.GyroCalY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.GyroCalZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.AccelCalX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.AccelCalY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.AccelCalZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.MagOfsX = int16(binary.LittleEndian.Uint16(p.Payload[36:]))
+	m.MagOfsY = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
+	m.MagOfsZ = int16(binary.LittleEndian.Uint16(p.Payload[40:]))
 	return nil
 }
 
+// SetMagOffsets struct (generated typeinfo)
 // Deprecated. Use MAV_CMD_PREFLIGHT_SET_SENSOR_OFFSETS instead. Set the magnetometer offsets
 type SetMagOffsets struct {
 	MagOfsX         int16 // magnetometer X offset
@@ -456,72 +462,82 @@ type SetMagOffsets struct {
 	TargetComponent uint8 // Component ID
 }
 
-func (self *SetMagOffsets) MsgID() MessageID {
+// MsgID (generated function)
+func (m *SetMagOffsets) MsgID() MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
 }
 
-func (self *SetMagOffsets) MsgName() string {
+// MsgName (generated function)
+func (m *SetMagOffsets) MsgName() string {
 	return "SetMagOffsets"
 }
 
-func (self *SetMagOffsets) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *SetMagOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.MagOfsX))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.MagOfsY))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.MagOfsZ))
-	payload[6] = byte(self.TargetSystem)
-	payload[7] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MagOfsX))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.MagOfsY))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MagOfsZ))
+	payload[6] = byte(m.TargetSystem)
+	payload[7] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *SetMagOffsets) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *SetMagOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.MagOfsX = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.MagOfsY = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.MagOfsZ = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.TargetSystem = uint8(p.Payload[6])
-	self.TargetComponent = uint8(p.Payload[7])
+	m.MagOfsX = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.MagOfsY = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.MagOfsZ = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.TargetSystem = uint8(p.Payload[6])
+	m.TargetComponent = uint8(p.Payload[7])
 	return nil
 }
 
+// Meminfo struct (generated typeinfo)
 // state of APM memory
 type Meminfo struct {
 	Brkval  uint16 // heap top
 	Freemem uint16 // free memory
 }
 
-func (self *Meminfo) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Meminfo) MsgID() MessageID {
 	return MSG_ID_MEMINFO
 }
 
-func (self *Meminfo) MsgName() string {
+// MsgName (generated function)
+func (m *Meminfo) MsgName() string {
 	return "Meminfo"
 }
 
-func (self *Meminfo) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Meminfo) Pack(p *Packet) error {
 	payload := make([]byte, 4)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Brkval))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.Freemem))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Brkval))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Freemem))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Meminfo) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Meminfo) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Brkval = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.Freemem = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.Brkval = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.Freemem = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
 	return nil
 }
 
+// ApAdc struct (generated typeinfo)
 // raw ADC output
 type ApAdc struct {
 	Adc1 uint16 // ADC output 1
@@ -532,41 +548,46 @@ type ApAdc struct {
 	Adc6 uint16 // ADC output 6
 }
 
-func (self *ApAdc) MsgID() MessageID {
+// MsgID (generated function)
+func (m *ApAdc) MsgID() MessageID {
 	return MSG_ID_AP_ADC
 }
 
-func (self *ApAdc) MsgName() string {
+// MsgName (generated function)
+func (m *ApAdc) MsgName() string {
 	return "ApAdc"
 }
 
-func (self *ApAdc) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *ApAdc) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Adc1))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.Adc2))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.Adc3))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(self.Adc4))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.Adc5))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.Adc6))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Adc1))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Adc2))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Adc3))
+	binary.LittleEndian.PutUint16(payload[6:], uint16(m.Adc4))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Adc5))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.Adc6))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *ApAdc) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *ApAdc) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Adc1 = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.Adc2 = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.Adc3 = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.Adc4 = uint16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	self.Adc5 = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.Adc6 = uint16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.Adc1 = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.Adc2 = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.Adc3 = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.Adc4 = uint16(binary.LittleEndian.Uint16(p.Payload[6:]))
+	m.Adc5 = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.Adc6 = uint16(binary.LittleEndian.Uint16(p.Payload[10:]))
 	return nil
 }
 
+// DigicamConfigure struct (generated typeinfo)
 // Configure on-board Camera Control System.
 type DigicamConfigure struct {
 	ExtraValue      float32 // Correspondent value to given extra_param
@@ -577,56 +598,61 @@ type DigicamConfigure struct {
 	Aperture        uint8   // F stop number x 10 //e.g. 28 means 2.8 (0 means ignore)
 	Iso             uint8   // ISO enumeration from 1 to N //e.g. 80, 100, 200, Etc (0 means ignore)
 	ExposureType    uint8   // Exposure type enumeration from 1 to N (0 means ignore)
-	CommandId       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
+	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
 	EngineCutOff    uint8   // Main engine cut-off time before camera trigger in seconds/10 (0 means no cut-off)
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
 }
 
-func (self *DigicamConfigure) MsgID() MessageID {
+// MsgID (generated function)
+func (m *DigicamConfigure) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONFIGURE
 }
 
-func (self *DigicamConfigure) MsgName() string {
+// MsgName (generated function)
+func (m *DigicamConfigure) MsgName() string {
 	return "DigicamConfigure"
 }
 
-func (self *DigicamConfigure) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *DigicamConfigure) Pack(p *Packet) error {
 	payload := make([]byte, 15)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.ExtraValue))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.ShutterSpeed))
-	payload[6] = byte(self.TargetSystem)
-	payload[7] = byte(self.TargetComponent)
-	payload[8] = byte(self.Mode)
-	payload[9] = byte(self.Aperture)
-	payload[10] = byte(self.Iso)
-	payload[11] = byte(self.ExposureType)
-	payload[12] = byte(self.CommandId)
-	payload[13] = byte(self.EngineCutOff)
-	payload[14] = byte(self.ExtraParam)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ShutterSpeed))
+	payload[6] = byte(m.TargetSystem)
+	payload[7] = byte(m.TargetComponent)
+	payload[8] = byte(m.Mode)
+	payload[9] = byte(m.Aperture)
+	payload[10] = byte(m.Iso)
+	payload[11] = byte(m.ExposureType)
+	payload[12] = byte(m.CommandID)
+	payload[13] = byte(m.EngineCutOff)
+	payload[14] = byte(m.ExtraParam)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *DigicamConfigure) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *DigicamConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		return fmt.Errorf("payload too small")
 	}
-	self.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.ShutterSpeed = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.TargetSystem = uint8(p.Payload[6])
-	self.TargetComponent = uint8(p.Payload[7])
-	self.Mode = uint8(p.Payload[8])
-	self.Aperture = uint8(p.Payload[9])
-	self.Iso = uint8(p.Payload[10])
-	self.ExposureType = uint8(p.Payload[11])
-	self.CommandId = uint8(p.Payload[12])
-	self.EngineCutOff = uint8(p.Payload[13])
-	self.ExtraParam = uint8(p.Payload[14])
+	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.ShutterSpeed = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.TargetSystem = uint8(p.Payload[6])
+	m.TargetComponent = uint8(p.Payload[7])
+	m.Mode = uint8(p.Payload[8])
+	m.Aperture = uint8(p.Payload[9])
+	m.Iso = uint8(p.Payload[10])
+	m.ExposureType = uint8(p.Payload[11])
+	m.CommandID = uint8(p.Payload[12])
+	m.EngineCutOff = uint8(p.Payload[13])
+	m.ExtraParam = uint8(p.Payload[14])
 	return nil
 }
 
+// DigicamControl struct (generated typeinfo)
 // Control on-board Camera Control System to take shots.
 type DigicamControl struct {
 	ExtraValue      float32 // Correspondent value to given extra_param
@@ -637,53 +663,58 @@ type DigicamControl struct {
 	ZoomStep        int8    // -100 to 100 //Zooming step value to offset zoom from the current position
 	FocusLock       uint8   // 0: unlock focus or keep unlocked, 1: lock focus or keep locked, 3: re-lock focus
 	Shot            uint8   // 0: ignore, 1: shot or start filming
-	CommandId       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
+	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
 }
 
-func (self *DigicamControl) MsgID() MessageID {
+// MsgID (generated function)
+func (m *DigicamControl) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONTROL
 }
 
-func (self *DigicamControl) MsgName() string {
+// MsgName (generated function)
+func (m *DigicamControl) MsgName() string {
 	return "DigicamControl"
 }
 
-func (self *DigicamControl) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *DigicamControl) Pack(p *Packet) error {
 	payload := make([]byte, 13)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.ExtraValue))
-	payload[4] = byte(self.TargetSystem)
-	payload[5] = byte(self.TargetComponent)
-	payload[6] = byte(self.Session)
-	payload[7] = byte(self.ZoomPos)
-	payload[8] = byte(self.ZoomStep)
-	payload[9] = byte(self.FocusLock)
-	payload[10] = byte(self.Shot)
-	payload[11] = byte(self.CommandId)
-	payload[12] = byte(self.ExtraParam)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
+	payload[4] = byte(m.TargetSystem)
+	payload[5] = byte(m.TargetComponent)
+	payload[6] = byte(m.Session)
+	payload[7] = byte(m.ZoomPos)
+	payload[8] = byte(m.ZoomStep)
+	payload[9] = byte(m.FocusLock)
+	payload[10] = byte(m.Shot)
+	payload[11] = byte(m.CommandID)
+	payload[12] = byte(m.ExtraParam)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *DigicamControl) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *DigicamControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		return fmt.Errorf("payload too small")
 	}
-	self.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.TargetSystem = uint8(p.Payload[4])
-	self.TargetComponent = uint8(p.Payload[5])
-	self.Session = uint8(p.Payload[6])
-	self.ZoomPos = uint8(p.Payload[7])
-	self.ZoomStep = int8(p.Payload[8])
-	self.FocusLock = uint8(p.Payload[9])
-	self.Shot = uint8(p.Payload[10])
-	self.CommandId = uint8(p.Payload[11])
-	self.ExtraParam = uint8(p.Payload[12])
+	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.TargetSystem = uint8(p.Payload[4])
+	m.TargetComponent = uint8(p.Payload[5])
+	m.Session = uint8(p.Payload[6])
+	m.ZoomPos = uint8(p.Payload[7])
+	m.ZoomStep = int8(p.Payload[8])
+	m.FocusLock = uint8(p.Payload[9])
+	m.Shot = uint8(p.Payload[10])
+	m.CommandID = uint8(p.Payload[11])
+	m.ExtraParam = uint8(p.Payload[12])
 	return nil
 }
 
+// MountConfigure struct (generated typeinfo)
 // Message to configure a camera mount, directional antenna, etc.
 type MountConfigure struct {
 	TargetSystem    uint8 // System ID
@@ -694,41 +725,46 @@ type MountConfigure struct {
 	StabYaw         uint8 // (1 = yes, 0 = no)
 }
 
-func (self *MountConfigure) MsgID() MessageID {
+// MsgID (generated function)
+func (m *MountConfigure) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
 }
 
-func (self *MountConfigure) MsgName() string {
+// MsgName (generated function)
+func (m *MountConfigure) MsgName() string {
 	return "MountConfigure"
 }
 
-func (self *MountConfigure) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *MountConfigure) Pack(p *Packet) error {
 	payload := make([]byte, 6)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.MountMode)
-	payload[3] = byte(self.StabRoll)
-	payload[4] = byte(self.StabPitch)
-	payload[5] = byte(self.StabYaw)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.MountMode)
+	payload[3] = byte(m.StabRoll)
+	payload[4] = byte(m.StabPitch)
+	payload[5] = byte(m.StabYaw)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *MountConfigure) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *MountConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.MountMode = uint8(p.Payload[2])
-	self.StabRoll = uint8(p.Payload[3])
-	self.StabPitch = uint8(p.Payload[4])
-	self.StabYaw = uint8(p.Payload[5])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.MountMode = uint8(p.Payload[2])
+	m.StabRoll = uint8(p.Payload[3])
+	m.StabPitch = uint8(p.Payload[4])
+	m.StabYaw = uint8(p.Payload[5])
 	return nil
 }
 
+// MountControl struct (generated typeinfo)
 // Message to control a camera mount, directional antenna, etc.
 type MountControl struct {
 	InputA          int32 // pitch(deg*100) or lat, depending on mount mode
@@ -739,41 +775,46 @@ type MountControl struct {
 	SavePosition    uint8 // if "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING)
 }
 
-func (self *MountControl) MsgID() MessageID {
+// MsgID (generated function)
+func (m *MountControl) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONTROL
 }
 
-func (self *MountControl) MsgName() string {
+// MsgName (generated function)
+func (m *MountControl) MsgName() string {
 	return "MountControl"
 }
 
-func (self *MountControl) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *MountControl) Pack(p *Packet) error {
 	payload := make([]byte, 15)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.InputA))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.InputB))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.InputC))
-	payload[12] = byte(self.TargetSystem)
-	payload[13] = byte(self.TargetComponent)
-	payload[14] = byte(self.SavePosition)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.InputA))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.InputB))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.InputC))
+	payload[12] = byte(m.TargetSystem)
+	payload[13] = byte(m.TargetComponent)
+	payload[14] = byte(m.SavePosition)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *MountControl) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *MountControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		return fmt.Errorf("payload too small")
 	}
-	self.InputA = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.InputB = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.InputC = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.TargetSystem = uint8(p.Payload[12])
-	self.TargetComponent = uint8(p.Payload[13])
-	self.SavePosition = uint8(p.Payload[14])
+	m.InputA = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.InputB = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.InputC = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.TargetSystem = uint8(p.Payload[12])
+	m.TargetComponent = uint8(p.Payload[13])
+	m.SavePosition = uint8(p.Payload[14])
 	return nil
 }
 
+// MountStatus struct (generated typeinfo)
 // Message with some status from APM to GCS about camera or antenna mount
 type MountStatus struct {
 	PointingA       int32 // pitch(deg*100)
@@ -783,39 +824,44 @@ type MountStatus struct {
 	TargetComponent uint8 // Component ID
 }
 
-func (self *MountStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *MountStatus) MsgID() MessageID {
 	return MSG_ID_MOUNT_STATUS
 }
 
-func (self *MountStatus) MsgName() string {
+// MsgName (generated function)
+func (m *MountStatus) MsgName() string {
 	return "MountStatus"
 }
 
-func (self *MountStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *MountStatus) Pack(p *Packet) error {
 	payload := make([]byte, 14)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.PointingA))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.PointingB))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.PointingC))
-	payload[12] = byte(self.TargetSystem)
-	payload[13] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.PointingA))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.PointingB))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.PointingC))
+	payload[12] = byte(m.TargetSystem)
+	payload[13] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *MountStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *MountStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
-	self.PointingA = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.PointingB = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.PointingC = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.TargetSystem = uint8(p.Payload[12])
-	self.TargetComponent = uint8(p.Payload[13])
+	m.PointingA = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.PointingB = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.PointingC = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.TargetSystem = uint8(p.Payload[12])
+	m.TargetComponent = uint8(p.Payload[13])
 	return nil
 }
 
+// FencePoint struct (generated typeinfo)
 // A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
 type FencePoint struct {
 	Lat             float32 // Latitude of point
@@ -826,41 +872,46 @@ type FencePoint struct {
 	Count           uint8   // total number of points (for sanity checking)
 }
 
-func (self *FencePoint) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FencePoint) MsgID() MessageID {
 	return MSG_ID_FENCE_POINT
 }
 
-func (self *FencePoint) MsgName() string {
+// MsgName (generated function)
+func (m *FencePoint) MsgName() string {
 	return "FencePoint"
 }
 
-func (self *FencePoint) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FencePoint) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Lat))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Lng))
-	payload[8] = byte(self.TargetSystem)
-	payload[9] = byte(self.TargetComponent)
-	payload[10] = byte(self.Idx)
-	payload[11] = byte(self.Count)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Lat))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Lng))
+	payload[8] = byte(m.TargetSystem)
+	payload[9] = byte(m.TargetComponent)
+	payload[10] = byte(m.Idx)
+	payload[11] = byte(m.Count)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FencePoint) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FencePoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Lat = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Lng = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.TargetSystem = uint8(p.Payload[8])
-	self.TargetComponent = uint8(p.Payload[9])
-	self.Idx = uint8(p.Payload[10])
-	self.Count = uint8(p.Payload[11])
+	m.Lat = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Lng = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.TargetSystem = uint8(p.Payload[8])
+	m.TargetComponent = uint8(p.Payload[9])
+	m.Idx = uint8(p.Payload[10])
+	m.Count = uint8(p.Payload[11])
 	return nil
 }
 
+// FenceFetchPoint struct (generated typeinfo)
 // Request a current fence point from MAV
 type FenceFetchPoint struct {
 	TargetSystem    uint8 // System ID
@@ -868,35 +919,40 @@ type FenceFetchPoint struct {
 	Idx             uint8 // point index (first point is 1, 0 is for return point)
 }
 
-func (self *FenceFetchPoint) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FenceFetchPoint) MsgID() MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
 }
 
-func (self *FenceFetchPoint) MsgName() string {
+// MsgName (generated function)
+func (m *FenceFetchPoint) MsgName() string {
 	return "FenceFetchPoint"
 }
 
-func (self *FenceFetchPoint) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FenceFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.Idx)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.Idx)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FenceFetchPoint) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FenceFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.Idx = uint8(p.Payload[2])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.Idx = uint8(p.Payload[2])
 	return nil
 }
 
+// FenceStatus struct (generated typeinfo)
 // Status of geo-fencing. Sent in extended status stream when fencing enabled
 type FenceStatus struct {
 	BreachTime   uint32 // time of last breach in milliseconds since boot
@@ -905,37 +961,42 @@ type FenceStatus struct {
 	BreachType   uint8  // last breach type (see FENCE_BREACH_* enum)
 }
 
-func (self *FenceStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *FenceStatus) MsgID() MessageID {
 	return MSG_ID_FENCE_STATUS
 }
 
-func (self *FenceStatus) MsgName() string {
+// MsgName (generated function)
+func (m *FenceStatus) MsgName() string {
 	return "FenceStatus"
 }
 
-func (self *FenceStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *FenceStatus) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.BreachTime))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.BreachCount))
-	payload[6] = byte(self.BreachStatus)
-	payload[7] = byte(self.BreachType)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.BreachTime))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.BreachCount))
+	payload[6] = byte(m.BreachStatus)
+	payload[7] = byte(m.BreachType)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *FenceStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *FenceStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.BreachTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.BreachCount = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.BreachStatus = uint8(p.Payload[6])
-	self.BreachType = uint8(p.Payload[7])
+	m.BreachTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.BreachCount = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.BreachStatus = uint8(p.Payload[6])
+	m.BreachType = uint8(p.Payload[7])
 	return nil
 }
 
+// Ahrs struct (generated typeinfo)
 // Status of DCM attitude estimator
 type Ahrs struct {
 	Omegaix     float32 // X gyro drift estimate rad/s
@@ -947,43 +1008,48 @@ type Ahrs struct {
 	ErrorYaw    float32 // average error_yaw value
 }
 
-func (self *Ahrs) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Ahrs) MsgID() MessageID {
 	return MSG_ID_AHRS
 }
 
-func (self *Ahrs) MsgName() string {
+// MsgName (generated function)
+func (m *Ahrs) MsgName() string {
 	return "Ahrs"
 }
 
-func (self *Ahrs) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Ahrs) Pack(p *Packet) error {
 	payload := make([]byte, 28)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Omegaix))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Omegaiy))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Omegaiz))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.AccelWeight))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.RenormVal))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.ErrorRp))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.ErrorYaw))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Omegaix))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Omegaiy))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Omegaiz))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.AccelWeight))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.RenormVal))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.ErrorRp))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.ErrorYaw))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Ahrs) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Ahrs) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Omegaix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Omegaiy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Omegaiz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.AccelWeight = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.RenormVal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.ErrorRp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.ErrorYaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.Omegaix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Omegaiy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Omegaiz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.AccelWeight = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.RenormVal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.ErrorRp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.ErrorYaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
 	return nil
 }
 
+// Simstate struct (generated typeinfo)
 // Status of simulation environment, if used
 type Simstate struct {
 	Roll  float32 // Roll angle (rad)
@@ -999,84 +1065,94 @@ type Simstate struct {
 	Lng   int32   // Longitude in degrees * 1E7
 }
 
-func (self *Simstate) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Simstate) MsgID() MessageID {
 	return MSG_ID_SIMSTATE
 }
 
-func (self *Simstate) MsgName() string {
+// MsgName (generated function)
+func (m *Simstate) MsgName() string {
 	return "Simstate"
 }
 
-func (self *Simstate) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Simstate) Pack(p *Packet) error {
 	payload := make([]byte, 44)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Roll))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Pitch))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Yaw))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.Xacc))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.Yacc))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.Zacc))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.Xgyro))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.Ygyro))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.Zgyro))
-	binary.LittleEndian.PutUint32(payload[36:], uint32(self.Lat))
-	binary.LittleEndian.PutUint32(payload[40:], uint32(self.Lng))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Yaw))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Xacc))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Yacc))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Zacc))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Xgyro))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Ygyro))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Zgyro))
+	binary.LittleEndian.PutUint32(payload[36:], uint32(m.Lat))
+	binary.LittleEndian.PutUint32(payload[40:], uint32(m.Lng))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Simstate) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Simstate) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Yacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Zacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.Xgyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.Ygyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.Zgyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.Lat = int32(binary.LittleEndian.Uint32(p.Payload[36:]))
-	self.Lng = int32(binary.LittleEndian.Uint32(p.Payload[40:]))
+	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Yacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Zacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.Xgyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.Ygyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.Zgyro = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.Lng = int32(binary.LittleEndian.Uint32(p.Payload[40:]))
 	return nil
 }
 
+// Hwstatus struct (generated typeinfo)
 // Status of key hardware
 type Hwstatus struct {
 	Vcc    uint16 // board voltage (mV)
 	I2cerr uint8  // I2C error count
 }
 
-func (self *Hwstatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Hwstatus) MsgID() MessageID {
 	return MSG_ID_HWSTATUS
 }
 
-func (self *Hwstatus) MsgName() string {
+// MsgName (generated function)
+func (m *Hwstatus) MsgName() string {
 	return "Hwstatus"
 }
 
-func (self *Hwstatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Hwstatus) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Vcc))
-	payload[2] = byte(self.I2cerr)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
+	payload[2] = byte(m.I2cerr)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Hwstatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Hwstatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Vcc = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.I2cerr = uint8(p.Payload[2])
+	m.Vcc = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.I2cerr = uint8(p.Payload[2])
 	return nil
 }
 
+// Radio struct (generated typeinfo)
 // Status generated by radio
 type Radio struct {
 	Rxerrors uint16 // receive errors
@@ -1088,43 +1164,48 @@ type Radio struct {
 	Remnoise uint8  // remote background noise level
 }
 
-func (self *Radio) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Radio) MsgID() MessageID {
 	return MSG_ID_RADIO
 }
 
-func (self *Radio) MsgName() string {
+// MsgName (generated function)
+func (m *Radio) MsgName() string {
 	return "Radio"
 }
 
-func (self *Radio) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Radio) Pack(p *Packet) error {
 	payload := make([]byte, 9)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Rxerrors))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.Fixed))
-	payload[4] = byte(self.Rssi)
-	payload[5] = byte(self.Remrssi)
-	payload[6] = byte(self.Txbuf)
-	payload[7] = byte(self.Noise)
-	payload[8] = byte(self.Remnoise)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Rxerrors))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Fixed))
+	payload[4] = byte(m.Rssi)
+	payload[5] = byte(m.Remrssi)
+	payload[6] = byte(m.Txbuf)
+	payload[7] = byte(m.Noise)
+	payload[8] = byte(m.Remnoise)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Radio) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Radio) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Rxerrors = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.Fixed = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.Rssi = uint8(p.Payload[4])
-	self.Remrssi = uint8(p.Payload[5])
-	self.Txbuf = uint8(p.Payload[6])
-	self.Noise = uint8(p.Payload[7])
-	self.Remnoise = uint8(p.Payload[8])
+	m.Rxerrors = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.Fixed = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.Rssi = uint8(p.Payload[4])
+	m.Remrssi = uint8(p.Payload[5])
+	m.Txbuf = uint8(p.Payload[6])
+	m.Noise = uint8(p.Payload[7])
+	m.Remnoise = uint8(p.Payload[8])
 	return nil
 }
 
+// LimitsStatus struct (generated typeinfo)
 // Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled
 type LimitsStatus struct {
 	LastTrigger   uint32 // time of last breach in milliseconds since boot
@@ -1138,47 +1219,52 @@ type LimitsStatus struct {
 	ModsTriggered uint8  // AP_Limit_Module bitfield of triggered modules, (see enum moduleid or LIMIT_MODULE)
 }
 
-func (self *LimitsStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *LimitsStatus) MsgID() MessageID {
 	return MSG_ID_LIMITS_STATUS
 }
 
-func (self *LimitsStatus) MsgName() string {
+// MsgName (generated function)
+func (m *LimitsStatus) MsgName() string {
 	return "LimitsStatus"
 }
 
-func (self *LimitsStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *LimitsStatus) Pack(p *Packet) error {
 	payload := make([]byte, 22)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.LastTrigger))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.LastAction))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.LastRecovery))
-	binary.LittleEndian.PutUint32(payload[12:], uint32(self.LastClear))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(self.BreachCount))
-	payload[18] = byte(self.LimitsState)
-	payload[19] = byte(self.ModsEnabled)
-	payload[20] = byte(self.ModsRequired)
-	payload[21] = byte(self.ModsTriggered)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.LastTrigger))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LastAction))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.LastRecovery))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.LastClear))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.BreachCount))
+	payload[18] = byte(m.LimitsState)
+	payload[19] = byte(m.ModsEnabled)
+	payload[20] = byte(m.ModsRequired)
+	payload[21] = byte(m.ModsTriggered)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *LimitsStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *LimitsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
-	self.LastTrigger = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.LastAction = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.LastRecovery = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.LastClear = uint32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.BreachCount = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	self.LimitsState = uint8(p.Payload[18])
-	self.ModsEnabled = uint8(p.Payload[19])
-	self.ModsRequired = uint8(p.Payload[20])
-	self.ModsTriggered = uint8(p.Payload[21])
+	m.LastTrigger = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.LastAction = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.LastRecovery = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.LastClear = uint32(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.BreachCount = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
+	m.LimitsState = uint8(p.Payload[18])
+	m.ModsEnabled = uint8(p.Payload[19])
+	m.ModsRequired = uint8(p.Payload[20])
+	m.ModsTriggered = uint8(p.Payload[21])
 	return nil
 }
 
+// Wind struct (generated typeinfo)
 // Wind estimation
 type Wind struct {
 	Direction float32 // wind direction that wind is coming from (degrees)
@@ -1186,35 +1272,40 @@ type Wind struct {
 	SpeedZ    float32 // vertical wind speed (m/s)
 }
 
-func (self *Wind) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Wind) MsgID() MessageID {
 	return MSG_ID_WIND
 }
 
-func (self *Wind) MsgName() string {
+// MsgName (generated function)
+func (m *Wind) MsgName() string {
 	return "Wind"
 }
 
-func (self *Wind) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Wind) Pack(p *Packet) error {
 	payload := make([]byte, 12)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Direction))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Speed))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.SpeedZ))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Direction))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Speed))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SpeedZ))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Wind) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Wind) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Direction = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Speed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.SpeedZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Direction = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Speed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.SpeedZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
 	return nil
 }
 
+// Data16 struct (generated typeinfo)
 // Data packet, size 16
 type Data16 struct {
 	Type uint8     // data type
@@ -1222,35 +1313,40 @@ type Data16 struct {
 	Data [16]uint8 // raw data
 }
 
-func (self *Data16) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Data16) MsgID() MessageID {
 	return MSG_ID_DATA16
 }
 
-func (self *Data16) MsgName() string {
+// MsgName (generated function)
+func (m *Data16) MsgName() string {
 	return "Data16"
 }
 
-func (self *Data16) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Data16) Pack(p *Packet) error {
 	payload := make([]byte, 18)
-	payload[0] = byte(self.Type)
-	payload[1] = byte(self.Len)
-	copy(payload[2:], self.Data[:])
+	payload[0] = byte(m.Type)
+	payload[1] = byte(m.Len)
+	copy(payload[2:], m.Data[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Data16) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Data16) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Type = uint8(p.Payload[0])
-	self.Len = uint8(p.Payload[1])
-	copy(self.Data[:], p.Payload[2:18])
+	m.Type = uint8(p.Payload[0])
+	m.Len = uint8(p.Payload[1])
+	copy(m.Data[:], p.Payload[2:18])
 	return nil
 }
 
+// Data32 struct (generated typeinfo)
 // Data packet, size 32
 type Data32 struct {
 	Type uint8     // data type
@@ -1258,35 +1354,40 @@ type Data32 struct {
 	Data [32]uint8 // raw data
 }
 
-func (self *Data32) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Data32) MsgID() MessageID {
 	return MSG_ID_DATA32
 }
 
-func (self *Data32) MsgName() string {
+// MsgName (generated function)
+func (m *Data32) MsgName() string {
 	return "Data32"
 }
 
-func (self *Data32) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Data32) Pack(p *Packet) error {
 	payload := make([]byte, 34)
-	payload[0] = byte(self.Type)
-	payload[1] = byte(self.Len)
-	copy(payload[2:], self.Data[:])
+	payload[0] = byte(m.Type)
+	payload[1] = byte(m.Len)
+	copy(payload[2:], m.Data[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Data32) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Data32) Unpack(p *Packet) error {
 	if len(p.Payload) < 34 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Type = uint8(p.Payload[0])
-	self.Len = uint8(p.Payload[1])
-	copy(self.Data[:], p.Payload[2:34])
+	m.Type = uint8(p.Payload[0])
+	m.Len = uint8(p.Payload[1])
+	copy(m.Data[:], p.Payload[2:34])
 	return nil
 }
 
+// Data64 struct (generated typeinfo)
 // Data packet, size 64
 type Data64 struct {
 	Type uint8     // data type
@@ -1294,35 +1395,40 @@ type Data64 struct {
 	Data [64]uint8 // raw data
 }
 
-func (self *Data64) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Data64) MsgID() MessageID {
 	return MSG_ID_DATA64
 }
 
-func (self *Data64) MsgName() string {
+// MsgName (generated function)
+func (m *Data64) MsgName() string {
 	return "Data64"
 }
 
-func (self *Data64) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Data64) Pack(p *Packet) error {
 	payload := make([]byte, 66)
-	payload[0] = byte(self.Type)
-	payload[1] = byte(self.Len)
-	copy(payload[2:], self.Data[:])
+	payload[0] = byte(m.Type)
+	payload[1] = byte(m.Len)
+	copy(payload[2:], m.Data[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Data64) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Data64) Unpack(p *Packet) error {
 	if len(p.Payload) < 66 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Type = uint8(p.Payload[0])
-	self.Len = uint8(p.Payload[1])
-	copy(self.Data[:], p.Payload[2:66])
+	m.Type = uint8(p.Payload[0])
+	m.Len = uint8(p.Payload[1])
+	copy(m.Data[:], p.Payload[2:66])
 	return nil
 }
 
+// Data96 struct (generated typeinfo)
 // Data packet, size 96
 type Data96 struct {
 	Type uint8     // data type
@@ -1330,68 +1436,78 @@ type Data96 struct {
 	Data [96]uint8 // raw data
 }
 
-func (self *Data96) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Data96) MsgID() MessageID {
 	return MSG_ID_DATA96
 }
 
-func (self *Data96) MsgName() string {
+// MsgName (generated function)
+func (m *Data96) MsgName() string {
 	return "Data96"
 }
 
-func (self *Data96) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Data96) Pack(p *Packet) error {
 	payload := make([]byte, 98)
-	payload[0] = byte(self.Type)
-	payload[1] = byte(self.Len)
-	copy(payload[2:], self.Data[:])
+	payload[0] = byte(m.Type)
+	payload[1] = byte(m.Len)
+	copy(payload[2:], m.Data[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Data96) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Data96) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Type = uint8(p.Payload[0])
-	self.Len = uint8(p.Payload[1])
-	copy(self.Data[:], p.Payload[2:98])
+	m.Type = uint8(p.Payload[0])
+	m.Len = uint8(p.Payload[1])
+	copy(m.Data[:], p.Payload[2:98])
 	return nil
 }
 
+// Rangefinder struct (generated typeinfo)
 // Rangefinder reporting
 type Rangefinder struct {
 	Distance float32 // distance in meters
 	Voltage  float32 // raw voltage if available, zero otherwise
 }
 
-func (self *Rangefinder) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Rangefinder) MsgID() MessageID {
 	return MSG_ID_RANGEFINDER
 }
 
-func (self *Rangefinder) MsgName() string {
+// MsgName (generated function)
+func (m *Rangefinder) MsgName() string {
 	return "Rangefinder"
 }
 
-func (self *Rangefinder) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Rangefinder) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Distance))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Voltage))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Distance))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Voltage))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Rangefinder) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Rangefinder) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Distance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Voltage = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Distance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Voltage = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
 	return nil
 }
 
+// AirspeedAutocal struct (generated typeinfo)
 // Airspeed auto-calibration
 type AirspeedAutocal struct {
 	Vx           float32 // GPS velocity north m/s
@@ -1408,53 +1524,58 @@ type AirspeedAutocal struct {
 	Pcz          float32 // EKF Pcz
 }
 
-func (self *AirspeedAutocal) MsgID() MessageID {
+// MsgID (generated function)
+func (m *AirspeedAutocal) MsgID() MessageID {
 	return MSG_ID_AIRSPEED_AUTOCAL
 }
 
-func (self *AirspeedAutocal) MsgName() string {
+// MsgName (generated function)
+func (m *AirspeedAutocal) MsgName() string {
 	return "AirspeedAutocal"
 }
 
-func (self *AirspeedAutocal) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *AirspeedAutocal) Pack(p *Packet) error {
 	payload := make([]byte, 48)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Vx))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Vy))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Vz))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.DiffPressure))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.Eas2tas))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.Ratio))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.StateX))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.StateY))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.StateZ))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(self.Pax))
-	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(self.Pby))
-	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(self.Pcz))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Vx))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Vy))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Vz))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.DiffPressure))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Eas2tas))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Ratio))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.StateX))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.StateY))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.StateZ))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.Pax))
+	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(m.Pby))
+	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.Pcz))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *AirspeedAutocal) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *AirspeedAutocal) Unpack(p *Packet) error {
 	if len(p.Payload) < 48 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Vx = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Vy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Vz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.DiffPressure = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Eas2tas = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Ratio = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.StateX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.StateY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.StateZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.Pax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	self.Pby = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[40:]))
-	self.Pcz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[44:]))
+	m.Vx = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Vy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Vz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.DiffPressure = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Eas2tas = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Ratio = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.StateX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.StateY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.StateZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.Pax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.Pby = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[40:]))
+	m.Pcz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[44:]))
 	return nil
 }
 
+// RallyPoint struct (generated typeinfo)
 // A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
 type RallyPoint struct {
 	Lat             int32  // Latitude of point in degrees * 1E7
@@ -1469,49 +1590,54 @@ type RallyPoint struct {
 	Flags           uint8  // See RALLY_FLAGS enum for definition of the bitmask.
 }
 
-func (self *RallyPoint) MsgID() MessageID {
+// MsgID (generated function)
+func (m *RallyPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_POINT
 }
 
-func (self *RallyPoint) MsgName() string {
+// MsgName (generated function)
+func (m *RallyPoint) MsgName() string {
 	return "RallyPoint"
 }
 
-func (self *RallyPoint) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *RallyPoint) Pack(p *Packet) error {
 	payload := make([]byte, 19)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.Lat))
-	binary.LittleEndian.PutUint32(payload[4:], uint32(self.Lng))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(self.Alt))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(self.BreakAlt))
-	binary.LittleEndian.PutUint16(payload[12:], uint16(self.LandDir))
-	payload[14] = byte(self.TargetSystem)
-	payload[15] = byte(self.TargetComponent)
-	payload[16] = byte(self.Idx)
-	payload[17] = byte(self.Count)
-	payload[18] = byte(self.Flags)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lng))
+	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Alt))
+	binary.LittleEndian.PutUint16(payload[10:], uint16(m.BreakAlt))
+	binary.LittleEndian.PutUint16(payload[12:], uint16(m.LandDir))
+	payload[14] = byte(m.TargetSystem)
+	payload[15] = byte(m.TargetComponent)
+	payload[16] = byte(m.Idx)
+	payload[17] = byte(m.Count)
+	payload[18] = byte(m.Flags)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *RallyPoint) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *RallyPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Lat = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Lng = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Alt = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	self.BreakAlt = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	self.LandDir = uint16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	self.TargetSystem = uint8(p.Payload[14])
-	self.TargetComponent = uint8(p.Payload[15])
-	self.Idx = uint8(p.Payload[16])
-	self.Count = uint8(p.Payload[17])
-	self.Flags = uint8(p.Payload[18])
+	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Lng = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Alt = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
+	m.BreakAlt = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.LandDir = uint16(binary.LittleEndian.Uint16(p.Payload[12:]))
+	m.TargetSystem = uint8(p.Payload[14])
+	m.TargetComponent = uint8(p.Payload[15])
+	m.Idx = uint8(p.Payload[16])
+	m.Count = uint8(p.Payload[17])
+	m.Flags = uint8(p.Payload[18])
 	return nil
 }
 
+// RallyFetchPoint struct (generated typeinfo)
 // Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.
 type RallyFetchPoint struct {
 	TargetSystem    uint8 // System ID
@@ -1519,35 +1645,40 @@ type RallyFetchPoint struct {
 	Idx             uint8 // point index (first point is 0)
 }
 
-func (self *RallyFetchPoint) MsgID() MessageID {
+// MsgID (generated function)
+func (m *RallyFetchPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
 }
 
-func (self *RallyFetchPoint) MsgName() string {
+// MsgName (generated function)
+func (m *RallyFetchPoint) MsgName() string {
 	return "RallyFetchPoint"
 }
 
-func (self *RallyFetchPoint) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *RallyFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.Idx)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.Idx)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *RallyFetchPoint) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *RallyFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.Idx = uint8(p.Payload[2])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.Idx = uint8(p.Payload[2])
 	return nil
 }
 
+// CompassmotStatus struct (generated typeinfo)
 // Status of compassmot calibration
 type CompassmotStatus struct {
 	Current       float32 // current (Ampere)
@@ -1558,41 +1689,46 @@ type CompassmotStatus struct {
 	Interference  uint16  // interference (percent)
 }
 
-func (self *CompassmotStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *CompassmotStatus) MsgID() MessageID {
 	return MSG_ID_COMPASSMOT_STATUS
 }
 
-func (self *CompassmotStatus) MsgName() string {
+// MsgName (generated function)
+func (m *CompassmotStatus) MsgName() string {
 	return "CompassmotStatus"
 }
 
-func (self *CompassmotStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *CompassmotStatus) Pack(p *Packet) error {
 	payload := make([]byte, 20)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Current))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Compensationx))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Compensationy))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.Compensationz))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(self.Throttle))
-	binary.LittleEndian.PutUint16(payload[18:], uint16(self.Interference))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Current))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Compensationx))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Compensationy))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Compensationz))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Throttle))
+	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Interference))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *CompassmotStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *CompassmotStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Current = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Compensationx = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Compensationy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Compensationz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Throttle = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	self.Interference = uint16(binary.LittleEndian.Uint16(p.Payload[18:]))
+	m.Current = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Compensationx = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Compensationy = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Compensationz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Throttle = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
+	m.Interference = uint16(binary.LittleEndian.Uint16(p.Payload[18:]))
 	return nil
 }
 
+// Ahrs2 struct (generated typeinfo)
 // Status of secondary AHRS filter if available
 type Ahrs2 struct {
 	Roll     float32 // Roll angle (rad)
@@ -1603,41 +1739,46 @@ type Ahrs2 struct {
 	Lng      int32   // Longitude in degrees * 1E7
 }
 
-func (self *Ahrs2) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Ahrs2) MsgID() MessageID {
 	return MSG_ID_AHRS2
 }
 
-func (self *Ahrs2) MsgName() string {
+// MsgName (generated function)
+func (m *Ahrs2) MsgName() string {
 	return "Ahrs2"
 }
 
-func (self *Ahrs2) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Ahrs2) Pack(p *Packet) error {
 	payload := make([]byte, 24)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Roll))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Pitch))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Yaw))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.Altitude))
-	binary.LittleEndian.PutUint32(payload[16:], uint32(self.Lat))
-	binary.LittleEndian.PutUint32(payload[20:], uint32(self.Lng))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Yaw))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Altitude))
+	binary.LittleEndian.PutUint32(payload[16:], uint32(m.Lat))
+	binary.LittleEndian.PutUint32(payload[20:], uint32(m.Lng))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Ahrs2) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Ahrs2) Unpack(p *Packet) error {
 	if len(p.Payload) < 24 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Altitude = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Lat = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Lng = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Altitude = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Lng = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
 	return nil
 }
 
+// CameraStatus struct (generated typeinfo)
 // Camera Event
 type CameraStatus struct {
 	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch, according to camera clock)
@@ -1648,50 +1789,55 @@ type CameraStatus struct {
 	ImgIdx       uint16  // Image index
 	TargetSystem uint8   // System ID
 	CamIdx       uint8   // Camera ID
-	EventId      uint8   // See CAMERA_STATUS_TYPES enum for definition of the bitmask
+	EventID      uint8   // See CAMERA_STATUS_TYPES enum for definition of the bitmask
 }
 
-func (self *CameraStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *CameraStatus) MsgID() MessageID {
 	return MSG_ID_CAMERA_STATUS
 }
 
-func (self *CameraStatus) MsgName() string {
+// MsgName (generated function)
+func (m *CameraStatus) MsgName() string {
 	return "CameraStatus"
 }
 
-func (self *CameraStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *CameraStatus) Pack(p *Packet) error {
 	payload := make([]byte, 29)
-	binary.LittleEndian.PutUint64(payload[0:], uint64(self.TimeUsec))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.P1))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.P2))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.P3))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.P4))
-	binary.LittleEndian.PutUint16(payload[24:], uint16(self.ImgIdx))
-	payload[26] = byte(self.TargetSystem)
-	payload[27] = byte(self.CamIdx)
-	payload[28] = byte(self.EventId)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.P1))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.P2))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.P3))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.P4))
+	binary.LittleEndian.PutUint16(payload[24:], uint16(m.ImgIdx))
+	payload[26] = byte(m.TargetSystem)
+	payload[27] = byte(m.CamIdx)
+	payload[28] = byte(m.EventID)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *CameraStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *CameraStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	self.P1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.P2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.P3 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.P4 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.ImgIdx = uint16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	self.TargetSystem = uint8(p.Payload[26])
-	self.CamIdx = uint8(p.Payload[27])
-	self.EventId = uint8(p.Payload[28])
+	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
+	m.P1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.P2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.P3 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.P4 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.ImgIdx = uint16(binary.LittleEndian.Uint16(p.Payload[24:]))
+	m.TargetSystem = uint8(p.Payload[26])
+	m.CamIdx = uint8(p.Payload[27])
+	m.EventID = uint8(p.Payload[28])
 	return nil
 }
 
+// CameraFeedback struct (generated typeinfo)
 // Camera Capture Feedback
 type CameraFeedback struct {
 	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB)
@@ -1709,88 +1855,98 @@ type CameraFeedback struct {
 	Flags        uint8   // See CAMERA_FEEDBACK_FLAGS enum for definition of the bitmask
 }
 
-func (self *CameraFeedback) MsgID() MessageID {
+// MsgID (generated function)
+func (m *CameraFeedback) MsgID() MessageID {
 	return MSG_ID_CAMERA_FEEDBACK
 }
 
-func (self *CameraFeedback) MsgName() string {
+// MsgName (generated function)
+func (m *CameraFeedback) MsgName() string {
 	return "CameraFeedback"
 }
 
-func (self *CameraFeedback) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *CameraFeedback) Pack(p *Packet) error {
 	payload := make([]byte, 45)
-	binary.LittleEndian.PutUint64(payload[0:], uint64(self.TimeUsec))
-	binary.LittleEndian.PutUint32(payload[8:], uint32(self.Lat))
-	binary.LittleEndian.PutUint32(payload[12:], uint32(self.Lng))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.AltMsl))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.AltRel))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.Roll))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.Pitch))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.Yaw))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(self.FocLen))
-	binary.LittleEndian.PutUint16(payload[40:], uint16(self.ImgIdx))
-	payload[42] = byte(self.TargetSystem)
-	payload[43] = byte(self.CamIdx)
-	payload[44] = byte(self.Flags)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.Lng))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.AltMsl))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.AltRel))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Roll))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Pitch))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Yaw))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.FocLen))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.ImgIdx))
+	payload[42] = byte(m.TargetSystem)
+	payload[43] = byte(m.CamIdx)
+	payload[44] = byte(m.Flags)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *CameraFeedback) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *CameraFeedback) Unpack(p *Packet) error {
 	if len(p.Payload) < 45 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	self.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Lng = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.AltMsl = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.AltRel = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.FocLen = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	self.ImgIdx = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
-	self.TargetSystem = uint8(p.Payload[42])
-	self.CamIdx = uint8(p.Payload[43])
-	self.Flags = uint8(p.Payload[44])
+	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
+	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Lng = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.AltMsl = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.AltRel = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.FocLen = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.ImgIdx = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
+	m.TargetSystem = uint8(p.Payload[42])
+	m.CamIdx = uint8(p.Payload[43])
+	m.Flags = uint8(p.Payload[44])
 	return nil
 }
 
+// Battery2 struct (generated typeinfo)
 // 2nd Battery status
 type Battery2 struct {
 	Voltage        uint16 // voltage in millivolts
 	CurrentBattery int16  // Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current
 }
 
-func (self *Battery2) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Battery2) MsgID() MessageID {
 	return MSG_ID_BATTERY2
 }
 
-func (self *Battery2) MsgName() string {
+// MsgName (generated function)
+func (m *Battery2) MsgName() string {
 	return "Battery2"
 }
 
-func (self *Battery2) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Battery2) Pack(p *Packet) error {
 	payload := make([]byte, 4)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.Voltage))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.CurrentBattery))
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Voltage))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.CurrentBattery))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Battery2) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Battery2) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Voltage = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.CurrentBattery = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.Voltage = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.CurrentBattery = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
 	return nil
 }
 
+// Ahrs3 struct (generated typeinfo)
 // Status of third AHRS filter if available. This is for ANU research group (Ali and Sean)
 type Ahrs3 struct {
 	Roll     float32 // Roll angle (rad)
@@ -1805,82 +1961,92 @@ type Ahrs3 struct {
 	V4       float32 // test variable4
 }
 
-func (self *Ahrs3) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Ahrs3) MsgID() MessageID {
 	return MSG_ID_AHRS3
 }
 
-func (self *Ahrs3) MsgName() string {
+// MsgName (generated function)
+func (m *Ahrs3) MsgName() string {
 	return "Ahrs3"
 }
 
-func (self *Ahrs3) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Ahrs3) Pack(p *Packet) error {
 	payload := make([]byte, 40)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Roll))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Pitch))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Yaw))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.Altitude))
-	binary.LittleEndian.PutUint32(payload[16:], uint32(self.Lat))
-	binary.LittleEndian.PutUint32(payload[20:], uint32(self.Lng))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.V1))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.V2))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.V3))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(self.V4))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Yaw))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Altitude))
+	binary.LittleEndian.PutUint32(payload[16:], uint32(m.Lat))
+	binary.LittleEndian.PutUint32(payload[20:], uint32(m.Lng))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.V1))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.V2))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.V3))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.V4))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Ahrs3) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Ahrs3) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.Altitude = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.Lat = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Lng = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.V1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.V2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.V3 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.V4 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Yaw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.Altitude = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Lng = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.V1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.V2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.V3 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.V4 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
 	return nil
 }
 
+// AutopilotVersionRequest struct (generated typeinfo)
 // Request the autopilot version from the system/component.
 type AutopilotVersionRequest struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
-func (self *AutopilotVersionRequest) MsgID() MessageID {
+// MsgID (generated function)
+func (m *AutopilotVersionRequest) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
 }
 
-func (self *AutopilotVersionRequest) MsgName() string {
+// MsgName (generated function)
+func (m *AutopilotVersionRequest) MsgName() string {
 	return "AutopilotVersionRequest"
 }
 
-func (self *AutopilotVersionRequest) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *AutopilotVersionRequest) Pack(p *Packet) error {
 	payload := make([]byte, 2)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *AutopilotVersionRequest) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *AutopilotVersionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
 	return nil
 }
 
+// RemoteLogDataBlock struct (generated typeinfo)
 // Send a block of log data to remote location
 type RemoteLogDataBlock struct {
 	Seqno           uint32     // log data block sequence number
@@ -1889,37 +2055,42 @@ type RemoteLogDataBlock struct {
 	Data            [200]uint8 // log data block
 }
 
-func (self *RemoteLogDataBlock) MsgID() MessageID {
+// MsgID (generated function)
+func (m *RemoteLogDataBlock) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_DATA_BLOCK
 }
 
-func (self *RemoteLogDataBlock) MsgName() string {
+// MsgName (generated function)
+func (m *RemoteLogDataBlock) MsgName() string {
 	return "RemoteLogDataBlock"
 }
 
-func (self *RemoteLogDataBlock) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *RemoteLogDataBlock) Pack(p *Packet) error {
 	payload := make([]byte, 206)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.Seqno))
-	payload[4] = byte(self.TargetSystem)
-	payload[5] = byte(self.TargetComponent)
-	copy(payload[6:], self.Data[:])
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
+	payload[4] = byte(m.TargetSystem)
+	payload[5] = byte(m.TargetComponent)
+	copy(payload[6:], m.Data[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *RemoteLogDataBlock) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *RemoteLogDataBlock) Unpack(p *Packet) error {
 	if len(p.Payload) < 206 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Seqno = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.TargetSystem = uint8(p.Payload[4])
-	self.TargetComponent = uint8(p.Payload[5])
-	copy(self.Data[:], p.Payload[6:206])
+	m.Seqno = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.TargetSystem = uint8(p.Payload[4])
+	m.TargetComponent = uint8(p.Payload[5])
+	copy(m.Data[:], p.Payload[6:206])
 	return nil
 }
 
+// RemoteLogBlockStatus struct (generated typeinfo)
 // Send Status of each log block that autopilot board might have sent
 type RemoteLogBlockStatus struct {
 	Seqno           uint32 // log data block sequence number
@@ -1928,37 +2099,42 @@ type RemoteLogBlockStatus struct {
 	Status          uint8  // log data block status
 }
 
-func (self *RemoteLogBlockStatus) MsgID() MessageID {
+// MsgID (generated function)
+func (m *RemoteLogBlockStatus) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
 }
 
-func (self *RemoteLogBlockStatus) MsgName() string {
+// MsgName (generated function)
+func (m *RemoteLogBlockStatus) MsgName() string {
 	return "RemoteLogBlockStatus"
 }
 
-func (self *RemoteLogBlockStatus) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *RemoteLogBlockStatus) Pack(p *Packet) error {
 	payload := make([]byte, 7)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(self.Seqno))
-	payload[4] = byte(self.TargetSystem)
-	payload[5] = byte(self.TargetComponent)
-	payload[6] = byte(self.Status)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
+	payload[4] = byte(m.TargetSystem)
+	payload[5] = byte(m.TargetComponent)
+	payload[6] = byte(m.Status)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *RemoteLogBlockStatus) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *RemoteLogBlockStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Seqno = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.TargetSystem = uint8(p.Payload[4])
-	self.TargetComponent = uint8(p.Payload[5])
-	self.Status = uint8(p.Payload[6])
+	m.Seqno = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.TargetSystem = uint8(p.Payload[4])
+	m.TargetComponent = uint8(p.Payload[5])
+	m.Status = uint8(p.Payload[6])
 	return nil
 }
 
+// LedControl struct (generated typeinfo)
 // Control vehicle LEDs
 type LedControl struct {
 	TargetSystem    uint8     // System ID
@@ -1969,47 +2145,52 @@ type LedControl struct {
 	CustomBytes     [24]uint8 // Custom Bytes
 }
 
-func (self *LedControl) MsgID() MessageID {
+// MsgID (generated function)
+func (m *LedControl) MsgID() MessageID {
 	return MSG_ID_LED_CONTROL
 }
 
-func (self *LedControl) MsgName() string {
+// MsgName (generated function)
+func (m *LedControl) MsgName() string {
 	return "LedControl"
 }
 
-func (self *LedControl) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *LedControl) Pack(p *Packet) error {
 	payload := make([]byte, 29)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.Instance)
-	payload[3] = byte(self.Pattern)
-	payload[4] = byte(self.CustomLen)
-	copy(payload[5:], self.CustomBytes[:])
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.Instance)
+	payload[3] = byte(m.Pattern)
+	payload[4] = byte(m.CustomLen)
+	copy(payload[5:], m.CustomBytes[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *LedControl) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *LedControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.Instance = uint8(p.Payload[2])
-	self.Pattern = uint8(p.Payload[3])
-	self.CustomLen = uint8(p.Payload[4])
-	copy(self.CustomBytes[:], p.Payload[5:29])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.Instance = uint8(p.Payload[2])
+	m.Pattern = uint8(p.Payload[3])
+	m.CustomLen = uint8(p.Payload[4])
+	copy(m.CustomBytes[:], p.Payload[5:29])
 	return nil
 }
 
+// MagCalProgress struct (generated typeinfo)
 // Reports progress of compass calibration.
 type MagCalProgress struct {
 	DirectionX     float32   // Body frame direction vector for display
 	DirectionY     float32   // Body frame direction vector for display
 	DirectionZ     float32   // Body frame direction vector for display
-	CompassId      uint8     // Compass being calibrated
+	CompassID      uint8     // Compass being calibrated
 	CalMask        uint8     // Bitmask of compasses being calibrated
 	CalStatus      uint8     // Status (see MAG_CAL_STATUS enum)
 	Attempt        uint8     // Attempt number
@@ -2017,47 +2198,52 @@ type MagCalProgress struct {
 	CompletionMask [10]uint8 // Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid)
 }
 
-func (self *MagCalProgress) MsgID() MessageID {
+// MsgID (generated function)
+func (m *MagCalProgress) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_PROGRESS
 }
 
-func (self *MagCalProgress) MsgName() string {
+// MsgName (generated function)
+func (m *MagCalProgress) MsgName() string {
 	return "MagCalProgress"
 }
 
-func (self *MagCalProgress) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *MagCalProgress) Pack(p *Packet) error {
 	payload := make([]byte, 27)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.DirectionX))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.DirectionY))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.DirectionZ))
-	payload[12] = byte(self.CompassId)
-	payload[13] = byte(self.CalMask)
-	payload[14] = byte(self.CalStatus)
-	payload[15] = byte(self.Attempt)
-	payload[16] = byte(self.CompletionPct)
-	copy(payload[17:], self.CompletionMask[:])
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DirectionX))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DirectionY))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.DirectionZ))
+	payload[12] = byte(m.CompassID)
+	payload[13] = byte(m.CalMask)
+	payload[14] = byte(m.CalStatus)
+	payload[15] = byte(m.Attempt)
+	payload[16] = byte(m.CompletionPct)
+	copy(payload[17:], m.CompletionMask[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *MagCalProgress) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *MagCalProgress) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		return fmt.Errorf("payload too small")
 	}
-	self.DirectionX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.DirectionY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.DirectionZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.CompassId = uint8(p.Payload[12])
-	self.CalMask = uint8(p.Payload[13])
-	self.CalStatus = uint8(p.Payload[14])
-	self.Attempt = uint8(p.Payload[15])
-	self.CompletionPct = uint8(p.Payload[16])
-	copy(self.CompletionMask[:], p.Payload[17:27])
+	m.DirectionX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.DirectionY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.DirectionZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.CompassID = uint8(p.Payload[12])
+	m.CalMask = uint8(p.Payload[13])
+	m.CalStatus = uint8(p.Payload[14])
+	m.Attempt = uint8(p.Payload[15])
+	m.CompletionPct = uint8(p.Payload[16])
+	copy(m.CompletionMask[:], p.Payload[17:27])
 	return nil
 }
 
+// MagCalReport struct (generated typeinfo)
 // Reports results of completed compass calibration. Sent until MAG_CAL_ACK received.
 type MagCalReport struct {
 	Fitness   float32 // RMS milligauss residuals
@@ -2070,63 +2256,68 @@ type MagCalReport struct {
 	OffdiagX  float32 // X off-diagonal (matrix 12 and 21)
 	OffdiagY  float32 // Y off-diagonal (matrix 13 and 31)
 	OffdiagZ  float32 // Z off-diagonal (matrix 32 and 23)
-	CompassId uint8   // Compass being calibrated
+	CompassID uint8   // Compass being calibrated
 	CalMask   uint8   // Bitmask of compasses being calibrated
 	CalStatus uint8   // Status (see MAG_CAL_STATUS enum)
 	Autosaved uint8   // 0=requires a MAV_CMD_DO_ACCEPT_MAG_CAL, 1=saved to parameters
 }
 
-func (self *MagCalReport) MsgID() MessageID {
+// MsgID (generated function)
+func (m *MagCalReport) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_REPORT
 }
 
-func (self *MagCalReport) MsgName() string {
+// MsgName (generated function)
+func (m *MagCalReport) MsgName() string {
 	return "MagCalReport"
 }
 
-func (self *MagCalReport) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *MagCalReport) Pack(p *Packet) error {
 	payload := make([]byte, 44)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Fitness))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.OfsX))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.OfsY))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.OfsZ))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.DiagX))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.DiagY))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.DiagZ))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.OffdiagX))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.OffdiagY))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(self.OffdiagZ))
-	payload[40] = byte(self.CompassId)
-	payload[41] = byte(self.CalMask)
-	payload[42] = byte(self.CalStatus)
-	payload[43] = byte(self.Autosaved)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Fitness))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.OfsX))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.OfsY))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.OfsZ))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.DiagX))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.DiagY))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.DiagZ))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.OffdiagX))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.OffdiagY))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.OffdiagZ))
+	payload[40] = byte(m.CompassID)
+	payload[41] = byte(m.CalMask)
+	payload[42] = byte(m.CalStatus)
+	payload[43] = byte(m.Autosaved)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *MagCalReport) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *MagCalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Fitness = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.OfsX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.OfsY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.OfsZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.DiagX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.DiagY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.DiagZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.OffdiagX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.OffdiagY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.OffdiagZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	self.CompassId = uint8(p.Payload[40])
-	self.CalMask = uint8(p.Payload[41])
-	self.CalStatus = uint8(p.Payload[42])
-	self.Autosaved = uint8(p.Payload[43])
+	m.Fitness = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.OfsX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.OfsY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.OfsZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.DiagX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.DiagY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.DiagZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.OffdiagX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.OffdiagY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.OffdiagZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.CompassID = uint8(p.Payload[40])
+	m.CalMask = uint8(p.Payload[41])
+	m.CalStatus = uint8(p.Payload[42])
+	m.Autosaved = uint8(p.Payload[43])
 	return nil
 }
 
+// EkfStatusReport struct (generated typeinfo)
 // EKF Status message including flags and variances
 type EkfStatusReport struct {
 	VelocityVariance   float32 // Velocity variance
@@ -2137,41 +2328,46 @@ type EkfStatusReport struct {
 	Flags              uint16  // Flags
 }
 
-func (self *EkfStatusReport) MsgID() MessageID {
+// MsgID (generated function)
+func (m *EkfStatusReport) MsgID() MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
 }
 
-func (self *EkfStatusReport) MsgName() string {
+// MsgName (generated function)
+func (m *EkfStatusReport) MsgName() string {
 	return "EkfStatusReport"
 }
 
-func (self *EkfStatusReport) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *EkfStatusReport) Pack(p *Packet) error {
 	payload := make([]byte, 22)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.VelocityVariance))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.PosHorizVariance))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.PosVertVariance))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.CompassVariance))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.TerrainAltVariance))
-	binary.LittleEndian.PutUint16(payload[20:], uint16(self.Flags))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.VelocityVariance))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PosHorizVariance))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PosVertVariance))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.CompassVariance))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.TerrainAltVariance))
+	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Flags))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *EkfStatusReport) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *EkfStatusReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
-	self.VelocityVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.PosHorizVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.PosVertVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.CompassVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.TerrainAltVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.Flags = uint16(binary.LittleEndian.Uint16(p.Payload[20:]))
+	m.VelocityVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.PosHorizVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.PosVertVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.CompassVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.TerrainAltVariance = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.Flags = uint16(binary.LittleEndian.Uint16(p.Payload[20:]))
 	return nil
 }
 
+// PidTuning struct (generated typeinfo)
 // PID tuning information
 type PidTuning struct {
 	Desired  float32 // desired rate (degrees/s)
@@ -2183,43 +2379,48 @@ type PidTuning struct {
 	Axis     uint8   // axis
 }
 
-func (self *PidTuning) MsgID() MessageID {
+// MsgID (generated function)
+func (m *PidTuning) MsgID() MessageID {
 	return MSG_ID_PID_TUNING
 }
 
-func (self *PidTuning) MsgName() string {
+// MsgName (generated function)
+func (m *PidTuning) MsgName() string {
 	return "PidTuning"
 }
 
-func (self *PidTuning) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *PidTuning) Pack(p *Packet) error {
 	payload := make([]byte, 25)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Desired))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Achieved))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.Ff))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.P))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.I))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.D))
-	payload[24] = byte(self.Axis)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Desired))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Achieved))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Ff))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.P))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.I))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.D))
+	payload[24] = byte(m.Axis)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *PidTuning) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *PidTuning) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Desired = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Achieved = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.Ff = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.P = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.I = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.D = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.Axis = uint8(p.Payload[24])
+	m.Desired = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Achieved = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Ff = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.P = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.I = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.D = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.Axis = uint8(p.Payload[24])
 	return nil
 }
 
+// GimbalReport struct (generated typeinfo)
 // 3 axis gimbal mesuraments
 type GimbalReport struct {
 	DeltaTime       float32 // Time since last update (seconds)
@@ -2236,53 +2437,58 @@ type GimbalReport struct {
 	TargetComponent uint8   // Component ID
 }
 
-func (self *GimbalReport) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GimbalReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_REPORT
 }
 
-func (self *GimbalReport) MsgName() string {
+// MsgName (generated function)
+func (m *GimbalReport) MsgName() string {
 	return "GimbalReport"
 }
 
-func (self *GimbalReport) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GimbalReport) Pack(p *Packet) error {
 	payload := make([]byte, 42)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.DeltaTime))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.DeltaAngleX))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.DeltaAngleY))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(self.DeltaAngleZ))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(self.DeltaVelocityX))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(self.DeltaVelocityY))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(self.DeltaVelocityZ))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(self.JointRoll))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(self.JointEl))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(self.JointAz))
-	payload[40] = byte(self.TargetSystem)
-	payload[41] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DeltaTime))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DeltaAngleX))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.DeltaAngleY))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.DeltaAngleZ))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.DeltaVelocityX))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.DeltaVelocityY))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.DeltaVelocityZ))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.JointRoll))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.JointEl))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.JointAz))
+	payload[40] = byte(m.TargetSystem)
+	payload[41] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GimbalReport) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GimbalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
-	self.DeltaTime = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.DeltaAngleX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.DeltaAngleY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.DeltaAngleZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	self.DeltaVelocityX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	self.DeltaVelocityY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	self.DeltaVelocityZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	self.JointRoll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	self.JointEl = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	self.JointAz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	self.TargetSystem = uint8(p.Payload[40])
-	self.TargetComponent = uint8(p.Payload[41])
+	m.DeltaTime = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.DeltaAngleX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.DeltaAngleY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.DeltaAngleZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.DeltaVelocityX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.DeltaVelocityY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.DeltaVelocityZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.JointRoll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.JointEl = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
+	m.JointAz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
+	m.TargetSystem = uint8(p.Payload[40])
+	m.TargetComponent = uint8(p.Payload[41])
 	return nil
 }
 
+// GimbalControl struct (generated typeinfo)
 // Control message for rate gimbal
 type GimbalControl struct {
 	DemandedRateX   float32 // Demanded angular rate X (rad/s)
@@ -2292,39 +2498,44 @@ type GimbalControl struct {
 	TargetComponent uint8   // Component ID
 }
 
-func (self *GimbalControl) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GimbalControl) MsgID() MessageID {
 	return MSG_ID_GIMBAL_CONTROL
 }
 
-func (self *GimbalControl) MsgName() string {
+// MsgName (generated function)
+func (m *GimbalControl) MsgName() string {
 	return "GimbalControl"
 }
 
-func (self *GimbalControl) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GimbalControl) Pack(p *Packet) error {
 	payload := make([]byte, 14)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.DemandedRateX))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.DemandedRateY))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(self.DemandedRateZ))
-	payload[12] = byte(self.TargetSystem)
-	payload[13] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DemandedRateX))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DemandedRateY))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.DemandedRateZ))
+	payload[12] = byte(m.TargetSystem)
+	payload[13] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GimbalControl) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GimbalControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
-	self.DemandedRateX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.DemandedRateY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	self.DemandedRateZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	self.TargetSystem = uint8(p.Payload[12])
-	self.TargetComponent = uint8(p.Payload[13])
+	m.DemandedRateX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.DemandedRateY = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.DemandedRateZ = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.TargetSystem = uint8(p.Payload[12])
+	m.TargetComponent = uint8(p.Payload[13])
 	return nil
 }
 
+// GimbalTorqueCmdReport struct (generated typeinfo)
 // 100 Hz gimbal torque command telemetry
 type GimbalTorqueCmdReport struct {
 	RlTorqueCmd     int16 // Roll Torque Command
@@ -2334,39 +2545,44 @@ type GimbalTorqueCmdReport struct {
 	TargetComponent uint8 // Component ID
 }
 
-func (self *GimbalTorqueCmdReport) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GimbalTorqueCmdReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
 }
 
-func (self *GimbalTorqueCmdReport) MsgName() string {
+// MsgName (generated function)
+func (m *GimbalTorqueCmdReport) MsgName() string {
 	return "GimbalTorqueCmdReport"
 }
 
-func (self *GimbalTorqueCmdReport) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GimbalTorqueCmdReport) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint16(payload[0:], uint16(self.RlTorqueCmd))
-	binary.LittleEndian.PutUint16(payload[2:], uint16(self.ElTorqueCmd))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(self.AzTorqueCmd))
-	payload[6] = byte(self.TargetSystem)
-	payload[7] = byte(self.TargetComponent)
+	binary.LittleEndian.PutUint16(payload[0:], uint16(m.RlTorqueCmd))
+	binary.LittleEndian.PutUint16(payload[2:], uint16(m.ElTorqueCmd))
+	binary.LittleEndian.PutUint16(payload[4:], uint16(m.AzTorqueCmd))
+	payload[6] = byte(m.TargetSystem)
+	payload[7] = byte(m.TargetComponent)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GimbalTorqueCmdReport) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GimbalTorqueCmdReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.RlTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	self.ElTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	self.AzTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	self.TargetSystem = uint8(p.Payload[6])
-	self.TargetComponent = uint8(p.Payload[7])
+	m.RlTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
+	m.ElTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.AzTorqueCmd = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
+	m.TargetSystem = uint8(p.Payload[6])
+	m.TargetComponent = uint8(p.Payload[7])
 	return nil
 }
 
+// GoproHeartbeat struct (generated typeinfo)
 // Heartbeat from a HeroBus attached GoPro
 type GoproHeartbeat struct {
 	Status      uint8 // Status
@@ -2374,209 +2590,238 @@ type GoproHeartbeat struct {
 	Flags       uint8 // additional status bits
 }
 
-func (self *GoproHeartbeat) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GoproHeartbeat) MsgID() MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
 }
 
-func (self *GoproHeartbeat) MsgName() string {
+// MsgName (generated function)
+func (m *GoproHeartbeat) MsgName() string {
 	return "GoproHeartbeat"
 }
 
-func (self *GoproHeartbeat) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GoproHeartbeat) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.Status)
-	payload[1] = byte(self.CaptureMode)
-	payload[2] = byte(self.Flags)
+	payload[0] = byte(m.Status)
+	payload[1] = byte(m.CaptureMode)
+	payload[2] = byte(m.Flags)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GoproHeartbeat) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GoproHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Status = uint8(p.Payload[0])
-	self.CaptureMode = uint8(p.Payload[1])
-	self.Flags = uint8(p.Payload[2])
+	m.Status = uint8(p.Payload[0])
+	m.CaptureMode = uint8(p.Payload[1])
+	m.Flags = uint8(p.Payload[2])
 	return nil
 }
 
+// GoproGetRequest struct (generated typeinfo)
 // Request a GOPRO_COMMAND response from the GoPro
 type GoproGetRequest struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
-	CmdId           uint8 // Command ID
+	CmdID           uint8 // Command ID
 }
 
-func (self *GoproGetRequest) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GoproGetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_REQUEST
 }
 
-func (self *GoproGetRequest) MsgName() string {
+// MsgName (generated function)
+func (m *GoproGetRequest) MsgName() string {
 	return "GoproGetRequest"
 }
 
-func (self *GoproGetRequest) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GoproGetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 3)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.CmdId)
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.CmdID)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GoproGetRequest) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GoproGetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.CmdId = uint8(p.Payload[2])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.CmdID = uint8(p.Payload[2])
 	return nil
 }
 
+// GoproGetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND get request
 type GoproGetResponse struct {
-	CmdId  uint8    // Command ID
+	CmdID  uint8    // Command ID
 	Status uint8    // Status
 	Value  [4]uint8 // Value
 }
 
-func (self *GoproGetResponse) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GoproGetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_RESPONSE
 }
 
-func (self *GoproGetResponse) MsgName() string {
+// MsgName (generated function)
+func (m *GoproGetResponse) MsgName() string {
 	return "GoproGetResponse"
 }
 
-func (self *GoproGetResponse) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GoproGetResponse) Pack(p *Packet) error {
 	payload := make([]byte, 6)
-	payload[0] = byte(self.CmdId)
-	payload[1] = byte(self.Status)
-	copy(payload[2:], self.Value[:])
+	payload[0] = byte(m.CmdID)
+	payload[1] = byte(m.Status)
+	copy(payload[2:], m.Value[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GoproGetResponse) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GoproGetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
-	self.CmdId = uint8(p.Payload[0])
-	self.Status = uint8(p.Payload[1])
-	copy(self.Value[:], p.Payload[2:6])
+	m.CmdID = uint8(p.Payload[0])
+	m.Status = uint8(p.Payload[1])
+	copy(m.Value[:], p.Payload[2:6])
 	return nil
 }
 
+// GoproSetRequest struct (generated typeinfo)
 // Request to set a GOPRO_COMMAND with a desired
 type GoproSetRequest struct {
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
-	CmdId           uint8    // Command ID
+	CmdID           uint8    // Command ID
 	Value           [4]uint8 // Value
 }
 
-func (self *GoproSetRequest) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GoproSetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_REQUEST
 }
 
-func (self *GoproSetRequest) MsgName() string {
+// MsgName (generated function)
+func (m *GoproSetRequest) MsgName() string {
 	return "GoproSetRequest"
 }
 
-func (self *GoproSetRequest) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GoproSetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 7)
-	payload[0] = byte(self.TargetSystem)
-	payload[1] = byte(self.TargetComponent)
-	payload[2] = byte(self.CmdId)
-	copy(payload[3:], self.Value[:])
+	payload[0] = byte(m.TargetSystem)
+	payload[1] = byte(m.TargetComponent)
+	payload[2] = byte(m.CmdID)
+	copy(payload[3:], m.Value[:])
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GoproSetRequest) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GoproSetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
-	self.TargetSystem = uint8(p.Payload[0])
-	self.TargetComponent = uint8(p.Payload[1])
-	self.CmdId = uint8(p.Payload[2])
-	copy(self.Value[:], p.Payload[3:7])
+	m.TargetSystem = uint8(p.Payload[0])
+	m.TargetComponent = uint8(p.Payload[1])
+	m.CmdID = uint8(p.Payload[2])
+	copy(m.Value[:], p.Payload[3:7])
 	return nil
 }
 
+// GoproSetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND set request
 type GoproSetResponse struct {
-	CmdId  uint8 // Command ID
+	CmdID  uint8 // Command ID
 	Status uint8 // Status
 }
 
-func (self *GoproSetResponse) MsgID() MessageID {
+// MsgID (generated function)
+func (m *GoproSetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
 }
 
-func (self *GoproSetResponse) MsgName() string {
+// MsgName (generated function)
+func (m *GoproSetResponse) MsgName() string {
 	return "GoproSetResponse"
 }
 
-func (self *GoproSetResponse) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *GoproSetResponse) Pack(p *Packet) error {
 	payload := make([]byte, 2)
-	payload[0] = byte(self.CmdId)
-	payload[1] = byte(self.Status)
+	payload[0] = byte(m.CmdID)
+	payload[1] = byte(m.Status)
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *GoproSetResponse) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *GoproSetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
-	self.CmdId = uint8(p.Payload[0])
-	self.Status = uint8(p.Payload[1])
+	m.CmdID = uint8(p.Payload[0])
+	m.Status = uint8(p.Payload[1])
 	return nil
 }
 
+// Rpm struct (generated typeinfo)
 // RPM sensor output
 type Rpm struct {
 	Rpm1 float32 // RPM Sensor1
 	Rpm2 float32 // RPM Sensor2
 }
 
-func (self *Rpm) MsgID() MessageID {
+// MsgID (generated function)
+func (m *Rpm) MsgID() MessageID {
 	return MSG_ID_RPM
 }
 
-func (self *Rpm) MsgName() string {
+// MsgName (generated function)
+func (m *Rpm) MsgName() string {
 	return "Rpm"
 }
 
-func (self *Rpm) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *Rpm) Pack(p *Packet) error {
 	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(self.Rpm1))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(self.Rpm2))
+	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Rpm1))
+	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Rpm2))
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *Rpm) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *Rpm) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
-	self.Rpm1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	self.Rpm2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Rpm1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
+	m.Rpm2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
 	return nil
 }
 
@@ -2634,7 +2879,7 @@ const (
 )
 
 // DialectArdupilotmega is the dialect represented by ardupilotmega.xml
-var DialectArdupilotmega *Dialect = &Dialect{
+var DialectArdupilotmega = &Dialect{
 	Name: "ardupilotmega",
 	crcExtras: map[MessageID]uint8{
 		MSG_ID_SENSOR_OFFSETS:            134,
@@ -2687,7 +2932,7 @@ var DialectArdupilotmega *Dialect = &Dialect{
 		MSG_ID_GOPRO_SET_RESPONSE:        162,
 		MSG_ID_RPM:                       207,
 	},
-	messageConstructorByMsgId: map[MessageID]func(*Packet) Message{
+	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_SENSOR_OFFSETS: func(pkt *Packet) Message {
 			msg := new(SensorOffsets)
 			msg.Unpack(pkt)

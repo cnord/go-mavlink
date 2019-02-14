@@ -18,13 +18,16 @@ const (
 )
 
 var (
+	// ErrUnknownMsgID define
 	ErrUnknownMsgID = errors.New("unknown msg id")
-	ErrCrcFail      = errors.New("checksum did not match")
+	// ErrCrcFail define
+	ErrCrcFail = errors.New("checksum did not match")
 )
 
+// MessageID typedef
 type MessageID uint8
 
-// basic type for encoding/decoding mavlink messages.
+// Message is a basic type for encoding/decoding mavlink messages.
 // use the Pack() and Unpack() routines on specific message
 // types to convert them to/from the Packet type.
 type Message interface {
@@ -34,7 +37,7 @@ type Message interface {
 	MsgName() string
 }
 
-// wire type for encoding/decoding mavlink messages.
+// Packet is a wire type for encoding/decoding mavlink messages.
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
 type Packet struct {
@@ -46,6 +49,7 @@ type Packet struct {
 	Checksum uint16
 }
 
+// Decoder struct provide decoding processor
 type Decoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id decoded
@@ -54,6 +58,7 @@ type Decoder struct {
 	buffer    []byte // stores bytes we've read from br
 }
 
+// Encoder struct provide encoding processor
 type Encoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id encoded
@@ -61,6 +66,7 @@ type Encoder struct {
 	bw        *bufio.Writer
 }
 
+// NewDecoder function create decoder instance with default dialect
 func NewDecoder(r io.Reader) *Decoder {
 	d := &Decoder{
 		Dialects: DialectSlice{DialectCommon},
@@ -75,6 +81,7 @@ func NewDecoder(r io.Reader) *Decoder {
 	return d
 }
 
+// NewEncoder function create encoder instance with default dialect
 func NewEncoder(w io.Writer) *Encoder {
 
 	e := &Encoder{
@@ -100,7 +107,7 @@ func newPacketFromBytes(b []byte) (*Packet, int) {
 	}, int(b[0])
 }
 
-// Decoder reads and parses from its reader
+// Decode function reads and parses from its reader
 // Typically, the caller will check the p.MsgID to see if it's
 // a message they're interested in, and convert it to the
 // corresponding type via Message.FromPacket()
@@ -211,8 +218,8 @@ func (dec *Decoder) Decode() (*Packet, error) {
 	}
 }
 
-// Decode a packet from a previously received buffer (such as a UDP packet),
-// b must contain a complete message
+// DecodeBytes function provide decode a packet from a previously received buffer (such as
+// a UDP packet), b must contain a complete message
 func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {
 	if len(b) < hdrLen || b[0] != magicNumber {
 		return nil, errors.New("invalid header")
@@ -241,8 +248,8 @@ func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {
 	return p, nil
 }
 
-// helper that accepts a Message, internally converts it to a Packet,
-// sets the Packet's SeqID based on the
+// Encode function is a helper that accepts a Message, internally converts
+// it to a Packet, sets the Packet's SeqID based on the
 // and then writes it to its writer via EncodePacket()
 func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 	var p Packet
@@ -255,7 +262,7 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 	return enc.EncodePacket(&p)
 }
 
-// Encode writes p to its writer
+// EncodePacket function provide encode writes p to its writer
 func (enc *Encoder) EncodePacket(p *Packet) error {
 	hdr := []byte{magicNumber, byte(len(p.Payload)), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID)} // header
 	if err := enc.writeAndCheck(hdr); err != nil {
