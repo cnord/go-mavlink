@@ -13,7 +13,8 @@ import (
 	"math"
 )
 
-// AccelcalVehiclePos:
+// AccelcalVehiclePos (generated enum)
+//
 const (
 	ACCELCAL_VEHICLE_POS_LEVEL    = 1 //
 	ACCELCAL_VEHICLE_POS_LEFT     = 2 //
@@ -23,7 +24,8 @@ const (
 	ACCELCAL_VEHICLE_POS_BACK     = 6 //
 )
 
-// MavCmd:
+// MavCmd (generated enum)
+//
 const (
 	MAV_CMD_DO_GRIPPER                      = 211   // Mission command to operate EPM gripper
 	MAV_CMD_DO_AUTOTUNE_ENABLE              = 212   // Enable/disable autotune
@@ -44,7 +46,8 @@ const (
 	MAV_CMD_GIMBAL_FULL_RESET               = 42505 // Erases gimbal application and parameters
 )
 
-// LimitsState:
+// LimitsState (generated enum)
+//
 const (
 	LIMITS_INIT       = 0 // pre-initialization
 	LIMITS_DISABLED   = 1 // disabled
@@ -54,33 +57,38 @@ const (
 	LIMITS_RECOVERED  = 5 // we're no longer in breach of a limit
 )
 
-// LimitModule:
+// LimitModule (generated enum)
+//
 const (
 	LIMIT_GPSLOCK  = 1 // pre-initialization
 	LIMIT_GEOFENCE = 2 // disabled
 	LIMIT_ALTITUDE = 4 // checking limits
 )
 
-// RallyFlags: Flags in RALLY_POINT message
+// RallyFlags (generated enum)
+// Flags in RALLY_POINT message
 const (
 	FAVORABLE_WIND   = 1 // Flag set when requiring favorable winds for landing.
 	LAND_IMMEDIATELY = 2 // Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land.
 )
 
-// ParachuteAction:
+// ParachuteAction (generated enum)
+//
 const (
 	PARACHUTE_DISABLE = 0 // Disable parachute release
 	PARACHUTE_ENABLE  = 1 // Enable parachute release
 	PARACHUTE_RELEASE = 2 // Release parachute
 )
 
-// GripperActions: Gripper actions.
+// GripperActions (generated enum)
+// Gripper actions.
 const (
 	GRIPPER_ACTION_RELEASE = 0 // gripper release of cargo
 	GRIPPER_ACTION_GRAB    = 1 // gripper grabs onto cargo
 )
 
-// CameraStatusTypes:
+// CameraStatusTypes (generated enum)
+//
 const (
 	CAMERA_STATUS_TYPE_HEARTBEAT  = 0 // Camera heartbeat, announce camera component ID at 1hz
 	CAMERA_STATUS_TYPE_TRIGGER    = 1 // Camera image triggered
@@ -91,7 +99,8 @@ const (
 	CAMERA_STATUS_TYPE_LOWSTOREV  = 6 // Camera storage low. Parameter p1 shows reported video minutes remaining
 )
 
-// CameraFeedbackFlags:
+// CameraFeedbackFlags (generated enum)
+//
 const (
 	CAMERA_FEEDBACK_PHOTO       = 0 // Shooting photos, not video
 	CAMERA_FEEDBACK_VIDEO       = 1 // Shooting video, not stills
@@ -100,7 +109,8 @@ const (
 	CAMERA_FEEDBACK_OPENLOOP    = 4 // Open loop camera, an image trigger has been requested but we can't know for sure it has successfully taken a picture
 )
 
-// MavModeGimbal:
+// MavModeGimbal (generated enum)
+//
 const (
 	MAV_MODE_GIMBAL_UNINITIALIZED     = 0 // Gimbal is powered on but has not started initializing yet
 	MAV_MODE_GIMBAL_CALIBRATING_PITCH = 1 // Gimbal is currently running calibration on the pitch axis
@@ -111,28 +121,32 @@ const (
 	MAV_MODE_GIMBAL_RATE_CMD_TIMEOUT  = 6 // Gimbal is relaxed because it missed more than 10 expected rate command messages in a row. Gimbal will move back to active mode when it receives a new rate command
 )
 
-// GimbalAxis:
+// GimbalAxis (generated enum)
+//
 const (
 	GIMBAL_AXIS_YAW   = 0 // Gimbal yaw axis
 	GIMBAL_AXIS_PITCH = 1 // Gimbal pitch axis
 	GIMBAL_AXIS_ROLL  = 2 // Gimbal roll axis
 )
 
-// GimbalAxisCalibrationStatus:
+// GimbalAxisCalibrationStatus (generated enum)
+//
 const (
 	GIMBAL_AXIS_CALIBRATION_STATUS_IN_PROGRESS = 0 // Axis calibration is in progress
 	GIMBAL_AXIS_CALIBRATION_STATUS_SUCCEEDED   = 1 // Axis calibration succeeded
 	GIMBAL_AXIS_CALIBRATION_STATUS_FAILED      = 2 // Axis calibration failed
 )
 
-// GimbalAxisCalibrationRequired:
+// GimbalAxisCalibrationRequired (generated enum)
+//
 const (
 	GIMBAL_AXIS_CALIBRATION_REQUIRED_UNKNOWN = 0 // Whether or not this axis requires calibration is unknown at this time
 	GIMBAL_AXIS_CALIBRATION_REQUIRED_TRUE    = 1 // This axis requires calibration
 	GIMBAL_AXIS_CALIBRATION_REQUIRED_FALSE   = 2 // This axis does not require calibration
 )
 
-// GoproHeartbeatStatus:
+// GoproHeartbeatStatus (generated enum)
+//
 const (
 	GOPRO_HEARTBEAT_STATUS_DISCONNECTED = 0 // No GoPro connected
 	GOPRO_HEARTBEAT_STATUS_INCOMPATIBLE = 1 // The detected GoPro is not HeroBus compatible
@@ -140,18 +154,21 @@ const (
 	GOPRO_HEARTBEAT_STATUS_ERROR        = 3 // An unrecoverable error was encountered with the connected GoPro, it may require a power cycle
 )
 
-// GoproHeartbeatFlags:
+// GoproHeartbeatFlags (generated enum)
+//
 const (
 	GOPRO_FLAG_RECORDING = 1 // GoPro is currently recording
 )
 
-// GoproRequestStatus:
+// GoproRequestStatus (generated enum)
+//
 const (
 	GOPRO_REQUEST_SUCCESS = 0 // The write message with ID indicated succeeded
 	GOPRO_REQUEST_FAILED  = 1 // The write message with ID indicated failed
 )
 
-// GoproCommand:
+// GoproCommand (generated enum)
+//
 const (
 	GOPRO_COMMAND_POWER                 = 0  // (Get/Set)
 	GOPRO_COMMAND_CAPTURE_MODE          = 1  // (Get/Set)
@@ -172,7 +189,8 @@ const (
 	GOPRO_COMMAND_CHARGING              = 16 // (Get/Set)
 )
 
-// GoproCaptureMode:
+// GoproCaptureMode (generated enum)
+//
 const (
 	GOPRO_CAPTURE_MODE_VIDEO      = 0   // Video mode
 	GOPRO_CAPTURE_MODE_PHOTO      = 1   // Photo mode
@@ -184,7 +202,8 @@ const (
 	GOPRO_CAPTURE_MODE_UNKNOWN    = 255 // Mode not yet known
 )
 
-// GoproResolution:
+// GoproResolution (generated enum)
+//
 const (
 	GOPRO_RESOLUTION_480p            = 0  // 848 x 480 (480p)
 	GOPRO_RESOLUTION_720p            = 1  // 1280 x 720 (720p)
@@ -202,7 +221,8 @@ const (
 	GOPRO_RESOLUTION_4k_SUPERVIEW    = 13 // 3840 x 2160 (4k-SuperView)
 )
 
-// GoproFrameRate:
+// GoproFrameRate (generated enum)
+//
 const (
 	GOPRO_FRAME_RATE_12   = 0  // 12 FPS
 	GOPRO_FRAME_RATE_15   = 1  // 15 FPS
@@ -220,19 +240,22 @@ const (
 	GOPRO_FRAME_RATE_12_5 = 13 // 12.5 FPS
 )
 
-// GoproFieldOfView:
+// GoproFieldOfView (generated enum)
+//
 const (
 	GOPRO_FIELD_OF_VIEW_WIDE   = 0 // 0x00: Wide
 	GOPRO_FIELD_OF_VIEW_MEDIUM = 1 // 0x01: Medium
 	GOPRO_FIELD_OF_VIEW_NARROW = 2 // 0x02: Narrow
 )
 
-// GoproVideoSettingsFlags:
+// GoproVideoSettingsFlags (generated enum)
+//
 const (
 	GOPRO_VIDEO_SETTINGS_TV_MODE = 1 // 0=NTSC, 1=PAL
 )
 
-// GoproPhotoResolution:
+// GoproPhotoResolution (generated enum)
+//
 const (
 	GOPRO_PHOTO_RESOLUTION_5MP_MEDIUM = 0 // 5MP Medium
 	GOPRO_PHOTO_RESOLUTION_7MP_MEDIUM = 1 // 7MP Medium
@@ -241,7 +264,8 @@ const (
 	GOPRO_PHOTO_RESOLUTION_12MP_WIDE  = 4 // 12MP Wide
 )
 
-// GoproProtuneWhiteBalance:
+// GoproProtuneWhiteBalance (generated enum)
+//
 const (
 	GOPRO_PROTUNE_WHITE_BALANCE_AUTO  = 0 // Auto
 	GOPRO_PROTUNE_WHITE_BALANCE_3000K = 1 // 3000K
@@ -250,13 +274,15 @@ const (
 	GOPRO_PROTUNE_WHITE_BALANCE_RAW   = 4 // Camera Raw
 )
 
-// GoproProtuneColour:
+// GoproProtuneColour (generated enum)
+//
 const (
 	GOPRO_PROTUNE_COLOUR_STANDARD = 0 // Auto
 	GOPRO_PROTUNE_COLOUR_NEUTRAL  = 1 // Neutral
 )
 
-// GoproProtuneGain:
+// GoproProtuneGain (generated enum)
+//
 const (
 	GOPRO_PROTUNE_GAIN_400  = 0 // ISO 400
 	GOPRO_PROTUNE_GAIN_800  = 1 // ISO 800 (Only Hero 4)
@@ -265,14 +291,16 @@ const (
 	GOPRO_PROTUNE_GAIN_6400 = 4 // ISO 6400
 )
 
-// GoproProtuneSharpness:
+// GoproProtuneSharpness (generated enum)
+//
 const (
 	GOPRO_PROTUNE_SHARPNESS_LOW    = 0 // Low Sharpness
 	GOPRO_PROTUNE_SHARPNESS_MEDIUM = 1 // Medium Sharpness
 	GOPRO_PROTUNE_SHARPNESS_HIGH   = 2 // High Sharpness
 )
 
-// GoproProtuneExposure:
+// GoproProtuneExposure (generated enum)
+//
 const (
 	GOPRO_PROTUNE_EXPOSURE_NEG_5_0 = 0  // -5.0 EV (Hero 3+ Only)
 	GOPRO_PROTUNE_EXPOSURE_NEG_4_5 = 1  // -4.5 EV (Hero 3+ Only)
@@ -297,13 +325,15 @@ const (
 	GOPRO_PROTUNE_EXPOSURE_POS_5_0 = 20 // +5.0 EV (Hero 3+ Only)
 )
 
-// GoproCharging:
+// GoproCharging (generated enum)
+//
 const (
 	GOPRO_CHARGING_DISABLED = 0 // Charging disabled
 	GOPRO_CHARGING_ENABLED  = 1 // Charging enabled
 )
 
-// GoproModel:
+// GoproModel (generated enum)
+//
 const (
 	GOPRO_MODEL_UNKNOWN            = 0 // Unknown gopro model
 	GOPRO_MODEL_HERO_3_PLUS_SILVER = 1 // Hero 3+ Silver (HeroBus not supported by GoPro)
@@ -312,7 +342,8 @@ const (
 	GOPRO_MODEL_HERO_4_BLACK       = 4 // Hero 4 Black
 )
 
-// GoproBurstRate:
+// GoproBurstRate (generated enum)
+//
 const (
 	GOPRO_BURST_RATE_3_IN_1_SECOND  = 0 // 3 Shots / 1 Second
 	GOPRO_BURST_RATE_5_IN_1_SECOND  = 1 // 5 Shots / 1 Second
@@ -325,14 +356,16 @@ const (
 	GOPRO_BURST_RATE_30_IN_6_SECOND = 8 // 30 Shots / 6 Second
 )
 
-// LedControlPattern:
+// LedControlPattern (generated enum)
+//
 const (
 	LED_CONTROL_PATTERN_OFF            = 0   // LED patterns off (return control to regular vehicle control)
 	LED_CONTROL_PATTERN_FIRMWAREUPDATE = 1   // LEDs show pattern during firmware update
 	LED_CONTROL_PATTERN_CUSTOM         = 255 // Custom Pattern using custom bytes fields
 )
 
-// EkfStatusFlags: Flags in EKF_STATUS message
+// EkfStatusFlags (generated enum)
+// Flags in EKF_STATUS message
 const (
 	EKF_ATTITUDE           = 1   // set if EKF's attitude estimate is good
 	EKF_VELOCITY_HORIZ     = 2   // set if EKF's horizontal velocity estimate is good
@@ -346,7 +379,8 @@ const (
 	EKF_PRED_POS_HORIZ_ABS = 512 // set if EKF's predicted horizontal position (absolute) estimate is good
 )
 
-// PidTuningAxis:
+// PidTuningAxis (generated enum)
+//
 const (
 	PID_TUNING_ROLL    = 1 //
 	PID_TUNING_PITCH   = 2 //
@@ -356,7 +390,8 @@ const (
 	PID_TUNING_LANDING = 6 //
 )
 
-// MagCalStatus:
+// MagCalStatus (generated enum)
+//
 const (
 	MAG_CAL_NOT_STARTED      = 0 //
 	MAG_CAL_WAITING_TO_START = 1 //
@@ -366,19 +401,22 @@ const (
 	MAG_CAL_FAILED           = 5 //
 )
 
-// MavRemoteLogDataBlockCommands: Special ACK block numbers control activation of dataflash log streaming
+// MavRemoteLogDataBlockCommands (generated enum)
+// Special ACK block numbers control activation of dataflash log streaming
 const (
 	MAV_REMOTE_LOG_DATA_BLOCK_STOP  = 2147483645 // UAV to stop sending DataFlash blocks
 	MAV_REMOTE_LOG_DATA_BLOCK_START = 2147483646 // UAV to start sending DataFlash blocks
 )
 
-// MavRemoteLogDataBlockStatuses: Possible remote log data block statuses
+// MavRemoteLogDataBlockStatuses (generated enum)
+// Possible remote log data block statuses
 const (
 	MAV_REMOTE_LOG_DATA_BLOCK_NACK = 0 // This block has NOT been received
 	MAV_REMOTE_LOG_DATA_BLOCK_ACK  = 1 // This block has been received
 )
 
-// DeviceOpBustype: Bus types for device operations
+// DeviceOpBustype (generated enum)
+// Bus types for device operations
 const (
 	DEVICE_OP_BUSTYPE_I2C = 0 // I2C Device operation
 	DEVICE_OP_BUSTYPE_SPI = 1 // SPI Device operation

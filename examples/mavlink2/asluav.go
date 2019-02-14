@@ -13,7 +13,8 @@ import (
 	"math"
 )
 
-// MavCmd:
+// MavCmd (generated enum)
+//
 const (
 	MAV_CMD_RESET_MPPT      = 40001 // Mission command to reset Maximum Power Point Tracker (MPPT)
 	MAV_CMD_PAYLOAD_CONTROL = 40002 // Mission command to perform a power cycle on payload

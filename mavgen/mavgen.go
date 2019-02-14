@@ -430,7 +430,8 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 func (d *Dialect) generateEnums(w io.Writer) error {
 	enumTmpl := `
 {{range .Enums}}
-// {{.Name}}: {{.Description}}
+// {{.Name}} (generated enum)
+// {{.Description}}
 const ({{range .Entries}}
 	{{.Name}} = {{.Value}} // {{.Description}}{{end}}
 )

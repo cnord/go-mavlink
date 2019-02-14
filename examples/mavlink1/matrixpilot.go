@@ -13,7 +13,8 @@ import (
 	"math"
 )
 
-// MavPreflightStorageAction: Action required when performing CMD_PREFLIGHT_STORAGE
+// MavPreflightStorageAction (generated enum)
+// Action required when performing CMD_PREFLIGHT_STORAGE
 const (
 	MAV_PFS_CMD_READ_ALL       = 0 // Read all parameters from storage
 	MAV_PFS_CMD_WRITE_ALL      = 1 // Write all parameters to storage
@@ -24,7 +25,8 @@ const (
 	MAV_PFS_CMD_DO_NOTHING     = 6 // do nothing
 )
 
-// MavCmd:
+// MavCmd (generated enum)
+//
 const (
 	MAV_CMD_PREFLIGHT_STORAGE_ADVANCED = 0 // Request storage of different parameter values and logs. This command will be only accepted if in pre-flight mode.
 )

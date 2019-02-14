@@ -13,7 +13,8 @@ import (
 	"math"
 )
 
-// MavAutopilot: Micro air vehicle / autopilot classes. This identifies the individual model.
+// MavAutopilot (generated enum)
+// Micro air vehicle / autopilot classes. This identifies the individual model.
 const (
 	MAV_AUTOPILOT_GENERIC                                      = 0  // Generic autopilot, full support for everything
 	MAV_AUTOPILOT_RESERVED                                     = 1  // Reserved for future use.
@@ -36,7 +37,8 @@ const (
 	MAV_AUTOPILOT_SMARTAP                                      = 18 // SmartAP Autopilot - http://sky-drones.com
 )
 
-// MavType:
+// MavType (generated enum)
+//
 const (
 	MAV_TYPE_GENERIC            = 0  // Generic micro air vehicle.
 	MAV_TYPE_FIXED_WING         = 1  // Fixed wing aircraft.
@@ -68,7 +70,8 @@ const (
 	MAV_TYPE_ADSB               = 27 // Onboard ADSB peripheral
 )
 
-// FirmwareVersionType: These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.
+// FirmwareVersionType (generated enum)
+// These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.
 const (
 	FIRMWARE_VERSION_TYPE_DEV      = 0   // development release
 	FIRMWARE_VERSION_TYPE_ALPHA    = 64  // alpha release
@@ -77,7 +80,8 @@ const (
 	FIRMWARE_VERSION_TYPE_OFFICIAL = 255 // official stable release
 )
 
-// MavModeFlag: These flags encode the MAV mode.
+// MavModeFlag (generated enum)
+// These flags encode the MAV mode.
 const (
 	MAV_MODE_FLAG_SAFETY_ARMED         = 128 // 0b10000000 MAV safety set to armed. Motors are enabled / running / can start. Ready to fly. Additional note: this flag is to be ignore when sent in the command MAV_CMD_DO_SET_MODE and MAV_CMD_COMPONENT_ARM_DISARM shall be used instead. The flag can still be used to report the armed state.
 	MAV_MODE_FLAG_MANUAL_INPUT_ENABLED = 64  // 0b01000000 remote control input is enabled.
@@ -89,7 +93,8 @@ const (
 	MAV_MODE_FLAG_CUSTOM_MODE_ENABLED  = 1   // 0b00000001 Reserved for future use.
 )
 
-// MavModeFlagDecodePosition: These values encode the bit positions of the decode position. These values can be used to read the value of a flag bit by combining the base_mode variable with AND with the flag position value. The result will be either 0 or 1, depending on if the flag is set or not.
+// MavModeFlagDecodePosition (generated enum)
+// These values encode the bit positions of the decode position. These values can be used to read the value of a flag bit by combining the base_mode variable with AND with the flag position value. The result will be either 0 or 1, depending on if the flag is set or not.
 const (
 	MAV_MODE_FLAG_DECODE_POSITION_SAFETY      = 128 // First bit:  10000000
 	MAV_MODE_FLAG_DECODE_POSITION_MANUAL      = 64  // Second bit: 01000000
@@ -101,7 +106,8 @@ const (
 	MAV_MODE_FLAG_DECODE_POSITION_CUSTOM_MODE = 1   // Eighth bit: 00000001
 )
 
-// MavGoto: Override command, pauses current mission execution and moves immediately to a position
+// MavGoto (generated enum)
+// Override command, pauses current mission execution and moves immediately to a position
 const (
 	MAV_GOTO_DO_HOLD                    = 0 // Hold at the current position.
 	MAV_GOTO_DO_CONTINUE                = 1 // Continue with the next item in mission execution.
@@ -109,7 +115,8 @@ const (
 	MAV_GOTO_HOLD_AT_SPECIFIED_POSITION = 3 // Hold at the position specified in the parameters of the DO_HOLD action
 )
 
-// MavMode: These defines are predefined OR-combined mode flags. There is no need to use values from this enum, but it                simplifies the use of the mode flags. Note that manual input is enabled in all modes as a safety override.
+// MavMode (generated enum)
+// These defines are predefined OR-combined mode flags. There is no need to use values from this enum, but it                simplifies the use of the mode flags. Note that manual input is enabled in all modes as a safety override.
 const (
 	MAV_MODE_PREFLIGHT          = 0   // System is not ready to fly, booting, calibrating, etc. No flag is set.
 	MAV_MODE_STABILIZE_DISARMED = 80  // System is allowed to be active, under assisted RC control.
@@ -124,7 +131,8 @@ const (
 	MAV_MODE_TEST_ARMED         = 194 // UNDEFINED mode. This solely depends on the autopilot - use with caution, intended for developers only.
 )
 
-// MavState:
+// MavState (generated enum)
+//
 const (
 	MAV_STATE_UNINIT      = 0 // Uninitialized system, state is unknown.
 	MAV_STATE_BOOT        = 1 // System is booting up.
@@ -136,7 +144,8 @@ const (
 	MAV_STATE_POWEROFF    = 7 // System just initialized its power-down sequence, will shut down now.
 )
 
-// MavComponent:
+// MavComponent (generated enum)
+//
 const (
 	MAV_COMP_ID_ALL            = 0   //
 	MAV_COMP_ID_AUTOPILOT1     = 1   //
@@ -174,7 +183,8 @@ const (
 	MAV_COMP_ID_SYSTEM_CONTROL = 250 //
 )
 
-// MavSysStatusSensor: These encode the sensors whose status is sent as part of the SYS_STATUS message.
+// MavSysStatusSensor (generated enum)
+// These encode the sensors whose status is sent as part of the SYS_STATUS message.
 const (
 	MAV_SYS_STATUS_SENSOR_3D_GYRO                = 1        // 0x01 3D gyro
 	MAV_SYS_STATUS_SENSOR_3D_ACCEL               = 2        // 0x02 3D accelerometer
@@ -204,7 +214,8 @@ const (
 	MAV_SYS_STATUS_SENSOR_BATTERY                = 33554432 // 0x2000000 Battery
 )
 
-// MavFrame:
+// MavFrame (generated enum)
+//
 const (
 	MAV_FRAME_GLOBAL                  = 0  // Global coordinate frame, WGS84 coordinate system. First value / x: latitude, second value / y: longitude, third value / z: positive altitude over mean sea level (MSL)
 	MAV_FRAME_LOCAL_NED               = 1  // Local coordinate frame, Z-up (x: north, y: east, z: down).
@@ -220,7 +231,8 @@ const (
 	MAV_FRAME_GLOBAL_TERRAIN_ALT_INT  = 11 // Global coordinate frame with above terrain level altitude. WGS84 coordinate system, relative altitude over terrain with respect to the waypoint coordinate. First value / x: latitude in degrees*10e-7, second value / y: longitude in degrees*10e-7, third value / z: positive altitude in meters with 0 being at ground level in terrain model.
 )
 
-// MavlinkDataStreamType:
+// MavlinkDataStreamType (generated enum)
+//
 const (
 	MAVLINK_DATA_STREAM_IMG_JPEG   = 0 //
 	MAVLINK_DATA_STREAM_IMG_BMP    = 1 //
@@ -230,7 +242,8 @@ const (
 	MAVLINK_DATA_STREAM_IMG_PNG    = 5 //
 )
 
-// FenceAction:
+// FenceAction (generated enum)
+//
 const (
 	FENCE_ACTION_NONE            = 0 // Disable fenced mode
 	FENCE_ACTION_GUIDED          = 1 // Switched to guided mode to return point (fence point 0)
@@ -239,7 +252,8 @@ const (
 	FENCE_ACTION_RTL             = 4 // Switch to RTL (return to launch) mode and head for the return point.
 )
 
-// FenceBreach:
+// FenceBreach (generated enum)
+//
 const (
 	FENCE_BREACH_NONE     = 0 // No last fence breach
 	FENCE_BREACH_MINALT   = 1 // Breached minimum altitude
@@ -247,7 +261,8 @@ const (
 	FENCE_BREACH_BOUNDARY = 3 // Breached fence boundary
 )
 
-// MavMountMode: Enumeration of possible mount operation modes
+// MavMountMode (generated enum)
+// Enumeration of possible mount operation modes
 const (
 	MAV_MOUNT_MODE_RETRACT           = 0 // Load and keep safe position (Roll,Pitch,Yaw) from permant memory and stop stabilization
 	MAV_MOUNT_MODE_NEUTRAL           = 1 // Load and keep neutral position (Roll,Pitch,Yaw) from permanent memory.
@@ -256,7 +271,8 @@ const (
 	MAV_MOUNT_MODE_GPS_POINT         = 4 // Load neutral position and start to point to Lat,Lon,Alt
 )
 
-// MavCmd: Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data.
+// MavCmd (generated enum)
+// Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data.
 const (
 	MAV_CMD_NAV_WAYPOINT                       = 16    // Navigate to MISSION.
 	MAV_CMD_NAV_LOITER_UNLIM                   = 17    // Loiter around this MISSION an unlimited amount of time
@@ -383,7 +399,8 @@ const (
 	MAV_CMD_USER_5                             = 31014 // User defined command. Ground Station will not show the Vehicle as flying through this item. Example: MAV_CMD_DO_SET_PARAMETER item.
 )
 
-// MavDataStream: THIS INTERFACE IS DEPRECATED AS OF JULY 2015. Please use MESSAGE_INTERVAL instead. A data stream is not a fixed set of messages, but rather a      recommendation to the autopilot software. Individual autopilots may or may not obey      the recommended messages.
+// MavDataStream (generated enum)
+// THIS INTERFACE IS DEPRECATED AS OF JULY 2015. Please use MESSAGE_INTERVAL instead. A data stream is not a fixed set of messages, but rather a      recommendation to the autopilot software. Individual autopilots may or may not obey      the recommended messages.
 const (
 	MAV_DATA_STREAM_ALL             = 0  // Enable all data streams
 	MAV_DATA_STREAM_RAW_SENSORS     = 1  // Enable IMU_RAW, GPS_RAW, GPS_STATUS packets.
@@ -396,7 +413,8 @@ const (
 	MAV_DATA_STREAM_EXTRA3          = 12 // Dependent on the autopilot
 )
 
-// MavRoi:  The ROI (region of interest) for the vehicle. This can be                 be used by the vehicle for camera/vehicle attitude alignment (see                 MAV_CMD_NAV_ROI).
+// MavRoi (generated enum)
+//  The ROI (region of interest) for the vehicle. This can be                 be used by the vehicle for camera/vehicle attitude alignment (see                 MAV_CMD_NAV_ROI).
 const (
 	MAV_ROI_NONE     = 0 // No region of interest.
 	MAV_ROI_WPNEXT   = 1 // Point toward next MISSION.
@@ -405,7 +423,8 @@ const (
 	MAV_ROI_TARGET   = 4 // Point toward of given id.
 )
 
-// MavCmdAck: ACK / NACK / ERROR values as a result of MAV_CMDs and for mission item transmission.
+// MavCmdAck (generated enum)
+// ACK / NACK / ERROR values as a result of MAV_CMDs and for mission item transmission.
 const (
 	MAV_CMD_ACK_OK                                 = 0 // Command / mission item is ok.
 	MAV_CMD_ACK_ERR_FAIL                           = 1 // Generic error message if none of the other reasons fails or if no detailed error reporting is implemented.
@@ -418,7 +437,8 @@ const (
 	MAV_CMD_ACK_ERR_Z_ALT_OUT_OF_RANGE             = 8 // The Z or altitude value is out of range.
 )
 
-// MavParamType: Specifies the datatype of a MAVLink parameter.
+// MavParamType (generated enum)
+// Specifies the datatype of a MAVLink parameter.
 const (
 	MAV_PARAM_TYPE_UINT8  = 1  // 8-bit unsigned integer
 	MAV_PARAM_TYPE_INT8   = 2  // 8-bit signed integer
@@ -432,7 +452,8 @@ const (
 	MAV_PARAM_TYPE_REAL64 = 10 // 64-bit floating-point
 )
 
-// MavResult: result from a mavlink command
+// MavResult (generated enum)
+// result from a mavlink command
 const (
 	MAV_RESULT_ACCEPTED             = 0 // Command ACCEPTED and EXECUTED
 	MAV_RESULT_TEMPORARILY_REJECTED = 1 // Command TEMPORARY REJECTED/DENIED
@@ -442,7 +463,8 @@ const (
 	MAV_RESULT_IN_PROGRESS          = 5 // WIP: Command being executed
 )
 
-// MavMissionResult: result in a mavlink mission ack
+// MavMissionResult (generated enum)
+// result in a mavlink mission ack
 const (
 	MAV_MISSION_ACCEPTED          = 0  // mission accepted OK
 	MAV_MISSION_ERROR             = 1  // generic error / not accepting mission commands at all right now
@@ -461,7 +483,8 @@ const (
 	MAV_MISSION_DENIED            = 14 // not accepting any mission commands from this communication partner
 )
 
-// MavSeverity: Indicates the severity level, generally used for status messages to indicate their relative urgency. Based on RFC-5424 using expanded definitions at: http://www.kiwisyslog.com/kb/info:-syslog-message-levels/.
+// MavSeverity (generated enum)
+// Indicates the severity level, generally used for status messages to indicate their relative urgency. Based on RFC-5424 using expanded definitions at: http://www.kiwisyslog.com/kb/info:-syslog-message-levels/.
 const (
 	MAV_SEVERITY_EMERGENCY = 0 // System is unusable. This is a "panic" condition.
 	MAV_SEVERITY_ALERT     = 1 // Action should be taken immediately. Indicates error in non-critical systems.
@@ -473,7 +496,8 @@ const (
 	MAV_SEVERITY_DEBUG     = 7 // Useful non-operational messages that can assist in debugging. These should not occur during normal operation.
 )
 
-// MavPowerStatus: Power supply status flags (bitmask)
+// MavPowerStatus (generated enum)
+// Power supply status flags (bitmask)
 const (
 	MAV_POWER_STATUS_BRICK_VALID                = 1  // main brick power supply valid
 	MAV_POWER_STATUS_SERVO_VALID                = 2  // main servo power supply valid for FMU
@@ -483,7 +507,8 @@ const (
 	MAV_POWER_STATUS_CHANGED                    = 32 // Power status has changed since boot
 )
 
-// SerialControlDev: SERIAL_CONTROL device types
+// SerialControlDev (generated enum)
+// SERIAL_CONTROL device types
 const (
 	SERIAL_CONTROL_DEV_TELEM1 = 0  // First telemetry port
 	SERIAL_CONTROL_DEV_TELEM2 = 1  // Second telemetry port
@@ -492,7 +517,8 @@ const (
 	SERIAL_CONTROL_DEV_SHELL  = 10 // system shell
 )
 
-// SerialControlFlag: SERIAL_CONTROL flags (bitmask)
+// SerialControlFlag (generated enum)
+// SERIAL_CONTROL flags (bitmask)
 const (
 	SERIAL_CONTROL_FLAG_REPLY     = 1  // Set if this is a reply
 	SERIAL_CONTROL_FLAG_RESPOND   = 2  // Set if the sender wants the receiver to send a response as another SERIAL_CONTROL message
@@ -501,14 +527,16 @@ const (
 	SERIAL_CONTROL_FLAG_MULTI     = 16 // Send multiple replies until port is drained
 )
 
-// MavDistanceSensor: Enumeration of distance sensor types
+// MavDistanceSensor (generated enum)
+// Enumeration of distance sensor types
 const (
 	MAV_DISTANCE_SENSOR_LASER      = 0 // Laser rangefinder, e.g. LightWare SF02/F or PulsedLight units
 	MAV_DISTANCE_SENSOR_ULTRASOUND = 1 // Ultrasound rangefinder, e.g. MaxBotix units
 	MAV_DISTANCE_SENSOR_INFRARED   = 2 // Infrared rangefinder, e.g. Sharp units
 )
 
-// MavSensorOrientation: Enumeration of sensor orientation, according to its rotations
+// MavSensorOrientation (generated enum)
+// Enumeration of sensor orientation, according to its rotations
 const (
 	MAV_SENSOR_ROTATION_NONE                       = 0  // Roll: 0, Pitch: 0, Yaw: 0
 	MAV_SENSOR_ROTATION_YAW_45                     = 1  // Roll: 0, Pitch: 0, Yaw: 45
@@ -551,7 +579,8 @@ const (
 	MAV_SENSOR_ROTATION_ROLL_315_PITCH_315_YAW_315 = 38 // Roll: 315, Pitch: 315, Yaw: 315
 )
 
-// MavProtocolCapability: Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
+// MavProtocolCapability (generated enum)
+// Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
 const (
 	MAV_PROTOCOL_CAPABILITY_MISSION_FLOAT                  = 1     // Autopilot supports MISSION float message type.
 	MAV_PROTOCOL_CAPABILITY_PARAM_FLOAT                    = 2     // Autopilot supports the new param float message type.
@@ -572,7 +601,8 @@ const (
 	MAV_PROTOCOL_CAPABILITY_FLIGHT_INFORMATION             = 65536 // Autopilot supports the flight information protocol.
 )
 
-// MavMissionType: Type of mission items being requested/sent in mission protocol.
+// MavMissionType (generated enum)
+// Type of mission items being requested/sent in mission protocol.
 const (
 	MAV_MISSION_TYPE_MISSION = 0   // Items are mission commands for main mission.
 	MAV_MISSION_TYPE_FENCE   = 1   // Specifies GeoFence area(s). Items are MAV_CMD_FENCE_ GeoFence items.
@@ -580,7 +610,8 @@ const (
 	MAV_MISSION_TYPE_ALL     = 255 // Only used in MISSION_CLEAR_ALL to clear all mission types.
 )
 
-// MavEstimatorType: Enumeration of estimator types
+// MavEstimatorType (generated enum)
+// Enumeration of estimator types
 const (
 	MAV_ESTIMATOR_TYPE_NAIVE   = 1 // This is a naive estimator without any real covariance feedback.
 	MAV_ESTIMATOR_TYPE_VISION  = 2 // Computer vision based estimate. Might be up to scale.
@@ -589,7 +620,8 @@ const (
 	MAV_ESTIMATOR_TYPE_GPS_INS = 5 // Estimator integrating GPS and inertial sensing.
 )
 
-// MavBatteryType: Enumeration of battery types
+// MavBatteryType (generated enum)
+// Enumeration of battery types
 const (
 	MAV_BATTERY_TYPE_UNKNOWN = 0 // Not specified.
 	MAV_BATTERY_TYPE_LIPO    = 1 // Lithium polymer battery
@@ -598,7 +630,8 @@ const (
 	MAV_BATTERY_TYPE_NIMH    = 4 // Nickel metal hydride battery
 )
 
-// MavBatteryFunction: Enumeration of battery functions
+// MavBatteryFunction (generated enum)
+// Enumeration of battery functions
 const (
 	MAV_BATTERY_FUNCTION_UNKNOWN    = 0 // Battery function is unknown
 	MAV_BATTERY_FUNCTION_ALL        = 1 // Battery supports all flight systems
@@ -607,7 +640,8 @@ const (
 	MAV_BATTERY_TYPE_PAYLOAD        = 4 // Payload battery
 )
 
-// MavVtolState: Enumeration of VTOL states
+// MavVtolState (generated enum)
+// Enumeration of VTOL states
 const (
 	MAV_VTOL_STATE_UNDEFINED        = 0 // MAV is not configured as VTOL
 	MAV_VTOL_STATE_TRANSITION_TO_FW = 1 // VTOL is in transition from multicopter to fixed-wing
@@ -616,7 +650,8 @@ const (
 	MAV_VTOL_STATE_FW               = 4 // VTOL is in fixed-wing state
 )
 
-// MavLandedState: Enumeration of landed detector states
+// MavLandedState (generated enum)
+// Enumeration of landed detector states
 const (
 	MAV_LANDED_STATE_UNDEFINED = 0 // MAV landed state is unknown
 	MAV_LANDED_STATE_ON_GROUND = 1 // MAV is landed (on ground)
@@ -625,13 +660,15 @@ const (
 	MAV_LANDED_STATE_LANDING   = 4 // MAV currently landing
 )
 
-// AdsbAltitudeType: Enumeration of the ADSB altimeter types
+// AdsbAltitudeType (generated enum)
+// Enumeration of the ADSB altimeter types
 const (
 	ADSB_ALTITUDE_TYPE_PRESSURE_QNH = 0 // Altitude reported from a Baro source using QNH reference
 	ADSB_ALTITUDE_TYPE_GEOMETRIC    = 1 // Altitude reported from a GNSS source
 )
 
-// AdsbEmitterType: ADSB classification for the type of vehicle emitting the transponder signal
+// AdsbEmitterType (generated enum)
+// ADSB classification for the type of vehicle emitting the transponder signal
 const (
 	ADSB_EMITTER_TYPE_NO_INFO           = 0  //
 	ADSB_EMITTER_TYPE_LIGHT             = 1  //
@@ -655,7 +692,8 @@ const (
 	ADSB_EMITTER_TYPE_POINT_OBSTACLE    = 19 //
 )
 
-// AdsbFlags: These flags indicate status such as data validity of each data source. Set = data valid
+// AdsbFlags (generated enum)
+// These flags indicate status such as data validity of each data source. Set = data valid
 const (
 	ADSB_FLAGS_VALID_COORDS   = 1  //
 	ADSB_FLAGS_VALID_ALTITUDE = 2  //
@@ -666,12 +704,14 @@ const (
 	ADSB_FLAGS_SIMULATED      = 64 //
 )
 
-// MavDoRepositionFlags: Bitmask of options for the MAV_CMD_DO_REPOSITION
+// MavDoRepositionFlags (generated enum)
+// Bitmask of options for the MAV_CMD_DO_REPOSITION
 const (
 	MAV_DO_REPOSITION_FLAGS_CHANGE_MODE = 1 // The aircraft should immediately transition into guided. This should not be set for follow me applications
 )
 
-// EstimatorStatusFlags: Flags in EKF_STATUS message
+// EstimatorStatusFlags (generated enum)
+// Flags in EKF_STATUS message
 const (
 	ESTIMATOR_ATTITUDE           = 1    // True if the attitude estimate is good
 	ESTIMATOR_VELOCITY_HORIZ     = 2    // True if the horizontal velocity estimate is good
@@ -686,14 +726,16 @@ const (
 	ESTIMATOR_GPS_GLITCH         = 1024 // True if the EKF has detected a GPS glitch
 )
 
-// MotorTestThrottleType:
+// MotorTestThrottleType (generated enum)
+//
 const (
 	MOTOR_TEST_THROTTLE_PERCENT = 0 // throttle as a percentage from 0 ~ 100
 	MOTOR_TEST_THROTTLE_PWM     = 1 // throttle as an absolute PWM value (normally in range of 1000~2000)
 	MOTOR_TEST_THROTTLE_PILOT   = 2 // throttle pass-through from pilot's transmitter
 )
 
-// GpsInputIgnoreFlags:
+// GpsInputIgnoreFlags (generated enum)
+//
 const (
 	GPS_INPUT_IGNORE_FLAG_ALT                 = 1   // ignore altitude field
 	GPS_INPUT_IGNORE_FLAG_HDOP                = 2   // ignore hdop field
@@ -705,7 +747,8 @@ const (
 	GPS_INPUT_IGNORE_FLAG_VERTICAL_ACCURACY   = 128 // ignore vertical accuracy field
 )
 
-// MavCollisionAction: Possible actions an aircraft can take to avoid a collision.
+// MavCollisionAction (generated enum)
+// Possible actions an aircraft can take to avoid a collision.
 const (
 	MAV_COLLISION_ACTION_NONE               = 0 // Ignore any potential collisions
 	MAV_COLLISION_ACTION_REPORT             = 1 // Report potential collision
@@ -716,20 +759,23 @@ const (
 	MAV_COLLISION_ACTION_HOVER              = 6 // Aircraft to stop in place
 )
 
-// MavCollisionThreatLevel: Aircraft-rated danger from this threat.
+// MavCollisionThreatLevel (generated enum)
+// Aircraft-rated danger from this threat.
 const (
 	MAV_COLLISION_THREAT_LEVEL_NONE = 0 // Not a threat
 	MAV_COLLISION_THREAT_LEVEL_LOW  = 1 // Craft is mildly concerned about this threat
 	MAV_COLLISION_THREAT_LEVEL_HIGH = 2 // Craft is panicing, and may take actions to avoid threat
 )
 
-// MavCollisionSrc: Source of information about this collision.
+// MavCollisionSrc (generated enum)
+// Source of information about this collision.
 const (
 	MAV_COLLISION_SRC_ADSB                   = 0 // ID field references ADSB_VEHICLE packets
 	MAV_COLLISION_SRC_MAVLINK_GPS_GLOBAL_INT = 1 // ID field references MAVLink SRC ID
 )
 
-// GpsFixType: Type of GPS fix
+// GpsFixType (generated enum)
+// Type of GPS fix
 const (
 	GPS_FIX_TYPE_NO_GPS    = 0 // No GPS connected
 	GPS_FIX_TYPE_NO_FIX    = 1 // No position information, GPS is connected

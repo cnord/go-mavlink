@@ -13,7 +13,8 @@ import (
 	"math"
 )
 
-// UalbertaAutopilotMode: Available autopilot modes for ualberta uav
+// UalbertaAutopilotMode (generated enum)
+// Available autopilot modes for ualberta uav
 const (
 	MODE_MANUAL_DIRECT = 0 // Raw input pulse widts sent to output
 	MODE_MANUAL_SCALED = 1 // Inputs are normalized using calibration, the converted back to raw pulse widths for output
@@ -22,7 +23,8 @@ const (
 	MODE_AUTO_PID_POS  = 4 //  dfsdfsdfs
 )
 
-// UalbertaNavMode: Navigation filter mode
+// UalbertaNavMode (generated enum)
+// Navigation filter mode
 const (
 	NAV_AHRS_INIT    = 0 //
 	NAV_AHRS         = 1 // AHRS mode
@@ -30,7 +32,8 @@ const (
 	NAV_INS_GPS      = 3 // INS/GPS mode
 )
 
-// UalbertaPilotMode: Mode currently commanded by pilot
+// UalbertaPilotMode (generated enum)
+// Mode currently commanded by pilot
 const (
 	PILOT_MANUAL = 0 //  sdf
 	PILOT_AUTO   = 1 //  dfs
