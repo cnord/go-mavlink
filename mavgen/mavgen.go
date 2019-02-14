@@ -388,17 +388,21 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString(")\n")
 
 	err := d.generateEnums(&bb)
+	if err != nil {
+		return err
+	}
 	d.generateClasses(&bb)
+	if err != nil {
+		return err
+	}
 	d.generateMsgIds(&bb)
+	if err != nil {
+		return err
+	}
 
-	dofmt := true
-	formatted := bb.Bytes()
-
-	if dofmt {
-		formatted, err = format.Source(bb.Bytes())
-		if err != nil {
-			return err
-		}
+	formatted, err := format.Source(bb.Bytes())
+	if err != nil {
+		return err
 	}
 
 	n, err := w.Write(formatted)

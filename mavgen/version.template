@@ -1,0 +1,6 @@
+package mavlink
+
+const (
+        Version        = "{{- .Version -}}"
+        MavlinkVersion = {{- .MavlinkVersion -}}
+)
