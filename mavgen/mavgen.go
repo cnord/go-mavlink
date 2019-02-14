@@ -158,7 +158,7 @@ func LowerCamelCase(s string) string {
 				word = "ID"
 			}
 			b.WriteString(word)
-		}else{
+		} else {
 			b.WriteString(strings.ToLower(frag[:]))
 		}
 	}
