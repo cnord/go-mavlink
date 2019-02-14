@@ -26,13 +26,16 @@ func messageTemplate() string {
 		")\n" +
 		"\n" +
 		"var (\n" +
+		"    // ErrUnknownMsgID define\n" +
 		"\tErrUnknownMsgID = errors.New(\"unknown msg id\")\n" +
+		"\t// ErrCrcFail define\n" +
 		"\tErrCrcFail      = errors.New(\"checksum did not match\")\n" +
 		")\n" +
 		"\n" +
+		"// MessageID typedef\n" +
 		"type MessageID {{if .Mavlink2 -}} uint32 {{else}} uint8 {{- end}}\n" +
 		"\n" +
-		"// basic type for encoding/decoding mavlink messages.\n" +
+		"// Message is a basic type for encoding/decoding mavlink messages.\n" +
 		"// use the Pack() and Unpack() routines on specific message\n" +
 		"// types to convert them to/from the Packet type.\n" +
 		"type Message interface {\n" +
@@ -42,7 +45,7 @@ func messageTemplate() string {
 		"\tMsgName() string\n" +
 		"}\n" +
 		"\n" +
-		"// wire type for encoding/decoding mavlink messages.\n" +
+		"// Packet is a wire type for encoding/decoding mavlink messages.\n" +
 		"// use the ToPacket() and FromPacket() routines on specific message\n" +
 		"// types to convert them to/from the Message type.\n" +
 		"type Packet struct {\n" +
@@ -58,6 +61,7 @@ func messageTemplate() string {
 		"\tChecksum  \t  uint16\n" +
 		"}\n" +
 		"\n" +
+		"// Decoder struct provide decoding processor\n" +
 		"type Decoder struct {\n" +
 		"\tsync.Mutex\n" +
 		"\tCurrSeqID uint8        // last seq id decoded\n" +
@@ -66,6 +70,7 @@ func messageTemplate() string {
 		"\tbuffer    []byte // stores bytes we've read from br\n" +
 		"}\n" +
 		"\n" +
+		"// Encoder struct provide encoding processor\n" +
 		"type Encoder struct {\n" +
 		"\tsync.Mutex\n" +
 		"\tCurrSeqID uint8        // last seq id encoded\n" +
@@ -73,6 +78,7 @@ func messageTemplate() string {
 		"\tbw        *bufio.Writer\n" +
 		"}\n" +
 		"\n" +
+		"// NewDecoder function create decoder instance with default dialect\n" +
 		"func NewDecoder(r io.Reader) *Decoder {\n" +
 		"\td := &Decoder{\n" +
 		"\t\tDialects: DialectSlice{ {{- .DialectName -}} },\n" +
@@ -87,6 +93,7 @@ func messageTemplate() string {
 		"\treturn d\n" +
 		"}\n" +
 		"\n" +
+		"// NewEncoder function create encoder instance with default dialect\n" +
 		"func NewEncoder(w io.Writer) *Encoder {\n" +
 		"\n" +
 		"\te := &Encoder{\n" +
@@ -116,7 +123,7 @@ func messageTemplate() string {
 		"\t}, int(b[0])\n" +
 		"}\n" +
 		"\n" +
-		"// Decoder reads and parses from its reader\n" +
+		"// Decode function reads and parses from its reader\n" +
 		"// Typically, the caller will check the p.MsgID to see if it's\n" +
 		"// a message they're interested in, and convert it to the\n" +
 		"// corresponding type via Message.FromPacket()\n" +
@@ -227,8 +234,8 @@ func messageTemplate() string {
 		"\t}\n" +
 		"}\n" +
 		"\n" +
-		"// Decode a packet from a previously received buffer (such as a UDP packet),\n" +
-		"// b must contain a complete message\n" +
+		"// DecodeBytes function provide decode a packet from a previously received buffer (such as\n" +
+		"// a UDP packet), b must contain a complete message\n" +
 		"func (dec *Decoder) DecodeBytes(b []byte) (*Packet, error) {\n" +
 		"\tif len(b) < hdrLen || b[0] != magicNumber {\n" +
 		"\t\treturn nil, errors.New(\"invalid header\")\n" +
@@ -257,8 +264,8 @@ func messageTemplate() string {
 		"\treturn p, nil\n" +
 		"}\n" +
 		"\n" +
-		"// helper that accepts a Message, internally converts it to a Packet,\n" +
-		"// sets the Packet's SeqID based on the\n" +
+		"// Encode function is a helper that accepts a Message, internally converts\n" +
+		"// it to a Packet, sets the Packet's SeqID based on the\n" +
 		"// and then writes it to its writer via EncodePacket()\n" +
 		"func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {\n" +
 		"\tvar p Packet\n" +
@@ -271,7 +278,7 @@ func messageTemplate() string {
 		"\treturn enc.EncodePacket(&p)\n" +
 		"}\n" +
 		"\n" +
-		"// Encode writes p to its writer\n" +
+		"// EncodePacket function provide encode writes p to its writer\n" +
 		"func (enc *Encoder) EncodePacket(p *Packet) error {\n" +
 		"{{if .Mavlink2 }}\n" +
 		"\thdr := []byte{magicNumber, byte(len(p.Payload)), uint8(0), uint8(0), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF), uint8((p.MsgID >> 16) & 0xFF)}\n" +

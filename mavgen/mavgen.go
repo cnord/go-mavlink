@@ -16,6 +16,7 @@ import (
 	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
+// Dialect desribed root tag of schema
 type Dialect struct {
 	Name string
 
@@ -26,12 +27,14 @@ type Dialect struct {
 	Messages []*Message `xml:"messages>message"`
 }
 
+// Enum desribed schema tag enum
 type Enum struct {
 	Name        string       `xml:"name,attr"`
 	Description string       `xml:"description"`
 	Entries     []*EnumEntry `xml:"entry"`
 }
 
+// EnumEntry desribed schema tag entry
 type EnumEntry struct {
 	Value       uint32            `xml:"value,attr"`
 	Name        string            `xml:"name,attr"`
@@ -39,11 +42,13 @@ type EnumEntry struct {
 	Params      []*EnumEntryParam `xml:"param"`
 }
 
+// EnumEntryParam desribed schema tag param
 type EnumEntryParam struct {
 	Index       uint8  `xml:"index,attr"`
 	Description string `xml:",innerxml"`
 }
 
+// Message desribed schema tag message
 type Message struct {
 	// use uint32 instead of uint8 so that we can filter
 	// msgids from mavlink v2, which are 24 bits wide.
@@ -58,6 +63,7 @@ type Message struct {
 	Raw string `xml:",innerxml"`
 }
 
+// MessageField desribed schema tag filed
 type MessageField struct {
 	CType       string `xml:"type,attr"`
 	Name        string `xml:"name,attr"`
@@ -73,14 +79,15 @@ var funcMap = template.FuncMap{
 	"UpperCamelCase": UpperCamelCase,
 }
 
+// SizeInBytes function calculate size in bytes of message field
 func (f *MessageField) SizeInBytes() int {
 	if f.ArrayLen > 0 {
 		return f.BitSize / 8 * f.ArrayLen
-	} else {
-		return f.BitSize / 8
 	}
+	return f.BitSize / 8
 }
 
+// Size function calculate size in bytes of message
 func (m *Message) Size() int {
 	sz := 0
 	for _, f := range m.Fields {
@@ -89,7 +96,7 @@ func (m *Message) Size() int {
 	return sz
 }
 
-// CRC extra calculation: http://www.mavlink.org/mavlink/crc_extra_calculation
+// CRCExtra calculation: http://www.mavlink.org/mavlink/crc_extra_calculation
 func (m *Message) CRCExtra() uint8 {
 	hash := x25.New()
 
@@ -105,7 +112,7 @@ func (m *Message) CRCExtra() uint8 {
 		}
 		fmt.Fprint(hash, cType+" "+f.Name+" ")
 		if f.ArrayLen > 0 {
-			hash.WriteByte(byte(f.ArrayLen))
+			_ = hash.WriteByte(byte(f.ArrayLen))
 		}
 	}
 
@@ -126,13 +133,33 @@ func (m *Message) Swap(i, j int) {
 	m.Fields[i], m.Fields[j] = m.Fields[j], m.Fields[i]
 }
 
-// convert names to upper camel case
+// UpperCamelCase function convert names to upper camel case
 func UpperCamelCase(s string) string {
 	var b bytes.Buffer
 	for _, frag := range strings.Split(s, "_") {
-		if frag != "" {
-			b.WriteString(strings.ToUpper(frag[:1]))
-			b.WriteString(strings.ToLower(frag[1:]))
+		if len(frag) > 0 {
+			word := strings.ToUpper(frag[:1]) + strings.ToLower(frag[1:])
+			if word == "Id" {
+				word = "ID"
+			}
+			b.WriteString(word)
+		}
+	}
+	return b.String()
+}
+
+// LowerCamelCase function convert names to lower camel case
+func LowerCamelCase(s string) string {
+	var b bytes.Buffer
+	for _, frag := range strings.Split(s, "_") {
+		if len(frag) > 0 && b.Len() > 0 {
+			word := strings.ToUpper(frag[:1]) + strings.ToLower(frag[1:])
+			if word == "Id" {
+				word = "ID"
+			}
+			b.WriteString(word)
+		}else{
+			b.WriteString(strings.ToLower(frag[:]))
 		}
 	}
 	return b.String()
@@ -161,19 +188,19 @@ func (f *MessageField) payloadPackPrimitive(offset, name string) string {
 	panic("unhandled bitsize")
 }
 
-// produce a string that will pack this message's fields
-// into a byte slice called 'payload'
+// PayloadPackSequence function produce a string that will pack
+// this message's fields into a byte slice called 'payload'
 func (f *MessageField) PayloadPackSequence() string {
 	name := UpperCamelCase(f.Name)
 
 	if f.ArrayLen > 0 {
 		// optimize to copy() if possible
 		if strings.HasSuffix(f.GoType, "byte") || strings.HasSuffix(f.GoType, "uint8") {
-			return fmt.Sprintf("copy(payload[%d:], self.%s[:])", f.ByteOffset, name)
+			return fmt.Sprintf("copy(payload[%d:], m.%s[:])", f.ByteOffset, name)
 		}
 
 		// pack each element in the array
-		s := fmt.Sprintf("for i, v := range self.%s {\n", name)
+		s := fmt.Sprintf("for i, v := range m.%s {\n", name)
 		off := fmt.Sprintf("%d + i * %d", f.ByteOffset, f.BitSize/8)
 		s += f.payloadPackPrimitive(off, "v") + "\n"
 		s += fmt.Sprintf("}")
@@ -181,7 +208,7 @@ func (f *MessageField) PayloadPackSequence() string {
 	}
 
 	// pack a single field
-	return f.payloadPackPrimitive(fmt.Sprintf("%d", f.ByteOffset), "self."+name)
+	return f.payloadPackPrimitive(fmt.Sprintf("%d", f.ByteOffset), "m."+name)
 }
 
 func (f *MessageField) payloadUnpackPrimitive(offset string) string {
@@ -205,29 +232,31 @@ func (f *MessageField) payloadUnpackPrimitive(offset string) string {
 	panic("unhandled bitsize")
 }
 
+// PayloadUnpackSequence function produce a string that will unpack
+// this message's fields into a byte slice called 'payload'
 func (f *MessageField) PayloadUnpackSequence() string {
 	name := UpperCamelCase(f.Name)
 
 	if f.ArrayLen > 0 {
 		// optimize to copy() if possible
 		if strings.HasSuffix(f.GoType, "byte") || strings.HasSuffix(f.GoType, "uint8") {
-			return fmt.Sprintf("copy(self.%s[:], p.Payload[%d:%d])", name, f.ByteOffset, f.ByteOffset+f.ArrayLen)
+			return fmt.Sprintf("copy(m.%s[:], p.Payload[%d:%d])", name, f.ByteOffset, f.ByteOffset+f.ArrayLen)
 		}
 
 		// unpack each element in the array
-		s := fmt.Sprintf("for i := 0; i < len(self.%s); i++ {\n", name)
+		s := fmt.Sprintf("for i := 0; i < len(m.%s); i++ {\n", name)
 		off := fmt.Sprintf("%d + i * %d", f.ByteOffset, f.BitSize/8)
-		s += fmt.Sprintf("self.%s[i] = %s\n", name, f.payloadUnpackPrimitive(off))
+		s += fmt.Sprintf("m.%s[i] = %s\n", name, f.payloadUnpackPrimitive(off))
 		s += fmt.Sprintf("}")
 		return s
 	}
 
-	return fmt.Sprintf("self.%s = %s", name, f.payloadUnpackPrimitive(fmt.Sprintf("%d", f.ByteOffset)))
+	return fmt.Sprintf("m.%s = %s", name, f.payloadUnpackPrimitive(fmt.Sprintf("%d", f.ByteOffset)))
 }
 
-func SanitizeComments(s string) string {
-	return strings.Replace(s, "\n", "\n// ", -1)
-}
+// func SanitizeComments(s string) string {
+// 	return strings.Replace(s, "\n", "\n// ", -1)
+// }
 
 // Return the number of non-extension fields, that are contained in rawmsg, where rawmsg
 // is raw XML content of "message" element.
@@ -257,7 +286,7 @@ func numBaseFields(rawmsg string) int {
 	}
 }
 
-// read in an xml-based dialect file,
+// ParseDialect read in an xml-based dialect file,
 // and populate a Dialect struct with its contents
 func ParseDialect(in io.Reader, name string) (*Dialect, error) {
 
@@ -287,15 +316,15 @@ func ParseDialect(in io.Reader, name string) (*Dialect, error) {
 				msg.Fields = msg.Fields[:ind]
 			}
 			filteredMessages[n] = msg
-			n += 1
+			n++
 		}
 		msg.Raw = ""
 	}
 	dialect.Messages = filteredMessages[:n]
 
-	if dialect.Include != "" {
-		// generate(protocol.IncludeName())
-	}
+	// if dialect.Include != "" {
+	// 	generate(protocol.IncludeName())
+	// }
 
 	return dialect, nil
 }
@@ -329,10 +358,12 @@ func goArrayType(s string) string {
 	return s[idx+1:]
 }
 
+// IsFloat return check state of validating field as float type
 func (f *MessageField) IsFloat() bool {
 	return strings.HasPrefix(goArrayType(f.GoType), "float")
 }
 
+// GoTypeInfo produce type info string
 func GoTypeInfo(s string) (string, int, int, error) {
 
 	var name string
@@ -366,7 +397,7 @@ func GoTypeInfo(s string) (string, int, int, error) {
 	return name, bitsz, arraylen, nil
 }
 
-// generate a .go source file from the given dialect
+// GenerateGo generate a .go source file from the given dialect
 func (d *Dialect) GenerateGo(w io.Writer) error {
 	// templatize to buffer, format it, then write out
 
@@ -388,17 +419,21 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString(")\n")
 
 	err := d.generateEnums(&bb)
-	d.generateClasses(&bb)
-	d.generateMsgIds(&bb)
+	if err != nil {
+		return err
+	}
+	err = d.generateClasses(&bb)
+	if err != nil {
+		return err
+	}
+	err = d.generateMsgIds(&bb)
+	if err != nil {
+		return err
+	}
 
-	dofmt := true
-	formatted := bb.Bytes()
-
-	if dofmt {
-		formatted, err = format.Source(bb.Bytes())
-		if err != nil {
-			return err
-		}
+	formatted, err := format.Source(bb.Bytes())
+	if err != nil {
+		return err
 	}
 
 	n, err := w.Write(formatted)
@@ -434,19 +469,19 @@ const ({{range .Entries}}
 }
 
 func (d *Dialect) generateMsgIds(w io.Writer) error {
-	msgIdTmpl := `
+	msgIDTmpl := `
 // Message IDs
 const ({{range .Messages}}
 	MSG_ID_{{.Name}} MessageID = {{.ID}}{{end}}
 )
 
 // Dialect{{.Name | UpperCamelCase}} is the dialect represented by {{.Name}}.xml
-var Dialect{{.Name | UpperCamelCase}} *Dialect = &Dialect{
+var Dialect{{.Name | UpperCamelCase}} = &Dialect{
 	Name: "{{.Name}}",
 	crcExtras: map[MessageID]uint8{ {{range .Messages}}
 		MSG_ID_{{.Name}}: {{.CRCExtra}},{{end}}
 	},
-	messageConstructorByMsgId: map[MessageID]func(*Packet) Message{ {{range .Messages}}
+	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{ {{range .Messages}}
 		MSG_ID_{{.Name}}: func(pkt *Packet) Message {
 			msg := new({{.Name | UpperCamelCase}})
 			msg.Unpack(pkt)
@@ -455,7 +490,7 @@ var Dialect{{.Name | UpperCamelCase}} *Dialect = &Dialect{
 	},
 }
 `
-	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIdTmpl)).Execute(w, d)
+	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIDTmpl)).Execute(w, d)
 }
 
 // generate class definitions for each msg id.
@@ -466,29 +501,34 @@ func (d *Dialect) generateClasses(w io.Writer) error {
 	classesTmpl := `
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
+// {{$name}} struct (generated typeinfo)  
 // {{.Description}}
 type {{$name}} struct { {{range .Fields}}
   {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
 }
 
-func (self *{{$name}}) MsgID() MessageID {
+// MsgID (generated function)
+func (m *{{$name}}) MsgID() MessageID {
 	return MSG_ID_{{.Name}}
 }
 
-func (self *{{$name}}) MsgName() string {
+// MsgName (generated function)
+func (m *{{$name}}) MsgName() string {
 	return "{{.Name | UpperCamelCase}}"
 }
 
-func (self *{{$name}}) Pack(p *Packet) error {
+// Pack (generated function)
+func (m *{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
 
-	p.MsgID = self.MsgID()
+	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
-func (self *{{$name}}) Unpack(p *Packet) error {
+// Unpack (generated function)
+func (m *{{$name}}) Unpack(p *Packet) error {
 	if len(p.Payload) < {{ .Size }} {
 		return fmt.Errorf("payload too small")
 	}{{range .Fields}}

@@ -19,18 +19,19 @@ func dialectTemplate() string {
 		"type Dialect struct {\n" +
 		"\tName                      string\n" +
 		"\tcrcExtras                 map[MessageID]uint8\n" +
-		"\tmessageConstructorByMsgId map[MessageID]func(*Packet) Message\n" +
+		"\tmessageConstructorByMsgID map[MessageID]func(*Packet) Message\n" +
 		"}\n" +
 		"\n" +
+		"// GetMessage function produce message by packet\n" +
 		"func (d *Dialect) GetMessage(pkt *Packet) (msg Message, ok bool) {\n" +
-		"\tconstructor, ok := d.messageConstructorByMsgId[pkt.MsgID]\n" +
+		"\tconstructor, ok := d.messageConstructorByMsgID[pkt.MsgID]\n" +
 		"\tif !ok {\n" +
 		"\t\treturn nil, false\n" +
 		"\t}\n" +
 		"\treturn constructor(pkt), true\n" +
 		"}\n" +
 		"\n" +
-		"// Alias for a slice of Dialect pointers\n" +
+		"// DialectSlice typedef is an alias for a slice of Dialect pointers\n" +
 		"// Only really intended to be accessed as a field on Encoder/Decoder\n" +
 		"type DialectSlice []*Dialect\n" +
 		"\n" +

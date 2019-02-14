@@ -8,18 +8,19 @@ package mavlink
 type Dialect struct {
 	Name                      string
 	crcExtras                 map[MessageID]uint8
-	messageConstructorByMsgId map[MessageID]func(*Packet) Message
+	messageConstructorByMsgID map[MessageID]func(*Packet) Message
 }
 
+// GetMessage function produce message by packet
 func (d *Dialect) GetMessage(pkt *Packet) (msg Message, ok bool) {
-	constructor, ok := d.messageConstructorByMsgId[pkt.MsgID]
+	constructor, ok := d.messageConstructorByMsgID[pkt.MsgID]
 	if !ok {
 		return nil, false
 	}
 	return constructor(pkt), true
 }
 
-// Alias for a slice of Dialect pointers
+// DialectSlice typedef is an alias for a slice of Dialect pointers
 // Only really intended to be accessed as a field on Encoder/Decoder
 type DialectSlice []*Dialect
 

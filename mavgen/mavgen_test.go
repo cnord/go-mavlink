@@ -95,19 +95,19 @@ func checkDialect(d1 *Dialect, d2 *Dialect) bool {
 func TestParseDialect(t *testing.T) {
 
 	enums := []*Enum{
-		&Enum{"MAV_AUTOPILOT", "descr1", []*EnumEntry{
-			&EnumEntry{0, "MAV_AUTOPILOT_GENERIC", "", []*EnumEntryParam(nil)},
-			&EnumEntry{1, "MAV_AUTOPILOT_RESERVED", "", []*EnumEntryParam(nil)},
+		{"MAV_AUTOPILOT", "descr1", []*EnumEntry{
+			{0, "MAV_AUTOPILOT_GENERIC", "", []*EnumEntryParam(nil)},
+			{1, "MAV_AUTOPILOT_RESERVED", "", []*EnumEntryParam(nil)},
 		}},
 	}
 
 	messages := []*Message{
-		&Message{1, "MSG1", "descr1", []*MessageField{
-			&MessageField{"uint32_t", "f1", "", "descr1", "", 0, 0, 0},
-			&MessageField{"uint8_t", "f2", "", "descr2", "", 0, 0, 0},
+		{1, "MSG1", "descr1", []*MessageField{
+			{"uint32_t", "f1", "", "descr1", "", 0, 0, 0},
+			{"uint8_t", "f2", "", "descr2", "", 0, 0, 0},
 		}, ""},
-		&Message{2, "MSG2", "descr2", []*MessageField{
-			&MessageField{"uint8_t[10]", "f1", "", "descr1", "", 0, 0, 0},
+		{2, "MSG2", "descr2", []*MessageField{
+			{"uint8_t[10]", "f1", "", "descr1", "", 0, 0, 0},
 		}, ""},
 	}
 
@@ -255,8 +255,8 @@ func TestParseDialect(t *testing.T) {
 			&Dialect{
 				Version: "3", Enums: enums,
 				Messages: []*Message{
-					&Message{1, "MSG1", "descr1", []*MessageField{}, ""},
-					&Message{2, "MSG2", "descr2", []*MessageField(nil), ""},
+					{1, "MSG1", "descr1", []*MessageField{}, ""},
+					{2, "MSG2", "descr2", []*MessageField(nil), ""},
 				},
 			},
 			nil,
