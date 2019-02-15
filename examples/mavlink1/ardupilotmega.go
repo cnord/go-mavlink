@@ -422,9 +422,9 @@ const (
 	DEVICE_OP_BUSTYPE_SPI = 1 // SPI Device operation
 )
 
-// SensorOffsets struct (generated typeinfo)
+// ArdupilotmegaSensorOffsets struct (generated typeinfo)
 // Offsets and calibrations values for hardware sensors. This makes it easier to debug the calibration process.
-type SensorOffsets struct {
+type ArdupilotmegaSensorOffsets struct {
 	MagDeclination float32 // magnetic declination (radians)
 	RawPress       int32   // raw pressure from barometer
 	RawTemp        int32   // raw temperature from barometer
@@ -440,17 +440,17 @@ type SensorOffsets struct {
 }
 
 // MsgID (generated function)
-func (m *SensorOffsets) MsgID() MessageID {
+func (m *ArdupilotmegaSensorOffsets) MsgID() MessageID {
 	return MSG_ID_SENSOR_OFFSETS
 }
 
 // MsgName (generated function)
-func (m *SensorOffsets) MsgName() string {
+func (m *ArdupilotmegaSensorOffsets) MsgName() string {
 	return "SensorOffsets"
 }
 
 // Pack (generated function)
-func (m *SensorOffsets) Pack(p *Packet) error {
+func (m *ArdupilotmegaSensorOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.MagDeclination))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.RawPress))
@@ -471,7 +471,7 @@ func (m *SensorOffsets) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensorOffsets) Unpack(p *Packet) error {
+func (m *ArdupilotmegaSensorOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -490,9 +490,9 @@ func (m *SensorOffsets) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetMagOffsets struct (generated typeinfo)
+// ArdupilotmegaSetMagOffsets struct (generated typeinfo)
 // Deprecated. Use MAV_CMD_PREFLIGHT_SET_SENSOR_OFFSETS instead. Set the magnetometer offsets
-type SetMagOffsets struct {
+type ArdupilotmegaSetMagOffsets struct {
 	MagOfsX         int16 // magnetometer X offset
 	MagOfsY         int16 // magnetometer Y offset
 	MagOfsZ         int16 // magnetometer Z offset
@@ -501,17 +501,17 @@ type SetMagOffsets struct {
 }
 
 // MsgID (generated function)
-func (m *SetMagOffsets) MsgID() MessageID {
+func (m *ArdupilotmegaSetMagOffsets) MsgID() MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
 }
 
 // MsgName (generated function)
-func (m *SetMagOffsets) MsgName() string {
+func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
 	return "SetMagOffsets"
 }
 
 // Pack (generated function)
-func (m *SetMagOffsets) Pack(p *Packet) error {
+func (m *ArdupilotmegaSetMagOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MagOfsX))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.MagOfsY))
@@ -525,7 +525,7 @@ func (m *SetMagOffsets) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetMagOffsets) Unpack(p *Packet) error {
+func (m *ArdupilotmegaSetMagOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -537,25 +537,25 @@ func (m *SetMagOffsets) Unpack(p *Packet) error {
 	return nil
 }
 
-// Meminfo struct (generated typeinfo)
+// ArdupilotmegaMeminfo struct (generated typeinfo)
 // state of APM memory
-type Meminfo struct {
+type ArdupilotmegaMeminfo struct {
 	Brkval  uint16 // heap top
 	Freemem uint16 // free memory
 }
 
 // MsgID (generated function)
-func (m *Meminfo) MsgID() MessageID {
+func (m *ArdupilotmegaMeminfo) MsgID() MessageID {
 	return MSG_ID_MEMINFO
 }
 
 // MsgName (generated function)
-func (m *Meminfo) MsgName() string {
+func (m *ArdupilotmegaMeminfo) MsgName() string {
 	return "Meminfo"
 }
 
 // Pack (generated function)
-func (m *Meminfo) Pack(p *Packet) error {
+func (m *ArdupilotmegaMeminfo) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Brkval))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Freemem))
@@ -566,7 +566,7 @@ func (m *Meminfo) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Meminfo) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMeminfo) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -575,9 +575,9 @@ func (m *Meminfo) Unpack(p *Packet) error {
 	return nil
 }
 
-// ApAdc struct (generated typeinfo)
+// ArdupilotmegaApAdc struct (generated typeinfo)
 // raw ADC output
-type ApAdc struct {
+type ArdupilotmegaApAdc struct {
 	Adc1 uint16 // ADC output 1
 	Adc2 uint16 // ADC output 2
 	Adc3 uint16 // ADC output 3
@@ -587,17 +587,17 @@ type ApAdc struct {
 }
 
 // MsgID (generated function)
-func (m *ApAdc) MsgID() MessageID {
+func (m *ArdupilotmegaApAdc) MsgID() MessageID {
 	return MSG_ID_AP_ADC
 }
 
 // MsgName (generated function)
-func (m *ApAdc) MsgName() string {
+func (m *ArdupilotmegaApAdc) MsgName() string {
 	return "ApAdc"
 }
 
 // Pack (generated function)
-func (m *ApAdc) Pack(p *Packet) error {
+func (m *ArdupilotmegaApAdc) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Adc1))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Adc2))
@@ -612,7 +612,7 @@ func (m *ApAdc) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ApAdc) Unpack(p *Packet) error {
+func (m *ArdupilotmegaApAdc) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -625,9 +625,9 @@ func (m *ApAdc) Unpack(p *Packet) error {
 	return nil
 }
 
-// DigicamConfigure struct (generated typeinfo)
+// ArdupilotmegaDigicamConfigure struct (generated typeinfo)
 // Configure on-board Camera Control System.
-type DigicamConfigure struct {
+type ArdupilotmegaDigicamConfigure struct {
 	ExtraValue      float32 // Correspondent value to given extra_param
 	ShutterSpeed    uint16  // Divisor number //e.g. 1000 means 1/1000 (0 means ignore)
 	TargetSystem    uint8   // System ID
@@ -642,17 +642,17 @@ type DigicamConfigure struct {
 }
 
 // MsgID (generated function)
-func (m *DigicamConfigure) MsgID() MessageID {
+func (m *ArdupilotmegaDigicamConfigure) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONFIGURE
 }
 
 // MsgName (generated function)
-func (m *DigicamConfigure) MsgName() string {
+func (m *ArdupilotmegaDigicamConfigure) MsgName() string {
 	return "DigicamConfigure"
 }
 
 // Pack (generated function)
-func (m *DigicamConfigure) Pack(p *Packet) error {
+func (m *ArdupilotmegaDigicamConfigure) Pack(p *Packet) error {
 	payload := make([]byte, 15)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ShutterSpeed))
@@ -672,7 +672,7 @@ func (m *DigicamConfigure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DigicamConfigure) Unpack(p *Packet) error {
+func (m *ArdupilotmegaDigicamConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		return fmt.Errorf("payload too small")
 	}
@@ -690,9 +690,9 @@ func (m *DigicamConfigure) Unpack(p *Packet) error {
 	return nil
 }
 
-// DigicamControl struct (generated typeinfo)
+// ArdupilotmegaDigicamControl struct (generated typeinfo)
 // Control on-board Camera Control System to take shots.
-type DigicamControl struct {
+type ArdupilotmegaDigicamControl struct {
 	ExtraValue      float32 // Correspondent value to given extra_param
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
@@ -706,17 +706,17 @@ type DigicamControl struct {
 }
 
 // MsgID (generated function)
-func (m *DigicamControl) MsgID() MessageID {
+func (m *ArdupilotmegaDigicamControl) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONTROL
 }
 
 // MsgName (generated function)
-func (m *DigicamControl) MsgName() string {
+func (m *ArdupilotmegaDigicamControl) MsgName() string {
 	return "DigicamControl"
 }
 
 // Pack (generated function)
-func (m *DigicamControl) Pack(p *Packet) error {
+func (m *ArdupilotmegaDigicamControl) Pack(p *Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
 	payload[4] = byte(m.TargetSystem)
@@ -735,7 +735,7 @@ func (m *DigicamControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DigicamControl) Unpack(p *Packet) error {
+func (m *ArdupilotmegaDigicamControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		return fmt.Errorf("payload too small")
 	}
@@ -752,9 +752,9 @@ func (m *DigicamControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// MountConfigure struct (generated typeinfo)
+// ArdupilotmegaMountConfigure struct (generated typeinfo)
 // Message to configure a camera mount, directional antenna, etc.
-type MountConfigure struct {
+type ArdupilotmegaMountConfigure struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	MountMode       uint8 // mount operating mode (see MAV_MOUNT_MODE enum)
@@ -764,17 +764,17 @@ type MountConfigure struct {
 }
 
 // MsgID (generated function)
-func (m *MountConfigure) MsgID() MessageID {
+func (m *ArdupilotmegaMountConfigure) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
 }
 
 // MsgName (generated function)
-func (m *MountConfigure) MsgName() string {
+func (m *ArdupilotmegaMountConfigure) MsgName() string {
 	return "MountConfigure"
 }
 
 // Pack (generated function)
-func (m *MountConfigure) Pack(p *Packet) error {
+func (m *ArdupilotmegaMountConfigure) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -789,7 +789,7 @@ func (m *MountConfigure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MountConfigure) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMountConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -802,9 +802,9 @@ func (m *MountConfigure) Unpack(p *Packet) error {
 	return nil
 }
 
-// MountControl struct (generated typeinfo)
+// ArdupilotmegaMountControl struct (generated typeinfo)
 // Message to control a camera mount, directional antenna, etc.
-type MountControl struct {
+type ArdupilotmegaMountControl struct {
 	InputA          int32 // pitch(deg*100) or lat, depending on mount mode
 	InputB          int32 // roll(deg*100) or lon depending on mount mode
 	InputC          int32 // yaw(deg*100) or alt (in cm) depending on mount mode
@@ -814,17 +814,17 @@ type MountControl struct {
 }
 
 // MsgID (generated function)
-func (m *MountControl) MsgID() MessageID {
+func (m *ArdupilotmegaMountControl) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONTROL
 }
 
 // MsgName (generated function)
-func (m *MountControl) MsgName() string {
+func (m *ArdupilotmegaMountControl) MsgName() string {
 	return "MountControl"
 }
 
 // Pack (generated function)
-func (m *MountControl) Pack(p *Packet) error {
+func (m *ArdupilotmegaMountControl) Pack(p *Packet) error {
 	payload := make([]byte, 15)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.InputA))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.InputB))
@@ -839,7 +839,7 @@ func (m *MountControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MountControl) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMountControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		return fmt.Errorf("payload too small")
 	}
@@ -852,9 +852,9 @@ func (m *MountControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// MountStatus struct (generated typeinfo)
+// ArdupilotmegaMountStatus struct (generated typeinfo)
 // Message with some status from APM to GCS about camera or antenna mount
-type MountStatus struct {
+type ArdupilotmegaMountStatus struct {
 	PointingA       int32 // pitch(deg*100)
 	PointingB       int32 // roll(deg*100)
 	PointingC       int32 // yaw(deg*100)
@@ -863,17 +863,17 @@ type MountStatus struct {
 }
 
 // MsgID (generated function)
-func (m *MountStatus) MsgID() MessageID {
+func (m *ArdupilotmegaMountStatus) MsgID() MessageID {
 	return MSG_ID_MOUNT_STATUS
 }
 
 // MsgName (generated function)
-func (m *MountStatus) MsgName() string {
+func (m *ArdupilotmegaMountStatus) MsgName() string {
 	return "MountStatus"
 }
 
 // Pack (generated function)
-func (m *MountStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaMountStatus) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.PointingA))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.PointingB))
@@ -887,7 +887,7 @@ func (m *MountStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MountStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMountStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -899,9 +899,9 @@ func (m *MountStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// FencePoint struct (generated typeinfo)
+// ArdupilotmegaFencePoint struct (generated typeinfo)
 // A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
-type FencePoint struct {
+type ArdupilotmegaFencePoint struct {
 	Lat             float32 // Latitude of point
 	Lng             float32 // Longitude of point
 	TargetSystem    uint8   // System ID
@@ -911,17 +911,17 @@ type FencePoint struct {
 }
 
 // MsgID (generated function)
-func (m *FencePoint) MsgID() MessageID {
+func (m *ArdupilotmegaFencePoint) MsgID() MessageID {
 	return MSG_ID_FENCE_POINT
 }
 
 // MsgName (generated function)
-func (m *FencePoint) MsgName() string {
+func (m *ArdupilotmegaFencePoint) MsgName() string {
 	return "FencePoint"
 }
 
 // Pack (generated function)
-func (m *FencePoint) Pack(p *Packet) error {
+func (m *ArdupilotmegaFencePoint) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Lng))
@@ -936,7 +936,7 @@ func (m *FencePoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FencePoint) Unpack(p *Packet) error {
+func (m *ArdupilotmegaFencePoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -949,26 +949,26 @@ func (m *FencePoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// FenceFetchPoint struct (generated typeinfo)
+// ArdupilotmegaFenceFetchPoint struct (generated typeinfo)
 // Request a current fence point from MAV
-type FenceFetchPoint struct {
+type ArdupilotmegaFenceFetchPoint struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Idx             uint8 // point index (first point is 1, 0 is for return point)
 }
 
 // MsgID (generated function)
-func (m *FenceFetchPoint) MsgID() MessageID {
+func (m *ArdupilotmegaFenceFetchPoint) MsgID() MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
 }
 
 // MsgName (generated function)
-func (m *FenceFetchPoint) MsgName() string {
+func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
 	return "FenceFetchPoint"
 }
 
 // Pack (generated function)
-func (m *FenceFetchPoint) Pack(p *Packet) error {
+func (m *ArdupilotmegaFenceFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -980,7 +980,7 @@ func (m *FenceFetchPoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FenceFetchPoint) Unpack(p *Packet) error {
+func (m *ArdupilotmegaFenceFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -990,9 +990,9 @@ func (m *FenceFetchPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// FenceStatus struct (generated typeinfo)
+// ArdupilotmegaFenceStatus struct (generated typeinfo)
 // Status of geo-fencing. Sent in extended status stream when fencing enabled
-type FenceStatus struct {
+type ArdupilotmegaFenceStatus struct {
 	BreachTime   uint32 // time of last breach in milliseconds since boot
 	BreachCount  uint16 // number of fence breaches
 	BreachStatus uint8  // 0 if currently inside fence, 1 if outside
@@ -1000,17 +1000,17 @@ type FenceStatus struct {
 }
 
 // MsgID (generated function)
-func (m *FenceStatus) MsgID() MessageID {
+func (m *ArdupilotmegaFenceStatus) MsgID() MessageID {
 	return MSG_ID_FENCE_STATUS
 }
 
 // MsgName (generated function)
-func (m *FenceStatus) MsgName() string {
+func (m *ArdupilotmegaFenceStatus) MsgName() string {
 	return "FenceStatus"
 }
 
 // Pack (generated function)
-func (m *FenceStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaFenceStatus) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.BreachTime))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.BreachCount))
@@ -1023,7 +1023,7 @@ func (m *FenceStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FenceStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaFenceStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1034,9 +1034,9 @@ func (m *FenceStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// Ahrs struct (generated typeinfo)
+// ArdupilotmegaAhrs struct (generated typeinfo)
 // Status of DCM attitude estimator
-type Ahrs struct {
+type ArdupilotmegaAhrs struct {
 	Omegaix     float32 // X gyro drift estimate rad/s
 	Omegaiy     float32 // Y gyro drift estimate rad/s
 	Omegaiz     float32 // Z gyro drift estimate rad/s
@@ -1047,17 +1047,17 @@ type Ahrs struct {
 }
 
 // MsgID (generated function)
-func (m *Ahrs) MsgID() MessageID {
+func (m *ArdupilotmegaAhrs) MsgID() MessageID {
 	return MSG_ID_AHRS
 }
 
 // MsgName (generated function)
-func (m *Ahrs) MsgName() string {
+func (m *ArdupilotmegaAhrs) MsgName() string {
 	return "Ahrs"
 }
 
 // Pack (generated function)
-func (m *Ahrs) Pack(p *Packet) error {
+func (m *ArdupilotmegaAhrs) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Omegaix))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Omegaiy))
@@ -1073,7 +1073,7 @@ func (m *Ahrs) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Ahrs) Unpack(p *Packet) error {
+func (m *ArdupilotmegaAhrs) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1087,9 +1087,9 @@ func (m *Ahrs) Unpack(p *Packet) error {
 	return nil
 }
 
-// Simstate struct (generated typeinfo)
+// ArdupilotmegaSimstate struct (generated typeinfo)
 // Status of simulation environment, if used
-type Simstate struct {
+type ArdupilotmegaSimstate struct {
 	Roll  float32 // Roll angle (rad)
 	Pitch float32 // Pitch angle (rad)
 	Yaw   float32 // Yaw angle (rad)
@@ -1104,17 +1104,17 @@ type Simstate struct {
 }
 
 // MsgID (generated function)
-func (m *Simstate) MsgID() MessageID {
+func (m *ArdupilotmegaSimstate) MsgID() MessageID {
 	return MSG_ID_SIMSTATE
 }
 
 // MsgName (generated function)
-func (m *Simstate) MsgName() string {
+func (m *ArdupilotmegaSimstate) MsgName() string {
 	return "Simstate"
 }
 
 // Pack (generated function)
-func (m *Simstate) Pack(p *Packet) error {
+func (m *ArdupilotmegaSimstate) Pack(p *Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -1134,7 +1134,7 @@ func (m *Simstate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Simstate) Unpack(p *Packet) error {
+func (m *ArdupilotmegaSimstate) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1152,25 +1152,25 @@ func (m *Simstate) Unpack(p *Packet) error {
 	return nil
 }
 
-// Hwstatus struct (generated typeinfo)
+// ArdupilotmegaHwstatus struct (generated typeinfo)
 // Status of key hardware
-type Hwstatus struct {
+type ArdupilotmegaHwstatus struct {
 	Vcc    uint16 // board voltage (mV)
 	I2cerr uint8  // I2C error count
 }
 
 // MsgID (generated function)
-func (m *Hwstatus) MsgID() MessageID {
+func (m *ArdupilotmegaHwstatus) MsgID() MessageID {
 	return MSG_ID_HWSTATUS
 }
 
 // MsgName (generated function)
-func (m *Hwstatus) MsgName() string {
+func (m *ArdupilotmegaHwstatus) MsgName() string {
 	return "Hwstatus"
 }
 
 // Pack (generated function)
-func (m *Hwstatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaHwstatus) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
 	payload[2] = byte(m.I2cerr)
@@ -1181,7 +1181,7 @@ func (m *Hwstatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Hwstatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaHwstatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1190,9 +1190,9 @@ func (m *Hwstatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// Radio struct (generated typeinfo)
+// ArdupilotmegaRadio struct (generated typeinfo)
 // Status generated by radio
-type Radio struct {
+type ArdupilotmegaRadio struct {
 	Rxerrors uint16 // receive errors
 	Fixed    uint16 // count of error corrected packets
 	Rssi     uint8  // local signal strength
@@ -1203,17 +1203,17 @@ type Radio struct {
 }
 
 // MsgID (generated function)
-func (m *Radio) MsgID() MessageID {
+func (m *ArdupilotmegaRadio) MsgID() MessageID {
 	return MSG_ID_RADIO
 }
 
 // MsgName (generated function)
-func (m *Radio) MsgName() string {
+func (m *ArdupilotmegaRadio) MsgName() string {
 	return "Radio"
 }
 
 // Pack (generated function)
-func (m *Radio) Pack(p *Packet) error {
+func (m *ArdupilotmegaRadio) Pack(p *Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Rxerrors))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Fixed))
@@ -1229,7 +1229,7 @@ func (m *Radio) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Radio) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRadio) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1243,9 +1243,9 @@ func (m *Radio) Unpack(p *Packet) error {
 	return nil
 }
 
-// LimitsStatus struct (generated typeinfo)
+// ArdupilotmegaLimitsStatus struct (generated typeinfo)
 // Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled
-type LimitsStatus struct {
+type ArdupilotmegaLimitsStatus struct {
 	LastTrigger   uint32 // time of last breach in milliseconds since boot
 	LastAction    uint32 // time of last recovery action in milliseconds since boot
 	LastRecovery  uint32 // time of last successful recovery in milliseconds since boot
@@ -1258,17 +1258,17 @@ type LimitsStatus struct {
 }
 
 // MsgID (generated function)
-func (m *LimitsStatus) MsgID() MessageID {
+func (m *ArdupilotmegaLimitsStatus) MsgID() MessageID {
 	return MSG_ID_LIMITS_STATUS
 }
 
 // MsgName (generated function)
-func (m *LimitsStatus) MsgName() string {
+func (m *ArdupilotmegaLimitsStatus) MsgName() string {
 	return "LimitsStatus"
 }
 
 // Pack (generated function)
-func (m *LimitsStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaLimitsStatus) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.LastTrigger))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LastAction))
@@ -1286,7 +1286,7 @@ func (m *LimitsStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LimitsStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaLimitsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1302,26 +1302,26 @@ func (m *LimitsStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// Wind struct (generated typeinfo)
+// ArdupilotmegaWind struct (generated typeinfo)
 // Wind estimation
-type Wind struct {
+type ArdupilotmegaWind struct {
 	Direction float32 // wind direction that wind is coming from (degrees)
 	Speed     float32 // wind speed in ground plane (m/s)
 	SpeedZ    float32 // vertical wind speed (m/s)
 }
 
 // MsgID (generated function)
-func (m *Wind) MsgID() MessageID {
+func (m *ArdupilotmegaWind) MsgID() MessageID {
 	return MSG_ID_WIND
 }
 
 // MsgName (generated function)
-func (m *Wind) MsgName() string {
+func (m *ArdupilotmegaWind) MsgName() string {
 	return "Wind"
 }
 
 // Pack (generated function)
-func (m *Wind) Pack(p *Packet) error {
+func (m *ArdupilotmegaWind) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Direction))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Speed))
@@ -1333,7 +1333,7 @@ func (m *Wind) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Wind) Unpack(p *Packet) error {
+func (m *ArdupilotmegaWind) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1343,26 +1343,26 @@ func (m *Wind) Unpack(p *Packet) error {
 	return nil
 }
 
-// Data16 struct (generated typeinfo)
+// ArdupilotmegaData16 struct (generated typeinfo)
 // Data packet, size 16
-type Data16 struct {
+type ArdupilotmegaData16 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [16]uint8 // raw data
 }
 
 // MsgID (generated function)
-func (m *Data16) MsgID() MessageID {
+func (m *ArdupilotmegaData16) MsgID() MessageID {
 	return MSG_ID_DATA16
 }
 
 // MsgName (generated function)
-func (m *Data16) MsgName() string {
+func (m *ArdupilotmegaData16) MsgName() string {
 	return "Data16"
 }
 
 // Pack (generated function)
-func (m *Data16) Pack(p *Packet) error {
+func (m *ArdupilotmegaData16) Pack(p *Packet) error {
 	payload := make([]byte, 18)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
@@ -1374,7 +1374,7 @@ func (m *Data16) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Data16) Unpack(p *Packet) error {
+func (m *ArdupilotmegaData16) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1384,26 +1384,26 @@ func (m *Data16) Unpack(p *Packet) error {
 	return nil
 }
 
-// Data32 struct (generated typeinfo)
+// ArdupilotmegaData32 struct (generated typeinfo)
 // Data packet, size 32
-type Data32 struct {
+type ArdupilotmegaData32 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [32]uint8 // raw data
 }
 
 // MsgID (generated function)
-func (m *Data32) MsgID() MessageID {
+func (m *ArdupilotmegaData32) MsgID() MessageID {
 	return MSG_ID_DATA32
 }
 
 // MsgName (generated function)
-func (m *Data32) MsgName() string {
+func (m *ArdupilotmegaData32) MsgName() string {
 	return "Data32"
 }
 
 // Pack (generated function)
-func (m *Data32) Pack(p *Packet) error {
+func (m *ArdupilotmegaData32) Pack(p *Packet) error {
 	payload := make([]byte, 34)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
@@ -1415,7 +1415,7 @@ func (m *Data32) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Data32) Unpack(p *Packet) error {
+func (m *ArdupilotmegaData32) Unpack(p *Packet) error {
 	if len(p.Payload) < 34 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1425,26 +1425,26 @@ func (m *Data32) Unpack(p *Packet) error {
 	return nil
 }
 
-// Data64 struct (generated typeinfo)
+// ArdupilotmegaData64 struct (generated typeinfo)
 // Data packet, size 64
-type Data64 struct {
+type ArdupilotmegaData64 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [64]uint8 // raw data
 }
 
 // MsgID (generated function)
-func (m *Data64) MsgID() MessageID {
+func (m *ArdupilotmegaData64) MsgID() MessageID {
 	return MSG_ID_DATA64
 }
 
 // MsgName (generated function)
-func (m *Data64) MsgName() string {
+func (m *ArdupilotmegaData64) MsgName() string {
 	return "Data64"
 }
 
 // Pack (generated function)
-func (m *Data64) Pack(p *Packet) error {
+func (m *ArdupilotmegaData64) Pack(p *Packet) error {
 	payload := make([]byte, 66)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
@@ -1456,7 +1456,7 @@ func (m *Data64) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Data64) Unpack(p *Packet) error {
+func (m *ArdupilotmegaData64) Unpack(p *Packet) error {
 	if len(p.Payload) < 66 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1466,26 +1466,26 @@ func (m *Data64) Unpack(p *Packet) error {
 	return nil
 }
 
-// Data96 struct (generated typeinfo)
+// ArdupilotmegaData96 struct (generated typeinfo)
 // Data packet, size 96
-type Data96 struct {
+type ArdupilotmegaData96 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [96]uint8 // raw data
 }
 
 // MsgID (generated function)
-func (m *Data96) MsgID() MessageID {
+func (m *ArdupilotmegaData96) MsgID() MessageID {
 	return MSG_ID_DATA96
 }
 
 // MsgName (generated function)
-func (m *Data96) MsgName() string {
+func (m *ArdupilotmegaData96) MsgName() string {
 	return "Data96"
 }
 
 // Pack (generated function)
-func (m *Data96) Pack(p *Packet) error {
+func (m *ArdupilotmegaData96) Pack(p *Packet) error {
 	payload := make([]byte, 98)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
@@ -1497,7 +1497,7 @@ func (m *Data96) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Data96) Unpack(p *Packet) error {
+func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1507,25 +1507,25 @@ func (m *Data96) Unpack(p *Packet) error {
 	return nil
 }
 
-// Rangefinder struct (generated typeinfo)
+// ArdupilotmegaRangefinder struct (generated typeinfo)
 // Rangefinder reporting
-type Rangefinder struct {
+type ArdupilotmegaRangefinder struct {
 	Distance float32 // distance in meters
 	Voltage  float32 // raw voltage if available, zero otherwise
 }
 
 // MsgID (generated function)
-func (m *Rangefinder) MsgID() MessageID {
+func (m *ArdupilotmegaRangefinder) MsgID() MessageID {
 	return MSG_ID_RANGEFINDER
 }
 
 // MsgName (generated function)
-func (m *Rangefinder) MsgName() string {
+func (m *ArdupilotmegaRangefinder) MsgName() string {
 	return "Rangefinder"
 }
 
 // Pack (generated function)
-func (m *Rangefinder) Pack(p *Packet) error {
+func (m *ArdupilotmegaRangefinder) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Distance))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Voltage))
@@ -1536,7 +1536,7 @@ func (m *Rangefinder) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Rangefinder) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRangefinder) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1545,9 +1545,9 @@ func (m *Rangefinder) Unpack(p *Packet) error {
 	return nil
 }
 
-// AirspeedAutocal struct (generated typeinfo)
+// ArdupilotmegaAirspeedAutocal struct (generated typeinfo)
 // Airspeed auto-calibration
-type AirspeedAutocal struct {
+type ArdupilotmegaAirspeedAutocal struct {
 	Vx           float32 // GPS velocity north m/s
 	Vy           float32 // GPS velocity east m/s
 	Vz           float32 // GPS velocity down m/s
@@ -1563,17 +1563,17 @@ type AirspeedAutocal struct {
 }
 
 // MsgID (generated function)
-func (m *AirspeedAutocal) MsgID() MessageID {
+func (m *ArdupilotmegaAirspeedAutocal) MsgID() MessageID {
 	return MSG_ID_AIRSPEED_AUTOCAL
 }
 
 // MsgName (generated function)
-func (m *AirspeedAutocal) MsgName() string {
+func (m *ArdupilotmegaAirspeedAutocal) MsgName() string {
 	return "AirspeedAutocal"
 }
 
 // Pack (generated function)
-func (m *AirspeedAutocal) Pack(p *Packet) error {
+func (m *ArdupilotmegaAirspeedAutocal) Pack(p *Packet) error {
 	payload := make([]byte, 48)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Vx))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Vy))
@@ -1594,7 +1594,7 @@ func (m *AirspeedAutocal) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AirspeedAutocal) Unpack(p *Packet) error {
+func (m *ArdupilotmegaAirspeedAutocal) Unpack(p *Packet) error {
 	if len(p.Payload) < 48 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1613,9 +1613,9 @@ func (m *AirspeedAutocal) Unpack(p *Packet) error {
 	return nil
 }
 
-// RallyPoint struct (generated typeinfo)
+// ArdupilotmegaRallyPoint struct (generated typeinfo)
 // A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
-type RallyPoint struct {
+type ArdupilotmegaRallyPoint struct {
 	Lat             int32  // Latitude of point in degrees * 1E7
 	Lng             int32  // Longitude of point in degrees * 1E7
 	Alt             int16  // Transit / loiter altitude in meters relative to home
@@ -1629,17 +1629,17 @@ type RallyPoint struct {
 }
 
 // MsgID (generated function)
-func (m *RallyPoint) MsgID() MessageID {
+func (m *ArdupilotmegaRallyPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_POINT
 }
 
 // MsgName (generated function)
-func (m *RallyPoint) MsgName() string {
+func (m *ArdupilotmegaRallyPoint) MsgName() string {
 	return "RallyPoint"
 }
 
 // Pack (generated function)
-func (m *RallyPoint) Pack(p *Packet) error {
+func (m *ArdupilotmegaRallyPoint) Pack(p *Packet) error {
 	payload := make([]byte, 19)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lng))
@@ -1658,7 +1658,7 @@ func (m *RallyPoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RallyPoint) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRallyPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1675,26 +1675,26 @@ func (m *RallyPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// RallyFetchPoint struct (generated typeinfo)
+// ArdupilotmegaRallyFetchPoint struct (generated typeinfo)
 // Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.
-type RallyFetchPoint struct {
+type ArdupilotmegaRallyFetchPoint struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Idx             uint8 // point index (first point is 0)
 }
 
 // MsgID (generated function)
-func (m *RallyFetchPoint) MsgID() MessageID {
+func (m *ArdupilotmegaRallyFetchPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
 }
 
 // MsgName (generated function)
-func (m *RallyFetchPoint) MsgName() string {
+func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
 	return "RallyFetchPoint"
 }
 
 // Pack (generated function)
-func (m *RallyFetchPoint) Pack(p *Packet) error {
+func (m *ArdupilotmegaRallyFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -1706,7 +1706,7 @@ func (m *RallyFetchPoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RallyFetchPoint) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRallyFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1716,9 +1716,9 @@ func (m *RallyFetchPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// CompassmotStatus struct (generated typeinfo)
+// ArdupilotmegaCompassmotStatus struct (generated typeinfo)
 // Status of compassmot calibration
-type CompassmotStatus struct {
+type ArdupilotmegaCompassmotStatus struct {
 	Current       float32 // current (Ampere)
 	Compensationx float32 // Motor Compensation X
 	Compensationy float32 // Motor Compensation Y
@@ -1728,17 +1728,17 @@ type CompassmotStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CompassmotStatus) MsgID() MessageID {
+func (m *ArdupilotmegaCompassmotStatus) MsgID() MessageID {
 	return MSG_ID_COMPASSMOT_STATUS
 }
 
 // MsgName (generated function)
-func (m *CompassmotStatus) MsgName() string {
+func (m *ArdupilotmegaCompassmotStatus) MsgName() string {
 	return "CompassmotStatus"
 }
 
 // Pack (generated function)
-func (m *CompassmotStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaCompassmotStatus) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Current))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Compensationx))
@@ -1753,7 +1753,7 @@ func (m *CompassmotStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CompassmotStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaCompassmotStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1766,9 +1766,9 @@ func (m *CompassmotStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// Ahrs2 struct (generated typeinfo)
+// ArdupilotmegaAhrs2 struct (generated typeinfo)
 // Status of secondary AHRS filter if available
-type Ahrs2 struct {
+type ArdupilotmegaAhrs2 struct {
 	Roll     float32 // Roll angle (rad)
 	Pitch    float32 // Pitch angle (rad)
 	Yaw      float32 // Yaw angle (rad)
@@ -1778,17 +1778,17 @@ type Ahrs2 struct {
 }
 
 // MsgID (generated function)
-func (m *Ahrs2) MsgID() MessageID {
+func (m *ArdupilotmegaAhrs2) MsgID() MessageID {
 	return MSG_ID_AHRS2
 }
 
 // MsgName (generated function)
-func (m *Ahrs2) MsgName() string {
+func (m *ArdupilotmegaAhrs2) MsgName() string {
 	return "Ahrs2"
 }
 
 // Pack (generated function)
-func (m *Ahrs2) Pack(p *Packet) error {
+func (m *ArdupilotmegaAhrs2) Pack(p *Packet) error {
 	payload := make([]byte, 24)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -1803,7 +1803,7 @@ func (m *Ahrs2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Ahrs2) Unpack(p *Packet) error {
+func (m *ArdupilotmegaAhrs2) Unpack(p *Packet) error {
 	if len(p.Payload) < 24 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1816,9 +1816,9 @@ func (m *Ahrs2) Unpack(p *Packet) error {
 	return nil
 }
 
-// CameraStatus struct (generated typeinfo)
+// ArdupilotmegaCameraStatus struct (generated typeinfo)
 // Camera Event
-type CameraStatus struct {
+type ArdupilotmegaCameraStatus struct {
 	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch, according to camera clock)
 	P1           float32 // Parameter 1 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
 	P2           float32 // Parameter 2 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
@@ -1831,17 +1831,17 @@ type CameraStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CameraStatus) MsgID() MessageID {
+func (m *ArdupilotmegaCameraStatus) MsgID() MessageID {
 	return MSG_ID_CAMERA_STATUS
 }
 
 // MsgName (generated function)
-func (m *CameraStatus) MsgName() string {
+func (m *ArdupilotmegaCameraStatus) MsgName() string {
 	return "CameraStatus"
 }
 
 // Pack (generated function)
-func (m *CameraStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaCameraStatus) Pack(p *Packet) error {
 	payload := make([]byte, 29)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.P1))
@@ -1859,7 +1859,7 @@ func (m *CameraStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CameraStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaCameraStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1875,9 +1875,9 @@ func (m *CameraStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CameraFeedback struct (generated typeinfo)
+// ArdupilotmegaCameraFeedback struct (generated typeinfo)
 // Camera Capture Feedback
-type CameraFeedback struct {
+type ArdupilotmegaCameraFeedback struct {
 	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB)
 	Lat          int32   // Latitude in (deg * 1E7)
 	Lng          int32   // Longitude in (deg * 1E7)
@@ -1894,17 +1894,17 @@ type CameraFeedback struct {
 }
 
 // MsgID (generated function)
-func (m *CameraFeedback) MsgID() MessageID {
+func (m *ArdupilotmegaCameraFeedback) MsgID() MessageID {
 	return MSG_ID_CAMERA_FEEDBACK
 }
 
 // MsgName (generated function)
-func (m *CameraFeedback) MsgName() string {
+func (m *ArdupilotmegaCameraFeedback) MsgName() string {
 	return "CameraFeedback"
 }
 
 // Pack (generated function)
-func (m *CameraFeedback) Pack(p *Packet) error {
+func (m *ArdupilotmegaCameraFeedback) Pack(p *Packet) error {
 	payload := make([]byte, 45)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -1926,7 +1926,7 @@ func (m *CameraFeedback) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CameraFeedback) Unpack(p *Packet) error {
+func (m *ArdupilotmegaCameraFeedback) Unpack(p *Packet) error {
 	if len(p.Payload) < 45 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1946,25 +1946,25 @@ func (m *CameraFeedback) Unpack(p *Packet) error {
 	return nil
 }
 
-// Battery2 struct (generated typeinfo)
+// ArdupilotmegaBattery2 struct (generated typeinfo)
 // 2nd Battery status
-type Battery2 struct {
+type ArdupilotmegaBattery2 struct {
 	Voltage        uint16 // voltage in millivolts
 	CurrentBattery int16  // Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current
 }
 
 // MsgID (generated function)
-func (m *Battery2) MsgID() MessageID {
+func (m *ArdupilotmegaBattery2) MsgID() MessageID {
 	return MSG_ID_BATTERY2
 }
 
 // MsgName (generated function)
-func (m *Battery2) MsgName() string {
+func (m *ArdupilotmegaBattery2) MsgName() string {
 	return "Battery2"
 }
 
 // Pack (generated function)
-func (m *Battery2) Pack(p *Packet) error {
+func (m *ArdupilotmegaBattery2) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Voltage))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.CurrentBattery))
@@ -1975,7 +1975,7 @@ func (m *Battery2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Battery2) Unpack(p *Packet) error {
+func (m *ArdupilotmegaBattery2) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1984,9 +1984,9 @@ func (m *Battery2) Unpack(p *Packet) error {
 	return nil
 }
 
-// Ahrs3 struct (generated typeinfo)
+// ArdupilotmegaAhrs3 struct (generated typeinfo)
 // Status of third AHRS filter if available. This is for ANU research group (Ali and Sean)
-type Ahrs3 struct {
+type ArdupilotmegaAhrs3 struct {
 	Roll     float32 // Roll angle (rad)
 	Pitch    float32 // Pitch angle (rad)
 	Yaw      float32 // Yaw angle (rad)
@@ -2000,17 +2000,17 @@ type Ahrs3 struct {
 }
 
 // MsgID (generated function)
-func (m *Ahrs3) MsgID() MessageID {
+func (m *ArdupilotmegaAhrs3) MsgID() MessageID {
 	return MSG_ID_AHRS3
 }
 
 // MsgName (generated function)
-func (m *Ahrs3) MsgName() string {
+func (m *ArdupilotmegaAhrs3) MsgName() string {
 	return "Ahrs3"
 }
 
 // Pack (generated function)
-func (m *Ahrs3) Pack(p *Packet) error {
+func (m *ArdupilotmegaAhrs3) Pack(p *Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -2029,7 +2029,7 @@ func (m *Ahrs3) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Ahrs3) Unpack(p *Packet) error {
+func (m *ArdupilotmegaAhrs3) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2046,25 +2046,25 @@ func (m *Ahrs3) Unpack(p *Packet) error {
 	return nil
 }
 
-// AutopilotVersionRequest struct (generated typeinfo)
+// ArdupilotmegaAutopilotVersionRequest struct (generated typeinfo)
 // Request the autopilot version from the system/component.
-type AutopilotVersionRequest struct {
+type ArdupilotmegaAutopilotVersionRequest struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *AutopilotVersionRequest) MsgID() MessageID {
+func (m *ArdupilotmegaAutopilotVersionRequest) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
 }
 
 // MsgName (generated function)
-func (m *AutopilotVersionRequest) MsgName() string {
+func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
 	return "AutopilotVersionRequest"
 }
 
 // Pack (generated function)
-func (m *AutopilotVersionRequest) Pack(p *Packet) error {
+func (m *ArdupilotmegaAutopilotVersionRequest) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2075,7 +2075,7 @@ func (m *AutopilotVersionRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AutopilotVersionRequest) Unpack(p *Packet) error {
+func (m *ArdupilotmegaAutopilotVersionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2084,9 +2084,9 @@ func (m *AutopilotVersionRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// RemoteLogDataBlock struct (generated typeinfo)
+// ArdupilotmegaRemoteLogDataBlock struct (generated typeinfo)
 // Send a block of log data to remote location
-type RemoteLogDataBlock struct {
+type ArdupilotmegaRemoteLogDataBlock struct {
 	Seqno           uint32     // log data block sequence number
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
@@ -2094,17 +2094,17 @@ type RemoteLogDataBlock struct {
 }
 
 // MsgID (generated function)
-func (m *RemoteLogDataBlock) MsgID() MessageID {
+func (m *ArdupilotmegaRemoteLogDataBlock) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_DATA_BLOCK
 }
 
 // MsgName (generated function)
-func (m *RemoteLogDataBlock) MsgName() string {
+func (m *ArdupilotmegaRemoteLogDataBlock) MsgName() string {
 	return "RemoteLogDataBlock"
 }
 
 // Pack (generated function)
-func (m *RemoteLogDataBlock) Pack(p *Packet) error {
+func (m *ArdupilotmegaRemoteLogDataBlock) Pack(p *Packet) error {
 	payload := make([]byte, 206)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
 	payload[4] = byte(m.TargetSystem)
@@ -2117,7 +2117,7 @@ func (m *RemoteLogDataBlock) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RemoteLogDataBlock) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRemoteLogDataBlock) Unpack(p *Packet) error {
 	if len(p.Payload) < 206 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2128,9 +2128,9 @@ func (m *RemoteLogDataBlock) Unpack(p *Packet) error {
 	return nil
 }
 
-// RemoteLogBlockStatus struct (generated typeinfo)
+// ArdupilotmegaRemoteLogBlockStatus struct (generated typeinfo)
 // Send Status of each log block that autopilot board might have sent
-type RemoteLogBlockStatus struct {
+type ArdupilotmegaRemoteLogBlockStatus struct {
 	Seqno           uint32 // log data block sequence number
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
@@ -2138,17 +2138,17 @@ type RemoteLogBlockStatus struct {
 }
 
 // MsgID (generated function)
-func (m *RemoteLogBlockStatus) MsgID() MessageID {
+func (m *ArdupilotmegaRemoteLogBlockStatus) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
 }
 
 // MsgName (generated function)
-func (m *RemoteLogBlockStatus) MsgName() string {
+func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
 	return "RemoteLogBlockStatus"
 }
 
 // Pack (generated function)
-func (m *RemoteLogBlockStatus) Pack(p *Packet) error {
+func (m *ArdupilotmegaRemoteLogBlockStatus) Pack(p *Packet) error {
 	payload := make([]byte, 7)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
 	payload[4] = byte(m.TargetSystem)
@@ -2161,7 +2161,7 @@ func (m *RemoteLogBlockStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RemoteLogBlockStatus) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRemoteLogBlockStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2172,9 +2172,9 @@ func (m *RemoteLogBlockStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// LedControl struct (generated typeinfo)
+// ArdupilotmegaLedControl struct (generated typeinfo)
 // Control vehicle LEDs
-type LedControl struct {
+type ArdupilotmegaLedControl struct {
 	TargetSystem    uint8     // System ID
 	TargetComponent uint8     // Component ID
 	Instance        uint8     // Instance (LED instance to control or 255 for all LEDs)
@@ -2184,17 +2184,17 @@ type LedControl struct {
 }
 
 // MsgID (generated function)
-func (m *LedControl) MsgID() MessageID {
+func (m *ArdupilotmegaLedControl) MsgID() MessageID {
 	return MSG_ID_LED_CONTROL
 }
 
 // MsgName (generated function)
-func (m *LedControl) MsgName() string {
+func (m *ArdupilotmegaLedControl) MsgName() string {
 	return "LedControl"
 }
 
 // Pack (generated function)
-func (m *LedControl) Pack(p *Packet) error {
+func (m *ArdupilotmegaLedControl) Pack(p *Packet) error {
 	payload := make([]byte, 29)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2209,7 +2209,7 @@ func (m *LedControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LedControl) Unpack(p *Packet) error {
+func (m *ArdupilotmegaLedControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2222,9 +2222,9 @@ func (m *LedControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// MagCalProgress struct (generated typeinfo)
+// ArdupilotmegaMagCalProgress struct (generated typeinfo)
 // Reports progress of compass calibration.
-type MagCalProgress struct {
+type ArdupilotmegaMagCalProgress struct {
 	DirectionX     float32   // Body frame direction vector for display
 	DirectionY     float32   // Body frame direction vector for display
 	DirectionZ     float32   // Body frame direction vector for display
@@ -2237,17 +2237,17 @@ type MagCalProgress struct {
 }
 
 // MsgID (generated function)
-func (m *MagCalProgress) MsgID() MessageID {
+func (m *ArdupilotmegaMagCalProgress) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_PROGRESS
 }
 
 // MsgName (generated function)
-func (m *MagCalProgress) MsgName() string {
+func (m *ArdupilotmegaMagCalProgress) MsgName() string {
 	return "MagCalProgress"
 }
 
 // Pack (generated function)
-func (m *MagCalProgress) Pack(p *Packet) error {
+func (m *ArdupilotmegaMagCalProgress) Pack(p *Packet) error {
 	payload := make([]byte, 27)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DirectionX))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DirectionY))
@@ -2265,7 +2265,7 @@ func (m *MagCalProgress) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MagCalProgress) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMagCalProgress) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2281,9 +2281,9 @@ func (m *MagCalProgress) Unpack(p *Packet) error {
 	return nil
 }
 
-// MagCalReport struct (generated typeinfo)
+// ArdupilotmegaMagCalReport struct (generated typeinfo)
 // Reports results of completed compass calibration. Sent until MAG_CAL_ACK received.
-type MagCalReport struct {
+type ArdupilotmegaMagCalReport struct {
 	Fitness   float32 // RMS milligauss residuals
 	OfsX      float32 // X offset
 	OfsY      float32 // Y offset
@@ -2301,17 +2301,17 @@ type MagCalReport struct {
 }
 
 // MsgID (generated function)
-func (m *MagCalReport) MsgID() MessageID {
+func (m *ArdupilotmegaMagCalReport) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_REPORT
 }
 
 // MsgName (generated function)
-func (m *MagCalReport) MsgName() string {
+func (m *ArdupilotmegaMagCalReport) MsgName() string {
 	return "MagCalReport"
 }
 
 // Pack (generated function)
-func (m *MagCalReport) Pack(p *Packet) error {
+func (m *ArdupilotmegaMagCalReport) Pack(p *Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Fitness))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.OfsX))
@@ -2334,7 +2334,7 @@ func (m *MagCalReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MagCalReport) Unpack(p *Packet) error {
+func (m *ArdupilotmegaMagCalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2355,9 +2355,9 @@ func (m *MagCalReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// EkfStatusReport struct (generated typeinfo)
+// ArdupilotmegaEkfStatusReport struct (generated typeinfo)
 // EKF Status message including flags and variances
-type EkfStatusReport struct {
+type ArdupilotmegaEkfStatusReport struct {
 	VelocityVariance   float32 // Velocity variance
 	PosHorizVariance   float32 // Horizontal Position variance
 	PosVertVariance    float32 // Vertical Position variance
@@ -2367,17 +2367,17 @@ type EkfStatusReport struct {
 }
 
 // MsgID (generated function)
-func (m *EkfStatusReport) MsgID() MessageID {
+func (m *ArdupilotmegaEkfStatusReport) MsgID() MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
 }
 
 // MsgName (generated function)
-func (m *EkfStatusReport) MsgName() string {
+func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
 	return "EkfStatusReport"
 }
 
 // Pack (generated function)
-func (m *EkfStatusReport) Pack(p *Packet) error {
+func (m *ArdupilotmegaEkfStatusReport) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.VelocityVariance))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PosHorizVariance))
@@ -2392,7 +2392,7 @@ func (m *EkfStatusReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *EkfStatusReport) Unpack(p *Packet) error {
+func (m *ArdupilotmegaEkfStatusReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2405,9 +2405,9 @@ func (m *EkfStatusReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// PidTuning struct (generated typeinfo)
+// ArdupilotmegaPidTuning struct (generated typeinfo)
 // PID tuning information
-type PidTuning struct {
+type ArdupilotmegaPidTuning struct {
 	Desired  float32 // desired rate (degrees/s)
 	Achieved float32 // achieved rate (degrees/s)
 	Ff       float32 // FF component
@@ -2418,17 +2418,17 @@ type PidTuning struct {
 }
 
 // MsgID (generated function)
-func (m *PidTuning) MsgID() MessageID {
+func (m *ArdupilotmegaPidTuning) MsgID() MessageID {
 	return MSG_ID_PID_TUNING
 }
 
 // MsgName (generated function)
-func (m *PidTuning) MsgName() string {
+func (m *ArdupilotmegaPidTuning) MsgName() string {
 	return "PidTuning"
 }
 
 // Pack (generated function)
-func (m *PidTuning) Pack(p *Packet) error {
+func (m *ArdupilotmegaPidTuning) Pack(p *Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Desired))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Achieved))
@@ -2444,7 +2444,7 @@ func (m *PidTuning) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *PidTuning) Unpack(p *Packet) error {
+func (m *ArdupilotmegaPidTuning) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2458,9 +2458,9 @@ func (m *PidTuning) Unpack(p *Packet) error {
 	return nil
 }
 
-// GimbalReport struct (generated typeinfo)
+// ArdupilotmegaGimbalReport struct (generated typeinfo)
 // 3 axis gimbal mesuraments
-type GimbalReport struct {
+type ArdupilotmegaGimbalReport struct {
 	DeltaTime       float32 // Time since last update (seconds)
 	DeltaAngleX     float32 // Delta angle X (radians)
 	DeltaAngleY     float32 // Delta angle Y (radians)
@@ -2476,17 +2476,17 @@ type GimbalReport struct {
 }
 
 // MsgID (generated function)
-func (m *GimbalReport) MsgID() MessageID {
+func (m *ArdupilotmegaGimbalReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_REPORT
 }
 
 // MsgName (generated function)
-func (m *GimbalReport) MsgName() string {
+func (m *ArdupilotmegaGimbalReport) MsgName() string {
 	return "GimbalReport"
 }
 
 // Pack (generated function)
-func (m *GimbalReport) Pack(p *Packet) error {
+func (m *ArdupilotmegaGimbalReport) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DeltaTime))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DeltaAngleX))
@@ -2507,7 +2507,7 @@ func (m *GimbalReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GimbalReport) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGimbalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2526,9 +2526,9 @@ func (m *GimbalReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// GimbalControl struct (generated typeinfo)
+// ArdupilotmegaGimbalControl struct (generated typeinfo)
 // Control message for rate gimbal
-type GimbalControl struct {
+type ArdupilotmegaGimbalControl struct {
 	DemandedRateX   float32 // Demanded angular rate X (rad/s)
 	DemandedRateY   float32 // Demanded angular rate Y (rad/s)
 	DemandedRateZ   float32 // Demanded angular rate Z (rad/s)
@@ -2537,17 +2537,17 @@ type GimbalControl struct {
 }
 
 // MsgID (generated function)
-func (m *GimbalControl) MsgID() MessageID {
+func (m *ArdupilotmegaGimbalControl) MsgID() MessageID {
 	return MSG_ID_GIMBAL_CONTROL
 }
 
 // MsgName (generated function)
-func (m *GimbalControl) MsgName() string {
+func (m *ArdupilotmegaGimbalControl) MsgName() string {
 	return "GimbalControl"
 }
 
 // Pack (generated function)
-func (m *GimbalControl) Pack(p *Packet) error {
+func (m *ArdupilotmegaGimbalControl) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DemandedRateX))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DemandedRateY))
@@ -2561,7 +2561,7 @@ func (m *GimbalControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GimbalControl) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGimbalControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2573,9 +2573,9 @@ func (m *GimbalControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// GimbalTorqueCmdReport struct (generated typeinfo)
+// ArdupilotmegaGimbalTorqueCmdReport struct (generated typeinfo)
 // 100 Hz gimbal torque command telemetry
-type GimbalTorqueCmdReport struct {
+type ArdupilotmegaGimbalTorqueCmdReport struct {
 	RlTorqueCmd     int16 // Roll Torque Command
 	ElTorqueCmd     int16 // Elevation Torque Command
 	AzTorqueCmd     int16 // Azimuth Torque Command
@@ -2584,17 +2584,17 @@ type GimbalTorqueCmdReport struct {
 }
 
 // MsgID (generated function)
-func (m *GimbalTorqueCmdReport) MsgID() MessageID {
+func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
 }
 
 // MsgName (generated function)
-func (m *GimbalTorqueCmdReport) MsgName() string {
+func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
 	return "GimbalTorqueCmdReport"
 }
 
 // Pack (generated function)
-func (m *GimbalTorqueCmdReport) Pack(p *Packet) error {
+func (m *ArdupilotmegaGimbalTorqueCmdReport) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.RlTorqueCmd))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.ElTorqueCmd))
@@ -2608,7 +2608,7 @@ func (m *GimbalTorqueCmdReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GimbalTorqueCmdReport) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGimbalTorqueCmdReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2620,26 +2620,26 @@ func (m *GimbalTorqueCmdReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// GoproHeartbeat struct (generated typeinfo)
+// ArdupilotmegaGoproHeartbeat struct (generated typeinfo)
 // Heartbeat from a HeroBus attached GoPro
-type GoproHeartbeat struct {
+type ArdupilotmegaGoproHeartbeat struct {
 	Status      uint8 // Status
 	CaptureMode uint8 // Current capture mode
 	Flags       uint8 // additional status bits
 }
 
 // MsgID (generated function)
-func (m *GoproHeartbeat) MsgID() MessageID {
+func (m *ArdupilotmegaGoproHeartbeat) MsgID() MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
 }
 
 // MsgName (generated function)
-func (m *GoproHeartbeat) MsgName() string {
+func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
 	return "GoproHeartbeat"
 }
 
 // Pack (generated function)
-func (m *GoproHeartbeat) Pack(p *Packet) error {
+func (m *ArdupilotmegaGoproHeartbeat) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.Status)
 	payload[1] = byte(m.CaptureMode)
@@ -2651,7 +2651,7 @@ func (m *GoproHeartbeat) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GoproHeartbeat) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGoproHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2661,26 +2661,26 @@ func (m *GoproHeartbeat) Unpack(p *Packet) error {
 	return nil
 }
 
-// GoproGetRequest struct (generated typeinfo)
+// ArdupilotmegaGoproGetRequest struct (generated typeinfo)
 // Request a GOPRO_COMMAND response from the GoPro
-type GoproGetRequest struct {
+type ArdupilotmegaGoproGetRequest struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	CmdID           uint8 // Command ID
 }
 
 // MsgID (generated function)
-func (m *GoproGetRequest) MsgID() MessageID {
+func (m *ArdupilotmegaGoproGetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_REQUEST
 }
 
 // MsgName (generated function)
-func (m *GoproGetRequest) MsgName() string {
+func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
 	return "GoproGetRequest"
 }
 
 // Pack (generated function)
-func (m *GoproGetRequest) Pack(p *Packet) error {
+func (m *ArdupilotmegaGoproGetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2692,7 +2692,7 @@ func (m *GoproGetRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GoproGetRequest) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGoproGetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2702,26 +2702,26 @@ func (m *GoproGetRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// GoproGetResponse struct (generated typeinfo)
+// ArdupilotmegaGoproGetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND get request
-type GoproGetResponse struct {
+type ArdupilotmegaGoproGetResponse struct {
 	CmdID  uint8    // Command ID
 	Status uint8    // Status
 	Value  [4]uint8 // Value
 }
 
 // MsgID (generated function)
-func (m *GoproGetResponse) MsgID() MessageID {
+func (m *ArdupilotmegaGoproGetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_RESPONSE
 }
 
 // MsgName (generated function)
-func (m *GoproGetResponse) MsgName() string {
+func (m *ArdupilotmegaGoproGetResponse) MsgName() string {
 	return "GoproGetResponse"
 }
 
 // Pack (generated function)
-func (m *GoproGetResponse) Pack(p *Packet) error {
+func (m *ArdupilotmegaGoproGetResponse) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	payload[0] = byte(m.CmdID)
 	payload[1] = byte(m.Status)
@@ -2733,7 +2733,7 @@ func (m *GoproGetResponse) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GoproGetResponse) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGoproGetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2743,9 +2743,9 @@ func (m *GoproGetResponse) Unpack(p *Packet) error {
 	return nil
 }
 
-// GoproSetRequest struct (generated typeinfo)
+// ArdupilotmegaGoproSetRequest struct (generated typeinfo)
 // Request to set a GOPRO_COMMAND with a desired
-type GoproSetRequest struct {
+type ArdupilotmegaGoproSetRequest struct {
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
 	CmdID           uint8    // Command ID
@@ -2753,17 +2753,17 @@ type GoproSetRequest struct {
 }
 
 // MsgID (generated function)
-func (m *GoproSetRequest) MsgID() MessageID {
+func (m *ArdupilotmegaGoproSetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_REQUEST
 }
 
 // MsgName (generated function)
-func (m *GoproSetRequest) MsgName() string {
+func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
 	return "GoproSetRequest"
 }
 
 // Pack (generated function)
-func (m *GoproSetRequest) Pack(p *Packet) error {
+func (m *ArdupilotmegaGoproSetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 7)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2776,7 +2776,7 @@ func (m *GoproSetRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GoproSetRequest) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGoproSetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2787,25 +2787,25 @@ func (m *GoproSetRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// GoproSetResponse struct (generated typeinfo)
+// ArdupilotmegaGoproSetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND set request
-type GoproSetResponse struct {
+type ArdupilotmegaGoproSetResponse struct {
 	CmdID  uint8 // Command ID
 	Status uint8 // Status
 }
 
 // MsgID (generated function)
-func (m *GoproSetResponse) MsgID() MessageID {
+func (m *ArdupilotmegaGoproSetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
 }
 
 // MsgName (generated function)
-func (m *GoproSetResponse) MsgName() string {
+func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
 	return "GoproSetResponse"
 }
 
 // Pack (generated function)
-func (m *GoproSetResponse) Pack(p *Packet) error {
+func (m *ArdupilotmegaGoproSetResponse) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.CmdID)
 	payload[1] = byte(m.Status)
@@ -2816,7 +2816,7 @@ func (m *GoproSetResponse) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GoproSetResponse) Unpack(p *Packet) error {
+func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2825,25 +2825,25 @@ func (m *GoproSetResponse) Unpack(p *Packet) error {
 	return nil
 }
 
-// Rpm struct (generated typeinfo)
+// ArdupilotmegaRpm struct (generated typeinfo)
 // RPM sensor output
-type Rpm struct {
+type ArdupilotmegaRpm struct {
 	Rpm1 float32 // RPM Sensor1
 	Rpm2 float32 // RPM Sensor2
 }
 
 // MsgID (generated function)
-func (m *Rpm) MsgID() MessageID {
+func (m *ArdupilotmegaRpm) MsgID() MessageID {
 	return MSG_ID_RPM
 }
 
 // MsgName (generated function)
-func (m *Rpm) MsgName() string {
+func (m *ArdupilotmegaRpm) MsgName() string {
 	return "Rpm"
 }
 
 // Pack (generated function)
-func (m *Rpm) Pack(p *Packet) error {
+func (m *ArdupilotmegaRpm) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Rpm1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Rpm2))
@@ -2854,7 +2854,7 @@ func (m *Rpm) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Rpm) Unpack(p *Packet) error {
+func (m *ArdupilotmegaRpm) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2972,247 +2972,247 @@ var DialectArdupilotmega = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_SENSOR_OFFSETS: func(pkt *Packet) Message {
-			msg := new(SensorOffsets)
+			msg := new(ArdupilotmegaSensorOffsets)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_MAG_OFFSETS: func(pkt *Packet) Message {
-			msg := new(SetMagOffsets)
+			msg := new(ArdupilotmegaSetMagOffsets)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MEMINFO: func(pkt *Packet) Message {
-			msg := new(Meminfo)
+			msg := new(ArdupilotmegaMeminfo)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AP_ADC: func(pkt *Packet) Message {
-			msg := new(ApAdc)
+			msg := new(ArdupilotmegaApAdc)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DIGICAM_CONFIGURE: func(pkt *Packet) Message {
-			msg := new(DigicamConfigure)
+			msg := new(ArdupilotmegaDigicamConfigure)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DIGICAM_CONTROL: func(pkt *Packet) Message {
-			msg := new(DigicamControl)
+			msg := new(ArdupilotmegaDigicamControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MOUNT_CONFIGURE: func(pkt *Packet) Message {
-			msg := new(MountConfigure)
+			msg := new(ArdupilotmegaMountConfigure)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MOUNT_CONTROL: func(pkt *Packet) Message {
-			msg := new(MountControl)
+			msg := new(ArdupilotmegaMountControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MOUNT_STATUS: func(pkt *Packet) Message {
-			msg := new(MountStatus)
+			msg := new(ArdupilotmegaMountStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FENCE_POINT: func(pkt *Packet) Message {
-			msg := new(FencePoint)
+			msg := new(ArdupilotmegaFencePoint)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FENCE_FETCH_POINT: func(pkt *Packet) Message {
-			msg := new(FenceFetchPoint)
+			msg := new(ArdupilotmegaFenceFetchPoint)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FENCE_STATUS: func(pkt *Packet) Message {
-			msg := new(FenceStatus)
+			msg := new(ArdupilotmegaFenceStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AHRS: func(pkt *Packet) Message {
-			msg := new(Ahrs)
+			msg := new(ArdupilotmegaAhrs)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SIMSTATE: func(pkt *Packet) Message {
-			msg := new(Simstate)
+			msg := new(ArdupilotmegaSimstate)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HWSTATUS: func(pkt *Packet) Message {
-			msg := new(Hwstatus)
+			msg := new(ArdupilotmegaHwstatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RADIO: func(pkt *Packet) Message {
-			msg := new(Radio)
+			msg := new(ArdupilotmegaRadio)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LIMITS_STATUS: func(pkt *Packet) Message {
-			msg := new(LimitsStatus)
+			msg := new(ArdupilotmegaLimitsStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_WIND: func(pkt *Packet) Message {
-			msg := new(Wind)
+			msg := new(ArdupilotmegaWind)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA16: func(pkt *Packet) Message {
-			msg := new(Data16)
+			msg := new(ArdupilotmegaData16)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA32: func(pkt *Packet) Message {
-			msg := new(Data32)
+			msg := new(ArdupilotmegaData32)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA64: func(pkt *Packet) Message {
-			msg := new(Data64)
+			msg := new(ArdupilotmegaData64)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA96: func(pkt *Packet) Message {
-			msg := new(Data96)
+			msg := new(ArdupilotmegaData96)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RANGEFINDER: func(pkt *Packet) Message {
-			msg := new(Rangefinder)
+			msg := new(ArdupilotmegaRangefinder)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AIRSPEED_AUTOCAL: func(pkt *Packet) Message {
-			msg := new(AirspeedAutocal)
+			msg := new(ArdupilotmegaAirspeedAutocal)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RALLY_POINT: func(pkt *Packet) Message {
-			msg := new(RallyPoint)
+			msg := new(ArdupilotmegaRallyPoint)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RALLY_FETCH_POINT: func(pkt *Packet) Message {
-			msg := new(RallyFetchPoint)
+			msg := new(ArdupilotmegaRallyFetchPoint)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_COMPASSMOT_STATUS: func(pkt *Packet) Message {
-			msg := new(CompassmotStatus)
+			msg := new(ArdupilotmegaCompassmotStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AHRS2: func(pkt *Packet) Message {
-			msg := new(Ahrs2)
+			msg := new(ArdupilotmegaAhrs2)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CAMERA_STATUS: func(pkt *Packet) Message {
-			msg := new(CameraStatus)
+			msg := new(ArdupilotmegaCameraStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CAMERA_FEEDBACK: func(pkt *Packet) Message {
-			msg := new(CameraFeedback)
+			msg := new(ArdupilotmegaCameraFeedback)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_BATTERY2: func(pkt *Packet) Message {
-			msg := new(Battery2)
+			msg := new(ArdupilotmegaBattery2)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AHRS3: func(pkt *Packet) Message {
-			msg := new(Ahrs3)
+			msg := new(ArdupilotmegaAhrs3)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AUTOPILOT_VERSION_REQUEST: func(pkt *Packet) Message {
-			msg := new(AutopilotVersionRequest)
+			msg := new(ArdupilotmegaAutopilotVersionRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_REMOTE_LOG_DATA_BLOCK: func(pkt *Packet) Message {
-			msg := new(RemoteLogDataBlock)
+			msg := new(ArdupilotmegaRemoteLogDataBlock)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_REMOTE_LOG_BLOCK_STATUS: func(pkt *Packet) Message {
-			msg := new(RemoteLogBlockStatus)
+			msg := new(ArdupilotmegaRemoteLogBlockStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LED_CONTROL: func(pkt *Packet) Message {
-			msg := new(LedControl)
+			msg := new(ArdupilotmegaLedControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MAG_CAL_PROGRESS: func(pkt *Packet) Message {
-			msg := new(MagCalProgress)
+			msg := new(ArdupilotmegaMagCalProgress)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MAG_CAL_REPORT: func(pkt *Packet) Message {
-			msg := new(MagCalReport)
+			msg := new(ArdupilotmegaMagCalReport)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_EKF_STATUS_REPORT: func(pkt *Packet) Message {
-			msg := new(EkfStatusReport)
+			msg := new(ArdupilotmegaEkfStatusReport)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PID_TUNING: func(pkt *Packet) Message {
-			msg := new(PidTuning)
+			msg := new(ArdupilotmegaPidTuning)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GIMBAL_REPORT: func(pkt *Packet) Message {
-			msg := new(GimbalReport)
+			msg := new(ArdupilotmegaGimbalReport)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GIMBAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(GimbalControl)
+			msg := new(ArdupilotmegaGimbalControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GIMBAL_TORQUE_CMD_REPORT: func(pkt *Packet) Message {
-			msg := new(GimbalTorqueCmdReport)
+			msg := new(ArdupilotmegaGimbalTorqueCmdReport)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GOPRO_HEARTBEAT: func(pkt *Packet) Message {
-			msg := new(GoproHeartbeat)
+			msg := new(ArdupilotmegaGoproHeartbeat)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GOPRO_GET_REQUEST: func(pkt *Packet) Message {
-			msg := new(GoproGetRequest)
+			msg := new(ArdupilotmegaGoproGetRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GOPRO_GET_RESPONSE: func(pkt *Packet) Message {
-			msg := new(GoproGetResponse)
+			msg := new(ArdupilotmegaGoproGetResponse)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GOPRO_SET_REQUEST: func(pkt *Packet) Message {
-			msg := new(GoproSetRequest)
+			msg := new(ArdupilotmegaGoproSetRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GOPRO_SET_RESPONSE: func(pkt *Packet) Message {
-			msg := new(GoproSetResponse)
+			msg := new(ArdupilotmegaGoproSetResponse)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RPM: func(pkt *Packet) Message {
-			msg := new(Rpm)
+			msg := new(ArdupilotmegaRpm)
 			msg.Unpack(pkt)
 			return msg
 		},

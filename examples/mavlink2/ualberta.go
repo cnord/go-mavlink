@@ -40,9 +40,9 @@ const (
 	PILOT_ROTO   = 2 //  Rotomotion mode
 )
 
-// NavFilterBias struct (generated typeinfo)
+// UalbertaNavFilterBias struct (generated typeinfo)
 // Accelerometer and Gyro biases from the navigation filter
-type NavFilterBias struct {
+type UalbertaNavFilterBias struct {
 	Usec   uint64  // Timestamp (microseconds)
 	Accel0 float32 // b_f[0]
 	Accel1 float32 // b_f[1]
@@ -53,17 +53,17 @@ type NavFilterBias struct {
 }
 
 // MsgID (generated function)
-func (m *NavFilterBias) MsgID() MessageID {
+func (m *UalbertaNavFilterBias) MsgID() MessageID {
 	return MSG_ID_NAV_FILTER_BIAS
 }
 
 // MsgName (generated function)
-func (m *NavFilterBias) MsgName() string {
+func (m *UalbertaNavFilterBias) MsgName() string {
 	return "NavFilterBias"
 }
 
 // Pack (generated function)
-func (m *NavFilterBias) Pack(p *Packet) error {
+func (m *UalbertaNavFilterBias) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Accel0))
@@ -79,7 +79,7 @@ func (m *NavFilterBias) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *NavFilterBias) Unpack(p *Packet) error {
+func (m *UalbertaNavFilterBias) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -93,9 +93,9 @@ func (m *NavFilterBias) Unpack(p *Packet) error {
 	return nil
 }
 
-// RadioCalibration struct (generated typeinfo)
+// UalbertaRadioCalibration struct (generated typeinfo)
 // Complete set of calibration parameters for the radio
-type RadioCalibration struct {
+type UalbertaRadioCalibration struct {
 	Aileron  [3]uint16 // Aileron setpoints: left, center, right
 	Elevator [3]uint16 // Elevator setpoints: nose down, center, nose up
 	Rudder   [3]uint16 // Rudder setpoints: nose left, center, nose right
@@ -105,17 +105,17 @@ type RadioCalibration struct {
 }
 
 // MsgID (generated function)
-func (m *RadioCalibration) MsgID() MessageID {
+func (m *UalbertaRadioCalibration) MsgID() MessageID {
 	return MSG_ID_RADIO_CALIBRATION
 }
 
 // MsgName (generated function)
-func (m *RadioCalibration) MsgName() string {
+func (m *UalbertaRadioCalibration) MsgName() string {
 	return "RadioCalibration"
 }
 
 // Pack (generated function)
-func (m *RadioCalibration) Pack(p *Packet) error {
+func (m *UalbertaRadioCalibration) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	for i, v := range m.Aileron {
 		binary.LittleEndian.PutUint16(payload[0+i*2:], uint16(v))
@@ -142,7 +142,7 @@ func (m *RadioCalibration) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RadioCalibration) Unpack(p *Packet) error {
+func (m *UalbertaRadioCalibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -167,26 +167,26 @@ func (m *RadioCalibration) Unpack(p *Packet) error {
 	return nil
 }
 
-// UalbertaSysStatus struct (generated typeinfo)
+// UalbertaUalbertaSysStatus struct (generated typeinfo)
 // System status specific to ualberta uav
-type UalbertaSysStatus struct {
+type UalbertaUalbertaSysStatus struct {
 	Mode    uint8 // System mode, see UALBERTA_AUTOPILOT_MODE ENUM
 	NavMode uint8 // Navigation mode, see UALBERTA_NAV_MODE ENUM
 	Pilot   uint8 // Pilot mode, see UALBERTA_PILOT_MODE
 }
 
 // MsgID (generated function)
-func (m *UalbertaSysStatus) MsgID() MessageID {
+func (m *UalbertaUalbertaSysStatus) MsgID() MessageID {
 	return MSG_ID_UALBERTA_SYS_STATUS
 }
 
 // MsgName (generated function)
-func (m *UalbertaSysStatus) MsgName() string {
+func (m *UalbertaUalbertaSysStatus) MsgName() string {
 	return "UalbertaSysStatus"
 }
 
 // Pack (generated function)
-func (m *UalbertaSysStatus) Pack(p *Packet) error {
+func (m *UalbertaUalbertaSysStatus) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.Mode)
 	payload[1] = byte(m.NavMode)
@@ -198,7 +198,7 @@ func (m *UalbertaSysStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *UalbertaSysStatus) Unpack(p *Packet) error {
+func (m *UalbertaUalbertaSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -225,17 +225,17 @@ var DialectUalberta = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_NAV_FILTER_BIAS: func(pkt *Packet) Message {
-			msg := new(NavFilterBias)
+			msg := new(UalbertaNavFilterBias)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RADIO_CALIBRATION: func(pkt *Packet) Message {
-			msg := new(RadioCalibration)
+			msg := new(UalbertaRadioCalibration)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_UALBERTA_SYS_STATUS: func(pkt *Packet) Message {
-			msg := new(UalbertaSysStatus)
+			msg := new(UalbertaUalbertaSysStatus)
 			msg.Unpack(pkt)
 			return msg
 		},

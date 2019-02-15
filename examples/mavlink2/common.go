@@ -787,9 +787,9 @@ const (
 	GPS_FIX_TYPE_STATIC    = 7 // Static fixed, typically used for base stations
 )
 
-// Heartbeat struct (generated typeinfo)
+// CommonHeartbeat struct (generated typeinfo)
 // The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).
-type Heartbeat struct {
+type CommonHeartbeat struct {
 	CustomMode     uint32 // A bitfield for use for autopilot-specific flags.
 	Type           uint8  // Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)
 	Autopilot      uint8  // Autopilot type / class. defined in MAV_AUTOPILOT ENUM
@@ -799,17 +799,17 @@ type Heartbeat struct {
 }
 
 // MsgID (generated function)
-func (m *Heartbeat) MsgID() MessageID {
+func (m *CommonHeartbeat) MsgID() MessageID {
 	return MSG_ID_HEARTBEAT
 }
 
 // MsgName (generated function)
-func (m *Heartbeat) MsgName() string {
+func (m *CommonHeartbeat) MsgName() string {
 	return "Heartbeat"
 }
 
 // Pack (generated function)
-func (m *Heartbeat) Pack(p *Packet) error {
+func (m *CommonHeartbeat) Pack(p *Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	payload[4] = byte(m.Type)
@@ -824,7 +824,7 @@ func (m *Heartbeat) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Heartbeat) Unpack(p *Packet) error {
+func (m *CommonHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		return fmt.Errorf("payload too small")
 	}
@@ -837,9 +837,9 @@ func (m *Heartbeat) Unpack(p *Packet) error {
 	return nil
 }
 
-// SysStatus struct (generated typeinfo)
+// CommonSysStatus struct (generated typeinfo)
 // The general system state. If the system is following the MAVLink standard, the system state is mainly defined by three orthogonal states/modes: The system mode, which is either LOCKED (motors shut down and locked), MANUAL (system under RC control), GUIDED (system with autonomous position control, position setpoint controlled manually) or AUTO (system guided by path/waypoint planner). The NAV_MODE defined the current flight state: LIFTOFF (often an open-loop maneuver), LANDING, WAYPOINTS or VECTOR. This represents the internal navigation state machine. The system status shows wether the system is currently active or not and if an emergency occured. During the CRITICAL and EMERGENCY states the MAV is still considered to be active, but should start emergency procedures autonomously. After a failure occured it should first move from active to critical to allow manual intervention and then move to emergency after a certain timeout.
-type SysStatus struct {
+type CommonSysStatus struct {
 	OnboardControlSensorsPresent uint32 // Bitmask showing which onboard controllers and sensors are present. Value of 0: not present. Value of 1: present. Indices defined by ENUM MAV_SYS_STATUS_SENSOR
 	OnboardControlSensorsEnabled uint32 // Bitmask showing which onboard controllers and sensors are enabled:  Value of 0: not enabled. Value of 1: enabled. Indices defined by ENUM MAV_SYS_STATUS_SENSOR
 	OnboardControlSensorsHealth  uint32 // Bitmask showing which onboard controllers and sensors are operational or have an error:  Value of 0: not enabled. Value of 1: enabled. Indices defined by ENUM MAV_SYS_STATUS_SENSOR
@@ -856,17 +856,17 @@ type SysStatus struct {
 }
 
 // MsgID (generated function)
-func (m *SysStatus) MsgID() MessageID {
+func (m *CommonSysStatus) MsgID() MessageID {
 	return MSG_ID_SYS_STATUS
 }
 
 // MsgName (generated function)
-func (m *SysStatus) MsgName() string {
+func (m *CommonSysStatus) MsgName() string {
 	return "SysStatus"
 }
 
 // Pack (generated function)
-func (m *SysStatus) Pack(p *Packet) error {
+func (m *CommonSysStatus) Pack(p *Packet) error {
 	payload := make([]byte, 31)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.OnboardControlSensorsPresent))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.OnboardControlSensorsEnabled))
@@ -888,7 +888,7 @@ func (m *SysStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SysStatus) Unpack(p *Packet) error {
+func (m *CommonSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 31 {
 		return fmt.Errorf("payload too small")
 	}
@@ -908,25 +908,25 @@ func (m *SysStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// SystemTime struct (generated typeinfo)
+// CommonSystemTime struct (generated typeinfo)
 // The system time is the time of the master clock, typically the computer clock of the main onboard computer.
-type SystemTime struct {
+type CommonSystemTime struct {
 	TimeUnixUsec uint64 // Timestamp of the master clock in microseconds since UNIX epoch.
 	TimeBootMs   uint32 // Timestamp of the component clock since boot time in milliseconds.
 }
 
 // MsgID (generated function)
-func (m *SystemTime) MsgID() MessageID {
+func (m *CommonSystemTime) MsgID() MessageID {
 	return MSG_ID_SYSTEM_TIME
 }
 
 // MsgName (generated function)
-func (m *SystemTime) MsgName() string {
+func (m *CommonSystemTime) MsgName() string {
 	return "SystemTime"
 }
 
 // Pack (generated function)
-func (m *SystemTime) Pack(p *Packet) error {
+func (m *CommonSystemTime) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUnixUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TimeBootMs))
@@ -937,7 +937,7 @@ func (m *SystemTime) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SystemTime) Unpack(p *Packet) error {
+func (m *CommonSystemTime) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -946,9 +946,9 @@ func (m *SystemTime) Unpack(p *Packet) error {
 	return nil
 }
 
-// Ping struct (generated typeinfo)
+// CommonPing struct (generated typeinfo)
 // A ping message either requesting or responding to a ping. This allows to measure the system latencies, including serial port, radio modem and UDP connections.
-type Ping struct {
+type CommonPing struct {
 	TimeUsec        uint64 // Unix timestamp in microseconds or since system boot if smaller than MAVLink epoch (1.1.2009)
 	Seq             uint32 // PING sequence
 	TargetSystem    uint8  // 0: request ping from all receiving systems, if greater than 0: message is a ping response and number is the system id of the requesting system
@@ -956,17 +956,17 @@ type Ping struct {
 }
 
 // MsgID (generated function)
-func (m *Ping) MsgID() MessageID {
+func (m *CommonPing) MsgID() MessageID {
 	return MSG_ID_PING
 }
 
 // MsgName (generated function)
-func (m *Ping) MsgName() string {
+func (m *CommonPing) MsgName() string {
 	return "Ping"
 }
 
 // Pack (generated function)
-func (m *Ping) Pack(p *Packet) error {
+func (m *CommonPing) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
@@ -979,7 +979,7 @@ func (m *Ping) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Ping) Unpack(p *Packet) error {
+func (m *CommonPing) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -990,9 +990,9 @@ func (m *Ping) Unpack(p *Packet) error {
 	return nil
 }
 
-// ChangeOperatorControl struct (generated typeinfo)
+// CommonChangeOperatorControl struct (generated typeinfo)
 // Request to control this MAV
-type ChangeOperatorControl struct {
+type CommonChangeOperatorControl struct {
 	TargetSystem   uint8    // System the GCS requests control for
 	ControlRequest uint8    // 0: request control of this MAV, 1: Release control of this MAV
 	Version        uint8    // 0: key as plaintext, 1-255: future, different hashing/encryption variants. The GCS should in general use the safest mode possible initially and then gradually move down the encryption level if it gets a NACK message indicating an encryption mismatch.
@@ -1000,17 +1000,17 @@ type ChangeOperatorControl struct {
 }
 
 // MsgID (generated function)
-func (m *ChangeOperatorControl) MsgID() MessageID {
+func (m *CommonChangeOperatorControl) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
 }
 
 // MsgName (generated function)
-func (m *ChangeOperatorControl) MsgName() string {
+func (m *CommonChangeOperatorControl) MsgName() string {
 	return "ChangeOperatorControl"
 }
 
 // Pack (generated function)
-func (m *ChangeOperatorControl) Pack(p *Packet) error {
+func (m *CommonChangeOperatorControl) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.ControlRequest)
@@ -1023,7 +1023,7 @@ func (m *ChangeOperatorControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ChangeOperatorControl) Unpack(p *Packet) error {
+func (m *CommonChangeOperatorControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1034,26 +1034,26 @@ func (m *ChangeOperatorControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// ChangeOperatorControlAck struct (generated typeinfo)
+// CommonChangeOperatorControlAck struct (generated typeinfo)
 // Accept / deny control of this MAV
-type ChangeOperatorControlAck struct {
+type CommonChangeOperatorControlAck struct {
 	GcsSystemID    uint8 // ID of the GCS this message
 	ControlRequest uint8 // 0: request control of this MAV, 1: Release control of this MAV
 	Ack            uint8 // 0: ACK, 1: NACK: Wrong passkey, 2: NACK: Unsupported passkey encryption method, 3: NACK: Already under control
 }
 
 // MsgID (generated function)
-func (m *ChangeOperatorControlAck) MsgID() MessageID {
+func (m *CommonChangeOperatorControlAck) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
 }
 
 // MsgName (generated function)
-func (m *ChangeOperatorControlAck) MsgName() string {
+func (m *CommonChangeOperatorControlAck) MsgName() string {
 	return "ChangeOperatorControlAck"
 }
 
 // Pack (generated function)
-func (m *ChangeOperatorControlAck) Pack(p *Packet) error {
+func (m *CommonChangeOperatorControlAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.GcsSystemID)
 	payload[1] = byte(m.ControlRequest)
@@ -1065,7 +1065,7 @@ func (m *ChangeOperatorControlAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ChangeOperatorControlAck) Unpack(p *Packet) error {
+func (m *CommonChangeOperatorControlAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1075,24 +1075,24 @@ func (m *ChangeOperatorControlAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// AuthKey struct (generated typeinfo)
+// CommonAuthKey struct (generated typeinfo)
 // Emit an encrypted signature / key identifying this system. PLEASE NOTE: This protocol has been kept simple, so transmitting the key requires an encrypted channel for true safety.
-type AuthKey struct {
+type CommonAuthKey struct {
 	Key [32]byte // key
 }
 
 // MsgID (generated function)
-func (m *AuthKey) MsgID() MessageID {
+func (m *CommonAuthKey) MsgID() MessageID {
 	return MSG_ID_AUTH_KEY
 }
 
 // MsgName (generated function)
-func (m *AuthKey) MsgName() string {
+func (m *CommonAuthKey) MsgName() string {
 	return "AuthKey"
 }
 
 // Pack (generated function)
-func (m *AuthKey) Pack(p *Packet) error {
+func (m *CommonAuthKey) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	copy(payload[0:], m.Key[:])
 
@@ -1102,7 +1102,7 @@ func (m *AuthKey) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AuthKey) Unpack(p *Packet) error {
+func (m *CommonAuthKey) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1110,26 +1110,26 @@ func (m *AuthKey) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetMode struct (generated typeinfo)
+// CommonSetMode struct (generated typeinfo)
 // THIS INTERFACE IS DEPRECATED. USE COMMAND_LONG with MAV_CMD_DO_SET_MODE INSTEAD. Set the system mode, as defined by enum MAV_MODE. There is no target component id as the mode is by definition for the overall aircraft, not only for one component.
-type SetMode struct {
+type CommonSetMode struct {
 	CustomMode   uint32 // The new autopilot-specific mode. This field can be ignored by an autopilot.
 	TargetSystem uint8  // The system setting the mode
 	BaseMode     uint8  // The new base mode
 }
 
 // MsgID (generated function)
-func (m *SetMode) MsgID() MessageID {
+func (m *CommonSetMode) MsgID() MessageID {
 	return MSG_ID_SET_MODE
 }
 
 // MsgName (generated function)
-func (m *SetMode) MsgName() string {
+func (m *CommonSetMode) MsgName() string {
 	return "SetMode"
 }
 
 // Pack (generated function)
-func (m *SetMode) Pack(p *Packet) error {
+func (m *CommonSetMode) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	payload[4] = byte(m.TargetSystem)
@@ -1141,7 +1141,7 @@ func (m *SetMode) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetMode) Unpack(p *Packet) error {
+func (m *CommonSetMode) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1151,9 +1151,9 @@ func (m *SetMode) Unpack(p *Packet) error {
 	return nil
 }
 
-// ParamRequestRead struct (generated typeinfo)
+// CommonParamRequestRead struct (generated typeinfo)
 // Request to read the onboard parameter with the param_id string id. Onboard parameters are stored as key[const char*] -> value[float]. This allows to send a parameter to any other component (such as the GCS) without the need of previous knowledge of possible parameter names. Thus the same GCS can store different parameters for different autopilots. See also http://qgroundcontrol.org/parameter_interface for a full documentation of QGroundControl and IMU code.
-type ParamRequestRead struct {
+type CommonParamRequestRead struct {
 	ParamIndex      int16    // Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
@@ -1161,17 +1161,17 @@ type ParamRequestRead struct {
 }
 
 // MsgID (generated function)
-func (m *ParamRequestRead) MsgID() MessageID {
+func (m *CommonParamRequestRead) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
 }
 
 // MsgName (generated function)
-func (m *ParamRequestRead) MsgName() string {
+func (m *CommonParamRequestRead) MsgName() string {
 	return "ParamRequestRead"
 }
 
 // Pack (generated function)
-func (m *ParamRequestRead) Pack(p *Packet) error {
+func (m *CommonParamRequestRead) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ParamIndex))
 	payload[2] = byte(m.TargetSystem)
@@ -1184,7 +1184,7 @@ func (m *ParamRequestRead) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ParamRequestRead) Unpack(p *Packet) error {
+func (m *CommonParamRequestRead) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1195,25 +1195,25 @@ func (m *ParamRequestRead) Unpack(p *Packet) error {
 	return nil
 }
 
-// ParamRequestList struct (generated typeinfo)
+// CommonParamRequestList struct (generated typeinfo)
 // Request all parameters of this component. After this request, all parameters are emitted.
-type ParamRequestList struct {
+type CommonParamRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *ParamRequestList) MsgID() MessageID {
+func (m *CommonParamRequestList) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
 }
 
 // MsgName (generated function)
-func (m *ParamRequestList) MsgName() string {
+func (m *CommonParamRequestList) MsgName() string {
 	return "ParamRequestList"
 }
 
 // Pack (generated function)
-func (m *ParamRequestList) Pack(p *Packet) error {
+func (m *CommonParamRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -1224,7 +1224,7 @@ func (m *ParamRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ParamRequestList) Unpack(p *Packet) error {
+func (m *CommonParamRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1233,9 +1233,9 @@ func (m *ParamRequestList) Unpack(p *Packet) error {
 	return nil
 }
 
-// ParamValue struct (generated typeinfo)
+// CommonParamValue struct (generated typeinfo)
 // Emit the value of a onboard parameter. The inclusion of param_count and param_index in the message allows the recipient to keep track of received parameters and allows him to re-request missing parameters after a loss or timeout.
-type ParamValue struct {
+type CommonParamValue struct {
 	ParamValue float32  // Onboard parameter value
 	ParamCount uint16   // Total number of onboard parameters
 	ParamIndex uint16   // Index of this onboard parameter
@@ -1244,17 +1244,17 @@ type ParamValue struct {
 }
 
 // MsgID (generated function)
-func (m *ParamValue) MsgID() MessageID {
+func (m *CommonParamValue) MsgID() MessageID {
 	return MSG_ID_PARAM_VALUE
 }
 
 // MsgName (generated function)
-func (m *ParamValue) MsgName() string {
+func (m *CommonParamValue) MsgName() string {
 	return "ParamValue"
 }
 
 // Pack (generated function)
-func (m *ParamValue) Pack(p *Packet) error {
+func (m *CommonParamValue) Pack(p *Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ParamCount))
@@ -1268,7 +1268,7 @@ func (m *ParamValue) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ParamValue) Unpack(p *Packet) error {
+func (m *CommonParamValue) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1280,9 +1280,9 @@ func (m *ParamValue) Unpack(p *Packet) error {
 	return nil
 }
 
-// ParamSet struct (generated typeinfo)
+// CommonParamSet struct (generated typeinfo)
 // Set a parameter value TEMPORARILY to RAM. It will be reset to default on system reboot. Send the ACTION MAV_ACTION_STORAGE_WRITE to PERMANENTLY write the RAM contents to EEPROM. IMPORTANT: The receiving component should acknowledge the new parameter value by sending a param_value message to all communication partners. This will also ensure that multiple GCS all have an up-to-date list of all parameters. If the sending GCS did not receive a PARAM_VALUE message within its timeout time, it should re-send the PARAM_SET message.
-type ParamSet struct {
+type CommonParamSet struct {
 	ParamValue      float32  // Onboard parameter value
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
@@ -1291,17 +1291,17 @@ type ParamSet struct {
 }
 
 // MsgID (generated function)
-func (m *ParamSet) MsgID() MessageID {
+func (m *CommonParamSet) MsgID() MessageID {
 	return MSG_ID_PARAM_SET
 }
 
 // MsgName (generated function)
-func (m *ParamSet) MsgName() string {
+func (m *CommonParamSet) MsgName() string {
 	return "ParamSet"
 }
 
 // Pack (generated function)
-func (m *ParamSet) Pack(p *Packet) error {
+func (m *CommonParamSet) Pack(p *Packet) error {
 	payload := make([]byte, 23)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue))
 	payload[4] = byte(m.TargetSystem)
@@ -1315,7 +1315,7 @@ func (m *ParamSet) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ParamSet) Unpack(p *Packet) error {
+func (m *CommonParamSet) Unpack(p *Packet) error {
 	if len(p.Payload) < 23 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1327,10 +1327,10 @@ func (m *ParamSet) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsRawInt struct (generated typeinfo)
+// CommonGpsRawInt struct (generated typeinfo)
 // The global position, as returned by the Global Positioning System (GPS). This is
 //                 NOT the global position estimate of the system, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate. Coordinate frame is right-handed, Z-axis up (GPS frame).
-type GpsRawInt struct {
+type CommonGpsRawInt struct {
 	TimeUsec          uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Lat               int32  // Latitude (WGS84), in degrees * 1E7
 	Lon               int32  // Longitude (WGS84), in degrees * 1E7
@@ -1344,17 +1344,17 @@ type GpsRawInt struct {
 }
 
 // MsgID (generated function)
-func (m *GpsRawInt) MsgID() MessageID {
+func (m *CommonGpsRawInt) MsgID() MessageID {
 	return MSG_ID_GPS_RAW_INT
 }
 
 // MsgName (generated function)
-func (m *GpsRawInt) MsgName() string {
+func (m *CommonGpsRawInt) MsgName() string {
 	return "GpsRawInt"
 }
 
 // Pack (generated function)
-func (m *GpsRawInt) Pack(p *Packet) error {
+func (m *CommonGpsRawInt) Pack(p *Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -1373,7 +1373,7 @@ func (m *GpsRawInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsRawInt) Unpack(p *Packet) error {
+func (m *CommonGpsRawInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1390,9 +1390,9 @@ func (m *GpsRawInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsStatus struct (generated typeinfo)
+// CommonGpsStatus struct (generated typeinfo)
 // The positioning status, as reported by GPS. This message is intended to display status information about each satellite visible to the receiver. See message GLOBAL_POSITION for the global position estimate. This message can contain information for up to 20 satellites.
-type GpsStatus struct {
+type CommonGpsStatus struct {
 	SatellitesVisible  uint8     // Number of satellites visible
 	SatellitePrn       [20]uint8 // Global satellite ID
 	SatelliteUsed      [20]uint8 // 0: Satellite not used, 1: used for localization
@@ -1402,17 +1402,17 @@ type GpsStatus struct {
 }
 
 // MsgID (generated function)
-func (m *GpsStatus) MsgID() MessageID {
+func (m *CommonGpsStatus) MsgID() MessageID {
 	return MSG_ID_GPS_STATUS
 }
 
 // MsgName (generated function)
-func (m *GpsStatus) MsgName() string {
+func (m *CommonGpsStatus) MsgName() string {
 	return "GpsStatus"
 }
 
 // Pack (generated function)
-func (m *GpsStatus) Pack(p *Packet) error {
+func (m *CommonGpsStatus) Pack(p *Packet) error {
 	payload := make([]byte, 101)
 	payload[0] = byte(m.SatellitesVisible)
 	copy(payload[1:], m.SatellitePrn[:])
@@ -1427,7 +1427,7 @@ func (m *GpsStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsStatus) Unpack(p *Packet) error {
+func (m *CommonGpsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 101 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1440,9 +1440,9 @@ func (m *GpsStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ScaledImu struct (generated typeinfo)
+// CommonScaledImu struct (generated typeinfo)
 // The RAW IMU readings for the usual 9DOF sensor setup. This message should contain the scaled values to the described units
-type ScaledImu struct {
+type CommonScaledImu struct {
 	TimeBootMs uint32 // Timestamp (milliseconds since system boot)
 	Xacc       int16  // X acceleration (mg)
 	Yacc       int16  // Y acceleration (mg)
@@ -1456,17 +1456,17 @@ type ScaledImu struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledImu) MsgID() MessageID {
+func (m *CommonScaledImu) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU
 }
 
 // MsgName (generated function)
-func (m *ScaledImu) MsgName() string {
+func (m *CommonScaledImu) MsgName() string {
 	return "ScaledImu"
 }
 
 // Pack (generated function)
-func (m *ScaledImu) Pack(p *Packet) error {
+func (m *CommonScaledImu) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -1485,7 +1485,7 @@ func (m *ScaledImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledImu) Unpack(p *Packet) error {
+func (m *CommonScaledImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1502,9 +1502,9 @@ func (m *ScaledImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// RawImu struct (generated typeinfo)
+// CommonRawImu struct (generated typeinfo)
 // The RAW IMU readings for the usual 9DOF sensor setup. This message should always contain the true raw values without any scaling to allow data capture and system debugging.
-type RawImu struct {
+type CommonRawImu struct {
 	TimeUsec uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Xacc     int16  // X acceleration (raw)
 	Yacc     int16  // Y acceleration (raw)
@@ -1518,17 +1518,17 @@ type RawImu struct {
 }
 
 // MsgID (generated function)
-func (m *RawImu) MsgID() MessageID {
+func (m *CommonRawImu) MsgID() MessageID {
 	return MSG_ID_RAW_IMU
 }
 
 // MsgName (generated function)
-func (m *RawImu) MsgName() string {
+func (m *CommonRawImu) MsgName() string {
 	return "RawImu"
 }
 
 // Pack (generated function)
-func (m *RawImu) Pack(p *Packet) error {
+func (m *CommonRawImu) Pack(p *Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Xacc))
@@ -1547,7 +1547,7 @@ func (m *RawImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RawImu) Unpack(p *Packet) error {
+func (m *CommonRawImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1564,9 +1564,9 @@ func (m *RawImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// RawPressure struct (generated typeinfo)
+// CommonRawPressure struct (generated typeinfo)
 // The RAW pressure readings for the typical setup of one absolute pressure and one differential pressure sensor. The sensor values should be the raw, UNSCALED ADC values.
-type RawPressure struct {
+type CommonRawPressure struct {
 	TimeUsec    uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	PressAbs    int16  // Absolute pressure (raw)
 	PressDiff1  int16  // Differential pressure 1 (raw, 0 if nonexistant)
@@ -1575,17 +1575,17 @@ type RawPressure struct {
 }
 
 // MsgID (generated function)
-func (m *RawPressure) MsgID() MessageID {
+func (m *CommonRawPressure) MsgID() MessageID {
 	return MSG_ID_RAW_PRESSURE
 }
 
 // MsgName (generated function)
-func (m *RawPressure) MsgName() string {
+func (m *CommonRawPressure) MsgName() string {
 	return "RawPressure"
 }
 
 // Pack (generated function)
-func (m *RawPressure) Pack(p *Packet) error {
+func (m *CommonRawPressure) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.PressAbs))
@@ -1599,7 +1599,7 @@ func (m *RawPressure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RawPressure) Unpack(p *Packet) error {
+func (m *CommonRawPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1611,9 +1611,9 @@ func (m *RawPressure) Unpack(p *Packet) error {
 	return nil
 }
 
-// ScaledPressure struct (generated typeinfo)
+// CommonScaledPressure struct (generated typeinfo)
 // The pressure readings for the typical setup of one absolute and differential pressure sensor. The units are as specified in each field.
-type ScaledPressure struct {
+type CommonScaledPressure struct {
 	TimeBootMs  uint32  // Timestamp (milliseconds since system boot)
 	PressAbs    float32 // Absolute pressure (hectopascal)
 	PressDiff   float32 // Differential pressure 1 (hectopascal)
@@ -1621,17 +1621,17 @@ type ScaledPressure struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledPressure) MsgID() MessageID {
+func (m *CommonScaledPressure) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE
 }
 
 // MsgName (generated function)
-func (m *ScaledPressure) MsgName() string {
+func (m *CommonScaledPressure) MsgName() string {
 	return "ScaledPressure"
 }
 
 // Pack (generated function)
-func (m *ScaledPressure) Pack(p *Packet) error {
+func (m *CommonScaledPressure) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -1644,7 +1644,7 @@ func (m *ScaledPressure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledPressure) Unpack(p *Packet) error {
+func (m *CommonScaledPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1655,9 +1655,9 @@ func (m *ScaledPressure) Unpack(p *Packet) error {
 	return nil
 }
 
-// Attitude struct (generated typeinfo)
+// CommonAttitude struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right).
-type Attitude struct {
+type CommonAttitude struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	Roll       float32 // Roll angle (rad, -pi..+pi)
 	Pitch      float32 // Pitch angle (rad, -pi..+pi)
@@ -1668,17 +1668,17 @@ type Attitude struct {
 }
 
 // MsgID (generated function)
-func (m *Attitude) MsgID() MessageID {
+func (m *CommonAttitude) MsgID() MessageID {
 	return MSG_ID_ATTITUDE
 }
 
 // MsgName (generated function)
-func (m *Attitude) MsgName() string {
+func (m *CommonAttitude) MsgName() string {
 	return "Attitude"
 }
 
 // Pack (generated function)
-func (m *Attitude) Pack(p *Packet) error {
+func (m *CommonAttitude) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Roll))
@@ -1694,7 +1694,7 @@ func (m *Attitude) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Attitude) Unpack(p *Packet) error {
+func (m *CommonAttitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1708,9 +1708,9 @@ func (m *Attitude) Unpack(p *Packet) error {
 	return nil
 }
 
-// AttitudeQuaternion struct (generated typeinfo)
+// CommonAttitudeQuaternion struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
-type AttitudeQuaternion struct {
+type CommonAttitudeQuaternion struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	Q1         float32 // Quaternion component 1, w (1 in null-rotation)
 	Q2         float32 // Quaternion component 2, x (0 in null-rotation)
@@ -1722,17 +1722,17 @@ type AttitudeQuaternion struct {
 }
 
 // MsgID (generated function)
-func (m *AttitudeQuaternion) MsgID() MessageID {
+func (m *CommonAttitudeQuaternion) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION
 }
 
 // MsgName (generated function)
-func (m *AttitudeQuaternion) MsgName() string {
+func (m *CommonAttitudeQuaternion) MsgName() string {
 	return "AttitudeQuaternion"
 }
 
 // Pack (generated function)
-func (m *AttitudeQuaternion) Pack(p *Packet) error {
+func (m *CommonAttitudeQuaternion) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Q1))
@@ -1749,7 +1749,7 @@ func (m *AttitudeQuaternion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AttitudeQuaternion) Unpack(p *Packet) error {
+func (m *CommonAttitudeQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1764,9 +1764,9 @@ func (m *AttitudeQuaternion) Unpack(p *Packet) error {
 	return nil
 }
 
-// LocalPositionNed struct (generated typeinfo)
+// CommonLocalPositionNed struct (generated typeinfo)
 // The filtered local position (e.g. fused computer vision and accelerometers). Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type LocalPositionNed struct {
+type CommonLocalPositionNed struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	X          float32 // X Position
 	Y          float32 // Y Position
@@ -1777,17 +1777,17 @@ type LocalPositionNed struct {
 }
 
 // MsgID (generated function)
-func (m *LocalPositionNed) MsgID() MessageID {
+func (m *CommonLocalPositionNed) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
 }
 
 // MsgName (generated function)
-func (m *LocalPositionNed) MsgName() string {
+func (m *CommonLocalPositionNed) MsgName() string {
 	return "LocalPositionNed"
 }
 
 // Pack (generated function)
-func (m *LocalPositionNed) Pack(p *Packet) error {
+func (m *CommonLocalPositionNed) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -1803,7 +1803,7 @@ func (m *LocalPositionNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LocalPositionNed) Unpack(p *Packet) error {
+func (m *CommonLocalPositionNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1817,10 +1817,10 @@ func (m *LocalPositionNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// GlobalPositionInt struct (generated typeinfo)
+// CommonGlobalPositionInt struct (generated typeinfo)
 // The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It
 //                is designed as scaled integer message since the resolution of float is not sufficient.
-type GlobalPositionInt struct {
+type CommonGlobalPositionInt struct {
 	TimeBootMs  uint32 // Timestamp (milliseconds since system boot)
 	Lat         int32  // Latitude, expressed as degrees * 1E7
 	Lon         int32  // Longitude, expressed as degrees * 1E7
@@ -1833,17 +1833,17 @@ type GlobalPositionInt struct {
 }
 
 // MsgID (generated function)
-func (m *GlobalPositionInt) MsgID() MessageID {
+func (m *CommonGlobalPositionInt) MsgID() MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT
 }
 
 // MsgName (generated function)
-func (m *GlobalPositionInt) MsgName() string {
+func (m *CommonGlobalPositionInt) MsgName() string {
 	return "GlobalPositionInt"
 }
 
 // Pack (generated function)
-func (m *GlobalPositionInt) Pack(p *Packet) error {
+func (m *CommonGlobalPositionInt) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lat))
@@ -1861,7 +1861,7 @@ func (m *GlobalPositionInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GlobalPositionInt) Unpack(p *Packet) error {
+func (m *CommonGlobalPositionInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1877,9 +1877,9 @@ func (m *GlobalPositionInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// RcChannelsScaled struct (generated typeinfo)
+// CommonRcChannelsScaled struct (generated typeinfo)
 // The scaled values of the RC channels received. (-100%) -10000, (0%) 0, (100%) 10000. Channels that are inactive should be set to UINT16_MAX.
-type RcChannelsScaled struct {
+type CommonRcChannelsScaled struct {
 	TimeBootMs  uint32 // Timestamp (milliseconds since system boot)
 	Chan1Scaled int16  // RC channel 1 value scaled, (-100%) -10000, (0%) 0, (100%) 10000, (invalid) INT16_MAX.
 	Chan2Scaled int16  // RC channel 2 value scaled, (-100%) -10000, (0%) 0, (100%) 10000, (invalid) INT16_MAX.
@@ -1894,17 +1894,17 @@ type RcChannelsScaled struct {
 }
 
 // MsgID (generated function)
-func (m *RcChannelsScaled) MsgID() MessageID {
+func (m *CommonRcChannelsScaled) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_SCALED
 }
 
 // MsgName (generated function)
-func (m *RcChannelsScaled) MsgName() string {
+func (m *CommonRcChannelsScaled) MsgName() string {
 	return "RcChannelsScaled"
 }
 
 // Pack (generated function)
-func (m *RcChannelsScaled) Pack(p *Packet) error {
+func (m *CommonRcChannelsScaled) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Scaled))
@@ -1924,7 +1924,7 @@ func (m *RcChannelsScaled) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RcChannelsScaled) Unpack(p *Packet) error {
+func (m *CommonRcChannelsScaled) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1942,9 +1942,9 @@ func (m *RcChannelsScaled) Unpack(p *Packet) error {
 	return nil
 }
 
-// RcChannelsRaw struct (generated typeinfo)
+// CommonRcChannelsRaw struct (generated typeinfo)
 // The RAW values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
-type RcChannelsRaw struct {
+type CommonRcChannelsRaw struct {
 	TimeBootMs uint32 // Timestamp (milliseconds since system boot)
 	Chan1Raw   uint16 // RC channel 1 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
 	Chan2Raw   uint16 // RC channel 2 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
@@ -1959,17 +1959,17 @@ type RcChannelsRaw struct {
 }
 
 // MsgID (generated function)
-func (m *RcChannelsRaw) MsgID() MessageID {
+func (m *CommonRcChannelsRaw) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
 }
 
 // MsgName (generated function)
-func (m *RcChannelsRaw) MsgName() string {
+func (m *CommonRcChannelsRaw) MsgName() string {
 	return "RcChannelsRaw"
 }
 
 // Pack (generated function)
-func (m *RcChannelsRaw) Pack(p *Packet) error {
+func (m *CommonRcChannelsRaw) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Raw))
@@ -1989,7 +1989,7 @@ func (m *RcChannelsRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RcChannelsRaw) Unpack(p *Packet) error {
+func (m *CommonRcChannelsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2007,9 +2007,9 @@ func (m *RcChannelsRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// ServoOutputRaw struct (generated typeinfo)
+// CommonServoOutputRaw struct (generated typeinfo)
 // The RAW values of the servo outputs (for RC input from the remote, use the RC_CHANNELS messages). The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%.
-type ServoOutputRaw struct {
+type CommonServoOutputRaw struct {
 	TimeUsec  uint32 // Timestamp (microseconds since system boot)
 	Servo1Raw uint16 // Servo output 1 value, in microseconds
 	Servo2Raw uint16 // Servo output 2 value, in microseconds
@@ -2023,17 +2023,17 @@ type ServoOutputRaw struct {
 }
 
 // MsgID (generated function)
-func (m *ServoOutputRaw) MsgID() MessageID {
+func (m *CommonServoOutputRaw) MsgID() MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
 }
 
 // MsgName (generated function)
-func (m *ServoOutputRaw) MsgName() string {
+func (m *CommonServoOutputRaw) MsgName() string {
 	return "ServoOutputRaw"
 }
 
 // Pack (generated function)
-func (m *ServoOutputRaw) Pack(p *Packet) error {
+func (m *CommonServoOutputRaw) Pack(p *Packet) error {
 	payload := make([]byte, 21)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Servo1Raw))
@@ -2052,7 +2052,7 @@ func (m *ServoOutputRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ServoOutputRaw) Unpack(p *Packet) error {
+func (m *CommonServoOutputRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 21 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2069,9 +2069,9 @@ func (m *ServoOutputRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionRequestPartialList struct (generated typeinfo)
+// CommonMissionRequestPartialList struct (generated typeinfo)
 // Request a partial list of mission items from the system/component. http://qgroundcontrol.org/mavlink/waypoint_protocol. If start and end index are the same, just send one waypoint.
-type MissionRequestPartialList struct {
+type CommonMissionRequestPartialList struct {
 	StartIndex      int16 // Start index, 0 by default
 	EndIndex        int16 // End index, -1 by default (-1: send list to end). Else a valid index of the list
 	TargetSystem    uint8 // System ID
@@ -2079,17 +2079,17 @@ type MissionRequestPartialList struct {
 }
 
 // MsgID (generated function)
-func (m *MissionRequestPartialList) MsgID() MessageID {
+func (m *CommonMissionRequestPartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
 }
 
 // MsgName (generated function)
-func (m *MissionRequestPartialList) MsgName() string {
+func (m *CommonMissionRequestPartialList) MsgName() string {
 	return "MissionRequestPartialList"
 }
 
 // Pack (generated function)
-func (m *MissionRequestPartialList) Pack(p *Packet) error {
+func (m *CommonMissionRequestPartialList) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.StartIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
@@ -2102,7 +2102,7 @@ func (m *MissionRequestPartialList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionRequestPartialList) Unpack(p *Packet) error {
+func (m *CommonMissionRequestPartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2113,9 +2113,9 @@ func (m *MissionRequestPartialList) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionWritePartialList struct (generated typeinfo)
+// CommonMissionWritePartialList struct (generated typeinfo)
 // This message is sent to the MAV to write a partial list. If start index == end index, only one item will be transmitted / updated. If the start index is NOT 0 and above the current list size, this request should be REJECTED!
-type MissionWritePartialList struct {
+type CommonMissionWritePartialList struct {
 	StartIndex      int16 // Start index, 0 by default and smaller / equal to the largest index of the current onboard list.
 	EndIndex        int16 // End index, equal or greater than start index.
 	TargetSystem    uint8 // System ID
@@ -2123,17 +2123,17 @@ type MissionWritePartialList struct {
 }
 
 // MsgID (generated function)
-func (m *MissionWritePartialList) MsgID() MessageID {
+func (m *CommonMissionWritePartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_WRITE_PARTIAL_LIST
 }
 
 // MsgName (generated function)
-func (m *MissionWritePartialList) MsgName() string {
+func (m *CommonMissionWritePartialList) MsgName() string {
 	return "MissionWritePartialList"
 }
 
 // Pack (generated function)
-func (m *MissionWritePartialList) Pack(p *Packet) error {
+func (m *CommonMissionWritePartialList) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.StartIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
@@ -2146,7 +2146,7 @@ func (m *MissionWritePartialList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionWritePartialList) Unpack(p *Packet) error {
+func (m *CommonMissionWritePartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2157,10 +2157,10 @@ func (m *MissionWritePartialList) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionItem struct (generated typeinfo)
+// CommonMissionItem struct (generated typeinfo)
 // Message encoding a mission item. This message is emitted to announce
 //                 the presence of a mission item and to set a mission item on the system. The mission item can be either in x, y, z meters (type: LOCAL) or x:lat, y:lon, z:altitude. Local frame is Z-down, right handed (NED), global frame is Z-up, right handed (ENU). See also http://qgroundcontrol.org/mavlink/waypoint_protocol.
-type MissionItem struct {
+type CommonMissionItem struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -2178,17 +2178,17 @@ type MissionItem struct {
 }
 
 // MsgID (generated function)
-func (m *MissionItem) MsgID() MessageID {
+func (m *CommonMissionItem) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM
 }
 
 // MsgName (generated function)
-func (m *MissionItem) MsgName() string {
+func (m *CommonMissionItem) MsgName() string {
 	return "MissionItem"
 }
 
 // Pack (generated function)
-func (m *MissionItem) Pack(p *Packet) error {
+func (m *CommonMissionItem) Pack(p *Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -2211,7 +2211,7 @@ func (m *MissionItem) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionItem) Unpack(p *Packet) error {
+func (m *CommonMissionItem) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2232,26 +2232,26 @@ func (m *MissionItem) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionRequest struct (generated typeinfo)
+// CommonMissionRequest struct (generated typeinfo)
 // Request the information of the mission item with the sequence number seq. The response of the system to this message should be a MISSION_ITEM message. http://qgroundcontrol.org/mavlink/waypoint_protocol
-type MissionRequest struct {
+type CommonMissionRequest struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionRequest) MsgID() MessageID {
+func (m *CommonMissionRequest) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST
 }
 
 // MsgName (generated function)
-func (m *MissionRequest) MsgName() string {
+func (m *CommonMissionRequest) MsgName() string {
 	return "MissionRequest"
 }
 
 // Pack (generated function)
-func (m *MissionRequest) Pack(p *Packet) error {
+func (m *CommonMissionRequest) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -2263,7 +2263,7 @@ func (m *MissionRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionRequest) Unpack(p *Packet) error {
+func (m *CommonMissionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2273,26 +2273,26 @@ func (m *MissionRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionSetCurrent struct (generated typeinfo)
+// CommonMissionSetCurrent struct (generated typeinfo)
 // Set the mission item with sequence number seq as current item. This means that the MAV will continue to this mission item on the shortest path (not following the mission items in-between).
-type MissionSetCurrent struct {
+type CommonMissionSetCurrent struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionSetCurrent) MsgID() MessageID {
+func (m *CommonMissionSetCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
 }
 
 // MsgName (generated function)
-func (m *MissionSetCurrent) MsgName() string {
+func (m *CommonMissionSetCurrent) MsgName() string {
 	return "MissionSetCurrent"
 }
 
 // Pack (generated function)
-func (m *MissionSetCurrent) Pack(p *Packet) error {
+func (m *CommonMissionSetCurrent) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -2304,7 +2304,7 @@ func (m *MissionSetCurrent) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionSetCurrent) Unpack(p *Packet) error {
+func (m *CommonMissionSetCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2314,24 +2314,24 @@ func (m *MissionSetCurrent) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionCurrent struct (generated typeinfo)
+// CommonMissionCurrent struct (generated typeinfo)
 // Message that announces the sequence number of the current active mission item. The MAV will fly towards this mission item.
-type MissionCurrent struct {
+type CommonMissionCurrent struct {
 	Seq uint16 // Sequence
 }
 
 // MsgID (generated function)
-func (m *MissionCurrent) MsgID() MessageID {
+func (m *CommonMissionCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_CURRENT
 }
 
 // MsgName (generated function)
-func (m *MissionCurrent) MsgName() string {
+func (m *CommonMissionCurrent) MsgName() string {
 	return "MissionCurrent"
 }
 
 // Pack (generated function)
-func (m *MissionCurrent) Pack(p *Packet) error {
+func (m *CommonMissionCurrent) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 
@@ -2341,7 +2341,7 @@ func (m *MissionCurrent) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionCurrent) Unpack(p *Packet) error {
+func (m *CommonMissionCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2349,25 +2349,25 @@ func (m *MissionCurrent) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionRequestList struct (generated typeinfo)
+// CommonMissionRequestList struct (generated typeinfo)
 // Request the overall list of mission items from the system/component.
-type MissionRequestList struct {
+type CommonMissionRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionRequestList) MsgID() MessageID {
+func (m *CommonMissionRequestList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_LIST
 }
 
 // MsgName (generated function)
-func (m *MissionRequestList) MsgName() string {
+func (m *CommonMissionRequestList) MsgName() string {
 	return "MissionRequestList"
 }
 
 // Pack (generated function)
-func (m *MissionRequestList) Pack(p *Packet) error {
+func (m *CommonMissionRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2378,7 +2378,7 @@ func (m *MissionRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionRequestList) Unpack(p *Packet) error {
+func (m *CommonMissionRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2387,26 +2387,26 @@ func (m *MissionRequestList) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionCount struct (generated typeinfo)
+// CommonMissionCount struct (generated typeinfo)
 // This message is emitted as response to MISSION_REQUEST_LIST by the MAV and to initiate a write transaction. The GCS can then request the individual mission item based on the knowledge of the total number of MISSIONs.
-type MissionCount struct {
+type CommonMissionCount struct {
 	Count           uint16 // Number of mission items in the sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionCount) MsgID() MessageID {
+func (m *CommonMissionCount) MsgID() MessageID {
 	return MSG_ID_MISSION_COUNT
 }
 
 // MsgName (generated function)
-func (m *MissionCount) MsgName() string {
+func (m *CommonMissionCount) MsgName() string {
 	return "MissionCount"
 }
 
 // Pack (generated function)
-func (m *MissionCount) Pack(p *Packet) error {
+func (m *CommonMissionCount) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Count))
 	payload[2] = byte(m.TargetSystem)
@@ -2418,7 +2418,7 @@ func (m *MissionCount) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionCount) Unpack(p *Packet) error {
+func (m *CommonMissionCount) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2428,25 +2428,25 @@ func (m *MissionCount) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionClearAll struct (generated typeinfo)
+// CommonMissionClearAll struct (generated typeinfo)
 // Delete all mission items at once.
-type MissionClearAll struct {
+type CommonMissionClearAll struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionClearAll) MsgID() MessageID {
+func (m *CommonMissionClearAll) MsgID() MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
 }
 
 // MsgName (generated function)
-func (m *MissionClearAll) MsgName() string {
+func (m *CommonMissionClearAll) MsgName() string {
 	return "MissionClearAll"
 }
 
 // Pack (generated function)
-func (m *MissionClearAll) Pack(p *Packet) error {
+func (m *CommonMissionClearAll) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2457,7 +2457,7 @@ func (m *MissionClearAll) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionClearAll) Unpack(p *Packet) error {
+func (m *CommonMissionClearAll) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2466,24 +2466,24 @@ func (m *MissionClearAll) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionItemReached struct (generated typeinfo)
+// CommonMissionItemReached struct (generated typeinfo)
 // A certain mission item has been reached. The system will either hold this position (or circle on the orbit) or (if the autocontinue on the WP was set) continue to the next MISSION.
-type MissionItemReached struct {
+type CommonMissionItemReached struct {
 	Seq uint16 // Sequence
 }
 
 // MsgID (generated function)
-func (m *MissionItemReached) MsgID() MessageID {
+func (m *CommonMissionItemReached) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
 }
 
 // MsgName (generated function)
-func (m *MissionItemReached) MsgName() string {
+func (m *CommonMissionItemReached) MsgName() string {
 	return "MissionItemReached"
 }
 
 // Pack (generated function)
-func (m *MissionItemReached) Pack(p *Packet) error {
+func (m *CommonMissionItemReached) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 
@@ -2493,7 +2493,7 @@ func (m *MissionItemReached) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionItemReached) Unpack(p *Packet) error {
+func (m *CommonMissionItemReached) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2501,26 +2501,26 @@ func (m *MissionItemReached) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionAck struct (generated typeinfo)
+// CommonMissionAck struct (generated typeinfo)
 // Ack message during MISSION handling. The type field states if this message is a positive ack (type=0) or if an error happened (type=non-zero).
-type MissionAck struct {
+type CommonMissionAck struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Type            uint8 // See MAV_MISSION_RESULT enum
 }
 
 // MsgID (generated function)
-func (m *MissionAck) MsgID() MessageID {
+func (m *CommonMissionAck) MsgID() MessageID {
 	return MSG_ID_MISSION_ACK
 }
 
 // MsgName (generated function)
-func (m *MissionAck) MsgName() string {
+func (m *CommonMissionAck) MsgName() string {
 	return "MissionAck"
 }
 
 // Pack (generated function)
-func (m *MissionAck) Pack(p *Packet) error {
+func (m *CommonMissionAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2532,7 +2532,7 @@ func (m *MissionAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionAck) Unpack(p *Packet) error {
+func (m *CommonMissionAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2542,9 +2542,9 @@ func (m *MissionAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetGpsGlobalOrigin struct (generated typeinfo)
+// CommonSetGpsGlobalOrigin struct (generated typeinfo)
 // As local waypoints exist, the global MISSION reference allows to transform between the local coordinate frame and the global (GPS) coordinate frame. This can be necessary when e.g. in- and outdoor settings are connected and the MAV should move from in- to outdoor.
-type SetGpsGlobalOrigin struct {
+type CommonSetGpsGlobalOrigin struct {
 	Latitude     int32 // Latitude (WGS84), in degrees * 1E7
 	Longitude    int32 // Longitude (WGS84, in degrees * 1E7
 	Altitude     int32 // Altitude (AMSL), in meters * 1000 (positive for up)
@@ -2552,17 +2552,17 @@ type SetGpsGlobalOrigin struct {
 }
 
 // MsgID (generated function)
-func (m *SetGpsGlobalOrigin) MsgID() MessageID {
+func (m *CommonSetGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
 }
 
 // MsgName (generated function)
-func (m *SetGpsGlobalOrigin) MsgName() string {
+func (m *CommonSetGpsGlobalOrigin) MsgName() string {
 	return "SetGpsGlobalOrigin"
 }
 
 // Pack (generated function)
-func (m *SetGpsGlobalOrigin) Pack(p *Packet) error {
+func (m *CommonSetGpsGlobalOrigin) Pack(p *Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -2575,7 +2575,7 @@ func (m *SetGpsGlobalOrigin) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetGpsGlobalOrigin) Unpack(p *Packet) error {
+func (m *CommonSetGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2586,26 +2586,26 @@ func (m *SetGpsGlobalOrigin) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsGlobalOrigin struct (generated typeinfo)
+// CommonGpsGlobalOrigin struct (generated typeinfo)
 // Once the MAV sets a new GPS-Local correspondence, this message announces the origin (0,0,0) position
-type GpsGlobalOrigin struct {
+type CommonGpsGlobalOrigin struct {
 	Latitude  int32 // Latitude (WGS84), in degrees * 1E7
 	Longitude int32 // Longitude (WGS84), in degrees * 1E7
 	Altitude  int32 // Altitude (AMSL), in meters * 1000 (positive for up)
 }
 
 // MsgID (generated function)
-func (m *GpsGlobalOrigin) MsgID() MessageID {
+func (m *CommonGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_GPS_GLOBAL_ORIGIN
 }
 
 // MsgName (generated function)
-func (m *GpsGlobalOrigin) MsgName() string {
+func (m *CommonGpsGlobalOrigin) MsgName() string {
 	return "GpsGlobalOrigin"
 }
 
 // Pack (generated function)
-func (m *GpsGlobalOrigin) Pack(p *Packet) error {
+func (m *CommonGpsGlobalOrigin) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -2617,7 +2617,7 @@ func (m *GpsGlobalOrigin) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsGlobalOrigin) Unpack(p *Packet) error {
+func (m *CommonGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2627,9 +2627,9 @@ func (m *GpsGlobalOrigin) Unpack(p *Packet) error {
 	return nil
 }
 
-// ParamMapRc struct (generated typeinfo)
+// CommonParamMapRc struct (generated typeinfo)
 // Bind a RC channel to a parameter. The parameter should change accoding to the RC channel value.
-type ParamMapRc struct {
+type CommonParamMapRc struct {
 	ParamValue0             float32  // Initial parameter value
 	Scale                   float32  // Scale, maps the RC range [-1, 1] to a parameter value
 	ParamValueMin           float32  // Minimum param value. The protocol does not define if this overwrites an onboard minimum value. (Depends on implementation)
@@ -2642,17 +2642,17 @@ type ParamMapRc struct {
 }
 
 // MsgID (generated function)
-func (m *ParamMapRc) MsgID() MessageID {
+func (m *CommonParamMapRc) MsgID() MessageID {
 	return MSG_ID_PARAM_MAP_RC
 }
 
 // MsgName (generated function)
-func (m *ParamMapRc) MsgName() string {
+func (m *CommonParamMapRc) MsgName() string {
 	return "ParamMapRc"
 }
 
 // Pack (generated function)
-func (m *ParamMapRc) Pack(p *Packet) error {
+func (m *CommonParamMapRc) Pack(p *Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue0))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Scale))
@@ -2670,7 +2670,7 @@ func (m *ParamMapRc) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ParamMapRc) Unpack(p *Packet) error {
+func (m *CommonParamMapRc) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2686,26 +2686,26 @@ func (m *ParamMapRc) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionRequestInt struct (generated typeinfo)
+// CommonMissionRequestInt struct (generated typeinfo)
 // Request the information of the mission item with the sequence number seq. The response of the system to this message should be a MISSION_ITEM_INT message. http://qgroundcontrol.org/mavlink/waypoint_protocol
-type MissionRequestInt struct {
+type CommonMissionRequestInt struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *MissionRequestInt) MsgID() MessageID {
+func (m *CommonMissionRequestInt) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
 }
 
 // MsgName (generated function)
-func (m *MissionRequestInt) MsgName() string {
+func (m *CommonMissionRequestInt) MsgName() string {
 	return "MissionRequestInt"
 }
 
 // Pack (generated function)
-func (m *MissionRequestInt) Pack(p *Packet) error {
+func (m *CommonMissionRequestInt) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -2717,7 +2717,7 @@ func (m *MissionRequestInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionRequestInt) Unpack(p *Packet) error {
+func (m *CommonMissionRequestInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2727,9 +2727,9 @@ func (m *MissionRequestInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// SafetySetAllowedArea struct (generated typeinfo)
+// CommonSafetySetAllowedArea struct (generated typeinfo)
 // Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/MISSIONs to accept and which to reject. Safety areas are often enforced by national or competition regulations.
-type SafetySetAllowedArea struct {
+type CommonSafetySetAllowedArea struct {
 	P1x             float32 // x position 1 / Latitude 1
 	P1y             float32 // y position 1 / Longitude 1
 	P1z             float32 // z position 1 / Altitude 1
@@ -2742,17 +2742,17 @@ type SafetySetAllowedArea struct {
 }
 
 // MsgID (generated function)
-func (m *SafetySetAllowedArea) MsgID() MessageID {
+func (m *CommonSafetySetAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_SET_ALLOWED_AREA
 }
 
 // MsgName (generated function)
-func (m *SafetySetAllowedArea) MsgName() string {
+func (m *CommonSafetySetAllowedArea) MsgName() string {
 	return "SafetySetAllowedArea"
 }
 
 // Pack (generated function)
-func (m *SafetySetAllowedArea) Pack(p *Packet) error {
+func (m *CommonSafetySetAllowedArea) Pack(p *Packet) error {
 	payload := make([]byte, 27)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.P1x))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.P1y))
@@ -2770,7 +2770,7 @@ func (m *SafetySetAllowedArea) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SafetySetAllowedArea) Unpack(p *Packet) error {
+func (m *CommonSafetySetAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2786,9 +2786,9 @@ func (m *SafetySetAllowedArea) Unpack(p *Packet) error {
 	return nil
 }
 
-// SafetyAllowedArea struct (generated typeinfo)
+// CommonSafetyAllowedArea struct (generated typeinfo)
 // Read out the safety zone the MAV currently assumes.
-type SafetyAllowedArea struct {
+type CommonSafetyAllowedArea struct {
 	P1x   float32 // x position 1 / Latitude 1
 	P1y   float32 // y position 1 / Longitude 1
 	P1z   float32 // z position 1 / Altitude 1
@@ -2799,17 +2799,17 @@ type SafetyAllowedArea struct {
 }
 
 // MsgID (generated function)
-func (m *SafetyAllowedArea) MsgID() MessageID {
+func (m *CommonSafetyAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
 }
 
 // MsgName (generated function)
-func (m *SafetyAllowedArea) MsgName() string {
+func (m *CommonSafetyAllowedArea) MsgName() string {
 	return "SafetyAllowedArea"
 }
 
 // Pack (generated function)
-func (m *SafetyAllowedArea) Pack(p *Packet) error {
+func (m *CommonSafetyAllowedArea) Pack(p *Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.P1x))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.P1y))
@@ -2825,7 +2825,7 @@ func (m *SafetyAllowedArea) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SafetyAllowedArea) Unpack(p *Packet) error {
+func (m *CommonSafetyAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2839,9 +2839,9 @@ func (m *SafetyAllowedArea) Unpack(p *Packet) error {
 	return nil
 }
 
-// AttitudeQuaternionCov struct (generated typeinfo)
+// CommonAttitudeQuaternionCov struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
-type AttitudeQuaternionCov struct {
+type CommonAttitudeQuaternionCov struct {
 	TimeUsec   uint64     // Timestamp (microseconds since system boot or since UNIX epoch)
 	Q          [4]float32 // Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation)
 	Rollspeed  float32    // Roll angular speed (rad/s)
@@ -2851,17 +2851,17 @@ type AttitudeQuaternionCov struct {
 }
 
 // MsgID (generated function)
-func (m *AttitudeQuaternionCov) MsgID() MessageID {
+func (m *CommonAttitudeQuaternionCov) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION_COV
 }
 
 // MsgName (generated function)
-func (m *AttitudeQuaternionCov) MsgName() string {
+func (m *CommonAttitudeQuaternionCov) MsgName() string {
 	return "AttitudeQuaternionCov"
 }
 
 // Pack (generated function)
-func (m *AttitudeQuaternionCov) Pack(p *Packet) error {
+func (m *CommonAttitudeQuaternionCov) Pack(p *Packet) error {
 	payload := make([]byte, 72)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Q {
@@ -2880,7 +2880,7 @@ func (m *AttitudeQuaternionCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AttitudeQuaternionCov) Unpack(p *Packet) error {
+func (m *CommonAttitudeQuaternionCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 72 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2897,9 +2897,9 @@ func (m *AttitudeQuaternionCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// NavControllerOutput struct (generated typeinfo)
+// CommonNavControllerOutput struct (generated typeinfo)
 // The state of the fixed wing navigation and position controller.
-type NavControllerOutput struct {
+type CommonNavControllerOutput struct {
 	NavRoll       float32 // Current desired roll in degrees
 	NavPitch      float32 // Current desired pitch in degrees
 	AltError      float32 // Current altitude error in meters
@@ -2911,17 +2911,17 @@ type NavControllerOutput struct {
 }
 
 // MsgID (generated function)
-func (m *NavControllerOutput) MsgID() MessageID {
+func (m *CommonNavControllerOutput) MsgID() MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
 }
 
 // MsgName (generated function)
-func (m *NavControllerOutput) MsgName() string {
+func (m *CommonNavControllerOutput) MsgName() string {
 	return "NavControllerOutput"
 }
 
 // Pack (generated function)
-func (m *NavControllerOutput) Pack(p *Packet) error {
+func (m *CommonNavControllerOutput) Pack(p *Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.NavRoll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.NavPitch))
@@ -2938,7 +2938,7 @@ func (m *NavControllerOutput) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *NavControllerOutput) Unpack(p *Packet) error {
+func (m *CommonNavControllerOutput) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		return fmt.Errorf("payload too small")
 	}
@@ -2953,9 +2953,9 @@ func (m *NavControllerOutput) Unpack(p *Packet) error {
 	return nil
 }
 
-// GlobalPositionIntCov struct (generated typeinfo)
+// CommonGlobalPositionIntCov struct (generated typeinfo)
 // The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It  is designed as scaled integer message since the resolution of float is not sufficient. NOTE: This message is intended for onboard networks / companion computers and higher-bandwidth links and optimized for accuracy and completeness. Please use the GLOBAL_POSITION_INT message for a minimal subset.
-type GlobalPositionIntCov struct {
+type CommonGlobalPositionIntCov struct {
 	TimeUsec      uint64      // Timestamp (microseconds since system boot or since UNIX epoch)
 	Lat           int32       // Latitude, expressed as degrees * 1E7
 	Lon           int32       // Longitude, expressed as degrees * 1E7
@@ -2969,17 +2969,17 @@ type GlobalPositionIntCov struct {
 }
 
 // MsgID (generated function)
-func (m *GlobalPositionIntCov) MsgID() MessageID {
+func (m *CommonGlobalPositionIntCov) MsgID() MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT_COV
 }
 
 // MsgName (generated function)
-func (m *GlobalPositionIntCov) MsgName() string {
+func (m *CommonGlobalPositionIntCov) MsgName() string {
 	return "GlobalPositionIntCov"
 }
 
 // Pack (generated function)
-func (m *GlobalPositionIntCov) Pack(p *Packet) error {
+func (m *CommonGlobalPositionIntCov) Pack(p *Packet) error {
 	payload := make([]byte, 181)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -3000,7 +3000,7 @@ func (m *GlobalPositionIntCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GlobalPositionIntCov) Unpack(p *Packet) error {
+func (m *CommonGlobalPositionIntCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 181 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3019,9 +3019,9 @@ func (m *GlobalPositionIntCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// LocalPositionNedCov struct (generated typeinfo)
+// CommonLocalPositionNedCov struct (generated typeinfo)
 // The filtered local position (e.g. fused computer vision and accelerometers). Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type LocalPositionNedCov struct {
+type CommonLocalPositionNedCov struct {
 	TimeUsec      uint64      // Timestamp (microseconds since system boot or since UNIX epoch)
 	X             float32     // X Position
 	Y             float32     // Y Position
@@ -3037,17 +3037,17 @@ type LocalPositionNedCov struct {
 }
 
 // MsgID (generated function)
-func (m *LocalPositionNedCov) MsgID() MessageID {
+func (m *CommonLocalPositionNedCov) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_COV
 }
 
 // MsgName (generated function)
-func (m *LocalPositionNedCov) MsgName() string {
+func (m *CommonLocalPositionNedCov) MsgName() string {
 	return "LocalPositionNedCov"
 }
 
 // Pack (generated function)
-func (m *LocalPositionNedCov) Pack(p *Packet) error {
+func (m *CommonLocalPositionNedCov) Pack(p *Packet) error {
 	payload := make([]byte, 225)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -3070,7 +3070,7 @@ func (m *LocalPositionNedCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LocalPositionNedCov) Unpack(p *Packet) error {
+func (m *CommonLocalPositionNedCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 225 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3091,9 +3091,9 @@ func (m *LocalPositionNedCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// RcChannels struct (generated typeinfo)
+// CommonRcChannels struct (generated typeinfo)
 // The PPM values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
-type RcChannels struct {
+type CommonRcChannels struct {
 	TimeBootMs uint32 // Timestamp (milliseconds since system boot)
 	Chan1Raw   uint16 // RC channel 1 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
 	Chan2Raw   uint16 // RC channel 2 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
@@ -3118,17 +3118,17 @@ type RcChannels struct {
 }
 
 // MsgID (generated function)
-func (m *RcChannels) MsgID() MessageID {
+func (m *CommonRcChannels) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS
 }
 
 // MsgName (generated function)
-func (m *RcChannels) MsgName() string {
+func (m *CommonRcChannels) MsgName() string {
 	return "RcChannels"
 }
 
 // Pack (generated function)
-func (m *RcChannels) Pack(p *Packet) error {
+func (m *CommonRcChannels) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Raw))
@@ -3158,7 +3158,7 @@ func (m *RcChannels) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RcChannels) Unpack(p *Packet) error {
+func (m *CommonRcChannels) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3186,9 +3186,9 @@ func (m *RcChannels) Unpack(p *Packet) error {
 	return nil
 }
 
-// RequestDataStream struct (generated typeinfo)
+// CommonRequestDataStream struct (generated typeinfo)
 // THIS INTERFACE IS DEPRECATED. USE SET_MESSAGE_INTERVAL INSTEAD.
-type RequestDataStream struct {
+type CommonRequestDataStream struct {
 	ReqMessageRate  uint16 // The requested message rate
 	TargetSystem    uint8  // The target requested to send the message stream.
 	TargetComponent uint8  // The target requested to send the message stream.
@@ -3197,17 +3197,17 @@ type RequestDataStream struct {
 }
 
 // MsgID (generated function)
-func (m *RequestDataStream) MsgID() MessageID {
+func (m *CommonRequestDataStream) MsgID() MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
 }
 
 // MsgName (generated function)
-func (m *RequestDataStream) MsgName() string {
+func (m *CommonRequestDataStream) MsgName() string {
 	return "RequestDataStream"
 }
 
 // Pack (generated function)
-func (m *RequestDataStream) Pack(p *Packet) error {
+func (m *CommonRequestDataStream) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ReqMessageRate))
 	payload[2] = byte(m.TargetSystem)
@@ -3221,7 +3221,7 @@ func (m *RequestDataStream) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RequestDataStream) Unpack(p *Packet) error {
+func (m *CommonRequestDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3233,26 +3233,26 @@ func (m *RequestDataStream) Unpack(p *Packet) error {
 	return nil
 }
 
-// DataStream struct (generated typeinfo)
+// CommonDataStream struct (generated typeinfo)
 // THIS INTERFACE IS DEPRECATED. USE MESSAGE_INTERVAL INSTEAD.
-type DataStream struct {
+type CommonDataStream struct {
 	MessageRate uint16 // The message rate
 	StreamID    uint8  // The ID of the requested data stream
 	OnOff       uint8  // 1 stream is enabled, 0 stream is stopped.
 }
 
 // MsgID (generated function)
-func (m *DataStream) MsgID() MessageID {
+func (m *CommonDataStream) MsgID() MessageID {
 	return MSG_ID_DATA_STREAM
 }
 
 // MsgName (generated function)
-func (m *DataStream) MsgName() string {
+func (m *CommonDataStream) MsgName() string {
 	return "DataStream"
 }
 
 // Pack (generated function)
-func (m *DataStream) Pack(p *Packet) error {
+func (m *CommonDataStream) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MessageRate))
 	payload[2] = byte(m.StreamID)
@@ -3264,7 +3264,7 @@ func (m *DataStream) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DataStream) Unpack(p *Packet) error {
+func (m *CommonDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3274,9 +3274,9 @@ func (m *DataStream) Unpack(p *Packet) error {
 	return nil
 }
 
-// ManualControl struct (generated typeinfo)
+// CommonManualControl struct (generated typeinfo)
 // This message provides an API for manually controlling the vehicle using standard joystick axes nomenclature, along with a joystick-like input device. Unused axes can be disabled an buttons are also transmit as boolean values of their
-type ManualControl struct {
+type CommonManualControl struct {
 	X       int16  // X-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to forward(1000)-backward(-1000) movement on a joystick and the pitch of a vehicle.
 	Y       int16  // Y-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to left(-1000)-right(1000) movement on a joystick and the roll of a vehicle.
 	Z       int16  // Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle. Positive values are positive thrust, negative values are negative thrust.
@@ -3286,17 +3286,17 @@ type ManualControl struct {
 }
 
 // MsgID (generated function)
-func (m *ManualControl) MsgID() MessageID {
+func (m *CommonManualControl) MsgID() MessageID {
 	return MSG_ID_MANUAL_CONTROL
 }
 
 // MsgName (generated function)
-func (m *ManualControl) MsgName() string {
+func (m *CommonManualControl) MsgName() string {
 	return "ManualControl"
 }
 
 // Pack (generated function)
-func (m *ManualControl) Pack(p *Packet) error {
+func (m *CommonManualControl) Pack(p *Packet) error {
 	payload := make([]byte, 11)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.X))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Y))
@@ -3311,7 +3311,7 @@ func (m *ManualControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ManualControl) Unpack(p *Packet) error {
+func (m *CommonManualControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 11 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3324,9 +3324,9 @@ func (m *ManualControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// RcChannelsOverride struct (generated typeinfo)
+// CommonRcChannelsOverride struct (generated typeinfo)
 // The RAW values of the RC channels sent to the MAV to override info received from the RC radio. A value of UINT16_MAX means no change to that channel. A value of 0 means control of that channel should be released back to the RC radio. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
-type RcChannelsOverride struct {
+type CommonRcChannelsOverride struct {
 	Chan1Raw        uint16 // RC channel 1 value, in microseconds. A value of UINT16_MAX means to ignore this field.
 	Chan2Raw        uint16 // RC channel 2 value, in microseconds. A value of UINT16_MAX means to ignore this field.
 	Chan3Raw        uint16 // RC channel 3 value, in microseconds. A value of UINT16_MAX means to ignore this field.
@@ -3340,17 +3340,17 @@ type RcChannelsOverride struct {
 }
 
 // MsgID (generated function)
-func (m *RcChannelsOverride) MsgID() MessageID {
+func (m *CommonRcChannelsOverride) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_OVERRIDE
 }
 
 // MsgName (generated function)
-func (m *RcChannelsOverride) MsgName() string {
+func (m *CommonRcChannelsOverride) MsgName() string {
 	return "RcChannelsOverride"
 }
 
 // Pack (generated function)
-func (m *RcChannelsOverride) Pack(p *Packet) error {
+func (m *CommonRcChannelsOverride) Pack(p *Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Chan1Raw))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Chan2Raw))
@@ -3369,7 +3369,7 @@ func (m *RcChannelsOverride) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RcChannelsOverride) Unpack(p *Packet) error {
+func (m *CommonRcChannelsOverride) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3386,10 +3386,10 @@ func (m *RcChannelsOverride) Unpack(p *Packet) error {
 	return nil
 }
 
-// MissionItemInt struct (generated typeinfo)
+// CommonMissionItemInt struct (generated typeinfo)
 // Message encoding a mission item. This message is emitted to announce
 //                 the presence of a mission item and to set a mission item on the system. The mission item can be either in x, y, z meters (type: LOCAL) or x:lat, y:lon, z:altitude. Local frame is Z-down, right handed (NED), global frame is Z-up, right handed (ENU). See alsohttp://qgroundcontrol.org/mavlink/waypoint_protocol.
-type MissionItemInt struct {
+type CommonMissionItemInt struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -3407,17 +3407,17 @@ type MissionItemInt struct {
 }
 
 // MsgID (generated function)
-func (m *MissionItemInt) MsgID() MessageID {
+func (m *CommonMissionItemInt) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_INT
 }
 
 // MsgName (generated function)
-func (m *MissionItemInt) MsgName() string {
+func (m *CommonMissionItemInt) MsgName() string {
 	return "MissionItemInt"
 }
 
 // Pack (generated function)
-func (m *MissionItemInt) Pack(p *Packet) error {
+func (m *CommonMissionItemInt) Pack(p *Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -3440,7 +3440,7 @@ func (m *MissionItemInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MissionItemInt) Unpack(p *Packet) error {
+func (m *CommonMissionItemInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3461,9 +3461,9 @@ func (m *MissionItemInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// VfrHud struct (generated typeinfo)
+// CommonVfrHud struct (generated typeinfo)
 // Metrics typically displayed on a HUD for fixed wing aircraft
-type VfrHud struct {
+type CommonVfrHud struct {
 	Airspeed    float32 // Current airspeed in m/s
 	Groundspeed float32 // Current ground speed in m/s
 	Alt         float32 // Current altitude (MSL), in meters
@@ -3473,17 +3473,17 @@ type VfrHud struct {
 }
 
 // MsgID (generated function)
-func (m *VfrHud) MsgID() MessageID {
+func (m *CommonVfrHud) MsgID() MessageID {
 	return MSG_ID_VFR_HUD
 }
 
 // MsgName (generated function)
-func (m *VfrHud) MsgName() string {
+func (m *CommonVfrHud) MsgName() string {
 	return "VfrHud"
 }
 
 // Pack (generated function)
-func (m *VfrHud) Pack(p *Packet) error {
+func (m *CommonVfrHud) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Airspeed))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Groundspeed))
@@ -3498,7 +3498,7 @@ func (m *VfrHud) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *VfrHud) Unpack(p *Packet) error {
+func (m *CommonVfrHud) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3511,9 +3511,9 @@ func (m *VfrHud) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommandInt struct (generated typeinfo)
+// CommonCommandInt struct (generated typeinfo)
 // Message encoding a command with parameters as scaled integers. Scaling depends on the actual command value.
-type CommandInt struct {
+type CommonCommandInt struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -3530,17 +3530,17 @@ type CommandInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommandInt) MsgID() MessageID {
+func (m *CommonCommandInt) MsgID() MessageID {
 	return MSG_ID_COMMAND_INT
 }
 
 // MsgName (generated function)
-func (m *CommandInt) MsgName() string {
+func (m *CommonCommandInt) MsgName() string {
 	return "CommandInt"
 }
 
 // Pack (generated function)
-func (m *CommandInt) Pack(p *Packet) error {
+func (m *CommonCommandInt) Pack(p *Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -3562,7 +3562,7 @@ func (m *CommandInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommandInt) Unpack(p *Packet) error {
+func (m *CommonCommandInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3582,9 +3582,9 @@ func (m *CommandInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommandLong struct (generated typeinfo)
+// CommonCommandLong struct (generated typeinfo)
 // Send a command with up to seven parameters to the MAV
-type CommandLong struct {
+type CommonCommandLong struct {
 	Param1          float32 // Parameter 1, as defined by MAV_CMD enum.
 	Param2          float32 // Parameter 2, as defined by MAV_CMD enum.
 	Param3          float32 // Parameter 3, as defined by MAV_CMD enum.
@@ -3599,17 +3599,17 @@ type CommandLong struct {
 }
 
 // MsgID (generated function)
-func (m *CommandLong) MsgID() MessageID {
+func (m *CommonCommandLong) MsgID() MessageID {
 	return MSG_ID_COMMAND_LONG
 }
 
 // MsgName (generated function)
-func (m *CommandLong) MsgName() string {
+func (m *CommonCommandLong) MsgName() string {
 	return "CommandLong"
 }
 
 // Pack (generated function)
-func (m *CommandLong) Pack(p *Packet) error {
+func (m *CommonCommandLong) Pack(p *Packet) error {
 	payload := make([]byte, 33)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -3629,7 +3629,7 @@ func (m *CommandLong) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommandLong) Unpack(p *Packet) error {
+func (m *CommonCommandLong) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3647,25 +3647,25 @@ func (m *CommandLong) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommandAck struct (generated typeinfo)
+// CommonCommandAck struct (generated typeinfo)
 // Report status of a command. Includes feedback wether the command was executed.
-type CommandAck struct {
+type CommonCommandAck struct {
 	Command uint16 // Command ID, as defined by MAV_CMD enum.
 	Result  uint8  // See MAV_RESULT enum
 }
 
 // MsgID (generated function)
-func (m *CommandAck) MsgID() MessageID {
+func (m *CommonCommandAck) MsgID() MessageID {
 	return MSG_ID_COMMAND_ACK
 }
 
 // MsgName (generated function)
-func (m *CommandAck) MsgName() string {
+func (m *CommonCommandAck) MsgName() string {
 	return "CommandAck"
 }
 
 // Pack (generated function)
-func (m *CommandAck) Pack(p *Packet) error {
+func (m *CommonCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Command))
 	payload[2] = byte(m.Result)
@@ -3676,7 +3676,7 @@ func (m *CommandAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommandAck) Unpack(p *Packet) error {
+func (m *CommonCommandAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3685,9 +3685,9 @@ func (m *CommandAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// ManualSetpoint struct (generated typeinfo)
+// CommonManualSetpoint struct (generated typeinfo)
 // Setpoint in roll, pitch, yaw and thrust from the operator
-type ManualSetpoint struct {
+type CommonManualSetpoint struct {
 	TimeBootMs           uint32  // Timestamp in milliseconds since system boot
 	Roll                 float32 // Desired roll rate in radians per second
 	Pitch                float32 // Desired pitch rate in radians per second
@@ -3698,17 +3698,17 @@ type ManualSetpoint struct {
 }
 
 // MsgID (generated function)
-func (m *ManualSetpoint) MsgID() MessageID {
+func (m *CommonManualSetpoint) MsgID() MessageID {
 	return MSG_ID_MANUAL_SETPOINT
 }
 
 // MsgName (generated function)
-func (m *ManualSetpoint) MsgName() string {
+func (m *CommonManualSetpoint) MsgName() string {
 	return "ManualSetpoint"
 }
 
 // Pack (generated function)
-func (m *ManualSetpoint) Pack(p *Packet) error {
+func (m *CommonManualSetpoint) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Roll))
@@ -3724,7 +3724,7 @@ func (m *ManualSetpoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ManualSetpoint) Unpack(p *Packet) error {
+func (m *CommonManualSetpoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3738,9 +3738,9 @@ func (m *ManualSetpoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetAttitudeTarget struct (generated typeinfo)
+// CommonSetAttitudeTarget struct (generated typeinfo)
 // Sets a desired vehicle attitude. Used by an external controller to command the vehicle (manual controller or other system).
-type SetAttitudeTarget struct {
+type CommonSetAttitudeTarget struct {
 	TimeBootMs      uint32     // Timestamp in milliseconds since system boot
 	Q               [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	BodyRollRate    float32    // Body roll rate in radians per second
@@ -3753,17 +3753,17 @@ type SetAttitudeTarget struct {
 }
 
 // MsgID (generated function)
-func (m *SetAttitudeTarget) MsgID() MessageID {
+func (m *CommonSetAttitudeTarget) MsgID() MessageID {
 	return MSG_ID_SET_ATTITUDE_TARGET
 }
 
 // MsgName (generated function)
-func (m *SetAttitudeTarget) MsgName() string {
+func (m *CommonSetAttitudeTarget) MsgName() string {
 	return "SetAttitudeTarget"
 }
 
 // Pack (generated function)
-func (m *SetAttitudeTarget) Pack(p *Packet) error {
+func (m *CommonSetAttitudeTarget) Pack(p *Packet) error {
 	payload := make([]byte, 39)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	for i, v := range m.Q {
@@ -3783,7 +3783,7 @@ func (m *SetAttitudeTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetAttitudeTarget) Unpack(p *Packet) error {
+func (m *CommonSetAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 39 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3801,9 +3801,9 @@ func (m *SetAttitudeTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// AttitudeTarget struct (generated typeinfo)
+// CommonAttitudeTarget struct (generated typeinfo)
 // Reports the current commanded attitude of the vehicle as specified by the autopilot. This should match the commands sent in a SET_ATTITUDE_TARGET message if the vehicle is being controlled this way.
-type AttitudeTarget struct {
+type CommonAttitudeTarget struct {
 	TimeBootMs    uint32     // Timestamp in milliseconds since system boot
 	Q             [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	BodyRollRate  float32    // Body roll rate in radians per second
@@ -3814,17 +3814,17 @@ type AttitudeTarget struct {
 }
 
 // MsgID (generated function)
-func (m *AttitudeTarget) MsgID() MessageID {
+func (m *CommonAttitudeTarget) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_TARGET
 }
 
 // MsgName (generated function)
-func (m *AttitudeTarget) MsgName() string {
+func (m *CommonAttitudeTarget) MsgName() string {
 	return "AttitudeTarget"
 }
 
 // Pack (generated function)
-func (m *AttitudeTarget) Pack(p *Packet) error {
+func (m *CommonAttitudeTarget) Pack(p *Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	for i, v := range m.Q {
@@ -3842,7 +3842,7 @@ func (m *AttitudeTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AttitudeTarget) Unpack(p *Packet) error {
+func (m *CommonAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3858,9 +3858,9 @@ func (m *AttitudeTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetPositionTargetLocalNed struct (generated typeinfo)
+// CommonSetPositionTargetLocalNed struct (generated typeinfo)
 // Sets a desired vehicle position in a local north-east-down coordinate frame. Used by an external controller to command the vehicle (manual controller or other system).
-type SetPositionTargetLocalNed struct {
+type CommonSetPositionTargetLocalNed struct {
 	TimeBootMs      uint32  // Timestamp in milliseconds since system boot
 	X               float32 // X Position in NED frame in meters
 	Y               float32 // Y Position in NED frame in meters
@@ -3880,17 +3880,17 @@ type SetPositionTargetLocalNed struct {
 }
 
 // MsgID (generated function)
-func (m *SetPositionTargetLocalNed) MsgID() MessageID {
+func (m *CommonSetPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_SET_POSITION_TARGET_LOCAL_NED
 }
 
 // MsgName (generated function)
-func (m *SetPositionTargetLocalNed) MsgName() string {
+func (m *CommonSetPositionTargetLocalNed) MsgName() string {
 	return "SetPositionTargetLocalNed"
 }
 
 // Pack (generated function)
-func (m *SetPositionTargetLocalNed) Pack(p *Packet) error {
+func (m *CommonSetPositionTargetLocalNed) Pack(p *Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -3915,7 +3915,7 @@ func (m *SetPositionTargetLocalNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetPositionTargetLocalNed) Unpack(p *Packet) error {
+func (m *CommonSetPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		return fmt.Errorf("payload too small")
 	}
@@ -3938,9 +3938,9 @@ func (m *SetPositionTargetLocalNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// PositionTargetLocalNed struct (generated typeinfo)
+// CommonPositionTargetLocalNed struct (generated typeinfo)
 // Reports the current commanded vehicle position, velocity, and acceleration as specified by the autopilot. This should match the commands sent in SET_POSITION_TARGET_LOCAL_NED if the vehicle is being controlled this way.
-type PositionTargetLocalNed struct {
+type CommonPositionTargetLocalNed struct {
 	TimeBootMs      uint32  // Timestamp in milliseconds since system boot
 	X               float32 // X Position in NED frame in meters
 	Y               float32 // Y Position in NED frame in meters
@@ -3958,17 +3958,17 @@ type PositionTargetLocalNed struct {
 }
 
 // MsgID (generated function)
-func (m *PositionTargetLocalNed) MsgID() MessageID {
+func (m *CommonPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
 }
 
 // MsgName (generated function)
-func (m *PositionTargetLocalNed) MsgName() string {
+func (m *CommonPositionTargetLocalNed) MsgName() string {
 	return "PositionTargetLocalNed"
 }
 
 // Pack (generated function)
-func (m *PositionTargetLocalNed) Pack(p *Packet) error {
+func (m *CommonPositionTargetLocalNed) Pack(p *Packet) error {
 	payload := make([]byte, 51)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -3991,7 +3991,7 @@ func (m *PositionTargetLocalNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *PositionTargetLocalNed) Unpack(p *Packet) error {
+func (m *CommonPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4012,9 +4012,9 @@ func (m *PositionTargetLocalNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetPositionTargetGlobalInt struct (generated typeinfo)
+// CommonSetPositionTargetGlobalInt struct (generated typeinfo)
 // Sets a desired vehicle position, velocity, and/or acceleration in a global coordinate system (WGS84). Used by an external controller to command the vehicle (manual controller or other system).
-type SetPositionTargetGlobalInt struct {
+type CommonSetPositionTargetGlobalInt struct {
 	TimeBootMs      uint32  // Timestamp in milliseconds since system boot. The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
 	LatInt          int32   // X Position in WGS84 frame in 1e7 * meters
 	LonInt          int32   // Y Position in WGS84 frame in 1e7 * meters
@@ -4034,17 +4034,17 @@ type SetPositionTargetGlobalInt struct {
 }
 
 // MsgID (generated function)
-func (m *SetPositionTargetGlobalInt) MsgID() MessageID {
+func (m *CommonSetPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_SET_POSITION_TARGET_GLOBAL_INT
 }
 
 // MsgName (generated function)
-func (m *SetPositionTargetGlobalInt) MsgName() string {
+func (m *CommonSetPositionTargetGlobalInt) MsgName() string {
 	return "SetPositionTargetGlobalInt"
 }
 
 // Pack (generated function)
-func (m *SetPositionTargetGlobalInt) Pack(p *Packet) error {
+func (m *CommonSetPositionTargetGlobalInt) Pack(p *Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LatInt))
@@ -4069,7 +4069,7 @@ func (m *SetPositionTargetGlobalInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetPositionTargetGlobalInt) Unpack(p *Packet) error {
+func (m *CommonSetPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4092,9 +4092,9 @@ func (m *SetPositionTargetGlobalInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// PositionTargetGlobalInt struct (generated typeinfo)
+// CommonPositionTargetGlobalInt struct (generated typeinfo)
 // Reports the current commanded vehicle position, velocity, and acceleration as specified by the autopilot. This should match the commands sent in SET_POSITION_TARGET_GLOBAL_INT if the vehicle is being controlled this way.
-type PositionTargetGlobalInt struct {
+type CommonPositionTargetGlobalInt struct {
 	TimeBootMs      uint32  // Timestamp in milliseconds since system boot. The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
 	LatInt          int32   // X Position in WGS84 frame in 1e7 * meters
 	LonInt          int32   // Y Position in WGS84 frame in 1e7 * meters
@@ -4112,17 +4112,17 @@ type PositionTargetGlobalInt struct {
 }
 
 // MsgID (generated function)
-func (m *PositionTargetGlobalInt) MsgID() MessageID {
+func (m *CommonPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
 }
 
 // MsgName (generated function)
-func (m *PositionTargetGlobalInt) MsgName() string {
+func (m *CommonPositionTargetGlobalInt) MsgName() string {
 	return "PositionTargetGlobalInt"
 }
 
 // Pack (generated function)
-func (m *PositionTargetGlobalInt) Pack(p *Packet) error {
+func (m *CommonPositionTargetGlobalInt) Pack(p *Packet) error {
 	payload := make([]byte, 51)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LatInt))
@@ -4145,7 +4145,7 @@ func (m *PositionTargetGlobalInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *PositionTargetGlobalInt) Unpack(p *Packet) error {
+func (m *CommonPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4166,9 +4166,9 @@ func (m *PositionTargetGlobalInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// LocalPositionNedSystemGlobalOffset struct (generated typeinfo)
+// CommonLocalPositionNedSystemGlobalOffset struct (generated typeinfo)
 // The offset in X, Y, Z and yaw between the LOCAL_POSITION_NED messages of MAV X and the global coordinate frame in NED coordinates. Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type LocalPositionNedSystemGlobalOffset struct {
+type CommonLocalPositionNedSystemGlobalOffset struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	X          float32 // X Position
 	Y          float32 // Y Position
@@ -4179,17 +4179,17 @@ type LocalPositionNedSystemGlobalOffset struct {
 }
 
 // MsgID (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) MsgID() MessageID {
+func (m *CommonLocalPositionNedSystemGlobalOffset) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
 }
 
 // MsgName (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) MsgName() string {
+func (m *CommonLocalPositionNedSystemGlobalOffset) MsgName() string {
 	return "LocalPositionNedSystemGlobalOffset"
 }
 
 // Pack (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
+func (m *CommonLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -4205,7 +4205,7 @@ func (m *LocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
+func (m *CommonLocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4219,9 +4219,9 @@ func (m *LocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilState struct (generated typeinfo)
+// CommonHilState struct (generated typeinfo)
 // DEPRECATED PACKET! Suffers from missing airspeed fields and singularities due to Euler angles. Please use HIL_STATE_QUATERNION instead. Sent from simulation to autopilot. This packet is useful for high throughput applications such as hardware in the loop simulations.
-type HilState struct {
+type CommonHilState struct {
 	TimeUsec   uint64  // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Roll       float32 // Roll angle (rad)
 	Pitch      float32 // Pitch angle (rad)
@@ -4241,17 +4241,17 @@ type HilState struct {
 }
 
 // MsgID (generated function)
-func (m *HilState) MsgID() MessageID {
+func (m *CommonHilState) MsgID() MessageID {
 	return MSG_ID_HIL_STATE
 }
 
 // MsgName (generated function)
-func (m *HilState) MsgName() string {
+func (m *CommonHilState) MsgName() string {
 	return "HilState"
 }
 
 // Pack (generated function)
-func (m *HilState) Pack(p *Packet) error {
+func (m *CommonHilState) Pack(p *Packet) error {
 	payload := make([]byte, 56)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Roll))
@@ -4276,7 +4276,7 @@ func (m *HilState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilState) Unpack(p *Packet) error {
+func (m *CommonHilState) Unpack(p *Packet) error {
 	if len(p.Payload) < 56 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4299,9 +4299,9 @@ func (m *HilState) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilControls struct (generated typeinfo)
+// CommonHilControls struct (generated typeinfo)
 // Sent from autopilot to simulation. Hardware in the loop control outputs
-type HilControls struct {
+type CommonHilControls struct {
 	TimeUsec      uint64  // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	RollAilerons  float32 // Control output -1 .. 1
 	PitchElevator float32 // Control output -1 .. 1
@@ -4316,17 +4316,17 @@ type HilControls struct {
 }
 
 // MsgID (generated function)
-func (m *HilControls) MsgID() MessageID {
+func (m *CommonHilControls) MsgID() MessageID {
 	return MSG_ID_HIL_CONTROLS
 }
 
 // MsgName (generated function)
-func (m *HilControls) MsgName() string {
+func (m *CommonHilControls) MsgName() string {
 	return "HilControls"
 }
 
 // Pack (generated function)
-func (m *HilControls) Pack(p *Packet) error {
+func (m *CommonHilControls) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.RollAilerons))
@@ -4346,7 +4346,7 @@ func (m *HilControls) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilControls) Unpack(p *Packet) error {
+func (m *CommonHilControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4364,9 +4364,9 @@ func (m *HilControls) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilRcInputsRaw struct (generated typeinfo)
+// CommonHilRcInputsRaw struct (generated typeinfo)
 // Sent from simulation to autopilot. The RAW values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
-type HilRcInputsRaw struct {
+type CommonHilRcInputsRaw struct {
 	TimeUsec  uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Chan1Raw  uint16 // RC channel 1 value, in microseconds
 	Chan2Raw  uint16 // RC channel 2 value, in microseconds
@@ -4384,17 +4384,17 @@ type HilRcInputsRaw struct {
 }
 
 // MsgID (generated function)
-func (m *HilRcInputsRaw) MsgID() MessageID {
+func (m *CommonHilRcInputsRaw) MsgID() MessageID {
 	return MSG_ID_HIL_RC_INPUTS_RAW
 }
 
 // MsgName (generated function)
-func (m *HilRcInputsRaw) MsgName() string {
+func (m *CommonHilRcInputsRaw) MsgName() string {
 	return "HilRcInputsRaw"
 }
 
 // Pack (generated function)
-func (m *HilRcInputsRaw) Pack(p *Packet) error {
+func (m *CommonHilRcInputsRaw) Pack(p *Packet) error {
 	payload := make([]byte, 33)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Chan1Raw))
@@ -4417,7 +4417,7 @@ func (m *HilRcInputsRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilRcInputsRaw) Unpack(p *Packet) error {
+func (m *CommonHilRcInputsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4438,9 +4438,9 @@ func (m *HilRcInputsRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilActuatorControls struct (generated typeinfo)
+// CommonHilActuatorControls struct (generated typeinfo)
 // Sent from autopilot to simulation. Hardware in the loop control outputs (replacement for HIL_CONTROLS)
-type HilActuatorControls struct {
+type CommonHilActuatorControls struct {
 	TimeUsec uint64      // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Flags    uint64      // Flags as bitfield, reserved for future use.
 	Controls [16]float32 // Control outputs -1 .. 1. Channel assignment depends on the simulated hardware.
@@ -4448,17 +4448,17 @@ type HilActuatorControls struct {
 }
 
 // MsgID (generated function)
-func (m *HilActuatorControls) MsgID() MessageID {
+func (m *CommonHilActuatorControls) MsgID() MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
 }
 
 // MsgName (generated function)
-func (m *HilActuatorControls) MsgName() string {
+func (m *CommonHilActuatorControls) MsgName() string {
 	return "HilActuatorControls"
 }
 
 // Pack (generated function)
-func (m *HilActuatorControls) Pack(p *Packet) error {
+func (m *CommonHilActuatorControls) Pack(p *Packet) error {
 	payload := make([]byte, 81)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Flags))
@@ -4473,7 +4473,7 @@ func (m *HilActuatorControls) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilActuatorControls) Unpack(p *Packet) error {
+func (m *CommonHilActuatorControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 81 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4486,9 +4486,9 @@ func (m *HilActuatorControls) Unpack(p *Packet) error {
 	return nil
 }
 
-// OpticalFlow struct (generated typeinfo)
+// CommonOpticalFlow struct (generated typeinfo)
 // Optical flow from a flow sensor (e.g. optical mouse sensor)
-type OpticalFlow struct {
+type CommonOpticalFlow struct {
 	TimeUsec       uint64  // Timestamp (UNIX)
 	FlowCompMX     float32 // Flow in meters in x-sensor direction, angular-speed compensated
 	FlowCompMY     float32 // Flow in meters in y-sensor direction, angular-speed compensated
@@ -4500,17 +4500,17 @@ type OpticalFlow struct {
 }
 
 // MsgID (generated function)
-func (m *OpticalFlow) MsgID() MessageID {
+func (m *CommonOpticalFlow) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW
 }
 
 // MsgName (generated function)
-func (m *OpticalFlow) MsgName() string {
+func (m *CommonOpticalFlow) MsgName() string {
 	return "OpticalFlow"
 }
 
 // Pack (generated function)
-func (m *OpticalFlow) Pack(p *Packet) error {
+func (m *CommonOpticalFlow) Pack(p *Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.FlowCompMX))
@@ -4527,7 +4527,7 @@ func (m *OpticalFlow) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *OpticalFlow) Unpack(p *Packet) error {
+func (m *CommonOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4542,9 +4542,9 @@ func (m *OpticalFlow) Unpack(p *Packet) error {
 	return nil
 }
 
-// GlobalVisionPositionEstimate struct (generated typeinfo)
+// CommonGlobalVisionPositionEstimate struct (generated typeinfo)
 //
-type GlobalVisionPositionEstimate struct {
+type CommonGlobalVisionPositionEstimate struct {
 	Usec  uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	X     float32 // Global X position
 	Y     float32 // Global Y position
@@ -4555,17 +4555,17 @@ type GlobalVisionPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *GlobalVisionPositionEstimate) MsgID() MessageID {
+func (m *CommonGlobalVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
 }
 
 // MsgName (generated function)
-func (m *GlobalVisionPositionEstimate) MsgName() string {
+func (m *CommonGlobalVisionPositionEstimate) MsgName() string {
 	return "GlobalVisionPositionEstimate"
 }
 
 // Pack (generated function)
-func (m *GlobalVisionPositionEstimate) Pack(p *Packet) error {
+func (m *CommonGlobalVisionPositionEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -4581,7 +4581,7 @@ func (m *GlobalVisionPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GlobalVisionPositionEstimate) Unpack(p *Packet) error {
+func (m *CommonGlobalVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4595,9 +4595,9 @@ func (m *GlobalVisionPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// VisionPositionEstimate struct (generated typeinfo)
+// CommonVisionPositionEstimate struct (generated typeinfo)
 //
-type VisionPositionEstimate struct {
+type CommonVisionPositionEstimate struct {
 	Usec  uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	X     float32 // Global X position
 	Y     float32 // Global Y position
@@ -4608,17 +4608,17 @@ type VisionPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *VisionPositionEstimate) MsgID() MessageID {
+func (m *CommonVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
 }
 
 // MsgName (generated function)
-func (m *VisionPositionEstimate) MsgName() string {
+func (m *CommonVisionPositionEstimate) MsgName() string {
 	return "VisionPositionEstimate"
 }
 
 // Pack (generated function)
-func (m *VisionPositionEstimate) Pack(p *Packet) error {
+func (m *CommonVisionPositionEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -4634,7 +4634,7 @@ func (m *VisionPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *VisionPositionEstimate) Unpack(p *Packet) error {
+func (m *CommonVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4648,9 +4648,9 @@ func (m *VisionPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// VisionSpeedEstimate struct (generated typeinfo)
+// CommonVisionSpeedEstimate struct (generated typeinfo)
 //
-type VisionSpeedEstimate struct {
+type CommonVisionSpeedEstimate struct {
 	Usec uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	X    float32 // Global X speed
 	Y    float32 // Global Y speed
@@ -4658,17 +4658,17 @@ type VisionSpeedEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *VisionSpeedEstimate) MsgID() MessageID {
+func (m *CommonVisionSpeedEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
 }
 
 // MsgName (generated function)
-func (m *VisionSpeedEstimate) MsgName() string {
+func (m *CommonVisionSpeedEstimate) MsgName() string {
 	return "VisionSpeedEstimate"
 }
 
 // Pack (generated function)
-func (m *VisionSpeedEstimate) Pack(p *Packet) error {
+func (m *CommonVisionSpeedEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -4681,7 +4681,7 @@ func (m *VisionSpeedEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *VisionSpeedEstimate) Unpack(p *Packet) error {
+func (m *CommonVisionSpeedEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4692,9 +4692,9 @@ func (m *VisionSpeedEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// ViconPositionEstimate struct (generated typeinfo)
+// CommonViconPositionEstimate struct (generated typeinfo)
 //
-type ViconPositionEstimate struct {
+type CommonViconPositionEstimate struct {
 	Usec  uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	X     float32 // Global X position
 	Y     float32 // Global Y position
@@ -4705,17 +4705,17 @@ type ViconPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *ViconPositionEstimate) MsgID() MessageID {
+func (m *CommonViconPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VICON_POSITION_ESTIMATE
 }
 
 // MsgName (generated function)
-func (m *ViconPositionEstimate) MsgName() string {
+func (m *CommonViconPositionEstimate) MsgName() string {
 	return "ViconPositionEstimate"
 }
 
 // Pack (generated function)
-func (m *ViconPositionEstimate) Pack(p *Packet) error {
+func (m *CommonViconPositionEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -4731,7 +4731,7 @@ func (m *ViconPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ViconPositionEstimate) Unpack(p *Packet) error {
+func (m *CommonViconPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4745,9 +4745,9 @@ func (m *ViconPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// HighresImu struct (generated typeinfo)
+// CommonHighresImu struct (generated typeinfo)
 // The IMU readings in SI units in NED body frame
-type HighresImu struct {
+type CommonHighresImu struct {
 	TimeUsec      uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	Xacc          float32 // X acceleration (m/s^2)
 	Yacc          float32 // Y acceleration (m/s^2)
@@ -4766,17 +4766,17 @@ type HighresImu struct {
 }
 
 // MsgID (generated function)
-func (m *HighresImu) MsgID() MessageID {
+func (m *CommonHighresImu) MsgID() MessageID {
 	return MSG_ID_HIGHRES_IMU
 }
 
 // MsgName (generated function)
-func (m *HighresImu) MsgName() string {
+func (m *CommonHighresImu) MsgName() string {
 	return "HighresImu"
 }
 
 // Pack (generated function)
-func (m *HighresImu) Pack(p *Packet) error {
+func (m *CommonHighresImu) Pack(p *Packet) error {
 	payload := make([]byte, 62)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Xacc))
@@ -4800,7 +4800,7 @@ func (m *HighresImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HighresImu) Unpack(p *Packet) error {
+func (m *CommonHighresImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 62 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4822,9 +4822,9 @@ func (m *HighresImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// OpticalFlowRad struct (generated typeinfo)
+// CommonOpticalFlowRad struct (generated typeinfo)
 // Optical flow from an angular rate flow sensor (e.g. PX4FLOW or mouse sensor)
-type OpticalFlowRad struct {
+type CommonOpticalFlowRad struct {
 	TimeUsec            uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	IntegrationTimeUs   uint32  // Integration time in microseconds. Divide integrated_x and integrated_y by the integration time to obtain average flow. The integration time also indicates the.
 	IntegratedX         float32 // Flow in radians around X axis (Sensor RH rotation about the X axis induces a positive flow. Sensor linear motion along the positive Y axis induces a negative flow.)
@@ -4840,17 +4840,17 @@ type OpticalFlowRad struct {
 }
 
 // MsgID (generated function)
-func (m *OpticalFlowRad) MsgID() MessageID {
+func (m *CommonOpticalFlowRad) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
 }
 
 // MsgName (generated function)
-func (m *OpticalFlowRad) MsgName() string {
+func (m *CommonOpticalFlowRad) MsgName() string {
 	return "OpticalFlowRad"
 }
 
 // Pack (generated function)
-func (m *OpticalFlowRad) Pack(p *Packet) error {
+func (m *CommonOpticalFlowRad) Pack(p *Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.IntegrationTimeUs))
@@ -4871,7 +4871,7 @@ func (m *OpticalFlowRad) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *OpticalFlowRad) Unpack(p *Packet) error {
+func (m *CommonOpticalFlowRad) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4890,9 +4890,9 @@ func (m *OpticalFlowRad) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilSensor struct (generated typeinfo)
+// CommonHilSensor struct (generated typeinfo)
 // The IMU readings in SI units in NED body frame
-type HilSensor struct {
+type CommonHilSensor struct {
 	TimeUsec      uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	Xacc          float32 // X acceleration (m/s^2)
 	Yacc          float32 // Y acceleration (m/s^2)
@@ -4911,17 +4911,17 @@ type HilSensor struct {
 }
 
 // MsgID (generated function)
-func (m *HilSensor) MsgID() MessageID {
+func (m *CommonHilSensor) MsgID() MessageID {
 	return MSG_ID_HIL_SENSOR
 }
 
 // MsgName (generated function)
-func (m *HilSensor) MsgName() string {
+func (m *CommonHilSensor) MsgName() string {
 	return "HilSensor"
 }
 
 // Pack (generated function)
-func (m *HilSensor) Pack(p *Packet) error {
+func (m *CommonHilSensor) Pack(p *Packet) error {
 	payload := make([]byte, 64)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Xacc))
@@ -4945,7 +4945,7 @@ func (m *HilSensor) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilSensor) Unpack(p *Packet) error {
+func (m *CommonHilSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
 		return fmt.Errorf("payload too small")
 	}
@@ -4967,9 +4967,9 @@ func (m *HilSensor) Unpack(p *Packet) error {
 	return nil
 }
 
-// SimState struct (generated typeinfo)
+// CommonSimState struct (generated typeinfo)
 // Status of simulation environment, if used
-type SimState struct {
+type CommonSimState struct {
 	Q1         float32 // True attitude quaternion component 1, w (1 in null-rotation)
 	Q2         float32 // True attitude quaternion component 2, x (0 in null-rotation)
 	Q3         float32 // True attitude quaternion component 3, y (0 in null-rotation)
@@ -4994,17 +4994,17 @@ type SimState struct {
 }
 
 // MsgID (generated function)
-func (m *SimState) MsgID() MessageID {
+func (m *CommonSimState) MsgID() MessageID {
 	return MSG_ID_SIM_STATE
 }
 
 // MsgName (generated function)
-func (m *SimState) MsgName() string {
+func (m *CommonSimState) MsgName() string {
 	return "SimState"
 }
 
 // Pack (generated function)
-func (m *SimState) Pack(p *Packet) error {
+func (m *CommonSimState) Pack(p *Packet) error {
 	payload := make([]byte, 84)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Q1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Q2))
@@ -5034,7 +5034,7 @@ func (m *SimState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SimState) Unpack(p *Packet) error {
+func (m *CommonSimState) Unpack(p *Packet) error {
 	if len(p.Payload) < 84 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5062,9 +5062,9 @@ func (m *SimState) Unpack(p *Packet) error {
 	return nil
 }
 
-// RadioStatus struct (generated typeinfo)
+// CommonRadioStatus struct (generated typeinfo)
 // Status generated by radio and injected into MAVLink stream.
-type RadioStatus struct {
+type CommonRadioStatus struct {
 	Rxerrors uint16 // Receive errors
 	Fixed    uint16 // Count of error corrected packets
 	Rssi     uint8  // Local signal strength
@@ -5075,17 +5075,17 @@ type RadioStatus struct {
 }
 
 // MsgID (generated function)
-func (m *RadioStatus) MsgID() MessageID {
+func (m *CommonRadioStatus) MsgID() MessageID {
 	return MSG_ID_RADIO_STATUS
 }
 
 // MsgName (generated function)
-func (m *RadioStatus) MsgName() string {
+func (m *CommonRadioStatus) MsgName() string {
 	return "RadioStatus"
 }
 
 // Pack (generated function)
-func (m *RadioStatus) Pack(p *Packet) error {
+func (m *CommonRadioStatus) Pack(p *Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Rxerrors))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Fixed))
@@ -5101,7 +5101,7 @@ func (m *RadioStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *RadioStatus) Unpack(p *Packet) error {
+func (m *CommonRadioStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5115,9 +5115,9 @@ func (m *RadioStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// FileTransferProtocol struct (generated typeinfo)
+// CommonFileTransferProtocol struct (generated typeinfo)
 // File transfer message
-type FileTransferProtocol struct {
+type CommonFileTransferProtocol struct {
 	TargetNetwork   uint8      // Network ID (0 for broadcast)
 	TargetSystem    uint8      // System ID (0 for broadcast)
 	TargetComponent uint8      // Component ID (0 for broadcast)
@@ -5125,17 +5125,17 @@ type FileTransferProtocol struct {
 }
 
 // MsgID (generated function)
-func (m *FileTransferProtocol) MsgID() MessageID {
+func (m *CommonFileTransferProtocol) MsgID() MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
 }
 
 // MsgName (generated function)
-func (m *FileTransferProtocol) MsgName() string {
+func (m *CommonFileTransferProtocol) MsgName() string {
 	return "FileTransferProtocol"
 }
 
 // Pack (generated function)
-func (m *FileTransferProtocol) Pack(p *Packet) error {
+func (m *CommonFileTransferProtocol) Pack(p *Packet) error {
 	payload := make([]byte, 254)
 	payload[0] = byte(m.TargetNetwork)
 	payload[1] = byte(m.TargetSystem)
@@ -5148,7 +5148,7 @@ func (m *FileTransferProtocol) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FileTransferProtocol) Unpack(p *Packet) error {
+func (m *CommonFileTransferProtocol) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5159,25 +5159,25 @@ func (m *FileTransferProtocol) Unpack(p *Packet) error {
 	return nil
 }
 
-// Timesync struct (generated typeinfo)
+// CommonTimesync struct (generated typeinfo)
 // Time synchronization message.
-type Timesync struct {
+type CommonTimesync struct {
 	Tc1 int64 // Time sync timestamp 1
 	Ts1 int64 // Time sync timestamp 2
 }
 
 // MsgID (generated function)
-func (m *Timesync) MsgID() MessageID {
+func (m *CommonTimesync) MsgID() MessageID {
 	return MSG_ID_TIMESYNC
 }
 
 // MsgName (generated function)
-func (m *Timesync) MsgName() string {
+func (m *CommonTimesync) MsgName() string {
 	return "Timesync"
 }
 
 // Pack (generated function)
-func (m *Timesync) Pack(p *Packet) error {
+func (m *CommonTimesync) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Tc1))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Ts1))
@@ -5188,7 +5188,7 @@ func (m *Timesync) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Timesync) Unpack(p *Packet) error {
+func (m *CommonTimesync) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5197,25 +5197,25 @@ func (m *Timesync) Unpack(p *Packet) error {
 	return nil
 }
 
-// CameraTrigger struct (generated typeinfo)
+// CommonCameraTrigger struct (generated typeinfo)
 // Camera-IMU triggering and synchronisation message.
-type CameraTrigger struct {
+type CommonCameraTrigger struct {
 	TimeUsec uint64 // Timestamp for the image frame in microseconds
 	Seq      uint32 // Image frame sequence
 }
 
 // MsgID (generated function)
-func (m *CameraTrigger) MsgID() MessageID {
+func (m *CommonCameraTrigger) MsgID() MessageID {
 	return MSG_ID_CAMERA_TRIGGER
 }
 
 // MsgName (generated function)
-func (m *CameraTrigger) MsgName() string {
+func (m *CommonCameraTrigger) MsgName() string {
 	return "CameraTrigger"
 }
 
 // Pack (generated function)
-func (m *CameraTrigger) Pack(p *Packet) error {
+func (m *CommonCameraTrigger) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
@@ -5226,7 +5226,7 @@ func (m *CameraTrigger) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CameraTrigger) Unpack(p *Packet) error {
+func (m *CommonCameraTrigger) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5235,10 +5235,10 @@ func (m *CameraTrigger) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilGps struct (generated typeinfo)
+// CommonHilGps struct (generated typeinfo)
 // The global position, as returned by the Global Positioning System (GPS). This is
 //                  NOT the global position estimate of the sytem, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate. Coordinate frame is right-handed, Z-axis up (GPS frame).
-type HilGps struct {
+type CommonHilGps struct {
 	TimeUsec          uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Lat               int32  // Latitude (WGS84), in degrees * 1E7
 	Lon               int32  // Longitude (WGS84), in degrees * 1E7
@@ -5255,17 +5255,17 @@ type HilGps struct {
 }
 
 // MsgID (generated function)
-func (m *HilGps) MsgID() MessageID {
+func (m *CommonHilGps) MsgID() MessageID {
 	return MSG_ID_HIL_GPS
 }
 
 // MsgName (generated function)
-func (m *HilGps) MsgName() string {
+func (m *CommonHilGps) MsgName() string {
 	return "HilGps"
 }
 
 // Pack (generated function)
-func (m *HilGps) Pack(p *Packet) error {
+func (m *CommonHilGps) Pack(p *Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -5287,7 +5287,7 @@ func (m *HilGps) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilGps) Unpack(p *Packet) error {
+func (m *CommonHilGps) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5307,9 +5307,9 @@ func (m *HilGps) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilOpticalFlow struct (generated typeinfo)
+// CommonHilOpticalFlow struct (generated typeinfo)
 // Simulated optical flow from a flow sensor (e.g. PX4FLOW or optical mouse sensor)
-type HilOpticalFlow struct {
+type CommonHilOpticalFlow struct {
 	TimeUsec            uint64  // Timestamp (microseconds, synced to UNIX time or since system boot)
 	IntegrationTimeUs   uint32  // Integration time in microseconds. Divide integrated_x and integrated_y by the integration time to obtain average flow. The integration time also indicates the.
 	IntegratedX         float32 // Flow in radians around X axis (Sensor RH rotation about the X axis induces a positive flow. Sensor linear motion along the positive Y axis induces a negative flow.)
@@ -5325,17 +5325,17 @@ type HilOpticalFlow struct {
 }
 
 // MsgID (generated function)
-func (m *HilOpticalFlow) MsgID() MessageID {
+func (m *CommonHilOpticalFlow) MsgID() MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
 }
 
 // MsgName (generated function)
-func (m *HilOpticalFlow) MsgName() string {
+func (m *CommonHilOpticalFlow) MsgName() string {
 	return "HilOpticalFlow"
 }
 
 // Pack (generated function)
-func (m *HilOpticalFlow) Pack(p *Packet) error {
+func (m *CommonHilOpticalFlow) Pack(p *Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.IntegrationTimeUs))
@@ -5356,7 +5356,7 @@ func (m *HilOpticalFlow) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilOpticalFlow) Unpack(p *Packet) error {
+func (m *CommonHilOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5375,9 +5375,9 @@ func (m *HilOpticalFlow) Unpack(p *Packet) error {
 	return nil
 }
 
-// HilStateQuaternion struct (generated typeinfo)
+// CommonHilStateQuaternion struct (generated typeinfo)
 // Sent from simulation to autopilot, avoids in contrast to HIL_STATE singularities. This packet is useful for high throughput applications such as hardware in the loop simulations.
-type HilStateQuaternion struct {
+type CommonHilStateQuaternion struct {
 	TimeUsec           uint64     // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	AttitudeQuaternion [4]float32 // Vehicle attitude expressed as normalized quaternion in w, x, y, z order (with 1 0 0 0 being the null-rotation)
 	Rollspeed          float32    // Body frame roll / phi angular speed (rad/s)
@@ -5397,17 +5397,17 @@ type HilStateQuaternion struct {
 }
 
 // MsgID (generated function)
-func (m *HilStateQuaternion) MsgID() MessageID {
+func (m *CommonHilStateQuaternion) MsgID() MessageID {
 	return MSG_ID_HIL_STATE_QUATERNION
 }
 
 // MsgName (generated function)
-func (m *HilStateQuaternion) MsgName() string {
+func (m *CommonHilStateQuaternion) MsgName() string {
 	return "HilStateQuaternion"
 }
 
 // Pack (generated function)
-func (m *HilStateQuaternion) Pack(p *Packet) error {
+func (m *CommonHilStateQuaternion) Pack(p *Packet) error {
 	payload := make([]byte, 64)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.AttitudeQuaternion {
@@ -5434,7 +5434,7 @@ func (m *HilStateQuaternion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HilStateQuaternion) Unpack(p *Packet) error {
+func (m *CommonHilStateQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5459,9 +5459,9 @@ func (m *HilStateQuaternion) Unpack(p *Packet) error {
 	return nil
 }
 
-// ScaledImu2 struct (generated typeinfo)
+// CommonScaledImu2 struct (generated typeinfo)
 // The RAW IMU readings for secondary 9DOF sensor setup. This message should contain the scaled values to the described units
-type ScaledImu2 struct {
+type CommonScaledImu2 struct {
 	TimeBootMs uint32 // Timestamp (milliseconds since system boot)
 	Xacc       int16  // X acceleration (mg)
 	Yacc       int16  // Y acceleration (mg)
@@ -5475,17 +5475,17 @@ type ScaledImu2 struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledImu2) MsgID() MessageID {
+func (m *CommonScaledImu2) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU2
 }
 
 // MsgName (generated function)
-func (m *ScaledImu2) MsgName() string {
+func (m *CommonScaledImu2) MsgName() string {
 	return "ScaledImu2"
 }
 
 // Pack (generated function)
-func (m *ScaledImu2) Pack(p *Packet) error {
+func (m *CommonScaledImu2) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -5504,7 +5504,7 @@ func (m *ScaledImu2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledImu2) Unpack(p *Packet) error {
+func (m *CommonScaledImu2) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5521,9 +5521,9 @@ func (m *ScaledImu2) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogRequestList struct (generated typeinfo)
+// CommonLogRequestList struct (generated typeinfo)
 // Request a list of available logs. On some systems calling this may stop on-board logging until LOG_REQUEST_END is called.
-type LogRequestList struct {
+type CommonLogRequestList struct {
 	Start           uint16 // First log id (0 for first available)
 	End             uint16 // Last log id (0xffff for last available)
 	TargetSystem    uint8  // System ID
@@ -5531,17 +5531,17 @@ type LogRequestList struct {
 }
 
 // MsgID (generated function)
-func (m *LogRequestList) MsgID() MessageID {
+func (m *CommonLogRequestList) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
 }
 
 // MsgName (generated function)
-func (m *LogRequestList) MsgName() string {
+func (m *CommonLogRequestList) MsgName() string {
 	return "LogRequestList"
 }
 
 // Pack (generated function)
-func (m *LogRequestList) Pack(p *Packet) error {
+func (m *CommonLogRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Start))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.End))
@@ -5554,7 +5554,7 @@ func (m *LogRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogRequestList) Unpack(p *Packet) error {
+func (m *CommonLogRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5565,9 +5565,9 @@ func (m *LogRequestList) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogEntry struct (generated typeinfo)
+// CommonLogEntry struct (generated typeinfo)
 // Reply to LOG_REQUEST_LIST
-type LogEntry struct {
+type CommonLogEntry struct {
 	TimeUtc    uint32 // UTC timestamp of log in seconds since 1970, or 0 if not available
 	Size       uint32 // Size of the log (may be approximate) in bytes
 	ID         uint16 // Log id
@@ -5576,17 +5576,17 @@ type LogEntry struct {
 }
 
 // MsgID (generated function)
-func (m *LogEntry) MsgID() MessageID {
+func (m *CommonLogEntry) MsgID() MessageID {
 	return MSG_ID_LOG_ENTRY
 }
 
 // MsgName (generated function)
-func (m *LogEntry) MsgName() string {
+func (m *CommonLogEntry) MsgName() string {
 	return "LogEntry"
 }
 
 // Pack (generated function)
-func (m *LogEntry) Pack(p *Packet) error {
+func (m *CommonLogEntry) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeUtc))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Size))
@@ -5600,7 +5600,7 @@ func (m *LogEntry) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogEntry) Unpack(p *Packet) error {
+func (m *CommonLogEntry) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5612,9 +5612,9 @@ func (m *LogEntry) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogRequestData struct (generated typeinfo)
+// CommonLogRequestData struct (generated typeinfo)
 // Request a chunk of a log
-type LogRequestData struct {
+type CommonLogRequestData struct {
 	Ofs             uint32 // Offset into the log
 	Count           uint32 // Number of bytes
 	ID              uint16 // Log id (from LOG_ENTRY reply)
@@ -5623,17 +5623,17 @@ type LogRequestData struct {
 }
 
 // MsgID (generated function)
-func (m *LogRequestData) MsgID() MessageID {
+func (m *CommonLogRequestData) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
 }
 
 // MsgName (generated function)
-func (m *LogRequestData) MsgName() string {
+func (m *CommonLogRequestData) MsgName() string {
 	return "LogRequestData"
 }
 
 // Pack (generated function)
-func (m *LogRequestData) Pack(p *Packet) error {
+func (m *CommonLogRequestData) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Ofs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Count))
@@ -5647,7 +5647,7 @@ func (m *LogRequestData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogRequestData) Unpack(p *Packet) error {
+func (m *CommonLogRequestData) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5659,9 +5659,9 @@ func (m *LogRequestData) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogData struct (generated typeinfo)
+// CommonLogData struct (generated typeinfo)
 // Reply to LOG_REQUEST_DATA
-type LogData struct {
+type CommonLogData struct {
 	Ofs   uint32    // Offset into the log
 	ID    uint16    // Log id (from LOG_ENTRY reply)
 	Count uint8     // Number of bytes (zero for end of log)
@@ -5669,17 +5669,17 @@ type LogData struct {
 }
 
 // MsgID (generated function)
-func (m *LogData) MsgID() MessageID {
+func (m *CommonLogData) MsgID() MessageID {
 	return MSG_ID_LOG_DATA
 }
 
 // MsgName (generated function)
-func (m *LogData) MsgName() string {
+func (m *CommonLogData) MsgName() string {
 	return "LogData"
 }
 
 // Pack (generated function)
-func (m *LogData) Pack(p *Packet) error {
+func (m *CommonLogData) Pack(p *Packet) error {
 	payload := make([]byte, 97)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Ofs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ID))
@@ -5692,7 +5692,7 @@ func (m *LogData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogData) Unpack(p *Packet) error {
+func (m *CommonLogData) Unpack(p *Packet) error {
 	if len(p.Payload) < 97 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5703,25 +5703,25 @@ func (m *LogData) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogErase struct (generated typeinfo)
+// CommonLogErase struct (generated typeinfo)
 // Erase all logs
-type LogErase struct {
+type CommonLogErase struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *LogErase) MsgID() MessageID {
+func (m *CommonLogErase) MsgID() MessageID {
 	return MSG_ID_LOG_ERASE
 }
 
 // MsgName (generated function)
-func (m *LogErase) MsgName() string {
+func (m *CommonLogErase) MsgName() string {
 	return "LogErase"
 }
 
 // Pack (generated function)
-func (m *LogErase) Pack(p *Packet) error {
+func (m *CommonLogErase) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -5732,7 +5732,7 @@ func (m *LogErase) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogErase) Unpack(p *Packet) error {
+func (m *CommonLogErase) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5741,25 +5741,25 @@ func (m *LogErase) Unpack(p *Packet) error {
 	return nil
 }
 
-// LogRequestEnd struct (generated typeinfo)
+// CommonLogRequestEnd struct (generated typeinfo)
 // Stop log transfer and resume normal logging
-type LogRequestEnd struct {
+type CommonLogRequestEnd struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *LogRequestEnd) MsgID() MessageID {
+func (m *CommonLogRequestEnd) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_END
 }
 
 // MsgName (generated function)
-func (m *LogRequestEnd) MsgName() string {
+func (m *CommonLogRequestEnd) MsgName() string {
 	return "LogRequestEnd"
 }
 
 // Pack (generated function)
-func (m *LogRequestEnd) Pack(p *Packet) error {
+func (m *CommonLogRequestEnd) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -5770,7 +5770,7 @@ func (m *LogRequestEnd) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LogRequestEnd) Unpack(p *Packet) error {
+func (m *CommonLogRequestEnd) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5779,9 +5779,9 @@ func (m *LogRequestEnd) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsInjectData struct (generated typeinfo)
+// CommonGpsInjectData struct (generated typeinfo)
 // data for injecting into the onboard GPS (used for DGPS)
-type GpsInjectData struct {
+type CommonGpsInjectData struct {
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
 	Len             uint8      // data length
@@ -5789,17 +5789,17 @@ type GpsInjectData struct {
 }
 
 // MsgID (generated function)
-func (m *GpsInjectData) MsgID() MessageID {
+func (m *CommonGpsInjectData) MsgID() MessageID {
 	return MSG_ID_GPS_INJECT_DATA
 }
 
 // MsgName (generated function)
-func (m *GpsInjectData) MsgName() string {
+func (m *CommonGpsInjectData) MsgName() string {
 	return "GpsInjectData"
 }
 
 // Pack (generated function)
-func (m *GpsInjectData) Pack(p *Packet) error {
+func (m *CommonGpsInjectData) Pack(p *Packet) error {
 	payload := make([]byte, 113)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -5812,7 +5812,7 @@ func (m *GpsInjectData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsInjectData) Unpack(p *Packet) error {
+func (m *CommonGpsInjectData) Unpack(p *Packet) error {
 	if len(p.Payload) < 113 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5823,9 +5823,9 @@ func (m *GpsInjectData) Unpack(p *Packet) error {
 	return nil
 }
 
-// Gps2Raw struct (generated typeinfo)
+// CommonGps2Raw struct (generated typeinfo)
 // Second GPS data. Coordinate frame is right-handed, Z-axis up (GPS frame).
-type Gps2Raw struct {
+type CommonGps2Raw struct {
 	TimeUsec          uint64 // Timestamp (microseconds since UNIX epoch or microseconds since system boot)
 	Lat               int32  // Latitude (WGS84), in degrees * 1E7
 	Lon               int32  // Longitude (WGS84), in degrees * 1E7
@@ -5841,17 +5841,17 @@ type Gps2Raw struct {
 }
 
 // MsgID (generated function)
-func (m *Gps2Raw) MsgID() MessageID {
+func (m *CommonGps2Raw) MsgID() MessageID {
 	return MSG_ID_GPS2_RAW
 }
 
 // MsgName (generated function)
-func (m *Gps2Raw) MsgName() string {
+func (m *CommonGps2Raw) MsgName() string {
 	return "Gps2Raw"
 }
 
 // Pack (generated function)
-func (m *Gps2Raw) Pack(p *Packet) error {
+func (m *CommonGps2Raw) Pack(p *Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -5872,7 +5872,7 @@ func (m *Gps2Raw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Gps2Raw) Unpack(p *Packet) error {
+func (m *CommonGps2Raw) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5891,26 +5891,26 @@ func (m *Gps2Raw) Unpack(p *Packet) error {
 	return nil
 }
 
-// PowerStatus struct (generated typeinfo)
+// CommonPowerStatus struct (generated typeinfo)
 // Power supply status
-type PowerStatus struct {
+type CommonPowerStatus struct {
 	Vcc    uint16 // 5V rail voltage in millivolts
 	Vservo uint16 // servo rail voltage in millivolts
 	Flags  uint16 // power supply status flags (see MAV_POWER_STATUS enum)
 }
 
 // MsgID (generated function)
-func (m *PowerStatus) MsgID() MessageID {
+func (m *CommonPowerStatus) MsgID() MessageID {
 	return MSG_ID_POWER_STATUS
 }
 
 // MsgName (generated function)
-func (m *PowerStatus) MsgName() string {
+func (m *CommonPowerStatus) MsgName() string {
 	return "PowerStatus"
 }
 
 // Pack (generated function)
-func (m *PowerStatus) Pack(p *Packet) error {
+func (m *CommonPowerStatus) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Vservo))
@@ -5922,7 +5922,7 @@ func (m *PowerStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *PowerStatus) Unpack(p *Packet) error {
+func (m *CommonPowerStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5932,9 +5932,9 @@ func (m *PowerStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialControl struct (generated typeinfo)
+// CommonSerialControl struct (generated typeinfo)
 // Control a serial port. This can be used for raw access to an onboard serial peripheral such as a GPS or telemetry radio. It is designed to make it possible to update the devices firmware via MAVLink messages or change the devices settings. A message with zero bytes can be used to change just the baudrate.
-type SerialControl struct {
+type CommonSerialControl struct {
 	Baudrate uint32    // Baudrate of transfer. Zero means no change.
 	Timeout  uint16    // Timeout for reply data in milliseconds
 	Device   uint8     // See SERIAL_CONTROL_DEV enum
@@ -5944,17 +5944,17 @@ type SerialControl struct {
 }
 
 // MsgID (generated function)
-func (m *SerialControl) MsgID() MessageID {
+func (m *CommonSerialControl) MsgID() MessageID {
 	return MSG_ID_SERIAL_CONTROL
 }
 
 // MsgName (generated function)
-func (m *SerialControl) MsgName() string {
+func (m *CommonSerialControl) MsgName() string {
 	return "SerialControl"
 }
 
 // Pack (generated function)
-func (m *SerialControl) Pack(p *Packet) error {
+func (m *CommonSerialControl) Pack(p *Packet) error {
 	payload := make([]byte, 79)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Baudrate))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Timeout))
@@ -5969,7 +5969,7 @@ func (m *SerialControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialControl) Unpack(p *Packet) error {
+func (m *CommonSerialControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 79 {
 		return fmt.Errorf("payload too small")
 	}
@@ -5982,9 +5982,9 @@ func (m *SerialControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsRtk struct (generated typeinfo)
+// CommonGpsRtk struct (generated typeinfo)
 // RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
-type GpsRtk struct {
+type CommonGpsRtk struct {
 	TimeLastBaselineMs uint32 // Time since boot of last baseline message received in ms.
 	Tow                uint32 // GPS Time of Week of last baseline
 	BaselineAMm        int32  // Current baseline in ECEF x or NED north component in mm.
@@ -6001,17 +6001,17 @@ type GpsRtk struct {
 }
 
 // MsgID (generated function)
-func (m *GpsRtk) MsgID() MessageID {
+func (m *CommonGpsRtk) MsgID() MessageID {
 	return MSG_ID_GPS_RTK
 }
 
 // MsgName (generated function)
-func (m *GpsRtk) MsgName() string {
+func (m *CommonGpsRtk) MsgName() string {
 	return "GpsRtk"
 }
 
 // Pack (generated function)
-func (m *GpsRtk) Pack(p *Packet) error {
+func (m *CommonGpsRtk) Pack(p *Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeLastBaselineMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Tow))
@@ -6033,7 +6033,7 @@ func (m *GpsRtk) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsRtk) Unpack(p *Packet) error {
+func (m *CommonGpsRtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6053,9 +6053,9 @@ func (m *GpsRtk) Unpack(p *Packet) error {
 	return nil
 }
 
-// Gps2Rtk struct (generated typeinfo)
+// CommonGps2Rtk struct (generated typeinfo)
 // RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
-type Gps2Rtk struct {
+type CommonGps2Rtk struct {
 	TimeLastBaselineMs uint32 // Time since boot of last baseline message received in ms.
 	Tow                uint32 // GPS Time of Week of last baseline
 	BaselineAMm        int32  // Current baseline in ECEF x or NED north component in mm.
@@ -6072,17 +6072,17 @@ type Gps2Rtk struct {
 }
 
 // MsgID (generated function)
-func (m *Gps2Rtk) MsgID() MessageID {
+func (m *CommonGps2Rtk) MsgID() MessageID {
 	return MSG_ID_GPS2_RTK
 }
 
 // MsgName (generated function)
-func (m *Gps2Rtk) MsgName() string {
+func (m *CommonGps2Rtk) MsgName() string {
 	return "Gps2Rtk"
 }
 
 // Pack (generated function)
-func (m *Gps2Rtk) Pack(p *Packet) error {
+func (m *CommonGps2Rtk) Pack(p *Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeLastBaselineMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Tow))
@@ -6104,7 +6104,7 @@ func (m *Gps2Rtk) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Gps2Rtk) Unpack(p *Packet) error {
+func (m *CommonGps2Rtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6124,9 +6124,9 @@ func (m *Gps2Rtk) Unpack(p *Packet) error {
 	return nil
 }
 
-// ScaledImu3 struct (generated typeinfo)
+// CommonScaledImu3 struct (generated typeinfo)
 // The RAW IMU readings for 3rd 9DOF sensor setup. This message should contain the scaled values to the described units
-type ScaledImu3 struct {
+type CommonScaledImu3 struct {
 	TimeBootMs uint32 // Timestamp (milliseconds since system boot)
 	Xacc       int16  // X acceleration (mg)
 	Yacc       int16  // Y acceleration (mg)
@@ -6140,17 +6140,17 @@ type ScaledImu3 struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledImu3) MsgID() MessageID {
+func (m *CommonScaledImu3) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU3
 }
 
 // MsgName (generated function)
-func (m *ScaledImu3) MsgName() string {
+func (m *CommonScaledImu3) MsgName() string {
 	return "ScaledImu3"
 }
 
 // Pack (generated function)
-func (m *ScaledImu3) Pack(p *Packet) error {
+func (m *CommonScaledImu3) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -6169,7 +6169,7 @@ func (m *ScaledImu3) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledImu3) Unpack(p *Packet) error {
+func (m *CommonScaledImu3) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6186,9 +6186,9 @@ func (m *ScaledImu3) Unpack(p *Packet) error {
 	return nil
 }
 
-// DataTransmissionHandshake struct (generated typeinfo)
+// CommonDataTransmissionHandshake struct (generated typeinfo)
 //
-type DataTransmissionHandshake struct {
+type CommonDataTransmissionHandshake struct {
 	Size       uint32 // total data size in bytes (set on ACK only)
 	Width      uint16 // Width of a matrix or image
 	Height     uint16 // Height of a matrix or image
@@ -6199,17 +6199,17 @@ type DataTransmissionHandshake struct {
 }
 
 // MsgID (generated function)
-func (m *DataTransmissionHandshake) MsgID() MessageID {
+func (m *CommonDataTransmissionHandshake) MsgID() MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
 }
 
 // MsgName (generated function)
-func (m *DataTransmissionHandshake) MsgName() string {
+func (m *CommonDataTransmissionHandshake) MsgName() string {
 	return "DataTransmissionHandshake"
 }
 
 // Pack (generated function)
-func (m *DataTransmissionHandshake) Pack(p *Packet) error {
+func (m *CommonDataTransmissionHandshake) Pack(p *Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Size))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Width))
@@ -6225,7 +6225,7 @@ func (m *DataTransmissionHandshake) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DataTransmissionHandshake) Unpack(p *Packet) error {
+func (m *CommonDataTransmissionHandshake) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6239,25 +6239,25 @@ func (m *DataTransmissionHandshake) Unpack(p *Packet) error {
 	return nil
 }
 
-// EncapsulatedData struct (generated typeinfo)
+// CommonEncapsulatedData struct (generated typeinfo)
 //
-type EncapsulatedData struct {
+type CommonEncapsulatedData struct {
 	Seqnr uint16     // sequence number (starting with 0 on every transmission)
 	Data  [253]uint8 // image data bytes
 }
 
 // MsgID (generated function)
-func (m *EncapsulatedData) MsgID() MessageID {
+func (m *CommonEncapsulatedData) MsgID() MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
 }
 
 // MsgName (generated function)
-func (m *EncapsulatedData) MsgName() string {
+func (m *CommonEncapsulatedData) MsgName() string {
 	return "EncapsulatedData"
 }
 
 // Pack (generated function)
-func (m *EncapsulatedData) Pack(p *Packet) error {
+func (m *CommonEncapsulatedData) Pack(p *Packet) error {
 	payload := make([]byte, 255)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seqnr))
 	copy(payload[2:], m.Data[:])
@@ -6268,7 +6268,7 @@ func (m *EncapsulatedData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *EncapsulatedData) Unpack(p *Packet) error {
+func (m *CommonEncapsulatedData) Unpack(p *Packet) error {
 	if len(p.Payload) < 255 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6277,9 +6277,9 @@ func (m *EncapsulatedData) Unpack(p *Packet) error {
 	return nil
 }
 
-// DistanceSensor struct (generated typeinfo)
+// CommonDistanceSensor struct (generated typeinfo)
 //
-type DistanceSensor struct {
+type CommonDistanceSensor struct {
 	TimeBootMs      uint32 // Time since system boot
 	MinDistance     uint16 // Minimum distance the sensor can measure in centimeters
 	MaxDistance     uint16 // Maximum distance the sensor can measure in centimeters
@@ -6291,17 +6291,17 @@ type DistanceSensor struct {
 }
 
 // MsgID (generated function)
-func (m *DistanceSensor) MsgID() MessageID {
+func (m *CommonDistanceSensor) MsgID() MessageID {
 	return MSG_ID_DISTANCE_SENSOR
 }
 
 // MsgName (generated function)
-func (m *DistanceSensor) MsgName() string {
+func (m *CommonDistanceSensor) MsgName() string {
 	return "DistanceSensor"
 }
 
 // Pack (generated function)
-func (m *DistanceSensor) Pack(p *Packet) error {
+func (m *CommonDistanceSensor) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MinDistance))
@@ -6318,7 +6318,7 @@ func (m *DistanceSensor) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DistanceSensor) Unpack(p *Packet) error {
+func (m *CommonDistanceSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6333,9 +6333,9 @@ func (m *DistanceSensor) Unpack(p *Packet) error {
 	return nil
 }
 
-// TerrainRequest struct (generated typeinfo)
+// CommonTerrainRequest struct (generated typeinfo)
 // Request for terrain data and terrain status
-type TerrainRequest struct {
+type CommonTerrainRequest struct {
 	Mask        uint64 // Bitmask of requested 4x4 grids (row major 8x7 array of grids, 56 bits)
 	Lat         int32  // Latitude of SW corner of first grid (degrees *10^7)
 	Lon         int32  // Longitude of SW corner of first grid (in degrees *10^7)
@@ -6343,17 +6343,17 @@ type TerrainRequest struct {
 }
 
 // MsgID (generated function)
-func (m *TerrainRequest) MsgID() MessageID {
+func (m *CommonTerrainRequest) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REQUEST
 }
 
 // MsgName (generated function)
-func (m *TerrainRequest) MsgName() string {
+func (m *CommonTerrainRequest) MsgName() string {
 	return "TerrainRequest"
 }
 
 // Pack (generated function)
-func (m *TerrainRequest) Pack(p *Packet) error {
+func (m *CommonTerrainRequest) Pack(p *Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Mask))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -6366,7 +6366,7 @@ func (m *TerrainRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *TerrainRequest) Unpack(p *Packet) error {
+func (m *CommonTerrainRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6377,9 +6377,9 @@ func (m *TerrainRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// TerrainData struct (generated typeinfo)
+// CommonTerrainData struct (generated typeinfo)
 // Terrain data sent from GCS. The lat/lon and grid_spacing must be the same as a lat/lon from a TERRAIN_REQUEST
-type TerrainData struct {
+type CommonTerrainData struct {
 	Lat         int32     // Latitude of SW corner of first grid (degrees *10^7)
 	Lon         int32     // Longitude of SW corner of first grid (in degrees *10^7)
 	GridSpacing uint16    // Grid spacing in meters
@@ -6388,17 +6388,17 @@ type TerrainData struct {
 }
 
 // MsgID (generated function)
-func (m *TerrainData) MsgID() MessageID {
+func (m *CommonTerrainData) MsgID() MessageID {
 	return MSG_ID_TERRAIN_DATA
 }
 
 // MsgName (generated function)
-func (m *TerrainData) MsgName() string {
+func (m *CommonTerrainData) MsgName() string {
 	return "TerrainData"
 }
 
 // Pack (generated function)
-func (m *TerrainData) Pack(p *Packet) error {
+func (m *CommonTerrainData) Pack(p *Packet) error {
 	payload := make([]byte, 43)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -6414,7 +6414,7 @@ func (m *TerrainData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *TerrainData) Unpack(p *Packet) error {
+func (m *CommonTerrainData) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6428,25 +6428,25 @@ func (m *TerrainData) Unpack(p *Packet) error {
 	return nil
 }
 
-// TerrainCheck struct (generated typeinfo)
+// CommonTerrainCheck struct (generated typeinfo)
 // Request that the vehicle report terrain height at the given location. Used by GCS to check if vehicle has all terrain data needed for a mission.
-type TerrainCheck struct {
+type CommonTerrainCheck struct {
 	Lat int32 // Latitude (degrees *10^7)
 	Lon int32 // Longitude (degrees *10^7)
 }
 
 // MsgID (generated function)
-func (m *TerrainCheck) MsgID() MessageID {
+func (m *CommonTerrainCheck) MsgID() MessageID {
 	return MSG_ID_TERRAIN_CHECK
 }
 
 // MsgName (generated function)
-func (m *TerrainCheck) MsgName() string {
+func (m *CommonTerrainCheck) MsgName() string {
 	return "TerrainCheck"
 }
 
 // Pack (generated function)
-func (m *TerrainCheck) Pack(p *Packet) error {
+func (m *CommonTerrainCheck) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -6457,7 +6457,7 @@ func (m *TerrainCheck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *TerrainCheck) Unpack(p *Packet) error {
+func (m *CommonTerrainCheck) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6466,9 +6466,9 @@ func (m *TerrainCheck) Unpack(p *Packet) error {
 	return nil
 }
 
-// TerrainReport struct (generated typeinfo)
+// CommonTerrainReport struct (generated typeinfo)
 // Response from a TERRAIN_CHECK request
-type TerrainReport struct {
+type CommonTerrainReport struct {
 	Lat           int32   // Latitude (degrees *10^7)
 	Lon           int32   // Longitude (degrees *10^7)
 	TerrainHeight float32 // Terrain height in meters AMSL
@@ -6479,17 +6479,17 @@ type TerrainReport struct {
 }
 
 // MsgID (generated function)
-func (m *TerrainReport) MsgID() MessageID {
+func (m *CommonTerrainReport) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REPORT
 }
 
 // MsgName (generated function)
-func (m *TerrainReport) MsgName() string {
+func (m *CommonTerrainReport) MsgName() string {
 	return "TerrainReport"
 }
 
 // Pack (generated function)
-func (m *TerrainReport) Pack(p *Packet) error {
+func (m *CommonTerrainReport) Pack(p *Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -6505,7 +6505,7 @@ func (m *TerrainReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *TerrainReport) Unpack(p *Packet) error {
+func (m *CommonTerrainReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6519,9 +6519,9 @@ func (m *TerrainReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// ScaledPressure2 struct (generated typeinfo)
+// CommonScaledPressure2 struct (generated typeinfo)
 // Barometer readings for 2nd barometer
-type ScaledPressure2 struct {
+type CommonScaledPressure2 struct {
 	TimeBootMs  uint32  // Timestamp (milliseconds since system boot)
 	PressAbs    float32 // Absolute pressure (hectopascal)
 	PressDiff   float32 // Differential pressure 1 (hectopascal)
@@ -6529,17 +6529,17 @@ type ScaledPressure2 struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledPressure2) MsgID() MessageID {
+func (m *CommonScaledPressure2) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE2
 }
 
 // MsgName (generated function)
-func (m *ScaledPressure2) MsgName() string {
+func (m *CommonScaledPressure2) MsgName() string {
 	return "ScaledPressure2"
 }
 
 // Pack (generated function)
-func (m *ScaledPressure2) Pack(p *Packet) error {
+func (m *CommonScaledPressure2) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -6552,7 +6552,7 @@ func (m *ScaledPressure2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledPressure2) Unpack(p *Packet) error {
+func (m *CommonScaledPressure2) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6563,9 +6563,9 @@ func (m *ScaledPressure2) Unpack(p *Packet) error {
 	return nil
 }
 
-// AttPosMocap struct (generated typeinfo)
+// CommonAttPosMocap struct (generated typeinfo)
 // Motion capture attitude and position
-type AttPosMocap struct {
+type CommonAttPosMocap struct {
 	TimeUsec uint64     // Timestamp (micros since boot or Unix epoch)
 	Q        [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	X        float32    // X position in meters (NED)
@@ -6574,17 +6574,17 @@ type AttPosMocap struct {
 }
 
 // MsgID (generated function)
-func (m *AttPosMocap) MsgID() MessageID {
+func (m *CommonAttPosMocap) MsgID() MessageID {
 	return MSG_ID_ATT_POS_MOCAP
 }
 
 // MsgName (generated function)
-func (m *AttPosMocap) MsgName() string {
+func (m *CommonAttPosMocap) MsgName() string {
 	return "AttPosMocap"
 }
 
 // Pack (generated function)
-func (m *AttPosMocap) Pack(p *Packet) error {
+func (m *CommonAttPosMocap) Pack(p *Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Q {
@@ -6600,7 +6600,7 @@ func (m *AttPosMocap) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AttPosMocap) Unpack(p *Packet) error {
+func (m *CommonAttPosMocap) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6614,9 +6614,9 @@ func (m *AttPosMocap) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetActuatorControlTarget struct (generated typeinfo)
+// CommonSetActuatorControlTarget struct (generated typeinfo)
 // Set the vehicle attitude and body angular rates.
-type SetActuatorControlTarget struct {
+type CommonSetActuatorControlTarget struct {
 	TimeUsec        uint64     // Timestamp (micros since boot or Unix epoch)
 	Controls        [8]float32 // Actuator controls. Normed to -1..+1 where 0 is neutral position. Throttle for single rotation direction motors is 0..1, negative range for reverse direction. Standard mapping for attitude controls (group 0): (index 0-7): roll, pitch, yaw, throttle, flaps, spoilers, airbrakes, landing gear. Load a pass-through mixer to repurpose them as generic outputs.
 	GroupMlx        uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
@@ -6625,17 +6625,17 @@ type SetActuatorControlTarget struct {
 }
 
 // MsgID (generated function)
-func (m *SetActuatorControlTarget) MsgID() MessageID {
+func (m *CommonSetActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
 }
 
 // MsgName (generated function)
-func (m *SetActuatorControlTarget) MsgName() string {
+func (m *CommonSetActuatorControlTarget) MsgName() string {
 	return "SetActuatorControlTarget"
 }
 
 // Pack (generated function)
-func (m *SetActuatorControlTarget) Pack(p *Packet) error {
+func (m *CommonSetActuatorControlTarget) Pack(p *Packet) error {
 	payload := make([]byte, 43)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Controls {
@@ -6651,7 +6651,7 @@ func (m *SetActuatorControlTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetActuatorControlTarget) Unpack(p *Packet) error {
+func (m *CommonSetActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6665,26 +6665,26 @@ func (m *SetActuatorControlTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// ActuatorControlTarget struct (generated typeinfo)
+// CommonActuatorControlTarget struct (generated typeinfo)
 // Set the vehicle attitude and body angular rates.
-type ActuatorControlTarget struct {
+type CommonActuatorControlTarget struct {
 	TimeUsec uint64     // Timestamp (micros since boot or Unix epoch)
 	Controls [8]float32 // Actuator controls. Normed to -1..+1 where 0 is neutral position. Throttle for single rotation direction motors is 0..1, negative range for reverse direction. Standard mapping for attitude controls (group 0): (index 0-7): roll, pitch, yaw, throttle, flaps, spoilers, airbrakes, landing gear. Load a pass-through mixer to repurpose them as generic outputs.
 	GroupMlx uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
 }
 
 // MsgID (generated function)
-func (m *ActuatorControlTarget) MsgID() MessageID {
+func (m *CommonActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
 }
 
 // MsgName (generated function)
-func (m *ActuatorControlTarget) MsgName() string {
+func (m *CommonActuatorControlTarget) MsgName() string {
 	return "ActuatorControlTarget"
 }
 
 // Pack (generated function)
-func (m *ActuatorControlTarget) Pack(p *Packet) error {
+func (m *CommonActuatorControlTarget) Pack(p *Packet) error {
 	payload := make([]byte, 41)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Controls {
@@ -6698,7 +6698,7 @@ func (m *ActuatorControlTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ActuatorControlTarget) Unpack(p *Packet) error {
+func (m *CommonActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6710,9 +6710,9 @@ func (m *ActuatorControlTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// Altitude struct (generated typeinfo)
+// CommonAltitude struct (generated typeinfo)
 // The current system altitude.
-type Altitude struct {
+type CommonAltitude struct {
 	TimeUsec          uint64  // Timestamp (micros since boot or Unix epoch)
 	AltitudeMonotonic float32 // This altitude measure is initialized on system boot and monotonic (it is never reset, but represents the local altitude change). The only guarantee on this field is that it will never be reset and is consistent within a flight. The recommended value for this field is the uncorrected barometric altitude at boot time. This altitude will also drift and vary between flights.
 	AltitudeAmsl      float32 // This altitude measure is strictly above mean sea level and might be non-monotonic (it might reset on events like GPS lock or when a new QNH value is set). It should be the altitude to which global altitude waypoints are compared to. Note that it is *not* the GPS altitude, however, most GPS modules already output AMSL by default and not the WGS84 altitude.
@@ -6723,17 +6723,17 @@ type Altitude struct {
 }
 
 // MsgID (generated function)
-func (m *Altitude) MsgID() MessageID {
+func (m *CommonAltitude) MsgID() MessageID {
 	return MSG_ID_ALTITUDE
 }
 
 // MsgName (generated function)
-func (m *Altitude) MsgName() string {
+func (m *CommonAltitude) MsgName() string {
 	return "Altitude"
 }
 
 // Pack (generated function)
-func (m *Altitude) Pack(p *Packet) error {
+func (m *CommonAltitude) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.AltitudeMonotonic))
@@ -6749,7 +6749,7 @@ func (m *Altitude) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Altitude) Unpack(p *Packet) error {
+func (m *CommonAltitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6763,32 +6763,32 @@ func (m *Altitude) Unpack(p *Packet) error {
 	return nil
 }
 
-// ResourceRequest struct (generated typeinfo)
+// CommonResourceRequest struct (generated typeinfo)
 // The autopilot is requesting a resource (file, binary, other type of data)
-type ResourceRequest struct {
+type CommonResourceRequest struct {
 	RequestID    uint8      // Request ID. This ID should be re-used when sending back URI contents
-	UriType      uint8      // The type of requested URI. 0 = a file via URL. 1 = a UAVCAN binary
-	Uri          [120]uint8 // The requested unique resource identifier (URI). It is not necessarily a straight domain name (depends on the URI type enum)
+	URIType      uint8      // The type of requested URI. 0 = a file via URL. 1 = a UAVCAN binary
+	URI          [120]uint8 // The requested unique resource identifier (URI). It is not necessarily a straight domain name (depends on the URI type enum)
 	TransferType uint8      // The way the autopilot wants to receive the URI. 0 = MAVLink FTP. 1 = binary stream.
 	Storage      [120]uint8 // The storage path the autopilot wants the URI to be stored in. Will only be valid if the transfer_type has a storage associated (e.g. MAVLink FTP).
 }
 
 // MsgID (generated function)
-func (m *ResourceRequest) MsgID() MessageID {
+func (m *CommonResourceRequest) MsgID() MessageID {
 	return MSG_ID_RESOURCE_REQUEST
 }
 
 // MsgName (generated function)
-func (m *ResourceRequest) MsgName() string {
+func (m *CommonResourceRequest) MsgName() string {
 	return "ResourceRequest"
 }
 
 // Pack (generated function)
-func (m *ResourceRequest) Pack(p *Packet) error {
+func (m *CommonResourceRequest) Pack(p *Packet) error {
 	payload := make([]byte, 243)
 	payload[0] = byte(m.RequestID)
-	payload[1] = byte(m.UriType)
-	copy(payload[2:], m.Uri[:])
+	payload[1] = byte(m.URIType)
+	copy(payload[2:], m.URI[:])
 	payload[122] = byte(m.TransferType)
 	copy(payload[123:], m.Storage[:])
 
@@ -6798,21 +6798,21 @@ func (m *ResourceRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ResourceRequest) Unpack(p *Packet) error {
+func (m *CommonResourceRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 243 {
 		return fmt.Errorf("payload too small")
 	}
 	m.RequestID = uint8(p.Payload[0])
-	m.UriType = uint8(p.Payload[1])
-	copy(m.Uri[:], p.Payload[2:122])
+	m.URIType = uint8(p.Payload[1])
+	copy(m.URI[:], p.Payload[2:122])
 	m.TransferType = uint8(p.Payload[122])
 	copy(m.Storage[:], p.Payload[123:243])
 	return nil
 }
 
-// ScaledPressure3 struct (generated typeinfo)
+// CommonScaledPressure3 struct (generated typeinfo)
 // Barometer readings for 3rd barometer
-type ScaledPressure3 struct {
+type CommonScaledPressure3 struct {
 	TimeBootMs  uint32  // Timestamp (milliseconds since system boot)
 	PressAbs    float32 // Absolute pressure (hectopascal)
 	PressDiff   float32 // Differential pressure 1 (hectopascal)
@@ -6820,17 +6820,17 @@ type ScaledPressure3 struct {
 }
 
 // MsgID (generated function)
-func (m *ScaledPressure3) MsgID() MessageID {
+func (m *CommonScaledPressure3) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE3
 }
 
 // MsgName (generated function)
-func (m *ScaledPressure3) MsgName() string {
+func (m *CommonScaledPressure3) MsgName() string {
 	return "ScaledPressure3"
 }
 
 // Pack (generated function)
-func (m *ScaledPressure3) Pack(p *Packet) error {
+func (m *CommonScaledPressure3) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -6843,7 +6843,7 @@ func (m *ScaledPressure3) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ScaledPressure3) Unpack(p *Packet) error {
+func (m *CommonScaledPressure3) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6854,9 +6854,9 @@ func (m *ScaledPressure3) Unpack(p *Packet) error {
 	return nil
 }
 
-// FollowTarget struct (generated typeinfo)
+// CommonFollowTarget struct (generated typeinfo)
 // current motion information from a designated system
-type FollowTarget struct {
+type CommonFollowTarget struct {
 	Timestamp       uint64     // Timestamp in milliseconds since system boot
 	CustomState     uint64     // button states or switches of a tracker device
 	Lat             int32      // Latitude (WGS84), in degrees * 1E7
@@ -6871,17 +6871,17 @@ type FollowTarget struct {
 }
 
 // MsgID (generated function)
-func (m *FollowTarget) MsgID() MessageID {
+func (m *CommonFollowTarget) MsgID() MessageID {
 	return MSG_ID_FOLLOW_TARGET
 }
 
 // MsgName (generated function)
-func (m *FollowTarget) MsgName() string {
+func (m *CommonFollowTarget) MsgName() string {
 	return "FollowTarget"
 }
 
 // Pack (generated function)
-func (m *FollowTarget) Pack(p *Packet) error {
+func (m *CommonFollowTarget) Pack(p *Packet) error {
 	payload := make([]byte, 93)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.CustomState))
@@ -6911,7 +6911,7 @@ func (m *FollowTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FollowTarget) Unpack(p *Packet) error {
+func (m *CommonFollowTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 93 {
 		return fmt.Errorf("payload too small")
 	}
@@ -6939,9 +6939,9 @@ func (m *FollowTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// ControlSystemState struct (generated typeinfo)
+// CommonControlSystemState struct (generated typeinfo)
 // The smoothed, monotonic system state used to feed the control loops of the system.
-type ControlSystemState struct {
+type CommonControlSystemState struct {
 	TimeUsec    uint64     // Timestamp (micros since boot or Unix epoch)
 	XAcc        float32    // X acceleration in body frame
 	YAcc        float32    // Y acceleration in body frame
@@ -6962,17 +6962,17 @@ type ControlSystemState struct {
 }
 
 // MsgID (generated function)
-func (m *ControlSystemState) MsgID() MessageID {
+func (m *CommonControlSystemState) MsgID() MessageID {
 	return MSG_ID_CONTROL_SYSTEM_STATE
 }
 
 // MsgName (generated function)
-func (m *ControlSystemState) MsgName() string {
+func (m *CommonControlSystemState) MsgName() string {
 	return "ControlSystemState"
 }
 
 // Pack (generated function)
-func (m *ControlSystemState) Pack(p *Packet) error {
+func (m *CommonControlSystemState) Pack(p *Packet) error {
 	payload := make([]byte, 100)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.XAcc))
@@ -7004,7 +7004,7 @@ func (m *ControlSystemState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ControlSystemState) Unpack(p *Packet) error {
+func (m *CommonControlSystemState) Unpack(p *Packet) error {
 	if len(p.Payload) < 100 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7034,9 +7034,9 @@ func (m *ControlSystemState) Unpack(p *Packet) error {
 	return nil
 }
 
-// BatteryStatus struct (generated typeinfo)
+// CommonBatteryStatus struct (generated typeinfo)
 // Battery information
-type BatteryStatus struct {
+type CommonBatteryStatus struct {
 	CurrentConsumed  int32      // Consumed charge, in milliampere hours (1 = 1 mAh), -1: autopilot does not provide mAh consumption estimate
 	EnergyConsumed   int32      // Consumed energy, in HectoJoules (intergrated U*I*dt)  (1 = 100 Joule), -1: autopilot does not provide energy consumption estimate
 	Temperature      int16      // Temperature of the battery in centi-degrees celsius. INT16_MAX for unknown temperature.
@@ -7049,17 +7049,17 @@ type BatteryStatus struct {
 }
 
 // MsgID (generated function)
-func (m *BatteryStatus) MsgID() MessageID {
+func (m *CommonBatteryStatus) MsgID() MessageID {
 	return MSG_ID_BATTERY_STATUS
 }
 
 // MsgName (generated function)
-func (m *BatteryStatus) MsgName() string {
+func (m *CommonBatteryStatus) MsgName() string {
 	return "BatteryStatus"
 }
 
 // Pack (generated function)
-func (m *BatteryStatus) Pack(p *Packet) error {
+func (m *CommonBatteryStatus) Pack(p *Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CurrentConsumed))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.EnergyConsumed))
@@ -7079,7 +7079,7 @@ func (m *BatteryStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *BatteryStatus) Unpack(p *Packet) error {
+func (m *CommonBatteryStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7097,11 +7097,11 @@ func (m *BatteryStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// AutopilotVersion struct (generated typeinfo)
+// CommonAutopilotVersion struct (generated typeinfo)
 // Version and capability of autopilot software
-type AutopilotVersion struct {
+type CommonAutopilotVersion struct {
 	Capabilities            uint64   // bitmask of capabilities (see MAV_PROTOCOL_CAPABILITY enum)
-	Uid                     uint64   // UID if provided by hardware
+	UID                     uint64   // UID if provided by hardware
 	FlightSwVersion         uint32   // Firmware version number
 	MiddlewareSwVersion     uint32   // Middleware version number
 	OsSwVersion             uint32   // Operating system version number
@@ -7114,20 +7114,20 @@ type AutopilotVersion struct {
 }
 
 // MsgID (generated function)
-func (m *AutopilotVersion) MsgID() MessageID {
+func (m *CommonAutopilotVersion) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION
 }
 
 // MsgName (generated function)
-func (m *AutopilotVersion) MsgName() string {
+func (m *CommonAutopilotVersion) MsgName() string {
 	return "AutopilotVersion"
 }
 
 // Pack (generated function)
-func (m *AutopilotVersion) Pack(p *Packet) error {
+func (m *CommonAutopilotVersion) Pack(p *Packet) error {
 	payload := make([]byte, 60)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Capabilities))
-	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Uid))
+	binary.LittleEndian.PutUint64(payload[8:], uint64(m.UID))
 	binary.LittleEndian.PutUint32(payload[16:], uint32(m.FlightSwVersion))
 	binary.LittleEndian.PutUint32(payload[20:], uint32(m.MiddlewareSwVersion))
 	binary.LittleEndian.PutUint32(payload[24:], uint32(m.OsSwVersion))
@@ -7144,12 +7144,12 @@ func (m *AutopilotVersion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AutopilotVersion) Unpack(p *Packet) error {
+func (m *CommonAutopilotVersion) Unpack(p *Packet) error {
 	if len(p.Payload) < 60 {
 		return fmt.Errorf("payload too small")
 	}
 	m.Capabilities = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.Uid = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
+	m.UID = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
 	m.FlightSwVersion = uint32(binary.LittleEndian.Uint32(p.Payload[16:]))
 	m.MiddlewareSwVersion = uint32(binary.LittleEndian.Uint32(p.Payload[20:]))
 	m.OsSwVersion = uint32(binary.LittleEndian.Uint32(p.Payload[24:]))
@@ -7162,9 +7162,9 @@ func (m *AutopilotVersion) Unpack(p *Packet) error {
 	return nil
 }
 
-// LandingTarget struct (generated typeinfo)
+// CommonLandingTarget struct (generated typeinfo)
 // The location of a landing area captured from a downward facing camera
-type LandingTarget struct {
+type CommonLandingTarget struct {
 	TimeUsec  uint64  // Timestamp (micros since boot or Unix epoch)
 	AngleX    float32 // X-axis angular offset (in radians) of the target from the center of the image
 	AngleY    float32 // Y-axis angular offset (in radians) of the target from the center of the image
@@ -7176,17 +7176,17 @@ type LandingTarget struct {
 }
 
 // MsgID (generated function)
-func (m *LandingTarget) MsgID() MessageID {
+func (m *CommonLandingTarget) MsgID() MessageID {
 	return MSG_ID_LANDING_TARGET
 }
 
 // MsgName (generated function)
-func (m *LandingTarget) MsgName() string {
+func (m *CommonLandingTarget) MsgName() string {
 	return "LandingTarget"
 }
 
 // Pack (generated function)
-func (m *LandingTarget) Pack(p *Packet) error {
+func (m *CommonLandingTarget) Pack(p *Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.AngleX))
@@ -7203,7 +7203,7 @@ func (m *LandingTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *LandingTarget) Unpack(p *Packet) error {
+func (m *CommonLandingTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7218,9 +7218,9 @@ func (m *LandingTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// EstimatorStatus struct (generated typeinfo)
+// CommonEstimatorStatus struct (generated typeinfo)
 // Estimator status message including flags, innovation test ratios and estimated accuracies. The flags message is an integer bitmask containing information on which EKF outputs are valid. See the ESTIMATOR_STATUS_FLAGS enum definition for further information. The innovaton test ratios show the magnitude of the sensor innovation divided by the innovation check threshold. Under normal operation the innovaton test ratios should be below 0.5 with occasional values up to 1.0. Values greater than 1.0 should be rare under normal operation and indicate that a measurement has been rejected by the filter. The user should be notified if an innovation test ratio greater than 1.0 is recorded. Notifications for values in the range between 0.5 and 1.0 should be optional and controllable by the user.
-type EstimatorStatus struct {
+type CommonEstimatorStatus struct {
 	TimeUsec         uint64  // Timestamp (micros since boot or Unix epoch)
 	VelRatio         float32 // Velocity innovation test ratio
 	PosHorizRatio    float32 // Horizontal position innovation test ratio
@@ -7234,17 +7234,17 @@ type EstimatorStatus struct {
 }
 
 // MsgID (generated function)
-func (m *EstimatorStatus) MsgID() MessageID {
+func (m *CommonEstimatorStatus) MsgID() MessageID {
 	return MSG_ID_ESTIMATOR_STATUS
 }
 
 // MsgName (generated function)
-func (m *EstimatorStatus) MsgName() string {
+func (m *CommonEstimatorStatus) MsgName() string {
 	return "EstimatorStatus"
 }
 
 // Pack (generated function)
-func (m *EstimatorStatus) Pack(p *Packet) error {
+func (m *CommonEstimatorStatus) Pack(p *Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.VelRatio))
@@ -7263,7 +7263,7 @@ func (m *EstimatorStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *EstimatorStatus) Unpack(p *Packet) error {
+func (m *CommonEstimatorStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7280,9 +7280,9 @@ func (m *EstimatorStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// WindCov struct (generated typeinfo)
+// CommonWindCov struct (generated typeinfo)
 //
-type WindCov struct {
+type CommonWindCov struct {
 	TimeUsec      uint64  // Timestamp (micros since boot or Unix epoch)
 	WindX         float32 // Wind in X (NED) direction in m/s
 	WindY         float32 // Wind in Y (NED) direction in m/s
@@ -7295,17 +7295,17 @@ type WindCov struct {
 }
 
 // MsgID (generated function)
-func (m *WindCov) MsgID() MessageID {
+func (m *CommonWindCov) MsgID() MessageID {
 	return MSG_ID_WIND_COV
 }
 
 // MsgName (generated function)
-func (m *WindCov) MsgName() string {
+func (m *CommonWindCov) MsgName() string {
 	return "WindCov"
 }
 
 // Pack (generated function)
-func (m *WindCov) Pack(p *Packet) error {
+func (m *CommonWindCov) Pack(p *Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.WindX))
@@ -7323,7 +7323,7 @@ func (m *WindCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *WindCov) Unpack(p *Packet) error {
+func (m *CommonWindCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7339,9 +7339,9 @@ func (m *WindCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsInput struct (generated typeinfo)
+// CommonGpsInput struct (generated typeinfo)
 // GPS sensor input message.  This is a raw sensor value sent by the GPS. This is NOT the global position estimate of the sytem.
-type GpsInput struct {
+type CommonGpsInput struct {
 	TimeUsec          uint64  // Timestamp (micros since boot or Unix epoch)
 	TimeWeekMs        uint32  // GPS time (milliseconds from start of GPS week)
 	Lat               int32   // Latitude (WGS84), in degrees * 1E7
@@ -7363,17 +7363,17 @@ type GpsInput struct {
 }
 
 // MsgID (generated function)
-func (m *GpsInput) MsgID() MessageID {
+func (m *CommonGpsInput) MsgID() MessageID {
 	return MSG_ID_GPS_INPUT
 }
 
 // MsgName (generated function)
-func (m *GpsInput) MsgName() string {
+func (m *CommonGpsInput) MsgName() string {
 	return "GpsInput"
 }
 
 // Pack (generated function)
-func (m *GpsInput) Pack(p *Packet) error {
+func (m *CommonGpsInput) Pack(p *Packet) error {
 	payload := make([]byte, 63)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TimeWeekMs))
@@ -7400,7 +7400,7 @@ func (m *GpsInput) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsInput) Unpack(p *Packet) error {
+func (m *CommonGpsInput) Unpack(p *Packet) error {
 	if len(p.Payload) < 63 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7425,26 +7425,26 @@ func (m *GpsInput) Unpack(p *Packet) error {
 	return nil
 }
 
-// GpsRtcmData struct (generated typeinfo)
+// CommonGpsRtcmData struct (generated typeinfo)
 // RTCM message for injecting into the onboard GPS (used for DGPS)
-type GpsRtcmData struct {
+type CommonGpsRtcmData struct {
 	Flags uint8      // LSB: 1 means message is fragmented, next 2 bits are the fragment ID, the remaining 5 bits are used for the sequence ID. Messages are only to be flushed to the GPS when the entire message has been reconstructed on the autopilot. The fragment ID specifies which order the fragments should be assembled into a buffer, while the sequence ID is used to detect a mismatch between different buffers. The buffer is considered fully reconstructed when either all 4 fragments are present, or all the fragments before the first fragment with a non full payload is received. This management is used to ensure that normal GPS operation doesn't corrupt RTCM data, and to recover from a unreliable transport delivery order.
 	Len   uint8      // data length
 	Data  [180]uint8 // RTCM message (may be fragmented)
 }
 
 // MsgID (generated function)
-func (m *GpsRtcmData) MsgID() MessageID {
+func (m *CommonGpsRtcmData) MsgID() MessageID {
 	return MSG_ID_GPS_RTCM_DATA
 }
 
 // MsgName (generated function)
-func (m *GpsRtcmData) MsgName() string {
+func (m *CommonGpsRtcmData) MsgName() string {
 	return "GpsRtcmData"
 }
 
 // Pack (generated function)
-func (m *GpsRtcmData) Pack(p *Packet) error {
+func (m *CommonGpsRtcmData) Pack(p *Packet) error {
 	payload := make([]byte, 182)
 	payload[0] = byte(m.Flags)
 	payload[1] = byte(m.Len)
@@ -7456,7 +7456,7 @@ func (m *GpsRtcmData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *GpsRtcmData) Unpack(p *Packet) error {
+func (m *CommonGpsRtcmData) Unpack(p *Packet) error {
 	if len(p.Payload) < 182 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7466,9 +7466,9 @@ func (m *GpsRtcmData) Unpack(p *Packet) error {
 	return nil
 }
 
-// HighLatency struct (generated typeinfo)
+// CommonHighLatency struct (generated typeinfo)
 // Message appropriate for high latency connections like Iridium
-type HighLatency struct {
+type CommonHighLatency struct {
 	CustomMode       uint32 // A bitfield for use for autopilot-specific flags.
 	Latitude         int32  // Latitude, expressed as degrees * 1E7
 	Longitude        int32  // Longitude, expressed as degrees * 1E7
@@ -7496,17 +7496,17 @@ type HighLatency struct {
 }
 
 // MsgID (generated function)
-func (m *HighLatency) MsgID() MessageID {
+func (m *CommonHighLatency) MsgID() MessageID {
 	return MSG_ID_HIGH_LATENCY
 }
 
 // MsgName (generated function)
-func (m *HighLatency) MsgName() string {
+func (m *CommonHighLatency) MsgName() string {
 	return "HighLatency"
 }
 
 // Pack (generated function)
-func (m *HighLatency) Pack(p *Packet) error {
+func (m *CommonHighLatency) Pack(p *Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Latitude))
@@ -7539,7 +7539,7 @@ func (m *HighLatency) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HighLatency) Unpack(p *Packet) error {
+func (m *CommonHighLatency) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7570,9 +7570,9 @@ func (m *HighLatency) Unpack(p *Packet) error {
 	return nil
 }
 
-// Vibration struct (generated typeinfo)
+// CommonVibration struct (generated typeinfo)
 // Vibration levels and accelerometer clipping
-type Vibration struct {
+type CommonVibration struct {
 	TimeUsec   uint64  // Timestamp (micros since boot or Unix epoch)
 	VibrationX float32 // Vibration levels on X-axis
 	VibrationY float32 // Vibration levels on Y-axis
@@ -7583,17 +7583,17 @@ type Vibration struct {
 }
 
 // MsgID (generated function)
-func (m *Vibration) MsgID() MessageID {
+func (m *CommonVibration) MsgID() MessageID {
 	return MSG_ID_VIBRATION
 }
 
 // MsgName (generated function)
-func (m *Vibration) MsgName() string {
+func (m *CommonVibration) MsgName() string {
 	return "Vibration"
 }
 
 // Pack (generated function)
-func (m *Vibration) Pack(p *Packet) error {
+func (m *CommonVibration) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.VibrationX))
@@ -7609,7 +7609,7 @@ func (m *Vibration) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Vibration) Unpack(p *Packet) error {
+func (m *CommonVibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7623,9 +7623,9 @@ func (m *Vibration) Unpack(p *Packet) error {
 	return nil
 }
 
-// HomePosition struct (generated typeinfo)
+// CommonHomePosition struct (generated typeinfo)
 // This message can be requested by sending the MAV_CMD_GET_HOME_POSITION command. The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitely set by the operator before or after. The position the system will return to and land on. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.
-type HomePosition struct {
+type CommonHomePosition struct {
 	Latitude  int32      // Latitude (WGS84), in degrees * 1E7
 	Longitude int32      // Longitude (WGS84, in degrees * 1E7
 	Altitude  int32      // Altitude (AMSL), in meters * 1000 (positive for up)
@@ -7639,17 +7639,17 @@ type HomePosition struct {
 }
 
 // MsgID (generated function)
-func (m *HomePosition) MsgID() MessageID {
+func (m *CommonHomePosition) MsgID() MessageID {
 	return MSG_ID_HOME_POSITION
 }
 
 // MsgName (generated function)
-func (m *HomePosition) MsgName() string {
+func (m *CommonHomePosition) MsgName() string {
 	return "HomePosition"
 }
 
 // Pack (generated function)
-func (m *HomePosition) Pack(p *Packet) error {
+func (m *CommonHomePosition) Pack(p *Packet) error {
 	payload := make([]byte, 52)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -7670,7 +7670,7 @@ func (m *HomePosition) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *HomePosition) Unpack(p *Packet) error {
+func (m *CommonHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 52 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7689,9 +7689,9 @@ func (m *HomePosition) Unpack(p *Packet) error {
 	return nil
 }
 
-// SetHomePosition struct (generated typeinfo)
+// CommonSetHomePosition struct (generated typeinfo)
 // The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitely set by the operator before or after. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.
-type SetHomePosition struct {
+type CommonSetHomePosition struct {
 	Latitude     int32      // Latitude (WGS84), in degrees * 1E7
 	Longitude    int32      // Longitude (WGS84, in degrees * 1E7
 	Altitude     int32      // Altitude (AMSL), in meters * 1000 (positive for up)
@@ -7706,17 +7706,17 @@ type SetHomePosition struct {
 }
 
 // MsgID (generated function)
-func (m *SetHomePosition) MsgID() MessageID {
+func (m *CommonSetHomePosition) MsgID() MessageID {
 	return MSG_ID_SET_HOME_POSITION
 }
 
 // MsgName (generated function)
-func (m *SetHomePosition) MsgName() string {
+func (m *CommonSetHomePosition) MsgName() string {
 	return "SetHomePosition"
 }
 
 // Pack (generated function)
-func (m *SetHomePosition) Pack(p *Packet) error {
+func (m *CommonSetHomePosition) Pack(p *Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -7738,7 +7738,7 @@ func (m *SetHomePosition) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SetHomePosition) Unpack(p *Packet) error {
+func (m *CommonSetHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7758,25 +7758,25 @@ func (m *SetHomePosition) Unpack(p *Packet) error {
 	return nil
 }
 
-// MessageInterval struct (generated typeinfo)
+// CommonMessageInterval struct (generated typeinfo)
 // This interface replaces DATA_STREAM
-type MessageInterval struct {
+type CommonMessageInterval struct {
 	IntervalUs int32  // The interval between two messages, in microseconds. A value of -1 indicates this stream is disabled, 0 indicates it is not available, &gt; 0 indicates the interval at which it is sent.
 	MessageID  uint16 // The ID of the requested MAVLink message. v1.0 is limited to 254 messages.
 }
 
 // MsgID (generated function)
-func (m *MessageInterval) MsgID() MessageID {
+func (m *CommonMessageInterval) MsgID() MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
 }
 
 // MsgName (generated function)
-func (m *MessageInterval) MsgName() string {
+func (m *CommonMessageInterval) MsgName() string {
 	return "MessageInterval"
 }
 
 // Pack (generated function)
-func (m *MessageInterval) Pack(p *Packet) error {
+func (m *CommonMessageInterval) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.IntervalUs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MessageID))
@@ -7787,7 +7787,7 @@ func (m *MessageInterval) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MessageInterval) Unpack(p *Packet) error {
+func (m *CommonMessageInterval) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7796,25 +7796,25 @@ func (m *MessageInterval) Unpack(p *Packet) error {
 	return nil
 }
 
-// ExtendedSysState struct (generated typeinfo)
+// CommonExtendedSysState struct (generated typeinfo)
 // Provides state for additional features
-type ExtendedSysState struct {
+type CommonExtendedSysState struct {
 	VtolState   uint8 // The VTOL state if applicable. Is set to MAV_VTOL_STATE_UNDEFINED if UAV is not in VTOL configuration.
 	LandedState uint8 // The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
 }
 
 // MsgID (generated function)
-func (m *ExtendedSysState) MsgID() MessageID {
+func (m *CommonExtendedSysState) MsgID() MessageID {
 	return MSG_ID_EXTENDED_SYS_STATE
 }
 
 // MsgName (generated function)
-func (m *ExtendedSysState) MsgName() string {
+func (m *CommonExtendedSysState) MsgName() string {
 	return "ExtendedSysState"
 }
 
 // Pack (generated function)
-func (m *ExtendedSysState) Pack(p *Packet) error {
+func (m *CommonExtendedSysState) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.VtolState)
 	payload[1] = byte(m.LandedState)
@@ -7825,7 +7825,7 @@ func (m *ExtendedSysState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *ExtendedSysState) Unpack(p *Packet) error {
+func (m *CommonExtendedSysState) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7834,9 +7834,9 @@ func (m *ExtendedSysState) Unpack(p *Packet) error {
 	return nil
 }
 
-// AdsbVehicle struct (generated typeinfo)
+// CommonAdsbVehicle struct (generated typeinfo)
 // The location and information of an ADSB vehicle
-type AdsbVehicle struct {
+type CommonAdsbVehicle struct {
 	IcaoAddress  uint32  // ICAO address
 	Lat          int32   // Latitude, expressed as degrees * 1E7
 	Lon          int32   // Longitude, expressed as degrees * 1E7
@@ -7853,17 +7853,17 @@ type AdsbVehicle struct {
 }
 
 // MsgID (generated function)
-func (m *AdsbVehicle) MsgID() MessageID {
+func (m *CommonAdsbVehicle) MsgID() MessageID {
 	return MSG_ID_ADSB_VEHICLE
 }
 
 // MsgName (generated function)
-func (m *AdsbVehicle) MsgName() string {
+func (m *CommonAdsbVehicle) MsgName() string {
 	return "AdsbVehicle"
 }
 
 // Pack (generated function)
-func (m *AdsbVehicle) Pack(p *Packet) error {
+func (m *CommonAdsbVehicle) Pack(p *Packet) error {
 	payload := make([]byte, 38)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.IcaoAddress))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lat))
@@ -7885,7 +7885,7 @@ func (m *AdsbVehicle) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AdsbVehicle) Unpack(p *Packet) error {
+func (m *CommonAdsbVehicle) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7905,9 +7905,9 @@ func (m *AdsbVehicle) Unpack(p *Packet) error {
 	return nil
 }
 
-// Collision struct (generated typeinfo)
+// CommonCollision struct (generated typeinfo)
 // Information about a potential collision
-type Collision struct {
+type CommonCollision struct {
 	ID                     uint32  // Unique identifier, domain based on src field
 	TimeToMinimumDelta     float32 // Estimated time until collision occurs (seconds)
 	AltitudeMinimumDelta   float32 // Closest vertical distance in meters between vehicle and object
@@ -7918,17 +7918,17 @@ type Collision struct {
 }
 
 // MsgID (generated function)
-func (m *Collision) MsgID() MessageID {
+func (m *CommonCollision) MsgID() MessageID {
 	return MSG_ID_COLLISION
 }
 
 // MsgName (generated function)
-func (m *Collision) MsgName() string {
+func (m *CommonCollision) MsgName() string {
 	return "Collision"
 }
 
 // Pack (generated function)
-func (m *Collision) Pack(p *Packet) error {
+func (m *CommonCollision) Pack(p *Packet) error {
 	payload := make([]byte, 19)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.ID))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.TimeToMinimumDelta))
@@ -7944,7 +7944,7 @@ func (m *Collision) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Collision) Unpack(p *Packet) error {
+func (m *CommonCollision) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
 		return fmt.Errorf("payload too small")
 	}
@@ -7958,9 +7958,9 @@ func (m *Collision) Unpack(p *Packet) error {
 	return nil
 }
 
-// V2Extension struct (generated typeinfo)
+// CommonV2Extension struct (generated typeinfo)
 // Message implementing parts of the V2 payload specs in V1 frames for transitional support.
-type V2Extension struct {
+type CommonV2Extension struct {
 	MessageType     uint16     // A code that identifies the software component that understands this message (analogous to usb device classes or mime type strings).  If this code is less than 32768, it is considered a 'registered' protocol extension and the corresponding entry should be added to https://github.com/mavlink/mavlink/extension-message-ids.xml.  Software creators can register blocks of message IDs as needed (useful for GCS specific metadata, etc...). Message_types greater than 32767 are considered local experiments and should not be checked in to any widely distributed codebase.
 	TargetNetwork   uint8      // Network ID (0 for broadcast)
 	TargetSystem    uint8      // System ID (0 for broadcast)
@@ -7969,17 +7969,17 @@ type V2Extension struct {
 }
 
 // MsgID (generated function)
-func (m *V2Extension) MsgID() MessageID {
+func (m *CommonV2Extension) MsgID() MessageID {
 	return MSG_ID_V2_EXTENSION
 }
 
 // MsgName (generated function)
-func (m *V2Extension) MsgName() string {
+func (m *CommonV2Extension) MsgName() string {
 	return "V2Extension"
 }
 
 // Pack (generated function)
-func (m *V2Extension) Pack(p *Packet) error {
+func (m *CommonV2Extension) Pack(p *Packet) error {
 	payload := make([]byte, 254)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MessageType))
 	payload[2] = byte(m.TargetNetwork)
@@ -7993,7 +7993,7 @@ func (m *V2Extension) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *V2Extension) Unpack(p *Packet) error {
+func (m *CommonV2Extension) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8005,9 +8005,9 @@ func (m *V2Extension) Unpack(p *Packet) error {
 	return nil
 }
 
-// MemoryVect struct (generated typeinfo)
+// CommonMemoryVect struct (generated typeinfo)
 // Send raw controller memory. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type MemoryVect struct {
+type CommonMemoryVect struct {
 	Address uint16   // Starting address of the debug variables
 	Ver     uint8    // Version code of the type variable. 0=unknown, type ignored and assumed int16_t. 1=as below
 	Type    uint8    // Type code of the memory variables. for ver = 1: 0=16 x int16_t, 1=16 x uint16_t, 2=16 x Q15, 3=16 x 1Q14
@@ -8015,17 +8015,17 @@ type MemoryVect struct {
 }
 
 // MsgID (generated function)
-func (m *MemoryVect) MsgID() MessageID {
+func (m *CommonMemoryVect) MsgID() MessageID {
 	return MSG_ID_MEMORY_VECT
 }
 
 // MsgName (generated function)
-func (m *MemoryVect) MsgName() string {
+func (m *CommonMemoryVect) MsgName() string {
 	return "MemoryVect"
 }
 
 // Pack (generated function)
-func (m *MemoryVect) Pack(p *Packet) error {
+func (m *CommonMemoryVect) Pack(p *Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Address))
 	payload[2] = byte(m.Ver)
@@ -8040,7 +8040,7 @@ func (m *MemoryVect) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MemoryVect) Unpack(p *Packet) error {
+func (m *CommonMemoryVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8053,9 +8053,9 @@ func (m *MemoryVect) Unpack(p *Packet) error {
 	return nil
 }
 
-// DebugVect struct (generated typeinfo)
+// CommonDebugVect struct (generated typeinfo)
 //
-type DebugVect struct {
+type CommonDebugVect struct {
 	TimeUsec uint64   // Timestamp
 	X        float32  // x
 	Y        float32  // y
@@ -8064,17 +8064,17 @@ type DebugVect struct {
 }
 
 // MsgID (generated function)
-func (m *DebugVect) MsgID() MessageID {
+func (m *CommonDebugVect) MsgID() MessageID {
 	return MSG_ID_DEBUG_VECT
 }
 
 // MsgName (generated function)
-func (m *DebugVect) MsgName() string {
+func (m *CommonDebugVect) MsgName() string {
 	return "DebugVect"
 }
 
 // Pack (generated function)
-func (m *DebugVect) Pack(p *Packet) error {
+func (m *CommonDebugVect) Pack(p *Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -8088,7 +8088,7 @@ func (m *DebugVect) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *DebugVect) Unpack(p *Packet) error {
+func (m *CommonDebugVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8100,26 +8100,26 @@ func (m *DebugVect) Unpack(p *Packet) error {
 	return nil
 }
 
-// NamedValueFloat struct (generated typeinfo)
+// CommonNamedValueFloat struct (generated typeinfo)
 // Send a key-value pair as float. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type NamedValueFloat struct {
+type CommonNamedValueFloat struct {
 	TimeBootMs uint32   // Timestamp (milliseconds since system boot)
 	Value      float32  // Floating point value
 	Name       [10]byte // Name of the debug variable
 }
 
 // MsgID (generated function)
-func (m *NamedValueFloat) MsgID() MessageID {
+func (m *CommonNamedValueFloat) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
 }
 
 // MsgName (generated function)
-func (m *NamedValueFloat) MsgName() string {
+func (m *CommonNamedValueFloat) MsgName() string {
 	return "NamedValueFloat"
 }
 
 // Pack (generated function)
-func (m *NamedValueFloat) Pack(p *Packet) error {
+func (m *CommonNamedValueFloat) Pack(p *Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
@@ -8131,7 +8131,7 @@ func (m *NamedValueFloat) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *NamedValueFloat) Unpack(p *Packet) error {
+func (m *CommonNamedValueFloat) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8141,26 +8141,26 @@ func (m *NamedValueFloat) Unpack(p *Packet) error {
 	return nil
 }
 
-// NamedValueInt struct (generated typeinfo)
+// CommonNamedValueInt struct (generated typeinfo)
 // Send a key-value pair as integer. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type NamedValueInt struct {
+type CommonNamedValueInt struct {
 	TimeBootMs uint32   // Timestamp (milliseconds since system boot)
 	Value      int32    // Signed integer value
 	Name       [10]byte // Name of the debug variable
 }
 
 // MsgID (generated function)
-func (m *NamedValueInt) MsgID() MessageID {
+func (m *CommonNamedValueInt) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_INT
 }
 
 // MsgName (generated function)
-func (m *NamedValueInt) MsgName() string {
+func (m *CommonNamedValueInt) MsgName() string {
 	return "NamedValueInt"
 }
 
 // Pack (generated function)
-func (m *NamedValueInt) Pack(p *Packet) error {
+func (m *CommonNamedValueInt) Pack(p *Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Value))
@@ -8172,7 +8172,7 @@ func (m *NamedValueInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *NamedValueInt) Unpack(p *Packet) error {
+func (m *CommonNamedValueInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8182,25 +8182,25 @@ func (m *NamedValueInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// Statustext struct (generated typeinfo)
+// CommonStatustext struct (generated typeinfo)
 // Status text message. These messages are printed in yellow in the COMM console of QGroundControl. WARNING: They consume quite some bandwidth, so use only for important status and error messages. If implemented wisely, these messages are buffered on the MCU and sent only at a limited rate (e.g. 10 Hz).
-type Statustext struct {
+type CommonStatustext struct {
 	Severity uint8    // Severity of status. Relies on the definitions within RFC-5424. See enum MAV_SEVERITY.
 	Text     [50]byte // Status text message, without null termination character
 }
 
 // MsgID (generated function)
-func (m *Statustext) MsgID() MessageID {
+func (m *CommonStatustext) MsgID() MessageID {
 	return MSG_ID_STATUSTEXT
 }
 
 // MsgName (generated function)
-func (m *Statustext) MsgName() string {
+func (m *CommonStatustext) MsgName() string {
 	return "Statustext"
 }
 
 // Pack (generated function)
-func (m *Statustext) Pack(p *Packet) error {
+func (m *CommonStatustext) Pack(p *Packet) error {
 	payload := make([]byte, 51)
 	payload[0] = byte(m.Severity)
 	copy(payload[1:], m.Text[:])
@@ -8211,7 +8211,7 @@ func (m *Statustext) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Statustext) Unpack(p *Packet) error {
+func (m *CommonStatustext) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8220,26 +8220,26 @@ func (m *Statustext) Unpack(p *Packet) error {
 	return nil
 }
 
-// Debug struct (generated typeinfo)
+// CommonDebug struct (generated typeinfo)
 // Send a debug value. The index is used to discriminate between values. These values show up in the plot of QGroundControl as DEBUG N.
-type Debug struct {
+type CommonDebug struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	Value      float32 // DEBUG value
 	Ind        uint8   // index of debug variable
 }
 
 // MsgID (generated function)
-func (m *Debug) MsgID() MessageID {
+func (m *CommonDebug) MsgID() MessageID {
 	return MSG_ID_DEBUG
 }
 
 // MsgName (generated function)
-func (m *Debug) MsgName() string {
+func (m *CommonDebug) MsgName() string {
 	return "Debug"
 }
 
 // Pack (generated function)
-func (m *Debug) Pack(p *Packet) error {
+func (m *CommonDebug) Pack(p *Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
@@ -8251,7 +8251,7 @@ func (m *Debug) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Debug) Unpack(p *Packet) error {
+func (m *CommonDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		return fmt.Errorf("payload too small")
 	}
@@ -8544,682 +8544,682 @@ var DialectCommon = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_HEARTBEAT: func(pkt *Packet) Message {
-			msg := new(Heartbeat)
+			msg := new(CommonHeartbeat)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SYS_STATUS: func(pkt *Packet) Message {
-			msg := new(SysStatus)
+			msg := new(CommonSysStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SYSTEM_TIME: func(pkt *Packet) Message {
-			msg := new(SystemTime)
+			msg := new(CommonSystemTime)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PING: func(pkt *Packet) Message {
-			msg := new(Ping)
+			msg := new(CommonPing)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CHANGE_OPERATOR_CONTROL: func(pkt *Packet) Message {
-			msg := new(ChangeOperatorControl)
+			msg := new(CommonChangeOperatorControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CHANGE_OPERATOR_CONTROL_ACK: func(pkt *Packet) Message {
-			msg := new(ChangeOperatorControlAck)
+			msg := new(CommonChangeOperatorControlAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AUTH_KEY: func(pkt *Packet) Message {
-			msg := new(AuthKey)
+			msg := new(CommonAuthKey)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_MODE: func(pkt *Packet) Message {
-			msg := new(SetMode)
+			msg := new(CommonSetMode)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PARAM_REQUEST_READ: func(pkt *Packet) Message {
-			msg := new(ParamRequestRead)
+			msg := new(CommonParamRequestRead)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PARAM_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(ParamRequestList)
+			msg := new(CommonParamRequestList)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PARAM_VALUE: func(pkt *Packet) Message {
-			msg := new(ParamValue)
+			msg := new(CommonParamValue)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PARAM_SET: func(pkt *Packet) Message {
-			msg := new(ParamSet)
+			msg := new(CommonParamSet)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_RAW_INT: func(pkt *Packet) Message {
-			msg := new(GpsRawInt)
+			msg := new(CommonGpsRawInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_STATUS: func(pkt *Packet) Message {
-			msg := new(GpsStatus)
+			msg := new(CommonGpsStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_IMU: func(pkt *Packet) Message {
-			msg := new(ScaledImu)
+			msg := new(CommonScaledImu)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RAW_IMU: func(pkt *Packet) Message {
-			msg := new(RawImu)
+			msg := new(CommonRawImu)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RAW_PRESSURE: func(pkt *Packet) Message {
-			msg := new(RawPressure)
+			msg := new(CommonRawPressure)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_PRESSURE: func(pkt *Packet) Message {
-			msg := new(ScaledPressure)
+			msg := new(CommonScaledPressure)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ATTITUDE: func(pkt *Packet) Message {
-			msg := new(Attitude)
+			msg := new(CommonAttitude)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ATTITUDE_QUATERNION: func(pkt *Packet) Message {
-			msg := new(AttitudeQuaternion)
+			msg := new(CommonAttitudeQuaternion)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOCAL_POSITION_NED: func(pkt *Packet) Message {
-			msg := new(LocalPositionNed)
+			msg := new(CommonLocalPositionNed)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GLOBAL_POSITION_INT: func(pkt *Packet) Message {
-			msg := new(GlobalPositionInt)
+			msg := new(CommonGlobalPositionInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RC_CHANNELS_SCALED: func(pkt *Packet) Message {
-			msg := new(RcChannelsScaled)
+			msg := new(CommonRcChannelsScaled)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RC_CHANNELS_RAW: func(pkt *Packet) Message {
-			msg := new(RcChannelsRaw)
+			msg := new(CommonRcChannelsRaw)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERVO_OUTPUT_RAW: func(pkt *Packet) Message {
-			msg := new(ServoOutputRaw)
+			msg := new(CommonServoOutputRaw)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_REQUEST_PARTIAL_LIST: func(pkt *Packet) Message {
-			msg := new(MissionRequestPartialList)
+			msg := new(CommonMissionRequestPartialList)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_WRITE_PARTIAL_LIST: func(pkt *Packet) Message {
-			msg := new(MissionWritePartialList)
+			msg := new(CommonMissionWritePartialList)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_ITEM: func(pkt *Packet) Message {
-			msg := new(MissionItem)
+			msg := new(CommonMissionItem)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_REQUEST: func(pkt *Packet) Message {
-			msg := new(MissionRequest)
+			msg := new(CommonMissionRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_SET_CURRENT: func(pkt *Packet) Message {
-			msg := new(MissionSetCurrent)
+			msg := new(CommonMissionSetCurrent)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_CURRENT: func(pkt *Packet) Message {
-			msg := new(MissionCurrent)
+			msg := new(CommonMissionCurrent)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(MissionRequestList)
+			msg := new(CommonMissionRequestList)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_COUNT: func(pkt *Packet) Message {
-			msg := new(MissionCount)
+			msg := new(CommonMissionCount)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_CLEAR_ALL: func(pkt *Packet) Message {
-			msg := new(MissionClearAll)
+			msg := new(CommonMissionClearAll)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_ITEM_REACHED: func(pkt *Packet) Message {
-			msg := new(MissionItemReached)
+			msg := new(CommonMissionItemReached)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_ACK: func(pkt *Packet) Message {
-			msg := new(MissionAck)
+			msg := new(CommonMissionAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_GPS_GLOBAL_ORIGIN: func(pkt *Packet) Message {
-			msg := new(SetGpsGlobalOrigin)
+			msg := new(CommonSetGpsGlobalOrigin)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_GLOBAL_ORIGIN: func(pkt *Packet) Message {
-			msg := new(GpsGlobalOrigin)
+			msg := new(CommonGpsGlobalOrigin)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_PARAM_MAP_RC: func(pkt *Packet) Message {
-			msg := new(ParamMapRc)
+			msg := new(CommonParamMapRc)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_REQUEST_INT: func(pkt *Packet) Message {
-			msg := new(MissionRequestInt)
+			msg := new(CommonMissionRequestInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SAFETY_SET_ALLOWED_AREA: func(pkt *Packet) Message {
-			msg := new(SafetySetAllowedArea)
+			msg := new(CommonSafetySetAllowedArea)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SAFETY_ALLOWED_AREA: func(pkt *Packet) Message {
-			msg := new(SafetyAllowedArea)
+			msg := new(CommonSafetyAllowedArea)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ATTITUDE_QUATERNION_COV: func(pkt *Packet) Message {
-			msg := new(AttitudeQuaternionCov)
+			msg := new(CommonAttitudeQuaternionCov)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_NAV_CONTROLLER_OUTPUT: func(pkt *Packet) Message {
-			msg := new(NavControllerOutput)
+			msg := new(CommonNavControllerOutput)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GLOBAL_POSITION_INT_COV: func(pkt *Packet) Message {
-			msg := new(GlobalPositionIntCov)
+			msg := new(CommonGlobalPositionIntCov)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOCAL_POSITION_NED_COV: func(pkt *Packet) Message {
-			msg := new(LocalPositionNedCov)
+			msg := new(CommonLocalPositionNedCov)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RC_CHANNELS: func(pkt *Packet) Message {
-			msg := new(RcChannels)
+			msg := new(CommonRcChannels)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_REQUEST_DATA_STREAM: func(pkt *Packet) Message {
-			msg := new(RequestDataStream)
+			msg := new(CommonRequestDataStream)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA_STREAM: func(pkt *Packet) Message {
-			msg := new(DataStream)
+			msg := new(CommonDataStream)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MANUAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(ManualControl)
+			msg := new(CommonManualControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RC_CHANNELS_OVERRIDE: func(pkt *Packet) Message {
-			msg := new(RcChannelsOverride)
+			msg := new(CommonRcChannelsOverride)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MISSION_ITEM_INT: func(pkt *Packet) Message {
-			msg := new(MissionItemInt)
+			msg := new(CommonMissionItemInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_VFR_HUD: func(pkt *Packet) Message {
-			msg := new(VfrHud)
+			msg := new(CommonVfrHud)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_COMMAND_INT: func(pkt *Packet) Message {
-			msg := new(CommandInt)
+			msg := new(CommonCommandInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_COMMAND_LONG: func(pkt *Packet) Message {
-			msg := new(CommandLong)
+			msg := new(CommonCommandLong)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_COMMAND_ACK: func(pkt *Packet) Message {
-			msg := new(CommandAck)
+			msg := new(CommonCommandAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MANUAL_SETPOINT: func(pkt *Packet) Message {
-			msg := new(ManualSetpoint)
+			msg := new(CommonManualSetpoint)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_ATTITUDE_TARGET: func(pkt *Packet) Message {
-			msg := new(SetAttitudeTarget)
+			msg := new(CommonSetAttitudeTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ATTITUDE_TARGET: func(pkt *Packet) Message {
-			msg := new(AttitudeTarget)
+			msg := new(CommonAttitudeTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_POSITION_TARGET_LOCAL_NED: func(pkt *Packet) Message {
-			msg := new(SetPositionTargetLocalNed)
+			msg := new(CommonSetPositionTargetLocalNed)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_POSITION_TARGET_LOCAL_NED: func(pkt *Packet) Message {
-			msg := new(PositionTargetLocalNed)
+			msg := new(CommonPositionTargetLocalNed)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_POSITION_TARGET_GLOBAL_INT: func(pkt *Packet) Message {
-			msg := new(SetPositionTargetGlobalInt)
+			msg := new(CommonSetPositionTargetGlobalInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_POSITION_TARGET_GLOBAL_INT: func(pkt *Packet) Message {
-			msg := new(PositionTargetGlobalInt)
+			msg := new(CommonPositionTargetGlobalInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET: func(pkt *Packet) Message {
-			msg := new(LocalPositionNedSystemGlobalOffset)
+			msg := new(CommonLocalPositionNedSystemGlobalOffset)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_STATE: func(pkt *Packet) Message {
-			msg := new(HilState)
+			msg := new(CommonHilState)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_CONTROLS: func(pkt *Packet) Message {
-			msg := new(HilControls)
+			msg := new(CommonHilControls)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_RC_INPUTS_RAW: func(pkt *Packet) Message {
-			msg := new(HilRcInputsRaw)
+			msg := new(CommonHilRcInputsRaw)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_ACTUATOR_CONTROLS: func(pkt *Packet) Message {
-			msg := new(HilActuatorControls)
+			msg := new(CommonHilActuatorControls)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_OPTICAL_FLOW: func(pkt *Packet) Message {
-			msg := new(OpticalFlow)
+			msg := new(CommonOpticalFlow)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(GlobalVisionPositionEstimate)
+			msg := new(CommonGlobalVisionPositionEstimate)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_VISION_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(VisionPositionEstimate)
+			msg := new(CommonVisionPositionEstimate)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_VISION_SPEED_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(VisionSpeedEstimate)
+			msg := new(CommonVisionSpeedEstimate)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_VICON_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(ViconPositionEstimate)
+			msg := new(CommonViconPositionEstimate)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIGHRES_IMU: func(pkt *Packet) Message {
-			msg := new(HighresImu)
+			msg := new(CommonHighresImu)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_OPTICAL_FLOW_RAD: func(pkt *Packet) Message {
-			msg := new(OpticalFlowRad)
+			msg := new(CommonOpticalFlowRad)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_SENSOR: func(pkt *Packet) Message {
-			msg := new(HilSensor)
+			msg := new(CommonHilSensor)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SIM_STATE: func(pkt *Packet) Message {
-			msg := new(SimState)
+			msg := new(CommonSimState)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RADIO_STATUS: func(pkt *Packet) Message {
-			msg := new(RadioStatus)
+			msg := new(CommonRadioStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FILE_TRANSFER_PROTOCOL: func(pkt *Packet) Message {
-			msg := new(FileTransferProtocol)
+			msg := new(CommonFileTransferProtocol)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_TIMESYNC: func(pkt *Packet) Message {
-			msg := new(Timesync)
+			msg := new(CommonTimesync)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CAMERA_TRIGGER: func(pkt *Packet) Message {
-			msg := new(CameraTrigger)
+			msg := new(CommonCameraTrigger)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_GPS: func(pkt *Packet) Message {
-			msg := new(HilGps)
+			msg := new(CommonHilGps)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_OPTICAL_FLOW: func(pkt *Packet) Message {
-			msg := new(HilOpticalFlow)
+			msg := new(CommonHilOpticalFlow)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIL_STATE_QUATERNION: func(pkt *Packet) Message {
-			msg := new(HilStateQuaternion)
+			msg := new(CommonHilStateQuaternion)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_IMU2: func(pkt *Packet) Message {
-			msg := new(ScaledImu2)
+			msg := new(CommonScaledImu2)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(LogRequestList)
+			msg := new(CommonLogRequestList)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_ENTRY: func(pkt *Packet) Message {
-			msg := new(LogEntry)
+			msg := new(CommonLogEntry)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_REQUEST_DATA: func(pkt *Packet) Message {
-			msg := new(LogRequestData)
+			msg := new(CommonLogRequestData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_DATA: func(pkt *Packet) Message {
-			msg := new(LogData)
+			msg := new(CommonLogData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_ERASE: func(pkt *Packet) Message {
-			msg := new(LogErase)
+			msg := new(CommonLogErase)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LOG_REQUEST_END: func(pkt *Packet) Message {
-			msg := new(LogRequestEnd)
+			msg := new(CommonLogRequestEnd)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_INJECT_DATA: func(pkt *Packet) Message {
-			msg := new(GpsInjectData)
+			msg := new(CommonGpsInjectData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS2_RAW: func(pkt *Packet) Message {
-			msg := new(Gps2Raw)
+			msg := new(CommonGps2Raw)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_POWER_STATUS: func(pkt *Packet) Message {
-			msg := new(PowerStatus)
+			msg := new(CommonPowerStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(SerialControl)
+			msg := new(CommonSerialControl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_RTK: func(pkt *Packet) Message {
-			msg := new(GpsRtk)
+			msg := new(CommonGpsRtk)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS2_RTK: func(pkt *Packet) Message {
-			msg := new(Gps2Rtk)
+			msg := new(CommonGps2Rtk)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_IMU3: func(pkt *Packet) Message {
-			msg := new(ScaledImu3)
+			msg := new(CommonScaledImu3)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DATA_TRANSMISSION_HANDSHAKE: func(pkt *Packet) Message {
-			msg := new(DataTransmissionHandshake)
+			msg := new(CommonDataTransmissionHandshake)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ENCAPSULATED_DATA: func(pkt *Packet) Message {
-			msg := new(EncapsulatedData)
+			msg := new(CommonEncapsulatedData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DISTANCE_SENSOR: func(pkt *Packet) Message {
-			msg := new(DistanceSensor)
+			msg := new(CommonDistanceSensor)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_TERRAIN_REQUEST: func(pkt *Packet) Message {
-			msg := new(TerrainRequest)
+			msg := new(CommonTerrainRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_TERRAIN_DATA: func(pkt *Packet) Message {
-			msg := new(TerrainData)
+			msg := new(CommonTerrainData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_TERRAIN_CHECK: func(pkt *Packet) Message {
-			msg := new(TerrainCheck)
+			msg := new(CommonTerrainCheck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_TERRAIN_REPORT: func(pkt *Packet) Message {
-			msg := new(TerrainReport)
+			msg := new(CommonTerrainReport)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_PRESSURE2: func(pkt *Packet) Message {
-			msg := new(ScaledPressure2)
+			msg := new(CommonScaledPressure2)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ATT_POS_MOCAP: func(pkt *Packet) Message {
-			msg := new(AttPosMocap)
+			msg := new(CommonAttPosMocap)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_ACTUATOR_CONTROL_TARGET: func(pkt *Packet) Message {
-			msg := new(SetActuatorControlTarget)
+			msg := new(CommonSetActuatorControlTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ACTUATOR_CONTROL_TARGET: func(pkt *Packet) Message {
-			msg := new(ActuatorControlTarget)
+			msg := new(CommonActuatorControlTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ALTITUDE: func(pkt *Packet) Message {
-			msg := new(Altitude)
+			msg := new(CommonAltitude)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_RESOURCE_REQUEST: func(pkt *Packet) Message {
-			msg := new(ResourceRequest)
+			msg := new(CommonResourceRequest)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SCALED_PRESSURE3: func(pkt *Packet) Message {
-			msg := new(ScaledPressure3)
+			msg := new(CommonScaledPressure3)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FOLLOW_TARGET: func(pkt *Packet) Message {
-			msg := new(FollowTarget)
+			msg := new(CommonFollowTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_CONTROL_SYSTEM_STATE: func(pkt *Packet) Message {
-			msg := new(ControlSystemState)
+			msg := new(CommonControlSystemState)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_BATTERY_STATUS: func(pkt *Packet) Message {
-			msg := new(BatteryStatus)
+			msg := new(CommonBatteryStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AUTOPILOT_VERSION: func(pkt *Packet) Message {
-			msg := new(AutopilotVersion)
+			msg := new(CommonAutopilotVersion)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_LANDING_TARGET: func(pkt *Packet) Message {
-			msg := new(LandingTarget)
+			msg := new(CommonLandingTarget)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ESTIMATOR_STATUS: func(pkt *Packet) Message {
-			msg := new(EstimatorStatus)
+			msg := new(CommonEstimatorStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_WIND_COV: func(pkt *Packet) Message {
-			msg := new(WindCov)
+			msg := new(CommonWindCov)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_INPUT: func(pkt *Packet) Message {
-			msg := new(GpsInput)
+			msg := new(CommonGpsInput)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_GPS_RTCM_DATA: func(pkt *Packet) Message {
-			msg := new(GpsRtcmData)
+			msg := new(CommonGpsRtcmData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HIGH_LATENCY: func(pkt *Packet) Message {
-			msg := new(HighLatency)
+			msg := new(CommonHighLatency)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_VIBRATION: func(pkt *Packet) Message {
-			msg := new(Vibration)
+			msg := new(CommonVibration)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_HOME_POSITION: func(pkt *Packet) Message {
-			msg := new(HomePosition)
+			msg := new(CommonHomePosition)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SET_HOME_POSITION: func(pkt *Packet) Message {
-			msg := new(SetHomePosition)
+			msg := new(CommonSetHomePosition)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MESSAGE_INTERVAL: func(pkt *Packet) Message {
-			msg := new(MessageInterval)
+			msg := new(CommonMessageInterval)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_EXTENDED_SYS_STATE: func(pkt *Packet) Message {
-			msg := new(ExtendedSysState)
+			msg := new(CommonExtendedSysState)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ADSB_VEHICLE: func(pkt *Packet) Message {
-			msg := new(AdsbVehicle)
+			msg := new(CommonAdsbVehicle)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_COLLISION: func(pkt *Packet) Message {
-			msg := new(Collision)
+			msg := new(CommonCollision)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_V2_EXTENSION: func(pkt *Packet) Message {
-			msg := new(V2Extension)
+			msg := new(CommonV2Extension)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_MEMORY_VECT: func(pkt *Packet) Message {
-			msg := new(MemoryVect)
+			msg := new(CommonMemoryVect)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DEBUG_VECT: func(pkt *Packet) Message {
-			msg := new(DebugVect)
+			msg := new(CommonDebugVect)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_NAMED_VALUE_FLOAT: func(pkt *Packet) Message {
-			msg := new(NamedValueFloat)
+			msg := new(CommonNamedValueFloat)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_NAMED_VALUE_INT: func(pkt *Packet) Message {
-			msg := new(NamedValueInt)
+			msg := new(CommonNamedValueInt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_STATUSTEXT: func(pkt *Packet) Message {
-			msg := new(Statustext)
+			msg := new(CommonStatustext)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_DEBUG: func(pkt *Packet) Message {
-			msg := new(Debug)
+			msg := new(CommonDebug)
 			msg.Unpack(pkt)
 			return msg
 		},

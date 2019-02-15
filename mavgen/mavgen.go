@@ -16,6 +16,18 @@ import (
 	"github.com/asmyasnikov/go-mavlink/x25"
 )
 
+var (
+	upperCaseWords = map[string]string{
+		"Id":   "ID",
+		"Cpu":  "CPU",
+		"Uri":  "URI",
+		"Url":  "URL",
+		"Uid":  "UID",
+		"Http": "HTTP",
+		"Udp":  "UDP",
+	}
+)
+
 // Dialect desribed root tag of schema
 type Dialect struct {
 	Name string
@@ -136,11 +148,11 @@ func (m *Message) Swap(i, j int) {
 // UpperCamelCase function convert names to upper camel case
 func UpperCamelCase(s string) string {
 	var b bytes.Buffer
-	for _, frag := range strings.Split(s, "_") {
-		if len(frag) > 0 {
-			word := strings.ToUpper(frag[:1]) + strings.ToLower(frag[1:])
-			if word == "Id" {
-				word = "ID"
+	for _, fragment := range strings.Split(s, "_") {
+		if len(fragment) > 0 {
+			word := strings.ToUpper(fragment[:1]) + strings.ToLower(fragment[1:])
+			if replacement, ok := upperCaseWords[word]; ok {
+				word = replacement
 			}
 			b.WriteString(word)
 		}
@@ -454,6 +466,7 @@ const ({{range .Entries}}
 
 func (d *Dialect) generateMsgIds(w io.Writer) error {
 	msgIDTmpl := `
+{{$dialect := .Name | UpperCamelCase}}
 // Message IDs
 const ({{range .Messages}}
 	MSG_ID_{{.Name}} MessageID = {{.ID}}{{end}}
@@ -467,7 +480,7 @@ var Dialect{{.Name | UpperCamelCase}} = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{ {{range .Messages}}
 		MSG_ID_{{.Name}}: func(pkt *Packet) Message {
-			msg := new({{.Name | UpperCamelCase}})
+			msg := new({{$dialect}}{{.Name | UpperCamelCase}})
 			msg.Unpack(pkt)
 			return msg
 		},{{end}}
@@ -483,26 +496,27 @@ var Dialect{{.Name | UpperCamelCase}} = &Dialect{
 func (d *Dialect) generateClasses(w io.Writer) error {
 
 	classesTmpl := `
+{{$dialect := .Name | UpperCamelCase}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
-// {{$name}} struct (generated typeinfo)  
+// {{$dialect}}{{$name}} struct (generated typeinfo)  
 // {{.Description}}
-type {{$name}} struct { {{range .Fields}}
+type {{$dialect}}{{$name}} struct { {{range .Fields}}
   {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
 }
 
 // MsgID (generated function)
-func (m *{{$name}}) MsgID() MessageID {
+func (m *{{$dialect}}{{$name}}) MsgID() MessageID {
 	return MSG_ID_{{.Name}}
 }
 
 // MsgName (generated function)
-func (m *{{$name}}) MsgName() string {
+func (m *{{$dialect}}{{$name}}) MsgName() string {
 	return "{{.Name | UpperCamelCase}}"
 }
 
 // Pack (generated function)
-func (m *{{$name}}) Pack(p *Packet) error {
+func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
 
@@ -512,7 +526,7 @@ func (m *{{$name}}) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *{{$name}}) Unpack(p *Packet) error {
+func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
 	if len(p.Payload) < {{ .Size }} {
 		return fmt.Errorf("payload too small")
 	}{{range .Fields}}

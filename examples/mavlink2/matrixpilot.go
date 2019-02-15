@@ -31,25 +31,25 @@ const (
 	MAV_CMD_PREFLIGHT_STORAGE_ADVANCED = 0 // Request storage of different parameter values and logs. This command will be only accepted if in pre-flight mode.
 )
 
-// FlexifunctionSet struct (generated typeinfo)
+// MatrixpilotFlexifunctionSet struct (generated typeinfo)
 // Depreciated but used as a compiler flag.  Do not remove
-type FlexifunctionSet struct {
+type MatrixpilotFlexifunctionSet struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionSet) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionSet) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_SET
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionSet) MsgName() string {
+func (m *MatrixpilotFlexifunctionSet) MsgName() string {
 	return "FlexifunctionSet"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionSet) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionSet) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -60,7 +60,7 @@ func (m *FlexifunctionSet) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionSet) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionSet) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		return fmt.Errorf("payload too small")
 	}
@@ -69,9 +69,9 @@ func (m *FlexifunctionSet) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionReadReq struct (generated typeinfo)
+// MatrixpilotFlexifunctionReadReq struct (generated typeinfo)
 // Reqest reading of flexifunction data
-type FlexifunctionReadReq struct {
+type MatrixpilotFlexifunctionReadReq struct {
 	ReadReqType     int16 // Type of flexifunction data requested
 	DataIndex       int16 // index into data where needed
 	TargetSystem    uint8 // System ID
@@ -79,17 +79,17 @@ type FlexifunctionReadReq struct {
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionReadReq) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionReadReq) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_READ_REQ
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionReadReq) MsgName() string {
+func (m *MatrixpilotFlexifunctionReadReq) MsgName() string {
 	return "FlexifunctionReadReq"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionReadReq) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionReadReq) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ReadReqType))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.DataIndex))
@@ -102,7 +102,7 @@ func (m *FlexifunctionReadReq) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionReadReq) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionReadReq) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -113,9 +113,9 @@ func (m *FlexifunctionReadReq) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionBufferFunction struct (generated typeinfo)
+// MatrixpilotFlexifunctionBufferFunction struct (generated typeinfo)
 // Flexifunction type and parameters for component at function index from buffer
-type FlexifunctionBufferFunction struct {
+type MatrixpilotFlexifunctionBufferFunction struct {
 	FuncIndex       uint16   // Function index
 	FuncCount       uint16   // Total count of functions
 	DataAddress     uint16   // Address in the flexifunction data, Set to 0xFFFF to use address in target memory
@@ -126,17 +126,17 @@ type FlexifunctionBufferFunction struct {
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionBufferFunction) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionBufferFunction) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionBufferFunction) MsgName() string {
+func (m *MatrixpilotFlexifunctionBufferFunction) MsgName() string {
 	return "FlexifunctionBufferFunction"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionBufferFunction) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionBufferFunction) Pack(p *Packet) error {
 	payload := make([]byte, 58)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.FuncIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.FuncCount))
@@ -154,7 +154,7 @@ func (m *FlexifunctionBufferFunction) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionBufferFunction) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionBufferFunction) Unpack(p *Packet) error {
 	if len(p.Payload) < 58 {
 		return fmt.Errorf("payload too small")
 	}
@@ -170,9 +170,9 @@ func (m *FlexifunctionBufferFunction) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionBufferFunctionAck struct (generated typeinfo)
+// MatrixpilotFlexifunctionBufferFunctionAck struct (generated typeinfo)
 // Flexifunction type and parameters for component at function index from buffer
-type FlexifunctionBufferFunctionAck struct {
+type MatrixpilotFlexifunctionBufferFunctionAck struct {
 	FuncIndex       uint16 // Function index
 	Result          uint16 // result of acknowledge, 0=fail, 1=good
 	TargetSystem    uint8  // System ID
@@ -180,17 +180,17 @@ type FlexifunctionBufferFunctionAck struct {
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionBufferFunctionAck) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionBufferFunctionAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION_ACK
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionBufferFunctionAck) MsgName() string {
+func (m *MatrixpilotFlexifunctionBufferFunctionAck) MsgName() string {
 	return "FlexifunctionBufferFunctionAck"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionBufferFunctionAck) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.FuncIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
@@ -203,7 +203,7 @@ func (m *FlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		return fmt.Errorf("payload too small")
 	}
@@ -214,9 +214,9 @@ func (m *FlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionDirectory struct (generated typeinfo)
+// MatrixpilotFlexifunctionDirectory struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
-type FlexifunctionDirectory struct {
+type MatrixpilotFlexifunctionDirectory struct {
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
 	DirectoryType   uint8    // 0=inputs, 1=outputs
@@ -226,17 +226,17 @@ type FlexifunctionDirectory struct {
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionDirectory) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionDirectory) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionDirectory) MsgName() string {
+func (m *MatrixpilotFlexifunctionDirectory) MsgName() string {
 	return "FlexifunctionDirectory"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionDirectory) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionDirectory) Pack(p *Packet) error {
 	payload := make([]byte, 53)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -253,7 +253,7 @@ func (m *FlexifunctionDirectory) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionDirectory) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionDirectory) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		return fmt.Errorf("payload too small")
 	}
@@ -268,9 +268,9 @@ func (m *FlexifunctionDirectory) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionDirectoryAck struct (generated typeinfo)
+// MatrixpilotFlexifunctionDirectoryAck struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
-type FlexifunctionDirectoryAck struct {
+type MatrixpilotFlexifunctionDirectoryAck struct {
 	Result          uint16 // result of acknowledge, 0=fail, 1=good
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
@@ -280,17 +280,17 @@ type FlexifunctionDirectoryAck struct {
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionDirectoryAck) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionDirectoryAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY_ACK
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionDirectoryAck) MsgName() string {
+func (m *MatrixpilotFlexifunctionDirectoryAck) MsgName() string {
 	return "FlexifunctionDirectoryAck"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionDirectoryAck) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionDirectoryAck) Pack(p *Packet) error {
 	payload := make([]byte, 7)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Result))
 	payload[2] = byte(m.TargetSystem)
@@ -305,7 +305,7 @@ func (m *FlexifunctionDirectoryAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionDirectoryAck) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionDirectoryAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		return fmt.Errorf("payload too small")
 	}
@@ -318,26 +318,26 @@ func (m *FlexifunctionDirectoryAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionCommand struct (generated typeinfo)
+// MatrixpilotFlexifunctionCommand struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
-type FlexifunctionCommand struct {
+type MatrixpilotFlexifunctionCommand struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	CommandType     uint8 // Flexifunction command type
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionCommand) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionCommand) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionCommand) MsgName() string {
+func (m *MatrixpilotFlexifunctionCommand) MsgName() string {
 	return "FlexifunctionCommand"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionCommand) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionCommand) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -349,7 +349,7 @@ func (m *FlexifunctionCommand) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionCommand) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionCommand) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		return fmt.Errorf("payload too small")
 	}
@@ -359,25 +359,25 @@ func (m *FlexifunctionCommand) Unpack(p *Packet) error {
 	return nil
 }
 
-// FlexifunctionCommandAck struct (generated typeinfo)
+// MatrixpilotFlexifunctionCommandAck struct (generated typeinfo)
 // Acknowldge sucess or failure of a flexifunction command
-type FlexifunctionCommandAck struct {
+type MatrixpilotFlexifunctionCommandAck struct {
 	CommandType uint16 // Command acknowledged
 	Result      uint16 // result of acknowledge
 }
 
 // MsgID (generated function)
-func (m *FlexifunctionCommandAck) MsgID() MessageID {
+func (m *MatrixpilotFlexifunctionCommandAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND_ACK
 }
 
 // MsgName (generated function)
-func (m *FlexifunctionCommandAck) MsgName() string {
+func (m *MatrixpilotFlexifunctionCommandAck) MsgName() string {
 	return "FlexifunctionCommandAck"
 }
 
 // Pack (generated function)
-func (m *FlexifunctionCommandAck) Pack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.CommandType))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
@@ -388,7 +388,7 @@ func (m *FlexifunctionCommandAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FlexifunctionCommandAck) Unpack(p *Packet) error {
+func (m *MatrixpilotFlexifunctionCommandAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		return fmt.Errorf("payload too small")
 	}
@@ -397,9 +397,9 @@ func (m *FlexifunctionCommandAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF2A struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF2A struct (generated typeinfo)
 // Backwards compatible MAVLink version of SERIAL_UDB_EXTRA - F2: Format Part A
-type SerialUdbExtraF2A struct {
+type MatrixpilotSerialUdbExtraF2A struct {
 	SueTime           uint32 // Serial UDB Extra Time
 	SueLatitude       int32  // Serial UDB Extra Latitude
 	SueLongitude      int32  // Serial UDB Extra Longitude
@@ -416,7 +416,7 @@ type SerialUdbExtraF2A struct {
 	SueRmat8          int16  // Serial UDB Extra Rmat 8
 	SueCog            uint16 // Serial UDB Extra GPS Course Over Ground
 	SueSog            int16  // Serial UDB Extra Speed Over Ground
-	SueCpuLoad        uint16 // Serial UDB Extra CPU Load
+	SueCPULoad        uint16 // Serial UDB Extra CPU Load
 	SueAirSpeed3dimu  uint16 // Serial UDB Extra 3D IMU Air Speed
 	SueEstimatedWind0 int16  // Serial UDB Extra Estimated Wind 0
 	SueEstimatedWind1 int16  // Serial UDB Extra Estimated Wind 1
@@ -430,17 +430,17 @@ type SerialUdbExtraF2A struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF2A) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF2A) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_A
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF2A) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF2A) MsgName() string {
 	return "SerialUdbExtraF2A"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF2A) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF2A) Pack(p *Packet) error {
 	payload := make([]byte, 61)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTime))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueLatitude))
@@ -458,7 +458,7 @@ func (m *SerialUdbExtraF2A) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[34:], uint16(m.SueRmat8))
 	binary.LittleEndian.PutUint16(payload[36:], uint16(m.SueCog))
 	binary.LittleEndian.PutUint16(payload[38:], uint16(m.SueSog))
-	binary.LittleEndian.PutUint16(payload[40:], uint16(m.SueCpuLoad))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.SueCPULoad))
 	binary.LittleEndian.PutUint16(payload[42:], uint16(m.SueAirSpeed3dimu))
 	binary.LittleEndian.PutUint16(payload[44:], uint16(m.SueEstimatedWind0))
 	binary.LittleEndian.PutUint16(payload[46:], uint16(m.SueEstimatedWind1))
@@ -476,7 +476,7 @@ func (m *SerialUdbExtraF2A) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF2A) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF2A) Unpack(p *Packet) error {
 	if len(p.Payload) < 61 {
 		return fmt.Errorf("payload too small")
 	}
@@ -496,7 +496,7 @@ func (m *SerialUdbExtraF2A) Unpack(p *Packet) error {
 	m.SueRmat8 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
 	m.SueCog = uint16(binary.LittleEndian.Uint16(p.Payload[36:]))
 	m.SueSog = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	m.SueCpuLoad = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
+	m.SueCPULoad = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
 	m.SueAirSpeed3dimu = uint16(binary.LittleEndian.Uint16(p.Payload[42:]))
 	m.SueEstimatedWind0 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
 	m.SueEstimatedWind1 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
@@ -510,9 +510,9 @@ func (m *SerialUdbExtraF2A) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF2B struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF2B struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA - F2: Part B
-type SerialUdbExtraF2B struct {
+type MatrixpilotSerialUdbExtraF2B struct {
 	SueTime                uint32 // Serial UDB Extra Time
 	SueFlags               uint32 // Serial UDB Extra Status Flags
 	SueBaromPress          int32  // SUE barometer pressure
@@ -566,17 +566,17 @@ type SerialUdbExtraF2B struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF2B) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF2B) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_B
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF2B) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF2B) MsgName() string {
 	return "SerialUdbExtraF2B"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF2B) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF2B) Pack(p *Packet) error {
 	payload := make([]byte, 108)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTime))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueFlags))
@@ -635,7 +635,7 @@ func (m *SerialUdbExtraF2B) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF2B) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF2B) Unpack(p *Packet) error {
 	if len(p.Payload) < 108 {
 		return fmt.Errorf("payload too small")
 	}
@@ -692,9 +692,9 @@ func (m *SerialUdbExtraF2B) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF4 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF4 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F4: format
-type SerialUdbExtraF4 struct {
+type MatrixpilotSerialUdbExtraF4 struct {
 	SueRollStabilizationAilerons uint8 // Serial UDB Extra Roll Stabilization with Ailerons Enabled
 	SueRollStabilizationRudder   uint8 // Serial UDB Extra Roll Stabilization with Rudder Enabled
 	SuePitchStabilization        uint8 // Serial UDB Extra Pitch Stabilization Enabled
@@ -708,17 +708,17 @@ type SerialUdbExtraF4 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF4) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF4) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F4
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF4) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF4) MsgName() string {
 	return "SerialUdbExtraF4"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF4) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF4) Pack(p *Packet) error {
 	payload := make([]byte, 10)
 	payload[0] = byte(m.SueRollStabilizationAilerons)
 	payload[1] = byte(m.SueRollStabilizationRudder)
@@ -737,7 +737,7 @@ func (m *SerialUdbExtraF4) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF4) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF4) Unpack(p *Packet) error {
 	if len(p.Payload) < 10 {
 		return fmt.Errorf("payload too small")
 	}
@@ -754,9 +754,9 @@ func (m *SerialUdbExtraF4) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF5 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF5 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F5: format
-type SerialUdbExtraF5 struct {
+type MatrixpilotSerialUdbExtraF5 struct {
 	SueYawkpAileron float32 // Serial UDB YAWKP_AILERON Gain for Proporional control of navigation
 	SueYawkdAileron float32 // Serial UDB YAWKD_AILERON Gain for Rate control of navigation
 	SueRollkp       float32 // Serial UDB Extra ROLLKP Gain for Proportional control of roll stabilization
@@ -764,17 +764,17 @@ type SerialUdbExtraF5 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF5) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF5) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F5
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF5) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF5) MsgName() string {
 	return "SerialUdbExtraF5"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF5) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF5) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueYawkpAileron))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueYawkdAileron))
@@ -787,7 +787,7 @@ func (m *SerialUdbExtraF5) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF5) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF5) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -798,9 +798,9 @@ func (m *SerialUdbExtraF5) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF6 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF6 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F6: format
-type SerialUdbExtraF6 struct {
+type MatrixpilotSerialUdbExtraF6 struct {
 	SuePitchgain     float32 // Serial UDB Extra PITCHGAIN Proportional Control
 	SuePitchkd       float32 // Serial UDB Extra Pitch Rate Control
 	SueRudderElevMix float32 // Serial UDB Extra Rudder to Elevator Mix
@@ -809,17 +809,17 @@ type SerialUdbExtraF6 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF6) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF6) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F6
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF6) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF6) MsgName() string {
 	return "SerialUdbExtraF6"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF6) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF6) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SuePitchgain))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SuePitchkd))
@@ -833,7 +833,7 @@ func (m *SerialUdbExtraF6) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF6) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF6) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -845,9 +845,9 @@ func (m *SerialUdbExtraF6) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF7 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF7 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F7: format
-type SerialUdbExtraF7 struct {
+type MatrixpilotSerialUdbExtraF7 struct {
 	SueYawkpRudder  float32 // Serial UDB YAWKP_RUDDER Gain for Proporional control of navigation
 	SueYawkdRudder  float32 // Serial UDB YAWKD_RUDDER Gain for Rate control of navigation
 	SueRollkpRudder float32 // Serial UDB Extra ROLLKP_RUDDER Gain for Proportional control of roll stabilization
@@ -857,17 +857,17 @@ type SerialUdbExtraF7 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF7) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF7) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F7
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF7) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF7) MsgName() string {
 	return "SerialUdbExtraF7"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF7) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF7) Pack(p *Packet) error {
 	payload := make([]byte, 24)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueYawkpRudder))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueYawkdRudder))
@@ -882,7 +882,7 @@ func (m *SerialUdbExtraF7) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF7) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF7) Unpack(p *Packet) error {
 	if len(p.Payload) < 24 {
 		return fmt.Errorf("payload too small")
 	}
@@ -895,9 +895,9 @@ func (m *SerialUdbExtraF7) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF8 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF8 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F8: format
-type SerialUdbExtraF8 struct {
+type MatrixpilotSerialUdbExtraF8 struct {
 	SueHeightTargetMax    float32 // Serial UDB Extra HEIGHT_TARGET_MAX
 	SueHeightTargetMin    float32 // Serial UDB Extra HEIGHT_TARGET_MIN
 	SueAltHoldThrottleMin float32 // Serial UDB Extra ALT_HOLD_THROTTLE_MIN
@@ -908,17 +908,17 @@ type SerialUdbExtraF8 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF8) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF8) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F8
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF8) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF8) MsgName() string {
 	return "SerialUdbExtraF8"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF8) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF8) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueHeightTargetMax))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueHeightTargetMin))
@@ -934,7 +934,7 @@ func (m *SerialUdbExtraF8) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF8) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF8) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -948,9 +948,9 @@ func (m *SerialUdbExtraF8) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF13 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF13 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F13: format
-type SerialUdbExtraF13 struct {
+type MatrixpilotSerialUdbExtraF13 struct {
 	SueLatOrigin int32 // Serial UDB Extra MP Origin Latitude
 	SueLonOrigin int32 // Serial UDB Extra MP Origin Longitude
 	SueAltOrigin int32 // Serial UDB Extra MP Origin Altitude Above Sea Level
@@ -958,17 +958,17 @@ type SerialUdbExtraF13 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF13) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF13) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F13
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF13) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF13) MsgName() string {
 	return "SerialUdbExtraF13"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF13) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF13) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueLatOrigin))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueLonOrigin))
@@ -981,7 +981,7 @@ func (m *SerialUdbExtraF13) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF13) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF13) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -992,9 +992,9 @@ func (m *SerialUdbExtraF13) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF14 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF14 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F14: format
-type SerialUdbExtraF14 struct {
+type MatrixpilotSerialUdbExtraF14 struct {
 	SueTrapSource     uint32 // Serial UDB Extra Type Program Address of Last Trap
 	SueRcon           int16  // Serial UDB Extra Reboot Register of DSPIC
 	SueTrapFlags      int16  // Serial UDB Extra  Last dspic Trap Flags
@@ -1009,17 +1009,17 @@ type SerialUdbExtraF14 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF14) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF14) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F14
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF14) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF14) MsgName() string {
 	return "SerialUdbExtraF14"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF14) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF14) Pack(p *Packet) error {
 	payload := make([]byte, 17)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.SueTrapSource))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.SueRcon))
@@ -1039,7 +1039,7 @@ func (m *SerialUdbExtraF14) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF14) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF14) Unpack(p *Packet) error {
 	if len(p.Payload) < 17 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1057,25 +1057,25 @@ func (m *SerialUdbExtraF14) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF15 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF15 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F15 format
-type SerialUdbExtraF15 struct {
+type MatrixpilotSerialUdbExtraF15 struct {
 	SueIDVehicleModelName    [40]uint8 // Serial UDB Extra Model Name Of Vehicle
 	SueIDVehicleRegistration [20]uint8 // Serial UDB Extra Registraton Number of Vehicle
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF15) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF15) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F15
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF15) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF15) MsgName() string {
 	return "SerialUdbExtraF15"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF15) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF15) Pack(p *Packet) error {
 	payload := make([]byte, 60)
 	copy(payload[0:], m.SueIDVehicleModelName[:])
 	copy(payload[40:], m.SueIDVehicleRegistration[:])
@@ -1086,7 +1086,7 @@ func (m *SerialUdbExtraF15) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF15) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF15) Unpack(p *Packet) error {
 	if len(p.Payload) < 60 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1095,28 +1095,28 @@ func (m *SerialUdbExtraF15) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF16 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF16 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F16 format
-type SerialUdbExtraF16 struct {
+type MatrixpilotSerialUdbExtraF16 struct {
 	SueIDLeadPilot    [40]uint8 // Serial UDB Extra Name of Expected Lead Pilot
-	SueIDDiyDronesUrl [70]uint8 // Serial UDB Extra URL of Lead Pilot or Team
+	SueIDDiyDronesURL [70]uint8 // Serial UDB Extra URL of Lead Pilot or Team
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF16) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF16) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F16
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF16) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF16) MsgName() string {
 	return "SerialUdbExtraF16"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF16) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF16) Pack(p *Packet) error {
 	payload := make([]byte, 110)
 	copy(payload[0:], m.SueIDLeadPilot[:])
-	copy(payload[40:], m.SueIDDiyDronesUrl[:])
+	copy(payload[40:], m.SueIDDiyDronesURL[:])
 
 	p.MsgID = m.MsgID()
 	p.Payload = payload
@@ -1124,18 +1124,18 @@ func (m *SerialUdbExtraF16) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF16) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF16) Unpack(p *Packet) error {
 	if len(p.Payload) < 110 {
 		return fmt.Errorf("payload too small")
 	}
 	copy(m.SueIDLeadPilot[:], p.Payload[0:40])
-	copy(m.SueIDDiyDronesUrl[:], p.Payload[40:110])
+	copy(m.SueIDDiyDronesURL[:], p.Payload[40:110])
 	return nil
 }
 
-// Altitudes struct (generated typeinfo)
+// MatrixpilotAltitudes struct (generated typeinfo)
 // The altitude measured by sensors and IMU
-type Altitudes struct {
+type MatrixpilotAltitudes struct {
 	TimeBootMs     uint32 // Timestamp (milliseconds since system boot)
 	AltGps         int32  // GPS altitude in meters, expressed as * 1000 (millimeters), above MSL
 	AltImu         int32  // IMU altitude above ground in meters, expressed as * 1000 (millimeters)
@@ -1146,17 +1146,17 @@ type Altitudes struct {
 }
 
 // MsgID (generated function)
-func (m *Altitudes) MsgID() MessageID {
+func (m *MatrixpilotAltitudes) MsgID() MessageID {
 	return MSG_ID_ALTITUDES
 }
 
 // MsgName (generated function)
-func (m *Altitudes) MsgName() string {
+func (m *MatrixpilotAltitudes) MsgName() string {
 	return "Altitudes"
 }
 
 // Pack (generated function)
-func (m *Altitudes) Pack(p *Packet) error {
+func (m *MatrixpilotAltitudes) Pack(p *Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.AltGps))
@@ -1172,7 +1172,7 @@ func (m *Altitudes) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Altitudes) Unpack(p *Packet) error {
+func (m *MatrixpilotAltitudes) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1186,9 +1186,9 @@ func (m *Altitudes) Unpack(p *Packet) error {
 	return nil
 }
 
-// Airspeeds struct (generated typeinfo)
+// MatrixpilotAirspeeds struct (generated typeinfo)
 // The airspeed measured by sensors and IMU
-type Airspeeds struct {
+type MatrixpilotAirspeeds struct {
 	TimeBootMs         uint32 // Timestamp (milliseconds since system boot)
 	AirspeedImu        int16  // Airspeed estimate from IMU, cm/s
 	AirspeedPitot      int16  // Pitot measured forward airpseed, cm/s
@@ -1199,17 +1199,17 @@ type Airspeeds struct {
 }
 
 // MsgID (generated function)
-func (m *Airspeeds) MsgID() MessageID {
+func (m *MatrixpilotAirspeeds) MsgID() MessageID {
 	return MSG_ID_AIRSPEEDS
 }
 
 // MsgName (generated function)
-func (m *Airspeeds) MsgName() string {
+func (m *MatrixpilotAirspeeds) MsgName() string {
 	return "Airspeeds"
 }
 
 // Pack (generated function)
-func (m *Airspeeds) Pack(p *Packet) error {
+func (m *MatrixpilotAirspeeds) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.AirspeedImu))
@@ -1225,7 +1225,7 @@ func (m *Airspeeds) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *Airspeeds) Unpack(p *Packet) error {
+func (m *MatrixpilotAirspeeds) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1239,26 +1239,26 @@ func (m *Airspeeds) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF17 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF17 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F17 format
-type SerialUdbExtraF17 struct {
+type MatrixpilotSerialUdbExtraF17 struct {
 	SueFeedForward float32 // SUE Feed Forward Gain
 	SueTurnRateNav float32 // SUE Max Turn Rate when Navigating
 	SueTurnRateFbw float32 // SUE Max Turn Rate in Fly By Wire Mode
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF17) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF17) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F17
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF17) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF17) MsgName() string {
 	return "SerialUdbExtraF17"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF17) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF17) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueFeedForward))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueTurnRateNav))
@@ -1270,7 +1270,7 @@ func (m *SerialUdbExtraF17) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF17) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF17) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1280,9 +1280,9 @@ func (m *SerialUdbExtraF17) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF18 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF18 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F18 format
-type SerialUdbExtraF18 struct {
+type MatrixpilotSerialUdbExtraF18 struct {
 	AngleOfAttackNormal   float32 // SUE Angle of Attack Normal
 	AngleOfAttackInverted float32 // SUE Angle of Attack Inverted
 	ElevatorTrimNormal    float32 // SUE Elevator Trim Normal
@@ -1291,17 +1291,17 @@ type SerialUdbExtraF18 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF18) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF18) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F18
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF18) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF18) MsgName() string {
 	return "SerialUdbExtraF18"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF18) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF18) Pack(p *Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.AngleOfAttackNormal))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.AngleOfAttackInverted))
@@ -1315,7 +1315,7 @@ func (m *SerialUdbExtraF18) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF18) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF18) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1327,9 +1327,9 @@ func (m *SerialUdbExtraF18) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF19 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF19 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F19 format
-type SerialUdbExtraF19 struct {
+type MatrixpilotSerialUdbExtraF19 struct {
 	SueAileronOutputChannel  uint8 // SUE aileron output channel
 	SueAileronReversed       uint8 // SUE aileron reversed
 	SueElevatorOutputChannel uint8 // SUE elevator output channel
@@ -1341,17 +1341,17 @@ type SerialUdbExtraF19 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF19) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF19) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F19
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF19) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF19) MsgName() string {
 	return "SerialUdbExtraF19"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF19) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF19) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	payload[0] = byte(m.SueAileronOutputChannel)
 	payload[1] = byte(m.SueAileronReversed)
@@ -1368,7 +1368,7 @@ func (m *SerialUdbExtraF19) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF19) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF19) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1383,9 +1383,9 @@ func (m *SerialUdbExtraF19) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF20 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF20 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F20 format
-type SerialUdbExtraF20 struct {
+type MatrixpilotSerialUdbExtraF20 struct {
 	SueTrimValueInput1  int16 // SUE UDB PWM Trim Value on Input 1
 	SueTrimValueInput2  int16 // SUE UDB PWM Trim Value on Input 2
 	SueTrimValueInput3  int16 // SUE UDB PWM Trim Value on Input 3
@@ -1402,17 +1402,17 @@ type SerialUdbExtraF20 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF20) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF20) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F20
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF20) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF20) MsgName() string {
 	return "SerialUdbExtraF20"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF20) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF20) Pack(p *Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueTrimValueInput1))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueTrimValueInput2))
@@ -1434,7 +1434,7 @@ func (m *SerialUdbExtraF20) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF20) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF20) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1454,9 +1454,9 @@ func (m *SerialUdbExtraF20) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF21 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF21 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F21 format
-type SerialUdbExtraF21 struct {
+type MatrixpilotSerialUdbExtraF21 struct {
 	SueAccelXOffset int16 // SUE X accelerometer offset
 	SueAccelYOffset int16 // SUE Y accelerometer offset
 	SueAccelZOffset int16 // SUE Z accelerometer offset
@@ -1466,17 +1466,17 @@ type SerialUdbExtraF21 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF21) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF21) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F21
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF21) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF21) MsgName() string {
 	return "SerialUdbExtraF21"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF21) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF21) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueAccelXOffset))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueAccelYOffset))
@@ -1491,7 +1491,7 @@ func (m *SerialUdbExtraF21) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF21) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF21) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1504,9 +1504,9 @@ func (m *SerialUdbExtraF21) Unpack(p *Packet) error {
 	return nil
 }
 
-// SerialUdbExtraF22 struct (generated typeinfo)
+// MatrixpilotSerialUdbExtraF22 struct (generated typeinfo)
 // Backwards compatible version of SERIAL_UDB_EXTRA F22 format
-type SerialUdbExtraF22 struct {
+type MatrixpilotSerialUdbExtraF22 struct {
 	SueAccelXAtCalibration int16 // SUE X accelerometer at calibration time
 	SueAccelYAtCalibration int16 // SUE Y accelerometer at calibration time
 	SueAccelZAtCalibration int16 // SUE Z accelerometer at calibration time
@@ -1516,17 +1516,17 @@ type SerialUdbExtraF22 struct {
 }
 
 // MsgID (generated function)
-func (m *SerialUdbExtraF22) MsgID() MessageID {
+func (m *MatrixpilotSerialUdbExtraF22) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F22
 }
 
 // MsgName (generated function)
-func (m *SerialUdbExtraF22) MsgName() string {
+func (m *MatrixpilotSerialUdbExtraF22) MsgName() string {
 	return "SerialUdbExtraF22"
 }
 
 // Pack (generated function)
-func (m *SerialUdbExtraF22) Pack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF22) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.SueAccelXAtCalibration))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.SueAccelYAtCalibration))
@@ -1541,7 +1541,7 @@ func (m *SerialUdbExtraF22) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SerialUdbExtraF22) Unpack(p *Packet) error {
+func (m *MatrixpilotSerialUdbExtraF22) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		return fmt.Errorf("payload too small")
 	}
@@ -1619,137 +1619,137 @@ var DialectMatrixpilot = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_FLEXIFUNCTION_SET: func(pkt *Packet) Message {
-			msg := new(FlexifunctionSet)
+			msg := new(MatrixpilotFlexifunctionSet)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_READ_REQ: func(pkt *Packet) Message {
-			msg := new(FlexifunctionReadReq)
+			msg := new(MatrixpilotFlexifunctionReadReq)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION: func(pkt *Packet) Message {
-			msg := new(FlexifunctionBufferFunction)
+			msg := new(MatrixpilotFlexifunctionBufferFunction)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION_ACK: func(pkt *Packet) Message {
-			msg := new(FlexifunctionBufferFunctionAck)
+			msg := new(MatrixpilotFlexifunctionBufferFunctionAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_DIRECTORY: func(pkt *Packet) Message {
-			msg := new(FlexifunctionDirectory)
+			msg := new(MatrixpilotFlexifunctionDirectory)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_DIRECTORY_ACK: func(pkt *Packet) Message {
-			msg := new(FlexifunctionDirectoryAck)
+			msg := new(MatrixpilotFlexifunctionDirectoryAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_COMMAND: func(pkt *Packet) Message {
-			msg := new(FlexifunctionCommand)
+			msg := new(MatrixpilotFlexifunctionCommand)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FLEXIFUNCTION_COMMAND_ACK: func(pkt *Packet) Message {
-			msg := new(FlexifunctionCommandAck)
+			msg := new(MatrixpilotFlexifunctionCommandAck)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F2_A: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF2A)
+			msg := new(MatrixpilotSerialUdbExtraF2A)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F2_B: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF2B)
+			msg := new(MatrixpilotSerialUdbExtraF2B)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F4: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF4)
+			msg := new(MatrixpilotSerialUdbExtraF4)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F5: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF5)
+			msg := new(MatrixpilotSerialUdbExtraF5)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F6: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF6)
+			msg := new(MatrixpilotSerialUdbExtraF6)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F7: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF7)
+			msg := new(MatrixpilotSerialUdbExtraF7)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F8: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF8)
+			msg := new(MatrixpilotSerialUdbExtraF8)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F13: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF13)
+			msg := new(MatrixpilotSerialUdbExtraF13)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F14: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF14)
+			msg := new(MatrixpilotSerialUdbExtraF14)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F15: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF15)
+			msg := new(MatrixpilotSerialUdbExtraF15)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F16: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF16)
+			msg := new(MatrixpilotSerialUdbExtraF16)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ALTITUDES: func(pkt *Packet) Message {
-			msg := new(Altitudes)
+			msg := new(MatrixpilotAltitudes)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_AIRSPEEDS: func(pkt *Packet) Message {
-			msg := new(Airspeeds)
+			msg := new(MatrixpilotAirspeeds)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F17: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF17)
+			msg := new(MatrixpilotSerialUdbExtraF17)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F18: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF18)
+			msg := new(MatrixpilotSerialUdbExtraF18)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F19: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF19)
+			msg := new(MatrixpilotSerialUdbExtraF19)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F20: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF20)
+			msg := new(MatrixpilotSerialUdbExtraF20)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F21: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF21)
+			msg := new(MatrixpilotSerialUdbExtraF21)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SERIAL_UDB_EXTRA_F22: func(pkt *Packet) Message {
-			msg := new(SerialUdbExtraF22)
+			msg := new(MatrixpilotSerialUdbExtraF22)
 			msg.Unpack(pkt)
 			return msg
 		},

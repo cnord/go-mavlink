@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/cnord/go-mavlink/mavlink"
+	"../mavlink1"
 )
 
 //////////////////////////////////////

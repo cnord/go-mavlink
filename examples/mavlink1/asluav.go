@@ -20,9 +20,9 @@ const (
 	MAV_CMD_PAYLOAD_CONTROL = 40002 // Mission command to perform a power cycle on payload
 )
 
-// SensPower struct (generated typeinfo)
+// AsluavSensPower struct (generated typeinfo)
 // Voltage and current sensor data
-type SensPower struct {
+type AsluavSensPower struct {
 	Adc121VspbVolt float32 //  Power board voltage sensor reading in volts
 	Adc121CspbAmp  float32 //  Power board current sensor reading in amps
 	Adc121Cs1Amp   float32 //  Board current sensor 1 reading in amps
@@ -30,17 +30,17 @@ type SensPower struct {
 }
 
 // MsgID (generated function)
-func (m *SensPower) MsgID() MessageID {
+func (m *AsluavSensPower) MsgID() MessageID {
 	return MSG_ID_SENS_POWER
 }
 
 // MsgName (generated function)
-func (m *SensPower) MsgName() string {
+func (m *AsluavSensPower) MsgName() string {
 	return "SensPower"
 }
 
 // Pack (generated function)
-func (m *SensPower) Pack(p *Packet) error {
+func (m *AsluavSensPower) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Adc121VspbVolt))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Adc121CspbAmp))
@@ -53,7 +53,7 @@ func (m *SensPower) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensPower) Unpack(p *Packet) error {
+func (m *AsluavSensPower) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -64,9 +64,9 @@ func (m *SensPower) Unpack(p *Packet) error {
 	return nil
 }
 
-// SensMppt struct (generated typeinfo)
+// AsluavSensMppt struct (generated typeinfo)
 // Maximum Power Point Tracker (MPPT) sensor data for solar module power performance tracking
-type SensMppt struct {
+type AsluavSensMppt struct {
 	MpptTimestamp uint64  //  MPPT last timestamp
 	Mppt1Volt     float32 //  MPPT1 voltage
 	Mppt1Amp      float32 //  MPPT1 current
@@ -83,17 +83,17 @@ type SensMppt struct {
 }
 
 // MsgID (generated function)
-func (m *SensMppt) MsgID() MessageID {
+func (m *AsluavSensMppt) MsgID() MessageID {
 	return MSG_ID_SENS_MPPT
 }
 
 // MsgName (generated function)
-func (m *SensMppt) MsgName() string {
+func (m *AsluavSensMppt) MsgName() string {
 	return "SensMppt"
 }
 
 // Pack (generated function)
-func (m *SensMppt) Pack(p *Packet) error {
+func (m *AsluavSensMppt) Pack(p *Packet) error {
 	payload := make([]byte, 41)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.MpptTimestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Mppt1Volt))
@@ -115,7 +115,7 @@ func (m *SensMppt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensMppt) Unpack(p *Packet) error {
+func (m *AsluavSensMppt) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
 		return fmt.Errorf("payload too small")
 	}
@@ -135,9 +135,9 @@ func (m *SensMppt) Unpack(p *Packet) error {
 	return nil
 }
 
-// AslctrlData struct (generated typeinfo)
+// AsluavAslctrlData struct (generated typeinfo)
 // ASL-fixed-wing controller data
-type AslctrlData struct {
+type AsluavAslctrlData struct {
 	Timestamp       uint64  //  Timestamp
 	H               float32 //  See sourcecode for a description of these values...
 	Href            float32 //
@@ -166,17 +166,17 @@ type AslctrlData struct {
 }
 
 // MsgID (generated function)
-func (m *AslctrlData) MsgID() MessageID {
+func (m *AsluavAslctrlData) MsgID() MessageID {
 	return MSG_ID_ASLCTRL_DATA
 }
 
 // MsgName (generated function)
-func (m *AslctrlData) MsgName() string {
+func (m *AsluavAslctrlData) MsgName() string {
 	return "AslctrlData"
 }
 
 // Pack (generated function)
-func (m *AslctrlData) Pack(p *Packet) error {
+func (m *AsluavAslctrlData) Pack(p *Packet) error {
 	payload := make([]byte, 98)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.H))
@@ -210,7 +210,7 @@ func (m *AslctrlData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AslctrlData) Unpack(p *Packet) error {
+func (m *AsluavAslctrlData) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
 		return fmt.Errorf("payload too small")
 	}
@@ -242,9 +242,9 @@ func (m *AslctrlData) Unpack(p *Packet) error {
 	return nil
 }
 
-// AslctrlDebug struct (generated typeinfo)
+// AsluavAslctrlDebug struct (generated typeinfo)
 // ASL-fixed-wing controller debug data
-type AslctrlDebug struct {
+type AsluavAslctrlDebug struct {
 	I321 uint32  //  Debug data
 	F1   float32 //  Debug data
 	F2   float32 //  Debug data
@@ -259,17 +259,17 @@ type AslctrlDebug struct {
 }
 
 // MsgID (generated function)
-func (m *AslctrlDebug) MsgID() MessageID {
+func (m *AsluavAslctrlDebug) MsgID() MessageID {
 	return MSG_ID_ASLCTRL_DEBUG
 }
 
 // MsgName (generated function)
-func (m *AslctrlDebug) MsgName() string {
+func (m *AsluavAslctrlDebug) MsgName() string {
 	return "AslctrlDebug"
 }
 
 // Pack (generated function)
-func (m *AslctrlDebug) Pack(p *Packet) error {
+func (m *AsluavAslctrlDebug) Pack(p *Packet) error {
 	payload := make([]byte, 38)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.I321))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.F1))
@@ -289,7 +289,7 @@ func (m *AslctrlDebug) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AslctrlDebug) Unpack(p *Packet) error {
+func (m *AsluavAslctrlDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
 		return fmt.Errorf("payload too small")
 	}
@@ -307,9 +307,9 @@ func (m *AslctrlDebug) Unpack(p *Packet) error {
 	return nil
 }
 
-// AsluavStatus struct (generated typeinfo)
+// AsluavAsluavStatus struct (generated typeinfo)
 // Extended state information for ASLUAVs
-type AsluavStatus struct {
+type AsluavAsluavStatus struct {
 	MotorRpm     float32  //  Motor RPM
 	LedStatus    uint8    //  Status of the position-indicator LEDs
 	SatcomStatus uint8    //  Status of the IRIDIUM satellite communication system
@@ -317,17 +317,17 @@ type AsluavStatus struct {
 }
 
 // MsgID (generated function)
-func (m *AsluavStatus) MsgID() MessageID {
+func (m *AsluavAsluavStatus) MsgID() MessageID {
 	return MSG_ID_ASLUAV_STATUS
 }
 
 // MsgName (generated function)
-func (m *AsluavStatus) MsgName() string {
+func (m *AsluavAsluavStatus) MsgName() string {
 	return "AsluavStatus"
 }
 
 // Pack (generated function)
-func (m *AsluavStatus) Pack(p *Packet) error {
+func (m *AsluavAsluavStatus) Pack(p *Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.MotorRpm))
 	payload[4] = byte(m.LedStatus)
@@ -340,7 +340,7 @@ func (m *AsluavStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AsluavStatus) Unpack(p *Packet) error {
+func (m *AsluavAsluavStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		return fmt.Errorf("payload too small")
 	}
@@ -351,9 +351,9 @@ func (m *AsluavStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// EkfExt struct (generated typeinfo)
+// AsluavEkfExt struct (generated typeinfo)
 // Extended EKF state estimates for ASLUAVs
-type EkfExt struct {
+type AsluavEkfExt struct {
 	Timestamp uint64  //  Time since system start [us]
 	Windspeed float32 //  Magnitude of wind velocity (in lateral inertial plane) [m/s]
 	Winddir   float32 //  Wind heading angle from North [rad]
@@ -364,17 +364,17 @@ type EkfExt struct {
 }
 
 // MsgID (generated function)
-func (m *EkfExt) MsgID() MessageID {
+func (m *AsluavEkfExt) MsgID() MessageID {
 	return MSG_ID_EKF_EXT
 }
 
 // MsgName (generated function)
-func (m *EkfExt) MsgName() string {
+func (m *AsluavEkfExt) MsgName() string {
 	return "EkfExt"
 }
 
 // Pack (generated function)
-func (m *EkfExt) Pack(p *Packet) error {
+func (m *AsluavEkfExt) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Windspeed))
@@ -390,7 +390,7 @@ func (m *EkfExt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *EkfExt) Unpack(p *Packet) error {
+func (m *AsluavEkfExt) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		return fmt.Errorf("payload too small")
 	}
@@ -404,9 +404,9 @@ func (m *EkfExt) Unpack(p *Packet) error {
 	return nil
 }
 
-// AslObctrl struct (generated typeinfo)
+// AsluavAslObctrl struct (generated typeinfo)
 // Off-board controls/commands for ASLUAVs
-type AslObctrl struct {
+type AsluavAslObctrl struct {
 	Timestamp    uint64  //  Time since system start [us]
 	Uelev        float32 //  Elevator command [~]
 	Uthrot       float32 //  Throttle command [~]
@@ -418,17 +418,17 @@ type AslObctrl struct {
 }
 
 // MsgID (generated function)
-func (m *AslObctrl) MsgID() MessageID {
+func (m *AsluavAslObctrl) MsgID() MessageID {
 	return MSG_ID_ASL_OBCTRL
 }
 
 // MsgName (generated function)
-func (m *AslObctrl) MsgName() string {
+func (m *AsluavAslObctrl) MsgName() string {
 	return "AslObctrl"
 }
 
 // Pack (generated function)
-func (m *AslObctrl) Pack(p *Packet) error {
+func (m *AsluavAslObctrl) Pack(p *Packet) error {
 	payload := make([]byte, 33)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Uelev))
@@ -445,7 +445,7 @@ func (m *AslObctrl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *AslObctrl) Unpack(p *Packet) error {
+func (m *AsluavAslObctrl) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		return fmt.Errorf("payload too small")
 	}
@@ -460,25 +460,25 @@ func (m *AslObctrl) Unpack(p *Packet) error {
 	return nil
 }
 
-// SensAtmos struct (generated typeinfo)
+// AsluavSensAtmos struct (generated typeinfo)
 // Atmospheric sensors (temperature, humidity, ...)
-type SensAtmos struct {
+type AsluavSensAtmos struct {
 	Tempambient float32 //  Ambient temperature [degrees Celsius]
 	Humidity    float32 //  Relative humidity [%]
 }
 
 // MsgID (generated function)
-func (m *SensAtmos) MsgID() MessageID {
+func (m *AsluavSensAtmos) MsgID() MessageID {
 	return MSG_ID_SENS_ATMOS
 }
 
 // MsgName (generated function)
-func (m *SensAtmos) MsgName() string {
+func (m *AsluavSensAtmos) MsgName() string {
 	return "SensAtmos"
 }
 
 // Pack (generated function)
-func (m *SensAtmos) Pack(p *Packet) error {
+func (m *AsluavSensAtmos) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Tempambient))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Humidity))
@@ -489,7 +489,7 @@ func (m *SensAtmos) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensAtmos) Unpack(p *Packet) error {
+func (m *AsluavSensAtmos) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		return fmt.Errorf("payload too small")
 	}
@@ -498,9 +498,9 @@ func (m *SensAtmos) Unpack(p *Packet) error {
 	return nil
 }
 
-// SensBatmon struct (generated typeinfo)
+// AsluavSensBatmon struct (generated typeinfo)
 // Battery pack monitoring data for Li-Ion batteries
-type SensBatmon struct {
+type AsluavSensBatmon struct {
 	Temperature    float32 // Battery pack temperature in [deg C]
 	Voltage        uint16  // Battery pack voltage in [mV]
 	Current        int16   // Battery pack current in [mA]
@@ -517,17 +517,17 @@ type SensBatmon struct {
 }
 
 // MsgID (generated function)
-func (m *SensBatmon) MsgID() MessageID {
+func (m *AsluavSensBatmon) MsgID() MessageID {
 	return MSG_ID_SENS_BATMON
 }
 
 // MsgName (generated function)
-func (m *SensBatmon) MsgName() string {
+func (m *AsluavSensBatmon) MsgName() string {
 	return "SensBatmon"
 }
 
 // Pack (generated function)
-func (m *SensBatmon) Pack(p *Packet) error {
+func (m *AsluavSensBatmon) Pack(p *Packet) error {
 	payload := make([]byte, 27)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Temperature))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Voltage))
@@ -549,7 +549,7 @@ func (m *SensBatmon) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensBatmon) Unpack(p *Packet) error {
+func (m *AsluavSensBatmon) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		return fmt.Errorf("payload too small")
 	}
@@ -569,9 +569,9 @@ func (m *SensBatmon) Unpack(p *Packet) error {
 	return nil
 }
 
-// FwSoaringData struct (generated typeinfo)
+// AsluavFwSoaringData struct (generated typeinfo)
 // Fixed-wing soaring (i.e. thermal seeking) data
-type FwSoaringData struct {
+type AsluavFwSoaringData struct {
 	Timestamp            uint64  // Timestamp [ms]
 	Timestampmodechanged uint64  // Timestamp since last mode change[ms]
 	Xw                   float32 // Thermal core updraft strength [m/s]
@@ -600,17 +600,17 @@ type FwSoaringData struct {
 }
 
 // MsgID (generated function)
-func (m *FwSoaringData) MsgID() MessageID {
+func (m *AsluavFwSoaringData) MsgID() MessageID {
 	return MSG_ID_FW_SOARING_DATA
 }
 
 // MsgName (generated function)
-func (m *FwSoaringData) MsgName() string {
+func (m *AsluavFwSoaringData) MsgName() string {
 	return "FwSoaringData"
 }
 
 // Pack (generated function)
-func (m *FwSoaringData) Pack(p *Packet) error {
+func (m *AsluavFwSoaringData) Pack(p *Packet) error {
 	payload := make([]byte, 102)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Timestampmodechanged))
@@ -644,7 +644,7 @@ func (m *FwSoaringData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *FwSoaringData) Unpack(p *Packet) error {
+func (m *AsluavFwSoaringData) Unpack(p *Packet) error {
 	if len(p.Payload) < 102 {
 		return fmt.Errorf("payload too small")
 	}
@@ -676,9 +676,9 @@ func (m *FwSoaringData) Unpack(p *Packet) error {
 	return nil
 }
 
-// SensorpodStatus struct (generated typeinfo)
+// AsluavSensorpodStatus struct (generated typeinfo)
 // Monitoring of sensorpod status
-type SensorpodStatus struct {
+type AsluavSensorpodStatus struct {
 	Timestamp           uint64 // Timestamp in linuxtime [ms] (since 1.1.1970)
 	FreeSpace           uint16 // Free space available in recordings directory in [Gb] * 1e2
 	VisensorRate1       uint8  // Rate of ROS topic 1
@@ -686,21 +686,21 @@ type SensorpodStatus struct {
 	VisensorRate3       uint8  // Rate of ROS topic 3
 	VisensorRate4       uint8  // Rate of ROS topic 4
 	RecordingNodesCount uint8  // Number of recording nodes
-	CpuTemp             uint8  // Temperature of sensorpod CPU in [deg C]
+	CPUTemp             uint8  // Temperature of sensorpod CPU in [deg C]
 }
 
 // MsgID (generated function)
-func (m *SensorpodStatus) MsgID() MessageID {
+func (m *AsluavSensorpodStatus) MsgID() MessageID {
 	return MSG_ID_SENSORPOD_STATUS
 }
 
 // MsgName (generated function)
-func (m *SensorpodStatus) MsgName() string {
+func (m *AsluavSensorpodStatus) MsgName() string {
 	return "SensorpodStatus"
 }
 
 // Pack (generated function)
-func (m *SensorpodStatus) Pack(p *Packet) error {
+func (m *AsluavSensorpodStatus) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.FreeSpace))
@@ -709,7 +709,7 @@ func (m *SensorpodStatus) Pack(p *Packet) error {
 	payload[12] = byte(m.VisensorRate3)
 	payload[13] = byte(m.VisensorRate4)
 	payload[14] = byte(m.RecordingNodesCount)
-	payload[15] = byte(m.CpuTemp)
+	payload[15] = byte(m.CPUTemp)
 
 	p.MsgID = m.MsgID()
 	p.Payload = payload
@@ -717,7 +717,7 @@ func (m *SensorpodStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensorpodStatus) Unpack(p *Packet) error {
+func (m *AsluavSensorpodStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		return fmt.Errorf("payload too small")
 	}
@@ -728,13 +728,13 @@ func (m *SensorpodStatus) Unpack(p *Packet) error {
 	m.VisensorRate3 = uint8(p.Payload[12])
 	m.VisensorRate4 = uint8(p.Payload[13])
 	m.RecordingNodesCount = uint8(p.Payload[14])
-	m.CpuTemp = uint8(p.Payload[15])
+	m.CPUTemp = uint8(p.Payload[15])
 	return nil
 }
 
-// SensPowerBoard struct (generated typeinfo)
+// AsluavSensPowerBoard struct (generated typeinfo)
 // Monitoring of power board status
-type SensPowerBoard struct {
+type AsluavSensPowerBoard struct {
 	Timestamp        uint64  // Timestamp
 	PwrBrdSystemVolt float32 // Power board system voltage
 	PwrBrdServoVolt  float32 // Power board servo voltage
@@ -750,17 +750,17 @@ type SensPowerBoard struct {
 }
 
 // MsgID (generated function)
-func (m *SensPowerBoard) MsgID() MessageID {
+func (m *AsluavSensPowerBoard) MsgID() MessageID {
 	return MSG_ID_SENS_POWER_BOARD
 }
 
 // MsgName (generated function)
-func (m *SensPowerBoard) MsgName() string {
+func (m *AsluavSensPowerBoard) MsgName() string {
 	return "SensPowerBoard"
 }
 
 // Pack (generated function)
-func (m *SensPowerBoard) Pack(p *Packet) error {
+func (m *AsluavSensPowerBoard) Pack(p *Packet) error {
 	payload := make([]byte, 46)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PwrBrdSystemVolt))
@@ -781,7 +781,7 @@ func (m *SensPowerBoard) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *SensPowerBoard) Unpack(p *Packet) error {
+func (m *AsluavSensPowerBoard) Unpack(p *Packet) error {
 	if len(p.Payload) < 46 {
 		return fmt.Errorf("payload too small")
 	}
@@ -835,62 +835,62 @@ var DialectAsluav = &Dialect{
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_SENS_POWER: func(pkt *Packet) Message {
-			msg := new(SensPower)
+			msg := new(AsluavSensPower)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SENS_MPPT: func(pkt *Packet) Message {
-			msg := new(SensMppt)
+			msg := new(AsluavSensMppt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ASLCTRL_DATA: func(pkt *Packet) Message {
-			msg := new(AslctrlData)
+			msg := new(AsluavAslctrlData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ASLCTRL_DEBUG: func(pkt *Packet) Message {
-			msg := new(AslctrlDebug)
+			msg := new(AsluavAslctrlDebug)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ASLUAV_STATUS: func(pkt *Packet) Message {
-			msg := new(AsluavStatus)
+			msg := new(AsluavAsluavStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_EKF_EXT: func(pkt *Packet) Message {
-			msg := new(EkfExt)
+			msg := new(AsluavEkfExt)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_ASL_OBCTRL: func(pkt *Packet) Message {
-			msg := new(AslObctrl)
+			msg := new(AsluavAslObctrl)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SENS_ATMOS: func(pkt *Packet) Message {
-			msg := new(SensAtmos)
+			msg := new(AsluavSensAtmos)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SENS_BATMON: func(pkt *Packet) Message {
-			msg := new(SensBatmon)
+			msg := new(AsluavSensBatmon)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_FW_SOARING_DATA: func(pkt *Packet) Message {
-			msg := new(FwSoaringData)
+			msg := new(AsluavFwSoaringData)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SENSORPOD_STATUS: func(pkt *Packet) Message {
-			msg := new(SensorpodStatus)
+			msg := new(AsluavSensorpodStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
 		MSG_ID_SENS_POWER_BOARD: func(pkt *Packet) Message {
-			msg := new(SensPowerBoard)
+			msg := new(AsluavSensPowerBoard)
 			msg.Unpack(pkt)
 			return msg
 		},

@@ -8,3 +8,6 @@ mavgen/mavgen
 
 # idea
 .idea
+
+# examples/udprx/udprx
+examples/udprx/udprx
