@@ -4,17 +4,26 @@
 package mavlink
 
 import (
-	"bufio"
 	"errors"
+	"fmt"
 	"github.com/asmyasnikov/go-mavlink/x25"
 	"io"
+	"runtime"
 	"sync"
+	"time"
 )
 
 const (
 	numChecksumBytes = 2
 	magicNumber      = 0xfd
 	hdrLen           = 10
+)
+
+const (
+	DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND = iota
+	DECODE_ITERATION_EXIT_CODE_TOO_SMALL = iota
+	DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER = iota
+	DECODE_ITERATION_EXIT_ENUM_END = iota
 )
 
 var (
@@ -56,7 +65,7 @@ type Decoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id decoded
 	Dialects  DialectSlice // dialects that can be decoded
-	br        *bufio.Reader
+	data   	  chan []byte
 	buffer    []byte // stores bytes we've read from br
 }
 
@@ -65,37 +74,62 @@ type Encoder struct {
 	sync.Mutex
 	CurrSeqID uint8        // last seq id encoded
 	Dialects  DialectSlice // dialects that can be encoded
-	bw        *bufio.Writer
+	data   	  chan []byte
+}
+
+// NewChannelDecoder function create decoder instance with default dialect
+func NewChannelDecoder(data chan []byte) *Decoder {
+	d := &Decoder{
+		Dialects: DialectSlice{DialectCommon},
+		data 	: data,
+	}
+	return d
 }
 
 // NewDecoder function create decoder instance with default dialect
 func NewDecoder(r io.Reader) *Decoder {
 	d := &Decoder{
 		Dialects: DialectSlice{DialectCommon},
+		data	: make(chan []byte, 256),
 	}
-
-	if v, ok := r.(*bufio.Reader); ok {
-		d.br = v
-	} else {
-		d.br = bufio.NewReader(r)
-	}
-
+	go func (){
+		for {
+			bytesRead := make([]byte, 256)
+			n, err := io.ReadAtLeast(r, bytesRead, 1)
+			if err != nil {
+				runtime.Gosched()
+			} else {
+				fmt.Println("Receive decoder data : ", bytesRead[:n])
+				d.data <- bytesRead[:n]
+				fmt.Println("Decoder data pushed: ", bytesRead[:n])
+			}
+		}
+	}()
 	return d
 }
 
 // NewEncoder function create encoder instance with default dialect
-func NewEncoder(w io.Writer) *Encoder {
-
+func NewChannelEncoder(data chan []byte) *Encoder {
 	e := &Encoder{
 		Dialects: DialectSlice{DialectCommon},
+		data	: data,
 	}
+	return e
+}
 
-	if v, ok := w.(*bufio.Writer); ok {
-		e.bw = v
-	} else {
-		e.bw = bufio.NewWriter(w)
+// NewEncoder function create encoder instance with default dialect
+func NewEncoder(w io.Writer) *Encoder {
+	e := &Encoder{
+		Dialects: DialectSlice{DialectCommon},
+		data	: make(chan []byte, 256),
 	}
-
+	go func (){
+		for {
+			buffer := <- e.data
+			fmt.Println("Receive encoder data : ", buffer)
+			w.Write(buffer)
+		}
+	}()
 	return e
 }
 
@@ -116,7 +150,29 @@ func newPacketFromBytes(b []byte) (*Packet, int) {
 // a message they're interested in, and convert it to the
 // corresponding type via Message.FromPacket()
 func (dec *Decoder) Decode() (*Packet, error) {
+	return dec.TimedDecode(nil)
+}
+
+// Decode function reads and parses from its reader
+// Typically, the caller will check the p.MsgID to see if it's
+// a message they're interested in, and convert it to the
+// corresponding type via Message.FromPacket()
+func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
+	started := time.Now()
+	iterationExitCode := DECODE_ITERATION_EXIT_ENUM_END
 	for {
+		select {
+			case buffer := <- dec.data:
+				fmt.Println("Receive new data from channel...")
+				dec.buffer = append(dec.buffer, buffer...)
+			case <-time.After(time.Microsecond) :
+				fmt.Println("Timeout data from channel...")
+				if iterationExitCode != DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND {
+					return nil, errors.New("No new data")
+				}
+		}
+		fmt.Printf("Try to find MAGIC in buffer[%d].\n", len(dec.buffer))
+		fmt.Println(dec.buffer)
 		startFoundInBuffer := false
 		// discard bytes in buffer before start byte
 		for i, b := range dec.buffer {
@@ -127,60 +183,37 @@ func (dec *Decoder) Decode() (*Packet, error) {
 			}
 		}
 
-		// if start not found, read until we see start byte
+		// if start not found, do next iteration
 		if !startFoundInBuffer {
-			for {
-				c, err := dec.br.ReadByte()
-				if err != nil {
-					if len(dec.buffer) > 0 {
-						dec.buffer = dec.buffer[1:]
-						continue
-					} else {
-						return nil, err
-					}
-				} else if c == magicNumber {
-					dec.buffer = append(dec.buffer, c)
-					break
-				}
+			fmt.Println("Not found MAGIC. Next loop iteration...")
+			if len(dec.buffer) > 0 {
+				dec.buffer = dec.buffer[len(dec.buffer)-1:]
 			}
+			iterationExitCode = DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND
+			continue
 		}
-
+		// if buffer length is too small, do next iteration
 		if len(dec.buffer) < 2 {
-			// read length byte
-			bytesRead := make([]byte, 1)
-			n, err := io.ReadAtLeast(dec.br, bytesRead, 1)
-			if err != nil {
-				return nil, err
-			}
-
-			dec.buffer = append(dec.buffer, bytesRead[:n]...)
+			fmt.Printf("Len of buffer too small (len = %d bytes). Next loop iteration...\n", len(dec.buffer))
+			iterationExitCode = DECODE_ITERATION_EXIT_CODE_TOO_SMALL
+			continue
 		}
 
 		// buffer[1] is LENGTH and we've already read len(buffer) bytes
 		payloadLen := int(dec.buffer[1])
 		packetLen := hdrLen + payloadLen + numChecksumBytes
 		bytesNeeded := packetLen - len(dec.buffer)
-		for len(dec.buffer) < packetLen {
-			bytesRead := make([]byte, bytesNeeded)
-			n, err := io.ReadAtLeast(dec.br, bytesRead, 1)
-			if err != nil {
-				if len(dec.buffer) > 0 {
-					dec.buffer = dec.buffer[1:]
-					if dec.buffer[0] == magicNumber {
-						break
-					}
-				} else {
-					return nil, err
-				}
-			} else if n > 0 {
-				dec.buffer = append(dec.buffer, bytesRead[:n]...)
-			} else {
+
+		// if buffer length less then needed message length, do next iteration
+		if bytesNeeded > 0 {
+			fmt.Printf("Len of buffer too small (need %d bytes)...\n", bytesNeeded)
+			if duration != nil && time.Now().Sub(started) > *duration || iterationExitCode == DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER{
+				fmt.Println("Wait time elapsed...")
 				dec.buffer = dec.buffer[1:]
-				return nil, errors.New("EOF")
+			}else{
+				fmt.Println("Next loop iteration...")
+				iterationExitCode = DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER
 			}
-		}
-		if len(dec.buffer) < packetLen {
-			dec.buffer = dec.buffer[1:]
 			continue
 		}
 
@@ -204,6 +237,7 @@ func (dec *Decoder) Decode() (*Packet, error) {
 			dec.buffer = dec.buffer[1:]
 			// return error here to allow caller to decide if stream is
 			// corrupted or if we're getting the wrong dialect
+			fmt.Println("Error", err)
 			return p, err
 		}
 		crc.WriteByte(crcx)
@@ -214,9 +248,12 @@ func (dec *Decoder) Decode() (*Packet, error) {
 		if p.Checksum != crc.Sum16() {
 			// strip off start byte
 			dec.buffer = dec.buffer[1:]
+			fmt.Println("Bad decode. Sliced...")
 		} else {
 			dec.CurrSeqID = p.SeqID
 			dec.buffer = dec.buffer[packetLen:]
+			fmt.Println("Good decode. Sliced...")
+			fmt.Println(dec.buffer)
 			return p, nil
 		}
 	}
@@ -270,18 +307,15 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 func (enc *Encoder) EncodePacket(p *Packet) error {
 
 	hdr := []byte{magicNumber, byte(len(p.Payload)), uint8(0), uint8(0), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF), uint8((p.MsgID >> 16) & 0xFF)} // header
-	if err := enc.writeAndCheck(hdr); err != nil {
-		return err
-	}
+	enc.data <- hdr
 
 	crc := x25.New()
 
 	crc.Write(hdr[1:]) // don't include start byte
 
 	// payload
-	if err := enc.writeAndCheck(p.Payload); err != nil {
-		return err
-	}
+	enc.data <- p.Payload
+
 	crc.Write(p.Payload)
 
 	// crc extra
@@ -289,28 +323,15 @@ func (enc *Encoder) EncodePacket(p *Packet) error {
 	if err != nil {
 		return err
 	}
+
 	crc.WriteByte(crcx)
 
 	// crc
 	crcBytes := u16ToBytes(crc.Sum16())
-	if err := enc.writeAndCheck(crcBytes); err != nil {
-		return err
-	}
 
-	err = enc.bw.Flush()
-	if err == nil {
-		enc.CurrSeqID++
-	}
+	enc.data <- crcBytes
 
-	return err
-}
-
-// helper to check both the write and writelen status
-func (enc *Encoder) writeAndCheck(p []byte) error {
-	n, err := enc.bw.Write(p)
-	if err == nil && n != len(p) {
-		return io.ErrShortWrite
-	}
+	enc.CurrSeqID++
 
 	return err
 }

@@ -2,6 +2,7 @@ package mavlink
 
 import (
 	"bytes"
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -13,7 +14,7 @@ func TestRoundTrip(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		p := Ping{
+		p := CommonPing{
 			Seq: c.seq,
 		}
 
@@ -26,18 +27,22 @@ func TestRoundTrip(t *testing.T) {
 
 		if err := NewEncoder(&buf).EncodePacket(&pkt); err != nil {
 			t.Errorf("Encode fail %q", err)
+		} else {
+			fmt.Println("Good encode")
 		}
 
 		pktOut, err := NewDecoder(&buf).Decode()
 		if err != nil {
 			t.Errorf("Decode fail %q", err)
+		} else {
+			fmt.Println("Good decode")
 		}
 
 		if pktOut.MsgID != MSG_ID_PING {
 			t.Errorf("MsgID fail, want %q, got %q", MSG_ID_PING, pktOut.MsgID)
 		}
 
-		var pingOut Ping
+		var pingOut CommonPing
 		if err := pingOut.Unpack(pktOut); err != nil {
 			t.Errorf("Unpack fail %q", err)
 		}
@@ -143,7 +148,7 @@ func TestDialects(t *testing.T) {
 
 	// try to encode an ardupilot msg before we've added that dialect,
 	// ensure it fails as expected
-	mi := &Meminfo{
+	mi := &ArdupilotmegaMeminfo{
 		Brkval:  1000,
 		Freemem: 10,
 	}
@@ -179,7 +184,7 @@ func TestDialects(t *testing.T) {
 	}
 
 	// make sure the output matches our original input for good measure
-	var miOut Meminfo
+	var miOut ArdupilotmegaMeminfo
 	if err := miOut.Unpack(pktOut); err != nil {
 		t.Errorf("Unpack fail %q", err)
 	}
