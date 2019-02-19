@@ -3,10 +3,6 @@
 
 package mavlink
 
-import (
-	"log"
-)
-
 // Dialect represents a set of message definitions.
 // Some dialects have conflicting definitions for given message IDs,
 // so a list of dialects must be provided to an Encoder/Decoder in
@@ -37,7 +33,6 @@ func (ds *DialectSlice) findCrcX(msgid MessageID) (uint8, error) {
 	// http://www.mavlink.org/mavlink/crc_extra_calculation
 	for _, d := range *ds {
 		if crcx, ok := d.crcExtras[msgid]; ok {
-			log.Printf("Found %d crc extras for msgid %d of dialect '%s' from dialect slice [%d]\n", crcx, msgid, d.Name, len(*ds))
 			return crcx, nil
 		}
 	}
@@ -58,7 +53,6 @@ func (ds *DialectSlice) IndexOf(d *Dialect) int {
 // Add appends d if not already present in ds
 func (ds *DialectSlice) Add(d *Dialect) {
 	if ds.IndexOf(d) < 0 {
-		log.Printf("Call add dialect '%s' to slice\n", d.Name)
 		*ds = append(*ds, d)
 	}
 }

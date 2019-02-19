@@ -6,13 +6,11 @@ package mavlink
 import (
 	"errors"
 	"github.com/asmyasnikov/go-mavlink/x25"
-	"log"
 	"sync"
 )
 
 const (
 	magicNumber = 0xfd
-	hdrLen      = 10
 )
 
 type MAVLINK_PARSE_STATE int
@@ -44,7 +42,19 @@ var (
 	ErrCrcFail = errors.New("checksum did not match")
 	// ErrNoNewData define
 	ErrNoNewData = errors.New("No new data")
+	// currentSeqNum
+	currentSeqNum uint8 = 0
+	// dialects
+	dialects DialectSlice = DialectSlice{DialectCommon}
 )
+
+func AddDialect(d *Dialect) {
+	dialects.Add(d)
+}
+
+func RemoveDialect(d *Dialect) {
+	dialects.Remove(d)
+}
 
 // MessageID typedef
 type MessageID uint32
@@ -73,11 +83,28 @@ type Packet struct {
 	Checksum      uint16
 }
 
+func (p *Packet) nextSeqNum() byte {
+	currentSeqNum++
+	return currentSeqNum
+}
+
+func (p *Packet) Encode(sysID, compID uint8, m Message) error {
+	p.SeqID = p.nextSeqNum()
+	p.SysID = sysID
+	p.CompID = compID
+	if err := m.Pack(p); err != nil {
+		return err
+	}
+	if err := p.fixChecksum(dialects); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (p *Packet) Bytes() []byte {
 	bytes := []byte{magicNumber, byte(len(p.Payload)), uint8(p.InCompatFlags), uint8(p.CompatFlags), p.SeqID, p.SysID, p.CompID, uint8(p.MsgID), uint8(p.MsgID >> 8), uint8(p.MsgID >> 16)} // header
 	bytes = append(bytes, p.Payload...)
-	bytes = append(bytes, byte((p.Checksum >> 0) & 0xFF))
-	bytes = append(bytes, byte((p.Checksum >> 8) & 0xFF))
+	bytes = append(bytes, u16ToBytes(p.Checksum)...)
 	return bytes
 }
 
@@ -95,8 +122,6 @@ func NewMultiplexer() Multiplexer {
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	CurrSeqID uint8        // last seq id decoded
-	Dialects  DialectSlice // dialects that can be decoded
 	multiplexer Multiplexer
 	data      chan []byte
 	decoded	  chan *Packet
@@ -113,9 +138,7 @@ func (m *Multiplexer) register() chan []byte {
 func (m *Multiplexer) notify(buffer []byte) {
 	m.Lock()
 	for k, _ := range m.listeners {
-		log.Println("notify before")
 		k <- buffer
-		log.Println("notify after")
 	}
 	m.Unlock()
 }
@@ -132,7 +155,7 @@ type Parser struct {
 	crc    *x25.X25
 }
 
-func (parser *Parser) parseChar(c byte, dialects DialectSlice) (*Packet, error) {
+func (parser *Parser) parseChar(c byte) (*Packet, error) {
 	switch parser.state {
 	case MAVLINK_PARSE_STATE_UNINIT,
 		 MAVLINK_PARSE_STATE_IDLE,
@@ -216,7 +239,6 @@ func (parser *Parser) parseChar(c byte, dialects DialectSlice) (*Packet, error) 
 // NewChannelDecoder function create decoder instance with default dialect
 func NewChannelDecoder(data chan []byte) *Decoder {
 	d := &Decoder{
-		Dialects: DialectSlice{DialectCommon},
 		multiplexer: NewMultiplexer(),
 		data:     data,
 		decoded:  make(chan *Packet),
@@ -224,23 +246,18 @@ func NewChannelDecoder(data chan []byte) *Decoder {
 	go func(){
 		for {
 			buffer := <- d.data
-			log.Println("New data from channel", buffer)
 			d.multiplexer.notify(buffer)
 			for i, c := range buffer {
 				if c == magicNumber {
-					log.Println("Detect start byte")
 					newBytes := d.multiplexer.register()
 					go func() {
-						log.Println("Run goroutine")
 						defer d.multiplexer.clear(newBytes)
 						var parser Parser
 						for {
 							buffer := <- newBytes
-							log.Println("New data from goroutine", buffer)
 							for _, c := range buffer {
-								packet, err := parser.parseChar(c, d.Dialects)
+								packet, err := parser.parseChar(c)
 								if err != nil {
-									log.Print(err)
 									return
 								} else if packet != nil {
 									d.decoded <- packet
@@ -280,9 +297,4 @@ func (p *Packet) fixChecksum(dialects DialectSlice) error {
 
 func u16ToBytes(v uint16) []byte {
 	return []byte{byte(v & 0xff), byte(v >> 8)}
-}
-
-func bytesToU16(p []byte) uint16 {
-	// NB: does not check size of p
-	return (uint16(p[1]) << 8) | uint16(p[0])
 }
