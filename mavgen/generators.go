@@ -7,6 +7,7 @@ package main
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"go/format"
 	"log"
 	"os"
@@ -95,6 +96,7 @@ func generateCode(dialectDir string, data templateData, templateName string, tmp
 	formatted, err := format.Source(buffer.Bytes())
 	if err != nil {
 		log.Fatal("couldn't format generated "+templateName+".go: ", err)
+		fmt.Print(buffer.Bytes())
 		formatted = buffer.Bytes()
 	}
 	n, err = file.Write(formatted)

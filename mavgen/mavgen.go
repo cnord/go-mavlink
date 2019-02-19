@@ -428,7 +428,8 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	formatted, err := format.Source(bb.Bytes())
 	if err != nil {
-		return err
+		fmt.Errorf("Format dialect error %s\n", err)
+		w.Write(bb.Bytes())
 	}
 
 	n, err := w.Write(formatted)
