@@ -5,9 +5,9 @@ package mavlink
 
 import (
 	"errors"
-	"fmt"
 	"github.com/asmyasnikov/go-mavlink/x25"
 	"io"
+	"log"
 	"runtime"
 	"sync"
 	"time"
@@ -23,7 +23,7 @@ const (
 	DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND = iota
 	DECODE_ITERATION_EXIT_CODE_TOO_SMALL = iota
 	DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER = iota
-	DECODE_ITERATION_EXIT_ENUM_END = iota
+	DECODE_ITERATION_EXIT_CODE_ENUM_END = iota
 )
 
 var (
@@ -31,6 +31,8 @@ var (
 	ErrUnknownMsgID = errors.New("unknown msg id")
 	// ErrCrcFail define
 	ErrCrcFail = errors.New("checksum did not match")
+	// ErrNoNewData define
+	ErrNoNewData = errors.New("No new data")
 )
 
 // MessageID typedef
@@ -95,15 +97,17 @@ func NewDecoder(r io.Reader) *Decoder {
 	go func (){
 		for {
 			bytesRead := make([]byte, 256)
+			log.Println("TRY TO READ FROM READER")
 			n, err := io.ReadAtLeast(r, bytesRead, 1)
 			if err != nil {
+				time.Sleep(time.Millisecond)
 				runtime.Gosched()
 			} else {
-				fmt.Println("Receive decoder data : ", bytesRead[:n])
+				log.Println("FROM READER NEW DATA")
 				d.data <- bytesRead[:n]
-				fmt.Println("Decoder data pushed: ", bytesRead[:n])
 			}
 		}
+		log.Println("FATAL: EXIT FROM READ")
 	}()
 	return d
 }
@@ -126,9 +130,9 @@ func NewEncoder(w io.Writer) *Encoder {
 	go func (){
 		for {
 			buffer := <- e.data
-			fmt.Println("Receive encoder data : ", buffer)
 			w.Write(buffer)
 		}
+		log.Println("FATAL: EXIT FROM WRITE")
 	}()
 	return e
 }
@@ -159,20 +163,34 @@ func (dec *Decoder) Decode() (*Packet, error) {
 // corresponding type via Message.FromPacket()
 func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 	started := time.Now()
-	iterationExitCode := DECODE_ITERATION_EXIT_ENUM_END
+	var finished time.Time
+	if duration != nil {
+		finished = started.Add(*duration)
+	} else {
+		finished = started.Add(time.Hour)
+	}
+	iterationExitCode := DECODE_ITERATION_EXIT_CODE_ENUM_END
 	for {
+		d := finished.Sub(time.Now())
+		if d > time.Millisecond{
+			d = time.Millisecond
+		}
 		select {
 			case buffer := <- dec.data:
-				fmt.Println("Receive new data from channel...")
+				log.Println("Receive new data from channel...")
 				dec.buffer = append(dec.buffer, buffer...)
-			case <-time.After(time.Microsecond) :
-				fmt.Println("Timeout data from channel...")
-				if iterationExitCode != DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND {
-					return nil, errors.New("No new data")
+			case <-time.After(d) :
+				log.Printf("Timeout data from channel (%d)...\n", iterationExitCode)
+				if len(dec.buffer) > 0 {
+					if dec.buffer[0] != magicNumber || iterationExitCode != DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER {
+						dec.buffer = dec.buffer[1:]
+					}
+				} else if iterationExitCode != DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND || finished.Sub(time.Now()) < 0 {
+					log.Printf("Timeout data from channel (%d)", finished.Sub(time.Now()))
+					return nil, ErrNoNewData
 				}
 		}
-		fmt.Printf("Try to find MAGIC in buffer[%d].\n", len(dec.buffer))
-		fmt.Println(dec.buffer)
+		log.Println(dec.buffer)
 		startFoundInBuffer := false
 		// discard bytes in buffer before start byte
 		for i, b := range dec.buffer {
@@ -185,16 +203,13 @@ func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 
 		// if start not found, do next iteration
 		if !startFoundInBuffer {
-			fmt.Println("Not found MAGIC. Next loop iteration...")
-			if len(dec.buffer) > 0 {
-				dec.buffer = dec.buffer[len(dec.buffer)-1:]
-			}
+			log.Println("Not found MAGIC. Next loop iteration...")
 			iterationExitCode = DECODE_ITERATION_EXIT_CODE_MAGIC_NO_FOUND
 			continue
 		}
 		// if buffer length is too small, do next iteration
 		if len(dec.buffer) < 2 {
-			fmt.Printf("Len of buffer too small (len = %d bytes). Next loop iteration...\n", len(dec.buffer))
+			log.Printf("Len of buffer too small (len = %d bytes). Next loop iteration...\n", len(dec.buffer))
 			iterationExitCode = DECODE_ITERATION_EXIT_CODE_TOO_SMALL
 			continue
 		}
@@ -206,14 +221,8 @@ func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 
 		// if buffer length less then needed message length, do next iteration
 		if bytesNeeded > 0 {
-			fmt.Printf("Len of buffer too small (need %d bytes)...\n", bytesNeeded)
-			if duration != nil && time.Now().Sub(started) > *duration || iterationExitCode == DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER{
-				fmt.Println("Wait time elapsed...")
-				dec.buffer = dec.buffer[1:]
-			}else{
-				fmt.Println("Next loop iteration...")
-				iterationExitCode = DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER
-			}
+			log.Printf("Len of buffer too small (need %d bytes)...\n", bytesNeeded)
+			iterationExitCode = DECODE_ITERATION_EXIT_CODE_SMALL_BUFFER
 			continue
 		}
 
@@ -237,7 +246,7 @@ func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 			dec.buffer = dec.buffer[1:]
 			// return error here to allow caller to decide if stream is
 			// corrupted or if we're getting the wrong dialect
-			fmt.Println("Error", err)
+			log.Println("Error", err)
 			return p, err
 		}
 		crc.WriteByte(crcx)
@@ -248,12 +257,12 @@ func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 		if p.Checksum != crc.Sum16() {
 			// strip off start byte
 			dec.buffer = dec.buffer[1:]
-			fmt.Println("Bad decode. Sliced...")
+			log.Println("Bad decode. Sliced...")
 		} else {
 			dec.CurrSeqID = p.SeqID
 			dec.buffer = dec.buffer[packetLen:]
-			fmt.Println("Good decode. Sliced...")
-			fmt.Println(dec.buffer)
+			log.Println("Good decode. Sliced...")
+			log.Println(dec.buffer)
 			return p, nil
 		}
 	}

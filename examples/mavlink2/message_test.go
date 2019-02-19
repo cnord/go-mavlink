@@ -2,7 +2,7 @@ package mavlink
 
 import (
 	"bytes"
-	"fmt"
+	"log"
 	"reflect"
 	"testing"
 )
@@ -28,14 +28,62 @@ func TestRoundTrip(t *testing.T) {
 		if err := NewEncoder(&buf).EncodePacket(&pkt); err != nil {
 			t.Errorf("Encode fail %q", err)
 		} else {
-			fmt.Println("Good encode")
+			log.Println("Good encode")
 		}
 
 		pktOut, err := NewDecoder(&buf).Decode()
 		if err != nil {
 			t.Errorf("Decode fail %q", err)
 		} else {
-			fmt.Println("Good decode")
+			log.Println("Good decode")
+		}
+
+		if pktOut.MsgID != MSG_ID_PING {
+			t.Errorf("MsgID fail, want %q, got %q", MSG_ID_PING, pktOut.MsgID)
+		}
+
+		var pingOut CommonPing
+		if err := pingOut.Unpack(pktOut); err != nil {
+			t.Errorf("Unpack fail %q", err)
+		}
+
+		if pingOut.Seq != c.seq {
+			t.Errorf("Mismatch msg field, got %q, want %q", pingOut.Seq, c.seq)
+		}
+	}
+}
+
+func TestRoundTripChannels(t *testing.T) {
+
+	data := make(chan []byte, 256)
+	enc := NewChannelEncoder(data)
+	dec := NewChannelDecoder(data)
+
+	cases := []struct{ seq uint32 }{
+		{12345},
+	}
+
+	for _, c := range cases {
+		p := CommonPing{
+			Seq: c.seq,
+		}
+
+		var pkt Packet
+		if err := p.Pack(&pkt); err != nil {
+			t.Errorf("Pack fail %q (%q)", pkt, err)
+		}
+
+		if err := enc.EncodePacket(&pkt); err != nil {
+			t.Errorf("Encode fail %q", err)
+		} else {
+			log.Println("Good encode")
+		}
+
+		pktOut, err := dec.Decode()
+		if err != nil {
+			t.Errorf("Decode fail %q", err)
+		} else {
+			log.Println("Good decode")
 		}
 
 		if pktOut.MsgID != MSG_ID_PING {
@@ -160,19 +208,20 @@ func TestDialects(t *testing.T) {
 
 	buf.Reset()
 
-	// add the dialect, and ensure it succeeds
-	enc.Dialects.Add(DialectArdupilotmega)
 	if err = enc.Encode(0x1, 0x1, mi); err != nil {
 		t.Errorf("Encode fail %q", err)
 	}
 
+	log.Println("TRY DECODE ARDUPILOT MESSAGE")
 	_, err = NewDecoder(&buf).Decode()
+	log.Println("ARDUPILOT MESSAGE DECODED")
 	if err != ErrUnknownMsgID {
 		t.Errorf("decode expected ErrUnknownMsgID, got %q", err)
 	}
 
-	dec.Dialects.Add(DialectArdupilotmega)
 
+	// add the dialect, and ensure it succeeds
+	dec.Dialects.Add(DialectArdupilotmega)
 	// re-encode the msg, and decode it again after adding the required dialect
 	if err = enc.Encode(0x1, 0x1, mi); err != nil {
 		t.Errorf("Encode fail %q", err)
