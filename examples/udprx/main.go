@@ -4,6 +4,8 @@ import (
 	"flag"
 	"log"
 	"net"
+	"sync"
+	"time"
 
 	"../mavlink1"
 )
@@ -42,19 +44,36 @@ func listenAndServe(addr string) {
 
 	log.Println("listening on", udpAddr)
 
-	dec := mavlink.NewDecoder(conn)
-	dec.Dialects.Add(mavlink.DialectArdupilotmega)
+	data := make(chan []byte)
 
-	for {
-		pkt, err := dec.Decode()
-		if err != nil {
-			log.Println("Decode fail:", err)
-			if pkt != nil {
-				log.Println(*pkt)
+	wg := &sync.WaitGroup{}
+	wg.Add(2)
+	go func(){
+		defer wg.Done()
+		for {
+			buffer := make([]byte, 0, 255)
+			n, err := conn.Read(buffer)
+			if err != nil {
+				log.Print(err)
+			} else if n > 0 {
+				data <- buffer[:n]
 			}
-			continue
 		}
+	}()
+	go func(){
+		defer wg.Done()
+		for {
+			select {
+			case packet := <-data :
+				log.Println(packet)
+			case <- time.After(time.Second) :
+			}
+		}
+	}()
 
-		log.Println("msg rx:", pkt.MsgID, pkt.Payload)
-	}
+	mavlink.AddDialect(mavlink.DialectArdupilotmega)
+
+	_ = mavlink.NewChannelDecoder(data)
+
+	wg.Wait()
 }
