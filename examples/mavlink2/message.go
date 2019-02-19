@@ -8,7 +8,6 @@ import (
 	"github.com/asmyasnikov/go-mavlink/x25"
 	"io"
 	"log"
-	"runtime"
 	"strconv"
 	"sync"
 	"time"
@@ -37,7 +36,8 @@ const (
 	MAVLINK_PARSE_STATE_GOT_MSGID3         MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_PAYLOAD        MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_CRC1           MAVLINK_PARSE_STATE = iota
-	MAVLINK_PARSE_STATE_OK                 MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_BAD_CRC        MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_GOOD_MESSAGE   MAVLINK_PARSE_STATE = iota
 )
 
 var (
@@ -76,9 +76,16 @@ type Packet struct {
 	Checksum      uint16
 }
 
+func (p *Packet) Bytes() []byte {
+	bytes := []byte{magicNumber, byte(len(p.Payload)), uint8(p.InCompatFlags), uint8(p.CompatFlags), p.SeqID, p.SysID, p.CompID, uint8(p.MsgID), uint8(p.MsgID >> 8), uint8(p.MsgID >> 16)} // header
+	bytes = append(bytes, p.Payload...)
+	bytes = append(bytes, byte((p.Checksum >> 0) & 0xFF))
+	bytes = append(bytes, byte((p.Checksum >> 8) & 0xFF))
+	return bytes
+}
+
 // Decoder struct provide decoding processor
 type Decoder struct {
-	parser    Parser
 	CurrSeqID uint8        // last seq id decoded
 	Dialects  DialectSlice // dialects that can be decoded
 	data      chan []byte
@@ -98,93 +105,82 @@ type Parser struct {
 	crc    *x25.X25
 }
 
-func (parser *Parser) parseChar(c byte, dialects DialectSlice) *Packet {
-	log.Printf("Call parseChar. Current state %d\n", parser.state)
-	switch (parser.state) {
-	case MAVLINK_PARSE_STATE_UNINIT:
-	case MAVLINK_PARSE_STATE_IDLE:
-		log.Println("MAVLINK_PARSE_STATE_UNINIT | MAVLINK_PARSE_STATE_IDLE")
+func (parser *Parser) parseChar(c byte, dialects DialectSlice) (*Packet, error) {
+	switch {
+	case parser.state == MAVLINK_PARSE_STATE_UNINIT || parser.state == MAVLINK_PARSE_STATE_IDLE || parser.state == MAVLINK_PARSE_STATE_GOT_BAD_CRC || parser.state == MAVLINK_PARSE_STATE_GOT_GOOD_MESSAGE :
 		if c == magicNumber {
 			parser.crc = x25.New()
 			parser.state = MAVLINK_PARSE_STATE_GOT_STX
 		}
-	case MAVLINK_PARSE_STATE_GOT_STX:
-		log.Println("MAVLINK_PARSE_STATE_GOT_STX")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_STX:
 		parser.packet.Payload = make([]byte, 0, c)
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_LENGTH
-	case MAVLINK_PARSE_STATE_GOT_LENGTH:
-		log.Println("MAVLINK_PARSE_STATE_GOT_LENGTH")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_LENGTH:
 		parser.packet.InCompatFlags = c
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS
-	case MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS:
-		log.Println("MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS:
 		parser.packet.CompatFlags = c
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS
-	case MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS:
-		log.Println("MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS:
 		parser.packet.SeqID = c
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_SEQ
-	case MAVLINK_PARSE_STATE_GOT_SEQ:
-		log.Println("MAVLINK_PARSE_STATE_GOT_SEQ")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_SEQ:
 		parser.packet.SysID = c
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_SYSID
-	case MAVLINK_PARSE_STATE_GOT_SYSID:
-		log.Println("MAVLINK_PARSE_STATE_GOT_SYSID")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_SYSID:
 		parser.packet.CompID = c
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_COMPID
-	case MAVLINK_PARSE_STATE_GOT_COMPID:
-		log.Println("MAVLINK_PARSE_STATE_GOT_COMPID")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_COMPID:
 		parser.packet.MsgID = MessageID(c)
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID1
-	case MAVLINK_PARSE_STATE_GOT_MSGID1:
-		log.Println("MAVLINK_PARSE_STATE_GOT_MSGID1")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_MSGID1:
 		parser.packet.MsgID += MessageID(c << 8)
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID2
-	case MAVLINK_PARSE_STATE_GOT_MSGID2:
-		log.Println("MAVLINK_PARSE_STATE_GOT_MSGID2")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_MSGID2:
 		parser.packet.MsgID += MessageID(c << 8 * 2)
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID3
-	case MAVLINK_PARSE_STATE_GOT_MSGID3:
-		log.Println("MAVLINK_PARSE_STATE_GOT_MSGID3")
+	case parser.state == MAVLINK_PARSE_STATE_GOT_MSGID3:
 		parser.packet.Payload = append(parser.packet.Payload, c)
 		parser.crc.WriteByte(c)
 		if len(parser.packet.Payload) == cap(parser.packet.Payload) {
 			parser.state = MAVLINK_PARSE_STATE_GOT_PAYLOAD
 		}
-	case MAVLINK_PARSE_STATE_GOT_PAYLOAD:
-		log.Println("MAVLINK_PARSE_STATE_GOT_PAYLOAD")
-		// crc extra
+	case parser.state == MAVLINK_PARSE_STATE_GOT_PAYLOAD:
 		crcExtra, err := dialects.findCrcX(parser.packet.MsgID)
 		if err != nil {
 			crcExtra = 0
 		}
 		parser.crc.WriteByte(crcExtra)
 		if c != uint8(parser.crc.Sum16()&0xFF) {
-			parser.state = MAVLINK_PARSE_STATE_IDLE
+			parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
+			parser.packet = Packet{}
+			return nil, ErrCrcFail
 		} else {
 			parser.state = MAVLINK_PARSE_STATE_GOT_CRC1
 		}
-	case MAVLINK_PARSE_STATE_GOT_CRC1:
-		log.Println("MAVLINK_PARSE_STATE_GOT_CRC1")
-		if c != uint8(parser.crc.Sum16()>>8) {
-			parser.state = MAVLINK_PARSE_STATE_IDLE
+	case parser.state == MAVLINK_PARSE_STATE_GOT_CRC1:
+		if c == uint8(parser.crc.Sum16()>>8) {
+			parser.packet.Checksum = parser.crc.Sum16()
+			parser.state = MAVLINK_PARSE_STATE_GOT_GOOD_MESSAGE
+			result := parser.packet
+			parser.packet = Packet{}
+			return &result, nil
 		} else {
-			parser.state = MAVLINK_PARSE_STATE_OK
-			return &parser.packet
+			parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
+			parser.packet = Packet{}
+			return nil, ErrCrcFail
 		}
-	default:
-		log.Println("Ignore all switches")
 	}
-	return nil
+	return nil, nil
 }
 
 // NewChannelDecoder function create decoder instance with default dialect
@@ -209,7 +205,6 @@ func NewDecoder(r io.Reader) *Decoder {
 			n, err := io.ReadAtLeast(r, bytesRead, 1)
 			if err != nil {
 				time.Sleep(time.Millisecond)
-				runtime.Gosched()
 			} else {
 				log.Println("FROM READER NEW DATA")
 				d.data <- bytesRead[:n]
@@ -271,25 +266,69 @@ func (dec *Decoder) Decode() (*Packet, error) {
 // corresponding type via Message.FromPacket()
 func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 	started := time.Now()
-	finished := started.Add(time.Hour)
+	finished := started.Add(time.Second)
 	if duration != nil {
 		finished = started.Add(*duration)
 	}
+	var childChannels = [](chan []byte){}
+	defer func() {
+		for _, c := range childChannels {
+			close(c)
+		}
+	}()
+	result := make(chan *Packet)
 	for {
 		d := finished.Sub(time.Now())
 		select {
+		case packet := <-result:
+			log.Println("Receive result...")
+			return packet, nil
 		case buffer := <-dec.data:
 			log.Println("Receive new data from channel...")
 			log.Println(buffer)
-			for _, c := range buffer {
-				mavlinkPacket := dec.parser.parseChar(c, dec.Dialects)
-				log.Printf("Char %d. Current parser state (%d)...\n", c, dec.parser.state)
-				if mavlinkPacket != nil {
-					return mavlinkPacket, nil
+			if len(buffer) > 0 {
+				for _, c := range childChannels {
+					c <- buffer
+				}
+			} else {
+				log.Fatal("Undefined behaviour (empty buffer)")
+			}
+			for i, c := range buffer {
+				if c == magicNumber {
+					log.Printf("Start new goroutine")
+					log.Println(buffer[i:])
+					channel := make(chan []byte, 256)
+					childChannels = append(childChannels, channel)
+					go func(channel chan []byte) {
+						var parser Parser
+						defer func(){
+							log.Println("Exit from goroutine")
+						}()
+						for {
+							select {
+								case buffer := <-channel :
+									log.Println("Receive buffer from goroutine : ")
+									log.Println(buffer)
+									for _, c := range buffer {
+										packet, err := parser.parseChar(c, dec.Dialects)
+										if err != nil {
+											log.Fatal(err)
+											return
+										} else if packet != nil {
+											log.Println("Return result from goroutine")
+											result <- packet
+										}
+									}
+								default:
+									return
+							}
+						}
+					}(channel)
+					channel <- buffer[i:]
 				}
 			}
 		case <-time.After(d):
-			log.Printf("Timeout data from channel (%d)...\n", dec.parser.state)
+			log.Println("Timeout data from channel...")
 			return nil, ErrNoNewData
 		}
 	}
@@ -297,15 +336,24 @@ func (dec *Decoder) TimedDecode(duration *time.Duration) (*Packet, error) {
 
 // DecodeBytes function provide decode a packet from a previously received buffer (such as
 // a UDP packet), b must contain a complete message
-func (dec *Decoder) DecodeBytes(buffer []byte) (*Packet, error) {
-	for _, c := range buffer {
-		log.Printf("Current parser state (%d)...\n", dec.parser.state)
-		mavlinkPacket := dec.parser.parseChar(c, dec.Dialects)
-		if mavlinkPacket != nil {
-			return mavlinkPacket, nil
+func (dec *Decoder) DecodeBytes(buffer []byte) (*Packet, *[]byte, error) {
+	var parser Parser
+	for i, c := range buffer {
+		packet, err := parser.parseChar(c, dec.Dialects)
+		if err != nil {
+			log.Println(err)
+			if len(buffer) > 0 {
+				tail := buffer[1:]
+				return dec.DecodeBytes(tail)
+			} else {
+				return nil, nil, ErrNoNewData
+			}
+		}else if packet != nil {
+			tail := buffer[i:]
+			return packet, &tail, nil
 		}
 	}
-	return nil, errors.New("Cannot decode bytes [ " + string(buffer[:]) + " ] code " + strconv.Itoa(int(dec.parser.state)))
+	return nil, &buffer, errors.New("Cannot decode bytes [ " + string(buffer[:]) + " ] code " + strconv.Itoa(int(parser.state)))
 }
 
 // Encode function is a helper that accepts a Message, internally converts
@@ -317,42 +365,46 @@ func (enc *Encoder) Encode(sysID, compID uint8, m Message) error {
 		return err
 	}
 
+	p.SeqID = enc.CurrSeqID
+
 	p.SysID, p.CompID = sysID, compID
 
 	return enc.EncodePacket(&p)
 }
 
-// EncodePacket function provide encode writes p to its writer
-func (enc *Encoder) EncodePacket(p *Packet) error {
-
-	hdr := []byte{magicNumber, byte(len(p.Payload)), uint8(0), uint8(0), enc.CurrSeqID, p.SysID, p.CompID, uint8(p.MsgID & 0xFF), uint8((p.MsgID >> 8) & 0xFF), uint8((p.MsgID >> 16) & 0xFF)} // header
-	enc.data <- hdr
-
+func (enc *Encoder) fixChecksum(p *Packet) error {
 	crc := x25.New()
-
-	crc.Write(hdr[1:]) // don't include start byte
-
-	// payload
-	enc.data <- p.Payload
-
+	crc.WriteByte(byte(len(p.Payload)))
+	crc.WriteByte(p.InCompatFlags)
+	crc.WriteByte(p.CompatFlags)
+	crc.WriteByte(p.SeqID)
+	crc.WriteByte(p.SysID)
+	crc.WriteByte(p.CompID)
+	crc.WriteByte(byte(p.MsgID >> 0 ))
+	crc.WriteByte(byte(p.MsgID >> 8 ))
+	crc.WriteByte(byte(p.MsgID >> 16))
 	crc.Write(p.Payload)
-
-	// crc extra
 	crcx, err := enc.Dialects.findCrcX(p.MsgID)
 	if err != nil {
 		return err
 	}
-
 	crc.WriteByte(crcx)
+	p.Checksum = crc.Sum16()
+	return nil
+}
 
-	// crc
-	crcBytes := u16ToBytes(crc.Sum16())
-
-	enc.data <- crcBytes
-
+// EncodePacket function provide encode writes p to its writer
+func (enc *Encoder) EncodePacket(p *Packet) error {
+	err := enc.fixChecksum(p)
+	if err != nil {
+		return err
+	}
+	hdr := []byte{magicNumber, byte(len(p.Payload)), uint8(p.InCompatFlags), uint8(p.CompatFlags), p.SeqID, p.SysID, p.CompID, uint8(p.MsgID), uint8(p.MsgID >> 8), uint8(p.MsgID >> 16)} // header
+	enc.data <- hdr
+	enc.data <- p.Payload
+	enc.data <- []byte{byte(p.Checksum & 0xFF), byte(p.Checksum >> 8)}
 	enc.CurrSeqID++
-
-	return err
+	return nil
 }
 
 func u16ToBytes(v uint16) []byte {
