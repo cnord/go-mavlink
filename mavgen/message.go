@@ -141,34 +141,34 @@ func messageTemplate() string {
 		"\treturn bytes\n" +
 		"}\n" +
 		"\n" +
-		"type Multiplexer struct {\n" +
+		"type Multicast struct {\n" +
 		"\tsync.Mutex\n" +
-		"\tlisteners\tmap[chan []byte]bool\n" +
+		"\tlisteners\tmap[chan []byte](chan bool)\n" +
 		"}\n" +
 		"\n" +
-		"func NewMultiplexer() Multiplexer {\n" +
-		"\tm := Multiplexer{\n" +
-		"\t\tlisteners: make(map[chan []byte]bool),\n" +
+		"func NewMulticast() Multicast {\n" +
+		"\tm := Multicast{\n" +
+		"\t\tlisteners: make(map[chan []byte](chan bool)),\n" +
 		"\t}\n" +
 		"\treturn m\n" +
 		"}\n" +
 		"\n" +
 		"// Decoder struct provide decoding processor\n" +
 		"type Decoder struct {\n" +
-		"\tmultiplexer Multiplexer\n" +
+		"\tMulticast Multicast\n" +
 		"\tdata      chan []byte\n" +
 		"\tdecoded\t  chan *Packet\n" +
 		"}\n" +
 		"\n" +
-		"func (m *Multiplexer) register() chan []byte {\n" +
+		"func (m *Multicast) register(done chan bool) chan []byte {\n" +
 		"\tdata := make(chan []byte)\n" +
 		"\tm.Lock()\n" +
-		"\tm.listeners[data] = true\n" +
+		"\tm.listeners[data] = done\n" +
 		"\tm.Unlock()\n" +
 		"\treturn data\n" +
 		"}\n" +
 		"\n" +
-		"func (m *Multiplexer) notify(buffer []byte) {\n" +
+		"func (m *Multicast) notify(buffer []byte) {\n" +
 		"\tm.Lock()\n" +
 		"\tfor k, _ := range m.listeners {\n" +
 		"\t\tk <- buffer\n" +
@@ -176,7 +176,7 @@ func messageTemplate() string {
 		"\tm.Unlock()\n" +
 		"}\n" +
 		"\n" +
-		"func (m *Multiplexer) clear(data chan []byte) {\n" +
+		"func (m *Multicast) clear(data chan []byte) {\n" +
 		"\tm.Lock()\n" +
 		"\tdelete(m.listeners, data)\n" +
 		"\tm.Unlock()\n" +
@@ -286,33 +286,48 @@ func messageTemplate() string {
 		"\t}\n" +
 		"}\n" +
 		"\n" +
+		"func (d *Decoder) Stop() {\n" +
+		"\td.Multicast.Lock()\n" +
+		"\tfor k, v := range d.Multicast.listeners {\n" +
+		"\t    v <- true\n" +
+		"\t    close(v)\n" +
+		"\t    close(k)\n" +
+		"\t}\n" +
+		"\td.Multicast.Unlock()\n" +
+		"}\n" +
+		"\n" +
 		"// NewChannelDecoder function create decoder instance with default dialect\n" +
 		"func NewChannelDecoder() *Decoder {\n" +
 		"\td := &Decoder{\n" +
-		"\t\tmultiplexer: NewMultiplexer(),\n" +
+		"\t\tMulticast: NewMulticast(),\n" +
 		"\t\tdata:        make(chan []byte, 256),\n" +
 		"\t\tdecoded:     make(chan *Packet),\n" +
 		"\t}\n" +
 		"\tgo func(){\n" +
 		"\t\tfor {\n" +
 		"\t\t\tbuffer := <- d.data\n" +
-		"\t\t\td.multiplexer.notify(buffer)\n" +
+		"\t\t\td.Multicast.notify(buffer)\n" +
 		"\t\t\tfor i, c := range buffer {\n" +
 		"\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\tnewBytes := d.multiplexer.register()\n" +
+		"\t\t\t\t\tdone := make(chan bool)\n" +
+		"\t\t\t\t\tnewBytes := d.Multicast.register(done)\n" +
 		"\t\t\t\t\tgo func() {\n" +
-		"\t\t\t\t\t\tdefer d.multiplexer.clear(newBytes)\n" +
+		"\t\t\t\t\t\tdefer d.Multicast.clear(newBytes)\n" +
 		"\t\t\t\t\t\tvar parser Parser\n" +
 		"\t\t\t\t\t\tfor {\n" +
-		"\t\t\t\t\t\t\tbuffer := <- newBytes\n" +
-		"\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
-		"\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
-		"\t\t\t\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
-		"\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
-		"\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\tselect {\n" +
+		"\t\t\t\t\t\t\tcase buffer := <-newBytes:\n" +
+		"\t\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
+		"\t\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
+		"\t\t\t\t\t\t\t\t\tif err != nil {\n" +
+		"\t\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
+		"\t\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
+		"\t\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\t\t\t}\n" +
+		"\t\t\t\t\t\t\tcase <-done:\n" +
+		"\t\t\t\t\t\t\t\treturn\n" +
 		"\t\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t}()\n" +

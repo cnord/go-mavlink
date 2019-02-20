@@ -113,34 +113,34 @@ func (p *Packet) Bytes() []byte {
 	return bytes
 }
 
-type Multiplexer struct {
+type Multicast struct {
 	sync.Mutex
-	listeners map[chan []byte]bool
+	listeners map[chan []byte](chan bool)
 }
 
-func NewMultiplexer() Multiplexer {
-	m := Multiplexer{
-		listeners: make(map[chan []byte]bool),
+func NewMulticast() Multicast {
+	m := Multicast{
+		listeners: make(map[chan []byte](chan bool)),
 	}
 	return m
 }
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	multiplexer Multiplexer
-	data        chan []byte
-	decoded     chan *Packet
+	Multicast Multicast
+	data      chan []byte
+	decoded   chan *Packet
 }
 
-func (m *Multiplexer) register() chan []byte {
+func (m *Multicast) register(done chan bool) chan []byte {
 	data := make(chan []byte)
 	m.Lock()
-	m.listeners[data] = true
+	m.listeners[data] = done
 	m.Unlock()
 	return data
 }
 
-func (m *Multiplexer) notify(buffer []byte) {
+func (m *Multicast) notify(buffer []byte) {
 	m.Lock()
 	for k, _ := range m.listeners {
 		k <- buffer
@@ -148,7 +148,7 @@ func (m *Multiplexer) notify(buffer []byte) {
 	m.Unlock()
 }
 
-func (m *Multiplexer) clear(data chan []byte) {
+func (m *Multicast) clear(data chan []byte) {
 	m.Lock()
 	delete(m.listeners, data)
 	m.Unlock()
@@ -238,33 +238,48 @@ func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 	}
 }
 
+func (d *Decoder) Stop() {
+	d.Multicast.Lock()
+	for k, v := range d.Multicast.listeners {
+		v <- true
+		close(v)
+		close(k)
+	}
+	d.Multicast.Unlock()
+}
+
 // NewChannelDecoder function create decoder instance with default dialect
 func NewChannelDecoder() *Decoder {
 	d := &Decoder{
-		multiplexer: NewMultiplexer(),
-		data:        make(chan []byte, 256),
-		decoded:     make(chan *Packet),
+		Multicast: NewMulticast(),
+		data:      make(chan []byte, 256),
+		decoded:   make(chan *Packet),
 	}
 	go func() {
 		for {
 			buffer := <-d.data
-			d.multiplexer.notify(buffer)
+			d.Multicast.notify(buffer)
 			for i, c := range buffer {
 				if c == magicNumber {
-					newBytes := d.multiplexer.register()
+					done := make(chan bool)
+					newBytes := d.Multicast.register(done)
 					go func() {
-						defer d.multiplexer.clear(newBytes)
+						defer d.Multicast.clear(newBytes)
 						var parser Parser
 						for {
-							buffer := <-newBytes
-							for _, c := range buffer {
-								packet, err := parser.parseChar(c)
-								if err != nil {
-									return
-								} else if packet != nil {
-									d.decoded <- packet
-									return
+							select {
+							case buffer := <-newBytes:
+								for _, c := range buffer {
+									packet, err := parser.parseChar(c)
+									if err != nil {
+										return
+									} else if packet != nil {
+										d.decoded <- packet
+										return
+									}
 								}
+							case <-done:
+								return
 							}
 						}
 					}()
