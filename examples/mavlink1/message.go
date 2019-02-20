@@ -10,6 +10,7 @@ import (
 	"errors"
 	"github.com/asmyasnikov/go-mavlink/x25"
 	"sync"
+	"time"
 )
 
 const (
@@ -224,11 +225,24 @@ func (parser *Parser) parseChar(c byte) (*Packet, error) {
 	return nil, nil
 }
 
+func (d *Decoder) PushData(data []byte) {
+	d.data <- data
+}
+
+func (d *Decoder) NextPacket(duration time.Duration) *Packet {
+	select {
+	case packet := <-d.decoded:
+		return packet
+	case <-time.After(duration):
+		return nil
+	}
+}
+
 // NewChannelDecoder function create decoder instance with default dialect
-func NewChannelDecoder(data chan []byte) *Decoder {
+func NewChannelDecoder() *Decoder {
 	d := &Decoder{
 		multiplexer: NewMultiplexer(),
-		data:        data,
+		data:        make(chan []byte, 256),
 		decoded:     make(chan *Packet),
 	}
 	go func() {

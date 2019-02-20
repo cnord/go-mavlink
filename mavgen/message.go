@@ -18,6 +18,7 @@ func messageTemplate() string {
 		"\t\"errors\"\n" +
 		"\t\"github.com/asmyasnikov/go-mavlink/x25\"\n" +
 		"\t\"sync\"\n" +
+		"\t\"time\"\n" +
 		")\n" +
 		"\n" +
 		"const (\n" +
@@ -272,12 +273,25 @@ func messageTemplate() string {
 		"\treturn nil, nil\n" +
 		"}\n" +
 		"\n" +
+		"func (d *Decoder) PushData(data []byte) {\n" +
+		"\td.data <- data\n" +
+		"}\n" +
+		"\n" +
+		"func (d *Decoder) NextPacket(duration time.Duration) *Packet {\n" +
+		"\tselect {\n" +
+		"\tcase packet := <- d.decoded :\n" +
+		"\t\treturn packet\n" +
+		"\tcase <-time.After(duration) :\n" +
+		"\t\treturn nil\n" +
+		"\t}\n" +
+		"}\n" +
+		"\n" +
 		"// NewChannelDecoder function create decoder instance with default dialect\n" +
-		"func NewChannelDecoder(data chan []byte) *Decoder {\n" +
+		"func NewChannelDecoder() *Decoder {\n" +
 		"\td := &Decoder{\n" +
 		"\t\tmultiplexer: NewMultiplexer(),\n" +
-		"\t\tdata:     data,\n" +
-		"\t\tdecoded:  make(chan *Packet),\n" +
+		"\t\tdata:        make(chan []byte, 256),\n" +
+		"\t\tdecoded:     make(chan *Packet),\n" +
 		"\t}\n" +
 		"\tgo func(){\n" +
 		"\t\tfor {\n" +

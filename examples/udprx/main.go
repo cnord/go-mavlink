@@ -44,7 +44,7 @@ func listenAndServe(addr string) {
 
 	log.Println("listening on", udpAddr)
 
-	data := make(chan []byte)
+	dec := mavlink.NewChannelDecoder()
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -56,24 +56,21 @@ func listenAndServe(addr string) {
 			if err != nil {
 				log.Print(err)
 			} else if n > 0 {
-				data <- buffer[:n]
+				dec.PushData(buffer[:n])
 			}
 		}
 	}()
 	go func(){
 		defer wg.Done()
 		for {
-			select {
-			case packet := <-data :
-				log.Println(packet)
-			case <- time.After(time.Second) :
+			packet := dec.NextPacket(time.Second)
+			if packet != nil {
+				log.Println(*packet)
 			}
 		}
 	}()
 
 	mavlink.AddDialect(mavlink.DialectArdupilotmega)
-
-	_ = mavlink.NewChannelDecoder(data)
 
 	wg.Wait()
 }
