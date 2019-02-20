@@ -48,7 +48,7 @@ func listenAndServe(addr string) {
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
-	go func(){
+	go func() {
 		defer wg.Done()
 		for {
 			buffer := make([]byte, 0, 255)
@@ -60,7 +60,7 @@ func listenAndServe(addr string) {
 			}
 		}
 	}()
-	go func(){
+	go func() {
 		defer wg.Done()
 		for {
 			packet := dec.NextPacket(time.Second)

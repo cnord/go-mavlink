@@ -40,7 +40,7 @@ func TestRoundTripChannels(t *testing.T) {
 		dec.PushData(packet.Bytes())
 
 		select {
-		case packet := <- dec.decoded :
+		case packet := <-dec.decoded:
 			if packet.MsgID != MSG_ID_PING {
 				t.Errorf("MsgID fail, want %d, got %d", MSG_ID_PING, packet.MsgID)
 			}
@@ -54,7 +54,7 @@ func TestRoundTripChannels(t *testing.T) {
 				cases = append(cases[:i], cases[i+1:]...)
 				break
 			}
-		case <-time.After(time.Millisecond) :
+		case <-time.After(time.Millisecond):
 			t.Error("Timeout elapsed")
 		}
 	}
@@ -66,8 +66,8 @@ func TestDecode(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E})
 	select {
-	case <- dec.decoded :
-	case <-time.After(time.Millisecond) :
+	case <-dec.decoded:
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 }
@@ -80,16 +80,16 @@ func TestDecodeTwoMessages(t *testing.T) {
 		0xfe, 0x0e, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x39, 0x30, 0x00, 0x00, 0x00, 0x00, 0x45, 0x40})
 	var msg1 *Packet
 	select {
-	case packet := <- dec.decoded :
+	case packet := <-dec.decoded:
 		msg1 = packet
-	case <-time.After(time.Millisecond) :
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 	var msg2 *Packet
 	select {
-	case packet := <- dec.decoded :
+	case packet := <-dec.decoded:
 		msg2 = packet
-	case <-time.After(time.Millisecond) :
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 	if reflect.DeepEqual(*msg1, *msg2) {
@@ -103,8 +103,8 @@ func TestDecodeFalseStart(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xfe, 0x00, 0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E})
 	select {
-	case <- dec.decoded :
-	case <-time.After(time.Millisecond) :
+	case <-dec.decoded:
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 }
@@ -116,16 +116,16 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 	dec.PushData([]byte{0xfe, 0x00, 0xfe, 0x00, 0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E,
 		0xfe, 0x0e, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x39, 0x30, 0x00, 0x00, 0x00, 0x00, 0x45, 0x40})
 	select {
-	case msg1 := <- dec.decoded :
+	case msg1 := <-dec.decoded:
 		select {
-		case msg2 := <- dec.decoded :
+		case msg2 := <-dec.decoded:
 			if reflect.DeepEqual(*msg1, *msg2) {
 				t.Error("Messages should not match")
 			}
-		case <-time.After(time.Millisecond) :
+		case <-time.After(time.Millisecond):
 			t.Error("Decode fail")
 		}
-	case <-time.After(time.Millisecond) :
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 }
@@ -158,7 +158,7 @@ func TestDialects(t *testing.T) {
 	dec.PushData(packet.Bytes())
 
 	select {
-	case packet := <- dec.decoded :
+	case packet := <-dec.decoded:
 		// make sure the output matches our original input for good measure
 		var miOut ArdupilotmegaMeminfo
 		if err := miOut.Unpack(packet); err != nil {
@@ -168,7 +168,7 @@ func TestDialects(t *testing.T) {
 		if miOut.Brkval != mi.Brkval || miOut.Freemem != mi.Freemem {
 			t.Errorf("Round trip fail")
 		}
-	case <-time.After(time.Millisecond) :
+	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}
 }
