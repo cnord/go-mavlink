@@ -157,6 +157,7 @@ func messageTemplate() string {
 		"type Decoder struct {\n" +
 		"\tMulticast Multicast\n" +
 		"\tdata      chan []byte\n" +
+		"\tdone      chan bool\n" +
 		"\tdecoded\t  chan *Packet\n" +
 		"}\n" +
 		"\n" +
@@ -178,6 +179,8 @@ func messageTemplate() string {
 		"\n" +
 		"func (m *Multicast) clear(data chan []byte) {\n" +
 		"\tm.Lock()\n" +
+		"\tclose(m.listeners[data])\n" +
+		"\tclose(data)\n" +
 		"\tdelete(m.listeners, data)\n" +
 		"\tm.Unlock()\n" +
 		"}\n" +
@@ -288,10 +291,8 @@ func messageTemplate() string {
 		"\n" +
 		"func (d *Decoder) Stop() {\n" +
 		"\td.Multicast.Lock()\n" +
-		"\tfor k, v := range d.Multicast.listeners {\n" +
-		"\t    v <- true\n" +
-		"\t    close(v)\n" +
-		"\t    close(k)\n" +
+		"\tfor _, v := range d.Multicast.listeners {\n" +
+		"\t\tv <- true\n" +
 		"\t}\n" +
 		"\td.Multicast.Unlock()\n" +
 		"}\n" +
@@ -300,39 +301,49 @@ func messageTemplate() string {
 		"func NewChannelDecoder() *Decoder {\n" +
 		"\td := &Decoder{\n" +
 		"\t\tMulticast: NewMulticast(),\n" +
-		"\t\tdata:        make(chan []byte, 256),\n" +
-		"\t\tdecoded:     make(chan *Packet),\n" +
+		"\t\tdata : make(chan []byte, 1024),\n" +
+		"\t\tdone : make(chan bool),\n" +
+		"\t\tdecoded:   make(chan *Packet),\n" +
 		"\t}\n" +
-		"\tgo func(){\n" +
+		"\tgo func() {\n" +
+		"\t\tdefer func() {\n" +
+		"\t\t\tclose(d.done)\n" +
+		"\t\t\tclose(d.data)\n" +
+		"\t\t}()\n" +
 		"\t\tfor {\n" +
-		"\t\t\tbuffer := <- d.data\n" +
-		"\t\t\td.Multicast.notify(buffer)\n" +
-		"\t\t\tfor i, c := range buffer {\n" +
-		"\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\tdone := make(chan bool)\n" +
-		"\t\t\t\t\tnewBytes := d.Multicast.register(done)\n" +
-		"\t\t\t\t\tgo func() {\n" +
-		"\t\t\t\t\t\tdefer d.Multicast.clear(newBytes)\n" +
-		"\t\t\t\t\t\tvar parser Parser\n" +
-		"\t\t\t\t\t\tfor {\n" +
-		"\t\t\t\t\t\t\tselect {\n" +
-		"\t\t\t\t\t\t\tcase buffer := <-newBytes:\n" +
-		"\t\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
-		"\t\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
-		"\t\t\t\t\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
-		"\t\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
-		"\t\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\tselect {\n" +
+		"\t\t\tcase buffer := <-d.data:\n" +
+		"\t\t\t\td.Multicast.notify(buffer)\n" +
+		"\t\t\t\tfor i, c := range buffer {\n" +
+		"\t\t\t\t\tif c == magicNumber {\n" +
+		"\t\t\t\t\t\tdone := make(chan bool)\n" +
+		"\t\t\t\t\t\tnewBytes := d.Multicast.register(done)\n" +
+		"\t\t\t\t\t\tgo func() {\n" +
+		"\t\t\t\t\t\t\tdefer d.Multicast.clear(newBytes)\n" +
+		"\t\t\t\t\t\t\tvar parser Parser\n" +
+		"\t\t\t\t\t\t\tfor {\n" +
+		"\t\t\t\t\t\t\t\tselect {\n" +
+		"\t\t\t\t\t\t\t\tcase buffer := <-newBytes:\n" +
+		"\t\t\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
+		"\t\t\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
+		"\t\t\t\t\t\t\t\t\t\tif err != nil {\n" +
+		"\t\t\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
+		"\t\t\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
+		"\t\t\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\t\t\t\t}\n" +
+		"\t\t\t\t\t\t\t\tcase <-done:\n" +
+		"\t\t\t\t\t\t\t\t\treturn\n" +
 		"\t\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t\tcase <-done:\n" +
-		"\t\t\t\t\t\t\t\treturn\n" +
 		"\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t}()\n" +
-		"\t\t\t\t\tnewBytes <- buffer[i:]\n" +
+		"\t\t\t\t\t\t}()\n" +
+		"\t\t\t\t\t\tnewBytes <- buffer[i:]\n" +
+		"\t\t\t\t\t}\n" +
 		"\t\t\t\t}\n" +
+		"\t\t\tcase <-d.done:\n" +
+		"\t\t\t\td.Stop()\n" +
+		"\t\t\t\treturn\n" +
 		"\t\t\t}\n" +
 		"\t\t}\n" +
 		"\t}()\n" +

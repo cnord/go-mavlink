@@ -146,6 +146,7 @@ func NewMulticast() Multicast {
 type Decoder struct {
 	Multicast Multicast
 	data      chan []byte
+	done      chan bool
 	decoded	  chan *Packet
 }
 
@@ -167,6 +168,8 @@ func (m *Multicast) notify(buffer []byte) {
 
 func (m *Multicast) clear(data chan []byte) {
 	m.Lock()
+	close(m.listeners[data])
+	close(data)
 	delete(m.listeners, data)
 	m.Unlock()
 }
@@ -277,10 +280,8 @@ func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 
 func (d *Decoder) Stop() {
 	d.Multicast.Lock()
-	for k, v := range d.Multicast.listeners {
-	    v <- true
-	    close(v)
-	    close(k)
+	for _, v := range d.Multicast.listeners {
+		v <- true
 	}
 	d.Multicast.Unlock()
 }
@@ -289,39 +290,49 @@ func (d *Decoder) Stop() {
 func NewChannelDecoder() *Decoder {
 	d := &Decoder{
 		Multicast: NewMulticast(),
-		data:        make(chan []byte, 256),
-		decoded:     make(chan *Packet),
+		data : make(chan []byte, 1024),
+		done : make(chan bool),
+		decoded:   make(chan *Packet),
 	}
-	go func(){
+	go func() {
+		defer func() {
+			close(d.done)
+			close(d.data)
+		}()
 		for {
-			buffer := <- d.data
-			d.Multicast.notify(buffer)
-			for i, c := range buffer {
-				if c == magicNumber {
-					done := make(chan bool)
-					newBytes := d.Multicast.register(done)
-					go func() {
-						defer d.Multicast.clear(newBytes)
-						var parser Parser
-						for {
-							select {
-							case buffer := <-newBytes:
-								for _, c := range buffer {
-									packet, err := parser.parseChar(c)
-									if err != nil {
-										return
-									} else if packet != nil {
-										d.decoded <- packet
-										return
+			select {
+			case buffer := <-d.data:
+				d.Multicast.notify(buffer)
+				for i, c := range buffer {
+					if c == magicNumber {
+						done := make(chan bool)
+						newBytes := d.Multicast.register(done)
+						go func() {
+							defer d.Multicast.clear(newBytes)
+							var parser Parser
+							for {
+								select {
+								case buffer := <-newBytes:
+									for _, c := range buffer {
+										packet, err := parser.parseChar(c)
+										if err != nil {
+											return
+										} else if packet != nil {
+											d.decoded <- packet
+											return
+										}
 									}
+								case <-done:
+									return
 								}
-							case <-done:
-								return
 							}
-						}
-					}()
-					newBytes <- buffer[i:]
+						}()
+						newBytes <- buffer[i:]
+					}
 				}
+			case <-d.done:
+				d.Stop()
+				return
 			}
 		}
 	}()
