@@ -30,17 +30,17 @@ const (
 )
 
 var (
-	templates = map[string](func()string){
-		"constants" : constantsTemplate,
-		"decoder" : decoderTemplate,
-		"dialect" : dialectTemplate,
-		"dialectSlice" : dialectSliceTemplate,
-		"message" : messageTemplate,
-		"multicast" : multicastTemplate,
-		"packet" : packetTemplate,
-		"parser" : parserTemplate,
-		"version" : versionTemplate,
-		"x25" : x25Template,
+	templates = map[string](func() string){
+		"constants":    constantsTemplate,
+		"decoder":      decoderTemplate,
+		"dialect":      dialectTemplate,
+		"dialectSlice": dialectSliceTemplate,
+		"message":      messageTemplate,
+		"multicast":    multicastTemplate,
+		"packet":       packetTemplate,
+		"parser":       parserTemplate,
+		"version":      versionTemplate,
+		"x25":          x25Template,
 	}
 )
 
