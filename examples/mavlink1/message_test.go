@@ -1,6 +1,7 @@
 package mavlink
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -66,7 +67,8 @@ func TestDecode(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E})
 	select {
-	case <-dec.decoded:
+	case packet := <-dec.decoded:
+		fmt.Println(packet.Bytes())
 	case <-time.After(time.Millisecond):
 		t.Error("Decode fail")
 	}

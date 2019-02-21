@@ -44,17 +44,8 @@ func main() {
 			DialectName:    *dialectName,
 		}
 
-		err := generateCode(dialectDir, data, "message", messageTemplate())
-		if err != nil {
-			log.Fatal(err)
-		}
+		err := generateCommons(dialectDir, data)
 
-		err = generateCode(dialectDir, data, "dialect", dialectTemplate())
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		err = generateCode(dialectDir, data, "version", versionTemplate())
 		if err != nil {
 			log.Fatal(err)
 		}

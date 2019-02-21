@@ -1,0 +1,58 @@
+package mavlink
+
+import (
+	"errors"
+)
+
+// magicNumber constant for mavlink {{if .Mavlink2 -}} 2 {{- else -}} 1 {{- end}}.0
+const (
+	magicNumber = {{if .Mavlink2 -}} 0xfd {{- else -}} 0xfe {{- end}}
+)
+
+// MessageID typedef
+type MessageID {{if .Mavlink2 -}} uint32 {{else}} uint8 {{- end}}
+
+
+// MAVLINK_PARSE_STATE typedef
+type MAVLINK_PARSE_STATE int
+
+// MAVLINK_PARSE_STATES
+const (
+	MAVLINK_PARSE_STATE_UNINIT             MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_IDLE               MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_STX            MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_LENGTH         MAVLINK_PARSE_STATE = iota
+{{- if .Mavlink2}}
+	MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS   MAVLINK_PARSE_STATE = iota
+{{- end}}
+	MAVLINK_PARSE_STATE_GOT_SEQ            MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_SYSID          MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_COMPID         MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_MSGID1         MAVLINK_PARSE_STATE = iota
+{{- if .Mavlink2}}
+	MAVLINK_PARSE_STATE_GOT_MSGID2         MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_MSGID3         MAVLINK_PARSE_STATE = iota
+{{- end}}
+	MAVLINK_PARSE_STATE_GOT_PAYLOAD        MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_CRC1           MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_BAD_CRC        MAVLINK_PARSE_STATE = iota
+	MAVLINK_PARSE_STATE_GOT_GOOD_MESSAGE   MAVLINK_PARSE_STATE = iota
+)
+
+var (
+	// ErrUnknownMsgID define
+	ErrUnknownMsgID = errors.New("unknown msg id")
+	// ErrCrcFail define
+	ErrCrcFail = errors.New("checksum did not match")
+	// ErrNoNewData define
+	ErrNoNewData = errors.New("No new data")
+	// currentSeqNum
+	currentSeqNum uint8 = 0
+	// dialects
+	dialects DialectSlice = DialectSlice{ {{- .DialectName -}} }
+)
+
+func u16ToBytes(v uint16) []byte {
+	return []byte{byte(v & 0xff), byte(v >> 8)}
+}
