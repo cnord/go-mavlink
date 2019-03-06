@@ -12,8 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
-
-	"github.com/asmyasnikov/go-mavlink/x25"
+	"github.com/howeyc/crc16"
 )
 
 var (
@@ -110,7 +109,7 @@ func (m *Message) Size() int {
 
 // CRCExtra calculation: http://www.mavlink.org/mavlink/crc_extra_calculation
 func (m *Message) CRCExtra() uint8 {
-	hash := x25.New()
+	hash := crc16.New(crc16.CCITTTable)
 
 	fmt.Fprint(hash, m.Name+" ")
 	for _, f := range m.Fields {
@@ -124,7 +123,7 @@ func (m *Message) CRCExtra() uint8 {
 		}
 		fmt.Fprint(hash, cType+" "+f.Name+" ")
 		if f.ArrayLen > 0 {
-			_ = hash.WriteByte(byte(f.ArrayLen))
+			_, _ = hash.Write([]byte{byte(f.ArrayLen)})
 		}
 	}
 
