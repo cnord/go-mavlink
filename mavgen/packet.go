@@ -45,6 +45,16 @@ func packetTemplate() string {
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
+		"func (p *Packet) EncodeMessage(m Message) error {\n" +
+		"\tif err := m.Pack(p); err != nil {\n" +
+		"\t\treturn err\n" +
+		"\t}\n" +
+		"\tif err := p.fixChecksum(dialects); err != nil {\n" +
+		"\t\treturn err\n" +
+		"\t}\n" +
+		"\treturn nil\n" +
+		"}\n" +
+		"\n" +
 		"func (p *Packet) Bytes() []byte {\n" +
 		"\tbytes := []byte{\n" +
 		"\t    magicNumber,\n" +

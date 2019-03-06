@@ -34,6 +34,16 @@ func (p *Packet) Encode(sysID, compID uint8, m Message) error {
 	return nil
 }
 
+func (p *Packet) EncodeMessage(m Message) error {
+	if err := m.Pack(p); err != nil {
+		return err
+	}
+	if err := p.fixChecksum(dialects); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (p *Packet) Bytes() []byte {
 	bytes := []byte{
 	    magicNumber,
