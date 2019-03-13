@@ -408,7 +408,6 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	bb.WriteString("import (\n")
 	bb.WriteString("\"encoding/binary\"\n")
-	bb.WriteString("\"fmt\"\n")
 	bb.WriteString("\"math\"\n")
 	bb.WriteString(")\n")
 
@@ -518,7 +517,11 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -527,7 +530,7 @@ func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
 	if len(p.Payload) < {{ .Size }} {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, {{ .Size }}-len(p.Payload), {{ .Size }}-len(p.Payload))...)
 	}{{range .Fields}}
 	{{.PayloadUnpackSequence}}{{end}}
 	return nil

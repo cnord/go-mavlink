@@ -9,7 +9,6 @@ package mavlink
 
 import (
 	"encoding/binary"
-	"fmt"
 	"math"
 )
 
@@ -46,7 +45,11 @@ func (m *AsluavSensPower) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Adc121CspbAmp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Adc121Cs1Amp))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Adc121Cs2Amp))
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -55,7 +58,7 @@ func (m *AsluavSensPower) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensPower) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
 	}
 	m.Adc121VspbVolt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Adc121CspbAmp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -108,7 +111,11 @@ func (m *AsluavSensMppt) Pack(p *Packet) error {
 	payload[38] = byte(m.Mppt1Status)
 	payload[39] = byte(m.Mppt2Status)
 	payload[40] = byte(m.Mppt3Status)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -117,7 +124,7 @@ func (m *AsluavSensMppt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensMppt) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 41-len(p.Payload), 41-len(p.Payload))...)
 	}
 	m.MpptTimestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Mppt1Volt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -203,7 +210,11 @@ func (m *AsluavAslctrlData) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[92:], math.Float32bits(m.Urud))
 	payload[96] = byte(m.AslctrlMode)
 	payload[97] = byte(m.Spoilersengaged)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -212,7 +223,7 @@ func (m *AsluavAslctrlData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavAslctrlData) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 98-len(p.Payload), 98-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.H = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -282,7 +293,11 @@ func (m *AsluavAslctrlDebug) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.F8))
 	payload[36] = byte(m.I81)
 	payload[37] = byte(m.I82)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -291,7 +306,7 @@ func (m *AsluavAslctrlDebug) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavAslctrlDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 38-len(p.Payload), 38-len(p.Payload))...)
 	}
 	m.I321 = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.F1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -333,7 +348,11 @@ func (m *AsluavAsluavStatus) Pack(p *Packet) error {
 	payload[4] = byte(m.LedStatus)
 	payload[5] = byte(m.SatcomStatus)
 	copy(payload[6:], m.ServoStatus[:])
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -342,7 +361,7 @@ func (m *AsluavAsluavStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavAsluavStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
 	}
 	m.MotorRpm = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.LedStatus = uint8(p.Payload[4])
@@ -383,7 +402,11 @@ func (m *AsluavEkfExt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Airspeed))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Beta))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Alpha))
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -392,7 +415,7 @@ func (m *AsluavEkfExt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavEkfExt) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Windspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -438,7 +461,11 @@ func (m *AsluavAslObctrl) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Uailr))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Urud))
 	payload[32] = byte(m.ObctrlStatus)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -447,7 +474,7 @@ func (m *AsluavAslObctrl) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavAslObctrl) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -482,7 +509,11 @@ func (m *AsluavSensAtmos) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Tempambient))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Humidity))
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -491,7 +522,7 @@ func (m *AsluavSensAtmos) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensAtmos) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 8-len(p.Payload), 8-len(p.Payload))...)
 	}
 	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -542,7 +573,11 @@ func (m *AsluavSensBatmon) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.Cellvoltage5))
 	binary.LittleEndian.PutUint16(payload[24:], uint16(m.Cellvoltage6))
 	payload[26] = byte(m.Soc)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -551,7 +586,7 @@ func (m *AsluavSensBatmon) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensBatmon) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 27-len(p.Payload), 27-len(p.Payload))...)
 	}
 	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Voltage = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -637,7 +672,11 @@ func (m *AsluavFwSoaringData) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[96:], math.Float32bits(m.Debugvar2))
 	payload[100] = byte(m.Controlmode)
 	payload[101] = byte(m.Valid)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -646,7 +685,7 @@ func (m *AsluavFwSoaringData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavFwSoaringData) Unpack(p *Packet) error {
 	if len(p.Payload) < 102 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 102-len(p.Payload), 102-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Timestampmodechanged = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
@@ -710,7 +749,11 @@ func (m *AsluavSensorpodStatus) Pack(p *Packet) error {
 	payload[13] = byte(m.VisensorRate4)
 	payload[14] = byte(m.RecordingNodesCount)
 	payload[15] = byte(m.CPUTemp)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -719,7 +762,7 @@ func (m *AsluavSensorpodStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensorpodStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.FreeSpace = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
@@ -774,7 +817,11 @@ func (m *AsluavSensPowerBoard) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(m.PwrBrdAuxAmp))
 	payload[44] = byte(m.PwrBrdStatus)
 	payload[45] = byte(m.PwrBrdLedStatus)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -783,7 +830,7 @@ func (m *AsluavSensPowerBoard) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensPowerBoard) Unpack(p *Packet) error {
 	if len(p.Payload) < 46 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 46-len(p.Payload), 46-len(p.Payload))...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.PwrBrdSystemVolt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))

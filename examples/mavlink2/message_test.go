@@ -1,6 +1,7 @@
 package mavlink
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 	"time"
@@ -138,7 +139,7 @@ func TestDialects(t *testing.T) {
 	// ensure it fails as expected
 	mi := &ArdupilotmegaMeminfo{
 		Brkval:  1000,
-		Freemem: 10,
+		Freemem: 0,
 	}
 
 	// remove the dialect to get err
@@ -148,6 +149,7 @@ func TestDialects(t *testing.T) {
 	if err := packet.Encode(0x1, 0x1, mi); err != ErrUnknownMsgID {
 		t.Errorf("encode expected ErrUnknownMsgID, got %s", err)
 	}
+	fmt.Println(packet.Bytes())
 
 	// add the dialect, and ensure it succeeds
 	AddDialect(DialectArdupilotmega)

@@ -9,7 +9,6 @@ package mavlink
 
 import (
 	"encoding/binary"
-	"fmt"
 	"math"
 )
 
@@ -72,7 +71,11 @@ func (m *UalbertaNavFilterBias) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Gyro0))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Gyro1))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Gyro2))
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -81,7 +84,7 @@ func (m *UalbertaNavFilterBias) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *UalbertaNavFilterBias) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Accel0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -135,7 +138,11 @@ func (m *UalbertaRadioCalibration) Pack(p *Packet) error {
 	for i, v := range m.Throttle {
 		binary.LittleEndian.PutUint16(payload[32+i*2:], uint16(v))
 	}
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -144,7 +151,7 @@ func (m *UalbertaRadioCalibration) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *UalbertaRadioCalibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
 	}
 	for i := 0; i < len(m.Aileron); i++ {
 		m.Aileron[i] = uint16(binary.LittleEndian.Uint16(p.Payload[0+i*2:]))
@@ -191,7 +198,11 @@ func (m *UalbertaUalbertaSysStatus) Pack(p *Packet) error {
 	payload[0] = byte(m.Mode)
 	payload[1] = byte(m.NavMode)
 	payload[2] = byte(m.Pilot)
-
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -200,7 +211,7 @@ func (m *UalbertaUalbertaSysStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *UalbertaUalbertaSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
-		return fmt.Errorf("payload too small")
+		p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
 	}
 	m.Mode = uint8(p.Payload[0])
 	m.NavMode = uint8(p.Payload[1])
