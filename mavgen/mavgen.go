@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"github.com/howeyc/crc16"
 	"go/format"
 	"io"
 	"io/ioutil"
@@ -12,7 +13,6 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
-	"github.com/howeyc/crc16"
 )
 
 var (

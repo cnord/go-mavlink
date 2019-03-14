@@ -113,7 +113,7 @@ func TestDialects(t *testing.T) {
 	RemoveDialect(DialectArdupilotmega)
 
 	packet := &Packet{}
-	require.Equal(t, packet.Encode(0x1, 0x1, mi), ErrUnknownMsgID,"encode expected ErrUnknownMsgID")
+	require.Equal(t, packet.Encode(0x1, 0x1, mi), ErrUnknownMsgID, "encode expected ErrUnknownMsgID")
 
 	// add the dialect, and ensure it succeeds
 	AddDialect(DialectArdupilotmega)
