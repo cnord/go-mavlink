@@ -1,8 +1,8 @@
 package mavlink
 
 import (
-	"fmt"
-	"reflect"
+	"github.com/stretchr/testify/require"
+	"sort"
 	"testing"
 	"time"
 )
@@ -32,33 +32,29 @@ func TestRoundTripChannels(t *testing.T) {
 			Seq: seq,
 		}
 
-		var packet Packet
-		if err := p.Pack(&packet); err != nil {
-			t.Errorf("Pack fail %q (%q)", packet, err)
-		}
+		packet := &Packet{}
+		require.Nil(t, p.Pack(packet), "Pack fail")
 		packet.fixChecksum(dialects)
 
 		dec.PushData(packet.Bytes())
-
-		select {
-		case packet := <-dec.decoded:
-			if packet.MsgID != MSG_ID_PING {
-				t.Errorf("MsgID fail, want %d, got %d", MSG_ID_PING, packet.MsgID)
-			}
-
-			var pingOut CommonPing
-			if err := pingOut.Unpack(packet); err != nil {
-				t.Errorf("Unpack fail %s", err)
-			}
-
-			if seq != pingOut.Seq {
-				cases = append(cases[:i], cases[i+1:]...)
-				break
-			}
-		case <-time.After(time.Millisecond):
-			t.Error("Timeout elapsed")
-		}
 	}
+
+	sort.Slice(cases, func(i, j int) bool {
+		return cases[i].seq < cases[j].seq
+	})
+
+	for packet := dec.NextPacket(time.Millisecond); packet != nil && len(cases) > 0; packet = dec.NextPacket(time.Millisecond) {
+		require.Equal(t, packet.MsgID, MSG_ID_PING, "MsgID fail")
+		pingOut := &CommonPing{}
+		require.Nil(t, pingOut.Unpack(packet), "Unpack fail")
+		i := sort.Search(len(cases), func(i int) bool {
+			return cases[i].seq >= pingOut.Seq
+		})
+		require.NotEqual(t, i, len(cases), "Search case by seq = %d fail. Cases: %+v", pingOut.Seq, cases)
+		require.Equal(t, cases[i].seq, pingOut.Seq, "Seq fail")
+		cases = append(cases[:i], cases[i+1:]...)
+	}
+	require.Equal(t, 0, len(cases), "Cases not cleared")
 }
 
 func TestDecode(t *testing.T) {
@@ -66,11 +62,7 @@ func TestDecode(t *testing.T) {
 	dec := NewChannelDecoder()
 	defer dec.Stop()
 	dec.PushData([]byte{0xFD, 0x2B, 0x00, 0x00, 0xC5, 0x02, 0xFC, 0x64, 0x00, 0x00, 0x16, 0x89, 0xB6, 0x44, 0xA5, 0x47, 0x00, 0x00, 0xAB, 0x47, 0x00, 0x00, 0xAA, 0x47, 0x00, 0x00, 0xBF, 0x04, 0x00, 0x00, 0xA4, 0xBD, 0x02, 0x31, 0x2E, 0x30, 0x30, 0x00, 0x05, 0x11, 0x12, 0x0A, 0x01, 0x00, 0x64, 0x00, 0x00, 0x03, 0x07, 0x01, 0x00, 0x00, 0x02, 0x4A, 0x26})
-	select {
-	case <-dec.decoded:
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
+	require.NotNil(t, dec.NextPacket(time.Millisecond), "Decode fail")
 }
 
 func TestDecodeTwoMessages(t *testing.T) {
@@ -79,23 +71,11 @@ func TestDecodeTwoMessages(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xFD, 0x0D, 0x00, 0x00, 0x8A, 0x02, 0xFC, 0x04, 0x00, 0x00, 0xE5, 0xF2, 0x41, 0x21, 0x09, 0x7E, 0x3B, 0x16, 0x00, 0x00, 0x01, 0x00, 0x6B, 0x4A, 0x83,
 		0xFD, 0x2B, 0x00, 0x00, 0xC5, 0x02, 0xFC, 0x64, 0x00, 0x00, 0x16, 0x89, 0xB6, 0x44, 0xA5, 0x47, 0x00, 0x00, 0xAB, 0x47, 0x00, 0x00, 0xAA, 0x47, 0x00, 0x00, 0xBF, 0x04, 0x00, 0x00, 0xA4, 0xBD, 0x02, 0x31, 0x2E, 0x30, 0x30, 0x00, 0x05, 0x11, 0x12, 0x0A, 0x01, 0x00, 0x64, 0x00, 0x00, 0x03, 0x07, 0x01, 0x00, 0x00, 0x02, 0x4A, 0x26})
-	var msg1 *Packet
-	select {
-	case packet := <-dec.decoded:
-		msg1 = packet
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
-	var msg2 *Packet
-	select {
-	case packet := <-dec.decoded:
-		msg2 = packet
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
-	if reflect.DeepEqual(*msg1, *msg2) {
-		t.Error("Messages should not match")
-	}
+	msg1 := dec.NextPacket(time.Millisecond)
+	require.NotNil(t, msg1, "Decode fail")
+	msg2 := dec.NextPacket(time.Millisecond)
+	require.NotNil(t, msg2, "Decode fail")
+	require.NotEqual(t, *msg1, *msg2, "Messages should not match")
 }
 
 func TestDecodeFalseStart(t *testing.T) {
@@ -103,11 +83,7 @@ func TestDecodeFalseStart(t *testing.T) {
 	dec := NewChannelDecoder()
 	defer dec.Stop()
 	dec.PushData([]byte{0xFD, 0x0D, 0xFD, 0x0D, 0x00, 0x00, 0x8A, 0x02, 0xFC, 0x04, 0x00, 0x00, 0xE5, 0xF2, 0x41, 0x21, 0x09, 0x7E, 0x3B, 0x16, 0x00, 0x00, 0x01, 0x00, 0x6B, 0x4A, 0x83})
-	select {
-	case <-dec.decoded:
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
+	require.NotNil(t, dec.NextPacket(time.Millisecond), "Decode fail")
 }
 
 func TestDecodeMultipleFalseStarts(t *testing.T) {
@@ -116,19 +92,11 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xFD, 0x0D, 0xFD, 0x0D, 0xFD, 0x0D, 0xFD, 0x0D, 0xFD, 0x0D, 0x00, 0x00, 0x8A, 0x02, 0xFC, 0x04, 0x00, 0x00, 0xE5, 0xF2, 0x41, 0x21, 0x09, 0x7E, 0x3B, 0x16, 0x00, 0x00, 0x01, 0x00, 0x6B, 0x4A, 0x83,
 		0x00, 0xFD, 0x2B, 0xFD, 0x2B, 0x00, 0x00, 0xC5, 0x02, 0xFC, 0x64, 0x00, 0x00, 0x16, 0x89, 0xB6, 0x44, 0xA5, 0x47, 0x00, 0x00, 0xAB, 0x47, 0x00, 0x00, 0xAA, 0x47, 0x00, 0x00, 0xBF, 0x04, 0x00, 0x00, 0xA4, 0xBD, 0x02, 0x31, 0x2E, 0x30, 0x30, 0x00, 0x05, 0x11, 0x12, 0x0A, 0x01, 0x00, 0x64, 0x00, 0x00, 0x03, 0x07, 0x01, 0x00, 0x00, 0x02, 0x4A, 0x26})
-	select {
-	case msg1 := <-dec.decoded:
-		select {
-		case msg2 := <-dec.decoded:
-			if reflect.DeepEqual(*msg1, *msg2) {
-				t.Error("Messages should not match")
-			}
-		case <-time.After(time.Millisecond):
-			t.Error("Decode fail")
-		}
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
+	msg1 := dec.NextPacket(time.Millisecond)
+	require.NotNil(t, msg1, "Decode fail")
+	msg2 := dec.NextPacket(time.Millisecond)
+	require.NotNil(t, msg2, "Decode fail")
+	require.NotEqual(t, *msg1, *msg2, "Messages should not match")
 }
 
 func TestDialects(t *testing.T) {
@@ -139,39 +107,23 @@ func TestDialects(t *testing.T) {
 	// ensure it fails as expected
 	mi := &ArdupilotmegaMeminfo{
 		Brkval:  1000,
-		Freemem: 0,
+		Freemem: 10,
 	}
 
-	// remove the dialect to get err
 	RemoveDialect(DialectArdupilotmega)
 
-	var packet Packet
-	if err := packet.Encode(0x1, 0x1, mi); err != ErrUnknownMsgID {
-		t.Errorf("encode expected ErrUnknownMsgID, got %s", err)
-	}
-	fmt.Println(packet.Bytes())
+	packet := &Packet{}
+	require.Equal(t, packet.Encode(0x1, 0x1, mi), ErrUnknownMsgID,"encode expected ErrUnknownMsgID")
 
 	// add the dialect, and ensure it succeeds
 	AddDialect(DialectArdupilotmega)
-
-	if err := packet.Encode(0x1, 0x1, mi); err != nil {
-		t.Errorf("encode unexpected err %s", err)
-	}
+	require.Nil(t, packet.Encode(0x1, 0x1, mi), "encode unexpected err")
 
 	dec.PushData(packet.Bytes())
-
-	select {
-	case packet := <-dec.decoded:
-		// make sure the output matches our original input for good measure
-		var miOut ArdupilotmegaMeminfo
-		if err := miOut.Unpack(packet); err != nil {
-			t.Errorf("Unpack fail %s", err)
-		}
-
-		if miOut.Brkval != mi.Brkval || miOut.Freemem != mi.Freemem {
-			t.Errorf("Round trip fail")
-		}
-	case <-time.After(time.Millisecond):
-		t.Error("Decode fail")
-	}
+	packet = dec.NextPacket(time.Millisecond)
+	require.NotNil(t, packet, "Decode fail")
+	var miOut ArdupilotmegaMeminfo
+	require.Nil(t, miOut.Unpack(packet), "Unpack fail")
+	require.Equal(t, miOut.Brkval, mi.Brkval, "Round trip fail")
+	require.Equal(t, miOut.Freemem, mi.Freemem, "Round trip fail")
 }

@@ -208,18 +208,18 @@ func (f *MessageField) PayloadPackSequence() string {
 func (f *MessageField) payloadUnpackPrimitive(offset string) string {
 
 	if f.BitSize == 8 {
-		return fmt.Sprintf("%s(p.Payload[%s])", goArrayType(f.GoType), offset)
+		return fmt.Sprintf("%s(payload[%s])", goArrayType(f.GoType), offset)
 	}
 
 	if f.IsFloat() {
 		switch f.BitSize {
 		case 32, 64:
-			return fmt.Sprintf("math.Float%dfrombits(binary.LittleEndian.Uint%d(p.Payload[%s:]))", f.BitSize, f.BitSize, offset)
+			return fmt.Sprintf("math.Float%dfrombits(binary.LittleEndian.Uint%d(payload[%s:]))", f.BitSize, f.BitSize, offset)
 		}
 	} else {
 		switch f.BitSize {
 		case 16, 32, 64:
-			return fmt.Sprintf("%s(binary.LittleEndian.Uint%d(p.Payload[%s:]))", goArrayType(f.GoType), f.BitSize, offset)
+			return fmt.Sprintf("%s(binary.LittleEndian.Uint%d(payload[%s:]))", goArrayType(f.GoType), f.BitSize, offset)
 		}
 	}
 
@@ -234,7 +234,7 @@ func (f *MessageField) PayloadUnpackSequence() string {
 	if f.ArrayLen > 0 {
 		// optimize to copy() if possible
 		if strings.HasSuffix(f.GoType, "byte") || strings.HasSuffix(f.GoType, "uint8") {
-			return fmt.Sprintf("copy(m.%s[:], p.Payload[%d:%d])", name, f.ByteOffset, f.ByteOffset+f.ArrayLen)
+			return fmt.Sprintf("copy(m.%s[:], payload[%d:%d])", name, f.ByteOffset, f.ByteOffset+f.ArrayLen)
 		}
 
 		// unpack each element in the array
@@ -517,11 +517,13 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -529,8 +531,13 @@ func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < {{ .Size }} {
-		p.Payload = append(p.Payload, make([]byte, {{ .Size }}-len(p.Payload), {{ .Size }}-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			payload = append(payload, zeroTail[:{{ .Size }}-len(p.Payload)]...)
+		}
 	}{{range .Fields}}
 	{{.PayloadUnpackSequence}}{{end}}
 	return nil

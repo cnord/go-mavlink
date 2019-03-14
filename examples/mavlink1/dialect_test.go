@@ -21,6 +21,6 @@ func TestAddRemove(t *testing.T) {
 	// verify removal
 	ds.Remove(DialectCommon)
 	require.Equal(t, len(ds), 1, "bad len after remove")
-	require.GreaterOrEqual(t, ds.IndexOf(DialectCommon), 0, "wrong dialect")
-	require.NotEqual(t, ds.IndexOf(DialectArdupilotmega), 0, "wrong dialect")
+	require.NotEqual(t, ds.IndexOf(DialectCommon), 0, "wrong dialect")
+	require.GreaterOrEqual(t, ds.IndexOf(DialectArdupilotmega), 0, "wrong dialect")
 }

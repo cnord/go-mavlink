@@ -816,11 +816,13 @@ func (m *CommonHeartbeat) Pack(p *Packet) error {
 	payload[6] = byte(m.BaseMode)
 	payload[7] = byte(m.SystemStatus)
 	payload[8] = byte(m.MavlinkVersion)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -829,7 +831,11 @@ func (m *CommonHeartbeat) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
-		p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		}
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Type = uint8(p.Payload[4])
@@ -884,11 +890,13 @@ func (m *CommonSysStatus) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[26:], uint16(m.ErrorsCount3))
 	binary.LittleEndian.PutUint16(payload[28:], uint16(m.ErrorsCount4))
 	payload[30] = byte(m.BatteryRemaining)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -897,7 +905,11 @@ func (m *CommonSysStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 31 {
-		p.Payload = append(p.Payload, make([]byte, 31-len(p.Payload), 31-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 31-len(p.Payload), 31-len(p.Payload))...)
+		}
 	}
 	m.OnboardControlSensorsPresent = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.OnboardControlSensorsEnabled = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -937,11 +949,13 @@ func (m *CommonSystemTime) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUnixUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TimeBootMs))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -950,7 +964,11 @@ func (m *CommonSystemTime) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSystemTime) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
-		p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		}
 	}
 	m.TimeUnixUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -983,11 +1001,13 @@ func (m *CommonPing) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
 	payload[12] = byte(m.TargetSystem)
 	payload[13] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -996,7 +1016,11 @@ func (m *CommonPing) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonPing) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -1031,11 +1055,13 @@ func (m *CommonChangeOperatorControl) Pack(p *Packet) error {
 	payload[1] = byte(m.ControlRequest)
 	payload[2] = byte(m.Version)
 	copy(payload[3:], m.Passkey[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1044,7 +1070,11 @@ func (m *CommonChangeOperatorControl) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonChangeOperatorControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
-		p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.ControlRequest = uint8(p.Payload[1])
@@ -1077,11 +1107,13 @@ func (m *CommonChangeOperatorControlAck) Pack(p *Packet) error {
 	payload[0] = byte(m.GcsSystemID)
 	payload[1] = byte(m.ControlRequest)
 	payload[2] = byte(m.Ack)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1090,7 +1122,11 @@ func (m *CommonChangeOperatorControlAck) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonChangeOperatorControlAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
-		p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		}
 	}
 	m.GcsSystemID = uint8(p.Payload[0])
 	m.ControlRequest = uint8(p.Payload[1])
@@ -1118,11 +1154,13 @@ func (m *CommonAuthKey) MsgName() string {
 func (m *CommonAuthKey) Pack(p *Packet) error {
 	payload := make([]byte, 32)
 	copy(payload[0:], m.Key[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1131,7 +1169,11 @@ func (m *CommonAuthKey) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAuthKey) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	copy(m.Key[:], p.Payload[0:32])
 	return nil
@@ -1161,11 +1203,13 @@ func (m *CommonSetMode) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.BaseMode)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1174,7 +1218,11 @@ func (m *CommonSetMode) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetMode) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[4])
@@ -1208,11 +1256,13 @@ func (m *CommonParamRequestRead) Pack(p *Packet) error {
 	payload[2] = byte(m.TargetSystem)
 	payload[3] = byte(m.TargetComponent)
 	copy(payload[4:], m.ParamID[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1221,7 +1271,11 @@ func (m *CommonParamRequestRead) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonParamRequestRead) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
-		p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		}
 	}
 	m.ParamIndex = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -1252,11 +1306,13 @@ func (m *CommonParamRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1265,7 +1321,11 @@ func (m *CommonParamRequestList) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonParamRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -1300,11 +1360,13 @@ func (m *CommonParamValue) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[6:], uint16(m.ParamIndex))
 	copy(payload[8:], m.ParamID[:])
 	payload[24] = byte(m.ParamType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1313,7 +1375,11 @@ func (m *CommonParamValue) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonParamValue) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
-		p.Payload = append(p.Payload, make([]byte, 25-len(p.Payload), 25-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 25-len(p.Payload), 25-len(p.Payload))...)
+		}
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.ParamCount = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -1351,11 +1417,13 @@ func (m *CommonParamSet) Pack(p *Packet) error {
 	payload[5] = byte(m.TargetComponent)
 	copy(payload[6:], m.ParamID[:])
 	payload[22] = byte(m.ParamType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1364,7 +1432,11 @@ func (m *CommonParamSet) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonParamSet) Unpack(p *Packet) error {
 	if len(p.Payload) < 23 {
-		p.Payload = append(p.Payload, make([]byte, 23-len(p.Payload), 23-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 23-len(p.Payload), 23-len(p.Payload))...)
+		}
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[4])
@@ -1413,11 +1485,13 @@ func (m *CommonGpsRawInt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[26:], uint16(m.Cog))
 	payload[28] = byte(m.FixType)
 	payload[29] = byte(m.SatellitesVisible)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1426,7 +1500,11 @@ func (m *CommonGpsRawInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsRawInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
-		p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -1471,11 +1549,13 @@ func (m *CommonGpsStatus) Pack(p *Packet) error {
 	copy(payload[41:], m.SatelliteElevation[:])
 	copy(payload[61:], m.SatelliteAzimuth[:])
 	copy(payload[81:], m.SatelliteSnr[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1484,7 +1564,11 @@ func (m *CommonGpsStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 101 {
-		p.Payload = append(p.Payload, make([]byte, 101-len(p.Payload), 101-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 101-len(p.Payload), 101-len(p.Payload))...)
+		}
 	}
 	m.SatellitesVisible = uint8(p.Payload[0])
 	copy(m.SatellitePrn[:], p.Payload[1:21])
@@ -1533,11 +1617,13 @@ func (m *CommonScaledImu) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Xmag))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Ymag))
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Zmag))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1546,7 +1632,11 @@ func (m *CommonScaledImu) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -1599,11 +1689,13 @@ func (m *CommonRawImu) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Xmag))
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.Ymag))
 	binary.LittleEndian.PutUint16(payload[24:], uint16(m.Zmag))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1612,7 +1704,11 @@ func (m *CommonRawImu) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRawImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
-		p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
@@ -1655,11 +1751,13 @@ func (m *CommonRawPressure) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.PressDiff1))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.PressDiff2))
 	binary.LittleEndian.PutUint16(payload[14:], uint16(m.Temperature))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1668,7 +1766,11 @@ func (m *CommonRawPressure) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRawPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
-		p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.PressAbs = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
@@ -1704,11 +1806,13 @@ func (m *CommonScaledPressure) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PressDiff))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Temperature))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1717,7 +1821,11 @@ func (m *CommonScaledPressure) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -1758,11 +1866,13 @@ func (m *CommonAttitude) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Rollspeed))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Pitchspeed))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Yawspeed))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1771,7 +1881,11 @@ func (m *CommonAttitude) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAttitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
-		p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -1817,11 +1931,13 @@ func (m *CommonAttitudeQuaternion) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Rollspeed))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Pitchspeed))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Yawspeed))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1830,7 +1946,11 @@ func (m *CommonAttitudeQuaternion) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAttitudeQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -1875,11 +1995,13 @@ func (m *CommonLocalPositionNed) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Vx))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Vy))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Vz))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1888,7 +2010,11 @@ func (m *CommonLocalPositionNed) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLocalPositionNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
-		p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -1937,11 +2063,13 @@ func (m *CommonGlobalPositionInt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.Vy))
 	binary.LittleEndian.PutUint16(payload[24:], uint16(m.Vz))
 	binary.LittleEndian.PutUint16(payload[26:], uint16(m.Hdg))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1950,7 +2078,11 @@ func (m *CommonGlobalPositionInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGlobalPositionInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
-		p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2004,11 +2136,13 @@ func (m *CommonRcChannelsScaled) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Chan8Scaled))
 	payload[20] = byte(m.Port)
 	payload[21] = byte(m.Rssi)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2017,7 +2151,11 @@ func (m *CommonRcChannelsScaled) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRcChannelsScaled) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Chan1Scaled = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -2073,11 +2211,13 @@ func (m *CommonRcChannelsRaw) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Chan8Raw))
 	payload[20] = byte(m.Port)
 	payload[21] = byte(m.Rssi)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2086,7 +2226,11 @@ func (m *CommonRcChannelsRaw) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRcChannelsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -2140,11 +2284,13 @@ func (m *CommonServoOutputRaw) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Servo7Raw))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Servo8Raw))
 	payload[20] = byte(m.Port)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2153,7 +2299,11 @@ func (m *CommonServoOutputRaw) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonServoOutputRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 21 {
-		p.Payload = append(p.Payload, make([]byte, 21-len(p.Payload), 21-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 21-len(p.Payload), 21-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Servo1Raw = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -2194,11 +2344,13 @@ func (m *CommonMissionRequestPartialList) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2207,7 +2359,11 @@ func (m *CommonMissionRequestPartialList) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionRequestPartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -2242,11 +2398,13 @@ func (m *CommonMissionWritePartialList) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2255,7 +2413,11 @@ func (m *CommonMissionWritePartialList) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionWritePartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -2311,11 +2473,13 @@ func (m *CommonMissionItem) Pack(p *Packet) error {
 	payload[34] = byte(m.Frame)
 	payload[35] = byte(m.Current)
 	payload[36] = byte(m.Autocontinue)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2324,7 +2488,11 @@ func (m *CommonMissionItem) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionItem) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
-		p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		}
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2367,11 +2535,13 @@ func (m *CommonMissionRequest) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
 	payload[3] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2380,7 +2550,11 @@ func (m *CommonMissionRequest) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
-		p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		}
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -2412,11 +2586,13 @@ func (m *CommonMissionSetCurrent) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
 	payload[3] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2425,7 +2601,11 @@ func (m *CommonMissionSetCurrent) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionSetCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
-		p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		}
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -2453,11 +2633,13 @@ func (m *CommonMissionCurrent) MsgName() string {
 func (m *CommonMissionCurrent) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2466,7 +2648,11 @@ func (m *CommonMissionCurrent) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	return nil
@@ -2494,11 +2680,13 @@ func (m *CommonMissionRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2507,7 +2695,11 @@ func (m *CommonMissionRequestList) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -2538,11 +2730,13 @@ func (m *CommonMissionCount) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Count))
 	payload[2] = byte(m.TargetSystem)
 	payload[3] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2551,7 +2745,11 @@ func (m *CommonMissionCount) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionCount) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
-		p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		}
 	}
 	m.Count = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -2581,11 +2779,13 @@ func (m *CommonMissionClearAll) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2594,7 +2794,11 @@ func (m *CommonMissionClearAll) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionClearAll) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -2621,11 +2825,13 @@ func (m *CommonMissionItemReached) MsgName() string {
 func (m *CommonMissionItemReached) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2634,7 +2840,11 @@ func (m *CommonMissionItemReached) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionItemReached) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	return nil
@@ -2664,11 +2874,13 @@ func (m *CommonMissionAck) Pack(p *Packet) error {
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.Type)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2677,7 +2889,11 @@ func (m *CommonMissionAck) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
-		p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -2711,11 +2927,13 @@ func (m *CommonSetGpsGlobalOrigin) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Altitude))
 	payload[12] = byte(m.TargetSystem)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2724,7 +2942,11 @@ func (m *CommonSetGpsGlobalOrigin) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
-		p.Payload = append(p.Payload, make([]byte, 13-len(p.Payload), 13-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 13-len(p.Payload), 13-len(p.Payload))...)
+		}
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2757,11 +2979,13 @@ func (m *CommonGpsGlobalOrigin) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Altitude))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2770,7 +2994,11 @@ func (m *CommonGpsGlobalOrigin) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
-		p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		}
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2814,11 +3042,13 @@ func (m *CommonParamMapRc) Pack(p *Packet) error {
 	payload[19] = byte(m.TargetComponent)
 	copy(payload[20:], m.ParamID[:])
 	payload[36] = byte(m.ParameterRcChannelIndex)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2827,7 +3057,11 @@ func (m *CommonParamMapRc) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonParamMapRc) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
-		p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		}
 	}
 	m.ParamValue0 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Scale = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2865,11 +3099,13 @@ func (m *CommonMissionRequestInt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
 	payload[3] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2878,7 +3114,11 @@ func (m *CommonMissionRequestInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionRequestInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
-		p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		}
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -2922,11 +3162,13 @@ func (m *CommonSafetySetAllowedArea) Pack(p *Packet) error {
 	payload[24] = byte(m.TargetSystem)
 	payload[25] = byte(m.TargetComponent)
 	payload[26] = byte(m.Frame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2935,7 +3177,11 @@ func (m *CommonSafetySetAllowedArea) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSafetySetAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
-		p.Payload = append(p.Payload, make([]byte, 27-len(p.Payload), 27-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 27-len(p.Payload), 27-len(p.Payload))...)
+		}
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -2981,11 +3227,13 @@ func (m *CommonSafetyAllowedArea) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.P2y))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.P2z))
 	payload[24] = byte(m.Frame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -2994,7 +3242,11 @@ func (m *CommonSafetyAllowedArea) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSafetyAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
-		p.Payload = append(p.Payload, make([]byte, 25-len(p.Payload), 25-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 25-len(p.Payload), 25-len(p.Payload))...)
+		}
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3040,11 +3292,13 @@ func (m *CommonAttitudeQuaternionCov) Pack(p *Packet) error {
 	for i, v := range m.Covariance {
 		binary.LittleEndian.PutUint32(payload[36+i*4:], math.Float32bits(v))
 	}
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3053,7 +3307,11 @@ func (m *CommonAttitudeQuaternionCov) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAttitudeQuaternionCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 72 {
-		p.Payload = append(p.Payload, make([]byte, 72-len(p.Payload), 72-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 72-len(p.Payload), 72-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -3102,11 +3360,13 @@ func (m *CommonNavControllerOutput) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.NavBearing))
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.TargetBearing))
 	binary.LittleEndian.PutUint16(payload[24:], uint16(m.WpDist))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3115,7 +3375,11 @@ func (m *CommonNavControllerOutput) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonNavControllerOutput) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
-		p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		}
 	}
 	m.NavRoll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.NavPitch = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3168,11 +3432,13 @@ func (m *CommonGlobalPositionIntCov) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint32(payload[36+i*4:], math.Float32bits(v))
 	}
 	payload[180] = byte(m.EstimatorType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3181,7 +3447,11 @@ func (m *CommonGlobalPositionIntCov) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGlobalPositionIntCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 181 {
-		p.Payload = append(p.Payload, make([]byte, 181-len(p.Payload), 181-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 181-len(p.Payload), 181-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -3242,11 +3512,13 @@ func (m *CommonLocalPositionNedCov) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint32(payload[44+i*4:], math.Float32bits(v))
 	}
 	payload[224] = byte(m.EstimatorType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3255,7 +3527,11 @@ func (m *CommonLocalPositionNedCov) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLocalPositionNedCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 225 {
-		p.Payload = append(p.Payload, make([]byte, 225-len(p.Payload), 225-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 225-len(p.Payload), 225-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -3334,11 +3610,13 @@ func (m *CommonRcChannels) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[38:], uint16(m.Chan18Raw))
 	payload[40] = byte(m.Chancount)
 	payload[41] = byte(m.Rssi)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3347,7 +3625,11 @@ func (m *CommonRcChannels) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRcChannels) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
-		p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -3401,11 +3683,13 @@ func (m *CommonRequestDataStream) Pack(p *Packet) error {
 	payload[3] = byte(m.TargetComponent)
 	payload[4] = byte(m.ReqStreamID)
 	payload[5] = byte(m.StartStop)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3414,7 +3698,11 @@ func (m *CommonRequestDataStream) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRequestDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.ReqMessageRate = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetSystem = uint8(p.Payload[2])
@@ -3448,11 +3736,13 @@ func (m *CommonDataStream) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MessageRate))
 	payload[2] = byte(m.StreamID)
 	payload[3] = byte(m.OnOff)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3461,7 +3751,11 @@ func (m *CommonDataStream) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
-		p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+		}
 	}
 	m.MessageRate = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.StreamID = uint8(p.Payload[2])
@@ -3499,11 +3793,13 @@ func (m *CommonManualControl) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[6:], uint16(m.R))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Buttons))
 	payload[10] = byte(m.Target)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3512,7 +3808,11 @@ func (m *CommonManualControl) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonManualControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 11 {
-		p.Payload = append(p.Payload, make([]byte, 11-len(p.Payload), 11-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 11-len(p.Payload), 11-len(p.Payload))...)
+		}
 	}
 	m.X = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Y = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -3561,11 +3861,13 @@ func (m *CommonRcChannelsOverride) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[14:], uint16(m.Chan8Raw))
 	payload[16] = byte(m.TargetSystem)
 	payload[17] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3574,7 +3876,11 @@ func (m *CommonRcChannelsOverride) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRcChannelsOverride) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
-		p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		}
 	}
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Chan2Raw = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -3636,11 +3942,13 @@ func (m *CommonMissionItemInt) Pack(p *Packet) error {
 	payload[34] = byte(m.Frame)
 	payload[35] = byte(m.Current)
 	payload[36] = byte(m.Autocontinue)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3649,7 +3957,11 @@ func (m *CommonMissionItemInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMissionItemInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
-		p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		}
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3698,11 +4010,13 @@ func (m *CommonVfrHud) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Climb))
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Heading))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Throttle))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3711,7 +4025,11 @@ func (m *CommonVfrHud) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonVfrHud) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
-		p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		}
 	}
 	m.Airspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Groundspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3766,11 +4084,13 @@ func (m *CommonCommandInt) Pack(p *Packet) error {
 	payload[32] = byte(m.Frame)
 	payload[33] = byte(m.Current)
 	payload[34] = byte(m.Autocontinue)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3779,7 +4099,11 @@ func (m *CommonCommandInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonCommandInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
-		p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		}
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3837,11 +4161,13 @@ func (m *CommonCommandLong) Pack(p *Packet) error {
 	payload[30] = byte(m.TargetSystem)
 	payload[31] = byte(m.TargetComponent)
 	payload[32] = byte(m.Confirmation)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3850,7 +4176,11 @@ func (m *CommonCommandLong) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonCommandLong) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
-		p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
+		}
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -3888,11 +4218,13 @@ func (m *CommonCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Command))
 	payload[2] = byte(m.Result)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3901,7 +4233,11 @@ func (m *CommonCommandAck) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonCommandAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
-		p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+		}
 	}
 	m.Command = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Result = uint8(p.Payload[2])
@@ -3940,11 +4276,13 @@ func (m *CommonManualSetpoint) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Thrust))
 	payload[20] = byte(m.ModeSwitch)
 	payload[21] = byte(m.ManualOverrideSwitch)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -3953,7 +4291,11 @@ func (m *CommonManualSetpoint) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonManualSetpoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4003,11 +4345,13 @@ func (m *CommonSetAttitudeTarget) Pack(p *Packet) error {
 	payload[36] = byte(m.TargetSystem)
 	payload[37] = byte(m.TargetComponent)
 	payload[38] = byte(m.TypeMask)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4016,7 +4360,11 @@ func (m *CommonSetAttitudeTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 39 {
-		p.Payload = append(p.Payload, make([]byte, 39-len(p.Payload), 39-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 39-len(p.Payload), 39-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -4066,11 +4414,13 @@ func (m *CommonAttitudeTarget) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.BodyYawRate))
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Thrust))
 	payload[36] = byte(m.TypeMask)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4079,7 +4429,11 @@ func (m *CommonAttitudeTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
-		p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 37-len(p.Payload), 37-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -4143,11 +4497,13 @@ func (m *CommonSetPositionTargetLocalNed) Pack(p *Packet) error {
 	payload[50] = byte(m.TargetSystem)
 	payload[51] = byte(m.TargetComponent)
 	payload[52] = byte(m.CoordinateFrame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4156,7 +4512,11 @@ func (m *CommonSetPositionTargetLocalNed) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
-		p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4223,11 +4583,13 @@ func (m *CommonPositionTargetLocalNed) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.YawRate))
 	binary.LittleEndian.PutUint16(payload[48:], uint16(m.TypeMask))
 	payload[50] = byte(m.CoordinateFrame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4236,7 +4598,11 @@ func (m *CommonPositionTargetLocalNed) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
-		p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4305,11 +4671,13 @@ func (m *CommonSetPositionTargetGlobalInt) Pack(p *Packet) error {
 	payload[50] = byte(m.TargetSystem)
 	payload[51] = byte(m.TargetComponent)
 	payload[52] = byte(m.CoordinateFrame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4318,7 +4686,11 @@ func (m *CommonSetPositionTargetGlobalInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
-		p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4385,11 +4757,13 @@ func (m *CommonPositionTargetGlobalInt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.YawRate))
 	binary.LittleEndian.PutUint16(payload[48:], uint16(m.TypeMask))
 	payload[50] = byte(m.CoordinateFrame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4398,7 +4772,11 @@ func (m *CommonPositionTargetGlobalInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
-		p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4449,11 +4827,13 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Pitch))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Yaw))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4462,7 +4842,11 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
-		p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -4524,11 +4908,13 @@ func (m *CommonHilState) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[50:], uint16(m.Xacc))
 	binary.LittleEndian.PutUint16(payload[52:], uint16(m.Yacc))
 	binary.LittleEndian.PutUint16(payload[54:], uint16(m.Zacc))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4537,7 +4923,11 @@ func (m *CommonHilState) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilState) Unpack(p *Packet) error {
 	if len(p.Payload) < 56 {
-		p.Payload = append(p.Payload, make([]byte, 56-len(p.Payload), 56-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 56-len(p.Payload), 56-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -4598,11 +4988,13 @@ func (m *CommonHilControls) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.Aux4))
 	payload[40] = byte(m.Mode)
 	payload[41] = byte(m.NavMode)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4611,7 +5003,11 @@ func (m *CommonHilControls) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
-		p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.RollAilerons = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -4673,11 +5069,13 @@ func (m *CommonHilRcInputsRaw) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[28:], uint16(m.Chan11Raw))
 	binary.LittleEndian.PutUint16(payload[30:], uint16(m.Chan12Raw))
 	payload[32] = byte(m.Rssi)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4686,7 +5084,11 @@ func (m *CommonHilRcInputsRaw) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilRcInputsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
-		p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
@@ -4733,11 +5135,13 @@ func (m *CommonHilActuatorControls) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint32(payload[16+i*4:], math.Float32bits(v))
 	}
 	payload[80] = byte(m.Mode)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4746,7 +5150,11 @@ func (m *CommonHilActuatorControls) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilActuatorControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 81 {
-		p.Payload = append(p.Payload, make([]byte, 81-len(p.Payload), 81-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 81-len(p.Payload), 81-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Flags = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
@@ -4791,11 +5199,13 @@ func (m *CommonOpticalFlow) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.FlowY))
 	payload[24] = byte(m.SensorID)
 	payload[25] = byte(m.Quality)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4804,7 +5214,11 @@ func (m *CommonOpticalFlow) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
-		p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 26-len(p.Payload), 26-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.FlowCompMX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -4849,11 +5263,13 @@ func (m *CommonGlobalVisionPositionEstimate) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Pitch))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Yaw))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4862,7 +5278,11 @@ func (m *CommonGlobalVisionPositionEstimate) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGlobalVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -4906,11 +5326,13 @@ func (m *CommonVisionPositionEstimate) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Pitch))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Yaw))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4919,7 +5341,11 @@ func (m *CommonVisionPositionEstimate) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -4957,11 +5383,13 @@ func (m *CommonVisionSpeedEstimate) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Y))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Z))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -4970,7 +5398,11 @@ func (m *CommonVisionSpeedEstimate) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonVisionSpeedEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
-		p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+		}
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5011,11 +5443,13 @@ func (m *CommonViconPositionEstimate) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Pitch))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Yaw))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5024,7 +5458,11 @@ func (m *CommonViconPositionEstimate) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonViconPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5084,11 +5522,13 @@ func (m *CommonHighresImu) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[52:], math.Float32bits(m.PressureAlt))
 	binary.LittleEndian.PutUint32(payload[56:], math.Float32bits(m.Temperature))
 	binary.LittleEndian.PutUint16(payload[60:], uint16(m.FieldsUpdated))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5097,7 +5537,11 @@ func (m *CommonHighresImu) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHighresImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 62 {
-		p.Payload = append(p.Payload, make([]byte, 62-len(p.Payload), 62-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 62-len(p.Payload), 62-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5159,11 +5603,13 @@ func (m *CommonOpticalFlowRad) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[40:], uint16(m.Temperature))
 	payload[42] = byte(m.SensorID)
 	payload[43] = byte(m.Quality)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5172,7 +5618,11 @@ func (m *CommonOpticalFlowRad) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonOpticalFlowRad) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
-		p.Payload = append(p.Payload, make([]byte, 44-len(p.Payload), 44-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 44-len(p.Payload), 44-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5237,11 +5687,13 @@ func (m *CommonHilSensor) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[52:], math.Float32bits(m.PressureAlt))
 	binary.LittleEndian.PutUint32(payload[56:], math.Float32bits(m.Temperature))
 	binary.LittleEndian.PutUint32(payload[60:], uint32(m.FieldsUpdated))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5250,7 +5702,11 @@ func (m *CommonHilSensor) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
-		p.Payload = append(p.Payload, make([]byte, 64-len(p.Payload), 64-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 64-len(p.Payload), 64-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5330,11 +5786,13 @@ func (m *CommonSimState) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[72:], math.Float32bits(m.Vn))
 	binary.LittleEndian.PutUint32(payload[76:], math.Float32bits(m.Ve))
 	binary.LittleEndian.PutUint32(payload[80:], math.Float32bits(m.Vd))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5343,7 +5801,11 @@ func (m *CommonSimState) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSimState) Unpack(p *Packet) error {
 	if len(p.Payload) < 84 {
-		p.Payload = append(p.Payload, make([]byte, 84-len(p.Payload), 84-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 84-len(p.Payload), 84-len(p.Payload))...)
+		}
 	}
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Q2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -5401,11 +5863,13 @@ func (m *CommonRadioStatus) Pack(p *Packet) error {
 	payload[6] = byte(m.Txbuf)
 	payload[7] = byte(m.Noise)
 	payload[8] = byte(m.Remnoise)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5414,7 +5878,11 @@ func (m *CommonRadioStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonRadioStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
-		p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		}
 	}
 	m.Rxerrors = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Fixed = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -5452,11 +5920,13 @@ func (m *CommonFileTransferProtocol) Pack(p *Packet) error {
 	payload[1] = byte(m.TargetSystem)
 	payload[2] = byte(m.TargetComponent)
 	copy(payload[3:], m.Payload[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5465,7 +5935,11 @@ func (m *CommonFileTransferProtocol) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonFileTransferProtocol) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
-		p.Payload = append(p.Payload, make([]byte, 254-len(p.Payload), 254-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 254-len(p.Payload), 254-len(p.Payload))...)
+		}
 	}
 	m.TargetNetwork = uint8(p.Payload[0])
 	m.TargetSystem = uint8(p.Payload[1])
@@ -5496,11 +5970,13 @@ func (m *CommonTimesync) Pack(p *Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Tc1))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Ts1))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5509,7 +5985,11 @@ func (m *CommonTimesync) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonTimesync) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
-		p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+		}
 	}
 	m.Tc1 = int64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Ts1 = int64(binary.LittleEndian.Uint64(p.Payload[8:]))
@@ -5538,11 +6018,13 @@ func (m *CommonCameraTrigger) Pack(p *Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5551,7 +6033,11 @@ func (m *CommonCameraTrigger) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonCameraTrigger) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
-		p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5603,11 +6089,13 @@ func (m *CommonHilGps) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[32:], uint16(m.Cog))
 	payload[34] = byte(m.FixType)
 	payload[35] = byte(m.SatellitesVisible)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5616,7 +6104,11 @@ func (m *CommonHilGps) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilGps) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
-		p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5676,11 +6168,13 @@ func (m *CommonHilOpticalFlow) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[40:], uint16(m.Temperature))
 	payload[42] = byte(m.SensorID)
 	payload[43] = byte(m.Quality)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5689,7 +6183,11 @@ func (m *CommonHilOpticalFlow) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
-		p.Payload = append(p.Payload, make([]byte, 44-len(p.Payload), 44-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 44-len(p.Payload), 44-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -5758,11 +6256,13 @@ func (m *CommonHilStateQuaternion) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[58:], uint16(m.Xacc))
 	binary.LittleEndian.PutUint16(payload[60:], uint16(m.Yacc))
 	binary.LittleEndian.PutUint16(payload[62:], uint16(m.Zacc))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5771,7 +6271,11 @@ func (m *CommonHilStateQuaternion) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHilStateQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
-		p.Payload = append(p.Payload, make([]byte, 64-len(p.Payload), 64-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 64-len(p.Payload), 64-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	for i := 0; i < len(m.AttitudeQuaternion); i++ {
@@ -5832,11 +6336,13 @@ func (m *CommonScaledImu2) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Xmag))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Ymag))
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Zmag))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5845,7 +6351,11 @@ func (m *CommonScaledImu2) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledImu2) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -5886,11 +6396,13 @@ func (m *CommonLogRequestList) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.End))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5899,7 +6411,11 @@ func (m *CommonLogRequestList) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.Start = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.End = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -5936,11 +6452,13 @@ func (m *CommonLogEntry) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.ID))
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.NumLogs))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.LastLogNum))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -5949,7 +6467,11 @@ func (m *CommonLogEntry) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogEntry) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeUtc = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Size = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -5987,11 +6509,13 @@ func (m *CommonLogRequestData) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.ID))
 	payload[10] = byte(m.TargetSystem)
 	payload[11] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6000,7 +6524,11 @@ func (m *CommonLogRequestData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogRequestData) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
-		p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+		}
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Count = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6036,11 +6564,13 @@ func (m *CommonLogData) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ID))
 	payload[6] = byte(m.Count)
 	copy(payload[7:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6049,7 +6579,11 @@ func (m *CommonLogData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogData) Unpack(p *Packet) error {
 	if len(p.Payload) < 97 {
-		p.Payload = append(p.Payload, make([]byte, 97-len(p.Payload), 97-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 97-len(p.Payload), 97-len(p.Payload))...)
+		}
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.ID = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -6080,11 +6614,13 @@ func (m *CommonLogErase) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6093,7 +6629,11 @@ func (m *CommonLogErase) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogErase) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -6122,11 +6662,13 @@ func (m *CommonLogRequestEnd) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6135,7 +6677,11 @@ func (m *CommonLogRequestEnd) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLogRequestEnd) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -6168,11 +6714,13 @@ func (m *CommonGpsInjectData) Pack(p *Packet) error {
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.Len)
 	copy(payload[3:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6181,7 +6729,11 @@ func (m *CommonGpsInjectData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsInjectData) Unpack(p *Packet) error {
 	if len(p.Payload) < 113 {
-		p.Payload = append(p.Payload, make([]byte, 113-len(p.Payload), 113-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 113-len(p.Payload), 113-len(p.Payload))...)
+		}
 	}
 	m.TargetSystem = uint8(p.Payload[0])
 	m.TargetComponent = uint8(p.Payload[1])
@@ -6232,11 +6784,13 @@ func (m *CommonGps2Raw) Pack(p *Packet) error {
 	payload[32] = byte(m.FixType)
 	payload[33] = byte(m.SatellitesVisible)
 	payload[34] = byte(m.DgpsNumch)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6245,7 +6799,11 @@ func (m *CommonGps2Raw) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGps2Raw) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
-		p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -6286,11 +6844,13 @@ func (m *CommonPowerStatus) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Vservo))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Flags))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6299,7 +6859,11 @@ func (m *CommonPowerStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonPowerStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.Vcc = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Vservo = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
@@ -6337,11 +6901,13 @@ func (m *CommonSerialControl) Pack(p *Packet) error {
 	payload[7] = byte(m.Flags)
 	payload[8] = byte(m.Count)
 	copy(payload[9:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6350,7 +6916,11 @@ func (m *CommonSerialControl) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSerialControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 79 {
-		p.Payload = append(p.Payload, make([]byte, 79-len(p.Payload), 79-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 79-len(p.Payload), 79-len(p.Payload))...)
+		}
 	}
 	m.Baudrate = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Timeout = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -6405,11 +6975,13 @@ func (m *CommonGpsRtk) Pack(p *Packet) error {
 	payload[32] = byte(m.RtkRate)
 	payload[33] = byte(m.Nsats)
 	payload[34] = byte(m.BaselineCoordsType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6418,7 +6990,11 @@ func (m *CommonGpsRtk) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsRtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
-		p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		}
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6480,11 +7056,13 @@ func (m *CommonGps2Rtk) Pack(p *Packet) error {
 	payload[32] = byte(m.RtkRate)
 	payload[33] = byte(m.Nsats)
 	payload[34] = byte(m.BaselineCoordsType)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6493,7 +7071,11 @@ func (m *CommonGps2Rtk) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGps2Rtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
-		p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 35-len(p.Payload), 35-len(p.Payload))...)
+		}
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6549,11 +7131,13 @@ func (m *CommonScaledImu3) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Xmag))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Ymag))
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Zmag))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6562,7 +7146,11 @@ func (m *CommonScaledImu3) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledImu3) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -6609,11 +7197,13 @@ func (m *CommonDataTransmissionHandshake) Pack(p *Packet) error {
 	payload[10] = byte(m.Type)
 	payload[11] = byte(m.Payload)
 	payload[12] = byte(m.JpgQuality)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6622,7 +7212,11 @@ func (m *CommonDataTransmissionHandshake) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonDataTransmissionHandshake) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
-		p.Payload = append(p.Payload, make([]byte, 13-len(p.Payload), 13-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 13-len(p.Payload), 13-len(p.Payload))...)
+		}
 	}
 	m.Size = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Width = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -6656,11 +7250,13 @@ func (m *CommonEncapsulatedData) Pack(p *Packet) error {
 	payload := make([]byte, 255)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seqnr))
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6669,7 +7265,11 @@ func (m *CommonEncapsulatedData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonEncapsulatedData) Unpack(p *Packet) error {
 	if len(p.Payload) < 255 {
-		p.Payload = append(p.Payload, make([]byte, 255-len(p.Payload), 255-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 255-len(p.Payload), 255-len(p.Payload))...)
+		}
 	}
 	m.Seqnr = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	copy(m.Data[:], p.Payload[2:255])
@@ -6710,11 +7310,13 @@ func (m *CommonDistanceSensor) Pack(p *Packet) error {
 	payload[11] = byte(m.ID)
 	payload[12] = byte(m.Orientation)
 	payload[13] = byte(m.Covariance)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6723,7 +7325,11 @@ func (m *CommonDistanceSensor) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonDistanceSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.MinDistance = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -6762,11 +7368,13 @@ func (m *CommonTerrainRequest) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[12:], uint32(m.Lon))
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.GridSpacing))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6775,7 +7383,11 @@ func (m *CommonTerrainRequest) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonTerrainRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
-		p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		}
 	}
 	m.Mask = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -6814,11 +7426,13 @@ func (m *CommonTerrainData) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint16(payload[10+i*2:], uint16(v))
 	}
 	payload[42] = byte(m.Gridbit)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6827,7 +7441,11 @@ func (m *CommonTerrainData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonTerrainData) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
-		p.Payload = append(p.Payload, make([]byte, 43-len(p.Payload), 43-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 43-len(p.Payload), 43-len(p.Payload))...)
+		}
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6861,11 +7479,13 @@ func (m *CommonTerrainCheck) Pack(p *Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6874,7 +7494,11 @@ func (m *CommonTerrainCheck) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonTerrainCheck) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
-		p.Payload = append(p.Payload, make([]byte, 8-len(p.Payload), 8-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 8-len(p.Payload), 8-len(p.Payload))...)
+		}
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6913,11 +7537,13 @@ func (m *CommonTerrainReport) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Spacing))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Pending))
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Loaded))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6926,7 +7552,11 @@ func (m *CommonTerrainReport) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonTerrainReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
-		p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 22-len(p.Payload), 22-len(p.Payload))...)
+		}
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -6964,11 +7594,13 @@ func (m *CommonScaledPressure2) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PressDiff))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Temperature))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -6977,7 +7609,11 @@ func (m *CommonScaledPressure2) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledPressure2) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -7016,11 +7652,13 @@ func (m *CommonAttPosMocap) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.X))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Y))
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Z))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7029,7 +7667,11 @@ func (m *CommonAttPosMocap) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAttPosMocap) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
-		p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -7071,11 +7713,13 @@ func (m *CommonSetActuatorControlTarget) Pack(p *Packet) error {
 	payload[40] = byte(m.GroupMlx)
 	payload[41] = byte(m.TargetSystem)
 	payload[42] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7084,7 +7728,11 @@ func (m *CommonSetActuatorControlTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
-		p.Payload = append(p.Payload, make([]byte, 43-len(p.Payload), 43-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 43-len(p.Payload), 43-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -7122,11 +7770,13 @@ func (m *CommonActuatorControlTarget) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint32(payload[8+i*4:], math.Float32bits(v))
 	}
 	payload[40] = byte(m.GroupMlx)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7135,7 +7785,11 @@ func (m *CommonActuatorControlTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
-		p.Payload = append(p.Payload, make([]byte, 41-len(p.Payload), 41-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 41-len(p.Payload), 41-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -7177,11 +7831,13 @@ func (m *CommonAltitude) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.AltitudeRelative))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.AltitudeTerrain))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.BottomClearance))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7190,7 +7846,11 @@ func (m *CommonAltitude) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAltitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.AltitudeMonotonic = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7230,11 +7890,13 @@ func (m *CommonResourceRequest) Pack(p *Packet) error {
 	copy(payload[2:], m.URI[:])
 	payload[122] = byte(m.TransferType)
 	copy(payload[123:], m.Storage[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7243,7 +7905,11 @@ func (m *CommonResourceRequest) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonResourceRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 243 {
-		p.Payload = append(p.Payload, make([]byte, 243-len(p.Payload), 243-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 243-len(p.Payload), 243-len(p.Payload))...)
+		}
 	}
 	m.RequestID = uint8(p.Payload[0])
 	m.URIType = uint8(p.Payload[1])
@@ -7279,11 +7945,13 @@ func (m *CommonScaledPressure3) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PressDiff))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Temperature))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7292,7 +7960,11 @@ func (m *CommonScaledPressure3) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonScaledPressure3) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
-		p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -7351,11 +8023,13 @@ func (m *CommonFollowTarget) Pack(p *Packet) error {
 		binary.LittleEndian.PutUint32(payload[80+i*4:], math.Float32bits(v))
 	}
 	payload[92] = byte(m.EstCapabilities)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7364,7 +8038,11 @@ func (m *CommonFollowTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonFollowTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 93 {
-		p.Payload = append(p.Payload, make([]byte, 93-len(p.Payload), 93-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 93-len(p.Payload), 93-len(p.Payload))...)
+		}
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.CustomState = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
@@ -7448,11 +8126,13 @@ func (m *CommonControlSystemState) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[88:], math.Float32bits(m.RollRate))
 	binary.LittleEndian.PutUint32(payload[92:], math.Float32bits(m.PitchRate))
 	binary.LittleEndian.PutUint32(payload[96:], math.Float32bits(m.YawRate))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7461,7 +8141,11 @@ func (m *CommonControlSystemState) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonControlSystemState) Unpack(p *Packet) error {
 	if len(p.Payload) < 100 {
-		p.Payload = append(p.Payload, make([]byte, 100-len(p.Payload), 100-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 100-len(p.Payload), 100-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.XAcc = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7527,11 +8211,13 @@ func (m *CommonBatteryStatus) Pack(p *Packet) error {
 	payload[33] = byte(m.BatteryFunction)
 	payload[34] = byte(m.Type)
 	payload[35] = byte(m.BatteryRemaining)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7540,7 +8226,11 @@ func (m *CommonBatteryStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonBatteryStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
-		p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		}
 	}
 	m.CurrentConsumed = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.EnergyConsumed = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -7596,11 +8286,13 @@ func (m *CommonAutopilotVersion) Pack(p *Packet) error {
 	copy(payload[36:], m.FlightCustomVersion[:])
 	copy(payload[44:], m.MiddlewareCustomVersion[:])
 	copy(payload[52:], m.OsCustomVersion[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7609,7 +8301,11 @@ func (m *CommonAutopilotVersion) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAutopilotVersion) Unpack(p *Packet) error {
 	if len(p.Payload) < 60 {
-		p.Payload = append(p.Payload, make([]byte, 60-len(p.Payload), 60-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 60-len(p.Payload), 60-len(p.Payload))...)
+		}
 	}
 	m.Capabilities = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.UID = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
@@ -7659,11 +8355,13 @@ func (m *CommonLandingTarget) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.SizeY))
 	payload[28] = byte(m.TargetNum)
 	payload[29] = byte(m.Frame)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7672,7 +8370,11 @@ func (m *CommonLandingTarget) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonLandingTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
-		p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.AngleX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7723,11 +8425,13 @@ func (m *CommonEstimatorStatus) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.PosHorizAccuracy))
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.PosVertAccuracy))
 	binary.LittleEndian.PutUint16(payload[40:], uint16(m.Flags))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7736,7 +8440,11 @@ func (m *CommonEstimatorStatus) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonEstimatorStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
-		p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 42-len(p.Payload), 42-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.VelRatio = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7787,11 +8495,13 @@ func (m *CommonWindCov) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.WindAlt))
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.HorizAccuracy))
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.VertAccuracy))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7800,7 +8510,11 @@ func (m *CommonWindCov) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonWindCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
-		p.Payload = append(p.Payload, make([]byte, 40-len(p.Payload), 40-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 40-len(p.Payload), 40-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.WindX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7868,11 +8582,13 @@ func (m *CommonGpsInput) Pack(p *Packet) error {
 	payload[60] = byte(m.GpsID)
 	payload[61] = byte(m.FixType)
 	payload[62] = byte(m.SatellitesVisible)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7881,7 +8597,11 @@ func (m *CommonGpsInput) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsInput) Unpack(p *Packet) error {
 	if len(p.Payload) < 63 {
-		p.Payload = append(p.Payload, make([]byte, 63-len(p.Payload), 63-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 63-len(p.Payload), 63-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.TimeWeekMs = uint32(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -7928,11 +8648,13 @@ func (m *CommonGpsRtcmData) Pack(p *Packet) error {
 	payload[0] = byte(m.Flags)
 	payload[1] = byte(m.Len)
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -7941,7 +8663,11 @@ func (m *CommonGpsRtcmData) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonGpsRtcmData) Unpack(p *Packet) error {
 	if len(p.Payload) < 182 {
-		p.Payload = append(p.Payload, make([]byte, 182-len(p.Payload), 182-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 182-len(p.Payload), 182-len(p.Payload))...)
+		}
 	}
 	m.Flags = uint8(p.Payload[0])
 	m.Len = uint8(p.Payload[1])
@@ -8015,11 +8741,13 @@ func (m *CommonHighLatency) Pack(p *Packet) error {
 	payload[37] = byte(m.TemperatureAir)
 	payload[38] = byte(m.Failsafe)
 	payload[39] = byte(m.WpNum)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8028,7 +8756,11 @@ func (m *CommonHighLatency) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHighLatency) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
-		p.Payload = append(p.Payload, make([]byte, 40-len(p.Payload), 40-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 40-len(p.Payload), 40-len(p.Payload))...)
+		}
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Latitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8089,11 +8821,13 @@ func (m *CommonVibration) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], uint32(m.Clipping0))
 	binary.LittleEndian.PutUint32(payload[24:], uint32(m.Clipping1))
 	binary.LittleEndian.PutUint32(payload[28:], uint32(m.Clipping2))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8102,7 +8836,11 @@ func (m *CommonVibration) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonVibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
-		p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.VibrationX = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -8154,11 +8892,13 @@ func (m *CommonHomePosition) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(m.ApproachX))
 	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.ApproachY))
 	binary.LittleEndian.PutUint32(payload[48:], math.Float32bits(m.ApproachZ))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8167,7 +8907,11 @@ func (m *CommonHomePosition) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 52 {
-		p.Payload = append(p.Payload, make([]byte, 52-len(p.Payload), 52-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 52-len(p.Payload), 52-len(p.Payload))...)
+		}
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8226,11 +8970,13 @@ func (m *CommonSetHomePosition) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.ApproachY))
 	binary.LittleEndian.PutUint32(payload[48:], math.Float32bits(m.ApproachZ))
 	payload[52] = byte(m.TargetSystem)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8239,7 +8985,11 @@ func (m *CommonSetHomePosition) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonSetHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
-		p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+		}
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8279,11 +9029,13 @@ func (m *CommonMessageInterval) Pack(p *Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.IntervalUs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MessageID))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8292,7 +9044,11 @@ func (m *CommonMessageInterval) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMessageInterval) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
-		p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+		}
 	}
 	m.IntervalUs = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.MessageID = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
@@ -8321,11 +9077,13 @@ func (m *CommonExtendedSysState) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.VtolState)
 	payload[1] = byte(m.LandedState)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8334,7 +9092,11 @@ func (m *CommonExtendedSysState) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonExtendedSysState) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
-		p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+		}
 	}
 	m.VtolState = uint8(p.Payload[0])
 	m.LandedState = uint8(p.Payload[1])
@@ -8385,11 +9147,13 @@ func (m *CommonAdsbVehicle) Pack(p *Packet) error {
 	copy(payload[27:], m.Callsign[:])
 	payload[36] = byte(m.EmitterType)
 	payload[37] = byte(m.Tslc)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8398,7 +9162,11 @@ func (m *CommonAdsbVehicle) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonAdsbVehicle) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
-		p.Payload = append(p.Payload, make([]byte, 38-len(p.Payload), 38-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 38-len(p.Payload), 38-len(p.Payload))...)
+		}
 	}
 	m.IcaoAddress = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8448,11 +9216,13 @@ func (m *CommonCollision) Pack(p *Packet) error {
 	payload[16] = byte(m.Src)
 	payload[17] = byte(m.Action)
 	payload[18] = byte(m.ThreatLevel)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8461,7 +9231,11 @@ func (m *CommonCollision) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonCollision) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
-		p.Payload = append(p.Payload, make([]byte, 19-len(p.Payload), 19-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 19-len(p.Payload), 19-len(p.Payload))...)
+		}
 	}
 	m.ID = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.TimeToMinimumDelta = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8501,11 +9275,13 @@ func (m *CommonV2Extension) Pack(p *Packet) error {
 	payload[3] = byte(m.TargetSystem)
 	payload[4] = byte(m.TargetComponent)
 	copy(payload[5:], m.Payload[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8514,7 +9290,11 @@ func (m *CommonV2Extension) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonV2Extension) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
-		p.Payload = append(p.Payload, make([]byte, 254-len(p.Payload), 254-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 254-len(p.Payload), 254-len(p.Payload))...)
+		}
 	}
 	m.MessageType = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.TargetNetwork = uint8(p.Payload[2])
@@ -8552,11 +9332,13 @@ func (m *CommonMemoryVect) Pack(p *Packet) error {
 	for i, v := range m.Value {
 		payload[4+i*1] = byte(v)
 	}
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8565,7 +9347,11 @@ func (m *CommonMemoryVect) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonMemoryVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
-		p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 36-len(p.Payload), 36-len(p.Payload))...)
+		}
 	}
 	m.Address = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
 	m.Ver = uint8(p.Payload[2])
@@ -8604,11 +9390,13 @@ func (m *CommonDebugVect) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Y))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Z))
 	copy(payload[20:], m.Name[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8617,7 +9405,11 @@ func (m *CommonDebugVect) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonDebugVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
-		p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 30-len(p.Payload), 30-len(p.Payload))...)
+		}
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
@@ -8651,11 +9443,13 @@ func (m *CommonNamedValueFloat) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
 	copy(payload[8:], m.Name[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8664,7 +9458,11 @@ func (m *CommonNamedValueFloat) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonNamedValueFloat) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
-		p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8696,11 +9494,13 @@ func (m *CommonNamedValueInt) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Value))
 	copy(payload[8:], m.Name[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8709,7 +9509,11 @@ func (m *CommonNamedValueInt) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonNamedValueInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
-		p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 18-len(p.Payload), 18-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Value = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
@@ -8739,11 +9543,13 @@ func (m *CommonStatustext) Pack(p *Packet) error {
 	payload := make([]byte, 51)
 	payload[0] = byte(m.Severity)
 	copy(payload[1:], m.Text[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8752,7 +9558,11 @@ func (m *CommonStatustext) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonStatustext) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
-		p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 51-len(p.Payload), 51-len(p.Payload))...)
+		}
 	}
 	m.Severity = uint8(p.Payload[0])
 	copy(m.Text[:], p.Payload[1:51])
@@ -8783,11 +9593,13 @@ func (m *CommonDebug) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
 	payload[8] = byte(m.Ind)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
+	if MavlinkVersion > 1 {
+		payloadLen := len(payload)
+		for payloadLen > 1 && payload[payloadLen-1] == 0 {
+			payloadLen--
+		}
+		payload = payload[:payloadLen]
 	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -8796,7 +9608,11 @@ func (m *CommonDebug) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *CommonDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
-		p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		if MavlinkVersion == 1 {
+			return errPayloadTooSmall
+		} else {
+			p.Payload = append(p.Payload, make([]byte, 9-len(p.Payload), 9-len(p.Payload))...)
+		}
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
