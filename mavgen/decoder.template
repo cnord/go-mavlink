@@ -26,6 +26,7 @@ func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 }
 
 func (d *Decoder) Stop() {
+	d.done <- true
 	d.Multicast.Lock()
 	for _, v := range d.Multicast.listeners {
 		v <- true

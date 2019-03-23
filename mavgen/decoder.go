@@ -37,6 +37,7 @@ func decoderTemplate() string {
 		"}\n" +
 		"\n" +
 		"func (d *Decoder) Stop() {\n" +
+		"\td.done <- true\n" +
 		"\td.Multicast.Lock()\n" +
 		"\tfor _, v := range d.Multicast.listeners {\n" +
 		"\t\tv <- true\n" +
