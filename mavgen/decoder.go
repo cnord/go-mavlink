@@ -60,7 +60,10 @@ func decoderTemplate() string {
 		"\t\t}()\n" +
 		"\t\tfor {\n" +
 		"\t\t\tselect {\n" +
-		"\t\t\tcase buffer := <-d.data:\n" +
+		"\t\t\tcase buffer, ok := <-d.data:\n" +
+		"                if !ok {\n" +
+		"                    return\n" +
+		"                }\n" +
 		"\t\t\t\td.Multicast.notify(buffer)\n" +
 		"\t\t\t\tfor i, c := range buffer {\n" +
 		"\t\t\t\t\tif c == magicNumber {\n" +
@@ -71,7 +74,10 @@ func decoderTemplate() string {
 		"\t\t\t\t\t\t\tvar parser Parser\n" +
 		"\t\t\t\t\t\t\tfor {\n" +
 		"\t\t\t\t\t\t\t\tselect {\n" +
-		"\t\t\t\t\t\t\t\tcase buffer := <-newBytes:\n" +
+		"\t\t\t\t\t\t\t\tcase buffer, ok := <-newBytes:\n" +
+		"\t\t\t\t\t\t\t\t    if !ok {\n" +
+		"\t\t\t\t\t\t\t\t        return\n" +
+		"\t\t\t\t\t\t\t\t    }\n" +
 		"\t\t\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
 		"\t\t\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
 		"\t\t\t\t\t\t\t\t\t\tif err != nil {\n" +

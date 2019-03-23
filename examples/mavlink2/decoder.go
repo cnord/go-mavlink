@@ -52,7 +52,10 @@ func NewChannelDecoder() *Decoder {
 		}()
 		for {
 			select {
-			case buffer := <-d.data:
+			case buffer, ok := <-d.data:
+				if !ok {
+					return
+				}
 				d.Multicast.notify(buffer)
 				for i, c := range buffer {
 					if c == magicNumber {
@@ -63,7 +66,10 @@ func NewChannelDecoder() *Decoder {
 							var parser Parser
 							for {
 								select {
-								case buffer := <-newBytes:
+								case buffer, ok := <-newBytes:
+									if !ok {
+										return
+									}
 									for _, c := range buffer {
 										packet, err := parser.parseChar(c)
 										if err != nil {
