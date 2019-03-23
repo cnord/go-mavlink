@@ -20,11 +20,10 @@ func (x *X25) WriteByte(b byte) {
 }
 
 // Write function append byte slice into crc accumulation
-func (x *X25) Write(p []byte) (n int, err error) {
+func (x *X25) Write(p []byte) {
 	for _, b := range p {
 		x.WriteByte(b)
 	}
-	return len(p), nil
 }
 
 // Sum16 function return accumulated crc

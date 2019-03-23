@@ -31,11 +31,10 @@ func x25Template() string {
 		"}\n" +
 		"\n" +
 		"// Write function append byte slice into crc accumulation\n" +
-		"func (x *X25) Write(p []byte) (n int, err error) {\n" +
+		"func (x *X25) Write(p []byte) {\n" +
 		"\tfor _, b := range p {\n" +
 		"\t\tx.WriteByte(b)\n" +
 		"\t}\n" +
-		"\treturn len(p), nil\n" +
 		"}\n" +
 		"\n" +
 		"// Sum16 function return accumulated crc\n" +
