@@ -21,7 +21,7 @@ func TestRoundTripChannels(t *testing.T) {
 	wg.Add(2)
 
 	pings := make([]CommonPing, 0, 255)
-	mtx := &sync.Mutex{}
+	processed := make([]CommonPing, 0, 255)
 
 	go func() {
 		defer wg.Done()
@@ -42,7 +42,6 @@ func TestRoundTripChannels(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		end := time.Now().Add(time.Second);
-		processed := make([]CommonPing, 0, 255)
 		for {
 			packet := dec.NextPacket(time.Until(end));
 			if packet == nil {
@@ -53,14 +52,12 @@ func TestRoundTripChannels(t *testing.T) {
 			require.Nil(t, ping.Unpack(packet), "Unpack fail")
 			processed = append(processed, ping)
 		}
-		mtx.Lock()
-		require.Equal(t, len(pings), len(processed), "Pings not processed")
-		for i, v := range pings {
-			require.Equal(t, processed[i].Seq, v.Seq, "Order failed")
-		}
-		mtx.Unlock()
 	}()
 	wg.Wait()
+	require.Equal(t, len(pings), len(processed), "Pings not processed")
+	for i, v := range pings {
+		require.Equal(t, processed[i].Seq, v.Seq, "Order failed")
+	}
 }
 
 func TestDecode(t *testing.T) {

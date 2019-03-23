@@ -12,6 +12,7 @@ func decoderTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
 		"import (\n" +
+		"\t\"runtime\"\n" +
 		"\t\"time\"\n" +
 		")\n" +
 		"\n" +
@@ -78,6 +79,7 @@ func decoderTemplate() string {
 		"\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
 		"\t\t\t\t\t\t\t\t\treturn\n" +
 		"\t\t\t\t\t\t\t\t}\n" +
+		"\t\t\t\t\t\t\t\truntime.Gosched()\n" +
 		"\t\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t}()\n" +

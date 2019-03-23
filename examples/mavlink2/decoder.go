@@ -4,6 +4,7 @@
 package mavlink
 
 import (
+	"runtime"
 	"time"
 )
 
@@ -70,6 +71,7 @@ func NewChannelDecoder() *Decoder {
 									d.decoded <- packet
 									return
 								}
+								runtime.Gosched()
 							}
 						}
 					}()
