@@ -32,7 +32,7 @@ func x25Template() string {
 		"\n" +
 		"// Write function append byte slice into crc accumulation\n" +
 		"func (x *X25) Write(p []byte) (n int, err error) {\n" +
-		"\tfor i, b := range p {\n" +
+		"\tfor _, b := range p {\n" +
 		"\t\tx.WriteByte(b)\n" +
 		"\t}\n" +
 		"\treturn len(p), nil\n" +
