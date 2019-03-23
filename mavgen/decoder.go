@@ -17,87 +17,72 @@ func decoderTemplate() string {
 		"\n" +
 		"// Decoder struct provide decoding processor\n" +
 		"type Decoder struct {\n" +
-		"\tMulticast Multicast\n" +
+		"\tmulticast Multicast\n" +
 		"\tdata      chan []byte\n" +
-		"\tdone      chan bool\n" +
-		"\tdecoded\t  chan *Packet\n" +
+		"\tdecoded   chan *Packet\n" +
 		"}\n" +
 		"\n" +
 		"func (d *Decoder) PushData(data []byte) {\n" +
+		"\tdata = append(data[:0:0], data...)\n" +
 		"\td.data <- data\n" +
 		"}\n" +
 		"\n" +
 		"func (d *Decoder) NextPacket(duration time.Duration) *Packet {\n" +
 		"\tselect {\n" +
-		"\tcase packet := <- d.decoded :\n" +
-		"\t\treturn packet\n" +
-		"\tcase <-time.After(duration) :\n" +
+		"\tcase packet, ok := <-d.decoded:\n" +
+		"\t\tif ok {\n" +
+		"\t\t\treturn packet\n" +
+		"\t\t}\n" +
+		"\t\treturn nil\n" +
+		"\tcase <-time.After(duration):\n" +
 		"\t\treturn nil\n" +
 		"\t}\n" +
 		"}\n" +
 		"\n" +
+		"// Stop make safely stop of decoder\n" +
 		"func (d *Decoder) Stop() {\n" +
-		"\td.done <- true\n" +
-		"\td.Multicast.Lock()\n" +
-		"\tfor _, v := range d.Multicast.listeners {\n" +
-		"\t\tv <- true\n" +
-		"\t}\n" +
-		"\td.Multicast.Unlock()\n" +
+		"\tclose(d.data)\n" +
 		"}\n" +
 		"\n" +
 		"// NewChannelDecoder function create decoder instance with default dialect\n" +
 		"func NewChannelDecoder() *Decoder {\n" +
 		"\td := &Decoder{\n" +
-		"\t\tMulticast: NewMulticast(),\n" +
-		"\t\tdata : make(chan []byte, 1024),\n" +
-		"\t\tdone : make(chan bool),\n" +
-		"\t\tdecoded:   make(chan *Packet),\n" +
+		"\t\tdata:    make(chan []byte, 256),\n" +
+		"\t\tdecoded: make(chan *Packet, 256),\n" +
 		"\t}\n" +
 		"\tgo func() {\n" +
-		"\t\tdefer func() {\n" +
-		"\t\t\tclose(d.done)\n" +
-		"\t\t\tclose(d.data)\n" +
-		"\t\t}()\n" +
 		"\t\tfor {\n" +
-		"\t\t\tselect {\n" +
-		"\t\t\tcase buffer, ok := <-d.data:\n" +
-		"                if !ok {\n" +
-		"                    return\n" +
-		"                }\n" +
-		"\t\t\t\td.Multicast.notify(buffer)\n" +
-		"\t\t\t\tfor i, c := range buffer {\n" +
-		"\t\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\t\tdone := make(chan bool)\n" +
-		"\t\t\t\t\t\tnewBytes := d.Multicast.register(done)\n" +
-		"\t\t\t\t\t\tgo func() {\n" +
-		"\t\t\t\t\t\t\tdefer d.Multicast.clear(newBytes)\n" +
-		"\t\t\t\t\t\t\tvar parser Parser\n" +
-		"\t\t\t\t\t\t\tfor {\n" +
-		"\t\t\t\t\t\t\t\tselect {\n" +
-		"\t\t\t\t\t\t\t\tcase buffer, ok := <-newBytes:\n" +
-		"\t\t\t\t\t\t\t\t    if !ok {\n" +
-		"\t\t\t\t\t\t\t\t        return\n" +
-		"\t\t\t\t\t\t\t\t    }\n" +
-		"\t\t\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
-		"\t\t\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
-		"\t\t\t\t\t\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
-		"\t\t\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
-		"\t\t\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t\t\tcase <-done:\n" +
+		"\t\t\tbuffer, ok := <-d.data\n" +
+		"\t\t\tif !ok {\n" +
+		"\t\t\t\td.multicast.close()\n" +
+		"\t\t\t\tclose(d.decoded)\n" +
+		"\t\t\t\treturn\n" +
+		"\t\t\t}\n" +
+		"\t\t\td.multicast.notify(buffer)\n" +
+		"\t\t\tfor i, c := range buffer {\n" +
+		"\t\t\t\tif c == magicNumber {\n" +
+		"\t\t\t\t\tnewBytes := d.multicast.register()\n" +
+		"\t\t\t\t\tgo func() {\n" +
+		"\t\t\t\t\t\tdefer d.multicast.clear(newBytes)\n" +
+		"\t\t\t\t\t\tvar parser Parser\n" +
+		"\t\t\t\t\t\tfor {\n" +
+		"\t\t\t\t\t\t\tbuffer, ok := <-newBytes\n" +
+		"\t\t\t\t\t\t\tif !ok {\n" +
+		"\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t}\n" +
+		"\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
+		"\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
+		"\t\t\t\t\t\t\t\tif err != nil {\n" +
+		"\t\t\t\t\t\t\t\t\treturn\n" +
+		"\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
+		"\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
 		"\t\t\t\t\t\t\t\t\treturn\n" +
 		"\t\t\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t}()\n" +
-		"\t\t\t\t\t\tnewBytes <- buffer[i:]\n" +
-		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\t\t}\n" +
+		"\t\t\t\t\t}()\n" +
+		"\t\t\t\t\tnewBytes <- buffer[i:]\n" +
 		"\t\t\t\t}\n" +
-		"\t\t\tcase <-d.done:\n" +
-		"\t\t\t\td.Stop()\n" +
-		"\t\t\t\treturn\n" +
 		"\t\t\t}\n" +
 		"\t\t}\n" +
 		"\t}()\n" +

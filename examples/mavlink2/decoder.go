@@ -9,87 +9,72 @@ import (
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	Multicast Multicast
+	multicast Multicast
 	data      chan []byte
-	done      chan bool
 	decoded   chan *Packet
 }
 
 func (d *Decoder) PushData(data []byte) {
+	data = append(data[:0:0], data...)
 	d.data <- data
 }
 
 func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 	select {
-	case packet := <-d.decoded:
-		return packet
+	case packet, ok := <-d.decoded:
+		if ok {
+			return packet
+		}
+		return nil
 	case <-time.After(duration):
 		return nil
 	}
 }
 
+// Stop make safely stop of decoder
 func (d *Decoder) Stop() {
-	d.done <- true
-	d.Multicast.Lock()
-	for _, v := range d.Multicast.listeners {
-		v <- true
-	}
-	d.Multicast.Unlock()
+	close(d.data)
 }
 
 // NewChannelDecoder function create decoder instance with default dialect
 func NewChannelDecoder() *Decoder {
 	d := &Decoder{
-		Multicast: NewMulticast(),
-		data:      make(chan []byte, 1024),
-		done:      make(chan bool),
-		decoded:   make(chan *Packet),
+		data:    make(chan []byte, 256),
+		decoded: make(chan *Packet, 256),
 	}
 	go func() {
-		defer func() {
-			close(d.done)
-			close(d.data)
-		}()
 		for {
-			select {
-			case buffer, ok := <-d.data:
-				if !ok {
-					return
-				}
-				d.Multicast.notify(buffer)
-				for i, c := range buffer {
-					if c == magicNumber {
-						done := make(chan bool)
-						newBytes := d.Multicast.register(done)
-						go func() {
-							defer d.Multicast.clear(newBytes)
-							var parser Parser
-							for {
-								select {
-								case buffer, ok := <-newBytes:
-									if !ok {
-										return
-									}
-									for _, c := range buffer {
-										packet, err := parser.parseChar(c)
-										if err != nil {
-											return
-										} else if packet != nil {
-											d.decoded <- packet
-											return
-										}
-									}
-								case <-done:
+			buffer, ok := <-d.data
+			if !ok {
+				d.multicast.close()
+				close(d.decoded)
+				return
+			}
+			d.multicast.notify(buffer)
+			for i, c := range buffer {
+				if c == magicNumber {
+					newBytes := d.multicast.register()
+					go func() {
+						defer d.multicast.clear(newBytes)
+						var parser Parser
+						for {
+							buffer, ok := <-newBytes
+							if !ok {
+								return
+							}
+							for _, c := range buffer {
+								packet, err := parser.parseChar(c)
+								if err != nil {
+									return
+								} else if packet != nil {
+									d.decoded <- packet
 									return
 								}
 							}
-						}()
-						newBytes <- buffer[i:]
-					}
+						}
+					}()
+					newBytes <- buffer[i:]
 				}
-			case <-d.done:
-				d.Stop()
-				return
 			}
 		}
 	}()
