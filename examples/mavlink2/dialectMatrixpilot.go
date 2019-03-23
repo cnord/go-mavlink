@@ -66,15 +66,16 @@ func (m *MatrixpilotFlexifunctionSet) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionSet) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 2-len(p.Payload), 2-len(p.Payload))...)
+			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
 	}
-	m.TargetSystem = uint8(p.Payload[0])
-	m.TargetComponent = uint8(p.Payload[1])
+	m.TargetSystem = uint8(payload[0])
+	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
@@ -118,17 +119,18 @@ func (m *MatrixpilotFlexifunctionReadReq) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionReadReq) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
 	}
-	m.ReadReqType = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.DataIndex = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.TargetSystem = uint8(p.Payload[4])
-	m.TargetComponent = uint8(p.Payload[5])
+	m.ReadReqType = int16(binary.LittleEndian.Uint16(payload[0:]))
+	m.DataIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
+	m.TargetSystem = uint8(payload[4])
+	m.TargetComponent = uint8(payload[5])
 	return nil
 }
 
@@ -180,21 +182,22 @@ func (m *MatrixpilotFlexifunctionBufferFunction) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionBufferFunction) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 58 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 58-len(p.Payload), 58-len(p.Payload))...)
+			payload = append(payload, zeroTail[:58-len(p.Payload)]...)
 		}
 	}
-	m.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.FuncCount = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.DataAddress = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.DataSize = uint16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.TargetSystem = uint8(p.Payload[8])
-	m.TargetComponent = uint8(p.Payload[9])
+	m.FuncIndex = uint16(binary.LittleEndian.Uint16(payload[0:]))
+	m.FuncCount = uint16(binary.LittleEndian.Uint16(payload[2:]))
+	m.DataAddress = uint16(binary.LittleEndian.Uint16(payload[4:]))
+	m.DataSize = uint16(binary.LittleEndian.Uint16(payload[6:]))
+	m.TargetSystem = uint8(payload[8])
+	m.TargetComponent = uint8(payload[9])
 	for i := 0; i < len(m.Data); i++ {
-		m.Data[i] = int8(p.Payload[10+i*1])
+		m.Data[i] = int8(payload[10+i*1])
 	}
 	return nil
 }
@@ -239,17 +242,18 @@ func (m *MatrixpilotFlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 6-len(p.Payload), 6-len(p.Payload))...)
+			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
 	}
-	m.FuncIndex = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.TargetSystem = uint8(p.Payload[4])
-	m.TargetComponent = uint8(p.Payload[5])
+	m.FuncIndex = uint16(binary.LittleEndian.Uint16(payload[0:]))
+	m.Result = uint16(binary.LittleEndian.Uint16(payload[2:]))
+	m.TargetSystem = uint8(payload[4])
+	m.TargetComponent = uint8(payload[5])
 	return nil
 }
 
@@ -299,20 +303,21 @@ func (m *MatrixpilotFlexifunctionDirectory) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionDirectory) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 53 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 53-len(p.Payload), 53-len(p.Payload))...)
+			payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 		}
 	}
-	m.TargetSystem = uint8(p.Payload[0])
-	m.TargetComponent = uint8(p.Payload[1])
-	m.DirectoryType = uint8(p.Payload[2])
-	m.StartIndex = uint8(p.Payload[3])
-	m.Count = uint8(p.Payload[4])
+	m.TargetSystem = uint8(payload[0])
+	m.TargetComponent = uint8(payload[1])
+	m.DirectoryType = uint8(payload[2])
+	m.StartIndex = uint8(payload[3])
+	m.Count = uint8(payload[4])
 	for i := 0; i < len(m.DirectoryData); i++ {
-		m.DirectoryData[i] = int8(p.Payload[5+i*1])
+		m.DirectoryData[i] = int8(payload[5+i*1])
 	}
 	return nil
 }
@@ -361,19 +366,20 @@ func (m *MatrixpilotFlexifunctionDirectoryAck) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionDirectoryAck) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 7 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 7-len(p.Payload), 7-len(p.Payload))...)
+			payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 		}
 	}
-	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.TargetSystem = uint8(p.Payload[2])
-	m.TargetComponent = uint8(p.Payload[3])
-	m.DirectoryType = uint8(p.Payload[4])
-	m.StartIndex = uint8(p.Payload[5])
-	m.Count = uint8(p.Payload[6])
+	m.Result = uint16(binary.LittleEndian.Uint16(payload[0:]))
+	m.TargetSystem = uint8(payload[2])
+	m.TargetComponent = uint8(payload[3])
+	m.DirectoryType = uint8(payload[4])
+	m.StartIndex = uint8(payload[5])
+	m.Count = uint8(payload[6])
 	return nil
 }
 
@@ -415,16 +421,17 @@ func (m *MatrixpilotFlexifunctionCommand) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionCommand) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 3-len(p.Payload), 3-len(p.Payload))...)
+			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
 	}
-	m.TargetSystem = uint8(p.Payload[0])
-	m.TargetComponent = uint8(p.Payload[1])
-	m.CommandType = uint8(p.Payload[2])
+	m.TargetSystem = uint8(payload[0])
+	m.TargetComponent = uint8(payload[1])
+	m.CommandType = uint8(payload[2])
 	return nil
 }
 
@@ -464,15 +471,16 @@ func (m *MatrixpilotFlexifunctionCommandAck) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotFlexifunctionCommandAck) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 4-len(p.Payload), 4-len(p.Payload))...)
+			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
 	}
-	m.CommandType = uint16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.Result = uint16(binary.LittleEndian.Uint16(p.Payload[2:]))
+	m.CommandType = uint16(binary.LittleEndian.Uint16(payload[0:]))
+	m.Result = uint16(binary.LittleEndian.Uint16(payload[2:]))
 	return nil
 }
 
@@ -562,40 +570,41 @@ func (m *MatrixpilotSerialUdbExtraF2A) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF2A) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 61 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 61-len(p.Payload), 61-len(p.Payload))...)
+			payload = append(payload, zeroTail[:61-len(p.Payload)]...)
 		}
 	}
-	m.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueLatitude = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueLongitude = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueAltitude = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.SueWaypointIndex = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	m.SueRmat0 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	m.SueRmat1 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	m.SueRmat2 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	m.SueRmat3 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	m.SueRmat4 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
-	m.SueRmat5 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
-	m.SueRmat6 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
-	m.SueRmat7 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
-	m.SueRmat8 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
-	m.SueCog = uint16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	m.SueSog = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	m.SueCPULoad = uint16(binary.LittleEndian.Uint16(p.Payload[40:]))
-	m.SueAirSpeed3dimu = uint16(binary.LittleEndian.Uint16(p.Payload[42:]))
-	m.SueEstimatedWind0 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
-	m.SueEstimatedWind1 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
-	m.SueEstimatedWind2 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
-	m.SueMagfieldearth0 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
-	m.SueMagfieldearth1 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
-	m.SueMagfieldearth2 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
-	m.SueSvs = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
-	m.SueHdop = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
-	m.SueStatus = uint8(p.Payload[60])
+	m.SueTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueLatitude = int32(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueLongitude = int32(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueAltitude = int32(binary.LittleEndian.Uint32(payload[12:]))
+	m.SueWaypointIndex = uint16(binary.LittleEndian.Uint16(payload[16:]))
+	m.SueRmat0 = int16(binary.LittleEndian.Uint16(payload[18:]))
+	m.SueRmat1 = int16(binary.LittleEndian.Uint16(payload[20:]))
+	m.SueRmat2 = int16(binary.LittleEndian.Uint16(payload[22:]))
+	m.SueRmat3 = int16(binary.LittleEndian.Uint16(payload[24:]))
+	m.SueRmat4 = int16(binary.LittleEndian.Uint16(payload[26:]))
+	m.SueRmat5 = int16(binary.LittleEndian.Uint16(payload[28:]))
+	m.SueRmat6 = int16(binary.LittleEndian.Uint16(payload[30:]))
+	m.SueRmat7 = int16(binary.LittleEndian.Uint16(payload[32:]))
+	m.SueRmat8 = int16(binary.LittleEndian.Uint16(payload[34:]))
+	m.SueCog = uint16(binary.LittleEndian.Uint16(payload[36:]))
+	m.SueSog = int16(binary.LittleEndian.Uint16(payload[38:]))
+	m.SueCPULoad = uint16(binary.LittleEndian.Uint16(payload[40:]))
+	m.SueAirSpeed3dimu = uint16(binary.LittleEndian.Uint16(payload[42:]))
+	m.SueEstimatedWind0 = int16(binary.LittleEndian.Uint16(payload[44:]))
+	m.SueEstimatedWind1 = int16(binary.LittleEndian.Uint16(payload[46:]))
+	m.SueEstimatedWind2 = int16(binary.LittleEndian.Uint16(payload[48:]))
+	m.SueMagfieldearth0 = int16(binary.LittleEndian.Uint16(payload[50:]))
+	m.SueMagfieldearth1 = int16(binary.LittleEndian.Uint16(payload[52:]))
+	m.SueMagfieldearth2 = int16(binary.LittleEndian.Uint16(payload[54:]))
+	m.SueSvs = int16(binary.LittleEndian.Uint16(payload[56:]))
+	m.SueHdop = int16(binary.LittleEndian.Uint16(payload[58:]))
+	m.SueStatus = uint8(payload[60])
 	return nil
 }
 
@@ -731,63 +740,64 @@ func (m *MatrixpilotSerialUdbExtraF2B) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF2B) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 108 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 108-len(p.Payload), 108-len(p.Payload))...)
+			payload = append(payload, zeroTail[:108-len(p.Payload)]...)
 		}
 	}
-	m.SueTime = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueFlags = uint32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueBaromPress = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueBaromAlt = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.SuePwmInput1 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	m.SuePwmInput2 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	m.SuePwmInput3 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	m.SuePwmInput4 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	m.SuePwmInput5 = int16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	m.SuePwmInput6 = int16(binary.LittleEndian.Uint16(p.Payload[26:]))
-	m.SuePwmInput7 = int16(binary.LittleEndian.Uint16(p.Payload[28:]))
-	m.SuePwmInput8 = int16(binary.LittleEndian.Uint16(p.Payload[30:]))
-	m.SuePwmInput9 = int16(binary.LittleEndian.Uint16(p.Payload[32:]))
-	m.SuePwmInput10 = int16(binary.LittleEndian.Uint16(p.Payload[34:]))
-	m.SuePwmInput11 = int16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	m.SuePwmInput12 = int16(binary.LittleEndian.Uint16(p.Payload[38:]))
-	m.SuePwmOutput1 = int16(binary.LittleEndian.Uint16(p.Payload[40:]))
-	m.SuePwmOutput2 = int16(binary.LittleEndian.Uint16(p.Payload[42:]))
-	m.SuePwmOutput3 = int16(binary.LittleEndian.Uint16(p.Payload[44:]))
-	m.SuePwmOutput4 = int16(binary.LittleEndian.Uint16(p.Payload[46:]))
-	m.SuePwmOutput5 = int16(binary.LittleEndian.Uint16(p.Payload[48:]))
-	m.SuePwmOutput6 = int16(binary.LittleEndian.Uint16(p.Payload[50:]))
-	m.SuePwmOutput7 = int16(binary.LittleEndian.Uint16(p.Payload[52:]))
-	m.SuePwmOutput8 = int16(binary.LittleEndian.Uint16(p.Payload[54:]))
-	m.SuePwmOutput9 = int16(binary.LittleEndian.Uint16(p.Payload[56:]))
-	m.SuePwmOutput10 = int16(binary.LittleEndian.Uint16(p.Payload[58:]))
-	m.SuePwmOutput11 = int16(binary.LittleEndian.Uint16(p.Payload[60:]))
-	m.SuePwmOutput12 = int16(binary.LittleEndian.Uint16(p.Payload[62:]))
-	m.SueImuLocationX = int16(binary.LittleEndian.Uint16(p.Payload[64:]))
-	m.SueImuLocationY = int16(binary.LittleEndian.Uint16(p.Payload[66:]))
-	m.SueImuLocationZ = int16(binary.LittleEndian.Uint16(p.Payload[68:]))
-	m.SueLocationErrorEarthX = int16(binary.LittleEndian.Uint16(p.Payload[70:]))
-	m.SueLocationErrorEarthY = int16(binary.LittleEndian.Uint16(p.Payload[72:]))
-	m.SueLocationErrorEarthZ = int16(binary.LittleEndian.Uint16(p.Payload[74:]))
-	m.SueOscFails = int16(binary.LittleEndian.Uint16(p.Payload[76:]))
-	m.SueImuVelocityX = int16(binary.LittleEndian.Uint16(p.Payload[78:]))
-	m.SueImuVelocityY = int16(binary.LittleEndian.Uint16(p.Payload[80:]))
-	m.SueImuVelocityZ = int16(binary.LittleEndian.Uint16(p.Payload[82:]))
-	m.SueWaypointGoalX = int16(binary.LittleEndian.Uint16(p.Payload[84:]))
-	m.SueWaypointGoalY = int16(binary.LittleEndian.Uint16(p.Payload[86:]))
-	m.SueWaypointGoalZ = int16(binary.LittleEndian.Uint16(p.Payload[88:]))
-	m.SueAeroX = int16(binary.LittleEndian.Uint16(p.Payload[90:]))
-	m.SueAeroY = int16(binary.LittleEndian.Uint16(p.Payload[92:]))
-	m.SueAeroZ = int16(binary.LittleEndian.Uint16(p.Payload[94:]))
-	m.SueBaromTemp = int16(binary.LittleEndian.Uint16(p.Payload[96:]))
-	m.SueBatVolt = int16(binary.LittleEndian.Uint16(p.Payload[98:]))
-	m.SueBatAmp = int16(binary.LittleEndian.Uint16(p.Payload[100:]))
-	m.SueBatAmpHours = int16(binary.LittleEndian.Uint16(p.Payload[102:]))
-	m.SueDesiredHeight = int16(binary.LittleEndian.Uint16(p.Payload[104:]))
-	m.SueMemoryStackFree = int16(binary.LittleEndian.Uint16(p.Payload[106:]))
+	m.SueTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueFlags = uint32(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueBaromPress = int32(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueBaromAlt = int32(binary.LittleEndian.Uint32(payload[12:]))
+	m.SuePwmInput1 = int16(binary.LittleEndian.Uint16(payload[16:]))
+	m.SuePwmInput2 = int16(binary.LittleEndian.Uint16(payload[18:]))
+	m.SuePwmInput3 = int16(binary.LittleEndian.Uint16(payload[20:]))
+	m.SuePwmInput4 = int16(binary.LittleEndian.Uint16(payload[22:]))
+	m.SuePwmInput5 = int16(binary.LittleEndian.Uint16(payload[24:]))
+	m.SuePwmInput6 = int16(binary.LittleEndian.Uint16(payload[26:]))
+	m.SuePwmInput7 = int16(binary.LittleEndian.Uint16(payload[28:]))
+	m.SuePwmInput8 = int16(binary.LittleEndian.Uint16(payload[30:]))
+	m.SuePwmInput9 = int16(binary.LittleEndian.Uint16(payload[32:]))
+	m.SuePwmInput10 = int16(binary.LittleEndian.Uint16(payload[34:]))
+	m.SuePwmInput11 = int16(binary.LittleEndian.Uint16(payload[36:]))
+	m.SuePwmInput12 = int16(binary.LittleEndian.Uint16(payload[38:]))
+	m.SuePwmOutput1 = int16(binary.LittleEndian.Uint16(payload[40:]))
+	m.SuePwmOutput2 = int16(binary.LittleEndian.Uint16(payload[42:]))
+	m.SuePwmOutput3 = int16(binary.LittleEndian.Uint16(payload[44:]))
+	m.SuePwmOutput4 = int16(binary.LittleEndian.Uint16(payload[46:]))
+	m.SuePwmOutput5 = int16(binary.LittleEndian.Uint16(payload[48:]))
+	m.SuePwmOutput6 = int16(binary.LittleEndian.Uint16(payload[50:]))
+	m.SuePwmOutput7 = int16(binary.LittleEndian.Uint16(payload[52:]))
+	m.SuePwmOutput8 = int16(binary.LittleEndian.Uint16(payload[54:]))
+	m.SuePwmOutput9 = int16(binary.LittleEndian.Uint16(payload[56:]))
+	m.SuePwmOutput10 = int16(binary.LittleEndian.Uint16(payload[58:]))
+	m.SuePwmOutput11 = int16(binary.LittleEndian.Uint16(payload[60:]))
+	m.SuePwmOutput12 = int16(binary.LittleEndian.Uint16(payload[62:]))
+	m.SueImuLocationX = int16(binary.LittleEndian.Uint16(payload[64:]))
+	m.SueImuLocationY = int16(binary.LittleEndian.Uint16(payload[66:]))
+	m.SueImuLocationZ = int16(binary.LittleEndian.Uint16(payload[68:]))
+	m.SueLocationErrorEarthX = int16(binary.LittleEndian.Uint16(payload[70:]))
+	m.SueLocationErrorEarthY = int16(binary.LittleEndian.Uint16(payload[72:]))
+	m.SueLocationErrorEarthZ = int16(binary.LittleEndian.Uint16(payload[74:]))
+	m.SueOscFails = int16(binary.LittleEndian.Uint16(payload[76:]))
+	m.SueImuVelocityX = int16(binary.LittleEndian.Uint16(payload[78:]))
+	m.SueImuVelocityY = int16(binary.LittleEndian.Uint16(payload[80:]))
+	m.SueImuVelocityZ = int16(binary.LittleEndian.Uint16(payload[82:]))
+	m.SueWaypointGoalX = int16(binary.LittleEndian.Uint16(payload[84:]))
+	m.SueWaypointGoalY = int16(binary.LittleEndian.Uint16(payload[86:]))
+	m.SueWaypointGoalZ = int16(binary.LittleEndian.Uint16(payload[88:]))
+	m.SueAeroX = int16(binary.LittleEndian.Uint16(payload[90:]))
+	m.SueAeroY = int16(binary.LittleEndian.Uint16(payload[92:]))
+	m.SueAeroZ = int16(binary.LittleEndian.Uint16(payload[94:]))
+	m.SueBaromTemp = int16(binary.LittleEndian.Uint16(payload[96:]))
+	m.SueBatVolt = int16(binary.LittleEndian.Uint16(payload[98:]))
+	m.SueBatAmp = int16(binary.LittleEndian.Uint16(payload[100:]))
+	m.SueBatAmpHours = int16(binary.LittleEndian.Uint16(payload[102:]))
+	m.SueDesiredHeight = int16(binary.LittleEndian.Uint16(payload[104:]))
+	m.SueMemoryStackFree = int16(binary.LittleEndian.Uint16(payload[106:]))
 	return nil
 }
 
@@ -843,23 +853,24 @@ func (m *MatrixpilotSerialUdbExtraF4) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF4) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 10 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 10-len(p.Payload), 10-len(p.Payload))...)
+			payload = append(payload, zeroTail[:10-len(p.Payload)]...)
 		}
 	}
-	m.SueRollStabilizationAilerons = uint8(p.Payload[0])
-	m.SueRollStabilizationRudder = uint8(p.Payload[1])
-	m.SuePitchStabilization = uint8(p.Payload[2])
-	m.SueYawStabilizationRudder = uint8(p.Payload[3])
-	m.SueYawStabilizationAileron = uint8(p.Payload[4])
-	m.SueAileronNavigation = uint8(p.Payload[5])
-	m.SueRudderNavigation = uint8(p.Payload[6])
-	m.SueAltitudeholdStabilized = uint8(p.Payload[7])
-	m.SueAltitudeholdWaypoint = uint8(p.Payload[8])
-	m.SueRacingMode = uint8(p.Payload[9])
+	m.SueRollStabilizationAilerons = uint8(payload[0])
+	m.SueRollStabilizationRudder = uint8(payload[1])
+	m.SuePitchStabilization = uint8(payload[2])
+	m.SueYawStabilizationRudder = uint8(payload[3])
+	m.SueYawStabilizationAileron = uint8(payload[4])
+	m.SueAileronNavigation = uint8(payload[5])
+	m.SueRudderNavigation = uint8(payload[6])
+	m.SueAltitudeholdStabilized = uint8(payload[7])
+	m.SueAltitudeholdWaypoint = uint8(payload[8])
+	m.SueRacingMode = uint8(payload[9])
 	return nil
 }
 
@@ -903,17 +914,18 @@ func (m *MatrixpilotSerialUdbExtraF5) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF5) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
 	}
-	m.SueYawkpAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueYawkdAileron = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueRollkp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueRollkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.SueYawkpAileron = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueYawkdAileron = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueRollkp = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueRollkd = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
 	return nil
 }
 
@@ -959,18 +971,19 @@ func (m *MatrixpilotSerialUdbExtraF6) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF6) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
 	}
-	m.SuePitchgain = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SuePitchkd = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueRudderElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueRollElevMix = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.SueElevatorBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.SuePitchgain = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.SuePitchkd = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueRudderElevMix = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueRollElevMix = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.SueElevatorBoost = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
 	return nil
 }
 
@@ -1018,19 +1031,20 @@ func (m *MatrixpilotSerialUdbExtraF7) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF7) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 24 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 24-len(p.Payload), 24-len(p.Payload))...)
+			payload = append(payload, zeroTail[:24-len(p.Payload)]...)
 		}
 	}
-	m.SueYawkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueYawkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueRollkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueRollkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.SueRudderBoost = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.SueRtlPitchDown = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
+	m.SueYawkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueYawkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueRollkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueRollkdRudder = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.SueRudderBoost = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.SueRtlPitchDown = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
 	return nil
 }
 
@@ -1080,20 +1094,21 @@ func (m *MatrixpilotSerialUdbExtraF8) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF8) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
 	}
-	m.SueHeightTargetMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueHeightTargetMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueAltHoldThrottleMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueAltHoldThrottleMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.SueAltHoldPitchMin = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.SueAltHoldPitchMax = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.SueAltHoldPitchHigh = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.SueHeightTargetMax = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueHeightTargetMin = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueAltHoldThrottleMin = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueAltHoldThrottleMax = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.SueAltHoldPitchMin = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.SueAltHoldPitchMax = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.SueAltHoldPitchHigh = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
 	return nil
 }
 
@@ -1137,17 +1152,18 @@ func (m *MatrixpilotSerialUdbExtraF13) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF13) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
 	}
-	m.SueLatOrigin = int32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueLonOrigin = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueAltOrigin = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.SueWeekNo = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
+	m.SueLatOrigin = int32(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueLonOrigin = int32(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueAltOrigin = int32(binary.LittleEndian.Uint32(payload[8:]))
+	m.SueWeekNo = int16(binary.LittleEndian.Uint16(payload[12:]))
 	return nil
 }
 
@@ -1205,24 +1221,25 @@ func (m *MatrixpilotSerialUdbExtraF14) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF14) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 17 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 17-len(p.Payload), 17-len(p.Payload))...)
+			payload = append(payload, zeroTail[:17-len(p.Payload)]...)
 		}
 	}
-	m.SueTrapSource = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueRcon = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.SueTrapFlags = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.SueOscFailCount = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.SueWindEstimation = uint8(p.Payload[10])
-	m.SueGpsType = uint8(p.Payload[11])
-	m.SueDr = uint8(p.Payload[12])
-	m.SueBoardType = uint8(p.Payload[13])
-	m.SueAirframe = uint8(p.Payload[14])
-	m.SueClockConfig = uint8(p.Payload[15])
-	m.SueFlightPlanType = uint8(p.Payload[16])
+	m.SueTrapSource = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueRcon = int16(binary.LittleEndian.Uint16(payload[4:]))
+	m.SueTrapFlags = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.SueOscFailCount = int16(binary.LittleEndian.Uint16(payload[8:]))
+	m.SueWindEstimation = uint8(payload[10])
+	m.SueGpsType = uint8(payload[11])
+	m.SueDr = uint8(payload[12])
+	m.SueBoardType = uint8(payload[13])
+	m.SueAirframe = uint8(payload[14])
+	m.SueClockConfig = uint8(payload[15])
+	m.SueFlightPlanType = uint8(payload[16])
 	return nil
 }
 
@@ -1262,15 +1279,16 @@ func (m *MatrixpilotSerialUdbExtraF15) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF15) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 60 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 60-len(p.Payload), 60-len(p.Payload))...)
+			payload = append(payload, zeroTail[:60-len(p.Payload)]...)
 		}
 	}
-	copy(m.SueIDVehicleModelName[:], p.Payload[0:40])
-	copy(m.SueIDVehicleRegistration[:], p.Payload[40:60])
+	copy(m.SueIDVehicleModelName[:], payload[0:40])
+	copy(m.SueIDVehicleRegistration[:], payload[40:60])
 	return nil
 }
 
@@ -1310,15 +1328,16 @@ func (m *MatrixpilotSerialUdbExtraF16) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF16) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 110 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 110-len(p.Payload), 110-len(p.Payload))...)
+			payload = append(payload, zeroTail[:110-len(p.Payload)]...)
 		}
 	}
-	copy(m.SueIDLeadPilot[:], p.Payload[0:40])
-	copy(m.SueIDDiyDronesURL[:], p.Payload[40:110])
+	copy(m.SueIDLeadPilot[:], payload[0:40])
+	copy(m.SueIDDiyDronesURL[:], payload[40:110])
 	return nil
 }
 
@@ -1368,20 +1387,21 @@ func (m *MatrixpilotAltitudes) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotAltitudes) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 28-len(p.Payload), 28-len(p.Payload))...)
+			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
 	}
-	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.AltGps = int32(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.AltImu = int32(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.AltBarometric = int32(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.AltOpticalFlow = int32(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.AltRangeFinder = int32(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.AltExtra = int32(binary.LittleEndian.Uint32(p.Payload[24:]))
+	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.AltGps = int32(binary.LittleEndian.Uint32(payload[4:]))
+	m.AltImu = int32(binary.LittleEndian.Uint32(payload[8:]))
+	m.AltBarometric = int32(binary.LittleEndian.Uint32(payload[12:]))
+	m.AltOpticalFlow = int32(binary.LittleEndian.Uint32(payload[16:]))
+	m.AltRangeFinder = int32(binary.LittleEndian.Uint32(payload[20:]))
+	m.AltExtra = int32(binary.LittleEndian.Uint32(payload[24:]))
 	return nil
 }
 
@@ -1431,20 +1451,21 @@ func (m *MatrixpilotAirspeeds) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotAirspeeds) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
 	}
-	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.AirspeedImu = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.AirspeedPitot = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.AirspeedHotWire = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.AirspeedUltrasonic = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	m.Aoa = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	m.Aoy = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
+	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.AirspeedImu = int16(binary.LittleEndian.Uint16(payload[4:]))
+	m.AirspeedPitot = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.AirspeedHotWire = int16(binary.LittleEndian.Uint16(payload[8:]))
+	m.AirspeedUltrasonic = int16(binary.LittleEndian.Uint16(payload[10:]))
+	m.Aoa = int16(binary.LittleEndian.Uint16(payload[12:]))
+	m.Aoy = int16(binary.LittleEndian.Uint16(payload[14:]))
 	return nil
 }
 
@@ -1486,16 +1507,17 @@ func (m *MatrixpilotSerialUdbExtraF17) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF17) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
 	}
-	m.SueFeedForward = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.SueTurnRateNav = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.SueTurnRateFbw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
+	m.SueFeedForward = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.SueTurnRateNav = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.SueTurnRateFbw = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
 	return nil
 }
 
@@ -1541,18 +1563,19 @@ func (m *MatrixpilotSerialUdbExtraF18) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF18) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 20-len(p.Payload), 20-len(p.Payload))...)
+			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
 	}
-	m.AngleOfAttackNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.AngleOfAttackInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.ElevatorTrimNormal = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.ElevatorTrimInverted = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.ReferenceSpeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
+	m.AngleOfAttackNormal = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.AngleOfAttackInverted = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.ElevatorTrimNormal = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.ElevatorTrimInverted = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.ReferenceSpeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
 	return nil
 }
 
@@ -1604,21 +1627,22 @@ func (m *MatrixpilotSerialUdbExtraF19) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF19) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 8-len(p.Payload), 8-len(p.Payload))...)
+			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
 	}
-	m.SueAileronOutputChannel = uint8(p.Payload[0])
-	m.SueAileronReversed = uint8(p.Payload[1])
-	m.SueElevatorOutputChannel = uint8(p.Payload[2])
-	m.SueElevatorReversed = uint8(p.Payload[3])
-	m.SueThrottleOutputChannel = uint8(p.Payload[4])
-	m.SueThrottleReversed = uint8(p.Payload[5])
-	m.SueRudderOutputChannel = uint8(p.Payload[6])
-	m.SueRudderReversed = uint8(p.Payload[7])
+	m.SueAileronOutputChannel = uint8(payload[0])
+	m.SueAileronReversed = uint8(payload[1])
+	m.SueElevatorOutputChannel = uint8(payload[2])
+	m.SueElevatorReversed = uint8(payload[3])
+	m.SueThrottleOutputChannel = uint8(payload[4])
+	m.SueThrottleReversed = uint8(payload[5])
+	m.SueRudderOutputChannel = uint8(payload[6])
+	m.SueRudderReversed = uint8(payload[7])
 	return nil
 }
 
@@ -1680,26 +1704,27 @@ func (m *MatrixpilotSerialUdbExtraF20) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF20) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 25 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 25-len(p.Payload), 25-len(p.Payload))...)
+			payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 		}
 	}
-	m.SueTrimValueInput1 = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.SueTrimValueInput2 = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.SueTrimValueInput3 = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.SueTrimValueInput4 = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.SueTrimValueInput5 = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.SueTrimValueInput6 = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	m.SueTrimValueInput7 = int16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	m.SueTrimValueInput8 = int16(binary.LittleEndian.Uint16(p.Payload[14:]))
-	m.SueTrimValueInput9 = int16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	m.SueTrimValueInput10 = int16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	m.SueTrimValueInput11 = int16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	m.SueTrimValueInput12 = int16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	m.SueNumberOfInputs = uint8(p.Payload[24])
+	m.SueTrimValueInput1 = int16(binary.LittleEndian.Uint16(payload[0:]))
+	m.SueTrimValueInput2 = int16(binary.LittleEndian.Uint16(payload[2:]))
+	m.SueTrimValueInput3 = int16(binary.LittleEndian.Uint16(payload[4:]))
+	m.SueTrimValueInput4 = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.SueTrimValueInput5 = int16(binary.LittleEndian.Uint16(payload[8:]))
+	m.SueTrimValueInput6 = int16(binary.LittleEndian.Uint16(payload[10:]))
+	m.SueTrimValueInput7 = int16(binary.LittleEndian.Uint16(payload[12:]))
+	m.SueTrimValueInput8 = int16(binary.LittleEndian.Uint16(payload[14:]))
+	m.SueTrimValueInput9 = int16(binary.LittleEndian.Uint16(payload[16:]))
+	m.SueTrimValueInput10 = int16(binary.LittleEndian.Uint16(payload[18:]))
+	m.SueTrimValueInput11 = int16(binary.LittleEndian.Uint16(payload[20:]))
+	m.SueTrimValueInput12 = int16(binary.LittleEndian.Uint16(payload[22:]))
+	m.SueNumberOfInputs = uint8(payload[24])
 	return nil
 }
 
@@ -1747,19 +1772,20 @@ func (m *MatrixpilotSerialUdbExtraF21) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF21) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
 	}
-	m.SueAccelXOffset = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.SueAccelYOffset = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.SueAccelZOffset = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.SueGyroXOffset = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.SueGyroYOffset = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.SueGyroZOffset = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.SueAccelXOffset = int16(binary.LittleEndian.Uint16(payload[0:]))
+	m.SueAccelYOffset = int16(binary.LittleEndian.Uint16(payload[2:]))
+	m.SueAccelZOffset = int16(binary.LittleEndian.Uint16(payload[4:]))
+	m.SueGyroXOffset = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.SueGyroYOffset = int16(binary.LittleEndian.Uint16(payload[8:]))
+	m.SueGyroZOffset = int16(binary.LittleEndian.Uint16(payload[10:]))
 	return nil
 }
 
@@ -1807,19 +1833,20 @@ func (m *MatrixpilotSerialUdbExtraF22) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *MatrixpilotSerialUdbExtraF22) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 12-len(p.Payload), 12-len(p.Payload))...)
+			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
 	}
-	m.SueAccelXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[0:]))
-	m.SueAccelYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[2:]))
-	m.SueAccelZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.SueGyroXAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.SueGyroYAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.SueGyroZAtCalibration = int16(binary.LittleEndian.Uint16(p.Payload[10:]))
+	m.SueAccelXAtCalibration = int16(binary.LittleEndian.Uint16(payload[0:]))
+	m.SueAccelYAtCalibration = int16(binary.LittleEndian.Uint16(payload[2:]))
+	m.SueAccelZAtCalibration = int16(binary.LittleEndian.Uint16(payload[4:]))
+	m.SueGyroXAtCalibration = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.SueGyroYAtCalibration = int16(binary.LittleEndian.Uint16(payload[8:]))
+	m.SueGyroZAtCalibration = int16(binary.LittleEndian.Uint16(payload[10:]))
 	return nil
 }
 

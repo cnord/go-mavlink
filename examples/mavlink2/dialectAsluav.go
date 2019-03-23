@@ -59,17 +59,18 @@ func (m *AsluavSensPower) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensPower) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
 	}
-	m.Adc121VspbVolt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.Adc121CspbAmp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.Adc121Cs1Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.Adc121Cs2Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
+	m.Adc121VspbVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.Adc121CspbAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.Adc121Cs1Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Adc121Cs2Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
 	return nil
 }
 
@@ -131,26 +132,27 @@ func (m *AsluavSensMppt) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensMppt) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 41 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 41-len(p.Payload), 41-len(p.Payload))...)
+			payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 		}
 	}
-	m.MpptTimestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.Mppt1Volt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.Mppt1Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.Mppt2Volt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.Mppt2Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.Mppt3Volt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.Mppt3Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.Mppt1Pwm = uint16(binary.LittleEndian.Uint16(p.Payload[32:]))
-	m.Mppt2Pwm = uint16(binary.LittleEndian.Uint16(p.Payload[34:]))
-	m.Mppt3Pwm = uint16(binary.LittleEndian.Uint16(p.Payload[36:]))
-	m.Mppt1Status = uint8(p.Payload[38])
-	m.Mppt2Status = uint8(p.Payload[39])
-	m.Mppt3Status = uint8(p.Payload[40])
+	m.MpptTimestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Mppt1Volt = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Mppt1Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.Mppt2Volt = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Mppt2Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Mppt3Volt = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Mppt3Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.Mppt1Pwm = uint16(binary.LittleEndian.Uint16(payload[32:]))
+	m.Mppt2Pwm = uint16(binary.LittleEndian.Uint16(payload[34:]))
+	m.Mppt3Pwm = uint16(binary.LittleEndian.Uint16(payload[36:]))
+	m.Mppt1Status = uint8(payload[38])
+	m.Mppt2Status = uint8(payload[39])
+	m.Mppt3Status = uint8(payload[40])
 	return nil
 }
 
@@ -236,38 +238,39 @@ func (m *AsluavAslctrlData) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavAslctrlData) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 98 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 98-len(p.Payload), 98-len(p.Payload))...)
+			payload = append(payload, zeroTail[:98-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.H = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.Href = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.HrefT = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.Pitchangle = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.Pitchangleref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.Q = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.Qref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	m.Uthrot = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[40:]))
-	m.Uthrot2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[44:]))
-	m.Nz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[48:]))
-	m.Airspeedref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[52:]))
-	m.Yawangle = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[56:]))
-	m.Yawangleref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[60:]))
-	m.Rollangle = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[64:]))
-	m.Rollangleref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[68:]))
-	m.P = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[72:]))
-	m.Pref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[76:]))
-	m.R = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[80:]))
-	m.Rref = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[84:]))
-	m.Uail = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[88:]))
-	m.Urud = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[92:]))
-	m.AslctrlMode = uint8(p.Payload[96])
-	m.Spoilersengaged = uint8(p.Payload[97])
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.H = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Href = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.HrefT = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Pitchangle = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Pitchangleref = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Q = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.Qref = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.Uthrot = math.Float32frombits(binary.LittleEndian.Uint32(payload[40:]))
+	m.Uthrot2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[44:]))
+	m.Nz = math.Float32frombits(binary.LittleEndian.Uint32(payload[48:]))
+	m.Airspeedref = math.Float32frombits(binary.LittleEndian.Uint32(payload[52:]))
+	m.Yawangle = math.Float32frombits(binary.LittleEndian.Uint32(payload[56:]))
+	m.Yawangleref = math.Float32frombits(binary.LittleEndian.Uint32(payload[60:]))
+	m.Rollangle = math.Float32frombits(binary.LittleEndian.Uint32(payload[64:]))
+	m.Rollangleref = math.Float32frombits(binary.LittleEndian.Uint32(payload[68:]))
+	m.P = math.Float32frombits(binary.LittleEndian.Uint32(payload[72:]))
+	m.Pref = math.Float32frombits(binary.LittleEndian.Uint32(payload[76:]))
+	m.R = math.Float32frombits(binary.LittleEndian.Uint32(payload[80:]))
+	m.Rref = math.Float32frombits(binary.LittleEndian.Uint32(payload[84:]))
+	m.Uail = math.Float32frombits(binary.LittleEndian.Uint32(payload[88:]))
+	m.Urud = math.Float32frombits(binary.LittleEndian.Uint32(payload[92:]))
+	m.AslctrlMode = uint8(payload[96])
+	m.Spoilersengaged = uint8(payload[97])
 	return nil
 }
 
@@ -325,24 +328,25 @@ func (m *AsluavAslctrlDebug) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavAslctrlDebug) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 38 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 38-len(p.Payload), 38-len(p.Payload))...)
+			payload = append(payload, zeroTail[:38-len(p.Payload)]...)
 		}
 	}
-	m.I321 = uint32(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.F1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
-	m.F2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.F3 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.F4 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.F5 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.F6 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.F7 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.F8 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	m.I81 = uint8(p.Payload[36])
-	m.I82 = uint8(p.Payload[37])
+	m.I321 = uint32(binary.LittleEndian.Uint32(payload[0:]))
+	m.F1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.F2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.F3 = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.F4 = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.F5 = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.F6 = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.F7 = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.F8 = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.I81 = uint8(payload[36])
+	m.I82 = uint8(payload[37])
 	return nil
 }
 
@@ -386,17 +390,18 @@ func (m *AsluavAsluavStatus) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavAsluavStatus) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 14-len(p.Payload), 14-len(p.Payload))...)
+			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
 	}
-	m.MotorRpm = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.LedStatus = uint8(p.Payload[4])
-	m.SatcomStatus = uint8(p.Payload[5])
-	copy(m.ServoStatus[:], p.Payload[6:14])
+	m.MotorRpm = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.LedStatus = uint8(payload[4])
+	m.SatcomStatus = uint8(payload[5])
+	copy(m.ServoStatus[:], payload[6:14])
 	return nil
 }
 
@@ -446,20 +451,21 @@ func (m *AsluavEkfExt) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavEkfExt) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 32-len(p.Payload), 32-len(p.Payload))...)
+			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.Windspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.Winddir = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.Windz = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.Airspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.Beta = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.Alpha = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Windspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Winddir = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.Windz = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Airspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Beta = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Alpha = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
 	return nil
 }
 
@@ -511,21 +517,22 @@ func (m *AsluavAslObctrl) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavAslObctrl) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 33 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 33-len(p.Payload), 33-len(p.Payload))...)
+			payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.Uthrot = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.Uthrot2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.Uaill = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.Uailr = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.Urud = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.ObctrlStatus = uint8(p.Payload[32])
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Uthrot = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.Uthrot2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Uaill = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Uailr = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Urud = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.ObctrlStatus = uint8(payload[32])
 	return nil
 }
 
@@ -565,15 +572,16 @@ func (m *AsluavSensAtmos) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensAtmos) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 8-len(p.Payload), 8-len(p.Payload))...)
+			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
 	}
-	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[4:]))
+	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
 	return nil
 }
 
@@ -635,26 +643,27 @@ func (m *AsluavSensBatmon) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensBatmon) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 27 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 27-len(p.Payload), 27-len(p.Payload))...)
+			payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 		}
 	}
-	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[0:]))
-	m.Voltage = uint16(binary.LittleEndian.Uint16(p.Payload[4:]))
-	m.Current = int16(binary.LittleEndian.Uint16(p.Payload[6:]))
-	m.Batterystatus = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.Serialnumber = uint16(binary.LittleEndian.Uint16(p.Payload[10:]))
-	m.Hostfetcontrol = uint16(binary.LittleEndian.Uint16(p.Payload[12:]))
-	m.Cellvoltage1 = uint16(binary.LittleEndian.Uint16(p.Payload[14:]))
-	m.Cellvoltage2 = uint16(binary.LittleEndian.Uint16(p.Payload[16:]))
-	m.Cellvoltage3 = uint16(binary.LittleEndian.Uint16(p.Payload[18:]))
-	m.Cellvoltage4 = uint16(binary.LittleEndian.Uint16(p.Payload[20:]))
-	m.Cellvoltage5 = uint16(binary.LittleEndian.Uint16(p.Payload[22:]))
-	m.Cellvoltage6 = uint16(binary.LittleEndian.Uint16(p.Payload[24:]))
-	m.Soc = uint8(p.Payload[26])
+	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
+	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[4:]))
+	m.Current = int16(binary.LittleEndian.Uint16(payload[6:]))
+	m.Batterystatus = uint16(binary.LittleEndian.Uint16(payload[8:]))
+	m.Serialnumber = uint16(binary.LittleEndian.Uint16(payload[10:]))
+	m.Hostfetcontrol = uint16(binary.LittleEndian.Uint16(payload[12:]))
+	m.Cellvoltage1 = uint16(binary.LittleEndian.Uint16(payload[14:]))
+	m.Cellvoltage2 = uint16(binary.LittleEndian.Uint16(payload[16:]))
+	m.Cellvoltage3 = uint16(binary.LittleEndian.Uint16(payload[18:]))
+	m.Cellvoltage4 = uint16(binary.LittleEndian.Uint16(payload[20:]))
+	m.Cellvoltage5 = uint16(binary.LittleEndian.Uint16(payload[22:]))
+	m.Cellvoltage6 = uint16(binary.LittleEndian.Uint16(payload[24:]))
+	m.Soc = uint8(payload[26])
 	return nil
 }
 
@@ -740,38 +749,39 @@ func (m *AsluavFwSoaringData) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavFwSoaringData) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 102 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 102-len(p.Payload), 102-len(p.Payload))...)
+			payload = append(payload, zeroTail[:102-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.Timestampmodechanged = uint64(binary.LittleEndian.Uint64(p.Payload[8:]))
-	m.Xw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.Xr = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.Xlat = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.Xlon = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.Varw = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	m.Varr = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	m.Varlat = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[40:]))
-	m.Varlon = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[44:]))
-	m.Loiterradius = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[48:]))
-	m.Loiterdirection = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[52:]))
-	m.Disttosoarpoint = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[56:]))
-	m.Vsinkexp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[60:]))
-	m.Z1Localupdraftspeed = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[64:]))
-	m.Z2Deltaroll = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[68:]))
-	m.Z1Exp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[72:]))
-	m.Z2Exp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[76:]))
-	m.Thermalgsnorth = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[80:]))
-	m.Thermalgseast = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[84:]))
-	m.TseDot = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[88:]))
-	m.Debugvar1 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[92:]))
-	m.Debugvar2 = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[96:]))
-	m.Controlmode = uint8(p.Payload[100])
-	m.Valid = uint8(p.Payload[101])
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Timestampmodechanged = uint64(binary.LittleEndian.Uint64(payload[8:]))
+	m.Xw = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Xr = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Xlat = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Xlon = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.Varw = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.Varr = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.Varlat = math.Float32frombits(binary.LittleEndian.Uint32(payload[40:]))
+	m.Varlon = math.Float32frombits(binary.LittleEndian.Uint32(payload[44:]))
+	m.Loiterradius = math.Float32frombits(binary.LittleEndian.Uint32(payload[48:]))
+	m.Loiterdirection = math.Float32frombits(binary.LittleEndian.Uint32(payload[52:]))
+	m.Disttosoarpoint = math.Float32frombits(binary.LittleEndian.Uint32(payload[56:]))
+	m.Vsinkexp = math.Float32frombits(binary.LittleEndian.Uint32(payload[60:]))
+	m.Z1Localupdraftspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[64:]))
+	m.Z2Deltaroll = math.Float32frombits(binary.LittleEndian.Uint32(payload[68:]))
+	m.Z1Exp = math.Float32frombits(binary.LittleEndian.Uint32(payload[72:]))
+	m.Z2Exp = math.Float32frombits(binary.LittleEndian.Uint32(payload[76:]))
+	m.Thermalgsnorth = math.Float32frombits(binary.LittleEndian.Uint32(payload[80:]))
+	m.Thermalgseast = math.Float32frombits(binary.LittleEndian.Uint32(payload[84:]))
+	m.TseDot = math.Float32frombits(binary.LittleEndian.Uint32(payload[88:]))
+	m.Debugvar1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[92:]))
+	m.Debugvar2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[96:]))
+	m.Controlmode = uint8(payload[100])
+	m.Valid = uint8(payload[101])
 	return nil
 }
 
@@ -823,21 +833,22 @@ func (m *AsluavSensorpodStatus) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensorpodStatus) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 16-len(p.Payload), 16-len(p.Payload))...)
+			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.FreeSpace = uint16(binary.LittleEndian.Uint16(p.Payload[8:]))
-	m.VisensorRate1 = uint8(p.Payload[10])
-	m.VisensorRate2 = uint8(p.Payload[11])
-	m.VisensorRate3 = uint8(p.Payload[12])
-	m.VisensorRate4 = uint8(p.Payload[13])
-	m.RecordingNodesCount = uint8(p.Payload[14])
-	m.CPUTemp = uint8(p.Payload[15])
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.FreeSpace = uint16(binary.LittleEndian.Uint16(payload[8:]))
+	m.VisensorRate1 = uint8(payload[10])
+	m.VisensorRate2 = uint8(payload[11])
+	m.VisensorRate3 = uint8(payload[12])
+	m.VisensorRate4 = uint8(payload[13])
+	m.RecordingNodesCount = uint8(payload[14])
+	m.CPUTemp = uint8(payload[15])
 	return nil
 }
 
@@ -897,25 +908,26 @@ func (m *AsluavSensPowerBoard) Pack(p *Packet) error {
 
 // Unpack (generated function)
 func (m *AsluavSensPowerBoard) Unpack(p *Packet) error {
+	payload := p.Payload[:]
 	if len(p.Payload) < 46 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
 		} else {
-			p.Payload = append(p.Payload, make([]byte, 46-len(p.Payload), 46-len(p.Payload))...)
+			payload = append(payload, zeroTail[:46-len(p.Payload)]...)
 		}
 	}
-	m.Timestamp = uint64(binary.LittleEndian.Uint64(p.Payload[0:]))
-	m.PwrBrdSystemVolt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[8:]))
-	m.PwrBrdServoVolt = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[12:]))
-	m.PwrBrdMotLAmp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[16:]))
-	m.PwrBrdMotRAmp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[20:]))
-	m.PwrBrdServo1Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[24:]))
-	m.PwrBrdServo2Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[28:]))
-	m.PwrBrdServo3Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[32:]))
-	m.PwrBrdServo4Amp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[36:]))
-	m.PwrBrdAuxAmp = math.Float32frombits(binary.LittleEndian.Uint32(p.Payload[40:]))
-	m.PwrBrdStatus = uint8(p.Payload[44])
-	m.PwrBrdLedStatus = uint8(p.Payload[45])
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.PwrBrdSystemVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.PwrBrdServoVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.PwrBrdMotLAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.PwrBrdMotRAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.PwrBrdServo1Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.PwrBrdServo2Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.PwrBrdServo3Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.PwrBrdServo4Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.PwrBrdAuxAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[40:]))
+	m.PwrBrdStatus = uint8(payload[44])
+	m.PwrBrdLedStatus = uint8(payload[45])
 	return nil
 }
 
