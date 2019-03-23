@@ -3,7 +3,6 @@ package mavlink
 import (
 	"github.com/stretchr/testify/require"
 	"math/rand"
-	"sort"
 	"sync"
 	"testing"
 	"time"
@@ -15,51 +14,52 @@ func TestRoundTripChannels(t *testing.T) {
 
 	rand.Seed(43)
 
-	cases := []struct{ seq uint32 }{}
-	for i := 0; i < 100; i++ {
-		cases = append(cases, struct{ seq uint32 }{rand.Uint32()})
-	}
-
 	dec := NewChannelDecoder()
 	defer dec.Stop()
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
 
-	go func(cases []struct{ seq uint32 }) {
-		defer wg.Done()
-		for i, _ := range cases {
-			seq := cases[i].seq
-			p := CommonPing{
-				Seq: seq,
-			}
-			packet := &Packet{}
-			require.Nil(t, p.Pack(packet), "Pack fail")
-			packet.fixChecksum(dialects)
-			dec.PushData(packet.Bytes())
-		}
-	}(cases)
-
-	sort.Slice(cases, func(i, j int) bool {
-		return cases[i].seq < cases[j].seq
-	})
+	pings := make([]CommonPing, 0, 255)
+	mtx := &sync.Mutex{}
 
 	go func() {
 		defer wg.Done()
-		for packet := dec.NextPacket(time.Millisecond); packet != nil && len(cases) > 0; packet = dec.NextPacket(time.Millisecond) {
-			require.Equal(t, packet.MsgID, MSG_ID_PING, "MsgID fail")
-			var pingOut CommonPing
-			require.Nil(t, pingOut.Unpack(packet), "Unpack fail")
-			i := sort.Search(len(cases), func(i int) bool {
-				return cases[i].seq >= pingOut.Seq
-			})
-			require.NotEqual(t, i, len(cases), "Search case by seq = %d fail. Cases: %+v", pingOut.Seq, cases)
-			require.Equal(t, cases[i].seq, pingOut.Seq, "Seq fail")
-			cases = append(cases[:i], cases[i+1:]...)
+		for i := 0; i < 255; i++ {
+			ping := CommonPing{
+				Seq: rand.Uint32(),
+			}
+			mtx.Lock()
+			pings = append(pings, ping)
+			mtx.Unlock()
+			packet := &Packet{}
+			require.Nil(t, packet.EncodeMessage(&ping), "Encode failed")
+			dec.PushData(packet.Bytes())
+			time.Sleep(time.Millisecond)
 		}
-		require.Equal(t, 0, len(cases), "Cases not cleared")
 	}()
 
+	go func() {
+		defer wg.Done()
+		end := time.Now().Add(time.Second);
+		processed := make([]CommonPing, 0, 255)
+		for {
+			packet := dec.NextPacket(time.Until(end));
+			if packet == nil {
+				break
+			}
+			require.Equal(t, packet.MsgID, MSG_ID_PING, "MsgID fail")
+			var ping CommonPing
+			require.Nil(t, ping.Unpack(packet), "Unpack fail")
+			processed = append(processed, ping)
+		}
+		mtx.Lock()
+		require.Equal(t, len(pings), len(processed), "Pings not processed")
+		for i, v := range pings {
+			require.Equal(t, processed[i].Seq, v.Seq, "Order failed")
+		}
+		mtx.Unlock()
+	}()
 	wg.Wait()
 }
 
