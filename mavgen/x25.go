@@ -24,7 +24,7 @@ func x25Template() string {
 		"}\n" +
 		"\n" +
 		"// WriteByte function append byte into crc accumulation\n" +
-		"func (x *X25) WriteByte(b byte) error {\n" +
+		"func (x *X25) WriteByte(b byte) {\n" +
 		"\ttmp := b ^ byte(x.crc&0xff)\n" +
 		"\ttmp ^= (tmp << 4)\n" +
 		"\tx.crc = (x.crc >> 8) ^ (uint16(tmp) << 8) ^ (uint16(tmp) << 3) ^ (uint16(tmp) >> 4)\n" +
@@ -34,10 +34,7 @@ func x25Template() string {
 		"// Write function append byte slice into crc accumulation\n" +
 		"func (x *X25) Write(p []byte) (n int, err error) {\n" +
 		"\tfor i, b := range p {\n" +
-		"\t\terr := x.WriteByte(b)\n" +
-		"\t\tif err != nil {\n" +
-		"\t\t\treturn i - 1, err\n" +
-		"\t\t}\n" +
+		"\t\tx.WriteByte(b)\n" +
 		"\t}\n" +
 		"\treturn len(p), nil\n" +
 		"}\n" +
