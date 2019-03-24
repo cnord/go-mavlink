@@ -63,9 +63,8 @@ func (m *AsluavSensPower) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.Adc121VspbVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Adc121CspbAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -136,9 +135,8 @@ func (m *AsluavSensMppt) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 	}
 	m.MpptTimestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Mppt1Volt = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -242,9 +240,8 @@ func (m *AsluavAslctrlData) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:98-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:98-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.H = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -332,9 +329,8 @@ func (m *AsluavAslctrlDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:38-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:38-len(p.Payload)]...)
 	}
 	m.I321 = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.F1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -394,9 +390,8 @@ func (m *AsluavAsluavStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.MotorRpm = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.LedStatus = uint8(payload[4])
@@ -455,9 +450,8 @@ func (m *AsluavEkfExt) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Windspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -521,9 +515,8 @@ func (m *AsluavAslObctrl) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Uelev = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -576,9 +569,8 @@ func (m *AsluavSensAtmos) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -647,9 +639,8 @@ func (m *AsluavSensBatmon) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 	}
 	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -753,9 +744,8 @@ func (m *AsluavFwSoaringData) Unpack(p *Packet) error {
 	if len(p.Payload) < 102 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:102-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:102-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Timestampmodechanged = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -837,9 +827,8 @@ func (m *AsluavSensorpodStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.FreeSpace = uint16(binary.LittleEndian.Uint16(payload[8:]))
@@ -912,9 +901,8 @@ func (m *AsluavSensPowerBoard) Unpack(p *Packet) error {
 	if len(p.Payload) < 46 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:46-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:46-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.PwrBrdSystemVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))

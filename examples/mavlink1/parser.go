@@ -55,9 +55,8 @@ func (parser *Parser) parseChar(c byte) (*Packet, error) {
 			parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
 			parser.packet = Packet{}
 			return nil, ErrCrcFail
-		} else {
-			parser.state = MAVLINK_PARSE_STATE_GOT_CRC1
 		}
+		parser.state = MAVLINK_PARSE_STATE_GOT_CRC1
 	case MAVLINK_PARSE_STATE_GOT_CRC1:
 		if c == uint8(parser.crc.Sum16()>>8) {
 			parser.packet.Checksum = parser.crc.Sum16()
@@ -65,11 +64,10 @@ func (parser *Parser) parseChar(c byte) (*Packet, error) {
 			result := parser.packet
 			parser.packet = Packet{}
 			return &result, nil
-		} else {
-			parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
-			parser.packet = Packet{}
-			return nil, ErrCrcFail
 		}
+		parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
+		parser.packet = Packet{}
+		return nil, ErrCrcFail
 	}
 	return nil, nil
 }

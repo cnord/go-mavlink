@@ -83,9 +83,8 @@ func parserTemplate() string {
 		"\t\t\tparser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC\n" +
 		"\t\t\tparser.packet = Packet{}\n" +
 		"\t\t\treturn nil, ErrCrcFail\n" +
-		"\t\t} else {\n" +
-		"\t\t\tparser.state = MAVLINK_PARSE_STATE_GOT_CRC1\n" +
 		"\t\t}\n" +
+		"        parser.state = MAVLINK_PARSE_STATE_GOT_CRC1\n" +
 		"\tcase MAVLINK_PARSE_STATE_GOT_CRC1:\n" +
 		"\t\tif c == uint8(parser.crc.Sum16()>>8) {\n" +
 		"\t\t\tparser.packet.Checksum = parser.crc.Sum16()\n" +
@@ -93,11 +92,10 @@ func parserTemplate() string {
 		"\t\t\tresult := parser.packet\n" +
 		"\t\t\tparser.packet = Packet{}\n" +
 		"\t\t\treturn &result, nil\n" +
-		"\t\t} else {\n" +
-		"\t\t\tparser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC\n" +
-		"\t\t\tparser.packet = Packet{}\n" +
-		"\t\t\treturn nil, ErrCrcFail\n" +
 		"\t\t}\n" +
+		"        parser.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC\n" +
+		"        parser.packet = Packet{}\n" +
+		"        return nil, ErrCrcFail\n" +
 		"\t}\n" +
 		"\treturn nil, nil\n" +
 		"}\n" +

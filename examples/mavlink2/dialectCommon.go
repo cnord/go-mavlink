@@ -834,9 +834,8 @@ func (m *CommonHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Type = uint8(payload[4])
@@ -909,9 +908,8 @@ func (m *CommonSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 31 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:31-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:31-len(p.Payload)]...)
 	}
 	m.OnboardControlSensorsPresent = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.OnboardControlSensorsEnabled = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -969,9 +967,8 @@ func (m *CommonSystemTime) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.TimeUnixUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -1022,9 +1019,8 @@ func (m *CommonPing) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -1077,9 +1073,8 @@ func (m *CommonChangeOperatorControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.ControlRequest = uint8(payload[1])
@@ -1130,9 +1125,8 @@ func (m *CommonChangeOperatorControlAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.GcsSystemID = uint8(payload[0])
 	m.ControlRequest = uint8(payload[1])
@@ -1178,9 +1172,8 @@ func (m *CommonAuthKey) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	copy(m.Key[:], payload[0:32])
 	return nil
@@ -1228,9 +1221,8 @@ func (m *CommonSetMode) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -1282,9 +1274,8 @@ func (m *CommonParamRequestRead) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.ParamIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -1333,9 +1324,8 @@ func (m *CommonParamRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -1388,9 +1378,8 @@ func (m *CommonParamValue) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.ParamCount = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -1446,9 +1435,8 @@ func (m *CommonParamSet) Unpack(p *Packet) error {
 	if len(p.Payload) < 23 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:23-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:23-len(p.Payload)]...)
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -1515,9 +1503,8 @@ func (m *CommonGpsRawInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -1580,9 +1567,8 @@ func (m *CommonGpsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 101 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:101-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:101-len(p.Payload)]...)
 	}
 	m.SatellitesVisible = uint8(payload[0])
 	copy(m.SatellitePrn[:], payload[1:21])
@@ -1649,9 +1635,8 @@ func (m *CommonScaledImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -1722,9 +1707,8 @@ func (m *CommonRawImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[8:]))
@@ -1785,9 +1769,8 @@ func (m *CommonRawPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.PressAbs = int16(binary.LittleEndian.Uint16(payload[8:]))
@@ -1841,9 +1824,8 @@ func (m *CommonScaledPressure) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1902,9 +1884,8 @@ func (m *CommonAttitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1968,9 +1949,8 @@ func (m *CommonAttitudeQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2033,9 +2013,8 @@ func (m *CommonLocalPositionNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2102,9 +2081,8 @@ func (m *CommonGlobalPositionInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -2176,9 +2154,8 @@ func (m *CommonRcChannelsScaled) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Scaled = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -2252,9 +2229,8 @@ func (m *CommonRcChannelsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -2326,9 +2302,8 @@ func (m *CommonServoOutputRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 21 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:21-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:21-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Servo1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -2387,9 +2362,8 @@ func (m *CommonMissionRequestPartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -2442,9 +2416,8 @@ func (m *CommonMissionWritePartialList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -2518,9 +2491,8 @@ func (m *CommonMissionItem) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2581,9 +2553,8 @@ func (m *CommonMissionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -2633,9 +2604,8 @@ func (m *CommonMissionSetCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -2681,9 +2651,8 @@ func (m *CommonMissionCurrent) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	return nil
@@ -2729,9 +2698,8 @@ func (m *CommonMissionRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2780,9 +2748,8 @@ func (m *CommonMissionCount) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Count = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -2830,9 +2797,8 @@ func (m *CommonMissionClearAll) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2877,9 +2843,8 @@ func (m *CommonMissionItemReached) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	return nil
@@ -2927,9 +2892,8 @@ func (m *CommonMissionAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2981,9 +2945,8 @@ func (m *CommonSetGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -3034,9 +2997,8 @@ func (m *CommonGpsGlobalOrigin) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -3098,9 +3060,8 @@ func (m *CommonParamMapRc) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 	}
 	m.ParamValue0 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Scale = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3156,9 +3117,8 @@ func (m *CommonMissionRequestInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -3220,9 +3180,8 @@ func (m *CommonSafetySetAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3286,9 +3245,8 @@ func (m *CommonSafetyAllowedArea) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3352,9 +3310,8 @@ func (m *CommonAttitudeQuaternionCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 72 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:72-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:72-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -3421,9 +3378,8 @@ func (m *CommonNavControllerOutput) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 	}
 	m.NavRoll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.NavPitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3494,9 +3450,8 @@ func (m *CommonGlobalPositionIntCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 181 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:181-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:181-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -3575,9 +3530,8 @@ func (m *CommonLocalPositionNedCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 225 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:225-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:225-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -3674,9 +3628,8 @@ func (m *CommonRcChannels) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -3748,9 +3701,8 @@ func (m *CommonRequestDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.ReqMessageRate = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -3802,9 +3754,8 @@ func (m *CommonDataStream) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.MessageRate = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.StreamID = uint8(payload[2])
@@ -3860,9 +3811,8 @@ func (m *CommonManualControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 11 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:11-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:11-len(p.Payload)]...)
 	}
 	m.X = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Y = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -3929,9 +3879,8 @@ func (m *CommonRcChannelsOverride) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 	}
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Chan2Raw = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -4011,9 +3960,8 @@ func (m *CommonMissionItemInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4080,9 +4028,8 @@ func (m *CommonVfrHud) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.Airspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Groundspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4155,9 +4102,8 @@ func (m *CommonCommandInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4233,9 +4179,8 @@ func (m *CommonCommandLong) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4291,9 +4236,8 @@ func (m *CommonCommandAck) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.Command = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Result = uint8(payload[2])
@@ -4350,9 +4294,8 @@ func (m *CommonManualSetpoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4420,9 +4363,8 @@ func (m *CommonSetAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 39 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:39-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:39-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -4490,9 +4432,8 @@ func (m *CommonAttitudeTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 37 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:37-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -4574,9 +4515,8 @@ func (m *CommonSetPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4661,9 +4601,8 @@ func (m *CommonPositionTargetLocalNed) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4750,9 +4689,8 @@ func (m *CommonSetPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -4837,9 +4775,8 @@ func (m *CommonPositionTargetGlobalInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -4908,9 +4845,8 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4990,9 +4926,8 @@ func (m *CommonHilState) Unpack(p *Packet) error {
 	if len(p.Payload) < 56 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:56-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:56-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5071,9 +5006,8 @@ func (m *CommonHilControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.RollAilerons = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5153,9 +5087,8 @@ func (m *CommonHilRcInputsRaw) Unpack(p *Packet) error {
 	if len(p.Payload) < 33 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:33-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[8:]))
@@ -5220,9 +5153,8 @@ func (m *CommonHilActuatorControls) Unpack(p *Packet) error {
 	if len(p.Payload) < 81 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:81-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:81-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Flags = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -5285,9 +5217,8 @@ func (m *CommonOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 26 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:26-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.FlowCompMX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5350,9 +5281,8 @@ func (m *CommonGlobalVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5414,9 +5344,8 @@ func (m *CommonVisionPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5472,9 +5401,8 @@ func (m *CommonVisionSpeedEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5533,9 +5461,8 @@ func (m *CommonViconPositionEstimate) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5613,9 +5540,8 @@ func (m *CommonHighresImu) Unpack(p *Packet) error {
 	if len(p.Payload) < 62 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:62-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:62-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5695,9 +5621,8 @@ func (m *CommonOpticalFlowRad) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -5780,9 +5705,8 @@ func (m *CommonHilSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:64-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:64-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -5880,9 +5804,8 @@ func (m *CommonSimState) Unpack(p *Packet) error {
 	if len(p.Payload) < 84 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:84-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:84-len(p.Payload)]...)
 	}
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Q2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5958,9 +5881,8 @@ func (m *CommonRadioStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 	}
 	m.Rxerrors = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Fixed = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -6016,9 +5938,8 @@ func (m *CommonFileTransferProtocol) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:254-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:254-len(p.Payload)]...)
 	}
 	m.TargetNetwork = uint8(payload[0])
 	m.TargetSystem = uint8(payload[1])
@@ -6067,9 +5988,8 @@ func (m *CommonTimesync) Unpack(p *Packet) error {
 	if len(p.Payload) < 16 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.Tc1 = int64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Ts1 = int64(binary.LittleEndian.Uint64(payload[8:]))
@@ -6116,9 +6036,8 @@ func (m *CommonCameraTrigger) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -6188,9 +6107,8 @@ func (m *CommonHilGps) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -6268,9 +6186,8 @@ func (m *CommonHilOpticalFlow) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -6357,9 +6274,8 @@ func (m *CommonHilStateQuaternion) Unpack(p *Packet) error {
 	if len(p.Payload) < 64 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:64-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:64-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.AttitudeQuaternion); i++ {
@@ -6438,9 +6354,8 @@ func (m *CommonScaledImu2) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -6499,9 +6414,8 @@ func (m *CommonLogRequestList) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.Start = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.End = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -6556,9 +6470,8 @@ func (m *CommonLogEntry) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeUtc = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Size = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -6614,9 +6527,8 @@ func (m *CommonLogRequestData) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Count = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -6670,9 +6582,8 @@ func (m *CommonLogData) Unpack(p *Packet) error {
 	if len(p.Payload) < 97 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:97-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:97-len(p.Payload)]...)
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.ID = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -6721,9 +6632,8 @@ func (m *CommonLogErase) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -6770,9 +6680,8 @@ func (m *CommonLogRequestEnd) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -6823,9 +6732,8 @@ func (m *CommonGpsInjectData) Unpack(p *Packet) error {
 	if len(p.Payload) < 113 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:113-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:113-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -6894,9 +6802,8 @@ func (m *CommonGps2Raw) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -6955,9 +6862,8 @@ func (m *CommonPowerStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.Vcc = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Vservo = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -7013,9 +6919,8 @@ func (m *CommonSerialControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 79 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:79-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:79-len(p.Payload)]...)
 	}
 	m.Baudrate = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Timeout = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -7088,9 +6993,8 @@ func (m *CommonGpsRtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -7170,9 +7074,8 @@ func (m *CommonGps2Rtk) Unpack(p *Packet) error {
 	if len(p.Payload) < 35 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:35-len(p.Payload)]...)
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -7246,9 +7149,8 @@ func (m *CommonScaledImu3) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -7313,9 +7215,8 @@ func (m *CommonDataTransmissionHandshake) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 	}
 	m.Size = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Width = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -7367,9 +7268,8 @@ func (m *CommonEncapsulatedData) Unpack(p *Packet) error {
 	if len(p.Payload) < 255 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:255-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:255-len(p.Payload)]...)
 	}
 	m.Seqnr = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	copy(m.Data[:], payload[2:255])
@@ -7428,9 +7328,8 @@ func (m *CommonDistanceSensor) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.MinDistance = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -7487,9 +7386,8 @@ func (m *CommonTerrainRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 	}
 	m.Mask = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -7546,9 +7444,8 @@ func (m *CommonTerrainData) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:43-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:43-len(p.Payload)]...)
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -7600,9 +7497,8 @@ func (m *CommonTerrainCheck) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -7659,9 +7555,8 @@ func (m *CommonTerrainReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -7717,9 +7612,8 @@ func (m *CommonScaledPressure2) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -7776,9 +7670,8 @@ func (m *CommonAttPosMocap) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -7838,9 +7731,8 @@ func (m *CommonSetActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 43 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:43-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:43-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -7896,9 +7788,8 @@ func (m *CommonActuatorControlTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 41 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -7958,9 +7849,8 @@ func (m *CommonAltitude) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.AltitudeMonotonic = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -8018,9 +7908,8 @@ func (m *CommonResourceRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 243 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:243-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:243-len(p.Payload)]...)
 	}
 	m.RequestID = uint8(payload[0])
 	m.URIType = uint8(payload[1])
@@ -8074,9 +7963,8 @@ func (m *CommonScaledPressure3) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -8153,9 +8041,8 @@ func (m *CommonFollowTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 93 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:93-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:93-len(p.Payload)]...)
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.CustomState = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -8257,9 +8144,8 @@ func (m *CommonControlSystemState) Unpack(p *Packet) error {
 	if len(p.Payload) < 100 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:100-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:100-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.XAcc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -8343,9 +8229,8 @@ func (m *CommonBatteryStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 	}
 	m.CurrentConsumed = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.EnergyConsumed = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -8419,9 +8304,8 @@ func (m *CommonAutopilotVersion) Unpack(p *Packet) error {
 	if len(p.Payload) < 60 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:60-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:60-len(p.Payload)]...)
 	}
 	m.Capabilities = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.UID = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -8489,9 +8373,8 @@ func (m *CommonLandingTarget) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.AngleX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -8560,9 +8443,8 @@ func (m *CommonEstimatorStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.VelRatio = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -8631,9 +8513,8 @@ func (m *CommonWindCov) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.WindX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -8719,9 +8600,8 @@ func (m *CommonGpsInput) Unpack(p *Packet) error {
 	if len(p.Payload) < 63 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:63-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:63-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.TimeWeekMs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -8786,9 +8666,8 @@ func (m *CommonGpsRtcmData) Unpack(p *Packet) error {
 	if len(p.Payload) < 182 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:182-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:182-len(p.Payload)]...)
 	}
 	m.Flags = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -8880,9 +8759,8 @@ func (m *CommonHighLatency) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -8961,9 +8839,8 @@ func (m *CommonVibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.VibrationX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -9033,9 +8910,8 @@ func (m *CommonHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 52 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:52-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:52-len(p.Payload)]...)
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9112,9 +8988,8 @@ func (m *CommonSetHomePosition) Unpack(p *Packet) error {
 	if len(p.Payload) < 53 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9172,9 +9047,8 @@ func (m *CommonMessageInterval) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.IntervalUs = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.MessageID = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -9221,9 +9095,8 @@ func (m *CommonExtendedSysState) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.VtolState = uint8(payload[0])
 	m.LandedState = uint8(payload[1])
@@ -9292,9 +9165,8 @@ func (m *CommonAdsbVehicle) Unpack(p *Packet) error {
 	if len(p.Payload) < 38 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:38-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:38-len(p.Payload)]...)
 	}
 	m.IcaoAddress = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9362,9 +9234,8 @@ func (m *CommonCollision) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:19-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:19-len(p.Payload)]...)
 	}
 	m.ID = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TimeToMinimumDelta = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -9422,9 +9293,8 @@ func (m *CommonV2Extension) Unpack(p *Packet) error {
 	if len(p.Payload) < 254 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:254-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:254-len(p.Payload)]...)
 	}
 	m.MessageType = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetNetwork = uint8(payload[2])
@@ -9480,9 +9350,8 @@ func (m *CommonMemoryVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 36 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:36-len(p.Payload)]...)
 	}
 	m.Address = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Ver = uint8(payload[2])
@@ -9539,9 +9408,8 @@ func (m *CommonDebugVect) Unpack(p *Packet) error {
 	if len(p.Payload) < 30 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:30-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -9593,9 +9461,8 @@ func (m *CommonNamedValueFloat) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -9645,9 +9512,8 @@ func (m *CommonNamedValueInt) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9695,9 +9561,8 @@ func (m *CommonStatustext) Unpack(p *Packet) error {
 	if len(p.Payload) < 51 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:51-len(p.Payload)]...)
 	}
 	m.Severity = uint8(payload[0])
 	copy(m.Text[:], payload[1:51])
@@ -9746,9 +9611,8 @@ func (m *CommonDebug) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))

@@ -89,9 +89,8 @@ func (m *UalbertaNavFilterBias) Unpack(p *Packet) error {
 	if len(p.Payload) < 32 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Accel0 = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -163,9 +162,8 @@ func (m *UalbertaRadioCalibration) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	for i := 0; i < len(m.Aileron); i++ {
 		m.Aileron[i] = uint16(binary.LittleEndian.Uint16(payload[0+i*2:]))
@@ -230,9 +228,8 @@ func (m *UalbertaUalbertaSysStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.Mode = uint8(payload[0])
 	m.NavMode = uint8(payload[1])

@@ -3,7 +3,6 @@
 //go:generate templify dialect.template
 //go:generate templify dialectSlice.template
 //go:generate templify message.template
-//go:generate templify multicast.template
 //go:generate templify packet.template
 //go:generate templify parser.template
 //go:generate templify version.template
@@ -36,7 +35,6 @@ var (
 		"dialect":      dialectTemplate,
 		"dialectSlice": dialectSliceTemplate,
 		"message":      messageTemplate,
-		"multicast":    multicastTemplate,
 		"packet":       packetTemplate,
 		"parser":       parserTemplate,
 		"version":      versionTemplate,

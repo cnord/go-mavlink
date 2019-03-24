@@ -481,9 +481,8 @@ func (m *ArdupilotmegaSensorOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	m.MagDeclination = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.RawPress = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -546,9 +545,8 @@ func (m *ArdupilotmegaSetMagOffsets) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.MagOfsX = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.MagOfsY = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -598,9 +596,8 @@ func (m *ArdupilotmegaMeminfo) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Brkval = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Freemem = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -655,9 +652,8 @@ func (m *ArdupilotmegaApAdc) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.Adc1 = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Adc2 = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -726,9 +722,8 @@ func (m *ArdupilotmegaDigicamConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:15-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:15-len(p.Payload)]...)
 	}
 	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.ShutterSpeed = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -800,9 +795,8 @@ func (m *ArdupilotmegaDigicamControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 13 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:13-len(p.Payload)]...)
 	}
 	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -865,9 +859,8 @@ func (m *ArdupilotmegaMountConfigure) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -926,9 +919,8 @@ func (m *ArdupilotmegaMountControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 15 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:15-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:15-len(p.Payload)]...)
 	}
 	m.InputA = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.InputB = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -985,9 +977,8 @@ func (m *ArdupilotmegaMountStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.PointingA = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PointingB = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1045,9 +1036,8 @@ func (m *ArdupilotmegaFencePoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.Lat = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lng = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1100,9 +1090,8 @@ func (m *ArdupilotmegaFenceFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -1154,9 +1143,8 @@ func (m *ArdupilotmegaFenceStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.BreachTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.BreachCount = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -1215,9 +1203,8 @@ func (m *ArdupilotmegaAhrs) Unpack(p *Packet) error {
 	if len(p.Payload) < 28 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.Omegaix = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Omegaiy = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1287,9 +1274,8 @@ func (m *ArdupilotmegaSimstate) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1345,9 +1331,8 @@ func (m *ArdupilotmegaHwstatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.Vcc = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.I2cerr = uint8(payload[2])
@@ -1404,9 +1389,8 @@ func (m *ArdupilotmegaRadio) Unpack(p *Packet) error {
 	if len(p.Payload) < 9 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
 	}
 	m.Rxerrors = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Fixed = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -1472,9 +1456,8 @@ func (m *ArdupilotmegaLimitsStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.LastTrigger = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LastAction = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1530,9 +1513,8 @@ func (m *ArdupilotmegaWind) Unpack(p *Packet) error {
 	if len(p.Payload) < 12 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.Direction = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Speed = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1582,9 +1564,8 @@ func (m *ArdupilotmegaData16) Unpack(p *Packet) error {
 	if len(p.Payload) < 18 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1634,9 +1615,8 @@ func (m *ArdupilotmegaData32) Unpack(p *Packet) error {
 	if len(p.Payload) < 34 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:34-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:34-len(p.Payload)]...)
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1686,9 +1666,8 @@ func (m *ArdupilotmegaData64) Unpack(p *Packet) error {
 	if len(p.Payload) < 66 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:66-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:66-len(p.Payload)]...)
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1738,9 +1717,8 @@ func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 	if len(p.Payload) < 98 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:98-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:98-len(p.Payload)]...)
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1788,9 +1766,8 @@ func (m *ArdupilotmegaRangefinder) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.Distance = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Voltage = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1857,9 +1834,8 @@ func (m *ArdupilotmegaAirspeedAutocal) Unpack(p *Packet) error {
 	if len(p.Payload) < 48 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:48-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:48-len(p.Payload)]...)
 	}
 	m.Vx = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Vy = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1932,9 +1908,8 @@ func (m *ArdupilotmegaRallyPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 19 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:19-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:19-len(p.Payload)]...)
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lng = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1991,9 +1966,8 @@ func (m *ArdupilotmegaRallyFetchPoint) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2049,9 +2023,8 @@ func (m *ArdupilotmegaCompassmotStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 20 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.Current = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Compensationx = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2110,9 +2083,8 @@ func (m *ArdupilotmegaAhrs2) Unpack(p *Packet) error {
 	if len(p.Payload) < 24 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:24-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:24-len(p.Payload)]...)
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2177,9 +2149,8 @@ func (m *ArdupilotmegaCameraStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:29-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:29-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.P1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -2255,9 +2226,8 @@ func (m *ArdupilotmegaCameraFeedback) Unpack(p *Packet) error {
 	if len(p.Payload) < 45 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:45-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:45-len(p.Payload)]...)
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -2315,9 +2285,8 @@ func (m *ArdupilotmegaBattery2) Unpack(p *Packet) error {
 	if len(p.Payload) < 4 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.CurrentBattery = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -2380,9 +2349,8 @@ func (m *ArdupilotmegaAhrs3) Unpack(p *Packet) error {
 	if len(p.Payload) < 40 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:40-len(p.Payload)]...)
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2437,9 +2405,8 @@ func (m *ArdupilotmegaAutopilotVersionRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2490,9 +2457,8 @@ func (m *ArdupilotmegaRemoteLogDataBlock) Unpack(p *Packet) error {
 	if len(p.Payload) < 206 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:206-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:206-len(p.Payload)]...)
 	}
 	m.Seqno = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2545,9 +2511,8 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 	}
 	m.Seqno = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2604,9 +2569,8 @@ func (m *ArdupilotmegaLedControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 29 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:29-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:29-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2671,9 +2635,8 @@ func (m *ArdupilotmegaMagCalProgress) Unpack(p *Packet) error {
 	if len(p.Payload) < 27 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:27-len(p.Payload)]...)
 	}
 	m.DirectionX = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DirectionY = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2751,9 +2714,8 @@ func (m *ArdupilotmegaMagCalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 44 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:44-len(p.Payload)]...)
 	}
 	m.Fitness = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.OfsX = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2820,9 +2782,8 @@ func (m *ArdupilotmegaEkfStatusReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 22 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
 	}
 	m.VelocityVariance = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.PosHorizVariance = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2883,9 +2844,8 @@ func (m *ArdupilotmegaPidTuning) Unpack(p *Packet) error {
 	if len(p.Payload) < 25 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 	}
 	m.Desired = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Achieved = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2957,9 +2917,8 @@ func (m *ArdupilotmegaGimbalReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 42 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	m.DeltaTime = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DeltaAngleX = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3022,9 +2981,8 @@ func (m *ArdupilotmegaGimbalControl) Unpack(p *Packet) error {
 	if len(p.Payload) < 14 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.DemandedRateX = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DemandedRateY = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3080,9 +3038,8 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.RlTorqueCmd = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.ElTorqueCmd = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -3134,9 +3091,8 @@ func (m *ArdupilotmegaGoproHeartbeat) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.Status = uint8(payload[0])
 	m.CaptureMode = uint8(payload[1])
@@ -3186,9 +3142,8 @@ func (m *ArdupilotmegaGoproGetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 3 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -3238,9 +3193,8 @@ func (m *ArdupilotmegaGoproGetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 6 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.CmdID = uint8(payload[0])
 	m.Status = uint8(payload[1])
@@ -3292,9 +3246,8 @@ func (m *ArdupilotmegaGoproSetRequest) Unpack(p *Packet) error {
 	if len(p.Payload) < 7 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -3343,9 +3296,8 @@ func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
 	if len(p.Payload) < 2 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.CmdID = uint8(payload[0])
 	m.Status = uint8(payload[1])
@@ -3392,9 +3344,8 @@ func (m *ArdupilotmegaRpm) Unpack(p *Packet) error {
 	if len(p.Payload) < 8 {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.Rpm1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Rpm2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))

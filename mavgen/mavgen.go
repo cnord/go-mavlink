@@ -535,9 +535,8 @@ func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
 	if len(p.Payload) < {{ .Size }} {
 		if MavlinkVersion == 1 {
 			return errPayloadTooSmall
-		} else {
-			payload = append(payload, zeroTail[:{{ .Size }}-len(p.Payload)]...)
 		}
+		payload = append(payload, zeroTail[:{{ .Size }}-len(p.Payload)]...)
 	}{{range .Fields}}
 	{{.PayloadUnpackSequence}}{{end}}
 	return nil

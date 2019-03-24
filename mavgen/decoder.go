@@ -12,13 +12,12 @@ func decoderTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
 		"import (\n" +
-		"\t\"runtime\"\n" +
+		"\t\"sort\"\n" +
 		"\t\"time\"\n" +
 		")\n" +
 		"\n" +
 		"// Decoder struct provide decoding processor\n" +
 		"type Decoder struct {\n" +
-		"\tmulticast Multicast\n" +
 		"\tdata      chan []byte\n" +
 		"\tdecoded   chan *Packet\n" +
 		"}\n" +
@@ -52,38 +51,41 @@ func decoderTemplate() string {
 		"\t\tdecoded: make(chan *Packet, 256),\n" +
 		"\t}\n" +
 		"\tgo func() {\n" +
+		"\t\tvar parsers []*Parser\n" +
+		"\t\tvar needToDelete []int\n" +
 		"\t\tfor {\n" +
 		"\t\t\tbuffer, ok := <-d.data\n" +
 		"\t\t\tif !ok {\n" +
-		"\t\t\t\td.multicast.close()\n" +
 		"\t\t\t\tclose(d.decoded)\n" +
 		"\t\t\t\treturn\n" +
 		"\t\t\t}\n" +
-		"\t\t\td.multicast.notify(buffer)\n" +
-		"\t\t\tfor i, c := range buffer {\n" +
+		"\t\t\tfor _, c := range buffer {\n" +
 		"\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\tnewBytes := d.multicast.register()\n" +
-		"\t\t\t\t\tgo func() {\n" +
-		"\t\t\t\t\t\tdefer d.multicast.clear(newBytes)\n" +
-		"\t\t\t\t\t\tvar parser Parser\n" +
-		"\t\t\t\t\t\tfor {\n" +
-		"\t\t\t\t\t\t\tbuffer, ok := <-newBytes\n" +
-		"\t\t\t\t\t\t\tif !ok {\n" +
-		"\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t\tfor _, c := range buffer {\n" +
-		"\t\t\t\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
-		"\t\t\t\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t} else if packet != nil {\n" +
-		"\t\t\t\t\t\t\t\t\td.decoded <- packet\n" +
-		"\t\t\t\t\t\t\t\t\treturn\n" +
-		"\t\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t\t\truntime.Gosched()\n" +
-		"\t\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t}()\n" +
-		"\t\t\t\t\tnewBytes <- buffer[i:]\n" +
+		"\t\t\t\t\tparsers = append(parsers, &Parser{})\n" +
+		"\t\t\t\t}\n" +
+		"\n" +
+		"\t\t\t\tfor i, parser := range parsers {\n" +
+		"\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
+		"\t\t\t\t\tif err != nil {\n" +
+		"\t\t\t\t\t\tneedToDelete = append(needToDelete, i)\n" +
+		"\t\t\t\t\t\tcontinue\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\tif packet != nil {\n" +
+		"\t\t\t\t\t\td.decoded <- packet\n" +
+		"\t\t\t\t\t\tneedToDelete = append(needToDelete, i)\n" +
+		"\t\t\t\t\t\tcontinue\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t}\n" +
+		"\n" +
+		"\t\t\t\tif len(needToDelete) != 0 {\n" +
+		"\t\t\t\t\tsort.Ints(needToDelete)\n" +
+		"\t\t\t\t\tfor i := len(needToDelete) - 1; i >= 0; i-- {\n" +
+		"\t\t\t\t\t\tindex := needToDelete[i]\n" +
+		"\t\t\t\t\t\tcopy(parsers[index:], parsers[index+1:])\n" +
+		"\t\t\t\t\t\tparsers[len(parsers)-1] = nil\n" +
+		"\t\t\t\t\t\tparsers = parsers[:len(parsers)-1]\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\tneedToDelete = nil\n" +
 		"\t\t\t\t}\n" +
 		"\t\t\t}\n" +
 		"\t\t}\n" +

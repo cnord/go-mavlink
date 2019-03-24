@@ -15,7 +15,7 @@ func NewX25() *X25 {
 // WriteByte function append byte into crc accumulation
 func (x *X25) WriteByte(b byte) {
 	tmp := b ^ byte(x.crc&0xff)
-	tmp ^= (tmp << 4)
+	tmp ^= tmp << 4
 	x.crc = (x.crc >> 8) ^ (uint16(tmp) << 8) ^ (uint16(tmp) << 3) ^ (uint16(tmp) >> 4)
 }
 

@@ -26,7 +26,7 @@ func x25Template() string {
 		"// WriteByte function append byte into crc accumulation\n" +
 		"func (x *X25) WriteByte(b byte) {\n" +
 		"\ttmp := b ^ byte(x.crc&0xff)\n" +
-		"\ttmp ^= (tmp << 4)\n" +
+		"\ttmp ^= tmp << 4\n" +
 		"\tx.crc = (x.crc >> 8) ^ (uint16(tmp) << 8) ^ (uint16(tmp) << 3) ^ (uint16(tmp) >> 4)\n" +
 		"}\n" +
 		"\n" +

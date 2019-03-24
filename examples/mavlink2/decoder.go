@@ -4,15 +4,14 @@
 package mavlink
 
 import (
-	"runtime"
+	"sort"
 	"time"
 )
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	multicast Multicast
-	data      chan []byte
-	decoded   chan *Packet
+	data    chan []byte
+	decoded chan *Packet
 }
 
 func (d *Decoder) PushData(data []byte) {
@@ -44,38 +43,41 @@ func NewChannelDecoder() *Decoder {
 		decoded: make(chan *Packet, 256),
 	}
 	go func() {
+		var parsers []*Parser
+		var needToDelete []int
 		for {
 			buffer, ok := <-d.data
 			if !ok {
-				d.multicast.close()
 				close(d.decoded)
 				return
 			}
-			d.multicast.notify(buffer)
-			for i, c := range buffer {
+			for _, c := range buffer {
 				if c == magicNumber {
-					newBytes := d.multicast.register()
-					go func() {
-						defer d.multicast.clear(newBytes)
-						var parser Parser
-						for {
-							buffer, ok := <-newBytes
-							if !ok {
-								return
-							}
-							for _, c := range buffer {
-								packet, err := parser.parseChar(c)
-								if err != nil {
-									return
-								} else if packet != nil {
-									d.decoded <- packet
-									return
-								}
-								runtime.Gosched()
-							}
-						}
-					}()
-					newBytes <- buffer[i:]
+					parsers = append(parsers, &Parser{})
+				}
+
+				for i, parser := range parsers {
+					packet, err := parser.parseChar(c)
+					if err != nil {
+						needToDelete = append(needToDelete, i)
+						continue
+					}
+					if packet != nil {
+						d.decoded <- packet
+						needToDelete = append(needToDelete, i)
+						continue
+					}
+				}
+
+				if len(needToDelete) != 0 {
+					sort.Ints(needToDelete)
+					for i := len(needToDelete) - 1; i >= 0; i-- {
+						index := needToDelete[i]
+						copy(parsers[index:], parsers[index+1:])
+						parsers[len(parsers)-1] = nil
+						parsers = parsers[:len(parsers)-1]
+					}
+					needToDelete = nil
 				}
 			}
 		}
