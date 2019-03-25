@@ -15,6 +15,7 @@ var (
 // use the Pack() and Unpack() routines on specific message
 // types to convert them to/from the Packet type.
 type Message interface {
+	Dialect() *Dialect
 	Pack(*Packet) error
 	Unpack(*Packet) error
 	MsgID() MessageID

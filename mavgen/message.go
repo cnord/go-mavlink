@@ -26,6 +26,7 @@ func messageTemplate() string {
 		"// use the Pack() and Unpack() routines on specific message\n" +
 		"// types to convert them to/from the Packet type.\n" +
 		"type Message interface {\n" +
+		"\tDialect() *Dialect\n" +
 		"\tPack(*Packet) error\n" +
 		"\tUnpack(*Packet) error\n" +
 		"\tMsgID() MessageID\n" +

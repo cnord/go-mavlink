@@ -12,6 +12,7 @@ func decoderTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
 		"import (\n" +
+		"\t\"sort\"\n" +
 		"\t\"time\"\n" +
 		")\n" +
 		"\n" +
@@ -79,13 +80,16 @@ func decoderTemplate() string {
 		"\t\t\t\t}\n" +
 		"\n" +
 		"\t\t\t\tif len(indexesToDelete) != 0 {\n" +
-		"\t\t\t\t\tshift := 0\n" +
+		"\t\t\t\t\tvar indexes []int\n" +
 		"\t\t\t\t\tfor index := range indexesToDelete {\n" +
-		"\t\t\t\t\t\tcopy(parsers[index-shift:], parsers[index-shift+1:])\n" +
+		"\t\t\t\t\t\tindexes = append(indexes, index)\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\tsort.Ints(indexes)\n" +
+		"\t\t\t\t\tfor i := len(indexes) - 1; i >= 0; i-- {\n" +
+		"\t\t\t\t\t\tindex := indexes[i]\n" +
+		"\t\t\t\t\t\tcopy(parsers[index:], parsers[index+1:])\n" +
 		"\t\t\t\t\t\tparsers[len(parsers)-1] = nil\n" +
 		"\t\t\t\t\t\tparsers = parsers[:len(parsers)-1]\n" +
-		"\t\t\t\t\t\tshift++\n" +
-		"\t\t\t\t\t\tdelete(indexesToDelete, index)\n" +
 		"\t\t\t\t\t}\n" +
 		"\t\t\t\t}\n" +
 		"\t\t\t}\n" +

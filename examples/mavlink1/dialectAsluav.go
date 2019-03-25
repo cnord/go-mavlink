@@ -28,6 +28,11 @@ type AsluavSensPower struct {
 	Adc121Cs2Amp   float32 //  Board current sensor 2 reading in amps
 }
 
+// Dialect (generated function)
+func (m *AsluavSensPower) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavSensPower) MsgID() MessageID {
 	return MSG_ID_SENS_POWER
@@ -89,6 +94,11 @@ type AsluavSensMppt struct {
 	Mppt1Status   uint8   //  MPPT1 status
 	Mppt2Status   uint8   //  MPPT2 status
 	Mppt3Status   uint8   //  MPPT3 status
+}
+
+// Dialect (generated function)
+func (m *AsluavSensMppt) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)
@@ -182,6 +192,11 @@ type AsluavAslctrlData struct {
 	Urud            float32 //
 	AslctrlMode     uint8   //  ASLCTRL control-mode (manual, stabilized, auto, etc...)
 	Spoilersengaged uint8   //
+}
+
+// Dialect (generated function)
+func (m *AsluavAslctrlData) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)
@@ -287,6 +302,11 @@ type AsluavAslctrlDebug struct {
 	I82  uint8   //  Debug data
 }
 
+// Dialect (generated function)
+func (m *AsluavAslctrlDebug) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavAslctrlDebug) MsgID() MessageID {
 	return MSG_ID_ASLCTRL_DEBUG
@@ -355,6 +375,11 @@ type AsluavAsluavStatus struct {
 	ServoStatus  [8]uint8 //  Status vector for up to 8 servos
 }
 
+// Dialect (generated function)
+func (m *AsluavAsluavStatus) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavAsluavStatus) MsgID() MessageID {
 	return MSG_ID_ASLUAV_STATUS
@@ -410,6 +435,11 @@ type AsluavEkfExt struct {
 	Airspeed  float32 //  Magnitude of air velocity [m/s]
 	Beta      float32 //  Sideslip angle [rad]
 	Alpha     float32 //  Angle of attack [rad]
+}
+
+// Dialect (generated function)
+func (m *AsluavEkfExt) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)
@@ -476,6 +506,11 @@ type AsluavAslObctrl struct {
 	ObctrlStatus uint8   //  Off-board computer status
 }
 
+// Dialect (generated function)
+func (m *AsluavAslObctrl) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavAslObctrl) MsgID() MessageID {
 	return MSG_ID_ASL_OBCTRL
@@ -536,6 +571,11 @@ type AsluavSensAtmos struct {
 	Humidity    float32 //  Relative humidity [%]
 }
 
+// Dialect (generated function)
+func (m *AsluavSensAtmos) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavSensAtmos) MsgID() MessageID {
 	return MSG_ID_SENS_ATMOS
@@ -593,6 +633,11 @@ type AsluavSensBatmon struct {
 	Cellvoltage5   uint16  // Battery pack cell 5 voltage in [mV]
 	Cellvoltage6   uint16  // Battery pack cell 6 voltage in [mV]
 	Soc            uint8   // Battery pack state-of-charge
+}
+
+// Dialect (generated function)
+func (m *AsluavSensBatmon) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)
@@ -686,6 +731,11 @@ type AsluavFwSoaringData struct {
 	Debugvar2            float32 //  Debug variable 2
 	Controlmode          uint8   // Control Mode [-]
 	Valid                uint8   // Data valid [-]
+}
+
+// Dialect (generated function)
+func (m *AsluavFwSoaringData) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)
@@ -788,6 +838,11 @@ type AsluavSensorpodStatus struct {
 	CPUTemp             uint8  // Temperature of sensorpod CPU in [deg C]
 }
 
+// Dialect (generated function)
+func (m *AsluavSensorpodStatus) Dialect() *Dialect {
+	return DialectAsluav
+}
+
 // MsgID (generated function)
 func (m *AsluavSensorpodStatus) MsgID() MessageID {
 	return MSG_ID_SENSORPOD_STATUS
@@ -856,6 +911,11 @@ type AsluavSensPowerBoard struct {
 	PwrBrdAuxAmp     float32 // Power board aux current sensor
 	PwrBrdStatus     uint8   // Power board status register
 	PwrBrdLedStatus  uint8   // Power board leds status
+}
+
+// Dialect (generated function)
+func (m *AsluavSensPowerBoard) Dialect() *Dialect {
+	return DialectAsluav
 }
 
 // MsgID (generated function)

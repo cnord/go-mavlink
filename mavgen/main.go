@@ -44,9 +44,7 @@ func main() {
 			DialectName:    *dialectName,
 		}
 
-		err := generateCommons(dialectDir, data)
-
-		if err != nil {
+		if err := generateCommons(dialectDir, data); err != nil {
 			log.Fatal(err)
 		}
 	}

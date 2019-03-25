@@ -37,6 +37,11 @@ type MatrixpilotFlexifunctionSet struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionSet) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotFlexifunctionSet) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_SET
@@ -85,6 +90,11 @@ type MatrixpilotFlexifunctionReadReq struct {
 	DataIndex       int16 // index into data where needed
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionReadReq) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -142,6 +152,11 @@ type MatrixpilotFlexifunctionBufferFunction struct {
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
 	Data            [48]int8 // Settings data
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionBufferFunction) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -208,6 +223,11 @@ type MatrixpilotFlexifunctionBufferFunctionAck struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionBufferFunctionAck) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotFlexifunctionBufferFunctionAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION_ACK
@@ -262,6 +282,11 @@ type MatrixpilotFlexifunctionDirectory struct {
 	StartIndex      uint8    // index of first directory entry to write
 	Count           uint8    // count of directory entries to write
 	DirectoryData   [48]int8 // Settings data
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionDirectory) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -328,6 +353,11 @@ type MatrixpilotFlexifunctionDirectoryAck struct {
 	Count           uint8  // count of directory entries to write
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionDirectoryAck) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotFlexifunctionDirectoryAck) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY_ACK
@@ -385,6 +415,11 @@ type MatrixpilotFlexifunctionCommand struct {
 	CommandType     uint8 // Flexifunction command type
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionCommand) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotFlexifunctionCommand) MsgID() MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND
@@ -433,6 +468,11 @@ func (m *MatrixpilotFlexifunctionCommand) Unpack(p *Packet) error {
 type MatrixpilotFlexifunctionCommandAck struct {
 	CommandType uint16 // Command acknowledged
 	Result      uint16 // result of acknowledge
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotFlexifunctionCommandAck) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -506,6 +546,11 @@ type MatrixpilotSerialUdbExtraF2A struct {
 	SueSvs            int16  // Serial UDB Extra Number of Sattelites in View
 	SueHdop           int16  // Serial UDB Extra GPS Horizontal Dilution of Precision
 	SueStatus         uint8  // Serial UDB Extra Status
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF2A) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -652,6 +697,11 @@ type MatrixpilotSerialUdbExtraF2B struct {
 	SueBatAmpHours         int16  // SUE battery milli amp hours used
 	SueDesiredHeight       int16  // Sue autopilot desired height
 	SueMemoryStackFree     int16  // Serial UDB Extra Stack Memory Free
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF2B) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -806,6 +856,11 @@ type MatrixpilotSerialUdbExtraF4 struct {
 	SueRacingMode                uint8 // Serial UDB Extra Firmware racing mode enabled
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF4) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF4) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F4
@@ -872,6 +927,11 @@ type MatrixpilotSerialUdbExtraF5 struct {
 	SueRollkd       float32 // Serial UDB Extra ROLLKD Gain for Rate control of roll stabilization
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF5) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF5) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F5
@@ -925,6 +985,11 @@ type MatrixpilotSerialUdbExtraF6 struct {
 	SueRudderElevMix float32 // Serial UDB Extra Rudder to Elevator Mix
 	SueRollElevMix   float32 // Serial UDB Extra Roll to Elevator Mix
 	SueElevatorBoost float32 // Gain For Boosting Manual Elevator control When Plane Stabilized
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF6) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -983,6 +1048,11 @@ type MatrixpilotSerialUdbExtraF7 struct {
 	SueRollkdRudder float32 // Serial UDB Extra ROLLKD_RUDDER Gain for Rate control of roll stabilization
 	SueRudderBoost  float32 // SERIAL UDB EXTRA Rudder Boost Gain to Manual Control when stabilized
 	SueRtlPitchDown float32 // Serial UDB Extra Return To Landing - Angle to Pitch Plane Down
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF7) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1046,6 +1116,11 @@ type MatrixpilotSerialUdbExtraF8 struct {
 	SueAltHoldPitchHigh   float32 // Serial UDB Extra ALT_HOLD_PITCH_HIGH
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF8) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF8) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F8
@@ -1104,6 +1179,11 @@ type MatrixpilotSerialUdbExtraF13 struct {
 	SueLonOrigin int32 // Serial UDB Extra MP Origin Longitude
 	SueAltOrigin int32 // Serial UDB Extra MP Origin Altitude Above Sea Level
 	SueWeekNo    int16 // Serial UDB Extra GPS Week Number
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF13) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1165,6 +1245,11 @@ type MatrixpilotSerialUdbExtraF14 struct {
 	SueAirframe       uint8  // Serial UDB Extra Type of Airframe
 	SueClockConfig    uint8  // Serial UDB Extra UDB Internal Clock Configuration
 	SueFlightPlanType uint8  // Serial UDB Extra Type of Flight Plan
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF14) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1233,6 +1318,11 @@ type MatrixpilotSerialUdbExtraF15 struct {
 	SueIDVehicleRegistration [20]uint8 // Serial UDB Extra Registraton Number of Vehicle
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF15) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF15) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F15
@@ -1279,6 +1369,11 @@ func (m *MatrixpilotSerialUdbExtraF15) Unpack(p *Packet) error {
 type MatrixpilotSerialUdbExtraF16 struct {
 	SueIDLeadPilot    [40]uint8 // Serial UDB Extra Name of Expected Lead Pilot
 	SueIDDiyDronesURL [70]uint8 // Serial UDB Extra URL of Lead Pilot or Team
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF16) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1332,6 +1427,11 @@ type MatrixpilotAltitudes struct {
 	AltOpticalFlow int32  // Optical flow altitude above ground in meters, expressed as * 1000 (millimeters)
 	AltRangeFinder int32  // Rangefinder Altitude above ground in meters, expressed as * 1000 (millimeters)
 	AltExtra       int32  // Extra altitude above ground in meters, expressed as * 1000 (millimeters)
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotAltitudes) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1397,6 +1497,11 @@ type MatrixpilotAirspeeds struct {
 	Aoy                int16  // Yaw angle sensor, degrees * 10
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotAirspeeds) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotAirspeeds) MsgID() MessageID {
 	return MSG_ID_AIRSPEEDS
@@ -1456,6 +1561,11 @@ type MatrixpilotSerialUdbExtraF17 struct {
 	SueTurnRateFbw float32 // SUE Max Turn Rate in Fly By Wire Mode
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF17) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF17) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F17
@@ -1507,6 +1617,11 @@ type MatrixpilotSerialUdbExtraF18 struct {
 	ElevatorTrimNormal    float32 // SUE Elevator Trim Normal
 	ElevatorTrimInverted  float32 // SUE Elevator Trim Inverted
 	ReferenceSpeed        float32 // SUE reference_speed
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF18) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1567,6 +1682,11 @@ type MatrixpilotSerialUdbExtraF19 struct {
 	SueThrottleReversed      uint8 // SUE throttle reversed
 	SueRudderOutputChannel   uint8 // SUE rudder output channel
 	SueRudderReversed        uint8 // SUE rudder reversed
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF19) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1638,6 +1758,11 @@ type MatrixpilotSerialUdbExtraF20 struct {
 	SueTrimValueInput11 int16 // SUE UDB PWM Trim Value on Input 11
 	SueTrimValueInput12 int16 // SUE UDB PWM Trim Value on Input 12
 	SueNumberOfInputs   uint8 // SUE Number of Input Channels
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF20) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)
@@ -1714,6 +1839,11 @@ type MatrixpilotSerialUdbExtraF21 struct {
 	SueGyroZOffset  int16 // SUE Z gyro offset
 }
 
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF21) Dialect() *Dialect {
+	return DialectMatrixpilot
+}
+
 // MsgID (generated function)
 func (m *MatrixpilotSerialUdbExtraF21) MsgID() MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F21
@@ -1772,6 +1902,11 @@ type MatrixpilotSerialUdbExtraF22 struct {
 	SueGyroXAtCalibration  int16 // SUE X gyro at calibration time
 	SueGyroYAtCalibration  int16 // SUE Y gyro at calibration time
 	SueGyroZAtCalibration  int16 // SUE Z gyro at calibration time
+}
+
+// Dialect (generated function)
+func (m *MatrixpilotSerialUdbExtraF22) Dialect() *Dialect {
+	return DialectMatrixpilot
 }
 
 // MsgID (generated function)

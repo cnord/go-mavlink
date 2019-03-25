@@ -101,32 +101,3 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 	require.NotNil(t, msg2, "Decode fail")
 	require.NotEqual(t, *msg1, *msg2, "Messages should not match")
 }
-
-func TestDialects(t *testing.T) {
-	dec := NewChannelDecoder()
-	defer dec.Stop()
-
-	// try to encode an ardupilot msg before we've added that dialect,
-	// ensure it fails as expected
-	mi := &ArdupilotmegaMeminfo{
-		Brkval:  1000,
-		Freemem: 10,
-	}
-
-	RemoveDialect(DialectArdupilotmega)
-
-	packet := &Packet{}
-	require.Equal(t, packet.Encode(0x1, 0x1, mi), ErrUnknownMsgID, "encode expected ErrUnknownMsgID")
-
-	// add the dialect, and ensure it succeeds
-	AddDialect(DialectArdupilotmega)
-	require.Nil(t, packet.Encode(0x1, 0x1, mi), "encode unexpected err")
-
-	dec.PushData(packet.Bytes())
-	packet = dec.NextPacket(time.Millisecond)
-	require.NotNil(t, packet, "Decode fail")
-	var miOut ArdupilotmegaMeminfo
-	require.Nil(t, miOut.Unpack(packet), "Unpack fail")
-	require.Equal(t, miOut.Brkval, mi.Brkval, "Round trip fail")
-	require.Equal(t, miOut.Freemem, mi.Freemem, "Round trip fail")
-}

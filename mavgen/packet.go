@@ -39,7 +39,7 @@ func packetTemplate() string {
 		"\tif err := m.Pack(p); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
-		"\tif err := p.fixChecksum(dialects); err != nil {\n" +
+		"\tif err := p.fixChecksum(m.Dialect()); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
 		"\treturn nil\n" +
@@ -49,7 +49,7 @@ func packetTemplate() string {
 		"\tif err := m.Pack(p); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
-		"\tif err := p.fixChecksum(dialects); err != nil {\n" +
+		"\tif err := p.fixChecksum(m.Dialect()); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
 		"\treturn nil\n" +
@@ -77,7 +77,7 @@ func packetTemplate() string {
 		"\treturn bytes\n" +
 		"}\n" +
 		"\n" +
-		"func (p *Packet) fixChecksum(dialects DialectSlice) error {\n" +
+		"func (p *Packet) fixChecksum(dialect *Dialect) error {\n" +
 		"\tcrc := NewX25()\n" +
 		"\tcrc.WriteByte(byte(len(p.Payload)))\n" +
 		"{{- if .Mavlink2}}\n" +
@@ -93,9 +93,9 @@ func packetTemplate() string {
 		"\tcrc.WriteByte(byte(p.MsgID >> 16))\n" +
 		"{{- end}}\n" +
 		"\tcrc.Write(p.Payload)\n" +
-		"\tcrcx, err := dialects.findCrcX(p.MsgID)\n" +
-		"\tif err != nil {\n" +
-		"\t\treturn err\n" +
+		"\tcrcx, ok := dialect.crcExtras[p.MsgID]\n" +
+		"\tif !ok {\n" +
+		"\t\treturn ErrUnknownMsgID\n" +
 		"\t}\n" +
 		"\tcrc.WriteByte(crcx)\n" +
 		"\tp.Checksum = crc.Sum16()\n" +

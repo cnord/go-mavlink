@@ -28,7 +28,7 @@ func (p *Packet) Encode(sysID, compID uint8, m Message) error {
 	if err := m.Pack(p); err != nil {
 		return err
 	}
-	if err := p.fixChecksum(dialects); err != nil {
+	if err := p.fixChecksum(m.Dialect()); err != nil {
 		return err
 	}
 	return nil
@@ -38,7 +38,7 @@ func (p *Packet) EncodeMessage(m Message) error {
 	if err := m.Pack(p); err != nil {
 		return err
 	}
-	if err := p.fixChecksum(dialects); err != nil {
+	if err := p.fixChecksum(m.Dialect()); err != nil {
 		return err
 	}
 	return nil
@@ -66,7 +66,7 @@ func (p *Packet) Bytes() []byte {
 	return bytes
 }
 
-func (p *Packet) fixChecksum(dialects DialectSlice) error {
+func (p *Packet) fixChecksum(dialect *Dialect) error {
 	crc := NewX25()
 	crc.WriteByte(byte(len(p.Payload)))
 {{- if .Mavlink2}}
@@ -82,9 +82,9 @@ func (p *Packet) fixChecksum(dialects DialectSlice) error {
 	crc.WriteByte(byte(p.MsgID >> 16))
 {{- end}}
 	crc.Write(p.Payload)
-	crcx, err := dialects.findCrcX(p.MsgID)
-	if err != nil {
-		return err
+	crcx, ok := dialect.crcExtras[p.MsgID]
+	if !ok {
+		return ErrUnknownMsgID
 	}
 	crc.WriteByte(crcx)
 	p.Checksum = crc.Sum16()

@@ -797,6 +797,11 @@ type CommonHeartbeat struct {
 	MavlinkVersion uint8  // MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version
 }
 
+// Dialect (generated function)
+func (m *CommonHeartbeat) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonHeartbeat) MsgID() MessageID {
 	return MSG_ID_HEARTBEAT
@@ -862,6 +867,11 @@ type CommonSysStatus struct {
 	ErrorsCount3                 uint16 // Autopilot-specific errors
 	ErrorsCount4                 uint16 // Autopilot-specific errors
 	BatteryRemaining             int8   // Remaining battery energy: (0%: 0, 100%: 100), -1: autopilot estimate the remaining battery
+}
+
+// Dialect (generated function)
+func (m *CommonSysStatus) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -934,6 +944,11 @@ type CommonSystemTime struct {
 	TimeBootMs   uint32 // Timestamp of the component clock since boot time in milliseconds.
 }
 
+// Dialect (generated function)
+func (m *CommonSystemTime) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSystemTime) MsgID() MessageID {
 	return MSG_ID_SYSTEM_TIME
@@ -982,6 +997,11 @@ type CommonPing struct {
 	Seq             uint32 // PING sequence
 	TargetSystem    uint8  // 0: request ping from all receiving systems, if greater than 0: message is a ping response and number is the system id of the requesting system
 	TargetComponent uint8  // 0: request ping from all receiving components, if greater than 0: message is a ping response and number is the system id of the requesting system
+}
+
+// Dialect (generated function)
+func (m *CommonPing) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1038,6 +1058,11 @@ type CommonChangeOperatorControl struct {
 	Passkey        [25]byte // Password / Key, depending on version plaintext or encrypted. 25 or less characters, NULL terminated. The characters may involve A-Z, a-z, 0-9, and "!?,.-"
 }
 
+// Dialect (generated function)
+func (m *CommonChangeOperatorControl) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonChangeOperatorControl) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
@@ -1091,6 +1116,11 @@ type CommonChangeOperatorControlAck struct {
 	Ack            uint8 // 0: ACK, 1: NACK: Wrong passkey, 2: NACK: Unsupported passkey encryption method, 3: NACK: Already under control
 }
 
+// Dialect (generated function)
+func (m *CommonChangeOperatorControlAck) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonChangeOperatorControlAck) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
@@ -1140,6 +1170,11 @@ type CommonAuthKey struct {
 	Key [32]byte // key
 }
 
+// Dialect (generated function)
+func (m *CommonAuthKey) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonAuthKey) MsgID() MessageID {
 	return MSG_ID_AUTH_KEY
@@ -1185,6 +1220,11 @@ type CommonSetMode struct {
 	CustomMode   uint32 // The new autopilot-specific mode. This field can be ignored by an autopilot.
 	TargetSystem uint8  // The system setting the mode
 	BaseMode     uint8  // The new base mode
+}
+
+// Dialect (generated function)
+func (m *CommonSetMode) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1239,6 +1279,11 @@ type CommonParamRequestRead struct {
 	ParamID         [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 }
 
+// Dialect (generated function)
+func (m *CommonParamRequestRead) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonParamRequestRead) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
@@ -1291,6 +1336,11 @@ type CommonParamRequestList struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonParamRequestList) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonParamRequestList) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
@@ -1340,6 +1390,11 @@ type CommonParamValue struct {
 	ParamIndex uint16   // Index of this onboard parameter
 	ParamID    [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParamType  uint8    // Onboard parameter type: see the MAV_PARAM_TYPE enum for supported data types.
+}
+
+// Dialect (generated function)
+func (m *CommonParamValue) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1397,6 +1452,11 @@ type CommonParamSet struct {
 	TargetComponent uint8    // Component ID
 	ParamID         [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParamType       uint8    // Onboard parameter type: see the MAV_PARAM_TYPE enum for supported data types.
+}
+
+// Dialect (generated function)
+func (m *CommonParamSet) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1460,6 +1520,11 @@ type CommonGpsRawInt struct {
 	Cog               uint16 // Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
 	FixType           uint8  // See the GPS_FIX_TYPE enum.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
+}
+
+// Dialect (generated function)
+func (m *CommonGpsRawInt) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1530,6 +1595,11 @@ type CommonGpsStatus struct {
 	SatelliteSnr       [20]uint8 // Signal to noise ratio of satellite
 }
 
+// Dialect (generated function)
+func (m *CommonGpsStatus) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonGpsStatus) MsgID() MessageID {
 	return MSG_ID_GPS_STATUS
@@ -1592,6 +1662,11 @@ type CommonScaledImu struct {
 	Xmag       int16  // X Magnetic field (milli tesla)
 	Ymag       int16  // Y Magnetic field (milli tesla)
 	Zmag       int16  // Z Magnetic field (milli tesla)
+}
+
+// Dialect (generated function)
+func (m *CommonScaledImu) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1666,6 +1741,11 @@ type CommonRawImu struct {
 	Zmag     int16  // Z Magnetic field (raw)
 }
 
+// Dialect (generated function)
+func (m *CommonRawImu) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRawImu) MsgID() MessageID {
 	return MSG_ID_RAW_IMU
@@ -1733,6 +1813,11 @@ type CommonRawPressure struct {
 	Temperature int16  // Raw Temperature measurement (raw)
 }
 
+// Dialect (generated function)
+func (m *CommonRawPressure) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRawPressure) MsgID() MessageID {
 	return MSG_ID_RAW_PRESSURE
@@ -1787,6 +1872,11 @@ type CommonScaledPressure struct {
 	PressAbs    float32 // Absolute pressure (hectopascal)
 	PressDiff   float32 // Differential pressure 1 (hectopascal)
 	Temperature int16   // Temperature measurement (0.01 degrees celsius)
+}
+
+// Dialect (generated function)
+func (m *CommonScaledPressure) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1844,6 +1934,11 @@ type CommonAttitude struct {
 	Rollspeed  float32 // Roll angular speed (rad/s)
 	Pitchspeed float32 // Pitch angular speed (rad/s)
 	Yawspeed   float32 // Yaw angular speed (rad/s)
+}
+
+// Dialect (generated function)
+func (m *CommonAttitude) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1908,6 +2003,11 @@ type CommonAttitudeQuaternion struct {
 	Rollspeed  float32 // Roll angular speed (rad/s)
 	Pitchspeed float32 // Pitch angular speed (rad/s)
 	Yawspeed   float32 // Yaw angular speed (rad/s)
+}
+
+// Dialect (generated function)
+func (m *CommonAttitudeQuaternion) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -1975,6 +2075,11 @@ type CommonLocalPositionNed struct {
 	Vz         float32 // Z Speed
 }
 
+// Dialect (generated function)
+func (m *CommonLocalPositionNed) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLocalPositionNed) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
@@ -2039,6 +2144,11 @@ type CommonGlobalPositionInt struct {
 	Vy          int16  // Ground Y Speed (Longitude, positive east), expressed as m/s * 100
 	Vz          int16  // Ground Z Speed (Altitude, positive down), expressed as m/s * 100
 	Hdg         uint16 // Vehicle heading (yaw angle) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
+}
+
+// Dialect (generated function)
+func (m *CommonGlobalPositionInt) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2110,6 +2220,11 @@ type CommonRcChannelsScaled struct {
 	Chan8Scaled int16  // RC channel 8 value scaled, (-100%) -10000, (0%) 0, (100%) 10000, (invalid) INT16_MAX.
 	Port        uint8  // Servo output port (set of 8 outputs = 1 port). Most MAVs will just use one, but this allows for more than 8 servos.
 	Rssi        uint8  // Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.
+}
+
+// Dialect (generated function)
+func (m *CommonRcChannelsScaled) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2187,6 +2302,11 @@ type CommonRcChannelsRaw struct {
 	Rssi       uint8  // Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.
 }
 
+// Dialect (generated function)
+func (m *CommonRcChannelsRaw) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRcChannelsRaw) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
@@ -2261,6 +2381,11 @@ type CommonServoOutputRaw struct {
 	Port      uint8  // Servo output port (set of 8 outputs = 1 port). Most MAVs will just use one, but this allows to encode more than 8 servos.
 }
 
+// Dialect (generated function)
+func (m *CommonServoOutputRaw) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonServoOutputRaw) MsgID() MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
@@ -2327,6 +2452,11 @@ type CommonMissionRequestPartialList struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonMissionRequestPartialList) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionRequestPartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
@@ -2379,6 +2509,11 @@ type CommonMissionWritePartialList struct {
 	EndIndex        int16 // End index, equal or greater than start index.
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
+}
+
+// Dialect (generated function)
+func (m *CommonMissionWritePartialList) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2444,6 +2579,11 @@ type CommonMissionItem struct {
 	Frame           uint8   // The coordinate system of the MISSION. see MAV_FRAME in mavlink_types.h
 	Current         uint8   // false:0, true:1
 	Autocontinue    uint8   // autocontinue to next wp
+}
+
+// Dialect (generated function)
+func (m *CommonMissionItem) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2519,6 +2659,11 @@ type CommonMissionRequest struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonMissionRequest) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionRequest) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST
@@ -2570,6 +2715,11 @@ type CommonMissionSetCurrent struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonMissionSetCurrent) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionSetCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
@@ -2619,6 +2769,11 @@ type CommonMissionCurrent struct {
 	Seq uint16 // Sequence
 }
 
+// Dialect (generated function)
+func (m *CommonMissionCurrent) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_CURRENT
@@ -2663,6 +2818,11 @@ func (m *CommonMissionCurrent) Unpack(p *Packet) error {
 type CommonMissionRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
+}
+
+// Dialect (generated function)
+func (m *CommonMissionRequestList) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2712,6 +2872,11 @@ type CommonMissionCount struct {
 	Count           uint16 // Number of mission items in the sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
+}
+
+// Dialect (generated function)
+func (m *CommonMissionCount) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2764,6 +2929,11 @@ type CommonMissionClearAll struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonMissionClearAll) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionClearAll) MsgID() MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
@@ -2811,6 +2981,11 @@ type CommonMissionItemReached struct {
 	Seq uint16 // Sequence
 }
 
+// Dialect (generated function)
+func (m *CommonMissionItemReached) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionItemReached) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
@@ -2856,6 +3031,11 @@ type CommonMissionAck struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Type            uint8 // See MAV_MISSION_RESULT enum
+}
+
+// Dialect (generated function)
+func (m *CommonMissionAck) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -2910,6 +3090,11 @@ type CommonSetGpsGlobalOrigin struct {
 	TargetSystem uint8 // System ID
 }
 
+// Dialect (generated function)
+func (m *CommonSetGpsGlobalOrigin) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSetGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
@@ -2961,6 +3146,11 @@ type CommonGpsGlobalOrigin struct {
 	Latitude  int32 // Latitude (WGS84), in degrees * 1E7
 	Longitude int32 // Longitude (WGS84), in degrees * 1E7
 	Altitude  int32 // Altitude (AMSL), in meters * 1000 (positive for up)
+}
+
+// Dialect (generated function)
+func (m *CommonGpsGlobalOrigin) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3018,6 +3208,11 @@ type CommonParamMapRc struct {
 	TargetComponent         uint8    // Component ID
 	ParamID                 [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParameterRcChannelIndex uint8    // Index of parameter RC channel. Not equal to the RC channel id. Typically correpsonds to a potentiometer-knob on the RC.
+}
+
+// Dialect (generated function)
+func (m *CommonParamMapRc) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3083,6 +3278,11 @@ type CommonMissionRequestInt struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonMissionRequestInt) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionRequestInt) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
@@ -3138,6 +3338,11 @@ type CommonSafetySetAllowedArea struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	Frame           uint8   // Coordinate frame, as defined by MAV_FRAME enum in mavlink_types.h. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
+}
+
+// Dialect (generated function)
+func (m *CommonSafetySetAllowedArea) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3207,6 +3412,11 @@ type CommonSafetyAllowedArea struct {
 	Frame uint8   // Coordinate frame, as defined by MAV_FRAME enum in mavlink_types.h. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
 }
 
+// Dialect (generated function)
+func (m *CommonSafetyAllowedArea) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSafetyAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
@@ -3267,6 +3477,11 @@ type CommonAttitudeQuaternionCov struct {
 	Pitchspeed float32    // Pitch angular speed (rad/s)
 	Yawspeed   float32    // Yaw angular speed (rad/s)
 	Covariance [9]float32 // Attitude covariance
+}
+
+// Dialect (generated function)
+func (m *CommonAttitudeQuaternionCov) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3339,6 +3554,11 @@ type CommonNavControllerOutput struct {
 	WpDist        uint16  // Distance to active MISSION in meters
 }
 
+// Dialect (generated function)
+func (m *CommonNavControllerOutput) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonNavControllerOutput) MsgID() MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
@@ -3405,6 +3625,11 @@ type CommonGlobalPositionIntCov struct {
 	Vz            float32     // Ground Z Speed (Altitude), expressed as m/s
 	Covariance    [36]float32 // Covariance matrix (first six entries are the first ROW, next six entries are the second row, etc.)
 	EstimatorType uint8       // Class id of the estimator this estimate originated from.
+}
+
+// Dialect (generated function)
+func (m *CommonGlobalPositionIntCov) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3483,6 +3708,11 @@ type CommonLocalPositionNedCov struct {
 	Az            float32     // Z Acceleration (m/s^2)
 	Covariance    [45]float32 // Covariance matrix upper right triangular (first nine entries are the first ROW, next eight entries are the second row, etc.)
 	EstimatorType uint8       // Class id of the estimator this estimate originated from.
+}
+
+// Dialect (generated function)
+func (m *CommonLocalPositionNedCov) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3576,6 +3806,11 @@ type CommonRcChannels struct {
 	Rssi       uint8  // Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.
 }
 
+// Dialect (generated function)
+func (m *CommonRcChannels) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRcChannels) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS
@@ -3665,6 +3900,11 @@ type CommonRequestDataStream struct {
 	StartStop       uint8  // 1 to start sending, 0 to stop sending.
 }
 
+// Dialect (generated function)
+func (m *CommonRequestDataStream) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRequestDataStream) MsgID() MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
@@ -3720,6 +3960,11 @@ type CommonDataStream struct {
 	OnOff       uint8  // 1 stream is enabled, 0 stream is stopped.
 }
 
+// Dialect (generated function)
+func (m *CommonDataStream) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonDataStream) MsgID() MessageID {
 	return MSG_ID_DATA_STREAM
@@ -3772,6 +4017,11 @@ type CommonManualControl struct {
 	R       int16  // R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
 	Buttons uint16 // A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
 	Target  uint8  // The system to be controlled.
+}
+
+// Dialect (generated function)
+func (m *CommonManualControl) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3836,6 +4086,11 @@ type CommonRcChannelsOverride struct {
 	Chan8Raw        uint16 // RC channel 8 value, in microseconds. A value of UINT16_MAX means to ignore this field.
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
+}
+
+// Dialect (generated function)
+func (m *CommonRcChannelsOverride) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -3915,6 +4170,11 @@ type CommonMissionItemInt struct {
 	Autocontinue    uint8   // autocontinue to next wp
 }
 
+// Dialect (generated function)
+func (m *CommonMissionItemInt) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMissionItemInt) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_INT
@@ -3991,6 +4251,11 @@ type CommonVfrHud struct {
 	Throttle    uint16  // Current throttle setting in integer percent, 0 to 100
 }
 
+// Dialect (generated function)
+func (m *CommonVfrHud) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonVfrHud) MsgID() MessageID {
 	return MSG_ID_VFR_HUD
@@ -4056,6 +4321,11 @@ type CommonCommandInt struct {
 	Frame           uint8   // The coordinate system of the COMMAND. see MAV_FRAME in mavlink_types.h
 	Current         uint8   // false:0, true:1
 	Autocontinue    uint8   // autocontinue to next wp
+}
+
+// Dialect (generated function)
+func (m *CommonCommandInt) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4137,6 +4407,11 @@ type CommonCommandLong struct {
 	Confirmation    uint8   // 0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)
 }
 
+// Dialect (generated function)
+func (m *CommonCommandLong) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonCommandLong) MsgID() MessageID {
 	return MSG_ID_COMMAND_LONG
@@ -4203,6 +4478,11 @@ type CommonCommandAck struct {
 	Result  uint8  // See MAV_RESULT enum
 }
 
+// Dialect (generated function)
+func (m *CommonCommandAck) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonCommandAck) MsgID() MessageID {
 	return MSG_ID_COMMAND_ACK
@@ -4254,6 +4534,11 @@ type CommonManualSetpoint struct {
 	Thrust               float32 // Collective thrust, normalized to 0 .. 1
 	ModeSwitch           uint8   // Flight mode switch position, 0.. 255
 	ManualOverrideSwitch uint8   // Override mode switch position, 0.. 255
+}
+
+// Dialect (generated function)
+func (m *CommonManualSetpoint) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4319,6 +4604,11 @@ type CommonSetAttitudeTarget struct {
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
 	TypeMask        uint8      // Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 6: reserved, bit 7: throttle, bit 8: attitude
+}
+
+// Dialect (generated function)
+func (m *CommonSetAttitudeTarget) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4390,6 +4680,11 @@ type CommonAttitudeTarget struct {
 	BodyYawRate   float32    // Body yaw rate in radians per second
 	Thrust        float32    // Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
 	TypeMask      uint8      // Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 7: reserved, bit 8: attitude
+}
+
+// Dialect (generated function)
+func (m *CommonAttitudeTarget) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4466,6 +4761,11 @@ type CommonSetPositionTargetLocalNed struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
+}
+
+// Dialect (generated function)
+func (m *CommonSetPositionTargetLocalNed) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4556,6 +4856,11 @@ type CommonPositionTargetLocalNed struct {
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
 }
 
+// Dialect (generated function)
+func (m *CommonPositionTargetLocalNed) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
@@ -4640,6 +4945,11 @@ type CommonSetPositionTargetGlobalInt struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
+}
+
+// Dialect (generated function)
+func (m *CommonSetPositionTargetGlobalInt) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4730,6 +5040,11 @@ type CommonPositionTargetGlobalInt struct {
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
 }
 
+// Dialect (generated function)
+func (m *CommonPositionTargetGlobalInt) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
@@ -4807,6 +5122,11 @@ type CommonLocalPositionNedSystemGlobalOffset struct {
 	Yaw        float32 // Yaw
 }
 
+// Dialect (generated function)
+func (m *CommonLocalPositionNedSystemGlobalOffset) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLocalPositionNedSystemGlobalOffset) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
@@ -4877,6 +5197,11 @@ type CommonHilState struct {
 	Xacc       int16   // X acceleration (mg)
 	Yacc       int16   // Y acceleration (mg)
 	Zacc       int16   // Z acceleration (mg)
+}
+
+// Dialect (generated function)
+func (m *CommonHilState) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -4964,6 +5289,11 @@ type CommonHilControls struct {
 	NavMode       uint8   // Navigation mode (MAV_NAV_MODE)
 }
 
+// Dialect (generated function)
+func (m *CommonHilControls) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonHilControls) MsgID() MessageID {
 	return MSG_ID_HIL_CONTROLS
@@ -5042,6 +5372,11 @@ type CommonHilRcInputsRaw struct {
 	Rssi      uint8  // Receive signal strength indicator, 0: 0%, 255: 100%
 }
 
+// Dialect (generated function)
+func (m *CommonHilRcInputsRaw) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonHilRcInputsRaw) MsgID() MessageID {
 	return MSG_ID_HIL_RC_INPUTS_RAW
@@ -5116,6 +5451,11 @@ type CommonHilActuatorControls struct {
 	Mode     uint8       // System mode (MAV_MODE), includes arming state.
 }
 
+// Dialect (generated function)
+func (m *CommonHilActuatorControls) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonHilActuatorControls) MsgID() MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
@@ -5176,6 +5516,11 @@ type CommonOpticalFlow struct {
 	FlowY          int16   // Flow in pixels * 10 in y-sensor direction (dezi-pixels)
 	SensorID       uint8   // Sensor ID
 	Quality        uint8   // Optical flow quality / confidence. 0: bad, 255: maximum quality
+}
+
+// Dialect (generated function)
+func (m *CommonOpticalFlow) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -5243,6 +5588,11 @@ type CommonGlobalVisionPositionEstimate struct {
 	Yaw   float32 // Yaw angle in rad
 }
 
+// Dialect (generated function)
+func (m *CommonGlobalVisionPositionEstimate) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonGlobalVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
@@ -5306,6 +5656,11 @@ type CommonVisionPositionEstimate struct {
 	Yaw   float32 // Yaw angle in rad
 }
 
+// Dialect (generated function)
+func (m *CommonVisionPositionEstimate) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
@@ -5366,6 +5721,11 @@ type CommonVisionSpeedEstimate struct {
 	Z    float32 // Global Z speed
 }
 
+// Dialect (generated function)
+func (m *CommonVisionSpeedEstimate) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonVisionSpeedEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
@@ -5421,6 +5781,11 @@ type CommonViconPositionEstimate struct {
 	Roll  float32 // Roll angle in rad
 	Pitch float32 // Pitch angle in rad
 	Yaw   float32 // Yaw angle in rad
+}
+
+// Dialect (generated function)
+func (m *CommonViconPositionEstimate) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -5492,6 +5857,11 @@ type CommonHighresImu struct {
 	PressureAlt   float32 // Altitude calculated from pressure
 	Temperature   float32 // Temperature in degrees celsius
 	FieldsUpdated uint16  // Bitmask for fields that have updated since last message, bit 0 = xacc, bit 12: temperature
+}
+
+// Dialect (generated function)
+func (m *CommonHighresImu) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -5578,6 +5948,11 @@ type CommonOpticalFlowRad struct {
 	Quality             uint8   // Optical flow quality / confidence. 0: no valid flow, 255: maximum quality
 }
 
+// Dialect (generated function)
+func (m *CommonOpticalFlowRad) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonOpticalFlowRad) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
@@ -5657,6 +6032,11 @@ type CommonHilSensor struct {
 	PressureAlt   float32 // Altitude calculated from pressure
 	Temperature   float32 // Temperature in degrees celsius
 	FieldsUpdated uint32  // Bitmask for fields that have updated since last message, bit 0 = xacc, bit 12: temperature, bit 31: full reset of attitude/position/velocities/etc was performed in sim.
+}
+
+// Dialect (generated function)
+func (m *CommonHilSensor) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -5752,6 +6132,11 @@ type CommonSimState struct {
 	Vd         float32 // True velocity in m/s in DOWN direction in earth-fixed NED frame
 }
 
+// Dialect (generated function)
+func (m *CommonSimState) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSimState) MsgID() MessageID {
 	return MSG_ID_SIM_STATE
@@ -5843,6 +6228,11 @@ type CommonRadioStatus struct {
 	Remnoise uint8  // Remote background noise level
 }
 
+// Dialect (generated function)
+func (m *CommonRadioStatus) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonRadioStatus) MsgID() MessageID {
 	return MSG_ID_RADIO_STATUS
@@ -5903,6 +6293,11 @@ type CommonFileTransferProtocol struct {
 	Payload         [251]uint8 // Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
 }
 
+// Dialect (generated function)
+func (m *CommonFileTransferProtocol) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonFileTransferProtocol) MsgID() MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
@@ -5955,6 +6350,11 @@ type CommonTimesync struct {
 	Ts1 int64 // Time sync timestamp 2
 }
 
+// Dialect (generated function)
+func (m *CommonTimesync) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonTimesync) MsgID() MessageID {
 	return MSG_ID_TIMESYNC
@@ -6001,6 +6401,11 @@ func (m *CommonTimesync) Unpack(p *Packet) error {
 type CommonCameraTrigger struct {
 	TimeUsec uint64 // Timestamp for the image frame in microseconds
 	Seq      uint32 // Image frame sequence
+}
+
+// Dialect (generated function)
+func (m *CommonCameraTrigger) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6061,6 +6466,11 @@ type CommonHilGps struct {
 	Cog               uint16 // Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: 65535
 	FixType           uint8  // 0-1: no fix, 2: 2D fix, 3: 3D fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
+}
+
+// Dialect (generated function)
+func (m *CommonHilGps) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6143,6 +6553,11 @@ type CommonHilOpticalFlow struct {
 	Quality             uint8   // Optical flow quality / confidence. 0: no valid flow, 255: maximum quality
 }
 
+// Dialect (generated function)
+func (m *CommonHilOpticalFlow) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonHilOpticalFlow) MsgID() MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
@@ -6223,6 +6638,11 @@ type CommonHilStateQuaternion struct {
 	Xacc               int16      // X acceleration (mg)
 	Yacc               int16      // Y acceleration (mg)
 	Zacc               int16      // Z acceleration (mg)
+}
+
+// Dialect (generated function)
+func (m *CommonHilStateQuaternion) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6313,6 +6733,11 @@ type CommonScaledImu2 struct {
 	Zmag       int16  // Z Magnetic field (milli tesla)
 }
 
+// Dialect (generated function)
+func (m *CommonScaledImu2) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonScaledImu2) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU2
@@ -6379,6 +6804,11 @@ type CommonLogRequestList struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonLogRequestList) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLogRequestList) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
@@ -6432,6 +6862,11 @@ type CommonLogEntry struct {
 	ID         uint16 // Log id
 	NumLogs    uint16 // Total number of logs
 	LastLogNum uint16 // High log number
+}
+
+// Dialect (generated function)
+func (m *CommonLogEntry) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6491,6 +6926,11 @@ type CommonLogRequestData struct {
 	TargetComponent uint8  // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonLogRequestData) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLogRequestData) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
@@ -6547,6 +6987,11 @@ type CommonLogData struct {
 	Data  [90]uint8 // log data
 }
 
+// Dialect (generated function)
+func (m *CommonLogData) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLogData) MsgID() MessageID {
 	return MSG_ID_LOG_DATA
@@ -6599,6 +7044,11 @@ type CommonLogErase struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonLogErase) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLogErase) MsgID() MessageID {
 	return MSG_ID_LOG_ERASE
@@ -6645,6 +7095,11 @@ func (m *CommonLogErase) Unpack(p *Packet) error {
 type CommonLogRequestEnd struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
+}
+
+// Dialect (generated function)
+func (m *CommonLogRequestEnd) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6695,6 +7150,11 @@ type CommonGpsInjectData struct {
 	TargetComponent uint8      // Component ID
 	Len             uint8      // data length
 	Data            [110]uint8 // raw data (110 is enough for 12 satellites of RTCMv2)
+}
+
+// Dialect (generated function)
+func (m *CommonGpsInjectData) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6757,6 +7217,11 @@ type CommonGps2Raw struct {
 	FixType           uint8  // See the GPS_FIX_TYPE enum.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
 	DgpsNumch         uint8  // Number of DGPS satellites
+}
+
+// Dialect (generated function)
+func (m *CommonGps2Raw) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6828,6 +7293,11 @@ type CommonPowerStatus struct {
 	Flags  uint16 // power supply status flags (see MAV_POWER_STATUS enum)
 }
 
+// Dialect (generated function)
+func (m *CommonPowerStatus) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonPowerStatus) MsgID() MessageID {
 	return MSG_ID_POWER_STATUS
@@ -6880,6 +7350,11 @@ type CommonSerialControl struct {
 	Flags    uint8     // See SERIAL_CONTROL_FLAG enum
 	Count    uint8     // how many bytes in this transfer
 	Data     [70]uint8 // serial data
+}
+
+// Dialect (generated function)
+func (m *CommonSerialControl) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -6947,6 +7422,11 @@ type CommonGpsRtk struct {
 	RtkRate            uint8  // Rate of baseline messages being received by GPS, in HZ
 	Nsats              uint8  // Current number of sats used for RTK calculation.
 	BaselineCoordsType uint8  // Coordinate system of baseline. 0 == ECEF, 1 == NED
+}
+
+// Dialect (generated function)
+func (m *CommonGpsRtk) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7030,6 +7510,11 @@ type CommonGps2Rtk struct {
 	BaselineCoordsType uint8  // Coordinate system of baseline. 0 == ECEF, 1 == NED
 }
 
+// Dialect (generated function)
+func (m *CommonGps2Rtk) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonGps2Rtk) MsgID() MessageID {
 	return MSG_ID_GPS2_RTK
@@ -7108,6 +7593,11 @@ type CommonScaledImu3 struct {
 	Zmag       int16  // Z Magnetic field (milli tesla)
 }
 
+// Dialect (generated function)
+func (m *CommonScaledImu3) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonScaledImu3) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU3
@@ -7177,6 +7667,11 @@ type CommonDataTransmissionHandshake struct {
 	JpgQuality uint8  // JPEG quality out of [1,100]
 }
 
+// Dialect (generated function)
+func (m *CommonDataTransmissionHandshake) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonDataTransmissionHandshake) MsgID() MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
@@ -7235,6 +7730,11 @@ type CommonEncapsulatedData struct {
 	Data  [253]uint8 // image data bytes
 }
 
+// Dialect (generated function)
+func (m *CommonEncapsulatedData) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonEncapsulatedData) MsgID() MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
@@ -7287,6 +7787,11 @@ type CommonDistanceSensor struct {
 	ID              uint8  // Onboard ID of the sensor
 	Orientation     uint8  // Direction the sensor faces from MAV_SENSOR_ORIENTATION enum.
 	Covariance      uint8  // Measurement covariance in centimeters, 0 for unknown / invalid readings
+}
+
+// Dialect (generated function)
+func (m *CommonDistanceSensor) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7351,6 +7856,11 @@ type CommonTerrainRequest struct {
 	GridSpacing uint16 // Grid spacing in meters
 }
 
+// Dialect (generated function)
+func (m *CommonTerrainRequest) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonTerrainRequest) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REQUEST
@@ -7404,6 +7914,11 @@ type CommonTerrainData struct {
 	GridSpacing uint16    // Grid spacing in meters
 	Data        [16]int16 // Terrain data in meters AMSL
 	Gridbit     uint8     // bit within the terrain request mask
+}
+
+// Dialect (generated function)
+func (m *CommonTerrainData) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7464,6 +7979,11 @@ type CommonTerrainCheck struct {
 	Lon int32 // Longitude (degrees *10^7)
 }
 
+// Dialect (generated function)
+func (m *CommonTerrainCheck) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonTerrainCheck) MsgID() MessageID {
 	return MSG_ID_TERRAIN_CHECK
@@ -7515,6 +8035,11 @@ type CommonTerrainReport struct {
 	Spacing       uint16  // grid spacing (zero if terrain at this location unavailable)
 	Pending       uint16  // Number of 4x4 terrain blocks waiting to be received or read from disk
 	Loaded        uint16  // Number of 4x4 terrain blocks in memory
+}
+
+// Dialect (generated function)
+func (m *CommonTerrainReport) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7577,6 +8102,11 @@ type CommonScaledPressure2 struct {
 	Temperature int16   // Temperature measurement (0.01 degrees celsius)
 }
 
+// Dialect (generated function)
+func (m *CommonScaledPressure2) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonScaledPressure2) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE2
@@ -7630,6 +8160,11 @@ type CommonAttPosMocap struct {
 	X        float32    // X position in meters (NED)
 	Y        float32    // Y position in meters (NED)
 	Z        float32    // Z position in meters (NED)
+}
+
+// Dialect (generated function)
+func (m *CommonAttPosMocap) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7693,6 +8228,11 @@ type CommonSetActuatorControlTarget struct {
 	TargetComponent uint8      // Component ID
 }
 
+// Dialect (generated function)
+func (m *CommonSetActuatorControlTarget) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSetActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
@@ -7752,6 +8292,11 @@ type CommonActuatorControlTarget struct {
 	GroupMlx uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
 }
 
+// Dialect (generated function)
+func (m *CommonActuatorControlTarget) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
@@ -7809,6 +8354,11 @@ type CommonAltitude struct {
 	AltitudeRelative  float32 // This is the altitude above the home position. It resets on each change of the current home position.
 	AltitudeTerrain   float32 // This is the altitude above terrain. It might be fed by a terrain database or an altimeter. Values smaller than -1000 should be interpreted as unknown.
 	BottomClearance   float32 // This is not the altitude, but the clear space below the system according to the fused clearance estimate. It generally should max out at the maximum range of e.g. the laser altimeter. It is generally a moving target. A negative value indicates no measurement available.
+}
+
+// Dialect (generated function)
+func (m *CommonAltitude) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7872,6 +8422,11 @@ type CommonResourceRequest struct {
 	Storage      [120]uint8 // The storage path the autopilot wants the URI to be stored in. Will only be valid if the transfer_type has a storage associated (e.g. MAVLink FTP).
 }
 
+// Dialect (generated function)
+func (m *CommonResourceRequest) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonResourceRequest) MsgID() MessageID {
 	return MSG_ID_RESOURCE_REQUEST
@@ -7926,6 +8481,11 @@ type CommonScaledPressure3 struct {
 	PressAbs    float32 // Absolute pressure (hectopascal)
 	PressDiff   float32 // Differential pressure 1 (hectopascal)
 	Temperature int16   // Temperature measurement (0.01 degrees celsius)
+}
+
+// Dialect (generated function)
+func (m *CommonScaledPressure3) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -7987,6 +8547,11 @@ type CommonFollowTarget struct {
 	Rates           [3]float32 // (0 0 0 for unknown)
 	PositionCov     [3]float32 // eph epv
 	EstCapabilities uint8      // bit positions for tracker reporting capabilities (POS = 0, VEL = 1, ACCEL = 2, ATT + RATES = 3)
+}
+
+// Dialect (generated function)
+func (m *CommonFollowTarget) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8090,6 +8655,11 @@ type CommonControlSystemState struct {
 	YawRate     float32    // Angular rate in yaw axis
 }
 
+// Dialect (generated function)
+func (m *CommonControlSystemState) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonControlSystemState) MsgID() MessageID {
 	return MSG_ID_CONTROL_SYSTEM_STATE
@@ -8187,6 +8757,11 @@ type CommonBatteryStatus struct {
 	BatteryRemaining int8       // Remaining battery energy: (0%: 0, 100%: 100), -1: autopilot does not estimate the remaining battery
 }
 
+// Dialect (generated function)
+func (m *CommonBatteryStatus) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonBatteryStatus) MsgID() MessageID {
 	return MSG_ID_BATTERY_STATUS
@@ -8262,6 +8837,11 @@ type CommonAutopilotVersion struct {
 	OsCustomVersion         [8]uint8 // Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.
 }
 
+// Dialect (generated function)
+func (m *CommonAutopilotVersion) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonAutopilotVersion) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION
@@ -8334,6 +8914,11 @@ type CommonLandingTarget struct {
 	Frame     uint8   // MAV_FRAME enum specifying the whether the following feilds are earth-frame, body-frame, etc.
 }
 
+// Dialect (generated function)
+func (m *CommonLandingTarget) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonLandingTarget) MsgID() MessageID {
 	return MSG_ID_LANDING_TARGET
@@ -8400,6 +8985,11 @@ type CommonEstimatorStatus struct {
 	PosHorizAccuracy float32 // Horizontal position 1-STD accuracy relative to the EKF local origin (m)
 	PosVertAccuracy  float32 // Vertical position 1-STD accuracy relative to the EKF local origin (m)
 	Flags            uint16  // Integer bitmask indicating which EKF outputs are valid. See definition for ESTIMATOR_STATUS_FLAGS.
+}
+
+// Dialect (generated function)
+func (m *CommonEstimatorStatus) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8471,6 +9061,11 @@ type CommonWindCov struct {
 	WindAlt       float32 // AMSL altitude (m) this measurement was taken at
 	HorizAccuracy float32 // Horizontal speed 1-STD accuracy
 	VertAccuracy  float32 // Vertical speed 1-STD accuracy
+}
+
+// Dialect (generated function)
+func (m *CommonWindCov) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8549,6 +9144,11 @@ type CommonGpsInput struct {
 	GpsID             uint8   // ID of the GPS for multiple GPS inputs
 	FixType           uint8   // 0-1: no fix, 2: 2D fix, 3: 3D fix. 4: 3D with DGPS. 5: 3D with RTK
 	SatellitesVisible uint8   // Number of satellites visible.
+}
+
+// Dialect (generated function)
+func (m *CommonGpsInput) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8632,6 +9232,11 @@ type CommonGpsRtcmData struct {
 	Data  [180]uint8 // RTCM message (may be fragmented)
 }
 
+// Dialect (generated function)
+func (m *CommonGpsRtcmData) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonGpsRtcmData) MsgID() MessageID {
 	return MSG_ID_GPS_RTCM_DATA
@@ -8702,6 +9307,11 @@ type CommonHighLatency struct {
 	TemperatureAir   int8   // Air temperature (degrees C) from airspeed sensor
 	Failsafe         uint8  // failsafe (each bit represents a failsafe where 0=ok, 1=failsafe active (bit0:RC, bit1:batt, bit2:GPS, bit3:GCS, bit4:fence)
 	WpNum            uint8  // current waypoint number
+}
+
+// Dialect (generated function)
+func (m *CommonHighLatency) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8801,6 +9411,11 @@ type CommonVibration struct {
 	Clipping2  uint32  // third accelerometer clipping count
 }
 
+// Dialect (generated function)
+func (m *CommonVibration) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonVibration) MsgID() MessageID {
 	return MSG_ID_VIBRATION
@@ -8865,6 +9480,11 @@ type CommonHomePosition struct {
 	ApproachX float32    // Local X position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
 	ApproachY float32    // Local Y position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
 	ApproachZ float32    // Local Z position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
+}
+
+// Dialect (generated function)
+func (m *CommonHomePosition) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -8944,6 +9564,11 @@ type CommonSetHomePosition struct {
 	TargetSystem uint8      // System ID.
 }
 
+// Dialect (generated function)
+func (m *CommonSetHomePosition) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonSetHomePosition) MsgID() MessageID {
 	return MSG_ID_SET_HOME_POSITION
@@ -9014,6 +9639,11 @@ type CommonMessageInterval struct {
 	MessageID  uint16 // The ID of the requested MAVLink message. v1.0 is limited to 254 messages.
 }
 
+// Dialect (generated function)
+func (m *CommonMessageInterval) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonMessageInterval) MsgID() MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
@@ -9060,6 +9690,11 @@ func (m *CommonMessageInterval) Unpack(p *Packet) error {
 type CommonExtendedSysState struct {
 	VtolState   uint8 // The VTOL state if applicable. Is set to MAV_VTOL_STATE_UNDEFINED if UAV is not in VTOL configuration.
 	LandedState uint8 // The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
+}
+
+// Dialect (generated function)
+func (m *CommonExtendedSysState) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -9119,6 +9754,11 @@ type CommonAdsbVehicle struct {
 	Callsign     [9]byte // The callsign, 8+null
 	EmitterType  uint8   // Type from ADSB_EMITTER_TYPE enum
 	Tslc         uint8   // Time since last communication in seconds
+}
+
+// Dialect (generated function)
+func (m *CommonAdsbVehicle) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -9196,6 +9836,11 @@ type CommonCollision struct {
 	ThreatLevel            uint8   // How concerned the aircraft is about this collision
 }
 
+// Dialect (generated function)
+func (m *CommonCollision) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonCollision) MsgID() MessageID {
 	return MSG_ID_COLLISION
@@ -9257,6 +9902,11 @@ type CommonV2Extension struct {
 	Payload         [249]uint8 // Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
 }
 
+// Dialect (generated function)
+func (m *CommonV2Extension) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonV2Extension) MsgID() MessageID {
 	return MSG_ID_V2_EXTENSION
@@ -9311,6 +9961,11 @@ type CommonMemoryVect struct {
 	Ver     uint8    // Version code of the type variable. 0=unknown, type ignored and assumed int16_t. 1=as below
 	Type    uint8    // Type code of the memory variables. for ver = 1: 0=16 x int16_t, 1=16 x uint16_t, 2=16 x Q15, 3=16 x 1Q14
 	Value   [32]int8 // Memory contents at specified address
+}
+
+// Dialect (generated function)
+func (m *CommonMemoryVect) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -9372,6 +10027,11 @@ type CommonDebugVect struct {
 	Name     [10]byte // Name
 }
 
+// Dialect (generated function)
+func (m *CommonDebugVect) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonDebugVect) MsgID() MessageID {
 	return MSG_ID_DEBUG_VECT
@@ -9427,6 +10087,11 @@ type CommonNamedValueFloat struct {
 	Name       [10]byte // Name of the debug variable
 }
 
+// Dialect (generated function)
+func (m *CommonNamedValueFloat) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonNamedValueFloat) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
@@ -9476,6 +10141,11 @@ type CommonNamedValueInt struct {
 	TimeBootMs uint32   // Timestamp (milliseconds since system boot)
 	Value      int32    // Signed integer value
 	Name       [10]byte // Name of the debug variable
+}
+
+// Dialect (generated function)
+func (m *CommonNamedValueInt) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)
@@ -9528,6 +10198,11 @@ type CommonStatustext struct {
 	Text     [50]byte // Status text message, without null termination character
 }
 
+// Dialect (generated function)
+func (m *CommonStatustext) Dialect() *Dialect {
+	return DialectCommon
+}
+
 // MsgID (generated function)
 func (m *CommonStatustext) MsgID() MessageID {
 	return MSG_ID_STATUSTEXT
@@ -9575,6 +10250,11 @@ type CommonDebug struct {
 	TimeBootMs uint32  // Timestamp (milliseconds since system boot)
 	Value      float32 // DEBUG value
 	Ind        uint8   // index of debug variable
+}
+
+// Dialect (generated function)
+func (m *CommonDebug) Dialect() *Dialect {
+	return DialectCommon
 }
 
 // MsgID (generated function)

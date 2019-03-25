@@ -503,6 +503,11 @@ type {{$dialect}}{{$name}} struct { {{range .Fields}}
   {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
 }
 
+// Dialect (generated function)
+func (m *{{$dialect}}{{$name}}) Dialect() *Dialect {
+	return Dialect{{$dialect}}
+}
+
 // MsgID (generated function)
 func (m *{{$dialect}}{{$name}}) MsgID() MessageID {
 	return MSG_ID_{{.Name}}

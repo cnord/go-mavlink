@@ -438,6 +438,11 @@ type ArdupilotmegaSensorOffsets struct {
 	MagOfsZ        int16   // magnetometer Z offset
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaSensorOffsets) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaSensorOffsets) MsgID() MessageID {
 	return MSG_ID_SENSOR_OFFSETS
@@ -509,6 +514,11 @@ type ArdupilotmegaSetMagOffsets struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaSetMagOffsets) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaSetMagOffsets) MsgID() MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
@@ -563,6 +573,11 @@ type ArdupilotmegaMeminfo struct {
 	Freemem uint16 // free memory
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaMeminfo) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaMeminfo) MsgID() MessageID {
 	return MSG_ID_MEMINFO
@@ -613,6 +628,11 @@ type ArdupilotmegaApAdc struct {
 	Adc4 uint16 // ADC output 4
 	Adc5 uint16 // ADC output 5
 	Adc6 uint16 // ADC output 6
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaApAdc) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -678,6 +698,11 @@ type ArdupilotmegaDigicamConfigure struct {
 	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
 	EngineCutOff    uint8   // Main engine cut-off time before camera trigger in seconds/10 (0 means no cut-off)
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaDigicamConfigure) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -754,6 +779,11 @@ type ArdupilotmegaDigicamControl struct {
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaDigicamControl) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaDigicamControl) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONTROL
@@ -822,6 +852,11 @@ type ArdupilotmegaMountConfigure struct {
 	StabYaw         uint8 // (1 = yes, 0 = no)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaMountConfigure) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaMountConfigure) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
@@ -880,6 +915,11 @@ type ArdupilotmegaMountControl struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	SavePosition    uint8 // if "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaMountControl) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -941,6 +981,11 @@ type ArdupilotmegaMountStatus struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaMountStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaMountStatus) MsgID() MessageID {
 	return MSG_ID_MOUNT_STATUS
@@ -997,6 +1042,11 @@ type ArdupilotmegaFencePoint struct {
 	TargetComponent uint8   // Component ID
 	Idx             uint8   // point index (first point is 1, 0 is for return point)
 	Count           uint8   // total number of points (for sanity checking)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaFencePoint) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1056,6 +1106,11 @@ type ArdupilotmegaFenceFetchPoint struct {
 	Idx             uint8 // point index (first point is 1, 0 is for return point)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaFenceFetchPoint) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaFenceFetchPoint) MsgID() MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
@@ -1106,6 +1161,11 @@ type ArdupilotmegaFenceStatus struct {
 	BreachCount  uint16 // number of fence breaches
 	BreachStatus uint8  // 0 if currently inside fence, 1 if outside
 	BreachType   uint8  // last breach type (see FENCE_BREACH_* enum)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaFenceStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1163,6 +1223,11 @@ type ArdupilotmegaAhrs struct {
 	RenormVal   float32 // average renormalisation value
 	ErrorRp     float32 // average error_roll_pitch value
 	ErrorYaw    float32 // average error_yaw value
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaAhrs) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1232,6 +1297,11 @@ type ArdupilotmegaSimstate struct {
 	Lng   int32   // Longitude in degrees * 1E7
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaSimstate) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaSimstate) MsgID() MessageID {
 	return MSG_ID_SIMSTATE
@@ -1298,6 +1368,11 @@ type ArdupilotmegaHwstatus struct {
 	I2cerr uint8  // I2C error count
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaHwstatus) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaHwstatus) MsgID() MessageID {
 	return MSG_ID_HWSTATUS
@@ -1349,6 +1424,11 @@ type ArdupilotmegaRadio struct {
 	Txbuf    uint8  // how full the tx buffer is as a percentage
 	Noise    uint8  // background noise level
 	Remnoise uint8  // remote background noise level
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaRadio) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1416,6 +1496,11 @@ type ArdupilotmegaLimitsStatus struct {
 	ModsTriggered uint8  // AP_Limit_Module bitfield of triggered modules, (see enum moduleid or LIMIT_MODULE)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaLimitsStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaLimitsStatus) MsgID() MessageID {
 	return MSG_ID_LIMITS_STATUS
@@ -1479,6 +1564,11 @@ type ArdupilotmegaWind struct {
 	SpeedZ    float32 // vertical wind speed (m/s)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaWind) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaWind) MsgID() MessageID {
 	return MSG_ID_WIND
@@ -1528,6 +1618,11 @@ type ArdupilotmegaData16 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [16]uint8 // raw data
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaData16) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1581,6 +1676,11 @@ type ArdupilotmegaData32 struct {
 	Data [32]uint8 // raw data
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaData32) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaData32) MsgID() MessageID {
 	return MSG_ID_DATA32
@@ -1630,6 +1730,11 @@ type ArdupilotmegaData64 struct {
 	Type uint8     // data type
 	Len  uint8     // data length
 	Data [64]uint8 // raw data
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaData64) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1683,6 +1788,11 @@ type ArdupilotmegaData96 struct {
 	Data [96]uint8 // raw data
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaData96) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaData96) MsgID() MessageID {
 	return MSG_ID_DATA96
@@ -1731,6 +1841,11 @@ func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 type ArdupilotmegaRangefinder struct {
 	Distance float32 // distance in meters
 	Voltage  float32 // raw voltage if available, zero otherwise
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaRangefinder) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1789,6 +1904,11 @@ type ArdupilotmegaAirspeedAutocal struct {
 	Pax          float32 // EKF Pax
 	Pby          float32 // EKF Pby
 	Pcz          float32 // EKF Pcz
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaAirspeedAutocal) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -1867,6 +1987,11 @@ type ArdupilotmegaRallyPoint struct {
 	Flags           uint8  // See RALLY_FLAGS enum for definition of the bitmask.
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaRallyPoint) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaRallyPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_POINT
@@ -1932,6 +2057,11 @@ type ArdupilotmegaRallyFetchPoint struct {
 	Idx             uint8 // point index (first point is 0)
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaRallyFetchPoint) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaRallyFetchPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
@@ -1984,6 +2114,11 @@ type ArdupilotmegaCompassmotStatus struct {
 	Compensationz float32 // Motor Compensation Z
 	Throttle      uint16  // throttle (percent*10)
 	Interference  uint16  // interference (percent)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaCompassmotStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2044,6 +2179,11 @@ type ArdupilotmegaAhrs2 struct {
 	Altitude float32 // Altitude (MSL)
 	Lat      int32   // Latitude in degrees * 1E7
 	Lng      int32   // Longitude in degrees * 1E7
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaAhrs2) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2107,6 +2247,11 @@ type ArdupilotmegaCameraStatus struct {
 	TargetSystem uint8   // System ID
 	CamIdx       uint8   // Camera ID
 	EventID      uint8   // See CAMERA_STATUS_TYPES enum for definition of the bitmask
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaCameraStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2182,6 +2327,11 @@ type ArdupilotmegaCameraFeedback struct {
 	Flags        uint8   // See CAMERA_FEEDBACK_FLAGS enum for definition of the bitmask
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaCameraFeedback) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaCameraFeedback) MsgID() MessageID {
 	return MSG_ID_CAMERA_FEEDBACK
@@ -2252,6 +2402,11 @@ type ArdupilotmegaBattery2 struct {
 	CurrentBattery int16  // Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaBattery2) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaBattery2) MsgID() MessageID {
 	return MSG_ID_BATTERY2
@@ -2306,6 +2461,11 @@ type ArdupilotmegaAhrs3 struct {
 	V2       float32 // test variable2
 	V3       float32 // test variable3
 	V4       float32 // test variable4
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaAhrs3) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2372,6 +2532,11 @@ type ArdupilotmegaAutopilotVersionRequest struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaAutopilotVersionRequest) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaAutopilotVersionRequest) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
@@ -2420,6 +2585,11 @@ type ArdupilotmegaRemoteLogDataBlock struct {
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
 	Data            [200]uint8 // log data block
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaRemoteLogDataBlock) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2476,6 +2646,11 @@ type ArdupilotmegaRemoteLogBlockStatus struct {
 	Status          uint8  // log data block status
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaRemoteLogBlockStatus) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaRemoteLogBlockStatus) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
@@ -2530,6 +2705,11 @@ type ArdupilotmegaLedControl struct {
 	Pattern         uint8     // Pattern (see LED_PATTERN_ENUM)
 	CustomLen       uint8     // Custom Byte Length
 	CustomBytes     [24]uint8 // Custom Bytes
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaLedControl) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2593,6 +2773,11 @@ type ArdupilotmegaMagCalProgress struct {
 	Attempt        uint8     // Attempt number
 	CompletionPct  uint8     // Completion percentage
 	CompletionMask [10]uint8 // Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid)
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaMagCalProgress) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2667,6 +2852,11 @@ type ArdupilotmegaMagCalReport struct {
 	CalMask   uint8   // Bitmask of compasses being calibrated
 	CalStatus uint8   // Status (see MAG_CAL_STATUS enum)
 	Autosaved uint8   // 0=requires a MAV_CMD_DO_ACCEPT_MAG_CAL, 1=saved to parameters
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaMagCalReport) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2745,6 +2935,11 @@ type ArdupilotmegaEkfStatusReport struct {
 	Flags              uint16  // Flags
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaEkfStatusReport) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaEkfStatusReport) MsgID() MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
@@ -2804,6 +2999,11 @@ type ArdupilotmegaPidTuning struct {
 	I        float32 // I component
 	D        float32 // D component
 	Axis     uint8   // axis
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaPidTuning) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2872,6 +3072,11 @@ type ArdupilotmegaGimbalReport struct {
 	JointAz         float32 // Joint AZ (radians)
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaGimbalReport) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2945,6 +3150,11 @@ type ArdupilotmegaGimbalControl struct {
 	TargetComponent uint8   // Component ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGimbalControl) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGimbalControl) MsgID() MessageID {
 	return MSG_ID_GIMBAL_CONTROL
@@ -3002,6 +3212,11 @@ type ArdupilotmegaGimbalTorqueCmdReport struct {
 	TargetComponent uint8 // Component ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGimbalTorqueCmdReport) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
@@ -3057,6 +3272,11 @@ type ArdupilotmegaGoproHeartbeat struct {
 	Flags       uint8 // additional status bits
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGoproHeartbeat) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproHeartbeat) MsgID() MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
@@ -3108,6 +3328,11 @@ type ArdupilotmegaGoproGetRequest struct {
 	CmdID           uint8 // Command ID
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGoproGetRequest) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproGetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_REQUEST
@@ -3157,6 +3382,11 @@ type ArdupilotmegaGoproGetResponse struct {
 	CmdID  uint8    // Command ID
 	Status uint8    // Status
 	Value  [4]uint8 // Value
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaGoproGetResponse) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3211,6 +3441,11 @@ type ArdupilotmegaGoproSetRequest struct {
 	Value           [4]uint8 // Value
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGoproSetRequest) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproSetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_REQUEST
@@ -3263,6 +3498,11 @@ type ArdupilotmegaGoproSetResponse struct {
 	Status uint8 // Status
 }
 
+// Dialect (generated function)
+func (m *ArdupilotmegaGoproSetResponse) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproSetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
@@ -3309,6 +3549,11 @@ func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
 type ArdupilotmegaRpm struct {
 	Rpm1 float32 // RPM Sensor1
 	Rpm2 float32 // RPM Sensor2
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaRpm) Dialect() *Dialect {
+	return DialectArdupilotmega
 }
 
 // MsgID (generated function)

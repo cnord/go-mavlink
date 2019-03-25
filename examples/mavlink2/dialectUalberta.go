@@ -51,6 +51,11 @@ type UalbertaNavFilterBias struct {
 	Gyro2  float32 // b_f[2]
 }
 
+// Dialect (generated function)
+func (m *UalbertaNavFilterBias) Dialect() *Dialect {
+	return DialectUalberta
+}
+
 // MsgID (generated function)
 func (m *UalbertaNavFilterBias) MsgID() MessageID {
 	return MSG_ID_NAV_FILTER_BIAS
@@ -111,6 +116,11 @@ type UalbertaRadioCalibration struct {
 	Gyro     [2]uint16 // Tail gyro mode/gain setpoints: heading hold, rate mode
 	Pitch    [5]uint16 // Pitch curve setpoints (every 25%)
 	Throttle [5]uint16 // Throttle curve setpoints (every 25%)
+}
+
+// Dialect (generated function)
+func (m *UalbertaRadioCalibration) Dialect() *Dialect {
+	return DialectUalberta
 }
 
 // MsgID (generated function)
@@ -192,6 +202,11 @@ type UalbertaUalbertaSysStatus struct {
 	Mode    uint8 // System mode, see UALBERTA_AUTOPILOT_MODE ENUM
 	NavMode uint8 // Navigation mode, see UALBERTA_NAV_MODE ENUM
 	Pilot   uint8 // Pilot mode, see UALBERTA_PILOT_MODE
+}
+
+// Dialect (generated function)
+func (m *UalbertaUalbertaSysStatus) Dialect() *Dialect {
+	return DialectUalberta
 }
 
 // MsgID (generated function)

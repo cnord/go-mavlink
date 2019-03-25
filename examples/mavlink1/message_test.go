@@ -51,6 +51,9 @@ func TestRoundTripChannels(t *testing.T) {
 			var ping CommonPing
 			require.Nil(t, ping.Unpack(packet), "Unpack fail")
 			processed = append(processed, ping)
+			if len(processed) == 255 {
+				break
+			}
 		}
 	}()
 	wg.Wait()
@@ -65,7 +68,7 @@ func TestDecode(t *testing.T) {
 	dec := NewChannelDecoder()
 	defer dec.Stop()
 	dec.PushData([]byte{0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E})
-	require.NotNil(t, dec.NextPacket(time.Millisecond), "Decode fail")
+	require.NotNil(t, dec.NextPacket(time.Millisecond * time.Duration(10)), "Decode fail")
 }
 
 func TestDecodeTwoMessages(t *testing.T) {
@@ -74,9 +77,9 @@ func TestDecodeTwoMessages(t *testing.T) {
 	defer dec.Stop()
 	dec.PushData([]byte{0xfe, 0x09, 0x0, 0x01, 0xC8, 0x00, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5A, 0x3E,
 		0xfe, 0x0e, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x39, 0x30, 0x00, 0x00, 0x00, 0x00, 0x45, 0x40})
-	msg1 := dec.NextPacket(time.Millisecond)
+	msg1 := dec.NextPacket(time.Millisecond * time.Duration(10))
 	require.NotNil(t, msg1, "Decode fail")
-	msg2 := dec.NextPacket(time.Millisecond)
+	msg2 := dec.NextPacket(time.Millisecond * time.Duration(10))
 	require.NotNil(t, msg2, "Decode fail")
 	require.NotEqual(t, *msg1, *msg2, "Messages should not match")
 }
@@ -100,33 +103,4 @@ func TestDecodeMultipleFalseStarts(t *testing.T) {
 	msg2 := dec.NextPacket(time.Millisecond)
 	require.NotNil(t, msg2, "Decode fail")
 	require.NotEqual(t, *msg1, *msg2, "Messages should not match")
-}
-
-func TestDialects(t *testing.T) {
-	dec := NewChannelDecoder()
-	defer dec.Stop()
-
-	// try to encode an ardupilot msg before we've added that dialect,
-	// ensure it fails as expected
-	mi := &ArdupilotmegaMeminfo{
-		Brkval:  1000,
-		Freemem: 10,
-	}
-
-	RemoveDialect(DialectArdupilotmega)
-
-	packet := &Packet{}
-	require.Equal(t, packet.Encode(0x1, 0x1, mi), ErrUnknownMsgID, "encode expected ErrUnknownMsgID")
-
-	// add the dialect, and ensure it succeeds
-	AddDialect(DialectArdupilotmega)
-	require.Nil(t, packet.Encode(0x1, 0x1, mi), "encode unexpected err")
-
-	dec.PushData(packet.Bytes())
-	packet = dec.NextPacket(time.Millisecond)
-	require.NotNil(t, packet, "Decode fail")
-	var miOut ArdupilotmegaMeminfo
-	require.Nil(t, miOut.Unpack(packet), "Unpack fail")
-	require.Equal(t, miOut.Brkval, mi.Brkval, "Round trip fail")
-	require.Equal(t, miOut.Freemem, mi.Freemem, "Round trip fail")
 }
