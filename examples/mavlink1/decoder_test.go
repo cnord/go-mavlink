@@ -24,7 +24,7 @@ func BenchmarkDecoder(b *testing.B) {
 				Seq: uint32(i),
 			}
 			packet := &Packet{}
-			if err := packet.Encode(uint8(rand.Uint32() % uint32(^uint8(0))), uint8(rand.Uint32() % uint32(^uint8(0))), &dummy); err != nil {
+			if err := packet.Encode(uint8(rand.Uint32()%uint32(^uint8(0))), uint8(rand.Uint32()%uint32(^uint8(0))), &dummy); err != nil {
 				b.Fatal(err)
 			}
 			dec.PushData(packet.Bytes())
@@ -47,4 +47,3 @@ func BenchmarkDecoder(b *testing.B) {
 		b.Fatalf("Sended (%d) and received (%d) packets not equal", counterOut, counterIn)
 	}
 }
-

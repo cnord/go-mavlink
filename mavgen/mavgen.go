@@ -29,7 +29,7 @@ var (
 
 // Dialect desribed root tag of schema
 type Dialect struct {
-	Name string
+	Name           string
 	MavlinkVersion int
 
 	XMLName  xml.Name   `xml:"mavlink"`

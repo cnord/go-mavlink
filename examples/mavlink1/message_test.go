@@ -41,9 +41,9 @@ func TestRoundTripChannels(t *testing.T) {
 
 	go func() {
 		defer wg.Done()
-		end := time.Now().Add(time.Second);
+		end := time.Now().Add(time.Second)
 		for {
-			packet := dec.NextPacket(time.Until(end));
+			packet := dec.NextPacket(time.Until(end))
 			if packet == nil {
 				break
 			}
