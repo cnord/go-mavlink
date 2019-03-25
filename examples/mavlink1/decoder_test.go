@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"sync"
 	"testing"
+	"time"
 )
 
 func BenchmarkDecoder(b *testing.B) {
@@ -14,6 +15,8 @@ func BenchmarkDecoder(b *testing.B) {
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
 
+	rand.Seed(time.Now().UnixNano())
+
 	counterOut := uint32(0)
 	counterIn := uint32(0)
 	go func() {
@@ -21,7 +24,7 @@ func BenchmarkDecoder(b *testing.B) {
 		defer dec.Stop()
 		for i := 0; i < b.N; i++ {
 			dummy := CommonPing{
-				Seq: uint32(i),
+				Seq: rand.Uint32(),
 			}
 			packet := &Packet{}
 			if err := packet.Encode(uint8(rand.Uint32()%uint32(^uint8(0))), uint8(rand.Uint32()%uint32(^uint8(0))), &dummy); err != nil {
@@ -43,7 +46,7 @@ func BenchmarkDecoder(b *testing.B) {
 		}
 	}()
 	wg.Wait()
-	if counterIn < counterOut {
+	if counterIn != counterOut {
 		b.Fatalf("Sended (%d) and received (%d) packets not equal", counterOut, counterIn)
 	}
 }
