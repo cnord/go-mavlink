@@ -54,6 +54,7 @@ func decoderTemplate() string {
 		"\t\tuniqueIndexesToDelete := map[int]*Parser{}\n" +
 		"\t\tdefer func() {\n" +
 		"\t\t\tfor index := range uniqueIndexesToDelete {\n" +
+		"\t\t\t\tparsers[index].Reset()\n" +
 		"\t\t\t\tparsersPool.Put(parsers[index])\n" +
 		"\t\t\t}\n" +
 		"\t\t}()\n" +
@@ -94,6 +95,7 @@ func decoderTemplate() string {
 		"\t\t\t\t\t}\n" +
 		"\t\t\t\t\tfor i := len(indexesToDelete) - 1; i >= 0; i-- {\n" +
 		"\t\t\t\t\t\tindex := indexesToDelete[i]\n" +
+		"\t\t\t\t\t\tparsers[index].Reset()\n" +
 		"\t\t\t\t\t\tparsersPool.Put(parsers[index])\n" +
 		"\t\t\t\t\t\tcopy(parsers[index:], parsers[index+1:])\n" +
 		"\t\t\t\t\t\tparsers[len(parsers)-1] = nil\n" +

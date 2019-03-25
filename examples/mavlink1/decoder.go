@@ -49,6 +49,7 @@ func NewChannelDecoder() *Decoder {
 		uniqueIndexesToDelete := map[int]*Parser{}
 		defer func() {
 			for index := range uniqueIndexesToDelete {
+				parsers[index].Reset()
 				parsersPool.Put(parsers[index])
 			}
 		}()
@@ -89,6 +90,7 @@ func NewChannelDecoder() *Decoder {
 					}
 					for i := len(indexesToDelete) - 1; i >= 0; i-- {
 						index := indexesToDelete[i]
+						parsers[index].Reset()
 						parsersPool.Put(parsers[index])
 						copy(parsers[index:], parsers[index+1:])
 						parsers[len(parsers)-1] = nil
