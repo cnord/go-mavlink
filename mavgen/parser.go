@@ -11,10 +11,24 @@ package main
 func parserTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
+		"import \"sync\"\n" +
+		"\n" +
 		"type Parser struct {\n" +
 		"\tstate  MAVLINK_PARSE_STATE\n" +
 		"\tpacket Packet\n" +
 		"\tcrc    *X25\n" +
+		"}\n" +
+		"\n" +
+		"var parsersPool = &sync.Pool{\n" +
+		"\tNew: func() interface{} {\n" +
+		"\t\treturn new(Parser)\n" +
+		"\t},\n" +
+		"}\n" +
+		"\n" +
+		"func (p *Parser) Reset() {\n" +
+		"\tp.state = MAVLINK_PARSE_STATE_UNINIT\n" +
+		"\tp.crc.Reset()\n" +
+		"\tp.crc = nil\n" +
 		"}\n" +
 		"\n" +
 		"func (parser *Parser) parseChar(c byte) (*Packet, error) {\n" +

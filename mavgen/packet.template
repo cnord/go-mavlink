@@ -45,7 +45,9 @@ func (p *Packet) EncodeMessage(m Message) error {
 }
 
 func (p *Packet) Bytes() []byte {
-	bytes := []byte{
+    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))
+    // header
+    bytes = append(bytes,
 	    magicNumber,
 	    byte(len(p.Payload)),
 {{- if .Mavlink2}}
@@ -60,8 +62,10 @@ func (p *Packet) Bytes() []byte {
 	    uint8(p.MsgID >> 8),
 	    uint8(p.MsgID >> 16),
 {{- end}}
-    } // header
+    )
+    // payload
 	bytes = append(bytes, p.Payload...)
+	// crc
 	bytes = append(bytes, u16ToBytes(p.Checksum)...)
 	return bytes
 }

@@ -23,7 +23,6 @@ func decoderTemplate() string {
 		"}\n" +
 		"\n" +
 		"func (d *Decoder) PushData(data []byte) {\n" +
-		"\tdata = append(data[:0:0], data...)\n" +
 		"\td.data <- data\n" +
 		"}\n" +
 		"\n" +
@@ -52,6 +51,13 @@ func decoderTemplate() string {
 		"\t}\n" +
 		"\tgo func() {\n" +
 		"\t\tvar parsers []*Parser\n" +
+		"\t\tuniqueIndexesToDelete := map[int]*Parser{}\n" +
+		"\t\tdefer func() {\n" +
+		"\t\t\tfor index := range uniqueIndexesToDelete {\n" +
+		"\t\t\t\tparsersPool.Put(parsers[index])\n" +
+		"\t\t\t}\n" +
+		"\t\t}()\n" +
+		"\t\tvar indexesToDelete []int\n" +
 		"\t\tfor {\n" +
 		"\t\t\tbuffer, ok := <-d.data\n" +
 		"\t\t\tif !ok {\n" +
@@ -60,37 +66,40 @@ func decoderTemplate() string {
 		"\t\t\t}\n" +
 		"\t\t\tfor _, c := range buffer {\n" +
 		"\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\tparsers = append(parsers, &Parser{})\n" +
+		"\t\t\t\t\tparsers = append(parsers, parsersPool.Get().(*Parser))\n" +
 		"\t\t\t\t}\n" +
 		"\n" +
-		"\t\t\t\tindexesToDelete := map[int]bool{}\n" +
 		"\t\t\t\tfor i, parser := range parsers {\n" +
 		"\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
 		"\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\tindexesToDelete[i] = true\n" +
+		"\t\t\t\t\t\tuniqueIndexesToDelete[i] = parser\n" +
 		"\t\t\t\t\t\tcontinue\n" +
 		"\t\t\t\t\t}\n" +
 		"\t\t\t\t\tif packet != nil {\n" +
 		"\t\t\t\t\t\td.decoded <- packet\n" +
 		"\t\t\t\t\t\tfor j := i; j >= 0; j-- {\n" +
-		"\t\t\t\t\t\t\tindexesToDelete[i] = true\n" +
+		"\t\t\t\t\t\t\tuniqueIndexesToDelete[i] = parser\n" +
 		"\t\t\t\t\t\t}\n" +
 		"\t\t\t\t\t\tcontinue\n" +
 		"\t\t\t\t\t}\n" +
 		"\t\t\t\t}\n" +
 		"\n" +
-		"\t\t\t\tif len(indexesToDelete) != 0 {\n" +
-		"\t\t\t\t\tvar indexes []int\n" +
-		"\t\t\t\t\tfor index := range indexesToDelete {\n" +
-		"\t\t\t\t\t\tindexes = append(indexes, index)\n" +
+		"\t\t\t\tif len(uniqueIndexesToDelete) != 0 {\n" +
+		"\t\t\t\t\tfor index := range uniqueIndexesToDelete {\n" +
+		"\t\t\t\t\t\tindexesToDelete = append(indexesToDelete, index)\n" +
+		"\t\t\t\t\t\tdelete(uniqueIndexesToDelete, index)\n" +
 		"\t\t\t\t\t}\n" +
-		"\t\t\t\t\tsort.Ints(indexes)\n" +
-		"\t\t\t\t\tfor i := len(indexes) - 1; i >= 0; i-- {\n" +
-		"\t\t\t\t\t\tindex := indexes[i]\n" +
+		"\t\t\t\t\tif len(indexesToDelete) > 1 {\n" +
+		"\t\t\t\t\t\tsort.Ints(indexesToDelete)\n" +
+		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\tfor i := len(indexesToDelete) - 1; i >= 0; i-- {\n" +
+		"\t\t\t\t\t\tindex := indexesToDelete[i]\n" +
+		"\t\t\t\t\t\tparsersPool.Put(parsers[index])\n" +
 		"\t\t\t\t\t\tcopy(parsers[index:], parsers[index+1:])\n" +
 		"\t\t\t\t\t\tparsers[len(parsers)-1] = nil\n" +
 		"\t\t\t\t\t\tparsers = parsers[:len(parsers)-1]\n" +
 		"\t\t\t\t\t}\n" +
+		"\t\t\t\t\tindexesToDelete = indexesToDelete[:0]\n" +
 		"\t\t\t\t}\n" +
 		"\t\t\t}\n" +
 		"\t\t}\n" +

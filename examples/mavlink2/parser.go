@@ -6,10 +6,24 @@
 
 package mavlink
 
+import "sync"
+
 type Parser struct {
 	state  MAVLINK_PARSE_STATE
 	packet Packet
 	crc    *X25
+}
+
+var parsersPool = &sync.Pool{
+	New: func() interface{} {
+		return new(Parser)
+	},
+}
+
+func (p *Parser) Reset() {
+	p.state = MAVLINK_PARSE_STATE_UNINIT
+	p.crc.Reset()
+	p.crc = nil
 }
 
 func (parser *Parser) parseChar(c byte) (*Packet, error) {

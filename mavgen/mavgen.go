@@ -30,6 +30,7 @@ var (
 // Dialect desribed root tag of schema
 type Dialect struct {
 	Name string
+	MavlinkVersion int
 
 	XMLName  xml.Name   `xml:"mavlink"`
 	Version  string     `xml:"version"`
@@ -494,6 +495,7 @@ var Dialect{{.Name | UpperCamelCase}} = &Dialect{
 func (d *Dialect) generateClasses(w io.Writer) error {
 
 	classesTmpl := `
+{{$mavlinkVersion := .MavlinkVersion}}
 {{$dialect := .Name | UpperCamelCase}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
@@ -522,13 +524,13 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+{{- if gt $mavlinkVersion 1 }}
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
+{{- end }}
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -538,10 +540,11 @@ func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < {{ .Size }} {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
+{{- if eq $mavlinkVersion 1 }}
+		return errPayloadTooSmall
+{{- else }}
 		payload = append(payload, zeroTail[:{{ .Size }}-len(p.Payload)]...)
+{{- end }}
 	}{{range .Fields}}
 	{{.PayloadUnpackSequence}}{{end}}
 	return nil

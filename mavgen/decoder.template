@@ -12,7 +12,6 @@ type Decoder struct {
 }
 
 func (d *Decoder) PushData(data []byte) {
-	data = append(data[:0:0], data...)
 	d.data <- data
 }
 
@@ -41,6 +40,13 @@ func NewChannelDecoder() *Decoder {
 	}
 	go func() {
 		var parsers []*Parser
+		uniqueIndexesToDelete := map[int]*Parser{}
+		defer func() {
+			for index := range uniqueIndexesToDelete {
+				parsersPool.Put(parsers[index])
+			}
+		}()
+		var indexesToDelete []int
 		for {
 			buffer, ok := <-d.data
 			if !ok {
@@ -49,37 +55,40 @@ func NewChannelDecoder() *Decoder {
 			}
 			for _, c := range buffer {
 				if c == magicNumber {
-					parsers = append(parsers, &Parser{})
+					parsers = append(parsers, parsersPool.Get().(*Parser))
 				}
 
-				indexesToDelete := map[int]bool{}
 				for i, parser := range parsers {
 					packet, err := parser.parseChar(c)
 					if err != nil {
-						indexesToDelete[i] = true
+						uniqueIndexesToDelete[i] = parser
 						continue
 					}
 					if packet != nil {
 						d.decoded <- packet
 						for j := i; j >= 0; j-- {
-							indexesToDelete[i] = true
+							uniqueIndexesToDelete[i] = parser
 						}
 						continue
 					}
 				}
 
-				if len(indexesToDelete) != 0 {
-					var indexes []int
-					for index := range indexesToDelete {
-						indexes = append(indexes, index)
+				if len(uniqueIndexesToDelete) != 0 {
+					for index := range uniqueIndexesToDelete {
+						indexesToDelete = append(indexesToDelete, index)
+						delete(uniqueIndexesToDelete, index)
 					}
-					sort.Ints(indexes)
-					for i := len(indexes) - 1; i >= 0; i-- {
-						index := indexes[i]
+					if len(indexesToDelete) > 1 {
+						sort.Ints(indexesToDelete)
+					}
+					for i := len(indexesToDelete) - 1; i >= 0; i-- {
+						index := indexesToDelete[i]
+						parsersPool.Put(parsers[index])
 						copy(parsers[index:], parsers[index+1:])
 						parsers[len(parsers)-1] = nil
 						parsers = parsers[:len(parsers)-1]
 					}
+					indexesToDelete = indexesToDelete[:0]
 				}
 			}
 		}

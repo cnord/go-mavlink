@@ -57,13 +57,11 @@ func (m *MatrixpilotFlexifunctionSet) Pack(p *Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -73,9 +71,6 @@ func (m *MatrixpilotFlexifunctionSet) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionSet) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
@@ -114,13 +109,11 @@ func (m *MatrixpilotFlexifunctionReadReq) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.DataIndex))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -130,9 +123,6 @@ func (m *MatrixpilotFlexifunctionReadReq) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionReadReq) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.ReadReqType = int16(binary.LittleEndian.Uint16(payload[0:]))
@@ -181,13 +171,11 @@ func (m *MatrixpilotFlexifunctionBufferFunction) Pack(p *Packet) error {
 	for i, v := range m.Data {
 		payload[10+i*1] = byte(v)
 	}
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -197,9 +185,6 @@ func (m *MatrixpilotFlexifunctionBufferFunction) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionBufferFunction) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 58 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:58-len(p.Payload)]...)
 	}
 	m.FuncIndex = uint16(binary.LittleEndian.Uint16(payload[0:]))
@@ -245,13 +230,11 @@ func (m *MatrixpilotFlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -261,9 +244,6 @@ func (m *MatrixpilotFlexifunctionBufferFunctionAck) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionBufferFunctionAck) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
 	}
 	m.FuncIndex = uint16(binary.LittleEndian.Uint16(payload[0:]))
@@ -310,13 +290,11 @@ func (m *MatrixpilotFlexifunctionDirectory) Pack(p *Packet) error {
 	for i, v := range m.DirectoryData {
 		payload[5+i*1] = byte(v)
 	}
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -326,9 +304,6 @@ func (m *MatrixpilotFlexifunctionDirectory) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionDirectory) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 53 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:53-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
@@ -377,13 +352,11 @@ func (m *MatrixpilotFlexifunctionDirectoryAck) Pack(p *Packet) error {
 	payload[4] = byte(m.DirectoryType)
 	payload[5] = byte(m.StartIndex)
 	payload[6] = byte(m.Count)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -393,9 +366,6 @@ func (m *MatrixpilotFlexifunctionDirectoryAck) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionDirectoryAck) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 7 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:7-len(p.Payload)]...)
 	}
 	m.Result = uint16(binary.LittleEndian.Uint16(payload[0:]))
@@ -436,13 +406,11 @@ func (m *MatrixpilotFlexifunctionCommand) Pack(p *Packet) error {
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.CommandType)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -452,9 +420,6 @@ func (m *MatrixpilotFlexifunctionCommand) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionCommand) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.TargetSystem = uint8(payload[0])
@@ -490,13 +455,11 @@ func (m *MatrixpilotFlexifunctionCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.CommandType))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Result))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -506,9 +469,6 @@ func (m *MatrixpilotFlexifunctionCommandAck) Pack(p *Packet) error {
 func (m *MatrixpilotFlexifunctionCommandAck) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
 	}
 	m.CommandType = uint16(binary.LittleEndian.Uint16(payload[0:]))
@@ -593,13 +553,11 @@ func (m *MatrixpilotSerialUdbExtraF2A) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[56:], uint16(m.SueSvs))
 	binary.LittleEndian.PutUint16(payload[58:], uint16(m.SueHdop))
 	payload[60] = byte(m.SueStatus)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -609,9 +567,6 @@ func (m *MatrixpilotSerialUdbExtraF2A) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF2A) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 61 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:61-len(p.Payload)]...)
 	}
 	m.SueTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
@@ -767,13 +722,11 @@ func (m *MatrixpilotSerialUdbExtraF2B) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[102:], uint16(m.SueBatAmpHours))
 	binary.LittleEndian.PutUint16(payload[104:], uint16(m.SueDesiredHeight))
 	binary.LittleEndian.PutUint16(payload[106:], uint16(m.SueMemoryStackFree))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -783,9 +736,6 @@ func (m *MatrixpilotSerialUdbExtraF2B) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF2B) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 108 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:108-len(p.Payload)]...)
 	}
 	m.SueTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
@@ -884,13 +834,11 @@ func (m *MatrixpilotSerialUdbExtraF4) Pack(p *Packet) error {
 	payload[7] = byte(m.SueAltitudeholdStabilized)
 	payload[8] = byte(m.SueAltitudeholdWaypoint)
 	payload[9] = byte(m.SueRacingMode)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -900,9 +848,6 @@ func (m *MatrixpilotSerialUdbExtraF4) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF4) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 10 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:10-len(p.Payload)]...)
 	}
 	m.SueRollStabilizationAilerons = uint8(payload[0])
@@ -949,13 +894,11 @@ func (m *MatrixpilotSerialUdbExtraF5) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueYawkdAileron))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueRollkp))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollkd))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -965,9 +908,6 @@ func (m *MatrixpilotSerialUdbExtraF5) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF5) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.SueYawkpAileron = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1010,13 +950,11 @@ func (m *MatrixpilotSerialUdbExtraF6) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueRudderElevMix))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollElevMix))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueElevatorBoost))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1026,9 +964,6 @@ func (m *MatrixpilotSerialUdbExtraF6) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF6) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.SuePitchgain = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1074,13 +1009,11 @@ func (m *MatrixpilotSerialUdbExtraF7) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.SueRollkdRudder))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueRudderBoost))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.SueRtlPitchDown))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1090,9 +1023,6 @@ func (m *MatrixpilotSerialUdbExtraF7) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF7) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 24 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:24-len(p.Payload)]...)
 	}
 	m.SueYawkpRudder = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1141,13 +1071,11 @@ func (m *MatrixpilotSerialUdbExtraF8) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.SueAltHoldPitchMin))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.SueAltHoldPitchMax))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.SueAltHoldPitchHigh))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1157,9 +1085,6 @@ func (m *MatrixpilotSerialUdbExtraF8) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF8) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.SueHeightTargetMax = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1203,13 +1128,11 @@ func (m *MatrixpilotSerialUdbExtraF13) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.SueLonOrigin))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.SueAltOrigin))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.SueWeekNo))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1219,9 +1142,6 @@ func (m *MatrixpilotSerialUdbExtraF13) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF13) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
 	}
 	m.SueLatOrigin = int32(binary.LittleEndian.Uint32(payload[0:]))
@@ -1276,13 +1196,11 @@ func (m *MatrixpilotSerialUdbExtraF14) Pack(p *Packet) error {
 	payload[14] = byte(m.SueAirframe)
 	payload[15] = byte(m.SueClockConfig)
 	payload[16] = byte(m.SueFlightPlanType)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1292,9 +1210,6 @@ func (m *MatrixpilotSerialUdbExtraF14) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF14) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 17 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:17-len(p.Payload)]...)
 	}
 	m.SueTrapSource = uint32(binary.LittleEndian.Uint32(payload[0:]))
@@ -1338,13 +1253,11 @@ func (m *MatrixpilotSerialUdbExtraF15) Pack(p *Packet) error {
 	payload := make([]byte, 60)
 	copy(payload[0:], m.SueIDVehicleModelName[:])
 	copy(payload[40:], m.SueIDVehicleRegistration[:])
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1354,9 +1267,6 @@ func (m *MatrixpilotSerialUdbExtraF15) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF15) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 60 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:60-len(p.Payload)]...)
 	}
 	copy(m.SueIDVehicleModelName[:], payload[0:40])
@@ -1391,13 +1301,11 @@ func (m *MatrixpilotSerialUdbExtraF16) Pack(p *Packet) error {
 	payload := make([]byte, 110)
 	copy(payload[0:], m.SueIDLeadPilot[:])
 	copy(payload[40:], m.SueIDDiyDronesURL[:])
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1407,9 +1315,6 @@ func (m *MatrixpilotSerialUdbExtraF16) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF16) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 110 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:110-len(p.Payload)]...)
 	}
 	copy(m.SueIDLeadPilot[:], payload[0:40])
@@ -1454,13 +1359,11 @@ func (m *MatrixpilotAltitudes) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], uint32(m.AltOpticalFlow))
 	binary.LittleEndian.PutUint32(payload[20:], uint32(m.AltRangeFinder))
 	binary.LittleEndian.PutUint32(payload[24:], uint32(m.AltExtra))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1470,9 +1373,6 @@ func (m *MatrixpilotAltitudes) Pack(p *Packet) error {
 func (m *MatrixpilotAltitudes) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
@@ -1522,13 +1422,11 @@ func (m *MatrixpilotAirspeeds) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.AirspeedUltrasonic))
 	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Aoa))
 	binary.LittleEndian.PutUint16(payload[14:], uint16(m.Aoy))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1538,9 +1436,6 @@ func (m *MatrixpilotAirspeeds) Pack(p *Packet) error {
 func (m *MatrixpilotAirspeeds) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
@@ -1582,13 +1477,11 @@ func (m *MatrixpilotSerialUdbExtraF17) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.SueFeedForward))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.SueTurnRateNav))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SueTurnRateFbw))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1598,9 +1491,6 @@ func (m *MatrixpilotSerialUdbExtraF17) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF17) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.SueFeedForward = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1642,13 +1532,11 @@ func (m *MatrixpilotSerialUdbExtraF18) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.ElevatorTrimNormal))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.ElevatorTrimInverted))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.ReferenceSpeed))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1658,9 +1546,6 @@ func (m *MatrixpilotSerialUdbExtraF18) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF18) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
 	}
 	m.AngleOfAttackNormal = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
@@ -1710,13 +1595,11 @@ func (m *MatrixpilotSerialUdbExtraF19) Pack(p *Packet) error {
 	payload[5] = byte(m.SueThrottleReversed)
 	payload[6] = byte(m.SueRudderOutputChannel)
 	payload[7] = byte(m.SueRudderReversed)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1726,9 +1609,6 @@ func (m *MatrixpilotSerialUdbExtraF19) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF19) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
 	}
 	m.SueAileronOutputChannel = uint8(payload[0])
@@ -1791,13 +1671,11 @@ func (m *MatrixpilotSerialUdbExtraF20) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.SueTrimValueInput11))
 	binary.LittleEndian.PutUint16(payload[22:], uint16(m.SueTrimValueInput12))
 	payload[24] = byte(m.SueNumberOfInputs)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1807,9 +1685,6 @@ func (m *MatrixpilotSerialUdbExtraF20) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF20) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 25 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:25-len(p.Payload)]...)
 	}
 	m.SueTrimValueInput1 = int16(binary.LittleEndian.Uint16(payload[0:]))
@@ -1863,13 +1738,11 @@ func (m *MatrixpilotSerialUdbExtraF21) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueGyroXOffset))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueGyroYOffset))
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.SueGyroZOffset))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1879,9 +1752,6 @@ func (m *MatrixpilotSerialUdbExtraF21) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF21) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.SueAccelXOffset = int16(binary.LittleEndian.Uint16(payload[0:]))
@@ -1928,13 +1798,11 @@ func (m *MatrixpilotSerialUdbExtraF22) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[6:], uint16(m.SueGyroXAtCalibration))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.SueGyroYAtCalibration))
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.SueGyroZAtCalibration))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -1944,9 +1812,6 @@ func (m *MatrixpilotSerialUdbExtraF22) Pack(p *Packet) error {
 func (m *MatrixpilotSerialUdbExtraF22) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
 	}
 	m.SueAccelXAtCalibration = int16(binary.LittleEndian.Uint16(payload[0:]))

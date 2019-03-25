@@ -51,6 +51,9 @@ func TestRoundTripChannels(t *testing.T) {
 			var ping CommonPing
 			require.Nil(t, ping.Unpack(packet), "Unpack fail")
 			processed = append(processed, ping)
+			if len(processed) == 255 {
+				break
+			}
 		}
 	}()
 	wg.Wait()

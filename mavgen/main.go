@@ -29,7 +29,7 @@ func main() {
 	log.SetPrefix("mavgen: ")
 	flag.Parse()
 
-	dialectFileName, dialectName, err := generateDialect(*schemeFile)
+	dialectFileName, dialectName, err := generateDialect(*schemeFile, *mavlinkVersion)
 
 	if err != nil {
 		log.Fatal(err)

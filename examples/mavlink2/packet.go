@@ -49,7 +49,9 @@ func (p *Packet) EncodeMessage(m Message) error {
 }
 
 func (p *Packet) Bytes() []byte {
-	bytes := []byte{
+	bytes := make([]byte, 0, 12+len(p.Payload))
+	// header
+	bytes = append(bytes,
 		magicNumber,
 		byte(len(p.Payload)),
 		uint8(p.InCompatFlags),
@@ -58,10 +60,12 @@ func (p *Packet) Bytes() []byte {
 		p.SysID,
 		p.CompID,
 		uint8(p.MsgID),
-		uint8(p.MsgID >> 8),
-		uint8(p.MsgID >> 16),
-	} // header
+		uint8(p.MsgID>>8),
+		uint8(p.MsgID>>16),
+	)
+	// payload
 	bytes = append(bytes, p.Payload...)
+	// crc
 	bytes = append(bytes, u16ToBytes(p.Checksum)...)
 	return bytes
 }

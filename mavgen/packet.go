@@ -56,7 +56,9 @@ func packetTemplate() string {
 		"}\n" +
 		"\n" +
 		"func (p *Packet) Bytes() []byte {\n" +
-		"\tbytes := []byte{\n" +
+		"    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))\n" +
+		"    // header\n" +
+		"    bytes = append(bytes,\n" +
 		"\t    magicNumber,\n" +
 		"\t    byte(len(p.Payload)),\n" +
 		"{{- if .Mavlink2}}\n" +
@@ -71,8 +73,10 @@ func packetTemplate() string {
 		"\t    uint8(p.MsgID >> 8),\n" +
 		"\t    uint8(p.MsgID >> 16),\n" +
 		"{{- end}}\n" +
-		"    } // header\n" +
+		"    )\n" +
+		"    // payload\n" +
 		"\tbytes = append(bytes, p.Payload...)\n" +
+		"\t// crc\n" +
 		"\tbytes = append(bytes, u16ToBytes(p.Checksum)...)\n" +
 		"\treturn bytes\n" +
 		"}\n" +

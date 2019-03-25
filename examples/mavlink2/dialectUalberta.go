@@ -76,13 +76,11 @@ func (m *UalbertaNavFilterBias) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Gyro0))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Gyro1))
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Gyro2))
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -92,9 +90,6 @@ func (m *UalbertaNavFilterBias) Pack(p *Packet) error {
 func (m *UalbertaNavFilterBias) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:32-len(p.Payload)]...)
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
@@ -154,13 +149,11 @@ func (m *UalbertaRadioCalibration) Pack(p *Packet) error {
 	for i, v := range m.Throttle {
 		binary.LittleEndian.PutUint16(payload[32+i*2:], uint16(v))
 	}
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -170,9 +163,6 @@ func (m *UalbertaRadioCalibration) Pack(p *Packet) error {
 func (m *UalbertaRadioCalibration) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
 	}
 	for i := 0; i < len(m.Aileron); i++ {
@@ -225,13 +215,11 @@ func (m *UalbertaUalbertaSysStatus) Pack(p *Packet) error {
 	payload[0] = byte(m.Mode)
 	payload[1] = byte(m.NavMode)
 	payload[2] = byte(m.Pilot)
-	if MavlinkVersion > 1 {
-		payloadLen := len(payload)
-		for payloadLen > 1 && payload[payloadLen-1] == 0 {
-			payloadLen--
-		}
-		payload = payload[:payloadLen]
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
 	}
+	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
@@ -241,9 +229,6 @@ func (m *UalbertaUalbertaSysStatus) Pack(p *Packet) error {
 func (m *UalbertaUalbertaSysStatus) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		if MavlinkVersion == 1 {
-			return errPayloadTooSmall
-		}
 		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
 	}
 	m.Mode = uint8(payload[0])
