@@ -1,14 +1,13 @@
 package mavlink
 
 import (
-	"sort"
 	"time"
 )
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	data      chan []byte
-	decoded   chan *Packet
+	data    chan []byte
+	decoded chan *Packet
 }
 
 func (d *Decoder) PushData(data []byte) {
@@ -41,7 +40,6 @@ func NewChannelDecoder() *Decoder {
 	}
 	go func() {
 		var parsers []*Parser
-		var needToDelete []int
 		for {
 			buffer, ok := <-d.data
 			if !ok {
@@ -53,28 +51,31 @@ func NewChannelDecoder() *Decoder {
 					parsers = append(parsers, &Parser{})
 				}
 
+				indexesToDelete := map[int]bool{}
 				for i, parser := range parsers {
 					packet, err := parser.parseChar(c)
 					if err != nil {
-						needToDelete = append(needToDelete, i)
+						indexesToDelete[i] = true
 						continue
 					}
 					if packet != nil {
 						d.decoded <- packet
-						needToDelete = append(needToDelete, i)
+						for j := i; j >= 0; j-- {
+							indexesToDelete[i] = true
+						}
 						continue
 					}
 				}
 
-				if len(needToDelete) != 0 {
-					sort.Ints(needToDelete)
-					for i := len(needToDelete) - 1; i >= 0; i-- {
-						index := needToDelete[i]
-						copy(parsers[index:], parsers[index+1:])
+				if len(indexesToDelete) != 0 {
+					shift := 0
+					for index := range indexesToDelete {
+						copy(parsers[index-shift:], parsers[index-shift+1:])
 						parsers[len(parsers)-1] = nil
 						parsers = parsers[:len(parsers)-1]
+						shift++
+						delete(indexesToDelete, index)
 					}
-					needToDelete = nil
 				}
 			}
 		}
