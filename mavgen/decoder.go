@@ -22,10 +22,12 @@ func decoderTemplate() string {
 		"\tdecoded chan *Packet\n" +
 		"}\n" +
 		"\n" +
+		"// PushData pushhed decoded packet during timeout\n" +
 		"func (d *Decoder) PushData(data []byte) {\n" +
 		"\td.data <- data\n" +
 		"}\n" +
 		"\n" +
+		"// NextPacket return decoded packet during timeout\n" +
 		"func (d *Decoder) NextPacket(duration time.Duration) *Packet {\n" +
 		"\tselect {\n" +
 		"\tcase packet, ok := <-d.decoded:\n" +
@@ -36,6 +38,12 @@ func decoderTemplate() string {
 		"\tcase <-time.After(duration):\n" +
 		"\t\treturn nil\n" +
 		"\t}\n" +
+		"}\n" +
+		"\n" +
+		"// DecodedChannel return channel with decoded packets (solution for getting decoded packets without timeouts)\n" +
+		"// Don't close this channel manually. For gentle closing use Stop() method\n" +
+		"func (d *Decoder) DecodedChannel() chan *Packet {\n" +
+		"\treturn d.decoded\n" +
 		"}\n" +
 		"\n" +
 		"// Stop make safely stop of decoder\n" +

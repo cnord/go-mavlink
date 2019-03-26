@@ -17,10 +17,12 @@ type Decoder struct {
 	decoded chan *Packet
 }
 
+// PushData pushhed decoded packet during timeout
 func (d *Decoder) PushData(data []byte) {
 	d.data <- data
 }
 
+// NextPacket return decoded packet during timeout
 func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 	select {
 	case packet, ok := <-d.decoded:
@@ -31,6 +33,12 @@ func (d *Decoder) NextPacket(duration time.Duration) *Packet {
 	case <-time.After(duration):
 		return nil
 	}
+}
+
+// DecodedChannel return channel with decoded packets (solution for getting decoded packets without timeouts)
+// Don't close this channel manually. For gentle closing use Stop() method
+func (d *Decoder) DecodedChannel() chan *Packet {
+	return d.decoded
 }
 
 // Stop make safely stop of decoder
