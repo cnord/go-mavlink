@@ -458,8 +458,8 @@ const ({{range .Entries}}
 				ee.Value = uint32(i)
 			}
 			ee.Description = strings.Replace(ee.Description, "\n", " ", -1)
-			if len(ee.Description) > 0 {
-				ee.Description += " | "
+			if len(ee.Description) > 0 && len(ee.Params) > 0 {
+				ee.Description += " // "
 			}
 			for _, pp := range ee.Params {
 				ee.Description += strconv.Itoa(int(pp.Index)) + ") "+ pp.Description + "; "
