@@ -459,7 +459,7 @@ const ({{range .Entries}}
 			}
 			ee.Description = strings.Replace(ee.Description, "\n", " ", -1) + " | "
 			for _, pp := range ee.Params {
-				ee.Description += strconv.Itoa(int(pp.Index)) + ") "+ pp.Description + ";"
+				ee.Description += strconv.Itoa(int(pp.Index)) + ") "+ pp.Description + "; "
 			}
 		}
 	}
