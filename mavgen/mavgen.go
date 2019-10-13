@@ -27,7 +27,7 @@ var (
 	}
 )
 
-// Dialect desribed root tag of schema
+// Dialect described root tag of schema
 type Dialect struct {
 	Name           string
 	MavlinkVersion int
@@ -39,14 +39,15 @@ type Dialect struct {
 	Messages []*Message `xml:"messages>message"`
 }
 
-// Enum desribed schema tag enum
+// Enum described schema tag enum
 type Enum struct {
 	Name        string       `xml:"name,attr"`
 	Description string       `xml:"description"`
+	Param       string       `xml:"param"`
 	Entries     []*EnumEntry `xml:"entry"`
 }
 
-// EnumEntry desribed schema tag entry
+// EnumEntry described schema tag entry
 type EnumEntry struct {
 	Value       uint32            `xml:"value,attr"`
 	Name        string            `xml:"name,attr"`
@@ -54,13 +55,13 @@ type EnumEntry struct {
 	Params      []*EnumEntryParam `xml:"param"`
 }
 
-// EnumEntryParam desribed schema tag param
+// EnumEntryParam described schema tag param
 type EnumEntryParam struct {
 	Index       uint8  `xml:"index,attr"`
 	Description string `xml:",innerxml"`
 }
 
-// Message desribed schema tag message
+// Message described schema tag message
 type Message struct {
 	// use uint32 instead of uint8 so that we can filter
 	// msgids from mavlink v2, which are 24 bits wide.
@@ -75,7 +76,7 @@ type Message struct {
 	Raw string `xml:",innerxml"`
 }
 
-// MessageField desribed schema tag filed
+// MessageField described schema tag filed
 type MessageField struct {
 	CType       string `xml:"type,attr"`
 	Name        string `xml:"name,attr"`
@@ -457,6 +458,9 @@ const ({{range .Entries}}
 				ee.Value = uint32(i)
 			}
 			ee.Description = strings.Replace(ee.Description, "\n", " ", -1)
+			for _, pp := range ee.Params {
+				ee.Description += " | " + strconv.Itoa(int(pp.Index)) + ") "+ pp.Description + ";"
+			}
 		}
 	}
 
