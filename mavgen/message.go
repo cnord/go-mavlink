@@ -11,10 +11,18 @@ package main
 func messageTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
+		"\n" +
+		"{{- if eq $mavlinkVersion 1 }}\n" +
+		"import \"fmt\"\n" +
+		"{{- end }}\n" +
+		"\n" +
 		"// zeroTail is a cache of zero slice for auto append tail to\n" +
 		"// payload in Mavlink2 messages with trimmed payload (variable length)\n" +
 		"var (\n" +
 		"\tzeroTail = make([]byte, 256)\n" +
+		"{{- if eq $mavlinkVersion 1 }}\n" +
+		"    errPayloadTooSmall = fmt.Errorf(\"payload too small\")\n" +
+		"{{- end }}\n" +
 		")\n" +
 		"\n" +
 		"// Message is a basic type for encoding/decoding mavlink messages.\n" +

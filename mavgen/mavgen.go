@@ -409,17 +409,8 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	bb.WriteString("import (\n")
 	bb.WriteString("\"encoding/binary\"\n")
-	if d.MavlinkVersion == 1 {
-		bb.WriteString("\"fmt\"\n")
-	}
 	bb.WriteString("\"math\"\n")
 	bb.WriteString(")\n")
-
-	if d.MavlinkVersion == 1 {
-		bb.WriteString("var (\n")
-		bb.WriteString("errPayloadTooSmall = fmt.Errorf(\"payload too small\")\n")
-		bb.WriteString(")\n")
-	}
 
 	err := d.generateEnums(&bb)
 	if err != nil {

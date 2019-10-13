@@ -1,9 +1,17 @@
 package mavlink
 
+
+{{- if eq $mavlinkVersion 1 }}
+import "fmt"
+{{- end }}
+
 // zeroTail is a cache of zero slice for auto append tail to
 // payload in Mavlink2 messages with trimmed payload (variable length)
 var (
 	zeroTail = make([]byte, 256)
+{{- if eq $mavlinkVersion 1 }}
+    errPayloadTooSmall = fmt.Errorf("payload too small")
+{{- end }}
 )
 
 // Message is a basic type for encoding/decoding mavlink messages.
