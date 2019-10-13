@@ -73,11 +73,11 @@ func parserTemplate() string {
 		"\t\tparser.state = MAVLINK_PARSE_STATE_GOT_MSGID1\n" +
 		"\tcase MAVLINK_PARSE_STATE_GOT_MSGID1:\n" +
 		"{{- if .Mavlink2}}\n" +
-		"\t\tparser.packet.MsgID += MessageID(c << 8)\n" +
+		"\t\tparser.packet.MsgID += MessageID(c) << 8\n" +
 		"\t\tparser.crc.WriteByte(c)\n" +
 		"\t\tparser.state = MAVLINK_PARSE_STATE_GOT_MSGID2\n" +
 		"\tcase MAVLINK_PARSE_STATE_GOT_MSGID2:\n" +
-		"\t\tparser.packet.MsgID += MessageID(c << 8 * 2)\n" +
+		"\t\tparser.packet.MsgID += MessageID(c) << 8 * 2\n" +
 		"\t\tparser.crc.WriteByte(c)\n" +
 		"\t\tparser.state = MAVLINK_PARSE_STATE_GOT_MSGID3\n" +
 		"\tcase MAVLINK_PARSE_STATE_GOT_MSGID3:\n" +

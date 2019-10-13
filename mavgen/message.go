@@ -18,8 +18,7 @@ func messageTemplate() string {
 		"// zeroTail is a cache of zero slice for auto append tail to\n" +
 		"// payload in Mavlink2 messages with trimmed payload (variable length)\n" +
 		"var (\n" +
-		"\tzeroTail = make([]byte, 256, 256)\n" +
-		"\terrPayloadTooSmall = fmt.Errorf(\"payload too small\")\n" +
+		"\tzeroTail = make([]byte, 256)\n" +
 		")\n" +
 		"\n" +
 		"// Message is a basic type for encoding/decoding mavlink messages.\n" +

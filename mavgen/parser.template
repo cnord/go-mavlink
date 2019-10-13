@@ -62,11 +62,11 @@ func (parser *Parser) parseChar(c byte) (*Packet, error) {
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID1
 	case MAVLINK_PARSE_STATE_GOT_MSGID1:
 {{- if .Mavlink2}}
-		parser.packet.MsgID += MessageID(c << 8)
+		parser.packet.MsgID += MessageID(c) << 8
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID2
 	case MAVLINK_PARSE_STATE_GOT_MSGID2:
-		parser.packet.MsgID += MessageID(c << 8 * 2)
+		parser.packet.MsgID += MessageID(c) << 8 * 2
 		parser.crc.WriteByte(c)
 		parser.state = MAVLINK_PARSE_STATE_GOT_MSGID3
 	case MAVLINK_PARSE_STATE_GOT_MSGID3:
