@@ -11,10 +11,6 @@ package main
 func messageTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
-		"import (\n" +
-		"    \"fmt\"\n" +
-		")\n" +
-		"\n" +
 		"// zeroTail is a cache of zero slice for auto append tail to\n" +
 		"// payload in Mavlink2 messages with trimmed payload (variable length)\n" +
 		"var (\n" +

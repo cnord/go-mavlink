@@ -1,9 +1,5 @@
 package mavlink
 
-import (
-    "fmt"
-)
-
 // zeroTail is a cache of zero slice for auto append tail to
 // payload in Mavlink2 messages with trimmed payload (variable length)
 var (
