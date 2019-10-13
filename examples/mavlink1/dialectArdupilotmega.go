@@ -26,23 +26,23 @@ const (
 // MavCmd (generated enum)
 //
 const (
-	MAV_CMD_DO_GRIPPER                      = 211   // Mission command to operate EPM gripper
-	MAV_CMD_DO_AUTOTUNE_ENABLE              = 212   // Enable/disable autotune
-	MAV_CMD_NAV_ALTITUDE_WAIT               = 83    // Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up.
-	MAV_CMD_POWER_OFF_INITIATED             = 42000 // A system wide power-off event has been initiated.
-	MAV_CMD_SOLO_BTN_FLY_CLICK              = 42001 // FLY button has been clicked.
-	MAV_CMD_SOLO_BTN_FLY_HOLD               = 42002 // FLY button has been held for 1.5 seconds.
-	MAV_CMD_SOLO_BTN_PAUSE_CLICK            = 42003 // PAUSE button has been clicked.
-	MAV_CMD_DO_START_MAG_CAL                = 42424 // Initiate a magnetometer calibration
-	MAV_CMD_DO_ACCEPT_MAG_CAL               = 42425 // Initiate a magnetometer calibration
-	MAV_CMD_DO_CANCEL_MAG_CAL               = 42426 // Cancel a running magnetometer calibration
-	MAV_CMD_ACCELCAL_VEHICLE_POS            = 42429 // Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in.
-	MAV_CMD_DO_SEND_BANNER                  = 42428 // Reply with the version banner
-	MAV_CMD_GIMBAL_RESET                    = 42501 // Causes the gimbal to reset and boot as if it was just powered on
-	MAV_CMD_SET_FACTORY_TEST_MODE           = 42427 // Command autopilot to get into factory test/diagnostic mode
-	MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS  = 42502 // Reports progress and success or failure of gimbal axis calibration procedure
-	MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION = 42503 // Starts commutation calibration on the gimbal
-	MAV_CMD_GIMBAL_FULL_RESET               = 42505 // Erases gimbal application and parameters
+	MAV_CMD_DO_GRIPPER                      = 211   // Mission command to operate EPM gripper. Params: 1) gripper number (a number from 1 to max number of grippers on the vehicle); 2) gripper action (0=release, 1=grab. See GRIPPER_ACTIONS enum); 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_DO_AUTOTUNE_ENABLE              = 212   // Enable/disable autotune. Params: 1) enable (1: enable, 0:disable); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_NAV_ALTITUDE_WAIT               = 83    // Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up. Params: 1) altitude (m); 2) descent speed (m/s); 3) Wiggle Time (s); 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_POWER_OFF_INITIATED             = 42000 // A system wide power-off event has been initiated. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_SOLO_BTN_FLY_CLICK              = 42001 // FLY button has been clicked. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_SOLO_BTN_FLY_HOLD               = 42002 // FLY button has been held for 1.5 seconds. Params: 1) Takeoff altitude; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_SOLO_BTN_PAUSE_CLICK            = 42003 // PAUSE button has been clicked. Params: 1) 1 if Solo is in a shot mode, 0 otherwise; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_DO_START_MAG_CAL                = 42424 // Initiate a magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Automatically retry on failure (0=no retry, 1=retry).; 3) Save without user input (0=require input, 1=autosave).; 4) Delay (seconds); 5) Autoreboot (0=user reboot, 1=autoreboot); 6) Empty; 7) Empty;
+	MAV_CMD_DO_ACCEPT_MAG_CAL               = 42425 // Initiate a magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_DO_CANCEL_MAG_CAL               = 42426 // Cancel a running magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_ACCELCAL_VEHICLE_POS            = 42429 // Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in. Params: 1) Position, one of the ACCELCAL_VEHICLE_POS enum values; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_DO_SEND_BANNER                  = 42428 // Reply with the version banner. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_GIMBAL_RESET                    = 42501 // Causes the gimbal to reset and boot as if it was just powered on. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_SET_FACTORY_TEST_MODE           = 42427 // Command autopilot to get into factory test/diagnostic mode. Params: 1) 0 means get out of test mode, 1 means get into test mode; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS  = 42502 // Reports progress and success or failure of gimbal axis calibration procedure. Params: 1) Gimbal axis we're reporting calibration progress for; 2) Current calibration progress for this axis, 0x64=100%; 3) Status of the calibration; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION = 42503 // Starts commutation calibration on the gimbal. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_GIMBAL_FULL_RESET               = 42505 // Erases gimbal application and parameters. Params: 1) Magic number; 2) Magic number; 3) Magic number; 4) Magic number; 5) Magic number; 6) Magic number; 7) Magic number;
 )
 
 // LimitsState (generated enum)
@@ -67,8 +67,8 @@ const (
 // RallyFlags (generated enum)
 // Flags in RALLY_POINT message
 const (
-	FAVORABLE_WIND   = 1 // Flag set when requiring favorable winds for landing.
-	LAND_IMMEDIATELY = 2 // Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land.
+	FAVORABLE_WIND   = 1 // Flag set when requiring favorable winds for landing
+	LAND_IMMEDIATELY = 2 // Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land
 )
 
 // ParachuteAction (generated enum)

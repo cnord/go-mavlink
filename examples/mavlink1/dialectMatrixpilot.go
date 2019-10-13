@@ -27,7 +27,7 @@ const (
 // MavCmd (generated enum)
 //
 const (
-	MAV_CMD_PREFLIGHT_STORAGE_ADVANCED = 0 // Request storage of different parameter values and logs. This command will be only accepted if in pre-flight mode.
+	MAV_CMD_PREFLIGHT_STORAGE_ADVANCED = 0 // Request storage of different parameter values and logs. This command will be only accepted if in pre-flight mode. Params: 1) Storage action: Action defined by MAV_PREFLIGHT_STORAGE_ACTION_ADVANCED; 2) Storage area as defined by parameter database; 3) Storage flags as defined by parameter database; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
 )
 
 // MatrixpilotFlexifunctionSet struct (generated typeinfo)

@@ -15,8 +15,8 @@ import (
 // MavCmd (generated enum)
 //
 const (
-	MAV_CMD_RESET_MPPT      = 40001 // Mission command to reset Maximum Power Point Tracker (MPPT)
-	MAV_CMD_PAYLOAD_CONTROL = 40002 // Mission command to perform a power cycle on payload
+	MAV_CMD_RESET_MPPT      = 40001 // Mission command to reset Maximum Power Point Tracker (MPPT). Params: 1) MPPT number; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_PAYLOAD_CONTROL = 40002 // Mission command to perform a power cycle on payload. Params: 1) Complete power cycle; 2) VISensor power cycle; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
 )
 
 // AsluavSensPower struct (generated typeinfo)

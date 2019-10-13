@@ -17,9 +17,9 @@ import (
 const (
 	MODE_MANUAL_DIRECT = 0 // Raw input pulse widts sent to output
 	MODE_MANUAL_SCALED = 1 // Inputs are normalized using calibration, the converted back to raw pulse widths for output
-	MODE_AUTO_PID_ATT  = 2 //  dfsdfs
-	MODE_AUTO_PID_VEL  = 3 //  dfsfds
-	MODE_AUTO_PID_POS  = 4 //  dfsdfsdfs
+	MODE_AUTO_PID_ATT  = 2 // dfsdfs
+	MODE_AUTO_PID_VEL  = 3 // dfsfds
+	MODE_AUTO_PID_POS  = 4 // dfsdfsdfs
 )
 
 // UalbertaNavMode (generated enum)
@@ -34,9 +34,9 @@ const (
 // UalbertaPilotMode (generated enum)
 // Mode currently commanded by pilot
 const (
-	PILOT_MANUAL = 0 //  sdf
-	PILOT_AUTO   = 1 //  dfs
-	PILOT_ROTO   = 2 //  Rotomotion mode
+	PILOT_MANUAL = 0 // sdf
+	PILOT_AUTO   = 1 // dfs
+	PILOT_ROTO   = 2 // Rotomotion mode
 )
 
 // UalbertaNavFilterBias struct (generated typeinfo)
