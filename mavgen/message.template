@@ -1,7 +1,7 @@
 package mavlink
 
-
-{{- if eq .MavlinkVersion 1 }}
+{{$mavlinkVersion := .MavlinkVersion}}
+{{- if eq $mavlinkVersion 1 }}
 import "fmt"
 {{- end }}
 
@@ -9,7 +9,7 @@ import "fmt"
 // payload in Mavlink2 messages with trimmed payload (variable length)
 var (
 	zeroTail = make([]byte, 256)
-{{- if eq .MavlinkVersion 1 }}
+{{- if eq $mavlinkVersion 1 }}
     errPayloadTooSmall = fmt.Errorf("payload too small")
 {{- end }}
 )
