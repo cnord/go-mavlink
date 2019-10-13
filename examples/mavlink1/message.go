@@ -6,14 +6,12 @@
 
 package mavlink
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // zeroTail is a cache of zero slice for auto append tail to
 // payload in Mavlink2 messages with trimmed payload (variable length)
 var (
-	zeroTail           = make([]byte, 256, 256)
+	zeroTail           = make([]byte, 256)
 	errPayloadTooSmall = fmt.Errorf("payload too small")
 )
 
