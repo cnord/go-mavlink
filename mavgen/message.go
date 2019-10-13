@@ -11,7 +11,7 @@ package main
 func messageTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
-		"{{-if .Mavlink1 }}\n" +
+		"{{- if .Mavlink1 }}\n" +
 		"import \"fmt\"\n" +
 		"{{- end }}\n" +
 		"\n" +
@@ -19,7 +19,7 @@ func messageTemplate() string {
 		"// payload in Mavlink2 messages with trimmed payload (variable length)\n" +
 		"var (\n" +
 		"\tzeroTail = make([]byte, 256)\n" +
-		"{{-if .Mavlink1 }}\n" +
+		"{{- if .Mavlink1 }}\n" +
 		"    errPayloadTooSmall = fmt.Errorf(\"payload too small\")\n" +
 		"{{- end }}\n" +
 		")\n" +
