@@ -64,7 +64,7 @@ func packetTemplate() string {
 		"\t\t\treturn err\n" +
 		"\t\t}\n" +
 		"\t\tif packet != nil {\n" +
-		"\t\t\tp = packet\n" +
+		"\t\t\t*p = *packet\n" +
 		"\t\t\treturn nil\n" +
 		"\t\t}\n" +
 		"\t}\n" +
