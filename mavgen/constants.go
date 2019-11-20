@@ -58,6 +58,8 @@ func constantsTemplate() string {
 		"\tErrCrcFail = errors.New(\"checksum did not match\")\n" +
 		"\t// ErrNoNewData define\n" +
 		"\tErrNoNewData = errors.New(\"No new data\")\n" +
+		"\t// ErrNoNewData define\n" +
+		"\tErrNilPointerReference = errors.New(\"Nil pointer reference\")\n" +
 		"\t// currentSeqNum\n" +
 		"\tcurrentSeqNum uint8 = 0\n" +
 		"\t// dialects\n" +

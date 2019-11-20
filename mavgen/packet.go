@@ -55,6 +55,29 @@ func packetTemplate() string {
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
+		"func Unmarshal(buffer []byte, p *Packet) error {\n" +
+		"\tparser := parsersPool.Get().(*Parser)\n" +
+		"\tdefer parsersPool.Put(parser)\n" +
+		"\tfor _, c := range buffer {\n" +
+		"\t\tpacket, err := parser.parseChar(c)\n" +
+		"\t\tif err != nil {\n" +
+		"\t\t\treturn err\n" +
+		"\t\t}\n" +
+		"\t\tif packet != nil {\n" +
+		"\t\t\tp = packet\n" +
+		"\t\t\treturn nil\n" +
+		"\t\t}\n" +
+		"\t}\n" +
+		"\treturn ErrNoNewData\n" +
+		"}\n" +
+		"\n" +
+		"func Marshal(p *Packet) ([]byte, error) {\n" +
+		"\tif p == nil {\n" +
+		"\t\treturn nil, ErrNilPointerReference\n" +
+		"\t}\n" +
+		"\treturn p.Bytes(), nil\n" +
+		"}\n" +
+		"\n" +
 		"func (p *Packet) Bytes() []byte {\n" +
 		"    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))\n" +
 		"    // header\n" +

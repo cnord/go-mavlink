@@ -47,6 +47,8 @@ var (
 	ErrCrcFail = errors.New("checksum did not match")
 	// ErrNoNewData define
 	ErrNoNewData = errors.New("No new data")
+	// ErrNoNewData define
+	ErrNilPointerReference = errors.New("Nil pointer reference")
 	// currentSeqNum
 	currentSeqNum uint8 = 0
 	// dialects
