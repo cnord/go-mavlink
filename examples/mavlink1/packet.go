@@ -46,6 +46,29 @@ func (p *Packet) EncodeMessage(m Message) error {
 	return nil
 }
 
+func Unmarshal(buffer []byte, p *Packet) error {
+	parser := parsersPool.Get().(*Parser)
+	defer parsersPool.Put(parser)
+	for _, c := range buffer {
+		packet, err := parser.parseChar(c)
+		if err != nil {
+			return err
+		}
+		if packet != nil {
+			p = packet
+			return nil
+		}
+	}
+	return ErrNoNewData
+}
+
+func Marshal(p *Packet) ([]byte, error) {
+	if p == nil {
+		return nil, ErrNilPointerReference
+	}
+	return p.Bytes(), nil
+}
+
 func (p *Packet) Bytes() []byte {
 	bytes := make([]byte, 0, 8+len(p.Payload))
 	// header
