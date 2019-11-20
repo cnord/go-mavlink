@@ -57,7 +57,7 @@ func Unmarshal(buffer []byte, p *Packet) error {
 			return err
 		}
 		if packet != nil {
-			p = packet
+			*p = *packet
 			return nil
 		}
 	}
