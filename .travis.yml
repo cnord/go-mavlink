@@ -2,12 +2,12 @@
 language: go
 
 go:
-  - 1.4
-  - 1.5
-  - tip
+  - 1.12.9
 
 # run mavgen on the mavlink package, and run tests
 
 script:
-  - go generate github.com/cnord/go-mavlink/mavlink
-  - go test -v ./...
+  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
+  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
+  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
+  - go test -race -v ./...
