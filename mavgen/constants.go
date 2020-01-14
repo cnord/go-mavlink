@@ -61,7 +61,7 @@ func constantsTemplate() string {
 		"\t// ErrNilPointerReference define\n" +
 		"\tErrNilPointerReference = errors.New(\"Nil pointer reference\")\n" +
 		"\t// currentSeqNum\n" +
-		"\tcurrentSeqNum uint8 = 0\n" +
+		"\tcurrentSeqNum uint8\n" +
 		"\t// dialects\n" +
 		"\tdialects DialectSlice = DialectSlice{ {{- .DialectName -}} }\n" +
 		")\n" +
