@@ -8,7 +8,7 @@ package mavlink
 
 import "sync"
 
-// Parser is a finaly state machine which parse bytes to mavlink.Packet
+// Parser is a finally state machine which parse bytes to mavlink.Packet
 type Parser struct {
 	state  MAVLINK_PARSE_STATE
 	packet Packet

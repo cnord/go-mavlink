@@ -13,7 +13,7 @@ func parserTemplate() string {
 		"\n" +
 		"import \"sync\"\n" +
 		"\n" +
-		"// Parser is a finaly state machine which parse bytes to mavlink.Packet\n" +
+		"// Parser is a finally state machine which parse bytes to mavlink.Packet\n" +
 		"type Parser struct {\n" +
 		"\tstate  MAVLINK_PARSE_STATE\n" +
 		"\tpacket Packet\n" +
