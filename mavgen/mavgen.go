@@ -43,7 +43,6 @@ type Dialect struct {
 type Enum struct {
 	Name        string       `xml:"name,attr"`
 	Description string       `xml:"description"`
-	Param       string       `xml:"param"`
 	Entries     []*EnumEntry `xml:"entry"`
 }
 
