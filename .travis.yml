@@ -7,7 +7,4 @@ go:
 # run mavgen on the mavlink package, and run tests
 
 script:
-  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
-  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
-  - go generate github.com/asmyasnikov/go-mavlink/examples/mavlink1
-  - go test -race -v ./...
+  - go test -race -v ./examples/...
