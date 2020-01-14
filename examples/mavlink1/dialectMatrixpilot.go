@@ -70,6 +70,7 @@ func (m *MatrixpilotFlexifunctionSet) Unpack(p *Packet) error {
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
+	return nil
 }
 
 // MatrixpilotFlexifunctionReadReq struct (generated typeinfo)
