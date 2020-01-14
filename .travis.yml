@@ -2,7 +2,7 @@
 language: go
 
 go:
-  - 1.12.9
+  - "1.10"
 
 # run mavgen on the mavlink package, and run tests
 
