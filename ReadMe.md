@@ -1,4 +1,4 @@
-[<img src="https://travis-ci.org/asmyasnikov/go-mavlink.svg?branch=master">](https://travis-ci.org/asmyasnikov/go-mavlink) [![Go Report Card](https://goreportcard.com/badge/github.com/asmyasnikov/go-mavlink)](https://goreportcard.com/report/github.com/storozhukBM/go-fsm-generator)
+[<img src="https://travis-ci.org/asmyasnikov/go-mavlink.svg?branch=master">](https://travis-ci.org/asmyasnikov/go-mavlink) [![Go Report Card](https://goreportcard.com/badge/github.com/asmyasnikov/go-mavlink)](https://goreportcard.com/report/github.com/asmyasnikov/go-mavlink)
 # go-mavlink
 
 a [Go](http://golang.org/) package for reading/writing [mavlink](http://qgroundcontrol.org/mavlink/start) 1.0 and 2.0 messages.
