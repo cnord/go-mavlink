@@ -5,7 +5,7 @@ type X25 struct {
 	crc uint16
 }
 
-// New function create crc calculator
+// NewX25 function create crc calculator
 func NewX25() *X25 {
 	x := &X25{}
 	x.Reset()
