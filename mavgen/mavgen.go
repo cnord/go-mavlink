@@ -464,7 +464,7 @@ const ({{range .Entries}}
 				ee.Description += "Params: "
 			}
 			for _, pp := range ee.Params {
-				ee.Description += strconv.Itoa(int(pp.Index)) + ") "+ pp.Description + "; "
+				ee.Description += strconv.Itoa(int(pp.Index)) + ") " + pp.Description + "; "
 			}
 		}
 	}
