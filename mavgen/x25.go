@@ -16,7 +16,7 @@ func x25Template() string {
 		"\tcrc uint16\n" +
 		"}\n" +
 		"\n" +
-		"// New function create crc calculator\n" +
+		"// NewX25 function create crc calculator\n" +
 		"func NewX25() *X25 {\n" +
 		"\tx := &X25{}\n" +
 		"\tx.Reset()\n" +

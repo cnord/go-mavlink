@@ -31,10 +31,12 @@ func dialectTemplate() string {
 		"\treturn constructor(pkt), true\n" +
 		"}\n" +
 		"\n" +
+		"// AddDialect append dialect to internal store\n" +
 		"func AddDialect(d *Dialect) {\n" +
 		"\tdialects.Add(d)\n" +
 		"}\n" +
 		"\n" +
+		"// RemoveDialect remove dialect from internal store\n" +
 		"func RemoveDialect(d *Dialect) {\n" +
 		"\tdialects.Remove(d)\n" +
 		"}\n" +
