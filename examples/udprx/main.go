@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"../mavlink1"
+	"github.com/asmyasnikov/go-mavlink/examples/mavlink1"
 )
 
 //////////////////////////////////////
