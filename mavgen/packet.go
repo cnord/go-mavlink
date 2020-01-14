@@ -74,7 +74,7 @@ func packetTemplate() string {
 		"\treturn ErrNoNewData\n" +
 		"}\n" +
 		"\n" +
-		"// Unmarshal trying to serialize byte slice from packet\n" +
+		"// Marshal trying to serialize byte slice from packet\n" +
 		"func Marshal(p *Packet) ([]byte, error) {\n" +
 		"\tif p == nil {\n" +
 		"\t\treturn nil, ErrNilPointerReference\n" +
