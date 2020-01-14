@@ -25,6 +25,7 @@ func (p *Packet) nextSeqNum() byte {
 	return currentSeqNum
 }
 
+// Encode trying to encode message to packet
 func (p *Packet) Encode(sysID, compID uint8, m Message) error {
 	p.SeqID = p.nextSeqNum()
 	p.SysID = sysID
@@ -38,6 +39,7 @@ func (p *Packet) Encode(sysID, compID uint8, m Message) error {
 	return nil
 }
 
+// EncodeMessage trying to encode message to packet
 func (p *Packet) EncodeMessage(m Message) error {
 	if err := m.Pack(p); err != nil {
 		return err
@@ -48,6 +50,7 @@ func (p *Packet) EncodeMessage(m Message) error {
 	return nil
 }
 
+// Unmarshal trying to de-serialize byte slice to packet
 func Unmarshal(buffer []byte, p *Packet) error {
 	parser := parsersPool.Get().(*Parser)
 	defer parsersPool.Put(parser)
@@ -64,6 +67,7 @@ func Unmarshal(buffer []byte, p *Packet) error {
 	return ErrNoNewData
 }
 
+// Unmarshal trying to serialize byte slice from packet
 func Marshal(p *Packet) ([]byte, error) {
 	if p == nil {
 		return nil, ErrNilPointerReference
@@ -71,6 +75,7 @@ func Marshal(p *Packet) ([]byte, error) {
 	return p.Bytes(), nil
 }
 
+// Bytes make byte slice from packet
 func (p *Packet) Bytes() []byte {
 	bytes := make([]byte, 0, 12+len(p.Payload))
 	// header
