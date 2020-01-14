@@ -65,7 +65,7 @@ func Unmarshal(buffer []byte, p *Packet) error {
 	return ErrNoNewData
 }
 
-// Unmarshal trying to serialize byte slice from packet
+// Marshal trying to serialize byte slice from packet
 func Marshal(p *Packet) ([]byte, error) {
 	if p == nil {
 		return nil, ErrNilPointerReference
