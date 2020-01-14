@@ -47,7 +47,7 @@ var (
 	// ErrNilPointerReference define
 	ErrNilPointerReference = errors.New("Nil pointer reference")
 	// currentSeqNum
-	currentSeqNum uint8 = 0
+	currentSeqNum uint8
 	// dialects
 	dialects DialectSlice = DialectSlice{DialectCommon}
 )
