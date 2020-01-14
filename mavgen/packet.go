@@ -32,6 +32,7 @@ func packetTemplate() string {
 		"\treturn currentSeqNum\n" +
 		"}\n" +
 		"\n" +
+		"// Encode trying to encode message to packet\n" +
 		"func (p *Packet) Encode(sysID, compID uint8, m Message) error {\n" +
 		"\tp.SeqID = p.nextSeqNum()\n" +
 		"\tp.SysID = sysID\n" +
@@ -45,6 +46,7 @@ func packetTemplate() string {
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
+		"// EncodeMessage trying to encode message to packet\n" +
 		"func (p *Packet) EncodeMessage(m Message) error {\n" +
 		"\tif err := m.Pack(p); err != nil {\n" +
 		"\t\treturn err\n" +
@@ -55,6 +57,7 @@ func packetTemplate() string {
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
+		"// Unmarshal trying to de-serialize byte slice to packet\n" +
 		"func Unmarshal(buffer []byte, p *Packet) error {\n" +
 		"\tparser := parsersPool.Get().(*Parser)\n" +
 		"\tdefer parsersPool.Put(parser)\n" +
@@ -71,6 +74,7 @@ func packetTemplate() string {
 		"\treturn ErrNoNewData\n" +
 		"}\n" +
 		"\n" +
+		"// Unmarshal trying to serialize byte slice from packet\n" +
 		"func Marshal(p *Packet) ([]byte, error) {\n" +
 		"\tif p == nil {\n" +
 		"\t\treturn nil, ErrNilPointerReference\n" +
@@ -78,6 +82,7 @@ func packetTemplate() string {
 		"\treturn p.Bytes(), nil\n" +
 		"}\n" +
 		"\n" +
+		"// Bytes make byte slice from packet\n" +
 		"func (p *Packet) Bytes() []byte {\n" +
 		"    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))\n" +
 		"    // header\n" +
