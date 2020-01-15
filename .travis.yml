@@ -17,8 +17,9 @@ language: bash
 #  - go test -race -v ./examples/mavlink2/...
 #  - go test -race -v ./mavgen/...
 
-#deploy:
-script:
+deploy:
+  provider: script
+  script: 
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
   - docker build -t $DOCKER_USERNAME/$DOCKER_REPO
   - docker push $DOCKER_USERNAME/$DOCKER_REPO
