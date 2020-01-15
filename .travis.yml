@@ -13,12 +13,11 @@ script:
 
 before_deploy:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker build . -t $DOCKER_USERNAME/$DOCKER_REPO
 
 deploy:
   provider: script
-  script:
-    docker build . -t $DOCKER_USERNAME/$DOCKER_REPO
-    docker push $DOCKER_USERNAME/$DOCKER_REPO
+  script: docker push $DOCKER_USERNAME/$DOCKER_REPO
   on:
     branch: master
 
