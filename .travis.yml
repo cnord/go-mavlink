@@ -1,12 +1,6 @@
-sudo: required
-
-services:
-  - docker
-
-language: go
-
 test:
   provider: script
+  language: go
   script:
     - go test -race -v ./examples/udprx/...
     - go test -race -v ./examples/mavlink1/...
@@ -16,6 +10,9 @@ test:
     branch: master
 
 deploy:
+  sudo: required
+  services:
+    - docker
   provider: script
   script: 
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
