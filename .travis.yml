@@ -5,6 +5,10 @@ services:
 
 language: go
 
+branches:
+  only:
+  - master
+
 script:
   - go test -race -v ./examples/udprx/...
   - go test -race -v ./examples/mavlink1/...
@@ -18,6 +22,4 @@ before_deploy:
 deploy:
   provider: script
   script: docker push $DOCKER_USERNAME/$DOCKER_REPO
-  on:
-    branch: master
 
