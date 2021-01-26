@@ -1326,7 +1326,7 @@ func (m *MatrixpilotSerialUdbExtraF16) Unpack(p *Packet) error {
 // The altitude measured by sensors and IMU
 type MatrixpilotAltitudes struct {
 	TimeBootMs     uint32 // Timestamp (milliseconds since system boot)
-	AltGps         int32  // GPS altitude in meters, expressed as * 1000 (millimeters), above MSL
+	AltGps         int32  // GPS altitude (MSL) in meters, expressed as * 1000 (millimeters)
 	AltImu         int32  // IMU altitude above ground in meters, expressed as * 1000 (millimeters)
 	AltBarometric  int32  // barometeric altitude above ground in meters, expressed as * 1000 (millimeters)
 	AltOpticalFlow int32  // Optical flow altitude above ground in meters, expressed as * 1000 (millimeters)

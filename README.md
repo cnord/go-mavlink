@@ -5,7 +5,7 @@ a [Go](http://golang.org/) package for reading/writing [mavlink](http://qgroundc
 
 ## installation
 
-* grab the files: `go get github.com/asmyasnikov/go-mavlink`
+* grab the files: `go get github.com/asmyasnikov/go-mavlink/mavgen`
 * generate classes from mavlink xml definitions: `go generate`
 
 xml definitions can be updated from https://github.com/mavlink/mavlink

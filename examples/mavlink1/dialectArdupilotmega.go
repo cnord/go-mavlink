@@ -15,81 +15,97 @@ import (
 // AccelcalVehiclePos (generated enum)
 //
 const (
-	ACCELCAL_VEHICLE_POS_LEVEL    = 1 //
-	ACCELCAL_VEHICLE_POS_LEFT     = 2 //
-	ACCELCAL_VEHICLE_POS_RIGHT    = 3 //
-	ACCELCAL_VEHICLE_POS_NOSEDOWN = 4 //
-	ACCELCAL_VEHICLE_POS_NOSEUP   = 5 //
-	ACCELCAL_VEHICLE_POS_BACK     = 6 //
+	ACCELCAL_VEHICLE_POS_LEVEL    = 1        //
+	ACCELCAL_VEHICLE_POS_LEFT     = 2        //
+	ACCELCAL_VEHICLE_POS_RIGHT    = 3        //
+	ACCELCAL_VEHICLE_POS_NOSEDOWN = 4        //
+	ACCELCAL_VEHICLE_POS_NOSEUP   = 5        //
+	ACCELCAL_VEHICLE_POS_BACK     = 6        //
+	ACCELCAL_VEHICLE_POS_SUCCESS  = 16777215 //
+	ACCELCAL_VEHICLE_POS_FAILED   = 16777216 //
+)
+
+// HeadingType (generated enum)
+//
+const (
+	HEADING_TYPE_COURSE_OVER_GROUND = 0 //
+	HEADING_TYPE_HEADING            = 1 //
+)
+
+// SpeedType (generated enum)
+//
+const (
+	SPEED_TYPE_AIRSPEED    = 0 //
+	SPEED_TYPE_GROUNDSPEED = 1 //
 )
 
 // MavCmd (generated enum)
 //
 const (
-	MAV_CMD_DO_GRIPPER                      = 211   // Mission command to operate EPM gripper. Params: 1) gripper number (a number from 1 to max number of grippers on the vehicle); 2) gripper action (0=release, 1=grab. See GRIPPER_ACTIONS enum); 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_DO_AUTOTUNE_ENABLE              = 212   // Enable/disable autotune. Params: 1) enable (1: enable, 0:disable); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_NAV_ALTITUDE_WAIT               = 83    // Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up. Params: 1) altitude (m); 2) descent speed (m/s); 3) Wiggle Time (s); 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_POWER_OFF_INITIATED             = 42000 // A system wide power-off event has been initiated. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_SOLO_BTN_FLY_CLICK              = 42001 // FLY button has been clicked. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_SOLO_BTN_FLY_HOLD               = 42002 // FLY button has been held for 1.5 seconds. Params: 1) Takeoff altitude; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_SOLO_BTN_PAUSE_CLICK            = 42003 // PAUSE button has been clicked. Params: 1) 1 if Solo is in a shot mode, 0 otherwise; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_DO_START_MAG_CAL                = 42424 // Initiate a magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Automatically retry on failure (0=no retry, 1=retry).; 3) Save without user input (0=require input, 1=autosave).; 4) Delay (seconds); 5) Autoreboot (0=user reboot, 1=autoreboot); 6) Empty; 7) Empty;
-	MAV_CMD_DO_ACCEPT_MAG_CAL               = 42425 // Initiate a magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_DO_CANCEL_MAG_CAL               = 42426 // Cancel a running magnetometer calibration. Params: 1) uint8_t bitmask of magnetometers (0 means all); 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_ACCELCAL_VEHICLE_POS            = 42429 // Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in. Params: 1) Position, one of the ACCELCAL_VEHICLE_POS enum values; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_DO_SEND_BANNER                  = 42428 // Reply with the version banner. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_GIMBAL_RESET                    = 42501 // Causes the gimbal to reset and boot as if it was just powered on. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_SET_FACTORY_TEST_MODE           = 42427 // Command autopilot to get into factory test/diagnostic mode. Params: 1) 0 means get out of test mode, 1 means get into test mode; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS  = 42502 // Reports progress and success or failure of gimbal axis calibration procedure. Params: 1) Gimbal axis we're reporting calibration progress for; 2) Current calibration progress for this axis, 0x64=100%; 3) Status of the calibration; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION = 42503 // Starts commutation calibration on the gimbal. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
-	MAV_CMD_GIMBAL_FULL_RESET               = 42505 // Erases gimbal application and parameters. Params: 1) Magic number; 2) Magic number; 3) Magic number; 4) Magic number; 5) Magic number; 6) Magic number; 7) Magic number;
+	MAV_CMD_DO_SET_RESUME_REPEAT_DIST       = 215   // Set the distance to be repeated on mission resume. Params: 1) Distance.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_NAV_ALTITUDE_WAIT               = 83    // Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up. Params: 1) Altitude.; 2) Descent speed.; 3) How long to wiggle the control surfaces to prevent them seizing up.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_POWER_OFF_INITIATED             = 42000 // A system wide power-off event has been initiated. Params: 1) Empty.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_SOLO_BTN_FLY_CLICK              = 42001 // FLY button has been clicked. Params: 1) Empty.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_SOLO_BTN_FLY_HOLD               = 42002 // FLY button has been held for 1.5 seconds. Params: 1) Takeoff altitude.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_SOLO_BTN_PAUSE_CLICK            = 42003 // PAUSE button has been clicked. Params: 1) 1 if Solo is in a shot mode, 0 otherwise.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_FIXED_MAG_CAL                   = 42004 // Magnetometer calibration based on fixed position         in earth field given by inclination, declination and intensity. Params: 1) Magnetic declination.; 2) Magnetic inclination.; 3) Magnetic intensity.; 4) Yaw.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_FIXED_MAG_CAL_FIELD             = 42005 // Magnetometer calibration based on fixed expected field values. Params: 1) Field strength X.; 2) Field strength Y.; 3) Field strength Z.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_DO_START_MAG_CAL                = 42424 // Initiate a magnetometer calibration. Params: 1) Bitmask of magnetometers to calibrate. Use 0 to calibrate all sensors that can be started (sensors may not start if disabled, unhealthy, etc.). The command will NACK if calibration does not start for a sensor explicitly specified by the bitmask.; 2) Automatically retry on failure (0=no retry, 1=retry).; 3) Save without user input (0=require input, 1=autosave).; 4) Delay.; 5) Autoreboot (0=user reboot, 1=autoreboot).; 6) Empty.; 7) Empty.;
+	MAV_CMD_DO_ACCEPT_MAG_CAL               = 42425 // Accept a magnetometer calibration. Params: 1) Bitmask of magnetometers that calibration is accepted (0 means all).; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_DO_CANCEL_MAG_CAL               = 42426 // Cancel a running magnetometer calibration. Params: 1) Bitmask of magnetometers to cancel a running calibration (0 means all).; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_ACCELCAL_VEHICLE_POS            = 42429 // Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in. Params: 1) Position.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_DO_SEND_BANNER                  = 42428 // Reply with the version banner. Params: 1) Empty.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_SET_FACTORY_TEST_MODE           = 42427 // Command autopilot to get into factory test/diagnostic mode. Params: 1) 0: activate test mode, 1: exit test mode.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_GIMBAL_RESET                    = 42501 // Causes the gimbal to reset and boot as if it was just powered on. Params: 1) Empty.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS  = 42502 // Reports progress and success or failure of gimbal axis calibration procedure. Params: 1) Gimbal axis we're reporting calibration progress for.; 2) Current calibration progress for this axis.; 3) Status of the calibration.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION = 42503 // Starts commutation calibration on the gimbal. Params: 1) Empty.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_GIMBAL_FULL_RESET               = 42505 // Erases gimbal application and parameters. Params: 1) Magic number.; 2) Magic number.; 3) Magic number.; 4) Magic number.; 5) Magic number.; 6) Magic number.; 7) Magic number.;
+	MAV_CMD_FLASH_BOOTLOADER                = 42650 // Update the bootloader. Params: 1) Empty; 2) Empty; 3) Empty; 4) Empty; 5) Magic number - set to 290876 to actually flash; 6) Empty; 7) Empty;
+	MAV_CMD_BATTERY_RESET                   = 42651 // Reset battery capacity for batteries that accumulate consumed battery via integration. Params: 1) Bitmask of batteries to reset. Least significant bit is for the first battery.; 2) Battery percentage remaining to set.;
+	MAV_CMD_DEBUG_TRAP                      = 42700 // Issue a trap signal to the autopilot process, presumably to enter the debugger. Params: 1) Magic number - set to 32451 to actually trap.; 2) Empty.; 3) Empty.; 4) Empty.; 5) Empty.; 6) Empty.; 7) Empty.;
+	MAV_CMD_SCRIPTING                       = 42701 // Control onboard scripting. Params: 1) Scripting command to execute;
+	MAV_CMD_GUIDED_CHANGE_SPEED             = 43000 // Change flight speed at a given rate. This slews the vehicle at a controllable rate between it's previous speed and the new one. (affects GUIDED only. Outside GUIDED, aircraft ignores these commands. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.). Params: 1) Airspeed or groundspeed.; 2) Target Speed; 3) Acceleration rate, 0 to take effect instantly; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+	MAV_CMD_GUIDED_CHANGE_ALTITUDE          = 43001 // Change target altitude at a given rate. This slews the vehicle at a controllable rate between it's previous altitude and the new one. (affects GUIDED only. Outside GUIDED, aircraft ignores these commands. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.). Params: 1) Empty; 2) Empty; 3) Rate of change, toward new altitude. 0 for maximum rate change. Positive numbers only, as negative numbers will not converge on the new target alt.; 4) Empty; 5) Empty; 6) Empty; 7) Target Altitude;
+	MAV_CMD_GUIDED_CHANGE_HEADING           = 43002 // Change to target heading at a given rate, overriding previous heading/s. This slews the vehicle at a controllable rate between it's previous heading and the new one. (affects GUIDED only. Exiting GUIDED returns aircraft to normal behaviour defined elsewhere. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.). Params: 1) course-over-ground or raw vehicle heading.; 2) Target heading.; 3) Maximum centripetal accelearation, ie rate of change,  toward new heading.; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
+)
+
+// ScriptingCmd (generated enum)
+//
+const (
+	SCRIPTING_CMD_REPL_START = 0 // Start a REPL session
+	SCRIPTING_CMD_REPL_STOP  = 1 // End a REPL session
 )
 
 // LimitsState (generated enum)
 //
 const (
-	LIMITS_INIT       = 0 // pre-initialization
-	LIMITS_DISABLED   = 1 // disabled
-	LIMITS_ENABLED    = 2 // checking limits
-	LIMITS_TRIGGERED  = 3 // a limit has been breached
-	LIMITS_RECOVERING = 4 // taking action eg. RTL
-	LIMITS_RECOVERED  = 5 // we're no longer in breach of a limit
+	LIMITS_INIT       = 0 // Pre-initialization
+	LIMITS_DISABLED   = 1 // Disabled
+	LIMITS_ENABLED    = 2 // Checking limits
+	LIMITS_TRIGGERED  = 3 // A limit has been breached
+	LIMITS_RECOVERING = 4 // Taking action e.g. Return/RTL
+	LIMITS_RECOVERED  = 5 // We're no longer in breach of a limit
 )
 
 // LimitModule (generated enum)
 //
 const (
-	LIMIT_GPSLOCK  = 1 // pre-initialization
-	LIMIT_GEOFENCE = 2 // disabled
-	LIMIT_ALTITUDE = 4 // checking limits
+	LIMIT_GPSLOCK  = 1 // Pre-initialization
+	LIMIT_GEOFENCE = 2 // Disabled
+	LIMIT_ALTITUDE = 4 // Checking limits
 )
 
 // RallyFlags (generated enum)
-// Flags in RALLY_POINT message
+// Flags in RALLY_POINT message.
 const (
 	FAVORABLE_WIND   = 1 // Flag set when requiring favorable winds for landing
 	LAND_IMMEDIATELY = 2 // Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land
 )
 
-// ParachuteAction (generated enum)
-//
-const (
-	PARACHUTE_DISABLE = 0 // Disable parachute release
-	PARACHUTE_ENABLE  = 1 // Enable parachute release
-	PARACHUTE_RELEASE = 2 // Release parachute
-)
-
-// GripperActions (generated enum)
-// Gripper actions.
-const (
-	GRIPPER_ACTION_RELEASE = 0 // gripper release of cargo
-	GRIPPER_ACTION_GRAB    = 1 // gripper grabs onto cargo
-)
-
 // CameraStatusTypes (generated enum)
 //
 const (
-	CAMERA_STATUS_TYPE_HEARTBEAT  = 0 // Camera heartbeat, announce camera component ID at 1hz
+	CAMERA_STATUS_TYPE_HEARTBEAT  = 0 // Camera heartbeat, announce camera component ID at 1Hz
 	CAMERA_STATUS_TYPE_TRIGGER    = 1 // Camera image triggered
 	CAMERA_STATUS_TYPE_DISCONNECT = 2 // Camera connection lost
 	CAMERA_STATUS_TYPE_ERROR      = 3 // Camera unknown error
@@ -193,11 +209,11 @@ const (
 const (
 	GOPRO_CAPTURE_MODE_VIDEO      = 0   // Video mode
 	GOPRO_CAPTURE_MODE_PHOTO      = 1   // Photo mode
-	GOPRO_CAPTURE_MODE_BURST      = 2   // Burst mode, hero 3+ only
-	GOPRO_CAPTURE_MODE_TIME_LAPSE = 3   // Time lapse mode, hero 3+ only
-	GOPRO_CAPTURE_MODE_MULTI_SHOT = 4   // Multi shot mode, hero 4 only
-	GOPRO_CAPTURE_MODE_PLAYBACK   = 5   // Playback mode, hero 4 only, silver only except when LCD or HDMI is connected to black
-	GOPRO_CAPTURE_MODE_SETUP      = 6   // Playback mode, hero 4 only
+	GOPRO_CAPTURE_MODE_BURST      = 2   // Burst mode, Hero 3+ only
+	GOPRO_CAPTURE_MODE_TIME_LAPSE = 3   // Time lapse mode, Hero 3+ only
+	GOPRO_CAPTURE_MODE_MULTI_SHOT = 4   // Multi shot mode, Hero 4 only
+	GOPRO_CAPTURE_MODE_PLAYBACK   = 5   // Playback mode, Hero 4 only, silver only except when LCD or HDMI is connected to black
+	GOPRO_CAPTURE_MODE_SETUP      = 6   // Playback mode, Hero 4 only
 	GOPRO_CAPTURE_MODE_UNKNOWN    = 255 // Mode not yet known
 )
 
@@ -364,18 +380,19 @@ const (
 )
 
 // EkfStatusFlags (generated enum)
-// Flags in EKF_STATUS message
+// Flags in EKF_STATUS message.
 const (
-	EKF_ATTITUDE           = 1   // set if EKF's attitude estimate is good
-	EKF_VELOCITY_HORIZ     = 2   // set if EKF's horizontal velocity estimate is good
-	EKF_VELOCITY_VERT      = 4   // set if EKF's vertical velocity estimate is good
-	EKF_POS_HORIZ_REL      = 8   // set if EKF's horizontal position (relative) estimate is good
-	EKF_POS_HORIZ_ABS      = 16  // set if EKF's horizontal position (absolute) estimate is good
-	EKF_POS_VERT_ABS       = 32  // set if EKF's vertical position (absolute) estimate is good
-	EKF_POS_VERT_AGL       = 64  // set if EKF's vertical position (above ground) estimate is good
-	EKF_CONST_POS_MODE     = 128 // EKF is in constant position mode and does not know it's absolute or relative position
-	EKF_PRED_POS_HORIZ_REL = 256 // set if EKF's predicted horizontal position (relative) estimate is good
-	EKF_PRED_POS_HORIZ_ABS = 512 // set if EKF's predicted horizontal position (absolute) estimate is good
+	EKF_ATTITUDE           = 1    // Set if EKF's attitude estimate is good
+	EKF_VELOCITY_HORIZ     = 2    // Set if EKF's horizontal velocity estimate is good
+	EKF_VELOCITY_VERT      = 4    // Set if EKF's vertical velocity estimate is good
+	EKF_POS_HORIZ_REL      = 8    // Set if EKF's horizontal position (relative) estimate is good
+	EKF_POS_HORIZ_ABS      = 16   // Set if EKF's horizontal position (absolute) estimate is good
+	EKF_POS_VERT_ABS       = 32   // Set if EKF's vertical position (absolute) estimate is good
+	EKF_POS_VERT_AGL       = 64   // Set if EKF's vertical position (above ground) estimate is good
+	EKF_CONST_POS_MODE     = 128  // EKF is in constant position mode and does not know it's absolute or relative position
+	EKF_PRED_POS_HORIZ_REL = 256  // Set if EKF's predicted horizontal position (relative) estimate is good
+	EKF_PRED_POS_HORIZ_ABS = 512  // Set if EKF's predicted horizontal position (absolute) estimate is good
+	EKF_UNINITIALIZED      = 1024 // Set if EKF has never been healthy
 )
 
 // PidTuningAxis (generated enum)
@@ -389,53 +406,176 @@ const (
 	PID_TUNING_LANDING = 6 //
 )
 
-// MagCalStatus (generated enum)
-//
-const (
-	MAG_CAL_NOT_STARTED      = 0 //
-	MAG_CAL_WAITING_TO_START = 1 //
-	MAG_CAL_RUNNING_STEP_ONE = 2 //
-	MAG_CAL_RUNNING_STEP_TWO = 3 //
-	MAG_CAL_SUCCESS          = 4 //
-	MAG_CAL_FAILED           = 5 //
-)
-
 // MavRemoteLogDataBlockCommands (generated enum)
-// Special ACK block numbers control activation of dataflash log streaming
+// Special ACK block numbers control activation of dataflash log streaming.
 const (
 	MAV_REMOTE_LOG_DATA_BLOCK_STOP  = 2147483645 // UAV to stop sending DataFlash blocks
 	MAV_REMOTE_LOG_DATA_BLOCK_START = 2147483646 // UAV to start sending DataFlash blocks
 )
 
 // MavRemoteLogDataBlockStatuses (generated enum)
-// Possible remote log data block statuses
+// Possible remote log data block statuses.
 const (
 	MAV_REMOTE_LOG_DATA_BLOCK_NACK = 0 // This block has NOT been received
 	MAV_REMOTE_LOG_DATA_BLOCK_ACK  = 1 // This block has been received
 )
 
 // DeviceOpBustype (generated enum)
-// Bus types for device operations
+// Bus types for device operations.
 const (
 	DEVICE_OP_BUSTYPE_I2C = 0 // I2C Device operation
 	DEVICE_OP_BUSTYPE_SPI = 1 // SPI Device operation
 )
 
+// DeepstallStage (generated enum)
+// Deepstall flight stage.
+const (
+	DEEPSTALL_STAGE_FLY_TO_LANDING    = 0 // Flying to the landing point
+	DEEPSTALL_STAGE_ESTIMATE_WIND     = 1 // Building an estimate of the wind
+	DEEPSTALL_STAGE_WAIT_FOR_BREAKOUT = 2 // Waiting to breakout of the loiter to fly the approach
+	DEEPSTALL_STAGE_FLY_TO_ARC        = 3 // Flying to the first arc point to turn around to the landing point
+	DEEPSTALL_STAGE_ARC               = 4 // Turning around back to the deepstall landing point
+	DEEPSTALL_STAGE_APPROACH          = 5 // Approaching the landing point
+	DEEPSTALL_STAGE_LAND              = 6 // Stalling and steering towards the land point
+)
+
+// PlaneMode (generated enum)
+// A mapping of plane flight modes for custom_mode field of heartbeat.
+const (
+	PLANE_MODE_MANUAL        = 0  //
+	PLANE_MODE_CIRCLE        = 1  //
+	PLANE_MODE_STABILIZE     = 2  //
+	PLANE_MODE_TRAINING      = 3  //
+	PLANE_MODE_ACRO          = 4  //
+	PLANE_MODE_FLY_BY_WIRE_A = 5  //
+	PLANE_MODE_FLY_BY_WIRE_B = 6  //
+	PLANE_MODE_CRUISE        = 7  //
+	PLANE_MODE_AUTOTUNE      = 8  //
+	PLANE_MODE_AUTO          = 10 //
+	PLANE_MODE_RTL           = 11 //
+	PLANE_MODE_LOITER        = 12 //
+	PLANE_MODE_TAKEOFF       = 13 //
+	PLANE_MODE_AVOID_ADSB    = 14 //
+	PLANE_MODE_GUIDED        = 15 //
+	PLANE_MODE_INITIALIZING  = 16 //
+	PLANE_MODE_QSTABILIZE    = 17 //
+	PLANE_MODE_QHOVER        = 18 //
+	PLANE_MODE_QLOITER       = 19 //
+	PLANE_MODE_QLAND         = 20 //
+	PLANE_MODE_QRTL          = 21 //
+	PLANE_MODE_QAUTOTUNE     = 22 //
+	PLANE_MODE_QACRO         = 23 //
+)
+
+// CopterMode (generated enum)
+// A mapping of copter flight modes for custom_mode field of heartbeat.
+const (
+	COPTER_MODE_STABILIZE    = 0  //
+	COPTER_MODE_ACRO         = 1  //
+	COPTER_MODE_ALT_HOLD     = 2  //
+	COPTER_MODE_AUTO         = 3  //
+	COPTER_MODE_GUIDED       = 4  //
+	COPTER_MODE_LOITER       = 5  //
+	COPTER_MODE_RTL          = 6  //
+	COPTER_MODE_CIRCLE       = 7  //
+	COPTER_MODE_LAND         = 9  //
+	COPTER_MODE_DRIFT        = 11 //
+	COPTER_MODE_SPORT        = 13 //
+	COPTER_MODE_FLIP         = 14 //
+	COPTER_MODE_AUTOTUNE     = 15 //
+	COPTER_MODE_POSHOLD      = 16 //
+	COPTER_MODE_BRAKE        = 17 //
+	COPTER_MODE_THROW        = 18 //
+	COPTER_MODE_AVOID_ADSB   = 19 //
+	COPTER_MODE_GUIDED_NOGPS = 20 //
+	COPTER_MODE_SMART_RTL    = 21 //
+	COPTER_MODE_FLOWHOLD     = 22 //
+	COPTER_MODE_FOLLOW       = 23 //
+	COPTER_MODE_ZIGZAG       = 24 //
+	COPTER_MODE_SYSTEMID     = 25 //
+	COPTER_MODE_AUTOROTATE   = 26 //
+)
+
+// SubMode (generated enum)
+// A mapping of sub flight modes for custom_mode field of heartbeat.
+const (
+	SUB_MODE_STABILIZE = 0  //
+	SUB_MODE_ACRO      = 1  //
+	SUB_MODE_ALT_HOLD  = 2  //
+	SUB_MODE_AUTO      = 3  //
+	SUB_MODE_GUIDED    = 4  //
+	SUB_MODE_CIRCLE    = 7  //
+	SUB_MODE_SURFACE   = 9  //
+	SUB_MODE_POSHOLD   = 16 //
+	SUB_MODE_MANUAL    = 19 //
+)
+
+// RoverMode (generated enum)
+// A mapping of rover flight modes for custom_mode field of heartbeat.
+const (
+	ROVER_MODE_MANUAL       = 0  //
+	ROVER_MODE_ACRO         = 1  //
+	ROVER_MODE_STEERING     = 3  //
+	ROVER_MODE_HOLD         = 4  //
+	ROVER_MODE_LOITER       = 5  //
+	ROVER_MODE_FOLLOW       = 6  //
+	ROVER_MODE_SIMPLE       = 7  //
+	ROVER_MODE_AUTO         = 10 //
+	ROVER_MODE_RTL          = 11 //
+	ROVER_MODE_SMART_RTL    = 12 //
+	ROVER_MODE_GUIDED       = 15 //
+	ROVER_MODE_INITIALIZING = 16 //
+)
+
+// TrackerMode (generated enum)
+// A mapping of antenna tracker flight modes for custom_mode field of heartbeat.
+const (
+	TRACKER_MODE_MANUAL       = 0  //
+	TRACKER_MODE_STOP         = 1  //
+	TRACKER_MODE_SCAN         = 2  //
+	TRACKER_MODE_SERVO_TEST   = 3  //
+	TRACKER_MODE_AUTO         = 10 //
+	TRACKER_MODE_INITIALIZING = 16 //
+)
+
+// OsdParamConfigType (generated enum)
+// The type of parameter for the OSD parameter editor.
+const (
+	OSD_PARAM_NONE              = 0 //
+	OSD_PARAM_SERIAL_PROTOCOL   = 1 //
+	OSD_PARAM_SERVO_FUNCTION    = 2 //
+	OSD_PARAM_AUX_FUNCTION      = 3 //
+	OSD_PARAM_FLIGHT_MODE       = 4 //
+	OSD_PARAM_FAILSAFE_ACTION   = 5 //
+	OSD_PARAM_FAILSAFE_ACTION_1 = 6 //
+	OSD_PARAM_FAILSAFE_ACTION_2 = 7 //
+	OSD_PARAM_NUM_TYPES         = 8 //
+)
+
+// OsdParamConfigError (generated enum)
+// The error type for the OSD parameter editor.
+const (
+	OSD_PARAM_SUCCESS                 = 0 //
+	OSD_PARAM_INVALID_SCREEN          = 1 //
+	OSD_PARAM_INVALID_PARAMETER_INDEX = 2 //
+	OSD_PARAM_INVALID_PARAMETER       = 3 //
+)
+
 // ArdupilotmegaSensorOffsets struct (generated typeinfo)
 // Offsets and calibrations values for hardware sensors. This makes it easier to debug the calibration process.
 type ArdupilotmegaSensorOffsets struct {
-	MagDeclination float32 // magnetic declination (radians)
-	RawPress       int32   // raw pressure from barometer
-	RawTemp        int32   // raw temperature from barometer
-	GyroCalX       float32 // gyro X calibration
-	GyroCalY       float32 // gyro Y calibration
-	GyroCalZ       float32 // gyro Z calibration
-	AccelCalX      float32 // accel X calibration
-	AccelCalY      float32 // accel Y calibration
-	AccelCalZ      float32 // accel Z calibration
-	MagOfsX        int16   // magnetometer X offset
-	MagOfsY        int16   // magnetometer Y offset
-	MagOfsZ        int16   // magnetometer Z offset
+	MagDeclination float32 // Magnetic declination.
+	RawPress       int32   // Raw pressure from barometer.
+	RawTemp        int32   // Raw temperature from barometer.
+	GyroCalX       float32 // Gyro X calibration.
+	GyroCalY       float32 // Gyro Y calibration.
+	GyroCalZ       float32 // Gyro Z calibration.
+	AccelCalX      float32 // Accel X calibration.
+	AccelCalY      float32 // Accel Y calibration.
+	AccelCalZ      float32 // Accel Z calibration.
+	MagOfsX        int16   // Magnetometer X offset.
+	MagOfsY        int16   // Magnetometer Y offset.
+	MagOfsZ        int16   // Magnetometer Z offset.
 }
 
 // Dialect (generated function)
@@ -495,13 +635,13 @@ func (m *ArdupilotmegaSensorOffsets) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaSetMagOffsets struct (generated typeinfo)
-// Deprecated. Use MAV_CMD_PREFLIGHT_SET_SENSOR_OFFSETS instead. Set the magnetometer offsets
+// Set the magnetometer offsets
 type ArdupilotmegaSetMagOffsets struct {
-	MagOfsX         int16 // magnetometer X offset
-	MagOfsY         int16 // magnetometer Y offset
-	MagOfsZ         int16 // magnetometer Z offset
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
+	MagOfsX         int16 // Magnetometer X offset.
+	MagOfsY         int16 // Magnetometer Y offset.
+	MagOfsZ         int16 // Magnetometer Z offset.
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
 }
 
 // Dialect (generated function)
@@ -547,10 +687,10 @@ func (m *ArdupilotmegaSetMagOffsets) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaMeminfo struct (generated typeinfo)
-// state of APM memory
+// State of APM memory.
 type ArdupilotmegaMeminfo struct {
-	Brkval  uint16 // heap top
-	Freemem uint16 // free memory
+	Brkval  uint16 // Heap top.
+	Freemem uint16 // Free memory.
 }
 
 // Dialect (generated function)
@@ -590,14 +730,14 @@ func (m *ArdupilotmegaMeminfo) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaApAdc struct (generated typeinfo)
-// raw ADC output
+// Raw ADC output.
 type ArdupilotmegaApAdc struct {
-	Adc1 uint16 // ADC output 1
-	Adc2 uint16 // ADC output 2
-	Adc3 uint16 // ADC output 3
-	Adc4 uint16 // ADC output 4
-	Adc5 uint16 // ADC output 5
-	Adc6 uint16 // ADC output 6
+	Adc1 uint16 // ADC output 1.
+	Adc2 uint16 // ADC output 2.
+	Adc3 uint16 // ADC output 3.
+	Adc4 uint16 // ADC output 4.
+	Adc5 uint16 // ADC output 5.
+	Adc6 uint16 // ADC output 6.
 }
 
 // Dialect (generated function)
@@ -647,17 +787,17 @@ func (m *ArdupilotmegaApAdc) Unpack(p *Packet) error {
 // ArdupilotmegaDigicamConfigure struct (generated typeinfo)
 // Configure on-board Camera Control System.
 type ArdupilotmegaDigicamConfigure struct {
-	ExtraValue      float32 // Correspondent value to given extra_param
-	ShutterSpeed    uint16  // Divisor number //e.g. 1000 means 1/1000 (0 means ignore)
-	TargetSystem    uint8   // System ID
-	TargetComponent uint8   // Component ID
-	Mode            uint8   // Mode enumeration from 1 to N //P, TV, AV, M, Etc (0 means ignore)
-	Aperture        uint8   // F stop number x 10 //e.g. 28 means 2.8 (0 means ignore)
-	Iso             uint8   // ISO enumeration from 1 to N //e.g. 80, 100, 200, Etc (0 means ignore)
-	ExposureType    uint8   // Exposure type enumeration from 1 to N (0 means ignore)
-	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
-	EngineCutOff    uint8   // Main engine cut-off time before camera trigger in seconds/10 (0 means no cut-off)
-	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
+	ExtraValue      float32 // Correspondent value to given extra_param.
+	ShutterSpeed    uint16  // Divisor number //e.g. 1000 means 1/1000 (0 means ignore).
+	TargetSystem    uint8   // System ID.
+	TargetComponent uint8   // Component ID.
+	Mode            uint8   // Mode enumeration from 1 to N //P, TV, AV, M, etc. (0 means ignore).
+	Aperture        uint8   // F stop number x 10 //e.g. 28 means 2.8 (0 means ignore).
+	Iso             uint8   // ISO enumeration from 1 to N //e.g. 80, 100, 200, Etc (0 means ignore).
+	ExposureType    uint8   // Exposure type enumeration from 1 to N (0 means ignore).
+	CommandID       uint8   // Command Identity (incremental loop: 0 to 255). //A command sent multiple times will be executed or pooled just once.
+	EngineCutOff    uint8   // Main engine cut-off time before camera trigger (0 means no cut-off).
+	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore).
 }
 
 // Dialect (generated function)
@@ -717,16 +857,16 @@ func (m *ArdupilotmegaDigicamConfigure) Unpack(p *Packet) error {
 // ArdupilotmegaDigicamControl struct (generated typeinfo)
 // Control on-board Camera Control System to take shots.
 type ArdupilotmegaDigicamControl struct {
-	ExtraValue      float32 // Correspondent value to given extra_param
-	TargetSystem    uint8   // System ID
-	TargetComponent uint8   // Component ID
-	Session         uint8   // 0: stop, 1: start or keep it up //Session control e.g. show/hide lens
-	ZoomPos         uint8   // 1 to N //Zoom's absolute position (0 means ignore)
-	ZoomStep        int8    // -100 to 100 //Zooming step value to offset zoom from the current position
-	FocusLock       uint8   // 0: unlock focus or keep unlocked, 1: lock focus or keep locked, 3: re-lock focus
-	Shot            uint8   // 0: ignore, 1: shot or start filming
-	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once
-	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore)
+	ExtraValue      float32 // Correspondent value to given extra_param.
+	TargetSystem    uint8   // System ID.
+	TargetComponent uint8   // Component ID.
+	Session         uint8   // 0: stop, 1: start or keep it up //Session control e.g. show/hide lens.
+	ZoomPos         uint8   // 1 to N //Zoom's absolute position (0 means ignore).
+	ZoomStep        int8    // -100 to 100 //Zooming step value to offset zoom from the current position.
+	FocusLock       uint8   // 0: unlock focus or keep unlocked, 1: lock focus or keep locked, 3: re-lock focus.
+	Shot            uint8   // 0: ignore, 1: shot or start filming.
+	CommandID       uint8   // Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once.
+	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore).
 }
 
 // Dialect (generated function)
@@ -784,12 +924,12 @@ func (m *ArdupilotmegaDigicamControl) Unpack(p *Packet) error {
 // ArdupilotmegaMountConfigure struct (generated typeinfo)
 // Message to configure a camera mount, directional antenna, etc.
 type ArdupilotmegaMountConfigure struct {
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
-	MountMode       uint8 // mount operating mode (see MAV_MOUNT_MODE enum)
-	StabRoll        uint8 // (1 = yes, 0 = no)
-	StabPitch       uint8 // (1 = yes, 0 = no)
-	StabYaw         uint8 // (1 = yes, 0 = no)
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
+	MountMode       uint8 // Mount operating mode.
+	StabRoll        uint8 // (1 = yes, 0 = no).
+	StabPitch       uint8 // (1 = yes, 0 = no).
+	StabYaw         uint8 // (1 = yes, 0 = no).
 }
 
 // Dialect (generated function)
@@ -839,12 +979,12 @@ func (m *ArdupilotmegaMountConfigure) Unpack(p *Packet) error {
 // ArdupilotmegaMountControl struct (generated typeinfo)
 // Message to control a camera mount, directional antenna, etc.
 type ArdupilotmegaMountControl struct {
-	InputA          int32 // pitch(deg*100) or lat, depending on mount mode
-	InputB          int32 // roll(deg*100) or lon depending on mount mode
-	InputC          int32 // yaw(deg*100) or alt (in cm) depending on mount mode
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
-	SavePosition    uint8 // if "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING)
+	InputA          int32 // Pitch (centi-degrees) or lat (degE7), depending on mount mode.
+	InputB          int32 // Roll (centi-degrees) or lon (degE7) depending on mount mode.
+	InputC          int32 // Yaw (centi-degrees) or alt (cm) depending on mount mode.
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
+	SavePosition    uint8 // If "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING).
 }
 
 // Dialect (generated function)
@@ -892,13 +1032,13 @@ func (m *ArdupilotmegaMountControl) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaMountStatus struct (generated typeinfo)
-// Message with some status from APM to GCS about camera or antenna mount
+// Message with some status from APM to GCS about camera or antenna mount.
 type ArdupilotmegaMountStatus struct {
-	PointingA       int32 // pitch(deg*100)
-	PointingB       int32 // roll(deg*100)
-	PointingC       int32 // yaw(deg*100)
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
+	PointingA       int32 // Pitch.
+	PointingB       int32 // Roll.
+	PointingC       int32 // Yaw.
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
 }
 
 // Dialect (generated function)
@@ -944,14 +1084,14 @@ func (m *ArdupilotmegaMountStatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaFencePoint struct (generated typeinfo)
-// A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
+// A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
 type ArdupilotmegaFencePoint struct {
-	Lat             float32 // Latitude of point
-	Lng             float32 // Longitude of point
-	TargetSystem    uint8   // System ID
-	TargetComponent uint8   // Component ID
-	Idx             uint8   // point index (first point is 1, 0 is for return point)
-	Count           uint8   // total number of points (for sanity checking)
+	Lat             float32 // Latitude of point.
+	Lng             float32 // Longitude of point.
+	TargetSystem    uint8   // System ID.
+	TargetComponent uint8   // Component ID.
+	Idx             uint8   // Point index (first point is 1, 0 is for return point).
+	Count           uint8   // Total number of points (for sanity checking).
 }
 
 // Dialect (generated function)
@@ -999,11 +1139,11 @@ func (m *ArdupilotmegaFencePoint) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaFenceFetchPoint struct (generated typeinfo)
-// Request a current fence point from MAV
+// Request a current fence point from MAV.
 type ArdupilotmegaFenceFetchPoint struct {
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
-	Idx             uint8 // point index (first point is 1, 0 is for return point)
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
+	Idx             uint8 // Point index (first point is 1, 0 is for return point).
 }
 
 // Dialect (generated function)
@@ -1044,65 +1184,16 @@ func (m *ArdupilotmegaFenceFetchPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaFenceStatus struct (generated typeinfo)
-// Status of geo-fencing. Sent in extended status stream when fencing enabled
-type ArdupilotmegaFenceStatus struct {
-	BreachTime   uint32 // time of last breach in milliseconds since boot
-	BreachCount  uint16 // number of fence breaches
-	BreachStatus uint8  // 0 if currently inside fence, 1 if outside
-	BreachType   uint8  // last breach type (see FENCE_BREACH_* enum)
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaFenceStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
-// MsgID (generated function)
-func (m *ArdupilotmegaFenceStatus) MsgID() MessageID {
-	return MSG_ID_FENCE_STATUS
-}
-
-// MsgName (generated function)
-func (m *ArdupilotmegaFenceStatus) MsgName() string {
-	return "FenceStatus"
-}
-
-// Pack (generated function)
-func (m *ArdupilotmegaFenceStatus) Pack(p *Packet) error {
-	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint32(payload[0:], uint32(m.BreachTime))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(m.BreachCount))
-	payload[6] = byte(m.BreachStatus)
-	payload[7] = byte(m.BreachType)
-	p.MsgID = m.MsgID()
-	p.Payload = payload
-	return nil
-}
-
-// Unpack (generated function)
-func (m *ArdupilotmegaFenceStatus) Unpack(p *Packet) error {
-	payload := p.Payload[:]
-	if len(p.Payload) < 8 {
-		return errPayloadTooSmall
-	}
-	m.BreachTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
-	m.BreachCount = uint16(binary.LittleEndian.Uint16(payload[4:]))
-	m.BreachStatus = uint8(payload[6])
-	m.BreachType = uint8(payload[7])
-	return nil
-}
-
 // ArdupilotmegaAhrs struct (generated typeinfo)
-// Status of DCM attitude estimator
+// Status of DCM attitude estimator.
 type ArdupilotmegaAhrs struct {
-	Omegaix     float32 // X gyro drift estimate rad/s
-	Omegaiy     float32 // Y gyro drift estimate rad/s
-	Omegaiz     float32 // Z gyro drift estimate rad/s
-	AccelWeight float32 // average accel_weight
-	RenormVal   float32 // average renormalisation value
-	ErrorRp     float32 // average error_roll_pitch value
-	ErrorYaw    float32 // average error_yaw value
+	Omegaix     float32 // X gyro drift estimate.
+	Omegaiy     float32 // Y gyro drift estimate.
+	Omegaiz     float32 // Z gyro drift estimate.
+	AccelWeight float32 // Average accel_weight.
+	RenormVal   float32 // Average renormalisation value.
+	ErrorRp     float32 // Average error_roll_pitch value.
+	ErrorYaw    float32 // Average error_yaw value.
 }
 
 // Dialect (generated function)
@@ -1152,19 +1243,19 @@ func (m *ArdupilotmegaAhrs) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaSimstate struct (generated typeinfo)
-// Status of simulation environment, if used
+// Status of simulation environment, if used.
 type ArdupilotmegaSimstate struct {
-	Roll  float32 // Roll angle (rad)
-	Pitch float32 // Pitch angle (rad)
-	Yaw   float32 // Yaw angle (rad)
-	Xacc  float32 // X acceleration m/s/s
-	Yacc  float32 // Y acceleration m/s/s
-	Zacc  float32 // Z acceleration m/s/s
-	Xgyro float32 // Angular speed around X axis rad/s
-	Ygyro float32 // Angular speed around Y axis rad/s
-	Zgyro float32 // Angular speed around Z axis rad/s
-	Lat   int32   // Latitude in degrees * 1E7
-	Lng   int32   // Longitude in degrees * 1E7
+	Roll  float32 // Roll angle.
+	Pitch float32 // Pitch angle.
+	Yaw   float32 // Yaw angle.
+	Xacc  float32 // X acceleration.
+	Yacc  float32 // Y acceleration.
+	Zacc  float32 // Z acceleration.
+	Xgyro float32 // Angular speed around X axis.
+	Ygyro float32 // Angular speed around Y axis.
+	Zgyro float32 // Angular speed around Z axis.
+	Lat   int32   // Latitude.
+	Lng   int32   // Longitude.
 }
 
 // Dialect (generated function)
@@ -1222,10 +1313,10 @@ func (m *ArdupilotmegaSimstate) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaHwstatus struct (generated typeinfo)
-// Status of key hardware
+// Status of key hardware.
 type ArdupilotmegaHwstatus struct {
-	Vcc    uint16 // board voltage (mV)
-	I2cerr uint8  // I2C error count
+	Vcc    uint16 // Board voltage.
+	I2cerr uint8  // I2C error count.
 }
 
 // Dialect (generated function)
@@ -1265,15 +1356,15 @@ func (m *ArdupilotmegaHwstatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRadio struct (generated typeinfo)
-// Status generated by radio
+// Status generated by radio.
 type ArdupilotmegaRadio struct {
-	Rxerrors uint16 // receive errors
-	Fixed    uint16 // count of error corrected packets
-	Rssi     uint8  // local signal strength
-	Remrssi  uint8  // remote signal strength
-	Txbuf    uint8  // how full the tx buffer is as a percentage
-	Noise    uint8  // background noise level
-	Remnoise uint8  // remote background noise level
+	Rxerrors uint16 // Receive errors.
+	Fixed    uint16 // Count of error corrected packets.
+	Rssi     uint8  // Local signal strength.
+	Remrssi  uint8  // Remote signal strength.
+	Txbuf    uint8  // How full the tx buffer is.
+	Noise    uint8  // Background noise level.
+	Remnoise uint8  // Remote background noise level.
 }
 
 // Dialect (generated function)
@@ -1323,17 +1414,17 @@ func (m *ArdupilotmegaRadio) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaLimitsStatus struct (generated typeinfo)
-// Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled
+// Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled.
 type ArdupilotmegaLimitsStatus struct {
-	LastTrigger   uint32 // time of last breach in milliseconds since boot
-	LastAction    uint32 // time of last recovery action in milliseconds since boot
-	LastRecovery  uint32 // time of last successful recovery in milliseconds since boot
-	LastClear     uint32 // time of last all-clear in milliseconds since boot
-	BreachCount   uint16 // number of fence breaches
-	LimitsState   uint8  // state of AP_Limits, (see enum LimitState, LIMITS_STATE)
-	ModsEnabled   uint8  // AP_Limit_Module bitfield of enabled modules, (see enum moduleid or LIMIT_MODULE)
-	ModsRequired  uint8  // AP_Limit_Module bitfield of required modules, (see enum moduleid or LIMIT_MODULE)
-	ModsTriggered uint8  // AP_Limit_Module bitfield of triggered modules, (see enum moduleid or LIMIT_MODULE)
+	LastTrigger   uint32 // Time (since boot) of last breach.
+	LastAction    uint32 // Time (since boot) of last recovery action.
+	LastRecovery  uint32 // Time (since boot) of last successful recovery.
+	LastClear     uint32 // Time (since boot) of last all-clear.
+	BreachCount   uint16 // Number of fence breaches.
+	LimitsState   uint8  // State of AP_Limits.
+	ModsEnabled   uint8  // AP_Limit_Module bitfield of enabled modules.
+	ModsRequired  uint8  // AP_Limit_Module bitfield of required modules.
+	ModsTriggered uint8  // AP_Limit_Module bitfield of triggered modules.
 }
 
 // Dialect (generated function)
@@ -1387,11 +1478,11 @@ func (m *ArdupilotmegaLimitsStatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaWind struct (generated typeinfo)
-// Wind estimation
+// Wind estimation.
 type ArdupilotmegaWind struct {
-	Direction float32 // wind direction that wind is coming from (degrees)
-	Speed     float32 // wind speed in ground plane (m/s)
-	SpeedZ    float32 // vertical wind speed (m/s)
+	Direction float32 // Wind direction (that wind is coming from).
+	Speed     float32 // Wind speed in ground plane.
+	SpeedZ    float32 // Vertical wind speed.
 }
 
 // Dialect (generated function)
@@ -1433,11 +1524,11 @@ func (m *ArdupilotmegaWind) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaData16 struct (generated typeinfo)
-// Data packet, size 16
+// Data packet, size 16.
 type ArdupilotmegaData16 struct {
-	Type uint8     // data type
-	Len  uint8     // data length
-	Data [16]uint8 // raw data
+	Type uint8     // Data type.
+	Len  uint8     // Data length.
+	Data [16]uint8 // Raw data.
 }
 
 // Dialect (generated function)
@@ -1479,11 +1570,11 @@ func (m *ArdupilotmegaData16) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaData32 struct (generated typeinfo)
-// Data packet, size 32
+// Data packet, size 32.
 type ArdupilotmegaData32 struct {
-	Type uint8     // data type
-	Len  uint8     // data length
-	Data [32]uint8 // raw data
+	Type uint8     // Data type.
+	Len  uint8     // Data length.
+	Data [32]uint8 // Raw data.
 }
 
 // Dialect (generated function)
@@ -1525,11 +1616,11 @@ func (m *ArdupilotmegaData32) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaData64 struct (generated typeinfo)
-// Data packet, size 64
+// Data packet, size 64.
 type ArdupilotmegaData64 struct {
-	Type uint8     // data type
-	Len  uint8     // data length
-	Data [64]uint8 // raw data
+	Type uint8     // Data type.
+	Len  uint8     // Data length.
+	Data [64]uint8 // Raw data.
 }
 
 // Dialect (generated function)
@@ -1571,11 +1662,11 @@ func (m *ArdupilotmegaData64) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaData96 struct (generated typeinfo)
-// Data packet, size 96
+// Data packet, size 96.
 type ArdupilotmegaData96 struct {
-	Type uint8     // data type
-	Len  uint8     // data length
-	Data [96]uint8 // raw data
+	Type uint8     // Data type.
+	Len  uint8     // Data length.
+	Data [96]uint8 // Raw data.
 }
 
 // Dialect (generated function)
@@ -1617,10 +1708,10 @@ func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRangefinder struct (generated typeinfo)
-// Rangefinder reporting
+// Rangefinder reporting.
 type ArdupilotmegaRangefinder struct {
-	Distance float32 // distance in meters
-	Voltage  float32 // raw voltage if available, zero otherwise
+	Distance float32 // Distance.
+	Voltage  float32 // Raw voltage if available, zero otherwise.
 }
 
 // Dialect (generated function)
@@ -1660,20 +1751,20 @@ func (m *ArdupilotmegaRangefinder) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaAirspeedAutocal struct (generated typeinfo)
-// Airspeed auto-calibration
+// Airspeed auto-calibration.
 type ArdupilotmegaAirspeedAutocal struct {
-	Vx           float32 // GPS velocity north m/s
-	Vy           float32 // GPS velocity east m/s
-	Vz           float32 // GPS velocity down m/s
-	DiffPressure float32 // Differential pressure pascals
-	Eas2tas      float32 // Estimated to true airspeed ratio
-	Ratio        float32 // Airspeed ratio
-	StateX       float32 // EKF state x
-	StateY       float32 // EKF state y
-	StateZ       float32 // EKF state z
-	Pax          float32 // EKF Pax
-	Pby          float32 // EKF Pby
-	Pcz          float32 // EKF Pcz
+	Vx           float32 // GPS velocity north.
+	Vy           float32 // GPS velocity east.
+	Vz           float32 // GPS velocity down.
+	DiffPressure float32 // Differential pressure.
+	Eas2tas      float32 // Estimated to true airspeed ratio.
+	Ratio        float32 // Airspeed ratio.
+	StateX       float32 // EKF state x.
+	StateY       float32 // EKF state y.
+	StateZ       float32 // EKF state z.
+	Pax          float32 // EKF Pax.
+	Pby          float32 // EKF Pby.
+	Pcz          float32 // EKF Pcz.
 }
 
 // Dialect (generated function)
@@ -1733,18 +1824,18 @@ func (m *ArdupilotmegaAirspeedAutocal) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRallyPoint struct (generated typeinfo)
-// A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS
+// A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
 type ArdupilotmegaRallyPoint struct {
-	Lat             int32  // Latitude of point in degrees * 1E7
-	Lng             int32  // Longitude of point in degrees * 1E7
-	Alt             int16  // Transit / loiter altitude in meters relative to home
-	BreakAlt        int16  // Break altitude in meters relative to home
-	LandDir         uint16 // Heading to aim for when landing. In centi-degrees.
-	TargetSystem    uint8  // System ID
-	TargetComponent uint8  // Component ID
-	Idx             uint8  // point index (first point is 0)
-	Count           uint8  // total number of points (for sanity checking)
-	Flags           uint8  // See RALLY_FLAGS enum for definition of the bitmask.
+	Lat             int32  // Latitude of point.
+	Lng             int32  // Longitude of point.
+	Alt             int16  // Transit / loiter altitude relative to home.
+	BreakAlt        int16  // Break altitude relative to home.
+	LandDir         uint16 // Heading to aim for when landing.
+	TargetSystem    uint8  // System ID.
+	TargetComponent uint8  // Component ID.
+	Idx             uint8  // Point index (first point is 0).
+	Count           uint8  // Total number of points (for sanity checking).
+	Flags           uint8  // Configuration flags.
 }
 
 // Dialect (generated function)
@@ -1802,9 +1893,9 @@ func (m *ArdupilotmegaRallyPoint) Unpack(p *Packet) error {
 // ArdupilotmegaRallyFetchPoint struct (generated typeinfo)
 // Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.
 type ArdupilotmegaRallyFetchPoint struct {
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
-	Idx             uint8 // point index (first point is 0)
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
+	Idx             uint8 // Point index (first point is 0).
 }
 
 // Dialect (generated function)
@@ -1846,14 +1937,14 @@ func (m *ArdupilotmegaRallyFetchPoint) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaCompassmotStatus struct (generated typeinfo)
-// Status of compassmot calibration
+// Status of compassmot calibration.
 type ArdupilotmegaCompassmotStatus struct {
-	Current       float32 // current (Ampere)
-	Compensationx float32 // Motor Compensation X
-	Compensationy float32 // Motor Compensation Y
-	Compensationz float32 // Motor Compensation Z
-	Throttle      uint16  // throttle (percent*10)
-	Interference  uint16  // interference (percent)
+	Current       float32 // Current.
+	Compensationx float32 // Motor Compensation X.
+	Compensationy float32 // Motor Compensation Y.
+	Compensationz float32 // Motor Compensation Z.
+	Throttle      uint16  // Throttle.
+	Interference  uint16  // Interference.
 }
 
 // Dialect (generated function)
@@ -1901,14 +1992,14 @@ func (m *ArdupilotmegaCompassmotStatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaAhrs2 struct (generated typeinfo)
-// Status of secondary AHRS filter if available
+// Status of secondary AHRS filter if available.
 type ArdupilotmegaAhrs2 struct {
-	Roll     float32 // Roll angle (rad)
-	Pitch    float32 // Pitch angle (rad)
-	Yaw      float32 // Yaw angle (rad)
-	Altitude float32 // Altitude (MSL)
-	Lat      int32   // Latitude in degrees * 1E7
-	Lng      int32   // Longitude in degrees * 1E7
+	Roll     float32 // Roll angle.
+	Pitch    float32 // Pitch angle.
+	Yaw      float32 // Yaw angle.
+	Altitude float32 // Altitude (MSL).
+	Lat      int32   // Latitude.
+	Lng      int32   // Longitude.
 }
 
 // Dialect (generated function)
@@ -1956,17 +2047,17 @@ func (m *ArdupilotmegaAhrs2) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaCameraStatus struct (generated typeinfo)
-// Camera Event
+// Camera Event.
 type ArdupilotmegaCameraStatus struct {
-	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch, according to camera clock)
-	P1           float32 // Parameter 1 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
-	P2           float32 // Parameter 2 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
-	P3           float32 // Parameter 3 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
-	P4           float32 // Parameter 4 (meaning depends on event, see CAMERA_STATUS_TYPES enum)
-	ImgIdx       uint16  // Image index
-	TargetSystem uint8   // System ID
-	CamIdx       uint8   // Camera ID
-	EventID      uint8   // See CAMERA_STATUS_TYPES enum for definition of the bitmask
+	TimeUsec     uint64  // Image timestamp (since UNIX epoch, according to camera clock).
+	P1           float32 // Parameter 1 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
+	P2           float32 // Parameter 2 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
+	P3           float32 // Parameter 3 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
+	P4           float32 // Parameter 4 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
+	ImgIdx       uint16  // Image index.
+	TargetSystem uint8   // System ID.
+	CamIdx       uint8   // Camera ID.
+	EventID      uint8   // Event type.
 }
 
 // Dialect (generated function)
@@ -2020,21 +2111,21 @@ func (m *ArdupilotmegaCameraStatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaCameraFeedback struct (generated typeinfo)
-// Camera Capture Feedback
+// Camera Capture Feedback.
 type ArdupilotmegaCameraFeedback struct {
-	TimeUsec     uint64  // Image timestamp (microseconds since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB)
-	Lat          int32   // Latitude in (deg * 1E7)
-	Lng          int32   // Longitude in (deg * 1E7)
-	AltMsl       float32 // Altitude Absolute (meters AMSL)
-	AltRel       float32 // Altitude Relative (meters above HOME location)
-	Roll         float32 // Camera Roll angle (earth frame, degrees, +-180)
-	Pitch        float32 // Camera Pitch angle (earth frame, degrees, +-180)
-	Yaw          float32 // Camera Yaw (earth frame, degrees, 0-360, true)
-	FocLen       float32 // Focal Length (mm)
-	ImgIdx       uint16  // Image index
-	TargetSystem uint8   // System ID
-	CamIdx       uint8   // Camera ID
-	Flags        uint8   // See CAMERA_FEEDBACK_FLAGS enum for definition of the bitmask
+	TimeUsec     uint64  // Image timestamp (since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB).
+	Lat          int32   // Latitude.
+	Lng          int32   // Longitude.
+	AltMsl       float32 // Altitude (MSL).
+	AltRel       float32 // Altitude (Relative to HOME location).
+	Roll         float32 // Camera Roll angle (earth frame, +-180).
+	Pitch        float32 // Camera Pitch angle (earth frame, +-180).
+	Yaw          float32 // Camera Yaw (earth frame, 0-360, true).
+	FocLen       float32 // Focal Length.
+	ImgIdx       uint16  // Image index.
+	TargetSystem uint8   // System ID.
+	CamIdx       uint8   // Camera ID.
+	Flags        uint8   // Feedback flags.
 }
 
 // Dialect (generated function)
@@ -2098,8 +2189,8 @@ func (m *ArdupilotmegaCameraFeedback) Unpack(p *Packet) error {
 // ArdupilotmegaBattery2 struct (generated typeinfo)
 // 2nd Battery status
 type ArdupilotmegaBattery2 struct {
-	Voltage        uint16 // voltage in millivolts
-	CurrentBattery int16  // Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current
+	Voltage        uint16 // Voltage.
+	CurrentBattery int16  // Battery current, -1: autopilot does not measure the current.
 }
 
 // Dialect (generated function)
@@ -2139,18 +2230,18 @@ func (m *ArdupilotmegaBattery2) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaAhrs3 struct (generated typeinfo)
-// Status of third AHRS filter if available. This is for ANU research group (Ali and Sean)
+// Status of third AHRS filter if available. This is for ANU research group (Ali and Sean).
 type ArdupilotmegaAhrs3 struct {
-	Roll     float32 // Roll angle (rad)
-	Pitch    float32 // Pitch angle (rad)
-	Yaw      float32 // Yaw angle (rad)
-	Altitude float32 // Altitude (MSL)
-	Lat      int32   // Latitude in degrees * 1E7
-	Lng      int32   // Longitude in degrees * 1E7
-	V1       float32 // test variable1
-	V2       float32 // test variable2
-	V3       float32 // test variable3
-	V4       float32 // test variable4
+	Roll     float32 // Roll angle.
+	Pitch    float32 // Pitch angle.
+	Yaw      float32 // Yaw angle.
+	Altitude float32 // Altitude (MSL).
+	Lat      int32   // Latitude.
+	Lng      int32   // Longitude.
+	V1       float32 // Test variable1.
+	V2       float32 // Test variable2.
+	V3       float32 // Test variable3.
+	V4       float32 // Test variable4.
 }
 
 // Dialect (generated function)
@@ -2208,8 +2299,8 @@ func (m *ArdupilotmegaAhrs3) Unpack(p *Packet) error {
 // ArdupilotmegaAutopilotVersionRequest struct (generated typeinfo)
 // Request the autopilot version from the system/component.
 type ArdupilotmegaAutopilotVersionRequest struct {
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
 }
 
 // Dialect (generated function)
@@ -2249,12 +2340,12 @@ func (m *ArdupilotmegaAutopilotVersionRequest) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRemoteLogDataBlock struct (generated typeinfo)
-// Send a block of log data to remote location
+// Send a block of log data to remote location.
 type ArdupilotmegaRemoteLogDataBlock struct {
-	Seqno           uint32     // log data block sequence number
-	TargetSystem    uint8      // System ID
-	TargetComponent uint8      // Component ID
-	Data            [200]uint8 // log data block
+	Seqno           uint32     // Log data block sequence number.
+	TargetSystem    uint8      // System ID.
+	TargetComponent uint8      // Component ID.
+	Data            [200]uint8 // Log data block.
 }
 
 // Dialect (generated function)
@@ -2298,12 +2389,12 @@ func (m *ArdupilotmegaRemoteLogDataBlock) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRemoteLogBlockStatus struct (generated typeinfo)
-// Send Status of each log block that autopilot board might have sent
+// Send Status of each log block that autopilot board might have sent.
 type ArdupilotmegaRemoteLogBlockStatus struct {
-	Seqno           uint32 // log data block sequence number
-	TargetSystem    uint8  // System ID
-	TargetComponent uint8  // Component ID
-	Status          uint8  // log data block status
+	Seqno           uint32 // Log data block sequence number.
+	TargetSystem    uint8  // System ID.
+	TargetComponent uint8  // Component ID.
+	Status          uint8  // Log data block status.
 }
 
 // Dialect (generated function)
@@ -2347,14 +2438,14 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaLedControl struct (generated typeinfo)
-// Control vehicle LEDs
+// Control vehicle LEDs.
 type ArdupilotmegaLedControl struct {
-	TargetSystem    uint8     // System ID
-	TargetComponent uint8     // Component ID
-	Instance        uint8     // Instance (LED instance to control or 255 for all LEDs)
-	Pattern         uint8     // Pattern (see LED_PATTERN_ENUM)
-	CustomLen       uint8     // Custom Byte Length
-	CustomBytes     [24]uint8 // Custom Bytes
+	TargetSystem    uint8     // System ID.
+	TargetComponent uint8     // Component ID.
+	Instance        uint8     // Instance (LED instance to control or 255 for all LEDs).
+	Pattern         uint8     // Pattern (see LED_PATTERN_ENUM).
+	CustomLen       uint8     // Custom Byte Length.
+	CustomBytes     [24]uint8 // Custom Bytes.
 }
 
 // Dialect (generated function)
@@ -2404,15 +2495,15 @@ func (m *ArdupilotmegaLedControl) Unpack(p *Packet) error {
 // ArdupilotmegaMagCalProgress struct (generated typeinfo)
 // Reports progress of compass calibration.
 type ArdupilotmegaMagCalProgress struct {
-	DirectionX     float32   // Body frame direction vector for display
-	DirectionY     float32   // Body frame direction vector for display
-	DirectionZ     float32   // Body frame direction vector for display
-	CompassID      uint8     // Compass being calibrated
-	CalMask        uint8     // Bitmask of compasses being calibrated
-	CalStatus      uint8     // Status (see MAG_CAL_STATUS enum)
-	Attempt        uint8     // Attempt number
-	CompletionPct  uint8     // Completion percentage
-	CompletionMask [10]uint8 // Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid)
+	DirectionX     float32   // Body frame direction vector for display.
+	DirectionY     float32   // Body frame direction vector for display.
+	DirectionZ     float32   // Body frame direction vector for display.
+	CompassID      uint8     // Compass being calibrated.
+	CalMask        uint8     // Bitmask of compasses being calibrated.
+	CalStatus      uint8     // Calibration Status.
+	Attempt        uint8     // Attempt number.
+	CompletionPct  uint8     // Completion percentage.
+	CompletionMask [10]uint8 // Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid).
 }
 
 // Dialect (generated function)
@@ -2465,94 +2556,15 @@ func (m *ArdupilotmegaMagCalProgress) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMagCalReport struct (generated typeinfo)
-// Reports results of completed compass calibration. Sent until MAG_CAL_ACK received.
-type ArdupilotmegaMagCalReport struct {
-	Fitness   float32 // RMS milligauss residuals
-	OfsX      float32 // X offset
-	OfsY      float32 // Y offset
-	OfsZ      float32 // Z offset
-	DiagX     float32 // X diagonal (matrix 11)
-	DiagY     float32 // Y diagonal (matrix 22)
-	DiagZ     float32 // Z diagonal (matrix 33)
-	OffdiagX  float32 // X off-diagonal (matrix 12 and 21)
-	OffdiagY  float32 // Y off-diagonal (matrix 13 and 31)
-	OffdiagZ  float32 // Z off-diagonal (matrix 32 and 23)
-	CompassID uint8   // Compass being calibrated
-	CalMask   uint8   // Bitmask of compasses being calibrated
-	CalStatus uint8   // Status (see MAG_CAL_STATUS enum)
-	Autosaved uint8   // 0=requires a MAV_CMD_DO_ACCEPT_MAG_CAL, 1=saved to parameters
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMagCalReport) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
-// MsgID (generated function)
-func (m *ArdupilotmegaMagCalReport) MsgID() MessageID {
-	return MSG_ID_MAG_CAL_REPORT
-}
-
-// MsgName (generated function)
-func (m *ArdupilotmegaMagCalReport) MsgName() string {
-	return "MagCalReport"
-}
-
-// Pack (generated function)
-func (m *ArdupilotmegaMagCalReport) Pack(p *Packet) error {
-	payload := make([]byte, 44)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Fitness))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.OfsX))
-	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.OfsY))
-	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.OfsZ))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.DiagX))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.DiagY))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.DiagZ))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.OffdiagX))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.OffdiagY))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.OffdiagZ))
-	payload[40] = byte(m.CompassID)
-	payload[41] = byte(m.CalMask)
-	payload[42] = byte(m.CalStatus)
-	payload[43] = byte(m.Autosaved)
-	p.MsgID = m.MsgID()
-	p.Payload = payload
-	return nil
-}
-
-// Unpack (generated function)
-func (m *ArdupilotmegaMagCalReport) Unpack(p *Packet) error {
-	payload := p.Payload[:]
-	if len(p.Payload) < 44 {
-		return errPayloadTooSmall
-	}
-	m.Fitness = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
-	m.OfsX = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
-	m.OfsY = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
-	m.OfsZ = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
-	m.DiagX = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
-	m.DiagY = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
-	m.DiagZ = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
-	m.OffdiagX = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
-	m.OffdiagY = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
-	m.OffdiagZ = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
-	m.CompassID = uint8(payload[40])
-	m.CalMask = uint8(payload[41])
-	m.CalStatus = uint8(payload[42])
-	m.Autosaved = uint8(payload[43])
-	return nil
-}
-
 // ArdupilotmegaEkfStatusReport struct (generated typeinfo)
-// EKF Status message including flags and variances
+// EKF Status message including flags and variances.
 type ArdupilotmegaEkfStatusReport struct {
-	VelocityVariance   float32 // Velocity variance
-	PosHorizVariance   float32 // Horizontal Position variance
-	PosVertVariance    float32 // Vertical Position variance
-	CompassVariance    float32 // Compass variance
-	TerrainAltVariance float32 // Terrain Altitude variance
-	Flags              uint16  // Flags
+	VelocityVariance   float32 // Velocity variance.
+	PosHorizVariance   float32 // Horizontal Position variance.
+	PosVertVariance    float32 // Vertical Position variance.
+	CompassVariance    float32 // Compass variance.
+	TerrainAltVariance float32 // Terrain Altitude variance.
+	Flags              uint16  // Flags.
 }
 
 // Dialect (generated function)
@@ -2600,15 +2612,15 @@ func (m *ArdupilotmegaEkfStatusReport) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaPidTuning struct (generated typeinfo)
-// PID tuning information
+// PID tuning information.
 type ArdupilotmegaPidTuning struct {
-	Desired  float32 // desired rate (degrees/s)
-	Achieved float32 // achieved rate (degrees/s)
-	Ff       float32 // FF component
-	P        float32 // P component
-	I        float32 // I component
-	D        float32 // D component
-	Axis     uint8   // axis
+	Desired  float32 // Desired rate.
+	Achieved float32 // Achieved rate.
+	Ff       float32 // FF component.
+	P        float32 // P component.
+	I        float32 // I component.
+	D        float32 // D component.
+	Axis     uint8   // Axis.
 }
 
 // Dialect (generated function)
@@ -2657,21 +2669,88 @@ func (m *ArdupilotmegaPidTuning) Unpack(p *Packet) error {
 	return nil
 }
 
+// ArdupilotmegaDeepstall struct (generated typeinfo)
+// Deepstall path planning.
+type ArdupilotmegaDeepstall struct {
+	LandingLat             int32   // Landing latitude.
+	LandingLon             int32   // Landing longitude.
+	PathLat                int32   // Final heading start point, latitude.
+	PathLon                int32   // Final heading start point, longitude.
+	ArcEntryLat            int32   // Arc entry point, latitude.
+	ArcEntryLon            int32   // Arc entry point, longitude.
+	Altitude               float32 // Altitude.
+	ExpectedTravelDistance float32 // Distance the aircraft expects to travel during the deepstall.
+	CrossTrackError        float32 // Deepstall cross track error (only valid when in DEEPSTALL_STAGE_LAND).
+	Stage                  uint8   // Deepstall stage.
+}
+
+// Dialect (generated function)
+func (m *ArdupilotmegaDeepstall) Dialect() *Dialect {
+	return DialectArdupilotmega
+}
+
+// MsgID (generated function)
+func (m *ArdupilotmegaDeepstall) MsgID() MessageID {
+	return MSG_ID_DEEPSTALL
+}
+
+// MsgName (generated function)
+func (m *ArdupilotmegaDeepstall) MsgName() string {
+	return "Deepstall"
+}
+
+// Pack (generated function)
+func (m *ArdupilotmegaDeepstall) Pack(p *Packet) error {
+	payload := make([]byte, 37)
+	binary.LittleEndian.PutUint32(payload[0:], uint32(m.LandingLat))
+	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LandingLon))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.PathLat))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.PathLon))
+	binary.LittleEndian.PutUint32(payload[16:], uint32(m.ArcEntryLat))
+	binary.LittleEndian.PutUint32(payload[20:], uint32(m.ArcEntryLon))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Altitude))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.ExpectedTravelDistance))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.CrossTrackError))
+	payload[36] = byte(m.Stage)
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *ArdupilotmegaDeepstall) Unpack(p *Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 37 {
+		return errPayloadTooSmall
+	}
+	m.LandingLat = int32(binary.LittleEndian.Uint32(payload[0:]))
+	m.LandingLon = int32(binary.LittleEndian.Uint32(payload[4:]))
+	m.PathLat = int32(binary.LittleEndian.Uint32(payload[8:]))
+	m.PathLon = int32(binary.LittleEndian.Uint32(payload[12:]))
+	m.ArcEntryLat = int32(binary.LittleEndian.Uint32(payload[16:]))
+	m.ArcEntryLon = int32(binary.LittleEndian.Uint32(payload[20:]))
+	m.Altitude = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.ExpectedTravelDistance = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.CrossTrackError = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.Stage = uint8(payload[36])
+	return nil
+}
+
 // ArdupilotmegaGimbalReport struct (generated typeinfo)
-// 3 axis gimbal mesuraments
+// 3 axis gimbal measurements.
 type ArdupilotmegaGimbalReport struct {
-	DeltaTime       float32 // Time since last update (seconds)
-	DeltaAngleX     float32 // Delta angle X (radians)
-	DeltaAngleY     float32 // Delta angle Y (radians)
-	DeltaAngleZ     float32 // Delta angle X (radians)
-	DeltaVelocityX  float32 // Delta velocity X (m/s)
-	DeltaVelocityY  float32 // Delta velocity Y (m/s)
-	DeltaVelocityZ  float32 // Delta velocity Z (m/s)
-	JointRoll       float32 // Joint ROLL (radians)
-	JointEl         float32 // Joint EL (radians)
-	JointAz         float32 // Joint AZ (radians)
-	TargetSystem    uint8   // System ID
-	TargetComponent uint8   // Component ID
+	DeltaTime       float32 // Time since last update.
+	DeltaAngleX     float32 // Delta angle X.
+	DeltaAngleY     float32 // Delta angle Y.
+	DeltaAngleZ     float32 // Delta angle X.
+	DeltaVelocityX  float32 // Delta velocity X.
+	DeltaVelocityY  float32 // Delta velocity Y.
+	DeltaVelocityZ  float32 // Delta velocity Z.
+	JointRoll       float32 // Joint ROLL.
+	JointEl         float32 // Joint EL.
+	JointAz         float32 // Joint AZ.
+	TargetSystem    uint8   // System ID.
+	TargetComponent uint8   // Component ID.
 }
 
 // Dialect (generated function)
@@ -2731,13 +2810,13 @@ func (m *ArdupilotmegaGimbalReport) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGimbalControl struct (generated typeinfo)
-// Control message for rate gimbal
+// Control message for rate gimbal.
 type ArdupilotmegaGimbalControl struct {
-	DemandedRateX   float32 // Demanded angular rate X (rad/s)
-	DemandedRateY   float32 // Demanded angular rate Y (rad/s)
-	DemandedRateZ   float32 // Demanded angular rate Z (rad/s)
-	TargetSystem    uint8   // System ID
-	TargetComponent uint8   // Component ID
+	DemandedRateX   float32 // Demanded angular rate X.
+	DemandedRateY   float32 // Demanded angular rate Y.
+	DemandedRateZ   float32 // Demanded angular rate Z.
+	TargetSystem    uint8   // System ID.
+	TargetComponent uint8   // Component ID.
 }
 
 // Dialect (generated function)
@@ -2783,13 +2862,13 @@ func (m *ArdupilotmegaGimbalControl) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGimbalTorqueCmdReport struct (generated typeinfo)
-// 100 Hz gimbal torque command telemetry
+// 100 Hz gimbal torque command telemetry.
 type ArdupilotmegaGimbalTorqueCmdReport struct {
-	RlTorqueCmd     int16 // Roll Torque Command
-	ElTorqueCmd     int16 // Elevation Torque Command
-	AzTorqueCmd     int16 // Azimuth Torque Command
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
+	RlTorqueCmd     int16 // Roll Torque Command.
+	ElTorqueCmd     int16 // Elevation Torque Command.
+	AzTorqueCmd     int16 // Azimuth Torque Command.
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
 }
 
 // Dialect (generated function)
@@ -2835,11 +2914,11 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGoproHeartbeat struct (generated typeinfo)
-// Heartbeat from a HeroBus attached GoPro
+// Heartbeat from a HeroBus attached GoPro.
 type ArdupilotmegaGoproHeartbeat struct {
-	Status      uint8 // Status
-	CaptureMode uint8 // Current capture mode
-	Flags       uint8 // additional status bits
+	Status      uint8 // Status.
+	CaptureMode uint8 // Current capture mode.
+	Flags       uint8 // Additional status bits.
 }
 
 // Dialect (generated function)
@@ -2881,11 +2960,11 @@ func (m *ArdupilotmegaGoproHeartbeat) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGoproGetRequest struct (generated typeinfo)
-// Request a GOPRO_COMMAND response from the GoPro
+// Request a GOPRO_COMMAND response from the GoPro.
 type ArdupilotmegaGoproGetRequest struct {
-	TargetSystem    uint8 // System ID
-	TargetComponent uint8 // Component ID
-	CmdID           uint8 // Command ID
+	TargetSystem    uint8 // System ID.
+	TargetComponent uint8 // Component ID.
+	CmdID           uint8 // Command ID.
 }
 
 // Dialect (generated function)
@@ -2927,11 +3006,11 @@ func (m *ArdupilotmegaGoproGetRequest) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGoproGetResponse struct (generated typeinfo)
-// Response from a GOPRO_COMMAND get request
+// Response from a GOPRO_COMMAND get request.
 type ArdupilotmegaGoproGetResponse struct {
-	CmdID  uint8    // Command ID
-	Status uint8    // Status
-	Value  [4]uint8 // Value
+	CmdID  uint8    // Command ID.
+	Status uint8    // Status.
+	Value  [4]uint8 // Value.
 }
 
 // Dialect (generated function)
@@ -2973,12 +3052,12 @@ func (m *ArdupilotmegaGoproGetResponse) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGoproSetRequest struct (generated typeinfo)
-// Request to set a GOPRO_COMMAND with a desired
+// Request to set a GOPRO_COMMAND with a desired.
 type ArdupilotmegaGoproSetRequest struct {
-	TargetSystem    uint8    // System ID
-	TargetComponent uint8    // Component ID
-	CmdID           uint8    // Command ID
-	Value           [4]uint8 // Value
+	TargetSystem    uint8    // System ID.
+	TargetComponent uint8    // Component ID.
+	CmdID           uint8    // Command ID.
+	Value           [4]uint8 // Value.
 }
 
 // Dialect (generated function)
@@ -3022,10 +3101,10 @@ func (m *ArdupilotmegaGoproSetRequest) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaGoproSetResponse struct (generated typeinfo)
-// Response from a GOPRO_COMMAND set request
+// Response from a GOPRO_COMMAND set request.
 type ArdupilotmegaGoproSetResponse struct {
-	CmdID  uint8 // Command ID
-	Status uint8 // Status
+	CmdID  uint8 // Command ID.
+	Status uint8 // Status.
 }
 
 // Dialect (generated function)
@@ -3065,10 +3144,10 @@ func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
 }
 
 // ArdupilotmegaRpm struct (generated typeinfo)
-// RPM sensor output
+// RPM sensor output.
 type ArdupilotmegaRpm struct {
-	Rpm1 float32 // RPM Sensor1
-	Rpm2 float32 // RPM Sensor2
+	Rpm1 float32 // RPM Sensor1.
+	Rpm2 float32 // RPM Sensor2.
 }
 
 // Dialect (generated function)
@@ -3120,7 +3199,6 @@ const (
 	MSG_ID_MOUNT_STATUS              MessageID = 158
 	MSG_ID_FENCE_POINT               MessageID = 160
 	MSG_ID_FENCE_FETCH_POINT         MessageID = 161
-	MSG_ID_FENCE_STATUS              MessageID = 162
 	MSG_ID_AHRS                      MessageID = 163
 	MSG_ID_SIMSTATE                  MessageID = 164
 	MSG_ID_HWSTATUS                  MessageID = 165
@@ -3146,9 +3224,9 @@ const (
 	MSG_ID_REMOTE_LOG_BLOCK_STATUS   MessageID = 185
 	MSG_ID_LED_CONTROL               MessageID = 186
 	MSG_ID_MAG_CAL_PROGRESS          MessageID = 191
-	MSG_ID_MAG_CAL_REPORT            MessageID = 192
 	MSG_ID_EKF_STATUS_REPORT         MessageID = 193
 	MSG_ID_PID_TUNING                MessageID = 194
+	MSG_ID_DEEPSTALL                 MessageID = 195
 	MSG_ID_GIMBAL_REPORT             MessageID = 200
 	MSG_ID_GIMBAL_CONTROL            MessageID = 201
 	MSG_ID_GIMBAL_TORQUE_CMD_REPORT  MessageID = 214
@@ -3175,7 +3253,6 @@ var DialectArdupilotmega = &Dialect{
 		MSG_ID_MOUNT_STATUS:              134,
 		MSG_ID_FENCE_POINT:               78,
 		MSG_ID_FENCE_FETCH_POINT:         68,
-		MSG_ID_FENCE_STATUS:              189,
 		MSG_ID_AHRS:                      127,
 		MSG_ID_SIMSTATE:                  154,
 		MSG_ID_HWSTATUS:                  21,
@@ -3201,9 +3278,9 @@ var DialectArdupilotmega = &Dialect{
 		MSG_ID_REMOTE_LOG_BLOCK_STATUS:   186,
 		MSG_ID_LED_CONTROL:               72,
 		MSG_ID_MAG_CAL_PROGRESS:          92,
-		MSG_ID_MAG_CAL_REPORT:            36,
 		MSG_ID_EKF_STATUS_REPORT:         71,
 		MSG_ID_PID_TUNING:                98,
+		MSG_ID_DEEPSTALL:                 120,
 		MSG_ID_GIMBAL_REPORT:             134,
 		MSG_ID_GIMBAL_CONTROL:            205,
 		MSG_ID_GIMBAL_TORQUE_CMD_REPORT:  69,
@@ -3267,11 +3344,6 @@ var DialectArdupilotmega = &Dialect{
 		},
 		MSG_ID_FENCE_FETCH_POINT: func(pkt *Packet) Message {
 			msg := new(ArdupilotmegaFenceFetchPoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FENCE_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFenceStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
@@ -3400,11 +3472,6 @@ var DialectArdupilotmega = &Dialect{
 			msg.Unpack(pkt)
 			return msg
 		},
-		MSG_ID_MAG_CAL_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMagCalReport)
-			msg.Unpack(pkt)
-			return msg
-		},
 		MSG_ID_EKF_STATUS_REPORT: func(pkt *Packet) Message {
 			msg := new(ArdupilotmegaEkfStatusReport)
 			msg.Unpack(pkt)
@@ -3412,6 +3479,11 @@ var DialectArdupilotmega = &Dialect{
 		},
 		MSG_ID_PID_TUNING: func(pkt *Packet) Message {
 			msg := new(ArdupilotmegaPidTuning)
+			msg.Unpack(pkt)
+			return msg
+		},
+		MSG_ID_DEEPSTALL: func(pkt *Packet) Message {
+			msg := new(ArdupilotmegaDeepstall)
 			msg.Unpack(pkt)
 			return msg
 		},

@@ -19,13 +19,198 @@ const (
 	MAV_CMD_PAYLOAD_CONTROL = 40002 // Mission command to perform a power cycle on payload. Params: 1) Complete power cycle; 2) VISensor power cycle; 3) Empty; 4) Empty; 5) Empty; 6) Empty; 7) Empty;
 )
 
+// GsmLinkType (generated enum)
+//
+const (
+	GSM_LINK_TYPE_NONE    = 0 // no service
+	GSM_LINK_TYPE_UNKNOWN = 1 // link type unknown
+	GSM_LINK_TYPE_2G      = 2 // 2G (GSM/GRPS/EDGE) link
+	GSM_LINK_TYPE_3G      = 3 // 3G link (WCDMA/HSDPA/HSPA)
+	GSM_LINK_TYPE_4G      = 4 // 4G link (LTE)
+)
+
+// GsmModemType (generated enum)
+//
+const (
+	GSM_MODEM_TYPE_UNKNOWN      = 0 // not specified
+	GSM_MODEM_TYPE_HUAWEI_E3372 = 1 // HUAWEI LTE USB Stick E3372
+)
+
+// AsluavCommandIntStamped struct (generated typeinfo)
+// Message encoding a command with parameters as scaled integers and additional metadata. Scaling depends on the actual command value.
+type AsluavCommandIntStamped struct {
+	VehicleTimestamp uint64  // Microseconds elapsed since vehicle boot
+	UtcTime          uint32  // UTC time, seconds elapsed since 01.01.1970
+	Param1           float32 // PARAM1, see MAV_CMD enum
+	Param2           float32 // PARAM2, see MAV_CMD enum
+	Param3           float32 // PARAM3, see MAV_CMD enum
+	Param4           float32 // PARAM4, see MAV_CMD enum
+	X                int32   // PARAM5 / local: x position in meters * 1e4, global: latitude in degrees * 10^7
+	Y                int32   // PARAM6 / local: y position in meters * 1e4, global: longitude in degrees * 10^7
+	Z                float32 // PARAM7 / z position: global: altitude in meters (MSL, WGS84, AGL or relative to home - depending on frame).
+	Command          uint16  // The scheduled action for the mission item, as defined by MAV_CMD enum
+	TargetSystem     uint8   // System ID
+	TargetComponent  uint8   // Component ID
+	Frame            uint8   // The coordinate system of the COMMAND, as defined by MAV_FRAME enum
+	Current          uint8   // false:0, true:1
+	Autocontinue     uint8   // autocontinue to next wp
+}
+
+// Dialect (generated function)
+func (m *AsluavCommandIntStamped) Dialect() *Dialect {
+	return DialectAsluav
+}
+
+// MsgID (generated function)
+func (m *AsluavCommandIntStamped) MsgID() MessageID {
+	return MSG_ID_COMMAND_INT_STAMPED
+}
+
+// MsgName (generated function)
+func (m *AsluavCommandIntStamped) MsgName() string {
+	return "CommandIntStamped"
+}
+
+// Pack (generated function)
+func (m *AsluavCommandIntStamped) Pack(p *Packet) error {
+	payload := make([]byte, 47)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.VehicleTimestamp))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.UtcTime))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Param1))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Param2))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Param3))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Param4))
+	binary.LittleEndian.PutUint32(payload[28:], uint32(m.X))
+	binary.LittleEndian.PutUint32(payload[32:], uint32(m.Y))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.Z))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.Command))
+	payload[42] = byte(m.TargetSystem)
+	payload[43] = byte(m.TargetComponent)
+	payload[44] = byte(m.Frame)
+	payload[45] = byte(m.Current)
+	payload[46] = byte(m.Autocontinue)
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *AsluavCommandIntStamped) Unpack(p *Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 47 {
+		payload = append(payload, zeroTail[:47-len(p.Payload)]...)
+	}
+	m.VehicleTimestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.UtcTime = uint32(binary.LittleEndian.Uint32(payload[8:]))
+	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Param3 = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Param4 = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.X = int32(binary.LittleEndian.Uint32(payload[28:]))
+	m.Y = int32(binary.LittleEndian.Uint32(payload[32:]))
+	m.Z = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.Command = uint16(binary.LittleEndian.Uint16(payload[40:]))
+	m.TargetSystem = uint8(payload[42])
+	m.TargetComponent = uint8(payload[43])
+	m.Frame = uint8(payload[44])
+	m.Current = uint8(payload[45])
+	m.Autocontinue = uint8(payload[46])
+	return nil
+}
+
+// AsluavCommandLongStamped struct (generated typeinfo)
+// Send a command with up to seven parameters to the MAV and additional metadata
+type AsluavCommandLongStamped struct {
+	VehicleTimestamp uint64  // Microseconds elapsed since vehicle boot
+	UtcTime          uint32  // UTC time, seconds elapsed since 01.01.1970
+	Param1           float32 // Parameter 1, as defined by MAV_CMD enum.
+	Param2           float32 // Parameter 2, as defined by MAV_CMD enum.
+	Param3           float32 // Parameter 3, as defined by MAV_CMD enum.
+	Param4           float32 // Parameter 4, as defined by MAV_CMD enum.
+	Param5           float32 // Parameter 5, as defined by MAV_CMD enum.
+	Param6           float32 // Parameter 6, as defined by MAV_CMD enum.
+	Param7           float32 // Parameter 7, as defined by MAV_CMD enum.
+	Command          uint16  // Command ID, as defined by MAV_CMD enum.
+	TargetSystem     uint8   // System which should execute the command
+	TargetComponent  uint8   // Component which should execute the command, 0 for all components
+	Confirmation     uint8   // 0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)
+}
+
+// Dialect (generated function)
+func (m *AsluavCommandLongStamped) Dialect() *Dialect {
+	return DialectAsluav
+}
+
+// MsgID (generated function)
+func (m *AsluavCommandLongStamped) MsgID() MessageID {
+	return MSG_ID_COMMAND_LONG_STAMPED
+}
+
+// MsgName (generated function)
+func (m *AsluavCommandLongStamped) MsgName() string {
+	return "CommandLongStamped"
+}
+
+// Pack (generated function)
+func (m *AsluavCommandLongStamped) Pack(p *Packet) error {
+	payload := make([]byte, 45)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.VehicleTimestamp))
+	binary.LittleEndian.PutUint32(payload[8:], uint32(m.UtcTime))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Param1))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.Param2))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.Param3))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.Param4))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.Param5))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Param6))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.Param7))
+	binary.LittleEndian.PutUint16(payload[40:], uint16(m.Command))
+	payload[42] = byte(m.TargetSystem)
+	payload[43] = byte(m.TargetComponent)
+	payload[44] = byte(m.Confirmation)
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *AsluavCommandLongStamped) Unpack(p *Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 45 {
+		payload = append(payload, zeroTail[:45-len(p.Payload)]...)
+	}
+	m.VehicleTimestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.UtcTime = uint32(binary.LittleEndian.Uint32(payload[8:]))
+	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.Param3 = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.Param4 = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.Param5 = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.Param6 = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.Param7 = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.Command = uint16(binary.LittleEndian.Uint16(payload[40:]))
+	m.TargetSystem = uint8(payload[42])
+	m.TargetComponent = uint8(payload[43])
+	m.Confirmation = uint8(payload[44])
+	return nil
+}
+
 // AsluavSensPower struct (generated typeinfo)
 // Voltage and current sensor data
 type AsluavSensPower struct {
-	Adc121VspbVolt float32 //  Power board voltage sensor reading in volts
-	Adc121CspbAmp  float32 //  Power board current sensor reading in amps
-	Adc121Cs1Amp   float32 //  Board current sensor 1 reading in amps
-	Adc121Cs2Amp   float32 //  Board current sensor 2 reading in amps
+	Adc121VspbVolt float32 //  Power board voltage sensor reading
+	Adc121CspbAmp  float32 //  Power board current sensor reading
+	Adc121Cs1Amp   float32 //  Board current sensor 1 reading
+	Adc121Cs2Amp   float32 //  Board current sensor 2 reading
 }
 
 // Dialect (generated function)
@@ -81,7 +266,7 @@ type AsluavSensMppt struct {
 	Mppt1Amp      float32 //  MPPT1 current
 	Mppt2Volt     float32 //  MPPT2 voltage
 	Mppt2Amp      float32 //  MPPT2 current
-	Mppt3Volt     float32 //  MPPT3 voltage
+	Mppt3Volt     float32 // MPPT3 voltage
 	Mppt3Amp      float32 //  MPPT3 current
 	Mppt1Pwm      uint16  //  MPPT1 pwm
 	Mppt2Pwm      uint16  //  MPPT2 pwm
@@ -161,19 +346,19 @@ type AsluavAslctrlData struct {
 	H               float32 //  See sourcecode for a description of these values...
 	Href            float32 //
 	HrefT           float32 //
-	Pitchangle      float32 // Pitch angle [deg]
-	Pitchangleref   float32 // Pitch angle reference[deg]
+	Pitchangle      float32 // Pitch angle
+	Pitchangleref   float32 // Pitch angle reference
 	Q               float32 //
 	Qref            float32 //
 	Uelev           float32 //
 	Uthrot          float32 //
 	Uthrot2         float32 //
 	Nz              float32 //
-	Airspeedref     float32 // Airspeed reference [m/s]
-	Yawangle        float32 // Yaw angle [deg]
-	Yawangleref     float32 // Yaw angle reference[deg]
-	Rollangle       float32 // Roll angle [deg]
-	Rollangleref    float32 // Roll angle reference[deg]
+	Airspeedref     float32 // Airspeed reference
+	Yawangle        float32 // Yaw angle
+	Yawangleref     float32 // Yaw angle reference
+	Rollangle       float32 // Roll angle
+	Rollangleref    float32 // Roll angle reference
 	P               float32 //
 	Pref            float32 //
 	R               float32 //
@@ -403,13 +588,13 @@ func (m *AsluavAsluavStatus) Unpack(p *Packet) error {
 // AsluavEkfExt struct (generated typeinfo)
 // Extended EKF state estimates for ASLUAVs
 type AsluavEkfExt struct {
-	Timestamp uint64  //  Time since system start [us]
-	Windspeed float32 //  Magnitude of wind velocity (in lateral inertial plane) [m/s]
-	Winddir   float32 //  Wind heading angle from North [rad]
-	Windz     float32 //  Z (Down) component of inertial wind velocity [m/s]
-	Airspeed  float32 //  Magnitude of air velocity [m/s]
-	Beta      float32 //  Sideslip angle [rad]
-	Alpha     float32 //  Angle of attack [rad]
+	Timestamp uint64  //  Time since system start
+	Windspeed float32 //  Magnitude of wind velocity (in lateral inertial plane)
+	Winddir   float32 //  Wind heading angle from North
+	Windz     float32 //  Z (Down) component of inertial wind velocity
+	Airspeed  float32 //  Magnitude of air velocity
+	Beta      float32 //  Sideslip angle
+	Alpha     float32 //  Angle of attack
 }
 
 // Dialect (generated function)
@@ -466,7 +651,7 @@ func (m *AsluavEkfExt) Unpack(p *Packet) error {
 // AsluavAslObctrl struct (generated typeinfo)
 // Off-board controls/commands for ASLUAVs
 type AsluavAslObctrl struct {
-	Timestamp    uint64  //  Time since system start [us]
+	Timestamp    uint64  //  Time since system start
 	Uelev        float32 //  Elevator command [~]
 	Uthrot       float32 //  Throttle command [~]
 	Uthrot2      float32 //  Throttle 2 command [~]
@@ -532,8 +717,9 @@ func (m *AsluavAslObctrl) Unpack(p *Packet) error {
 // AsluavSensAtmos struct (generated typeinfo)
 // Atmospheric sensors (temperature, humidity, ...)
 type AsluavSensAtmos struct {
-	Tempambient float32 //  Ambient temperature [degrees Celsius]
-	Humidity    float32 //  Relative humidity [%]
+	Timestamp   uint64  // Time since system boot
+	Tempambient float32 //  Ambient temperature
+	Humidity    float32 //  Relative humidity
 }
 
 // Dialect (generated function)
@@ -553,9 +739,10 @@ func (m *AsluavSensAtmos) MsgName() string {
 
 // Pack (generated function)
 func (m *AsluavSensAtmos) Pack(p *Packet) error {
-	payload := make([]byte, 8)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Tempambient))
-	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Humidity))
+	payload := make([]byte, 16)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Tempambient))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Humidity))
 	payloadLen := len(payload)
 	for payloadLen > 1 && payload[payloadLen-1] == 0 {
 		payloadLen--
@@ -569,30 +756,33 @@ func (m *AsluavSensAtmos) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensAtmos) Unpack(p *Packet) error {
 	payload := p.Payload[:]
-	if len(p.Payload) < 8 {
-		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
+	if len(p.Payload) < 16 {
+		payload = append(payload, zeroTail[:16-len(p.Payload)]...)
 	}
-	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
-	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Tempambient = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Humidity = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
 	return nil
 }
 
 // AsluavSensBatmon struct (generated typeinfo)
 // Battery pack monitoring data for Li-Ion batteries
 type AsluavSensBatmon struct {
-	Temperature    float32 // Battery pack temperature in [deg C]
-	Voltage        uint16  // Battery pack voltage in [mV]
-	Current        int16   // Battery pack current in [mA]
-	Batterystatus  uint16  // Battery monitor status report bits in Hex
-	Serialnumber   uint16  // Battery monitor serial number in Hex
-	Hostfetcontrol uint16  // Battery monitor sensor host FET control in Hex
-	Cellvoltage1   uint16  // Battery pack cell 1 voltage in [mV]
-	Cellvoltage2   uint16  // Battery pack cell 2 voltage in [mV]
-	Cellvoltage3   uint16  // Battery pack cell 3 voltage in [mV]
-	Cellvoltage4   uint16  // Battery pack cell 4 voltage in [mV]
-	Cellvoltage5   uint16  // Battery pack cell 5 voltage in [mV]
-	Cellvoltage6   uint16  // Battery pack cell 6 voltage in [mV]
-	Soc            uint8   // Battery pack state-of-charge
+	BatmonTimestamp uint64  // Time since system start
+	Temperature     float32 // Battery pack temperature
+	Safetystatus    uint32  // Battery monitor safetystatus report bits in Hex
+	Operationstatus uint32  // Battery monitor operation status report bits in Hex
+	Voltage         uint16  // Battery pack voltage
+	Current         int16   // Battery pack current
+	Batterystatus   uint16  // Battery monitor status report bits in Hex
+	Serialnumber    uint16  // Battery monitor serial number in Hex
+	Cellvoltage1    uint16  // Battery pack cell 1 voltage
+	Cellvoltage2    uint16  // Battery pack cell 2 voltage
+	Cellvoltage3    uint16  // Battery pack cell 3 voltage
+	Cellvoltage4    uint16  // Battery pack cell 4 voltage
+	Cellvoltage5    uint16  // Battery pack cell 5 voltage
+	Cellvoltage6    uint16  // Battery pack cell 6 voltage
+	Soc             uint8   // Battery pack state-of-charge
 }
 
 // Dialect (generated function)
@@ -612,20 +802,22 @@ func (m *AsluavSensBatmon) MsgName() string {
 
 // Pack (generated function)
 func (m *AsluavSensBatmon) Pack(p *Packet) error {
-	payload := make([]byte, 27)
-	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Temperature))
-	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Voltage))
-	binary.LittleEndian.PutUint16(payload[6:], uint16(m.Current))
-	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Batterystatus))
-	binary.LittleEndian.PutUint16(payload[10:], uint16(m.Serialnumber))
-	binary.LittleEndian.PutUint16(payload[12:], uint16(m.Hostfetcontrol))
-	binary.LittleEndian.PutUint16(payload[14:], uint16(m.Cellvoltage1))
-	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Cellvoltage2))
-	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Cellvoltage3))
-	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Cellvoltage4))
-	binary.LittleEndian.PutUint16(payload[22:], uint16(m.Cellvoltage5))
-	binary.LittleEndian.PutUint16(payload[24:], uint16(m.Cellvoltage6))
-	payload[26] = byte(m.Soc)
+	payload := make([]byte, 41)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.BatmonTimestamp))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Temperature))
+	binary.LittleEndian.PutUint32(payload[12:], uint32(m.Safetystatus))
+	binary.LittleEndian.PutUint32(payload[16:], uint32(m.Operationstatus))
+	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Voltage))
+	binary.LittleEndian.PutUint16(payload[22:], uint16(m.Current))
+	binary.LittleEndian.PutUint16(payload[24:], uint16(m.Batterystatus))
+	binary.LittleEndian.PutUint16(payload[26:], uint16(m.Serialnumber))
+	binary.LittleEndian.PutUint16(payload[28:], uint16(m.Cellvoltage1))
+	binary.LittleEndian.PutUint16(payload[30:], uint16(m.Cellvoltage2))
+	binary.LittleEndian.PutUint16(payload[32:], uint16(m.Cellvoltage3))
+	binary.LittleEndian.PutUint16(payload[34:], uint16(m.Cellvoltage4))
+	binary.LittleEndian.PutUint16(payload[36:], uint16(m.Cellvoltage5))
+	binary.LittleEndian.PutUint16(payload[38:], uint16(m.Cellvoltage6))
+	payload[40] = byte(m.Soc)
 	payloadLen := len(payload)
 	for payloadLen > 1 && payload[payloadLen-1] == 0 {
 		payloadLen--
@@ -639,49 +831,51 @@ func (m *AsluavSensBatmon) Pack(p *Packet) error {
 // Unpack (generated function)
 func (m *AsluavSensBatmon) Unpack(p *Packet) error {
 	payload := p.Payload[:]
-	if len(p.Payload) < 27 {
-		payload = append(payload, zeroTail[:27-len(p.Payload)]...)
+	if len(p.Payload) < 41 {
+		payload = append(payload, zeroTail[:41-len(p.Payload)]...)
 	}
-	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
-	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[4:]))
-	m.Current = int16(binary.LittleEndian.Uint16(payload[6:]))
-	m.Batterystatus = uint16(binary.LittleEndian.Uint16(payload[8:]))
-	m.Serialnumber = uint16(binary.LittleEndian.Uint16(payload[10:]))
-	m.Hostfetcontrol = uint16(binary.LittleEndian.Uint16(payload[12:]))
-	m.Cellvoltage1 = uint16(binary.LittleEndian.Uint16(payload[14:]))
-	m.Cellvoltage2 = uint16(binary.LittleEndian.Uint16(payload[16:]))
-	m.Cellvoltage3 = uint16(binary.LittleEndian.Uint16(payload[18:]))
-	m.Cellvoltage4 = uint16(binary.LittleEndian.Uint16(payload[20:]))
-	m.Cellvoltage5 = uint16(binary.LittleEndian.Uint16(payload[22:]))
-	m.Cellvoltage6 = uint16(binary.LittleEndian.Uint16(payload[24:]))
-	m.Soc = uint8(payload[26])
+	m.BatmonTimestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Temperature = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Safetystatus = uint32(binary.LittleEndian.Uint32(payload[12:]))
+	m.Operationstatus = uint32(binary.LittleEndian.Uint32(payload[16:]))
+	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[20:]))
+	m.Current = int16(binary.LittleEndian.Uint16(payload[22:]))
+	m.Batterystatus = uint16(binary.LittleEndian.Uint16(payload[24:]))
+	m.Serialnumber = uint16(binary.LittleEndian.Uint16(payload[26:]))
+	m.Cellvoltage1 = uint16(binary.LittleEndian.Uint16(payload[28:]))
+	m.Cellvoltage2 = uint16(binary.LittleEndian.Uint16(payload[30:]))
+	m.Cellvoltage3 = uint16(binary.LittleEndian.Uint16(payload[32:]))
+	m.Cellvoltage4 = uint16(binary.LittleEndian.Uint16(payload[34:]))
+	m.Cellvoltage5 = uint16(binary.LittleEndian.Uint16(payload[36:]))
+	m.Cellvoltage6 = uint16(binary.LittleEndian.Uint16(payload[38:]))
+	m.Soc = uint8(payload[40])
 	return nil
 }
 
 // AsluavFwSoaringData struct (generated typeinfo)
 // Fixed-wing soaring (i.e. thermal seeking) data
 type AsluavFwSoaringData struct {
-	Timestamp            uint64  // Timestamp [ms]
-	Timestampmodechanged uint64  // Timestamp since last mode change[ms]
-	Xw                   float32 // Thermal core updraft strength [m/s]
-	Xr                   float32 // Thermal radius [m]
-	Xlat                 float32 // Thermal center latitude [deg]
-	Xlon                 float32 // Thermal center longitude [deg]
+	Timestamp            uint64  // Timestamp
+	Timestampmodechanged uint64  // Timestamp since last mode change
+	Xw                   float32 // Thermal core updraft strength
+	Xr                   float32 // Thermal radius
+	Xlat                 float32 // Thermal center latitude
+	Xlon                 float32 // Thermal center longitude
 	Varw                 float32 // Variance W
 	Varr                 float32 // Variance R
 	Varlat               float32 // Variance Lat
 	Varlon               float32 // Variance Lon
-	Loiterradius         float32 // Suggested loiter radius [m]
+	Loiterradius         float32 // Suggested loiter radius
 	Loiterdirection      float32 // Suggested loiter direction
-	Disttosoarpoint      float32 // Distance to soar point [m]
-	Vsinkexp             float32 // Expected sink rate at current airspeed, roll and throttle [m/s]
-	Z1Localupdraftspeed  float32 // Measurement / updraft speed at current/local airplane position [m/s]
-	Z2Deltaroll          float32 // Measurement / roll angle tracking error [deg]
+	Disttosoarpoint      float32 // Distance to soar point
+	Vsinkexp             float32 // Expected sink rate at current airspeed, roll and throttle
+	Z1Localupdraftspeed  float32 // Measurement / updraft speed at current/local airplane position
+	Z2Deltaroll          float32 // Measurement / roll angle tracking error
 	Z1Exp                float32 // Expected measurement 1
 	Z2Exp                float32 // Expected measurement 2
-	Thermalgsnorth       float32 // Thermal drift (from estimator prediction step only) [m/s]
-	Thermalgseast        float32 // Thermal drift (from estimator prediction step only) [m/s]
-	TseDot               float32 //  Total specific energy change (filtered) [m/s]
+	Thermalgsnorth       float32 // Thermal drift (from estimator prediction step only)
+	Thermalgseast        float32 // Thermal drift (from estimator prediction step only)
+	TseDot               float32 //  Total specific energy change (filtered)
 	Debugvar1            float32 //  Debug variable 1
 	Debugvar2            float32 //  Debug variable 2
 	Controlmode          uint8   // Control Mode [-]
@@ -778,14 +972,14 @@ func (m *AsluavFwSoaringData) Unpack(p *Packet) error {
 // AsluavSensorpodStatus struct (generated typeinfo)
 // Monitoring of sensorpod status
 type AsluavSensorpodStatus struct {
-	Timestamp           uint64 // Timestamp in linuxtime [ms] (since 1.1.1970)
+	Timestamp           uint64 // Timestamp in linuxtime (since 1.1.1970)
 	FreeSpace           uint16 // Free space available in recordings directory in [Gb] * 1e2
 	VisensorRate1       uint8  // Rate of ROS topic 1
 	VisensorRate2       uint8  // Rate of ROS topic 2
 	VisensorRate3       uint8  // Rate of ROS topic 3
 	VisensorRate4       uint8  // Rate of ROS topic 4
 	RecordingNodesCount uint8  // Number of recording nodes
-	CPUTemp             uint8  // Temperature of sensorpod CPU in [deg C]
+	CPUTemp             uint8  // Temperature of sensorpod CPU in
 }
 
 // Dialect (generated function)
@@ -844,18 +1038,18 @@ func (m *AsluavSensorpodStatus) Unpack(p *Packet) error {
 // AsluavSensPowerBoard struct (generated typeinfo)
 // Monitoring of power board status
 type AsluavSensPowerBoard struct {
-	Timestamp        uint64  // Timestamp
-	PwrBrdSystemVolt float32 // Power board system voltage
-	PwrBrdServoVolt  float32 // Power board servo voltage
-	PwrBrdMotLAmp    float32 // Power board left motor current sensor
-	PwrBrdMotRAmp    float32 // Power board right motor current sensor
-	PwrBrdServo1Amp  float32 // Power board servo1 current sensor
-	PwrBrdServo2Amp  float32 // Power board servo1 current sensor
-	PwrBrdServo3Amp  float32 // Power board servo1 current sensor
-	PwrBrdServo4Amp  float32 // Power board servo1 current sensor
-	PwrBrdAuxAmp     float32 // Power board aux current sensor
-	PwrBrdStatus     uint8   // Power board status register
-	PwrBrdLedStatus  uint8   // Power board leds status
+	Timestamp         uint64  // Timestamp
+	PwrBrdSystemVolt  float32 // Power board system voltage
+	PwrBrdServoVolt   float32 // Power board servo voltage
+	PwrBrdDigitalVolt float32 // Power board digital voltage
+	PwrBrdMotLAmp     float32 // Power board left motor current sensor
+	PwrBrdMotRAmp     float32 // Power board right motor current sensor
+	PwrBrdAnalogAmp   float32 // Power board analog current sensor
+	PwrBrdDigitalAmp  float32 // Power board digital current sensor
+	PwrBrdExtAmp      float32 // Power board extension current sensor
+	PwrBrdAuxAmp      float32 // Power board aux current sensor
+	PwrBrdStatus      uint8   // Power board status register
+	PwrBrdLedStatus   uint8   // Power board leds status
 }
 
 // Dialect (generated function)
@@ -879,12 +1073,12 @@ func (m *AsluavSensPowerBoard) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.PwrBrdSystemVolt))
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.PwrBrdServoVolt))
-	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.PwrBrdMotLAmp))
-	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.PwrBrdMotRAmp))
-	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.PwrBrdServo1Amp))
-	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.PwrBrdServo2Amp))
-	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.PwrBrdServo3Amp))
-	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.PwrBrdServo4Amp))
+	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.PwrBrdDigitalVolt))
+	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.PwrBrdMotLAmp))
+	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.PwrBrdMotRAmp))
+	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.PwrBrdAnalogAmp))
+	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.PwrBrdDigitalAmp))
+	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.PwrBrdExtAmp))
 	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(m.PwrBrdAuxAmp))
 	payload[44] = byte(m.PwrBrdStatus)
 	payload[45] = byte(m.PwrBrdLedStatus)
@@ -907,52 +1101,131 @@ func (m *AsluavSensPowerBoard) Unpack(p *Packet) error {
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.PwrBrdSystemVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
 	m.PwrBrdServoVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
-	m.PwrBrdMotLAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
-	m.PwrBrdMotRAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
-	m.PwrBrdServo1Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
-	m.PwrBrdServo2Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
-	m.PwrBrdServo3Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
-	m.PwrBrdServo4Amp = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
+	m.PwrBrdDigitalVolt = math.Float32frombits(binary.LittleEndian.Uint32(payload[16:]))
+	m.PwrBrdMotLAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[20:]))
+	m.PwrBrdMotRAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[24:]))
+	m.PwrBrdAnalogAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[28:]))
+	m.PwrBrdDigitalAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[32:]))
+	m.PwrBrdExtAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[36:]))
 	m.PwrBrdAuxAmp = math.Float32frombits(binary.LittleEndian.Uint32(payload[40:]))
 	m.PwrBrdStatus = uint8(payload[44])
 	m.PwrBrdLedStatus = uint8(payload[45])
 	return nil
 }
 
+// AsluavGsmLinkStatus struct (generated typeinfo)
+// Status of GSM modem (connected to onboard computer)
+type AsluavGsmLinkStatus struct {
+	Timestamp    uint64 // Timestamp (of OBC)
+	GsmModemType uint8  // GSM modem used
+	GsmLinkType  uint8  // GSM link type
+	Rssi         uint8  // RSSI as reported by modem (unconverted)
+	RsrpRscp     uint8  // RSRP (LTE) or RSCP (WCDMA) as reported by modem (unconverted)
+	SinrEcio     uint8  // SINR (LTE) or ECIO (WCDMA) as reported by modem (unconverted)
+	Rsrq         uint8  // RSRQ (LTE only) as reported by modem (unconverted)
+}
+
+// Dialect (generated function)
+func (m *AsluavGsmLinkStatus) Dialect() *Dialect {
+	return DialectAsluav
+}
+
+// MsgID (generated function)
+func (m *AsluavGsmLinkStatus) MsgID() MessageID {
+	return MSG_ID_GSM_LINK_STATUS
+}
+
+// MsgName (generated function)
+func (m *AsluavGsmLinkStatus) MsgName() string {
+	return "GsmLinkStatus"
+}
+
+// Pack (generated function)
+func (m *AsluavGsmLinkStatus) Pack(p *Packet) error {
+	payload := make([]byte, 14)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
+	payload[8] = byte(m.GsmModemType)
+	payload[9] = byte(m.GsmLinkType)
+	payload[10] = byte(m.Rssi)
+	payload[11] = byte(m.RsrpRscp)
+	payload[12] = byte(m.SinrEcio)
+	payload[13] = byte(m.Rsrq)
+	payloadLen := len(payload)
+	for payloadLen > 1 && payload[payloadLen-1] == 0 {
+		payloadLen--
+	}
+	payload = payload[:payloadLen]
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *AsluavGsmLinkStatus) Unpack(p *Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 14 {
+		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
+	}
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.GsmModemType = uint8(payload[8])
+	m.GsmLinkType = uint8(payload[9])
+	m.Rssi = uint8(payload[10])
+	m.RsrpRscp = uint8(payload[11])
+	m.SinrEcio = uint8(payload[12])
+	m.Rsrq = uint8(payload[13])
+	return nil
+}
+
 // Message IDs
 const (
-	MSG_ID_SENS_POWER       MessageID = 201
-	MSG_ID_SENS_MPPT        MessageID = 202
-	MSG_ID_ASLCTRL_DATA     MessageID = 203
-	MSG_ID_ASLCTRL_DEBUG    MessageID = 204
-	MSG_ID_ASLUAV_STATUS    MessageID = 205
-	MSG_ID_EKF_EXT          MessageID = 206
-	MSG_ID_ASL_OBCTRL       MessageID = 207
-	MSG_ID_SENS_ATMOS       MessageID = 208
-	MSG_ID_SENS_BATMON      MessageID = 209
-	MSG_ID_FW_SOARING_DATA  MessageID = 210
-	MSG_ID_SENSORPOD_STATUS MessageID = 211
-	MSG_ID_SENS_POWER_BOARD MessageID = 212
+	MSG_ID_COMMAND_INT_STAMPED  MessageID = 78
+	MSG_ID_COMMAND_LONG_STAMPED MessageID = 79
+	MSG_ID_SENS_POWER           MessageID = 201
+	MSG_ID_SENS_MPPT            MessageID = 202
+	MSG_ID_ASLCTRL_DATA         MessageID = 203
+	MSG_ID_ASLCTRL_DEBUG        MessageID = 204
+	MSG_ID_ASLUAV_STATUS        MessageID = 205
+	MSG_ID_EKF_EXT              MessageID = 206
+	MSG_ID_ASL_OBCTRL           MessageID = 207
+	MSG_ID_SENS_ATMOS           MessageID = 208
+	MSG_ID_SENS_BATMON          MessageID = 209
+	MSG_ID_FW_SOARING_DATA      MessageID = 210
+	MSG_ID_SENSORPOD_STATUS     MessageID = 211
+	MSG_ID_SENS_POWER_BOARD     MessageID = 212
+	MSG_ID_GSM_LINK_STATUS      MessageID = 213
 )
 
 // DialectAsluav is the dialect represented by ASLUAV.xml
 var DialectAsluav = &Dialect{
 	Name: "ASLUAV",
 	crcExtras: map[MessageID]uint8{
-		MSG_ID_SENS_POWER:       218,
-		MSG_ID_SENS_MPPT:        231,
-		MSG_ID_ASLCTRL_DATA:     172,
-		MSG_ID_ASLCTRL_DEBUG:    251,
-		MSG_ID_ASLUAV_STATUS:    97,
-		MSG_ID_EKF_EXT:          64,
-		MSG_ID_ASL_OBCTRL:       234,
-		MSG_ID_SENS_ATMOS:       175,
-		MSG_ID_SENS_BATMON:      62,
-		MSG_ID_FW_SOARING_DATA:  20,
-		MSG_ID_SENSORPOD_STATUS: 54,
-		MSG_ID_SENS_POWER_BOARD: 242,
+		MSG_ID_COMMAND_INT_STAMPED:  119,
+		MSG_ID_COMMAND_LONG_STAMPED: 102,
+		MSG_ID_SENS_POWER:           218,
+		MSG_ID_SENS_MPPT:            231,
+		MSG_ID_ASLCTRL_DATA:         172,
+		MSG_ID_ASLCTRL_DEBUG:        251,
+		MSG_ID_ASLUAV_STATUS:        97,
+		MSG_ID_EKF_EXT:              64,
+		MSG_ID_ASL_OBCTRL:           234,
+		MSG_ID_SENS_ATMOS:           144,
+		MSG_ID_SENS_BATMON:          155,
+		MSG_ID_FW_SOARING_DATA:      20,
+		MSG_ID_SENSORPOD_STATUS:     54,
+		MSG_ID_SENS_POWER_BOARD:     222,
+		MSG_ID_GSM_LINK_STATUS:      200,
 	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
+		MSG_ID_COMMAND_INT_STAMPED: func(pkt *Packet) Message {
+			msg := new(AsluavCommandIntStamped)
+			msg.Unpack(pkt)
+			return msg
+		},
+		MSG_ID_COMMAND_LONG_STAMPED: func(pkt *Packet) Message {
+			msg := new(AsluavCommandLongStamped)
+			msg.Unpack(pkt)
+			return msg
+		},
 		MSG_ID_SENS_POWER: func(pkt *Packet) Message {
 			msg := new(AsluavSensPower)
 			msg.Unpack(pkt)
@@ -1010,6 +1283,11 @@ var DialectAsluav = &Dialect{
 		},
 		MSG_ID_SENS_POWER_BOARD: func(pkt *Packet) Message {
 			msg := new(AsluavSensPowerBoard)
+			msg.Unpack(pkt)
+			return msg
+		},
+		MSG_ID_GSM_LINK_STATUS: func(pkt *Packet) Message {
+			msg := new(AsluavGsmLinkStatus)
 			msg.Unpack(pkt)
 			return msg
 		},
