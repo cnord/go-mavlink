@@ -8,8 +8,8 @@ import (
 	"os"
 	"sync"
 
-	mavlink1 "../mavlink1"
-	mavlink2 "../mavlink2"
+	mavlink1 "github.com/asmyasnikov/go-mavlink/examples/mavlink1"
+	mavlink2 "github.com/asmyasnikov/go-mavlink/examples/mavlink2"
 )
 
 //////////////////////////////////////
