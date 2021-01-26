@@ -94,7 +94,7 @@ func (p *Packet) Bytes() []byte {
 	// payload
 	bytes = append(bytes, p.Payload...)
 	// crc
-	bytes = append(bytes, u16ToBytes(p.Checksum)...)
+	bytes = append(bytes, p.u16ToBytes(p.Checksum)...)
 	return bytes
 }
 
@@ -117,4 +117,8 @@ func (p *Packet) fixChecksum(dialect *Dialect) error {
 	crc.WriteByte(crcx)
 	p.Checksum = crc.Sum16()
 	return nil
+}
+
+func (p *Packet) u16ToBytes(v uint16) []byte {
+	return []byte{byte(v & 0xff), byte(v >> 8)}
 }

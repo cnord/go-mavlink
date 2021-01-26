@@ -105,7 +105,7 @@ func packetTemplate() string {
 		"    // payload\n" +
 		"\tbytes = append(bytes, p.Payload...)\n" +
 		"\t// crc\n" +
-		"\tbytes = append(bytes, u16ToBytes(p.Checksum)...)\n" +
+		"\tbytes = append(bytes, p.u16ToBytes(p.Checksum)...)\n" +
 		"\treturn bytes\n" +
 		"}\n" +
 		"\n" +
@@ -134,6 +134,9 @@ func packetTemplate() string {
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
+		"func (p *Packet) u16ToBytes(v uint16) []byte {\n" +
+		"\treturn []byte{byte(v & 0xff), byte(v >> 8)}\n" +
+		"}\n" +
 		""
 	return tmpl
 }

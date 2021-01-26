@@ -55,7 +55,3 @@ var (
 	// dialects
 	dialects DialectSlice = DialectSlice{DialectCommon}
 )
-
-func u16ToBytes(v uint16) []byte {
-	return []byte{byte(v & 0xff), byte(v >> 8)}
-}
