@@ -1,7 +1,6 @@
 //go:generate templify constants.template
 //go:generate templify encoder.template
 //go:generate templify decoder.template
-//go:generate templify dialect.template
 //go:generate templify message.template
 //go:generate templify packet.template
 //go:generate templify parser.template
@@ -37,7 +36,6 @@ var (
 		"constants":    constantsTemplate,
 		"encoder":      encoderTemplate,
 		"decoder":      decoderTemplate,
-		"dialect":      dialectTemplate,
 		"message":      messageTemplate,
 		"packet":       packetTemplate,
 		"parser":       parserTemplate,

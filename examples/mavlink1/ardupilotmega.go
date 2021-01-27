@@ -2443,11 +2443,6 @@ type ArdupilotmegaSensorOffsets struct {
 	MagOfsZ        int16   // Magnetometer Z offset.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSensorOffsets) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSensorOffsets) MsgID() MessageID {
 	return MSG_ID_SENSOR_OFFSETS
@@ -2533,11 +2528,6 @@ type ArdupilotmegaSetMagOffsets struct {
 	TargetComponent uint8 // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSetMagOffsets) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSetMagOffsets) MsgID() MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
@@ -2599,11 +2589,6 @@ type ArdupilotmegaMeminfo struct {
 	Freemem uint16 // Free memory.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMeminfo) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMeminfo) MsgID() MessageID {
 	return MSG_ID_MEMINFO
@@ -2658,11 +2643,6 @@ type ArdupilotmegaApAdc struct {
 	Adc4 uint16 // ADC output 4.
 	Adc5 uint16 // ADC output 5.
 	Adc6 uint16 // ADC output 6.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaApAdc) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2736,11 +2716,6 @@ type ArdupilotmegaDigicamConfigure struct {
 	CommandID       uint8   // Command Identity (incremental loop: 0 to 255). //A command sent multiple times will be executed or pooled just once.
 	EngineCutOff    uint8   // Main engine cut-off time before camera trigger (0 means no cut-off).
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore).
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaDigicamConfigure) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -2830,11 +2805,6 @@ type ArdupilotmegaDigicamControl struct {
 	ExtraParam      uint8   // Extra parameters enumeration (0 means ignore).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaDigicamControl) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaDigicamControl) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONTROL
@@ -2915,11 +2885,6 @@ type ArdupilotmegaMountConfigure struct {
 	StabYaw         uint8 // (1 = yes, 0 = no).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMountConfigure) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMountConfigure) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
@@ -2986,11 +2951,6 @@ type ArdupilotmegaMountControl struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	SavePosition    uint8 // If "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING).
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMountControl) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3060,11 +3020,6 @@ type ArdupilotmegaMountStatus struct {
 	TargetComponent uint8 // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMountStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMountStatus) MsgID() MessageID {
 	return MSG_ID_MOUNT_STATUS
@@ -3128,11 +3083,6 @@ type ArdupilotmegaFencePoint struct {
 	TargetComponent uint8   // Component ID.
 	Idx             uint8   // Point index (first point is 1, 0 is for return point).
 	Count           uint8   // Total number of points (for sanity checking).
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaFencePoint) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3200,11 +3150,6 @@ type ArdupilotmegaFenceFetchPoint struct {
 	Idx             uint8 // Point index (first point is 1, 0 is for return point).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaFenceFetchPoint) MsgID() MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
@@ -3263,11 +3208,6 @@ type ArdupilotmegaAhrs struct {
 	RenormVal   float32 // Average renormalisation value.
 	ErrorRp     float32 // Average error_roll_pitch value.
 	ErrorYaw    float32 // Average error_yaw value.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAhrs) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3344,11 +3284,6 @@ type ArdupilotmegaSimstate struct {
 	Zgyro float32 // Angular speed around Z axis.
 	Lat   int32   // Latitude.
 	Lng   int32   // Longitude.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSimstate) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3430,11 +3365,6 @@ type ArdupilotmegaHwstatus struct {
 	I2cerr uint8  // I2C error count.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaHwstatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaHwstatus) MsgID() MessageID {
 	return MSG_ID_HWSTATUS
@@ -3490,11 +3420,6 @@ type ArdupilotmegaRadio struct {
 	Txbuf    uint8  // How full the tx buffer is.
 	Noise    uint8  // Background noise level.
 	Remnoise uint8  // Remote background noise level.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRadio) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3571,11 +3496,6 @@ type ArdupilotmegaLimitsStatus struct {
 	ModsTriggered uint8  // AP_Limit_Module bitfield of triggered modules.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLimitsStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLimitsStatus) MsgID() MessageID {
 	return MSG_ID_LIMITS_STATUS
@@ -3650,11 +3570,6 @@ type ArdupilotmegaWind struct {
 	SpeedZ    float32 // Vertical wind speed.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaWind) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaWind) MsgID() MessageID {
 	return MSG_ID_WIND
@@ -3709,11 +3624,6 @@ type ArdupilotmegaData16 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [16]uint8 // Raw data.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaData16) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3772,11 +3682,6 @@ type ArdupilotmegaData32 struct {
 	Data [32]uint8 // Raw data.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaData32) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaData32) MsgID() MessageID {
 	return MSG_ID_DATA32
@@ -3831,11 +3736,6 @@ type ArdupilotmegaData64 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [64]uint8 // Raw data.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaData64) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -3894,11 +3794,6 @@ type ArdupilotmegaData96 struct {
 	Data [96]uint8 // Raw data.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaData96) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaData96) MsgID() MessageID {
 	return MSG_ID_DATA96
@@ -3952,11 +3847,6 @@ func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 type ArdupilotmegaRangefinder struct {
 	Distance float32 // Distance.
 	Voltage  float32 // Raw voltage if available, zero otherwise.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRangefinder) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4019,11 +3909,6 @@ type ArdupilotmegaAirspeedAutocal struct {
 	Pax          float32 // EKF Pax.
 	Pby          float32 // EKF Pby.
 	Pcz          float32 // EKF Pcz.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4116,11 +4001,6 @@ type ArdupilotmegaRallyPoint struct {
 	Flags           uint8  // Configuration flags.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRallyPoint) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRallyPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_POINT
@@ -4198,11 +4078,6 @@ type ArdupilotmegaRallyFetchPoint struct {
 	Idx             uint8 // Point index (first point is 0).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRallyFetchPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
@@ -4260,11 +4135,6 @@ type ArdupilotmegaCompassmotStatus struct {
 	Compensationz float32 // Motor Compensation Z.
 	Throttle      uint16  // Throttle.
 	Interference  uint16  // Interference.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCompassmotStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4333,11 +4203,6 @@ type ArdupilotmegaAhrs2 struct {
 	Altitude float32 // Altitude (MSL).
 	Lat      int32   // Latitude.
 	Lng      int32   // Longitude.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAhrs2) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4409,11 +4274,6 @@ type ArdupilotmegaCameraStatus struct {
 	TargetSystem uint8   // System ID.
 	CamIdx       uint8   // Camera ID.
 	EventID      uint8   // Event type.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCameraStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4498,11 +4358,6 @@ type ArdupilotmegaCameraFeedback struct {
 	TargetSystem uint8   // System ID.
 	CamIdx       uint8   // Camera ID.
 	Flags        uint8   // Feedback flags.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCameraFeedback) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4590,11 +4445,6 @@ type ArdupilotmegaBattery2 struct {
 	CurrentBattery int16  // Battery current, -1: autopilot does not measure the current.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaBattery2) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaBattery2) MsgID() MessageID {
 	return MSG_ID_BATTERY2
@@ -4653,11 +4503,6 @@ type ArdupilotmegaAhrs3 struct {
 	V2       float32 // Test variable2.
 	V3       float32 // Test variable3.
 	V4       float32 // Test variable4.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAhrs3) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4736,11 +4581,6 @@ type ArdupilotmegaAutopilotVersionRequest struct {
 	TargetComponent uint8 // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaAutopilotVersionRequest) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
@@ -4793,11 +4633,6 @@ type ArdupilotmegaRemoteLogDataBlock struct {
 	TargetSystem    uint8      // System ID.
 	TargetComponent uint8      // Component ID.
 	Data            [200]uint8 // Log data block.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -4860,11 +4695,6 @@ type ArdupilotmegaRemoteLogBlockStatus struct {
 	Status          uint8  // Log data block status.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRemoteLogBlockStatus) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
@@ -4925,11 +4755,6 @@ type ArdupilotmegaLedControl struct {
 	Pattern         uint8     // Pattern (see LED_PATTERN_ENUM).
 	CustomLen       uint8     // Custom Byte Length.
 	CustomBytes     [24]uint8 // Custom Bytes.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaLedControl) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5001,11 +4826,6 @@ type ArdupilotmegaMagCalProgress struct {
 	Attempt        uint8     // Attempt number.
 	CompletionPct  uint8     // Completion percentage.
 	CompletionMask [10]uint8 // Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid).
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMagCalProgress) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5085,11 +4905,6 @@ type ArdupilotmegaEkfStatusReport struct {
 	Flags              uint16  // Flags.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaEkfStatusReport) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaEkfStatusReport) MsgID() MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
@@ -5157,11 +4972,6 @@ type ArdupilotmegaPidTuning struct {
 	I        float32 // I component.
 	D        float32 // D component.
 	Axis     uint8   // Axis.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaPidTuning) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5237,11 +5047,6 @@ type ArdupilotmegaDeepstall struct {
 	ExpectedTravelDistance float32 // Distance the aircraft expects to travel during the deepstall.
 	CrossTrackError        float32 // Deepstall cross track error (only valid when in DEEPSTALL_STAGE_LAND).
 	Stage                  uint8   // Deepstall stage.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaDeepstall) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5330,11 +5135,6 @@ type ArdupilotmegaGimbalReport struct {
 	TargetComponent uint8   // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGimbalReport) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGimbalReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_REPORT
@@ -5420,11 +5220,6 @@ type ArdupilotmegaGimbalControl struct {
 	TargetComponent uint8   // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGimbalControl) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGimbalControl) MsgID() MessageID {
 	return MSG_ID_GIMBAL_CONTROL
@@ -5489,11 +5284,6 @@ type ArdupilotmegaGimbalTorqueCmdReport struct {
 	TargetComponent uint8 // Component ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
@@ -5556,11 +5346,6 @@ type ArdupilotmegaGoproHeartbeat struct {
 	Flags       uint8 // Additional status bits.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproHeartbeat) MsgID() MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
@@ -5615,11 +5400,6 @@ type ArdupilotmegaGoproGetRequest struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	CmdID           uint8 // Command ID.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGoproGetRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5678,11 +5458,6 @@ type ArdupilotmegaGoproGetResponse struct {
 	Value  [4]uint8 // Value.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGoproGetResponse) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproGetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_RESPONSE
@@ -5738,11 +5513,6 @@ type ArdupilotmegaGoproSetRequest struct {
 	TargetComponent uint8    // Component ID.
 	CmdID           uint8    // Command ID.
 	Value           [4]uint8 // Value.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGoproSetRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5803,11 +5573,6 @@ type ArdupilotmegaGoproSetResponse struct {
 	Status uint8 // Status.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGoproSetResponse) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproSetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
@@ -5858,11 +5623,6 @@ func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
 type ArdupilotmegaRpm struct {
 	Rpm1 float32 // RPM Sensor1.
 	Rpm2 float32 // RPM Sensor2.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRpm) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -5926,11 +5686,6 @@ type ArdupilotmegaSysStatus struct {
 	ErrorsCount3                 uint16 // Autopilot-specific errors
 	ErrorsCount4                 uint16 // Autopilot-specific errors
 	BatteryRemaining             int8   // Battery energy remaining, -1: Battery remaining energy not sent by autopilot
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSysStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6018,11 +5773,6 @@ type ArdupilotmegaSystemTime struct {
 	TimeBootMs   uint32 // Timestamp (time since system boot).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSystemTime) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSystemTime) MsgID() MessageID {
 	return MSG_ID_SYSTEM_TIME
@@ -6075,11 +5825,6 @@ type ArdupilotmegaPing struct {
 	Seq             uint32 // PING sequence
 	TargetSystem    uint8  // 0: request ping from all receiving systems. If greater than 0: message is a ping response and number is the system id of the requesting system
 	TargetComponent uint8  // 0: request ping from all receiving components. If greater than 0: message is a ping response and number is the component id of the requesting component.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaPing) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6142,11 +5887,6 @@ type ArdupilotmegaChangeOperatorControl struct {
 	Passkey        [25]byte // Password / Key, depending on version plaintext or encrypted. 25 or less characters, NULL terminated. The characters may involve A-Z, a-z, 0-9, and "!?,.-"
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaChangeOperatorControl) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaChangeOperatorControl) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
@@ -6206,11 +5946,6 @@ type ArdupilotmegaChangeOperatorControlAck struct {
 	Ack            uint8 // 0: ACK, 1: NACK: Wrong passkey, 2: NACK: Unsupported passkey encryption method, 3: NACK: Already under control
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaChangeOperatorControlAck) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaChangeOperatorControlAck) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
@@ -6263,11 +5998,6 @@ func (m *ArdupilotmegaChangeOperatorControlAck) Unpack(p *Packet) error {
 // Emit an encrypted signature / key identifying this system. PLEASE NOTE: This protocol has been kept simple, so transmitting the key requires an encrypted channel for true safety.
 type ArdupilotmegaAuthKey struct {
 	Key [32]byte // key
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAuthKey) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6326,11 +6056,6 @@ type ArdupilotmegaLinkNodeStatus struct {
 	RxOverflows      uint16 // Receive buffer overflows. This number wraps around as it reaches UINT16_MAX
 	TxBuf            uint8  // Remaining free transmit buffer space
 	RxBuf            uint8  // Remaining free receive buffer space
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaLinkNodeStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6413,11 +6138,6 @@ type ArdupilotmegaSetMode struct {
 	BaseMode     uint8  // The new base mode.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSetMode) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSetMode) MsgID() MessageID {
 	return MSG_ID_SET_MODE
@@ -6475,11 +6195,6 @@ type ArdupilotmegaParamAckTransaction struct {
 	ParamID         [16]byte // Parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParamType       uint8    // Parameter type.
 	ParamResult     uint8    // Result code.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaParamAckTransaction) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6548,11 +6263,6 @@ type ArdupilotmegaParamRequestRead struct {
 	ParamID         [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaParamRequestRead) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaParamRequestRead) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
@@ -6611,11 +6321,6 @@ type ArdupilotmegaParamRequestList struct {
 	TargetComponent uint8 // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaParamRequestList) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaParamRequestList) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
@@ -6669,11 +6374,6 @@ type ArdupilotmegaParamValue struct {
 	ParamIndex uint16   // Index of this onboard parameter
 	ParamID    [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParamType  uint8    // Onboard parameter type.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaParamValue) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6740,11 +6440,6 @@ type ArdupilotmegaParamSet struct {
 	TargetComponent uint8    // Component ID
 	ParamID         [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParamType       uint8    // Onboard parameter type.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaParamSet) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6815,11 +6510,6 @@ type ArdupilotmegaGpsRawInt struct {
 	Cog               uint16 // Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
 	FixType           uint8  // GPS fix type.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsRawInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -6902,11 +6592,6 @@ type ArdupilotmegaGpsStatus struct {
 	SatelliteSnr       [20]uint8 // Signal to noise ratio of satellite
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsStatus) MsgID() MessageID {
 	return MSG_ID_GPS_STATUS
@@ -6977,11 +6662,6 @@ type ArdupilotmegaScaledImu struct {
 	Xmag       int16  // X Magnetic field
 	Ymag       int16  // Y Magnetic field
 	Zmag       int16  // Z Magnetic field
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledImu) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -7068,11 +6748,6 @@ type ArdupilotmegaRawImu struct {
 	Zmag     int16  // Z Magnetic field (raw)
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRawImu) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRawImu) MsgID() MessageID {
 	return MSG_ID_RAW_IMU
@@ -7152,11 +6827,6 @@ type ArdupilotmegaRawPressure struct {
 	Temperature int16  // Raw Temperature measurement (raw)
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRawPressure) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRawPressure) MsgID() MessageID {
 	return MSG_ID_RAW_PRESSURE
@@ -7220,11 +6890,6 @@ type ArdupilotmegaScaledPressure struct {
 	Temperature int16   // Absolute pressure temperature
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledPressure) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledPressure) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE
@@ -7286,11 +6951,6 @@ type ArdupilotmegaAttitude struct {
 	Rollspeed  float32 // Roll angular speed
 	Pitchspeed float32 // Pitch angular speed
 	Yawspeed   float32 // Yaw angular speed
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAttitude) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -7364,11 +7024,6 @@ type ArdupilotmegaAttitudeQuaternion struct {
 	Rollspeed  float32 // Roll angular speed
 	Pitchspeed float32 // Pitch angular speed
 	Yawspeed   float32 // Yaw angular speed
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAttitudeQuaternion) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -7446,11 +7101,6 @@ type ArdupilotmegaLocalPositionNed struct {
 	Vz         float32 // Z Speed
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLocalPositionNed) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLocalPositionNed) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
@@ -7524,11 +7174,6 @@ type ArdupilotmegaGlobalPositionInt struct {
 	Vy          int16  // Ground Y Speed (Longitude, positive east)
 	Vz          int16  // Ground Z Speed (Altitude, positive down)
 	Hdg         uint16 // Vehicle heading (yaw angle), 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGlobalPositionInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -7611,11 +7256,6 @@ type ArdupilotmegaRcChannelsScaled struct {
 	Chan8Scaled int16  // RC channel 8 value scaled.
 	Port        uint8  // Servo output port (set of 8 outputs = 1 port). Flight stacks running on Pixhawk should use: 0 = MAIN, 1 = AUX.
 	Rssi        uint8  // Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRcChannelsScaled) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -7706,11 +7346,6 @@ type ArdupilotmegaRcChannelsRaw struct {
 	Rssi       uint8  // Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRcChannelsRaw) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRcChannelsRaw) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
@@ -7798,11 +7433,6 @@ type ArdupilotmegaServoOutputRaw struct {
 	Port      uint8  // Servo output port (set of 8 outputs = 1 port). Flight stacks running on Pixhawk should use: 0 = MAIN, 1 = AUX.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaServoOutputRaw) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaServoOutputRaw) MsgID() MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
@@ -7881,11 +7511,6 @@ type ArdupilotmegaMissionRequestPartialList struct {
 	TargetComponent uint8 // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionRequestPartialList) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionRequestPartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
@@ -7944,11 +7569,6 @@ type ArdupilotmegaMissionWritePartialList struct {
 	EndIndex        int16 // End index, equal or greater than start index.
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionWritePartialList) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8020,11 +7640,6 @@ type ArdupilotmegaMissionItem struct {
 	Frame           uint8   // The coordinate system of the waypoint.
 	Current         uint8   // false:0, true:1
 	Autocontinue    uint8   // Autocontinue to next waypoint
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionItem) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8116,11 +7731,6 @@ type ArdupilotmegaMissionRequest struct {
 	TargetComponent uint8  // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionRequest) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST
@@ -8177,11 +7787,6 @@ type ArdupilotmegaMissionSetCurrent struct {
 	TargetComponent uint8  // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionSetCurrent) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionSetCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
@@ -8236,11 +7841,6 @@ type ArdupilotmegaMissionCurrent struct {
 	Seq uint16 // Sequence
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionCurrent) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_CURRENT
@@ -8288,11 +7888,6 @@ func (m *ArdupilotmegaMissionCurrent) Unpack(p *Packet) error {
 type ArdupilotmegaMissionRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionRequestList) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8346,11 +7941,6 @@ type ArdupilotmegaMissionCount struct {
 	Count           uint16 // Number of mission items in the sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionCount) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8408,11 +7998,6 @@ type ArdupilotmegaMissionClearAll struct {
 	TargetComponent uint8 // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionClearAll) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionClearAll) MsgID() MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
@@ -8464,11 +8049,6 @@ type ArdupilotmegaMissionItemReached struct {
 	Seq uint16 // Sequence
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionItemReached) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionItemReached) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
@@ -8517,11 +8097,6 @@ type ArdupilotmegaMissionAck struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Type            uint8 // Mission result.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionAck) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8581,11 +8156,6 @@ type ArdupilotmegaSetGpsGlobalOrigin struct {
 	TargetSystem uint8 // System ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSetGpsGlobalOrigin) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
@@ -8643,11 +8213,6 @@ type ArdupilotmegaGpsGlobalOrigin struct {
 	Latitude  int32 // Latitude (WGS84)
 	Longitude int32 // Longitude (WGS84)
 	Altitude  int32 // Altitude (MSL). Positive for up.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsGlobalOrigin) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8710,11 +8275,6 @@ type ArdupilotmegaParamMapRc struct {
 	TargetComponent         uint8    // Component ID
 	ParamID                 [16]byte // Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
 	ParameterRcChannelIndex uint8    // Index of parameter RC channel. Not equal to the RC channel id. Typically corresponds to a potentiometer-knob on the RC.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaParamMapRc) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8791,11 +8351,6 @@ type ArdupilotmegaMissionRequestInt struct {
 	TargetComponent uint8  // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionRequestInt) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionRequestInt) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
@@ -8852,11 +8407,6 @@ type ArdupilotmegaMissionChanged struct {
 	OriginSysid  uint8 // System ID of the author of the new mission.
 	OriginCompid uint8 // Compnent ID of the author of the new mission.
 	MissionType  uint8 // Mission type.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionChanged) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -8925,11 +8475,6 @@ type ArdupilotmegaSafetySetAllowedArea struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	Frame           uint8   // Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSafetySetAllowedArea) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9010,11 +8555,6 @@ type ArdupilotmegaSafetyAllowedArea struct {
 	Frame uint8   // Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSafetyAllowedArea) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSafetyAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
@@ -9084,11 +8624,6 @@ type ArdupilotmegaAttitudeQuaternionCov struct {
 	Pitchspeed float32    // Pitch angular speed
 	Yawspeed   float32    // Yaw angular speed
 	Covariance [9]float32 // Row-major representation of a 3x3 attitude covariance matrix (states: roll, pitch, yaw; first three entries are the first ROW, next three entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAttitudeQuaternionCov) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9169,11 +8704,6 @@ type ArdupilotmegaNavControllerOutput struct {
 	WpDist        uint16  // Distance to active waypoint
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaNavControllerOutput) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaNavControllerOutput) MsgID() MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
@@ -9250,11 +8780,6 @@ type ArdupilotmegaGlobalPositionIntCov struct {
 	Vz            float32     // Ground Z Speed (Altitude)
 	Covariance    [36]float32 // Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
 	EstimatorType uint8       // Class id of the estimator this estimate originated from.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGlobalPositionIntCov) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9345,11 +8870,6 @@ type ArdupilotmegaLocalPositionNedCov struct {
 	Az            float32     // Z Acceleration
 	Covariance    [45]float32 // Row-major representation of position, velocity and acceleration 9x9 cross-covariance matrix upper right triangle (states: x, y, z, vx, vy, vz, ax, ay, az; first nine entries are the first ROW, next eight entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
 	EstimatorType uint8       // Class id of the estimator this estimate originated from.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaLocalPositionNedCov) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9455,11 +8975,6 @@ type ArdupilotmegaRcChannels struct {
 	Chan18Raw  uint16 // RC channel 18 value.
 	Chancount  uint8  // Total number of RC channels being received. This can be larger than 18, indicating that more channels are available but not given in this message. This value should be 0 when no RC channels are available.
 	Rssi       uint8  // Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRcChannels) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9574,11 +9089,6 @@ type ArdupilotmegaRequestDataStream struct {
 	StartStop       uint8  // 1 to start sending, 0 to stop sending.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRequestDataStream) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRequestDataStream) MsgID() MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
@@ -9641,11 +9151,6 @@ type ArdupilotmegaDataStream struct {
 	OnOff       uint8  // 1 stream is enabled, 0 stream is stopped.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaDataStream) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaDataStream) MsgID() MessageID {
 	return MSG_ID_DATA_STREAM
@@ -9703,11 +9208,6 @@ type ArdupilotmegaManualControl struct {
 	R       int16  // R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
 	Buttons uint16 // A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
 	Target  uint8  // The system to be controlled.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaManualControl) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9780,11 +9280,6 @@ type ArdupilotmegaRcChannelsOverride struct {
 	Chan8Raw        uint16 // RC channel 8 value. A value of UINT16_MAX means to ignore this field. A value of 0 means to release this channel back to the RC radio.
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaRcChannelsOverride) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9874,11 +9369,6 @@ type ArdupilotmegaMissionItemInt struct {
 	Frame           uint8   // The coordinate system of the waypoint.
 	Current         uint8   // false:0, true:1
 	Autocontinue    uint8   // Autocontinue to next waypoint
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMissionItemInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -9973,11 +9463,6 @@ type ArdupilotmegaVfrHud struct {
 	Throttle    uint16  // Current throttle setting (0 to 100).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaVfrHud) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaVfrHud) MsgID() MessageID {
 	return MSG_ID_VFR_HUD
@@ -10051,11 +9536,6 @@ type ArdupilotmegaCommandInt struct {
 	Frame           uint8   // The coordinate system of the COMMAND.
 	Current         uint8   // Not used.
 	Autocontinue    uint8   // Not used (set 0).
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCommandInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10152,11 +9632,6 @@ type ArdupilotmegaCommandLong struct {
 	Confirmation    uint8   // 0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaCommandLong) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaCommandLong) MsgID() MessageID {
 	return MSG_ID_COMMAND_LONG
@@ -10236,11 +9711,6 @@ type ArdupilotmegaCommandAck struct {
 	Result  uint8  // Result of command.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaCommandAck) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaCommandAck) MsgID() MessageID {
 	return MSG_ID_COMMAND_ACK
@@ -10292,11 +9762,6 @@ type ArdupilotmegaCommandCancel struct {
 	Command         uint16 // Command ID (of command to cancel).
 	TargetSystem    uint8  // System executing long running command. Should not be broadcast (0).
 	TargetComponent uint8  // Component executing long running command.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCommandCancel) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10357,11 +9822,6 @@ type ArdupilotmegaManualSetpoint struct {
 	Thrust               float32 // Collective thrust, normalized to 0 .. 1
 	ModeSwitch           uint8   // Flight mode switch position, 0.. 255
 	ManualOverrideSwitch uint8   // Override mode switch position, 0.. 255
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaManualSetpoint) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10436,11 +9896,6 @@ type ArdupilotmegaSetAttitudeTarget struct {
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
 	TypeMask        uint8      // Bitmap to indicate which dimensions should be ignored by the vehicle.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSetAttitudeTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10523,11 +9978,6 @@ type ArdupilotmegaAttitudeTarget struct {
 	BodyYawRate   float32    // Body yaw rate
 	Thrust        float32    // Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
 	TypeMask      uint8      // Bitmap to indicate which dimensions should be ignored by the vehicle.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAttitudeTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10613,11 +10063,6 @@ type ArdupilotmegaSetPositionTargetLocalNed struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSetPositionTargetLocalNed) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10726,11 +10171,6 @@ type ArdupilotmegaPositionTargetLocalNed struct {
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaPositionTargetLocalNed) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
@@ -10831,11 +10271,6 @@ type ArdupilotmegaSetPositionTargetGlobalInt struct {
 	TargetSystem    uint8   // System ID
 	TargetComponent uint8   // Component ID
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSetPositionTargetGlobalInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -10944,11 +10379,6 @@ type ArdupilotmegaPositionTargetGlobalInt struct {
 	CoordinateFrame uint8   // Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaPositionTargetGlobalInt) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
@@ -11042,11 +10472,6 @@ type ArdupilotmegaLocalPositionNedSystemGlobalOffset struct {
 	Yaw        float32 // Yaw
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
@@ -11126,11 +10551,6 @@ type ArdupilotmegaHilState struct {
 	Xacc       int16   // X acceleration
 	Yacc       int16   // Y acceleration
 	Zacc       int16   // Z acceleration
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHilState) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -11236,11 +10656,6 @@ type ArdupilotmegaHilControls struct {
 	NavMode       uint8   // Navigation mode (MAV_NAV_MODE)
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaHilControls) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaHilControls) MsgID() MessageID {
 	return MSG_ID_HIL_CONTROLS
@@ -11330,11 +10745,6 @@ type ArdupilotmegaHilRcInputsRaw struct {
 	Chan11Raw uint16 // RC channel 11 value
 	Chan12Raw uint16 // RC channel 12 value
 	Rssi      uint8  // Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHilRcInputsRaw) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -11427,11 +10837,6 @@ type ArdupilotmegaHilActuatorControls struct {
 	Mode     uint8       // System mode. Includes arming state.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaHilActuatorControls) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaHilActuatorControls) MsgID() MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
@@ -11498,11 +10903,6 @@ type ArdupilotmegaOpticalFlow struct {
 	FlowY          int16   // Flow in y-sensor direction
 	SensorID       uint8   // Sensor ID
 	Quality        uint8   // Optical flow quality / confidence. 0: bad, 255: maximum quality
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaOpticalFlow) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -11580,11 +10980,6 @@ type ArdupilotmegaGlobalVisionPositionEstimate struct {
 	Yaw   float32 // Yaw angle
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGlobalVisionPositionEstimate) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
@@ -11657,11 +11052,6 @@ type ArdupilotmegaVisionPositionEstimate struct {
 	Yaw   float32 // Yaw angle
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaVisionPositionEstimate) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
@@ -11731,11 +11121,6 @@ type ArdupilotmegaVisionSpeedEstimate struct {
 	Z    float32 // Global Z speed
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaVisionSpeedEstimate) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaVisionSpeedEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
@@ -11797,11 +11182,6 @@ type ArdupilotmegaViconPositionEstimate struct {
 	Roll  float32 // Roll angle
 	Pitch float32 // Pitch angle
 	Yaw   float32 // Yaw angle
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaViconPositionEstimate) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -11882,11 +11262,6 @@ type ArdupilotmegaHighresImu struct {
 	PressureAlt   float32 // Altitude calculated from pressure
 	Temperature   float32 // Temperature
 	FieldsUpdated uint16  // Bitmap for fields that have updated since last message, bit 0 = xacc, bit 12: temperature
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHighresImu) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -11990,11 +11365,6 @@ type ArdupilotmegaOpticalFlowRad struct {
 	Quality             uint8   // Optical flow quality / confidence. 0: no valid flow, 255: maximum quality
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaOpticalFlowRad) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaOpticalFlowRad) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
@@ -12088,11 +11458,6 @@ type ArdupilotmegaHilSensor struct {
 	PressureAlt   float32 // Altitude calculated from pressure
 	Temperature   float32 // Temperature
 	FieldsUpdated uint32  // Bitmap for fields that have updated since last message, bit 0 = xacc, bit 12: temperature, bit 31: full reset of attitude/position/velocities/etc was performed in sim.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHilSensor) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -12203,11 +11568,6 @@ type ArdupilotmegaSimState struct {
 	Vn         float32 // True velocity in north direction in earth-fixed NED frame
 	Ve         float32 // True velocity in east direction in earth-fixed NED frame
 	Vd         float32 // True velocity in down direction in earth-fixed NED frame
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSimState) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -12324,11 +11684,6 @@ type ArdupilotmegaRadioStatus struct {
 	Remnoise uint8  // Remote background noise level. These are device dependent RSSI values (scale as approx 2x dB on SiK radios). Values: [0-254], 255: invalid/unknown.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaRadioStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaRadioStatus) MsgID() MessageID {
 	return MSG_ID_RADIO_STATUS
@@ -12398,11 +11753,6 @@ type ArdupilotmegaFileTransferProtocol struct {
 	Payload         [251]uint8 // Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaFileTransferProtocol) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaFileTransferProtocol) MsgID() MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
@@ -12461,11 +11811,6 @@ type ArdupilotmegaTimesync struct {
 	Ts1 int64 // Time sync timestamp 2
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaTimesync) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaTimesync) MsgID() MessageID {
 	return MSG_ID_TIMESYNC
@@ -12516,11 +11861,6 @@ func (m *ArdupilotmegaTimesync) Unpack(p *Packet) error {
 type ArdupilotmegaCameraTrigger struct {
 	TimeUsec uint64 // Timestamp for image frame (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Seq      uint32 // Image frame sequence
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaCameraTrigger) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -12585,11 +11925,6 @@ type ArdupilotmegaHilGps struct {
 	Cog               uint16 // Course over ground (NOT heading, but direction of movement), 0.0..359.99 degrees. If unknown, set to: 65535
 	FixType           uint8  // 0-1: no fix, 2: 2D fix, 3: 3D fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHilGps) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -12687,11 +12022,6 @@ type ArdupilotmegaHilOpticalFlow struct {
 	Quality             uint8   // Optical flow quality / confidence. 0: no valid flow, 255: maximum quality
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaHilOpticalFlow) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaHilOpticalFlow) MsgID() MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
@@ -12786,11 +12116,6 @@ type ArdupilotmegaHilStateQuaternion struct {
 	Xacc               int16      // X acceleration
 	Yacc               int16      // Y acceleration
 	Zacc               int16      // Z acceleration
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHilStateQuaternion) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -12899,11 +12224,6 @@ type ArdupilotmegaScaledImu2 struct {
 	Zmag       int16  // Z Magnetic field
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledImu2) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledImu2) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU2
@@ -12982,11 +12302,6 @@ type ArdupilotmegaLogRequestList struct {
 	TargetComponent uint8  // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLogRequestList) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLogRequestList) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
@@ -13046,11 +12361,6 @@ type ArdupilotmegaLogEntry struct {
 	ID         uint16 // Log id
 	NumLogs    uint16 // Total number of logs
 	LastLogNum uint16 // High log number
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaLogEntry) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13117,11 +12427,6 @@ type ArdupilotmegaLogRequestData struct {
 	TargetComponent uint8  // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLogRequestData) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLogRequestData) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
@@ -13185,11 +12490,6 @@ type ArdupilotmegaLogData struct {
 	Data  [90]uint8 // log data
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLogData) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLogData) MsgID() MessageID {
 	return MSG_ID_LOG_DATA
@@ -13248,11 +12548,6 @@ type ArdupilotmegaLogErase struct {
 	TargetComponent uint8 // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLogErase) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLogErase) MsgID() MessageID {
 	return MSG_ID_LOG_ERASE
@@ -13303,11 +12598,6 @@ func (m *ArdupilotmegaLogErase) Unpack(p *Packet) error {
 type ArdupilotmegaLogRequestEnd struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaLogRequestEnd) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13362,11 +12652,6 @@ type ArdupilotmegaGpsInjectData struct {
 	TargetComponent uint8      // Component ID
 	Len             uint8      // Data length
 	Data            [110]uint8 // Raw data (110 is enough for 12 satellites of RTCMv2)
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsInjectData) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13435,11 +12720,6 @@ type ArdupilotmegaGps2Raw struct {
 	FixType           uint8  // GPS fix type.
 	SatellitesVisible uint8  // Number of satellites visible. If unknown, set to 255
 	DgpsNumch         uint8  // Number of DGPS satellites
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGps2Raw) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13525,11 +12805,6 @@ type ArdupilotmegaPowerStatus struct {
 	Flags  uint16 // Bitmap of power supply status flags.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaPowerStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaPowerStatus) MsgID() MessageID {
 	return MSG_ID_POWER_STATUS
@@ -13587,11 +12862,6 @@ type ArdupilotmegaSerialControl struct {
 	Flags    uint8     // Bitmap of serial control flags.
 	Count    uint8     // how many bytes in this transfer
 	Data     [70]uint8 // serial data
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaSerialControl) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13667,11 +12937,6 @@ type ArdupilotmegaGpsRtk struct {
 	RtkRate            uint8  // Rate of baseline messages being received by GPS
 	Nsats              uint8  // Current number of sats used for RTK calculation.
 	BaselineCoordsType uint8  // Coordinate system of baseline
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsRtk) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -13770,11 +13035,6 @@ type ArdupilotmegaGps2Rtk struct {
 	BaselineCoordsType uint8  // Coordinate system of baseline
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGps2Rtk) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGps2Rtk) MsgID() MessageID {
 	return MSG_ID_GPS2_RTK
@@ -13868,11 +13128,6 @@ type ArdupilotmegaScaledImu3 struct {
 	Zmag       int16  // Z Magnetic field
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledImu3) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledImu3) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU3
@@ -13954,11 +13209,6 @@ type ArdupilotmegaDataTransmissionHandshake struct {
 	JpgQuality uint8  // JPEG quality. Values: [1-100].
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaDataTransmissionHandshake) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaDataTransmissionHandshake) MsgID() MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
@@ -14026,11 +13276,6 @@ type ArdupilotmegaEncapsulatedData struct {
 	Data  [253]uint8 // image data bytes
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaEncapsulatedData) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaEncapsulatedData) MsgID() MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
@@ -14087,11 +13332,6 @@ type ArdupilotmegaDistanceSensor struct {
 	ID              uint8  // Onboard ID of the sensor
 	Orientation     uint8  // Direction the sensor faces. downward-facing: ROTATION_PITCH_270, upward-facing: ROTATION_PITCH_90, backward-facing: ROTATION_PITCH_180, forward-facing: ROTATION_NONE, left-facing: ROTATION_YAW_90, right-facing: ROTATION_YAW_270
 	Covariance      uint8  // Measurement variance. Max standard deviation is 6cm. 255 if unknown.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaDistanceSensor) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14166,11 +13406,6 @@ type ArdupilotmegaTerrainRequest struct {
 	GridSpacing uint16 // Grid spacing
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaTerrainRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaTerrainRequest) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REQUEST
@@ -14230,11 +13465,6 @@ type ArdupilotmegaTerrainData struct {
 	GridSpacing uint16    // Grid spacing
 	Data        [16]int16 // Terrain data MSL
 	Gridbit     uint8     // bit within the terrain request mask
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaTerrainData) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14302,11 +13532,6 @@ type ArdupilotmegaTerrainCheck struct {
 	Lon int32 // Longitude
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaTerrainCheck) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaTerrainCheck) MsgID() MessageID {
 	return MSG_ID_TERRAIN_CHECK
@@ -14362,11 +13587,6 @@ type ArdupilotmegaTerrainReport struct {
 	Spacing       uint16  // grid spacing (zero if terrain at this location unavailable)
 	Pending       uint16  // Number of 4x4 terrain blocks waiting to be received or read from disk
 	Loaded        uint16  // Number of 4x4 terrain blocks in memory
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaTerrainReport) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14438,11 +13658,6 @@ type ArdupilotmegaScaledPressure2 struct {
 	Temperature int16   // Absolute pressure temperature
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledPressure2) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledPressure2) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE2
@@ -14502,11 +13717,6 @@ type ArdupilotmegaAttPosMocap struct {
 	X        float32    // X position (NED)
 	Y        float32    // Y position (NED)
 	Z        float32    // Z position (NED)
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAttPosMocap) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14577,11 +13787,6 @@ type ArdupilotmegaSetActuatorControlTarget struct {
 	TargetComponent uint8      // Component ID
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSetActuatorControlTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSetActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
@@ -14648,11 +13853,6 @@ type ArdupilotmegaActuatorControlTarget struct {
 	GroupMlx uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaActuatorControlTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
@@ -14715,11 +13915,6 @@ type ArdupilotmegaAltitude struct {
 	AltitudeRelative  float32 // This is the altitude above the home position. It resets on each change of the current home position.
 	AltitudeTerrain   float32 // This is the altitude above terrain. It might be fed by a terrain database or an altimeter. Values smaller than -1000 should be interpreted as unknown.
 	BottomClearance   float32 // This is not the altitude, but the clear space below the system according to the fused clearance estimate. It generally should max out at the maximum range of e.g. the laser altimeter. It is generally a moving target. A negative value indicates no measurement available.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAltitude) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14792,11 +13987,6 @@ type ArdupilotmegaResourceRequest struct {
 	Storage      [120]uint8 // The storage path the autopilot wants the URI to be stored in. Will only be valid if the transfer_type has a storage associated (e.g. MAVLink FTP).
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaResourceRequest) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaResourceRequest) MsgID() MessageID {
 	return MSG_ID_RESOURCE_REQUEST
@@ -14858,11 +14048,6 @@ type ArdupilotmegaScaledPressure3 struct {
 	PressAbs    float32 // Absolute pressure
 	PressDiff   float32 // Differential pressure
 	Temperature int16   // Absolute pressure temperature
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaScaledPressure3) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -14930,11 +14115,6 @@ type ArdupilotmegaFollowTarget struct {
 	Rates           [3]float32 // (0 0 0 for unknown)
 	PositionCov     [3]float32 // eph epv
 	EstCapabilities uint8      // bit positions for tracker reporting capabilities (POS = 0, VEL = 1, ACCEL = 2, ATT + RATES = 3)
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaFollowTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15049,11 +14229,6 @@ type ArdupilotmegaControlSystemState struct {
 	RollRate    float32    // Angular rate in roll axis
 	PitchRate   float32    // Angular rate in pitch axis
 	YawRate     float32    // Angular rate in yaw axis
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaControlSystemState) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15172,11 +14347,6 @@ type ArdupilotmegaBatteryStatus struct {
 	BatteryRemaining int8       // Remaining battery energy. Values: [0-100], -1: autopilot does not estimate the remaining battery.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaBatteryStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaBatteryStatus) MsgID() MessageID {
 	return MSG_ID_BATTERY_STATUS
@@ -15261,11 +14431,6 @@ type ArdupilotmegaAutopilotVersion struct {
 	FlightCustomVersion     [8]uint8 // Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.
 	MiddlewareCustomVersion [8]uint8 // Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.
 	OsCustomVersion         [8]uint8 // Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAutopilotVersion) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15353,11 +14518,6 @@ type ArdupilotmegaLandingTarget struct {
 	Frame     uint8   // Coordinate frame used for following fields.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaLandingTarget) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaLandingTarget) MsgID() MessageID {
 	return MSG_ID_LANDING_TARGET
@@ -15430,11 +14590,6 @@ type ArdupilotmegaFenceStatus struct {
 	BreachType   uint8  // Last breach type.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaFenceStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaFenceStatus) MsgID() MessageID {
 	return MSG_ID_FENCE_STATUS
@@ -15503,11 +14658,6 @@ type ArdupilotmegaMagCalReport struct {
 	CalMask   uint8   // Bitmask of compasses being calibrated.
 	CalStatus uint8   // Calibration Status.
 	Autosaved uint8   // 0=requires a MAV_CMD_DO_ACCEPT_MAG_CAL, 1=saved to parameters.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMagCalReport) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15611,11 +14761,6 @@ type ArdupilotmegaEfiStatus struct {
 	ThrottleOut               float32 // Output throttle
 	PtCompensation            float32 // Pressure/temperature compensation
 	Health                    uint8   // EFI health status
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaEfiStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15723,11 +14868,6 @@ type ArdupilotmegaEstimatorStatus struct {
 	Flags            uint16  // Bitmap indicating which EKF outputs are valid.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaEstimatorStatus) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaEstimatorStatus) MsgID() MessageID {
 	return MSG_ID_ESTIMATOR_STATUS
@@ -15809,11 +14949,6 @@ type ArdupilotmegaWindCov struct {
 	WindAlt       float32 // Altitude (MSL) that this measurement was taken at
 	HorizAccuracy float32 // Horizontal speed 1-STD accuracy
 	VertAccuracy  float32 // Vertical speed 1-STD accuracy
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaWindCov) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -15903,11 +15038,6 @@ type ArdupilotmegaGpsInput struct {
 	GpsID             uint8   // ID of the GPS for multiple GPS inputs
 	FixType           uint8   // 0-1: no fix, 2: 2D fix, 3: 3D fix. 4: 3D with DGPS. 5: 3D with RTK
 	SatellitesVisible uint8   // Number of satellites visible.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsInput) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -16011,11 +15141,6 @@ type ArdupilotmegaGpsRtcmData struct {
 	Data  [180]uint8 // RTCM message (may be fragmented)
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaGpsRtcmData) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsRtcmData) MsgID() MessageID {
 	return MSG_ID_GPS_RTCM_DATA
@@ -16091,11 +15216,6 @@ type ArdupilotmegaHighLatency struct {
 	TemperatureAir   int8   // Air temperature (degrees C) from airspeed sensor
 	Failsafe         uint8  // failsafe (each bit represents a failsafe where 0=ok, 1=failsafe active (bit0:RC, bit1:batt, bit2:GPS, bit3:GCS, bit4:fence)
 	WpNum            uint8  // current waypoint number
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHighLatency) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -16241,11 +15361,6 @@ type ArdupilotmegaHighLatency2 struct {
 	Custom2        int8   // Field for custom payload.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaHighLatency2) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaHighLatency2) MsgID() MessageID {
 	return MSG_ID_HIGH_LATENCY2
@@ -16378,11 +15493,6 @@ type ArdupilotmegaVibration struct {
 	Clipping2  uint32  // third accelerometer clipping count
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaVibration) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaVibration) MsgID() MessageID {
 	return MSG_ID_VIBRATION
@@ -16456,11 +15566,6 @@ type ArdupilotmegaHomePosition struct {
 	ApproachX float32    // Local X position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
 	ApproachY float32    // Local Y position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
 	ApproachZ float32    // Local Z position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHomePosition) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -16552,11 +15657,6 @@ type ArdupilotmegaSetHomePosition struct {
 	TargetSystem uint8      // System ID.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaSetHomePosition) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaSetHomePosition) MsgID() MessageID {
 	return MSG_ID_SET_HOME_POSITION
@@ -16640,11 +15740,6 @@ type ArdupilotmegaMessageInterval struct {
 	MessageID  uint16 // The ID of the requested MAVLink message. v1.0 is limited to 254 messages.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaMessageInterval) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaMessageInterval) MsgID() MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
@@ -16695,11 +15790,6 @@ func (m *ArdupilotmegaMessageInterval) Unpack(p *Packet) error {
 type ArdupilotmegaExtendedSysState struct {
 	VtolState   uint8 // The VTOL state if applicable. Is set to MAV_VTOL_STATE_UNDEFINED if UAV is not in VTOL configuration.
 	LandedState uint8 // The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaExtendedSysState) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -16763,11 +15853,6 @@ type ArdupilotmegaAdsbVehicle struct {
 	Callsign     [9]byte // The callsign, 8+null
 	EmitterType  uint8   // ADSB emitter type.
 	Tslc         uint8   // Time since last communication in seconds
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaAdsbVehicle) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -16860,11 +15945,6 @@ type ArdupilotmegaCollision struct {
 	ThreatLevel            uint8   // How concerned the aircraft is about this collision
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaCollision) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaCollision) MsgID() MessageID {
 	return MSG_ID_COLLISION
@@ -16935,11 +16015,6 @@ type ArdupilotmegaV2Extension struct {
 	Payload         [249]uint8 // Variable length payload. The length must be encoded in the payload as part of the message_type protocol, e.g. by including the length as payload data, or by terminating the payload data with a non-zero marker. This is required in order to reconstruct zero-terminated payloads that are (or otherwise would be) trimmed by MAVLink 2 empty-byte truncation. The entire content of the payload block is opaque unless you understand the encoding message_type. The particular encoding used can be extension specific and might not always be documented as part of the MAVLink specification.
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaV2Extension) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaV2Extension) MsgID() MessageID {
 	return MSG_ID_V2_EXTENSION
@@ -17001,11 +16076,6 @@ type ArdupilotmegaMemoryVect struct {
 	Ver     uint8    // Version code of the type variable. 0=unknown, type ignored and assumed int16_t. 1=as below
 	Type    uint8    // Type code of the memory variables. for ver = 1: 0=16 x int16_t, 1=16 x uint16_t, 2=16 x Q15, 3=16 x 1Q14
 	Value   [32]int8 // Memory contents at specified address
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaMemoryVect) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -17073,11 +16143,6 @@ type ArdupilotmegaDebugVect struct {
 	Name     [10]byte // Name
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaDebugVect) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaDebugVect) MsgID() MessageID {
 	return MSG_ID_DEBUG_VECT
@@ -17140,11 +16205,6 @@ type ArdupilotmegaNamedValueFloat struct {
 	Name       [10]byte // Name of the debug variable
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaNamedValueFloat) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaNamedValueFloat) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
@@ -17199,11 +16259,6 @@ type ArdupilotmegaNamedValueInt struct {
 	TimeBootMs uint32   // Timestamp (time since system boot).
 	Value      int32    // Signed integer value
 	Name       [10]byte // Name of the debug variable
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaNamedValueInt) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -17261,11 +16316,6 @@ type ArdupilotmegaStatustext struct {
 	Text     [50]byte // Status text message, without null termination character
 }
 
-// Dialect (generated function)
-func (m *ArdupilotmegaStatustext) Dialect() *Dialect {
-	return DialectArdupilotmega
-}
-
 // MsgID (generated function)
 func (m *ArdupilotmegaStatustext) MsgID() MessageID {
 	return MSG_ID_STATUSTEXT
@@ -17317,11 +16367,6 @@ type ArdupilotmegaDebug struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	Value      float32 // DEBUG value
 	Ind        uint8   // index of debug variable
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaDebug) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -17381,11 +16426,6 @@ type ArdupilotmegaHeartbeat struct {
 	BaseMode       uint8  // System mode bitmap.
 	SystemStatus   uint8  // System status flag.
 	MavlinkVersion uint8  // MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version
-}
-
-// Dialect (generated function)
-func (m *ArdupilotmegaHeartbeat) Dialect() *Dialect {
-	return DialectArdupilotmega
 }
 
 // MsgID (generated function)
@@ -17837,969 +16877,974 @@ var MAVLINK_MESSAGE_CRC_EXTRAS = map[MessageID]uint8{
 	MSG_ID_HEARTBEAT:                               50,
 }
 
-// DialectArdupilotmega is the dialect represented by ardupilotmega.xml
-var DialectArdupilotmega = &Dialect{
-	Name: "ardupilotmega",
-	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
-		MSG_ID_SENSOR_OFFSETS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSensorOffsets)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_MAG_OFFSETS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetMagOffsets)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MEMINFO: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMeminfo)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AP_ADC: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaApAdc)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DIGICAM_CONFIGURE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDigicamConfigure)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DIGICAM_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDigicamControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MOUNT_CONFIGURE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMountConfigure)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MOUNT_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMountControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MOUNT_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMountStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FENCE_POINT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFencePoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FENCE_FETCH_POINT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFenceFetchPoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AHRS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAhrs)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SIMSTATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSimstate)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HWSTATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHwstatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RADIO: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRadio)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LIMITS_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLimitsStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_WIND: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaWind)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA16: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaData16)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA32: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaData32)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA64: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaData64)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA96: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaData96)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RANGEFINDER: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRangefinder)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AIRSPEED_AUTOCAL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAirspeedAutocal)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RALLY_POINT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRallyPoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RALLY_FETCH_POINT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRallyFetchPoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COMPASSMOT_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCompassmotStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AHRS2: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAhrs2)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CAMERA_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCameraStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CAMERA_FEEDBACK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCameraFeedback)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_BATTERY2: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaBattery2)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AHRS3: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAhrs3)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AUTOPILOT_VERSION_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAutopilotVersionRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_REMOTE_LOG_DATA_BLOCK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRemoteLogDataBlock)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_REMOTE_LOG_BLOCK_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRemoteLogBlockStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LED_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLedControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MAG_CAL_PROGRESS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMagCalProgress)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_EKF_STATUS_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaEkfStatusReport)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PID_TUNING: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaPidTuning)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DEEPSTALL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDeepstall)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GIMBAL_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGimbalReport)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GIMBAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGimbalControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GIMBAL_TORQUE_CMD_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGimbalTorqueCmdReport)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GOPRO_HEARTBEAT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGoproHeartbeat)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GOPRO_GET_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGoproGetRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GOPRO_GET_RESPONSE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGoproGetResponse)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GOPRO_SET_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGoproSetRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GOPRO_SET_RESPONSE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGoproSetResponse)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RPM: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRpm)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SYS_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSysStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SYSTEM_TIME: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSystemTime)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PING: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaPing)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CHANGE_OPERATOR_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaChangeOperatorControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CHANGE_OPERATOR_CONTROL_ACK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaChangeOperatorControlAck)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AUTH_KEY: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAuthKey)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LINK_NODE_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLinkNodeStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_MODE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetMode)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_ACK_TRANSACTION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamAckTransaction)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_REQUEST_READ: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamRequestRead)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamRequestList)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_VALUE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamValue)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_SET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamSet)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_RAW_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsRawInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_IMU: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledImu)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RAW_IMU: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRawImu)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RAW_PRESSURE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRawPressure)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_PRESSURE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledPressure)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ATTITUDE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAttitude)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ATTITUDE_QUATERNION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAttitudeQuaternion)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOCAL_POSITION_NED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLocalPositionNed)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GLOBAL_POSITION_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGlobalPositionInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RC_CHANNELS_SCALED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRcChannelsScaled)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RC_CHANNELS_RAW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRcChannelsRaw)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SERVO_OUTPUT_RAW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaServoOutputRaw)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_REQUEST_PARTIAL_LIST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionRequestPartialList)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_WRITE_PARTIAL_LIST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionWritePartialList)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_ITEM: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionItem)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_SET_CURRENT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionSetCurrent)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_CURRENT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionCurrent)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionRequestList)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_COUNT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionCount)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_CLEAR_ALL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionClearAll)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_ITEM_REACHED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionItemReached)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_ACK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionAck)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_GPS_GLOBAL_ORIGIN: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetGpsGlobalOrigin)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_GLOBAL_ORIGIN: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsGlobalOrigin)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_PARAM_MAP_RC: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaParamMapRc)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_REQUEST_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionRequestInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_CHANGED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionChanged)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SAFETY_SET_ALLOWED_AREA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSafetySetAllowedArea)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SAFETY_ALLOWED_AREA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSafetyAllowedArea)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ATTITUDE_QUATERNION_COV: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAttitudeQuaternionCov)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_NAV_CONTROLLER_OUTPUT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaNavControllerOutput)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GLOBAL_POSITION_INT_COV: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGlobalPositionIntCov)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOCAL_POSITION_NED_COV: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLocalPositionNedCov)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RC_CHANNELS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRcChannels)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_REQUEST_DATA_STREAM: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRequestDataStream)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA_STREAM: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDataStream)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MANUAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaManualControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RC_CHANNELS_OVERRIDE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRcChannelsOverride)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MISSION_ITEM_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMissionItemInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_VFR_HUD: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaVfrHud)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COMMAND_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCommandInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COMMAND_LONG: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCommandLong)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COMMAND_ACK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCommandAck)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COMMAND_CANCEL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCommandCancel)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MANUAL_SETPOINT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaManualSetpoint)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_ATTITUDE_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetAttitudeTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ATTITUDE_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAttitudeTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_POSITION_TARGET_LOCAL_NED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetPositionTargetLocalNed)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_POSITION_TARGET_LOCAL_NED: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaPositionTargetLocalNed)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_POSITION_TARGET_GLOBAL_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetPositionTargetGlobalInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_POSITION_TARGET_GLOBAL_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaPositionTargetGlobalInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLocalPositionNedSystemGlobalOffset)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_STATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilState)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_CONTROLS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilControls)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_RC_INPUTS_RAW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilRcInputsRaw)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_ACTUATOR_CONTROLS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilActuatorControls)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_OPTICAL_FLOW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaOpticalFlow)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGlobalVisionPositionEstimate)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_VISION_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaVisionPositionEstimate)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_VISION_SPEED_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaVisionSpeedEstimate)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_VICON_POSITION_ESTIMATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaViconPositionEstimate)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIGHRES_IMU: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHighresImu)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_OPTICAL_FLOW_RAD: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaOpticalFlowRad)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_SENSOR: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilSensor)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SIM_STATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSimState)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RADIO_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaRadioStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FILE_TRANSFER_PROTOCOL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFileTransferProtocol)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_TIMESYNC: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaTimesync)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CAMERA_TRIGGER: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCameraTrigger)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_GPS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilGps)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_OPTICAL_FLOW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilOpticalFlow)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIL_STATE_QUATERNION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHilStateQuaternion)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_IMU2: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledImu2)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_REQUEST_LIST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogRequestList)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_ENTRY: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogEntry)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_REQUEST_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogRequestData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_ERASE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogErase)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LOG_REQUEST_END: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLogRequestEnd)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_INJECT_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsInjectData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS2_RAW: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGps2Raw)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_POWER_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaPowerStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SERIAL_CONTROL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSerialControl)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_RTK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsRtk)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS2_RTK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGps2Rtk)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_IMU3: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledImu3)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DATA_TRANSMISSION_HANDSHAKE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDataTransmissionHandshake)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ENCAPSULATED_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaEncapsulatedData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DISTANCE_SENSOR: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDistanceSensor)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_TERRAIN_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaTerrainRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_TERRAIN_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaTerrainData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_TERRAIN_CHECK: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaTerrainCheck)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_TERRAIN_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaTerrainReport)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_PRESSURE2: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledPressure2)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ATT_POS_MOCAP: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAttPosMocap)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_ACTUATOR_CONTROL_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetActuatorControlTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ACTUATOR_CONTROL_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaActuatorControlTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ALTITUDE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAltitude)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_RESOURCE_REQUEST: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaResourceRequest)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SCALED_PRESSURE3: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaScaledPressure3)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FOLLOW_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFollowTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_CONTROL_SYSTEM_STATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaControlSystemState)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_BATTERY_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaBatteryStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_AUTOPILOT_VERSION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAutopilotVersion)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_LANDING_TARGET: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaLandingTarget)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_FENCE_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaFenceStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MAG_CAL_REPORT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMagCalReport)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_EFI_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaEfiStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ESTIMATOR_STATUS: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaEstimatorStatus)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_WIND_COV: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaWindCov)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_INPUT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsInput)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_GPS_RTCM_DATA: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaGpsRtcmData)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIGH_LATENCY: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHighLatency)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HIGH_LATENCY2: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHighLatency2)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_VIBRATION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaVibration)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HOME_POSITION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHomePosition)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_SET_HOME_POSITION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaSetHomePosition)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MESSAGE_INTERVAL: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMessageInterval)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_EXTENDED_SYS_STATE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaExtendedSysState)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_ADSB_VEHICLE: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaAdsbVehicle)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_COLLISION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaCollision)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_V2_EXTENSION: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaV2Extension)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_MEMORY_VECT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaMemoryVect)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DEBUG_VECT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDebugVect)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_NAMED_VALUE_FLOAT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaNamedValueFloat)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_NAMED_VALUE_INT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaNamedValueInt)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_STATUSTEXT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaStatustext)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_DEBUG: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaDebug)
-			msg.Unpack(pkt)
-			return msg
-		},
-		MSG_ID_HEARTBEAT: func(pkt *Packet) Message {
-			msg := new(ArdupilotmegaHeartbeat)
-			msg.Unpack(pkt)
-			return msg
-		},
+var MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID = map[MessageID]func(*Packet) Message{
+	MSG_ID_SENSOR_OFFSETS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSensorOffsets)
+		msg.Unpack(p)
+		return msg
 	},
+	MSG_ID_SET_MAG_OFFSETS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetMagOffsets)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MEMINFO: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMeminfo)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AP_ADC: func(p *Packet) Message {
+		msg := new(ArdupilotmegaApAdc)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DIGICAM_CONFIGURE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDigicamConfigure)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DIGICAM_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDigicamControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MOUNT_CONFIGURE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMountConfigure)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MOUNT_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMountControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MOUNT_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMountStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_FENCE_POINT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaFencePoint)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_FENCE_FETCH_POINT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaFenceFetchPoint)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AHRS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAhrs)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SIMSTATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSimstate)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HWSTATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHwstatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RADIO: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRadio)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LIMITS_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLimitsStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_WIND: func(p *Packet) Message {
+		msg := new(ArdupilotmegaWind)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA16: func(p *Packet) Message {
+		msg := new(ArdupilotmegaData16)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA32: func(p *Packet) Message {
+		msg := new(ArdupilotmegaData32)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA64: func(p *Packet) Message {
+		msg := new(ArdupilotmegaData64)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA96: func(p *Packet) Message {
+		msg := new(ArdupilotmegaData96)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RANGEFINDER: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRangefinder)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AIRSPEED_AUTOCAL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAirspeedAutocal)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RALLY_POINT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRallyPoint)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RALLY_FETCH_POINT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRallyFetchPoint)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COMPASSMOT_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCompassmotStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AHRS2: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAhrs2)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CAMERA_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCameraStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CAMERA_FEEDBACK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCameraFeedback)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_BATTERY2: func(p *Packet) Message {
+		msg := new(ArdupilotmegaBattery2)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AHRS3: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAhrs3)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AUTOPILOT_VERSION_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAutopilotVersionRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_REMOTE_LOG_DATA_BLOCK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRemoteLogDataBlock)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_REMOTE_LOG_BLOCK_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRemoteLogBlockStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LED_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLedControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MAG_CAL_PROGRESS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMagCalProgress)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_EKF_STATUS_REPORT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaEkfStatusReport)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PID_TUNING: func(p *Packet) Message {
+		msg := new(ArdupilotmegaPidTuning)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DEEPSTALL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDeepstall)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GIMBAL_REPORT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGimbalReport)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GIMBAL_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGimbalControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GIMBAL_TORQUE_CMD_REPORT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGimbalTorqueCmdReport)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GOPRO_HEARTBEAT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGoproHeartbeat)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GOPRO_GET_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGoproGetRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GOPRO_GET_RESPONSE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGoproGetResponse)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GOPRO_SET_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGoproSetRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GOPRO_SET_RESPONSE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGoproSetResponse)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RPM: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRpm)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SYS_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSysStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SYSTEM_TIME: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSystemTime)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PING: func(p *Packet) Message {
+		msg := new(ArdupilotmegaPing)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CHANGE_OPERATOR_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaChangeOperatorControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CHANGE_OPERATOR_CONTROL_ACK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaChangeOperatorControlAck)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AUTH_KEY: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAuthKey)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LINK_NODE_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLinkNodeStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_MODE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetMode)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_ACK_TRANSACTION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamAckTransaction)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_REQUEST_READ: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamRequestRead)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_REQUEST_LIST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamRequestList)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_VALUE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamValue)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_SET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamSet)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_RAW_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsRawInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_IMU: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledImu)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RAW_IMU: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRawImu)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RAW_PRESSURE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRawPressure)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_PRESSURE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledPressure)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ATTITUDE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAttitude)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ATTITUDE_QUATERNION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAttitudeQuaternion)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOCAL_POSITION_NED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLocalPositionNed)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GLOBAL_POSITION_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGlobalPositionInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RC_CHANNELS_SCALED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRcChannelsScaled)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RC_CHANNELS_RAW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRcChannelsRaw)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SERVO_OUTPUT_RAW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaServoOutputRaw)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_REQUEST_PARTIAL_LIST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionRequestPartialList)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_WRITE_PARTIAL_LIST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionWritePartialList)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_ITEM: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionItem)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_SET_CURRENT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionSetCurrent)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_CURRENT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionCurrent)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_REQUEST_LIST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionRequestList)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_COUNT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionCount)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_CLEAR_ALL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionClearAll)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_ITEM_REACHED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionItemReached)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_ACK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionAck)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_GPS_GLOBAL_ORIGIN: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetGpsGlobalOrigin)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_GLOBAL_ORIGIN: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsGlobalOrigin)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_PARAM_MAP_RC: func(p *Packet) Message {
+		msg := new(ArdupilotmegaParamMapRc)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_REQUEST_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionRequestInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_CHANGED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionChanged)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SAFETY_SET_ALLOWED_AREA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSafetySetAllowedArea)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SAFETY_ALLOWED_AREA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSafetyAllowedArea)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ATTITUDE_QUATERNION_COV: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAttitudeQuaternionCov)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_NAV_CONTROLLER_OUTPUT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaNavControllerOutput)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GLOBAL_POSITION_INT_COV: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGlobalPositionIntCov)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOCAL_POSITION_NED_COV: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLocalPositionNedCov)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RC_CHANNELS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRcChannels)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_REQUEST_DATA_STREAM: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRequestDataStream)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA_STREAM: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDataStream)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MANUAL_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaManualControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RC_CHANNELS_OVERRIDE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRcChannelsOverride)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MISSION_ITEM_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMissionItemInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_VFR_HUD: func(p *Packet) Message {
+		msg := new(ArdupilotmegaVfrHud)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COMMAND_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCommandInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COMMAND_LONG: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCommandLong)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COMMAND_ACK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCommandAck)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COMMAND_CANCEL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCommandCancel)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MANUAL_SETPOINT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaManualSetpoint)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_ATTITUDE_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetAttitudeTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ATTITUDE_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAttitudeTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_POSITION_TARGET_LOCAL_NED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetPositionTargetLocalNed)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_POSITION_TARGET_LOCAL_NED: func(p *Packet) Message {
+		msg := new(ArdupilotmegaPositionTargetLocalNed)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_POSITION_TARGET_GLOBAL_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetPositionTargetGlobalInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_POSITION_TARGET_GLOBAL_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaPositionTargetGlobalInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLocalPositionNedSystemGlobalOffset)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_STATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilState)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_CONTROLS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilControls)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_RC_INPUTS_RAW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilRcInputsRaw)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_ACTUATOR_CONTROLS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilActuatorControls)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_OPTICAL_FLOW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaOpticalFlow)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGlobalVisionPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_VISION_POSITION_ESTIMATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaVisionPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_VISION_SPEED_ESTIMATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaVisionSpeedEstimate)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_VICON_POSITION_ESTIMATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaViconPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIGHRES_IMU: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHighresImu)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_OPTICAL_FLOW_RAD: func(p *Packet) Message {
+		msg := new(ArdupilotmegaOpticalFlowRad)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_SENSOR: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilSensor)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SIM_STATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSimState)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RADIO_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaRadioStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_FILE_TRANSFER_PROTOCOL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaFileTransferProtocol)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_TIMESYNC: func(p *Packet) Message {
+		msg := new(ArdupilotmegaTimesync)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CAMERA_TRIGGER: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCameraTrigger)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_GPS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilGps)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_OPTICAL_FLOW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilOpticalFlow)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIL_STATE_QUATERNION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHilStateQuaternion)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_IMU2: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledImu2)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_REQUEST_LIST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogRequestList)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_ENTRY: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogEntry)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_REQUEST_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogRequestData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_ERASE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogErase)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LOG_REQUEST_END: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLogRequestEnd)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_INJECT_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsInjectData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS2_RAW: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGps2Raw)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_POWER_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaPowerStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SERIAL_CONTROL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSerialControl)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_RTK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsRtk)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS2_RTK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGps2Rtk)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_IMU3: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledImu3)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DATA_TRANSMISSION_HANDSHAKE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDataTransmissionHandshake)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ENCAPSULATED_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaEncapsulatedData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DISTANCE_SENSOR: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDistanceSensor)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_TERRAIN_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaTerrainRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_TERRAIN_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaTerrainData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_TERRAIN_CHECK: func(p *Packet) Message {
+		msg := new(ArdupilotmegaTerrainCheck)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_TERRAIN_REPORT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaTerrainReport)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_PRESSURE2: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledPressure2)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ATT_POS_MOCAP: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAttPosMocap)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_ACTUATOR_CONTROL_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetActuatorControlTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ACTUATOR_CONTROL_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaActuatorControlTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ALTITUDE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAltitude)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_RESOURCE_REQUEST: func(p *Packet) Message {
+		msg := new(ArdupilotmegaResourceRequest)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SCALED_PRESSURE3: func(p *Packet) Message {
+		msg := new(ArdupilotmegaScaledPressure3)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_FOLLOW_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaFollowTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_CONTROL_SYSTEM_STATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaControlSystemState)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_BATTERY_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaBatteryStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_AUTOPILOT_VERSION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAutopilotVersion)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_LANDING_TARGET: func(p *Packet) Message {
+		msg := new(ArdupilotmegaLandingTarget)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_FENCE_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaFenceStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MAG_CAL_REPORT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMagCalReport)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_EFI_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaEfiStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ESTIMATOR_STATUS: func(p *Packet) Message {
+		msg := new(ArdupilotmegaEstimatorStatus)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_WIND_COV: func(p *Packet) Message {
+		msg := new(ArdupilotmegaWindCov)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_INPUT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsInput)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_GPS_RTCM_DATA: func(p *Packet) Message {
+		msg := new(ArdupilotmegaGpsRtcmData)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIGH_LATENCY: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHighLatency)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HIGH_LATENCY2: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHighLatency2)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_VIBRATION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaVibration)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HOME_POSITION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHomePosition)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_SET_HOME_POSITION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaSetHomePosition)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MESSAGE_INTERVAL: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMessageInterval)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_EXTENDED_SYS_STATE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaExtendedSysState)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_ADSB_VEHICLE: func(p *Packet) Message {
+		msg := new(ArdupilotmegaAdsbVehicle)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_COLLISION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaCollision)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_V2_EXTENSION: func(p *Packet) Message {
+		msg := new(ArdupilotmegaV2Extension)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_MEMORY_VECT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaMemoryVect)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DEBUG_VECT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDebugVect)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_NAMED_VALUE_FLOAT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaNamedValueFloat)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_NAMED_VALUE_INT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaNamedValueInt)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_STATUSTEXT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaStatustext)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_DEBUG: func(p *Packet) Message {
+		msg := new(ArdupilotmegaDebug)
+		msg.Unpack(p)
+		return msg
+	},
+	MSG_ID_HEARTBEAT: func(p *Packet) Message {
+		msg := new(ArdupilotmegaHeartbeat)
+		msg.Unpack(p)
+		return msg
+	},
+}
+
+// Message function produce message from packet
+func (p *Packet) Message() (Message, error) {
+	constructor, ok := MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID[p.MsgID]
+	if !ok {
+		return nil, ErrUnknownMsgID
+	}
+	return constructor(p), nil
 }

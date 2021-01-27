@@ -547,16 +547,21 @@ var MAVLINK_MESSAGE_CRC_EXTRAS = map[MessageID]uint8{ {{range .Messages}}
 	MSG_ID_{{.Name}}: {{.CRCExtra}},{{end}}
 }
 
-// Dialect{{.Name | UpperCamelCase}} is the dialect represented by {{.Name}}.xml
-var Dialect{{.Name | UpperCamelCase}} = &Dialect{
-	Name: "{{.Name}}",
-	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{ {{range .Messages}}
-		MSG_ID_{{.Name}}: func(pkt *Packet) Message {
-			msg := new({{$dialect}}{{.Name | UpperCamelCase}})
-			msg.Unpack(pkt)
-			return msg
-		},{{end}}
-	},
+var MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID = map[MessageID]func(*Packet) Message{ {{range .Messages}}
+	MSG_ID_{{.Name}}: func(p *Packet) Message {
+		msg := new({{$dialect}}{{.Name | UpperCamelCase}})
+		msg.Unpack(p)
+		return msg
+	},{{end}}
+}
+
+// Message function produce message from packet
+func (p *Packet) Message() (Message, error) {
+	constructor, ok := MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID[p.MsgID]
+	if !ok {
+		return nil, ErrUnknownMsgID
+	}
+	return constructor(p), nil
 }
 `
 	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIDTmpl)).Execute(w, d)
@@ -576,11 +581,6 @@ func (d *Dialect) generateClasses(w io.Writer) error {
 // {{.Description}}
 type {{$dialect}}{{$name}} struct { {{range .Fields}}
   {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
-}
-
-// Dialect (generated function)
-func (m *{{$dialect}}{{$name}}) Dialect() *Dialect {
-	return Dialect{{$dialect}}
 }
 
 // MsgID (generated function)
