@@ -2467,7 +2467,18 @@ func (m *ArdupilotmegaSensorOffsets) MsgName() string {
 func (m *ArdupilotmegaSensorOffsets) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSensorOffsets{ MagDeclination: %+v, RawPress: %+v, RawTemp: %+v, GyroCalX: %+v, GyroCalY: %+v, GyroCalZ: %+v, AccelCalX: %+v, AccelCalY: %+v, AccelCalZ: %+v, MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v }",
-		m.MagDeclination, m.RawPress, m.RawTemp, m.GyroCalX, m.GyroCalY, m.GyroCalZ, m.AccelCalX, m.AccelCalY, m.AccelCalZ, m.MagOfsX, m.MagOfsY, m.MagOfsZ,
+		m.MagDeclination,
+		m.RawPress,
+		m.RawTemp,
+		m.GyroCalX,
+		m.GyroCalY,
+		m.GyroCalZ,
+		m.AccelCalX,
+		m.AccelCalY,
+		m.AccelCalZ,
+		m.MagOfsX,
+		m.MagOfsY,
+		m.MagOfsZ,
 	)
 }
 
@@ -2546,7 +2557,11 @@ func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
 func (m *ArdupilotmegaSetMagOffsets) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetMagOffsets{ MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.MagOfsX, m.MagOfsY, m.MagOfsZ, m.TargetSystem, m.TargetComponent,
+		m.MagOfsX,
+		m.MagOfsY,
+		m.MagOfsZ,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -2608,7 +2623,8 @@ func (m *ArdupilotmegaMeminfo) MsgName() string {
 func (m *ArdupilotmegaMeminfo) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMeminfo{ Brkval: %+v, Freemem: %+v }",
-		m.Brkval, m.Freemem,
+		m.Brkval,
+		m.Freemem,
 	)
 }
 
@@ -2668,7 +2684,12 @@ func (m *ArdupilotmegaApAdc) MsgName() string {
 func (m *ArdupilotmegaApAdc) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaApAdc{ Adc1: %+v, Adc2: %+v, Adc3: %+v, Adc4: %+v, Adc5: %+v, Adc6: %+v }",
-		m.Adc1, m.Adc2, m.Adc3, m.Adc4, m.Adc5, m.Adc6,
+		m.Adc1,
+		m.Adc2,
+		m.Adc3,
+		m.Adc4,
+		m.Adc5,
+		m.Adc6,
 	)
 }
 
@@ -2741,7 +2762,17 @@ func (m *ArdupilotmegaDigicamConfigure) MsgName() string {
 func (m *ArdupilotmegaDigicamConfigure) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDigicamConfigure{ ExtraValue: %+v, ShutterSpeed: %+v, TargetSystem: %+v, TargetComponent: %+v, Mode: %+v, Aperture: %+v, Iso: %+v, ExposureType: %+v, CommandID: %+v, EngineCutOff: %+v, ExtraParam: %+v }",
-		m.ExtraValue, m.ShutterSpeed, m.TargetSystem, m.TargetComponent, m.Mode, m.Aperture, m.Iso, m.ExposureType, m.CommandID, m.EngineCutOff, m.ExtraParam,
+		m.ExtraValue,
+		m.ShutterSpeed,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Mode,
+		m.Aperture,
+		m.Iso,
+		m.ExposureType,
+		m.CommandID,
+		m.EngineCutOff,
+		m.ExtraParam,
 	)
 }
 
@@ -2823,7 +2854,16 @@ func (m *ArdupilotmegaDigicamControl) MsgName() string {
 func (m *ArdupilotmegaDigicamControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDigicamControl{ ExtraValue: %+v, TargetSystem: %+v, TargetComponent: %+v, Session: %+v, ZoomPos: %+v, ZoomStep: %+v, FocusLock: %+v, Shot: %+v, CommandID: %+v, ExtraParam: %+v }",
-		m.ExtraValue, m.TargetSystem, m.TargetComponent, m.Session, m.ZoomPos, m.ZoomStep, m.FocusLock, m.Shot, m.CommandID, m.ExtraParam,
+		m.ExtraValue,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Session,
+		m.ZoomPos,
+		m.ZoomStep,
+		m.FocusLock,
+		m.Shot,
+		m.CommandID,
+		m.ExtraParam,
 	)
 }
 
@@ -2899,7 +2939,12 @@ func (m *ArdupilotmegaMountConfigure) MsgName() string {
 func (m *ArdupilotmegaMountConfigure) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMountConfigure{ TargetSystem: %+v, TargetComponent: %+v, MountMode: %+v, StabRoll: %+v, StabPitch: %+v, StabYaw: %+v }",
-		m.TargetSystem, m.TargetComponent, m.MountMode, m.StabRoll, m.StabPitch, m.StabYaw,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.MountMode,
+		m.StabRoll,
+		m.StabPitch,
+		m.StabYaw,
 	)
 }
 
@@ -2967,7 +3012,12 @@ func (m *ArdupilotmegaMountControl) MsgName() string {
 func (m *ArdupilotmegaMountControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMountControl{ InputA: %+v, InputB: %+v, InputC: %+v, TargetSystem: %+v, TargetComponent: %+v, SavePosition: %+v }",
-		m.InputA, m.InputB, m.InputC, m.TargetSystem, m.TargetComponent, m.SavePosition,
+		m.InputA,
+		m.InputB,
+		m.InputC,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.SavePosition,
 	)
 }
 
@@ -3034,7 +3084,11 @@ func (m *ArdupilotmegaMountStatus) MsgName() string {
 func (m *ArdupilotmegaMountStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMountStatus{ PointingA: %+v, PointingB: %+v, PointingC: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.PointingA, m.PointingB, m.PointingC, m.TargetSystem, m.TargetComponent,
+		m.PointingA,
+		m.PointingB,
+		m.PointingC,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -3100,7 +3154,12 @@ func (m *ArdupilotmegaFencePoint) MsgName() string {
 func (m *ArdupilotmegaFencePoint) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaFencePoint{ Lat: %+v, Lng: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v }",
-		m.Lat, m.Lng, m.TargetSystem, m.TargetComponent, m.Idx, m.Count,
+		m.Lat,
+		m.Lng,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Idx,
+		m.Count,
 	)
 }
 
@@ -3165,7 +3224,9 @@ func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
 func (m *ArdupilotmegaFenceFetchPoint) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaFenceFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
-		m.TargetSystem, m.TargetComponent, m.Idx,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Idx,
 	)
 }
 
@@ -3228,7 +3289,13 @@ func (m *ArdupilotmegaAhrs) MsgName() string {
 func (m *ArdupilotmegaAhrs) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAhrs{ Omegaix: %+v, Omegaiy: %+v, Omegaiz: %+v, AccelWeight: %+v, RenormVal: %+v, ErrorRp: %+v, ErrorYaw: %+v }",
-		m.Omegaix, m.Omegaiy, m.Omegaiz, m.AccelWeight, m.RenormVal, m.ErrorRp, m.ErrorYaw,
+		m.Omegaix,
+		m.Omegaiy,
+		m.Omegaiz,
+		m.AccelWeight,
+		m.RenormVal,
+		m.ErrorRp,
+		m.ErrorYaw,
 	)
 }
 
@@ -3303,7 +3370,17 @@ func (m *ArdupilotmegaSimstate) MsgName() string {
 func (m *ArdupilotmegaSimstate) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSimstate{ Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lng: %+v }",
-		m.Roll, m.Pitch, m.Yaw, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Lat, m.Lng,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Lat,
+		m.Lng,
 	)
 }
 
@@ -3377,7 +3454,8 @@ func (m *ArdupilotmegaHwstatus) MsgName() string {
 func (m *ArdupilotmegaHwstatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHwstatus{ Vcc: %+v, I2cerr: %+v }",
-		m.Vcc, m.I2cerr,
+		m.Vcc,
+		m.I2cerr,
 	)
 }
 
@@ -3438,7 +3516,13 @@ func (m *ArdupilotmegaRadio) MsgName() string {
 func (m *ArdupilotmegaRadio) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRadio{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
-		m.Rxerrors, m.Fixed, m.Rssi, m.Remrssi, m.Txbuf, m.Noise, m.Remnoise,
+		m.Rxerrors,
+		m.Fixed,
+		m.Rssi,
+		m.Remrssi,
+		m.Txbuf,
+		m.Noise,
+		m.Remnoise,
 	)
 }
 
@@ -3511,7 +3595,15 @@ func (m *ArdupilotmegaLimitsStatus) MsgName() string {
 func (m *ArdupilotmegaLimitsStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLimitsStatus{ LastTrigger: %+v, LastAction: %+v, LastRecovery: %+v, LastClear: %+v, BreachCount: %+v, LimitsState: %+v, ModsEnabled: %+v, ModsRequired: %+v, ModsTriggered: %+v }",
-		m.LastTrigger, m.LastAction, m.LastRecovery, m.LastClear, m.BreachCount, m.LimitsState, m.ModsEnabled, m.ModsRequired, m.ModsTriggered,
+		m.LastTrigger,
+		m.LastAction,
+		m.LastRecovery,
+		m.LastClear,
+		m.BreachCount,
+		m.LimitsState,
+		m.ModsEnabled,
+		m.ModsRequired,
+		m.ModsTriggered,
 	)
 }
 
@@ -3582,7 +3674,9 @@ func (m *ArdupilotmegaWind) MsgName() string {
 func (m *ArdupilotmegaWind) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaWind{ Direction: %+v, Speed: %+v, SpeedZ: %+v }",
-		m.Direction, m.Speed, m.SpeedZ,
+		m.Direction,
+		m.Speed,
+		m.SpeedZ,
 	)
 }
 
@@ -3641,7 +3735,9 @@ func (m *ArdupilotmegaData16) MsgName() string {
 func (m *ArdupilotmegaData16) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaData16{ Type: %+v, Len: %+v, Data: %+v }",
-		m.Type, m.Len, m.Data,
+		m.Type,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -3700,7 +3796,9 @@ func (m *ArdupilotmegaData32) MsgName() string {
 func (m *ArdupilotmegaData32) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaData32{ Type: %+v, Len: %+v, Data: %+v }",
-		m.Type, m.Len, m.Data,
+		m.Type,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -3759,7 +3857,9 @@ func (m *ArdupilotmegaData64) MsgName() string {
 func (m *ArdupilotmegaData64) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaData64{ Type: %+v, Len: %+v, Data: %+v }",
-		m.Type, m.Len, m.Data,
+		m.Type,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -3818,7 +3918,9 @@ func (m *ArdupilotmegaData96) MsgName() string {
 func (m *ArdupilotmegaData96) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaData96{ Type: %+v, Len: %+v, Data: %+v }",
-		m.Type, m.Len, m.Data,
+		m.Type,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -3876,7 +3978,8 @@ func (m *ArdupilotmegaRangefinder) MsgName() string {
 func (m *ArdupilotmegaRangefinder) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRangefinder{ Distance: %+v, Voltage: %+v }",
-		m.Distance, m.Voltage,
+		m.Distance,
+		m.Voltage,
 	)
 }
 
@@ -3942,7 +4045,18 @@ func (m *ArdupilotmegaAirspeedAutocal) MsgName() string {
 func (m *ArdupilotmegaAirspeedAutocal) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAirspeedAutocal{ Vx: %+v, Vy: %+v, Vz: %+v, DiffPressure: %+v, Eas2tas: %+v, Ratio: %+v, StateX: %+v, StateY: %+v, StateZ: %+v, Pax: %+v, Pby: %+v, Pcz: %+v }",
-		m.Vx, m.Vy, m.Vz, m.DiffPressure, m.Eas2tas, m.Ratio, m.StateX, m.StateY, m.StateZ, m.Pax, m.Pby, m.Pcz,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.DiffPressure,
+		m.Eas2tas,
+		m.Ratio,
+		m.StateX,
+		m.StateY,
+		m.StateZ,
+		m.Pax,
+		m.Pby,
+		m.Pcz,
 	)
 }
 
@@ -4026,7 +4140,16 @@ func (m *ArdupilotmegaRallyPoint) MsgName() string {
 func (m *ArdupilotmegaRallyPoint) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRallyPoint{ Lat: %+v, Lng: %+v, Alt: %+v, BreakAlt: %+v, LandDir: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v, Flags: %+v }",
-		m.Lat, m.Lng, m.Alt, m.BreakAlt, m.LandDir, m.TargetSystem, m.TargetComponent, m.Idx, m.Count, m.Flags,
+		m.Lat,
+		m.Lng,
+		m.Alt,
+		m.BreakAlt,
+		m.LandDir,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Idx,
+		m.Count,
+		m.Flags,
 	)
 }
 
@@ -4099,7 +4222,9 @@ func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
 func (m *ArdupilotmegaRallyFetchPoint) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRallyFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
-		m.TargetSystem, m.TargetComponent, m.Idx,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Idx,
 	)
 }
 
@@ -4161,7 +4286,12 @@ func (m *ArdupilotmegaCompassmotStatus) MsgName() string {
 func (m *ArdupilotmegaCompassmotStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCompassmotStatus{ Current: %+v, Compensationx: %+v, Compensationy: %+v, Compensationz: %+v, Throttle: %+v, Interference: %+v }",
-		m.Current, m.Compensationx, m.Compensationy, m.Compensationz, m.Throttle, m.Interference,
+		m.Current,
+		m.Compensationx,
+		m.Compensationy,
+		m.Compensationz,
+		m.Throttle,
+		m.Interference,
 	)
 }
 
@@ -4229,7 +4359,12 @@ func (m *ArdupilotmegaAhrs2) MsgName() string {
 func (m *ArdupilotmegaAhrs2) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAhrs2{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v }",
-		m.Roll, m.Pitch, m.Yaw, m.Altitude, m.Lat, m.Lng,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Altitude,
+		m.Lat,
+		m.Lng,
 	)
 }
 
@@ -4300,7 +4435,15 @@ func (m *ArdupilotmegaCameraStatus) MsgName() string {
 func (m *ArdupilotmegaCameraStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCameraStatus{ TimeUsec: %+v, P1: %+v, P2: %+v, P3: %+v, P4: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, EventID: %+v }",
-		m.TimeUsec, m.P1, m.P2, m.P3, m.P4, m.ImgIdx, m.TargetSystem, m.CamIdx, m.EventID,
+		m.TimeUsec,
+		m.P1,
+		m.P2,
+		m.P3,
+		m.P4,
+		m.ImgIdx,
+		m.TargetSystem,
+		m.CamIdx,
+		m.EventID,
 	)
 }
 
@@ -4381,7 +4524,19 @@ func (m *ArdupilotmegaCameraFeedback) MsgName() string {
 func (m *ArdupilotmegaCameraFeedback) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCameraFeedback{ TimeUsec: %+v, Lat: %+v, Lng: %+v, AltMsl: %+v, AltRel: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, FocLen: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, Flags: %+v }",
-		m.TimeUsec, m.Lat, m.Lng, m.AltMsl, m.AltRel, m.Roll, m.Pitch, m.Yaw, m.FocLen, m.ImgIdx, m.TargetSystem, m.CamIdx, m.Flags,
+		m.TimeUsec,
+		m.Lat,
+		m.Lng,
+		m.AltMsl,
+		m.AltRel,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.FocLen,
+		m.ImgIdx,
+		m.TargetSystem,
+		m.CamIdx,
+		m.Flags,
 	)
 }
 
@@ -4459,7 +4614,8 @@ func (m *ArdupilotmegaBattery2) MsgName() string {
 func (m *ArdupilotmegaBattery2) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaBattery2{ Voltage: %+v, CurrentBattery: %+v }",
-		m.Voltage, m.CurrentBattery,
+		m.Voltage,
+		m.CurrentBattery,
 	)
 }
 
@@ -4523,7 +4679,16 @@ func (m *ArdupilotmegaAhrs3) MsgName() string {
 func (m *ArdupilotmegaAhrs3) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAhrs3{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v, V1: %+v, V2: %+v, V3: %+v, V4: %+v }",
-		m.Roll, m.Pitch, m.Yaw, m.Altitude, m.Lat, m.Lng, m.V1, m.V2, m.V3, m.V4,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Altitude,
+		m.Lat,
+		m.Lng,
+		m.V1,
+		m.V2,
+		m.V3,
+		m.V4,
 	)
 }
 
@@ -4595,7 +4760,8 @@ func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
 func (m *ArdupilotmegaAutopilotVersionRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAutopilotVersionRequest{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -4653,7 +4819,10 @@ func (m *ArdupilotmegaRemoteLogDataBlock) MsgName() string {
 func (m *ArdupilotmegaRemoteLogDataBlock) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %+v }",
-		m.Seqno, m.TargetSystem, m.TargetComponent, m.Data,
+		m.Seqno,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Data,
 	)
 }
 
@@ -4715,7 +4884,10 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
 func (m *ArdupilotmegaRemoteLogBlockStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRemoteLogBlockStatus{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Status: %+v }",
-		m.Seqno, m.TargetSystem, m.TargetComponent, m.Status,
+		m.Seqno,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Status,
 	)
 }
 
@@ -4779,7 +4951,12 @@ func (m *ArdupilotmegaLedControl) MsgName() string {
 func (m *ArdupilotmegaLedControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %+v }",
-		m.TargetSystem, m.TargetComponent, m.Instance, m.Pattern, m.CustomLen, m.CustomBytes,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Instance,
+		m.Pattern,
+		m.CustomLen,
+		m.CustomBytes,
 	)
 }
 
@@ -4850,7 +5027,15 @@ func (m *ArdupilotmegaMagCalProgress) MsgName() string {
 func (m *ArdupilotmegaMagCalProgress) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %+v }",
-		m.DirectionX, m.DirectionY, m.DirectionZ, m.CompassID, m.CalMask, m.CalStatus, m.Attempt, m.CompletionPct, m.CompletionMask,
+		m.DirectionX,
+		m.DirectionY,
+		m.DirectionZ,
+		m.CompassID,
+		m.CalMask,
+		m.CalStatus,
+		m.Attempt,
+		m.CompletionPct,
+		m.CompletionMask,
 	)
 }
 
@@ -4924,7 +5109,12 @@ func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
 func (m *ArdupilotmegaEkfStatusReport) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaEkfStatusReport{ VelocityVariance: %+v, PosHorizVariance: %+v, PosVertVariance: %+v, CompassVariance: %+v, TerrainAltVariance: %+v, Flags: %+v }",
-		m.VelocityVariance, m.PosHorizVariance, m.PosVertVariance, m.CompassVariance, m.TerrainAltVariance, m.Flags,
+		m.VelocityVariance,
+		m.PosHorizVariance,
+		m.PosVertVariance,
+		m.CompassVariance,
+		m.TerrainAltVariance,
+		m.Flags,
 	)
 }
 
@@ -4993,7 +5183,13 @@ func (m *ArdupilotmegaPidTuning) MsgName() string {
 func (m *ArdupilotmegaPidTuning) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaPidTuning{ Desired: %+v, Achieved: %+v, Ff: %+v, P: %+v, I: %+v, D: %+v, Axis: %+v }",
-		m.Desired, m.Achieved, m.Ff, m.P, m.I, m.D, m.Axis,
+		m.Desired,
+		m.Achieved,
+		m.Ff,
+		m.P,
+		m.I,
+		m.D,
+		m.Axis,
 	)
 }
 
@@ -5067,7 +5263,16 @@ func (m *ArdupilotmegaDeepstall) MsgName() string {
 func (m *ArdupilotmegaDeepstall) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDeepstall{ LandingLat: %+v, LandingLon: %+v, PathLat: %+v, PathLon: %+v, ArcEntryLat: %+v, ArcEntryLon: %+v, Altitude: %+v, ExpectedTravelDistance: %+v, CrossTrackError: %+v, Stage: %+v }",
-		m.LandingLat, m.LandingLon, m.PathLat, m.PathLon, m.ArcEntryLat, m.ArcEntryLon, m.Altitude, m.ExpectedTravelDistance, m.CrossTrackError, m.Stage,
+		m.LandingLat,
+		m.LandingLon,
+		m.PathLat,
+		m.PathLon,
+		m.ArcEntryLat,
+		m.ArcEntryLon,
+		m.Altitude,
+		m.ExpectedTravelDistance,
+		m.CrossTrackError,
+		m.Stage,
 	)
 }
 
@@ -5149,7 +5354,18 @@ func (m *ArdupilotmegaGimbalReport) MsgName() string {
 func (m *ArdupilotmegaGimbalReport) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGimbalReport{ DeltaTime: %+v, DeltaAngleX: %+v, DeltaAngleY: %+v, DeltaAngleZ: %+v, DeltaVelocityX: %+v, DeltaVelocityY: %+v, DeltaVelocityZ: %+v, JointRoll: %+v, JointEl: %+v, JointAz: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.DeltaTime, m.DeltaAngleX, m.DeltaAngleY, m.DeltaAngleZ, m.DeltaVelocityX, m.DeltaVelocityY, m.DeltaVelocityZ, m.JointRoll, m.JointEl, m.JointAz, m.TargetSystem, m.TargetComponent,
+		m.DeltaTime,
+		m.DeltaAngleX,
+		m.DeltaAngleY,
+		m.DeltaAngleZ,
+		m.DeltaVelocityX,
+		m.DeltaVelocityY,
+		m.DeltaVelocityZ,
+		m.JointRoll,
+		m.JointEl,
+		m.JointAz,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -5228,7 +5444,11 @@ func (m *ArdupilotmegaGimbalControl) MsgName() string {
 func (m *ArdupilotmegaGimbalControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGimbalControl{ DemandedRateX: %+v, DemandedRateY: %+v, DemandedRateZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.DemandedRateX, m.DemandedRateY, m.DemandedRateZ, m.TargetSystem, m.TargetComponent,
+		m.DemandedRateX,
+		m.DemandedRateY,
+		m.DemandedRateZ,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -5293,7 +5513,11 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
 func (m *ArdupilotmegaGimbalTorqueCmdReport) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGimbalTorqueCmdReport{ RlTorqueCmd: %+v, ElTorqueCmd: %+v, AzTorqueCmd: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.RlTorqueCmd, m.ElTorqueCmd, m.AzTorqueCmd, m.TargetSystem, m.TargetComponent,
+		m.RlTorqueCmd,
+		m.ElTorqueCmd,
+		m.AzTorqueCmd,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -5356,7 +5580,9 @@ func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
 func (m *ArdupilotmegaGoproHeartbeat) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGoproHeartbeat{ Status: %+v, CaptureMode: %+v, Flags: %+v }",
-		m.Status, m.CaptureMode, m.Flags,
+		m.Status,
+		m.CaptureMode,
+		m.Flags,
 	)
 }
 
@@ -5415,7 +5641,9 @@ func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
 func (m *ArdupilotmegaGoproGetRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGoproGetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v }",
-		m.TargetSystem, m.TargetComponent, m.CmdID,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.CmdID,
 	)
 }
 
@@ -5474,7 +5702,9 @@ func (m *ArdupilotmegaGoproGetResponse) MsgName() string {
 func (m *ArdupilotmegaGoproGetResponse) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGoproGetResponse{ CmdID: %+v, Status: %+v, Value: %+v }",
-		m.CmdID, m.Status, m.Value,
+		m.CmdID,
+		m.Status,
+		m.Value,
 	)
 }
 
@@ -5534,7 +5764,10 @@ func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
 func (m *ArdupilotmegaGoproSetRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %+v }",
-		m.TargetSystem, m.TargetComponent, m.CmdID, m.Value,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.CmdID,
+		m.Value,
 	)
 }
 
@@ -5594,7 +5827,8 @@ func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
 func (m *ArdupilotmegaGoproSetResponse) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGoproSetResponse{ CmdID: %+v, Status: %+v }",
-		m.CmdID, m.Status,
+		m.CmdID,
+		m.Status,
 	)
 }
 
@@ -5650,7 +5884,8 @@ func (m *ArdupilotmegaRpm) MsgName() string {
 func (m *ArdupilotmegaRpm) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRpm{ Rpm1: %+v, Rpm2: %+v }",
-		m.Rpm1, m.Rpm2,
+		m.Rpm1,
+		m.Rpm2,
 	)
 }
 
@@ -5717,7 +5952,19 @@ func (m *ArdupilotmegaSysStatus) MsgName() string {
 func (m *ArdupilotmegaSysStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSysStatus{ OnboardControlSensorsPresent: %+v, OnboardControlSensorsEnabled: %+v, OnboardControlSensorsHealth: %+v, Load: %+v, VoltageBattery: %+v, CurrentBattery: %+v, DropRateComm: %+v, ErrorsComm: %+v, ErrorsCount1: %+v, ErrorsCount2: %+v, ErrorsCount3: %+v, ErrorsCount4: %+v, BatteryRemaining: %+v }",
-		m.OnboardControlSensorsPresent, m.OnboardControlSensorsEnabled, m.OnboardControlSensorsHealth, m.Load, m.VoltageBattery, m.CurrentBattery, m.DropRateComm, m.ErrorsComm, m.ErrorsCount1, m.ErrorsCount2, m.ErrorsCount3, m.ErrorsCount4, m.BatteryRemaining,
+		m.OnboardControlSensorsPresent,
+		m.OnboardControlSensorsEnabled,
+		m.OnboardControlSensorsHealth,
+		m.Load,
+		m.VoltageBattery,
+		m.CurrentBattery,
+		m.DropRateComm,
+		m.ErrorsComm,
+		m.ErrorsCount1,
+		m.ErrorsCount2,
+		m.ErrorsCount3,
+		m.ErrorsCount4,
+		m.BatteryRemaining,
 	)
 }
 
@@ -5795,7 +6042,8 @@ func (m *ArdupilotmegaSystemTime) MsgName() string {
 func (m *ArdupilotmegaSystemTime) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSystemTime{ TimeUnixUsec: %+v, TimeBootMs: %+v }",
-		m.TimeUnixUsec, m.TimeBootMs,
+		m.TimeUnixUsec,
+		m.TimeBootMs,
 	)
 }
 
@@ -5853,7 +6101,10 @@ func (m *ArdupilotmegaPing) MsgName() string {
 func (m *ArdupilotmegaPing) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaPing{ TimeUsec: %+v, Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.TimeUsec, m.Seq, m.TargetSystem, m.TargetComponent,
+		m.TimeUsec,
+		m.Seq,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -5915,7 +6166,10 @@ func (m *ArdupilotmegaChangeOperatorControl) MsgName() string {
 func (m *ArdupilotmegaChangeOperatorControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
-		m.TargetSystem, m.ControlRequest, m.Version, m.Passkey,
+		m.TargetSystem,
+		m.ControlRequest,
+		m.Version,
+		m.Passkey,
 	)
 }
 
@@ -5976,7 +6230,9 @@ func (m *ArdupilotmegaChangeOperatorControlAck) MsgName() string {
 func (m *ArdupilotmegaChangeOperatorControlAck) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaChangeOperatorControlAck{ GcsSystemID: %+v, ControlRequest: %+v, Ack: %+v }",
-		m.GcsSystemID, m.ControlRequest, m.Ack,
+		m.GcsSystemID,
+		m.ControlRequest,
+		m.Ack,
 	)
 }
 
@@ -6096,7 +6352,17 @@ func (m *ArdupilotmegaLinkNodeStatus) MsgName() string {
 func (m *ArdupilotmegaLinkNodeStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLinkNodeStatus{ Timestamp: %+v, TxRate: %+v, RxRate: %+v, MessagesSent: %+v, MessagesReceived: %+v, MessagesLost: %+v, RxParseErr: %+v, TxOverflows: %+v, RxOverflows: %+v, TxBuf: %+v, RxBuf: %+v }",
-		m.Timestamp, m.TxRate, m.RxRate, m.MessagesSent, m.MessagesReceived, m.MessagesLost, m.RxParseErr, m.TxOverflows, m.RxOverflows, m.TxBuf, m.RxBuf,
+		m.Timestamp,
+		m.TxRate,
+		m.RxRate,
+		m.MessagesSent,
+		m.MessagesReceived,
+		m.MessagesLost,
+		m.RxParseErr,
+		m.TxOverflows,
+		m.RxOverflows,
+		m.TxBuf,
+		m.RxBuf,
 	)
 }
 
@@ -6171,7 +6437,9 @@ func (m *ArdupilotmegaSetMode) MsgName() string {
 func (m *ArdupilotmegaSetMode) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetMode{ CustomMode: %+v, TargetSystem: %+v, BaseMode: %+v }",
-		m.CustomMode, m.TargetSystem, m.BaseMode,
+		m.CustomMode,
+		m.TargetSystem,
+		m.BaseMode,
 	)
 }
 
@@ -6233,7 +6501,12 @@ func (m *ArdupilotmegaParamAckTransaction) MsgName() string {
 func (m *ArdupilotmegaParamAckTransaction) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
-		m.ParamValue, m.TargetSystem, m.TargetComponent, m.ParamID, m.ParamType, m.ParamResult,
+		m.ParamValue,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.ParamID,
+		m.ParamType,
+		m.ParamResult,
 	)
 }
 
@@ -6299,7 +6572,10 @@ func (m *ArdupilotmegaParamRequestRead) MsgName() string {
 func (m *ArdupilotmegaParamRequestRead) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
-		m.ParamIndex, m.TargetSystem, m.TargetComponent, m.ParamID,
+		m.ParamIndex,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.ParamID,
 	)
 }
 
@@ -6359,7 +6635,8 @@ func (m *ArdupilotmegaParamRequestList) MsgName() string {
 func (m *ArdupilotmegaParamRequestList) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -6418,7 +6695,11 @@ func (m *ArdupilotmegaParamValue) MsgName() string {
 func (m *ArdupilotmegaParamValue) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
-		m.ParamValue, m.ParamCount, m.ParamIndex, m.ParamID, m.ParamType,
+		m.ParamValue,
+		m.ParamCount,
+		m.ParamIndex,
+		m.ParamID,
+		m.ParamType,
 	)
 }
 
@@ -6485,7 +6766,11 @@ func (m *ArdupilotmegaParamSet) MsgName() string {
 func (m *ArdupilotmegaParamSet) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
-		m.ParamValue, m.TargetSystem, m.TargetComponent, m.ParamID, m.ParamType,
+		m.ParamValue,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.ParamID,
+		m.ParamType,
 	)
 }
 
@@ -6556,7 +6841,16 @@ func (m *ArdupilotmegaGpsRawInt) MsgName() string {
 func (m *ArdupilotmegaGpsRawInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsRawInt{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
-		m.TimeUsec, m.Lat, m.Lon, m.Alt, m.Eph, m.Epv, m.Vel, m.Cog, m.FixType, m.SatellitesVisible,
+		m.TimeUsec,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Eph,
+		m.Epv,
+		m.Vel,
+		m.Cog,
+		m.FixType,
+		m.SatellitesVisible,
 	)
 }
 
@@ -6632,7 +6926,12 @@ func (m *ArdupilotmegaGpsStatus) MsgName() string {
 func (m *ArdupilotmegaGpsStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
-		m.SatellitesVisible, m.SatellitePrn, m.SatelliteUsed, m.SatelliteElevation, m.SatelliteAzimuth, m.SatelliteSnr,
+		m.SatellitesVisible,
+		m.SatellitePrn,
+		m.SatelliteUsed,
+		m.SatelliteElevation,
+		m.SatelliteAzimuth,
+		m.SatelliteSnr,
 	)
 }
 
@@ -6704,7 +7003,16 @@ func (m *ArdupilotmegaScaledImu) MsgName() string {
 func (m *ArdupilotmegaScaledImu) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledImu{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
-		m.TimeBootMs, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag,
+		m.TimeBootMs,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
 	)
 }
 
@@ -6784,7 +7092,16 @@ func (m *ArdupilotmegaRawImu) MsgName() string {
 func (m *ArdupilotmegaRawImu) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRawImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
-		m.TimeUsec, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag,
+		m.TimeUsec,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
 	)
 }
 
@@ -6859,7 +7176,11 @@ func (m *ArdupilotmegaRawPressure) MsgName() string {
 func (m *ArdupilotmegaRawPressure) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRawPressure{ TimeUsec: %+v, PressAbs: %+v, PressDiff1: %+v, PressDiff2: %+v, Temperature: %+v }",
-		m.TimeUsec, m.PressAbs, m.PressDiff1, m.PressDiff2, m.Temperature,
+		m.TimeUsec,
+		m.PressAbs,
+		m.PressDiff1,
+		m.PressDiff2,
+		m.Temperature,
 	)
 }
 
@@ -6923,7 +7244,10 @@ func (m *ArdupilotmegaScaledPressure) MsgName() string {
 func (m *ArdupilotmegaScaledPressure) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledPressure{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
-		m.TimeBootMs, m.PressAbs, m.PressDiff, m.Temperature,
+		m.TimeBootMs,
+		m.PressAbs,
+		m.PressDiff,
+		m.Temperature,
 	)
 }
 
@@ -6988,7 +7312,13 @@ func (m *ArdupilotmegaAttitude) MsgName() string {
 func (m *ArdupilotmegaAttitude) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAttitude{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
-		m.TimeBootMs, m.Roll, m.Pitch, m.Yaw, m.Rollspeed, m.Pitchspeed, m.Yawspeed,
+		m.TimeBootMs,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Rollspeed,
+		m.Pitchspeed,
+		m.Yawspeed,
 	)
 }
 
@@ -7060,7 +7390,14 @@ func (m *ArdupilotmegaAttitudeQuaternion) MsgName() string {
 func (m *ArdupilotmegaAttitudeQuaternion) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAttitudeQuaternion{ TimeBootMs: %+v, Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
-		m.TimeBootMs, m.Q1, m.Q2, m.Q3, m.Q4, m.Rollspeed, m.Pitchspeed, m.Yawspeed,
+		m.TimeBootMs,
+		m.Q1,
+		m.Q2,
+		m.Q3,
+		m.Q4,
+		m.Rollspeed,
+		m.Pitchspeed,
+		m.Yawspeed,
 	)
 }
 
@@ -7133,7 +7470,13 @@ func (m *ArdupilotmegaLocalPositionNed) MsgName() string {
 func (m *ArdupilotmegaLocalPositionNed) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLocalPositionNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v }",
-		m.TimeBootMs, m.X, m.Y, m.Z, m.Vx, m.Vy, m.Vz,
+		m.TimeBootMs,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Vx,
+		m.Vy,
+		m.Vz,
 	)
 }
 
@@ -7207,7 +7550,15 @@ func (m *ArdupilotmegaGlobalPositionInt) MsgName() string {
 func (m *ArdupilotmegaGlobalPositionInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGlobalPositionInt{ TimeBootMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Hdg: %+v }",
-		m.TimeBootMs, m.Lat, m.Lon, m.Alt, m.RelativeAlt, m.Vx, m.Vy, m.Vz, m.Hdg,
+		m.TimeBootMs,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.RelativeAlt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Hdg,
 	)
 }
 
@@ -7286,7 +7637,17 @@ func (m *ArdupilotmegaRcChannelsScaled) MsgName() string {
 func (m *ArdupilotmegaRcChannelsScaled) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRcChannelsScaled{ TimeBootMs: %+v, Chan1Scaled: %+v, Chan2Scaled: %+v, Chan3Scaled: %+v, Chan4Scaled: %+v, Chan5Scaled: %+v, Chan6Scaled: %+v, Chan7Scaled: %+v, Chan8Scaled: %+v, Port: %+v, Rssi: %+v }",
-		m.TimeBootMs, m.Chan1Scaled, m.Chan2Scaled, m.Chan3Scaled, m.Chan4Scaled, m.Chan5Scaled, m.Chan6Scaled, m.Chan7Scaled, m.Chan8Scaled, m.Port, m.Rssi,
+		m.TimeBootMs,
+		m.Chan1Scaled,
+		m.Chan2Scaled,
+		m.Chan3Scaled,
+		m.Chan4Scaled,
+		m.Chan5Scaled,
+		m.Chan6Scaled,
+		m.Chan7Scaled,
+		m.Chan8Scaled,
+		m.Port,
+		m.Rssi,
 	)
 }
 
@@ -7369,7 +7730,17 @@ func (m *ArdupilotmegaRcChannelsRaw) MsgName() string {
 func (m *ArdupilotmegaRcChannelsRaw) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRcChannelsRaw{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Port: %+v, Rssi: %+v }",
-		m.TimeBootMs, m.Chan1Raw, m.Chan2Raw, m.Chan3Raw, m.Chan4Raw, m.Chan5Raw, m.Chan6Raw, m.Chan7Raw, m.Chan8Raw, m.Port, m.Rssi,
+		m.TimeBootMs,
+		m.Chan1Raw,
+		m.Chan2Raw,
+		m.Chan3Raw,
+		m.Chan4Raw,
+		m.Chan5Raw,
+		m.Chan6Raw,
+		m.Chan7Raw,
+		m.Chan8Raw,
+		m.Port,
+		m.Rssi,
 	)
 }
 
@@ -7451,7 +7822,16 @@ func (m *ArdupilotmegaServoOutputRaw) MsgName() string {
 func (m *ArdupilotmegaServoOutputRaw) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaServoOutputRaw{ TimeUsec: %+v, Servo1Raw: %+v, Servo2Raw: %+v, Servo3Raw: %+v, Servo4Raw: %+v, Servo5Raw: %+v, Servo6Raw: %+v, Servo7Raw: %+v, Servo8Raw: %+v, Port: %+v }",
-		m.TimeUsec, m.Servo1Raw, m.Servo2Raw, m.Servo3Raw, m.Servo4Raw, m.Servo5Raw, m.Servo6Raw, m.Servo7Raw, m.Servo8Raw, m.Port,
+		m.TimeUsec,
+		m.Servo1Raw,
+		m.Servo2Raw,
+		m.Servo3Raw,
+		m.Servo4Raw,
+		m.Servo5Raw,
+		m.Servo6Raw,
+		m.Servo7Raw,
+		m.Servo8Raw,
+		m.Port,
 	)
 }
 
@@ -7525,7 +7905,10 @@ func (m *ArdupilotmegaMissionRequestPartialList) MsgName() string {
 func (m *ArdupilotmegaMissionRequestPartialList) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionRequestPartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.StartIndex, m.EndIndex, m.TargetSystem, m.TargetComponent,
+		m.StartIndex,
+		m.EndIndex,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -7587,7 +7970,10 @@ func (m *ArdupilotmegaMissionWritePartialList) MsgName() string {
 func (m *ArdupilotmegaMissionWritePartialList) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionWritePartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.StartIndex, m.EndIndex, m.TargetSystem, m.TargetComponent,
+		m.StartIndex,
+		m.EndIndex,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -7660,7 +8046,20 @@ func (m *ArdupilotmegaMissionItem) MsgName() string {
 func (m *ArdupilotmegaMissionItem) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionItem{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
-		m.Param1, m.Param2, m.Param3, m.Param4, m.X, m.Y, m.Z, m.Seq, m.Command, m.TargetSystem, m.TargetComponent, m.Frame, m.Current, m.Autocontinue,
+		m.Param1,
+		m.Param2,
+		m.Param3,
+		m.Param4,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Seq,
+		m.Command,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Frame,
+		m.Current,
+		m.Autocontinue,
 	)
 }
 
@@ -7741,7 +8140,9 @@ func (m *ArdupilotmegaMissionRequest) MsgName() string {
 func (m *ArdupilotmegaMissionRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionRequest{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Seq, m.TargetSystem, m.TargetComponent,
+		m.Seq,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -7800,7 +8201,9 @@ func (m *ArdupilotmegaMissionSetCurrent) MsgName() string {
 func (m *ArdupilotmegaMissionSetCurrent) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionSetCurrent{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Seq, m.TargetSystem, m.TargetComponent,
+		m.Seq,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -7911,7 +8314,8 @@ func (m *ArdupilotmegaMissionRequestList) MsgName() string {
 func (m *ArdupilotmegaMissionRequestList) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -7968,7 +8372,9 @@ func (m *ArdupilotmegaMissionCount) MsgName() string {
 func (m *ArdupilotmegaMissionCount) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionCount{ Count: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Count, m.TargetSystem, m.TargetComponent,
+		m.Count,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -8026,7 +8432,8 @@ func (m *ArdupilotmegaMissionClearAll) MsgName() string {
 func (m *ArdupilotmegaMissionClearAll) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionClearAll{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -8136,7 +8543,9 @@ func (m *ArdupilotmegaMissionAck) MsgName() string {
 func (m *ArdupilotmegaMissionAck) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionAck{ TargetSystem: %+v, TargetComponent: %+v, Type: %+v }",
-		m.TargetSystem, m.TargetComponent, m.Type,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Type,
 	)
 }
 
@@ -8196,7 +8605,10 @@ func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgName() string {
 func (m *ArdupilotmegaSetGpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v, TargetSystem: %+v }",
-		m.Latitude, m.Longitude, m.Altitude, m.TargetSystem,
+		m.Latitude,
+		m.Longitude,
+		m.Altitude,
+		m.TargetSystem,
 	)
 }
 
@@ -8257,7 +8669,9 @@ func (m *ArdupilotmegaGpsGlobalOrigin) MsgName() string {
 func (m *ArdupilotmegaGpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v }",
-		m.Latitude, m.Longitude, m.Altitude,
+		m.Latitude,
+		m.Longitude,
+		m.Altitude,
 	)
 }
 
@@ -8322,7 +8736,15 @@ func (m *ArdupilotmegaParamMapRc) MsgName() string {
 func (m *ArdupilotmegaParamMapRc) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
-		m.ParamValue0, m.Scale, m.ParamValueMin, m.ParamValueMax, m.ParamIndex, m.TargetSystem, m.TargetComponent, m.ParamID, m.ParameterRcChannelIndex,
+		m.ParamValue0,
+		m.Scale,
+		m.ParamValueMin,
+		m.ParamValueMax,
+		m.ParamIndex,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.ParamID,
+		m.ParameterRcChannelIndex,
 	)
 }
 
@@ -8393,7 +8815,9 @@ func (m *ArdupilotmegaMissionRequestInt) MsgName() string {
 func (m *ArdupilotmegaMissionRequestInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionRequestInt{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Seq, m.TargetSystem, m.TargetComponent,
+		m.Seq,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -8454,7 +8878,11 @@ func (m *ArdupilotmegaMissionChanged) MsgName() string {
 func (m *ArdupilotmegaMissionChanged) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionChanged{ StartIndex: %+v, EndIndex: %+v, OriginSysid: %+v, OriginCompid: %+v, MissionType: %+v }",
-		m.StartIndex, m.EndIndex, m.OriginSysid, m.OriginCompid, m.MissionType,
+		m.StartIndex,
+		m.EndIndex,
+		m.OriginSysid,
+		m.OriginCompid,
+		m.MissionType,
 	)
 }
 
@@ -8523,7 +8951,15 @@ func (m *ArdupilotmegaSafetySetAllowedArea) MsgName() string {
 func (m *ArdupilotmegaSafetySetAllowedArea) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSafetySetAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v }",
-		m.P1x, m.P1y, m.P1z, m.P2x, m.P2y, m.P2z, m.TargetSystem, m.TargetComponent, m.Frame,
+		m.P1x,
+		m.P1y,
+		m.P1z,
+		m.P2x,
+		m.P2y,
+		m.P2z,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Frame,
 	)
 }
 
@@ -8598,7 +9034,13 @@ func (m *ArdupilotmegaSafetyAllowedArea) MsgName() string {
 func (m *ArdupilotmegaSafetyAllowedArea) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSafetyAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, Frame: %+v }",
-		m.P1x, m.P1y, m.P1z, m.P2x, m.P2y, m.P2z, m.Frame,
+		m.P1x,
+		m.P1y,
+		m.P1z,
+		m.P2x,
+		m.P2y,
+		m.P2z,
+		m.Frame,
 	)
 }
 
@@ -8668,7 +9110,12 @@ func (m *ArdupilotmegaAttitudeQuaternionCov) MsgName() string {
 func (m *ArdupilotmegaAttitudeQuaternionCov) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAttitudeQuaternionCov{ TimeUsec: %+v, Q: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Covariance: %+v }",
-		m.TimeUsec, m.Q, m.Rollspeed, m.Pitchspeed, m.Yawspeed, m.Covariance,
+		m.TimeUsec,
+		m.Q,
+		m.Rollspeed,
+		m.Pitchspeed,
+		m.Yawspeed,
+		m.Covariance,
 	)
 }
 
@@ -8746,7 +9193,14 @@ func (m *ArdupilotmegaNavControllerOutput) MsgName() string {
 func (m *ArdupilotmegaNavControllerOutput) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaNavControllerOutput{ NavRoll: %+v, NavPitch: %+v, AltError: %+v, AspdError: %+v, XtrackError: %+v, NavBearing: %+v, TargetBearing: %+v, WpDist: %+v }",
-		m.NavRoll, m.NavPitch, m.AltError, m.AspdError, m.XtrackError, m.NavBearing, m.TargetBearing, m.WpDist,
+		m.NavRoll,
+		m.NavPitch,
+		m.AltError,
+		m.AspdError,
+		m.XtrackError,
+		m.NavBearing,
+		m.TargetBearing,
+		m.WpDist,
 	)
 }
 
@@ -8822,7 +9276,16 @@ func (m *ArdupilotmegaGlobalPositionIntCov) MsgName() string {
 func (m *ArdupilotmegaGlobalPositionIntCov) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGlobalPositionIntCov{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Covariance: %+v, EstimatorType: %+v }",
-		m.TimeUsec, m.Lat, m.Lon, m.Alt, m.RelativeAlt, m.Vx, m.Vy, m.Vz, m.Covariance, m.EstimatorType,
+		m.TimeUsec,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.RelativeAlt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Covariance,
+		m.EstimatorType,
 	)
 }
 
@@ -8908,7 +9371,18 @@ func (m *ArdupilotmegaLocalPositionNedCov) MsgName() string {
 func (m *ArdupilotmegaLocalPositionNedCov) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLocalPositionNedCov{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Ax: %+v, Ay: %+v, Az: %+v, Covariance: %+v, EstimatorType: %+v }",
-		m.TimeUsec, m.X, m.Y, m.Z, m.Vx, m.Vy, m.Vz, m.Ax, m.Ay, m.Az, m.Covariance, m.EstimatorType,
+		m.TimeUsec,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Ax,
+		m.Ay,
+		m.Az,
+		m.Covariance,
+		m.EstimatorType,
 	)
 }
 
@@ -9007,7 +9481,27 @@ func (m *ArdupilotmegaRcChannels) MsgName() string {
 func (m *ArdupilotmegaRcChannels) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRcChannels{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Chan13Raw: %+v, Chan14Raw: %+v, Chan15Raw: %+v, Chan16Raw: %+v, Chan17Raw: %+v, Chan18Raw: %+v, Chancount: %+v, Rssi: %+v }",
-		m.TimeBootMs, m.Chan1Raw, m.Chan2Raw, m.Chan3Raw, m.Chan4Raw, m.Chan5Raw, m.Chan6Raw, m.Chan7Raw, m.Chan8Raw, m.Chan9Raw, m.Chan10Raw, m.Chan11Raw, m.Chan12Raw, m.Chan13Raw, m.Chan14Raw, m.Chan15Raw, m.Chan16Raw, m.Chan17Raw, m.Chan18Raw, m.Chancount, m.Rssi,
+		m.TimeBootMs,
+		m.Chan1Raw,
+		m.Chan2Raw,
+		m.Chan3Raw,
+		m.Chan4Raw,
+		m.Chan5Raw,
+		m.Chan6Raw,
+		m.Chan7Raw,
+		m.Chan8Raw,
+		m.Chan9Raw,
+		m.Chan10Raw,
+		m.Chan11Raw,
+		m.Chan12Raw,
+		m.Chan13Raw,
+		m.Chan14Raw,
+		m.Chan15Raw,
+		m.Chan16Raw,
+		m.Chan17Raw,
+		m.Chan18Raw,
+		m.Chancount,
+		m.Rssi,
 	)
 }
 
@@ -9104,7 +9598,11 @@ func (m *ArdupilotmegaRequestDataStream) MsgName() string {
 func (m *ArdupilotmegaRequestDataStream) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRequestDataStream{ ReqMessageRate: %+v, TargetSystem: %+v, TargetComponent: %+v, ReqStreamID: %+v, StartStop: %+v }",
-		m.ReqMessageRate, m.TargetSystem, m.TargetComponent, m.ReqStreamID, m.StartStop,
+		m.ReqMessageRate,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.ReqStreamID,
+		m.StartStop,
 	)
 }
 
@@ -9167,7 +9665,9 @@ func (m *ArdupilotmegaDataStream) MsgName() string {
 func (m *ArdupilotmegaDataStream) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDataStream{ MessageRate: %+v, StreamID: %+v, OnOff: %+v }",
-		m.MessageRate, m.StreamID, m.OnOff,
+		m.MessageRate,
+		m.StreamID,
+		m.OnOff,
 	)
 }
 
@@ -9229,7 +9729,12 @@ func (m *ArdupilotmegaManualControl) MsgName() string {
 func (m *ArdupilotmegaManualControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaManualControl{ X: %+v, Y: %+v, Z: %+v, R: %+v, Buttons: %+v, Target: %+v }",
-		m.X, m.Y, m.Z, m.R, m.Buttons, m.Target,
+		m.X,
+		m.Y,
+		m.Z,
+		m.R,
+		m.Buttons,
+		m.Target,
 	)
 }
 
@@ -9301,7 +9806,16 @@ func (m *ArdupilotmegaRcChannelsOverride) MsgName() string {
 func (m *ArdupilotmegaRcChannelsOverride) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRcChannelsOverride{ Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Chan1Raw, m.Chan2Raw, m.Chan3Raw, m.Chan4Raw, m.Chan5Raw, m.Chan6Raw, m.Chan7Raw, m.Chan8Raw, m.TargetSystem, m.TargetComponent,
+		m.Chan1Raw,
+		m.Chan2Raw,
+		m.Chan3Raw,
+		m.Chan4Raw,
+		m.Chan5Raw,
+		m.Chan6Raw,
+		m.Chan7Raw,
+		m.Chan8Raw,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -9386,7 +9900,20 @@ func (m *ArdupilotmegaMissionItemInt) MsgName() string {
 func (m *ArdupilotmegaMissionItemInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMissionItemInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
-		m.Param1, m.Param2, m.Param3, m.Param4, m.X, m.Y, m.Z, m.Seq, m.Command, m.TargetSystem, m.TargetComponent, m.Frame, m.Current, m.Autocontinue,
+		m.Param1,
+		m.Param2,
+		m.Param3,
+		m.Param4,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Seq,
+		m.Command,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Frame,
+		m.Current,
+		m.Autocontinue,
 	)
 }
 
@@ -9470,7 +9997,12 @@ func (m *ArdupilotmegaVfrHud) MsgName() string {
 func (m *ArdupilotmegaVfrHud) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaVfrHud{ Airspeed: %+v, Groundspeed: %+v, Alt: %+v, Climb: %+v, Heading: %+v, Throttle: %+v }",
-		m.Airspeed, m.Groundspeed, m.Alt, m.Climb, m.Heading, m.Throttle,
+		m.Airspeed,
+		m.Groundspeed,
+		m.Alt,
+		m.Climb,
+		m.Heading,
+		m.Throttle,
 	)
 }
 
@@ -9545,7 +10077,19 @@ func (m *ArdupilotmegaCommandInt) MsgName() string {
 func (m *ArdupilotmegaCommandInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCommandInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
-		m.Param1, m.Param2, m.Param3, m.Param4, m.X, m.Y, m.Z, m.Command, m.TargetSystem, m.TargetComponent, m.Frame, m.Current, m.Autocontinue,
+		m.Param1,
+		m.Param2,
+		m.Param3,
+		m.Param4,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Command,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Frame,
+		m.Current,
+		m.Autocontinue,
 	)
 }
 
@@ -9632,7 +10176,17 @@ func (m *ArdupilotmegaCommandLong) MsgName() string {
 func (m *ArdupilotmegaCommandLong) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCommandLong{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
-		m.Param1, m.Param2, m.Param3, m.Param4, m.Param5, m.Param6, m.Param7, m.Command, m.TargetSystem, m.TargetComponent, m.Confirmation,
+		m.Param1,
+		m.Param2,
+		m.Param3,
+		m.Param4,
+		m.Param5,
+		m.Param6,
+		m.Param7,
+		m.Command,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Confirmation,
 	)
 }
 
@@ -9706,7 +10260,8 @@ func (m *ArdupilotmegaCommandAck) MsgName() string {
 func (m *ArdupilotmegaCommandAck) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCommandAck{ Command: %+v, Result: %+v }",
-		m.Command, m.Result,
+		m.Command,
+		m.Result,
 	)
 }
 
@@ -9763,7 +10318,9 @@ func (m *ArdupilotmegaCommandCancel) MsgName() string {
 func (m *ArdupilotmegaCommandCancel) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCommandCancel{ Command: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Command, m.TargetSystem, m.TargetComponent,
+		m.Command,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -9826,7 +10383,13 @@ func (m *ArdupilotmegaManualSetpoint) MsgName() string {
 func (m *ArdupilotmegaManualSetpoint) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaManualSetpoint{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Thrust: %+v, ModeSwitch: %+v, ManualOverrideSwitch: %+v }",
-		m.TimeBootMs, m.Roll, m.Pitch, m.Yaw, m.Thrust, m.ModeSwitch, m.ManualOverrideSwitch,
+		m.TimeBootMs,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Thrust,
+		m.ModeSwitch,
+		m.ManualOverrideSwitch,
 	)
 }
 
@@ -9899,7 +10462,15 @@ func (m *ArdupilotmegaSetAttitudeTarget) MsgName() string {
 func (m *ArdupilotmegaSetAttitudeTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TargetSystem: %+v, TargetComponent: %+v, TypeMask: %+v }",
-		m.TimeBootMs, m.Q, m.BodyRollRate, m.BodyPitchRate, m.BodyYawRate, m.Thrust, m.TargetSystem, m.TargetComponent, m.TypeMask,
+		m.TimeBootMs,
+		m.Q,
+		m.BodyRollRate,
+		m.BodyPitchRate,
+		m.BodyYawRate,
+		m.Thrust,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.TypeMask,
 	)
 }
 
@@ -9978,7 +10549,13 @@ func (m *ArdupilotmegaAttitudeTarget) MsgName() string {
 func (m *ArdupilotmegaAttitudeTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TypeMask: %+v }",
-		m.TimeBootMs, m.Q, m.BodyRollRate, m.BodyPitchRate, m.BodyYawRate, m.Thrust, m.TypeMask,
+		m.TimeBootMs,
+		m.Q,
+		m.BodyRollRate,
+		m.BodyPitchRate,
+		m.BodyYawRate,
+		m.Thrust,
+		m.TypeMask,
 	)
 }
 
@@ -10062,7 +10639,22 @@ func (m *ArdupilotmegaSetPositionTargetLocalNed) MsgName() string {
 func (m *ArdupilotmegaSetPositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
-		m.TimeBootMs, m.X, m.Y, m.Z, m.Vx, m.Vy, m.Vz, m.Afx, m.Afy, m.Afz, m.Yaw, m.YawRate, m.TypeMask, m.TargetSystem, m.TargetComponent, m.CoordinateFrame,
+		m.TimeBootMs,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Afx,
+		m.Afy,
+		m.Afz,
+		m.Yaw,
+		m.YawRate,
+		m.TypeMask,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.CoordinateFrame,
 	)
 }
 
@@ -10158,7 +10750,20 @@ func (m *ArdupilotmegaPositionTargetLocalNed) MsgName() string {
 func (m *ArdupilotmegaPositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
-		m.TimeBootMs, m.X, m.Y, m.Z, m.Vx, m.Vy, m.Vz, m.Afx, m.Afy, m.Afz, m.Yaw, m.YawRate, m.TypeMask, m.CoordinateFrame,
+		m.TimeBootMs,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Afx,
+		m.Afy,
+		m.Afz,
+		m.Yaw,
+		m.YawRate,
+		m.TypeMask,
+		m.CoordinateFrame,
 	)
 }
 
@@ -10252,7 +10857,22 @@ func (m *ArdupilotmegaSetPositionTargetGlobalInt) MsgName() string {
 func (m *ArdupilotmegaSetPositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
-		m.TimeBootMs, m.LatInt, m.LonInt, m.Alt, m.Vx, m.Vy, m.Vz, m.Afx, m.Afy, m.Afz, m.Yaw, m.YawRate, m.TypeMask, m.TargetSystem, m.TargetComponent, m.CoordinateFrame,
+		m.TimeBootMs,
+		m.LatInt,
+		m.LonInt,
+		m.Alt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Afx,
+		m.Afy,
+		m.Afz,
+		m.Yaw,
+		m.YawRate,
+		m.TypeMask,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.CoordinateFrame,
 	)
 }
 
@@ -10348,7 +10968,20 @@ func (m *ArdupilotmegaPositionTargetGlobalInt) MsgName() string {
 func (m *ArdupilotmegaPositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
-		m.TimeBootMs, m.LatInt, m.LonInt, m.Alt, m.Vx, m.Vy, m.Vz, m.Afx, m.Afy, m.Afz, m.Yaw, m.YawRate, m.TypeMask, m.CoordinateFrame,
+		m.TimeBootMs,
+		m.LatInt,
+		m.LonInt,
+		m.Alt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Afx,
+		m.Afy,
+		m.Afz,
+		m.Yaw,
+		m.YawRate,
+		m.TypeMask,
+		m.CoordinateFrame,
 	)
 }
 
@@ -10433,7 +11066,13 @@ func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgName() string {
 func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLocalPositionNedSystemGlobalOffset{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
-		m.TimeBootMs, m.X, m.Y, m.Z, m.Roll, m.Pitch, m.Yaw,
+		m.TimeBootMs,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
 	)
 }
 
@@ -10513,7 +11152,22 @@ func (m *ArdupilotmegaHilState) MsgName() string {
 func (m *ArdupilotmegaHilState) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilState{ TimeUsec: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
-		m.TimeUsec, m.Roll, m.Pitch, m.Yaw, m.Rollspeed, m.Pitchspeed, m.Yawspeed, m.Lat, m.Lon, m.Alt, m.Vx, m.Vy, m.Vz, m.Xacc, m.Yacc, m.Zacc,
+		m.TimeUsec,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Rollspeed,
+		m.Pitchspeed,
+		m.Yawspeed,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
 	)
 }
 
@@ -10606,7 +11260,17 @@ func (m *ArdupilotmegaHilControls) MsgName() string {
 func (m *ArdupilotmegaHilControls) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilControls{ TimeUsec: %+v, RollAilerons: %+v, PitchElevator: %+v, YawRudder: %+v, Throttle: %+v, Aux1: %+v, Aux2: %+v, Aux3: %+v, Aux4: %+v, Mode: %+v, NavMode: %+v }",
-		m.TimeUsec, m.RollAilerons, m.PitchElevator, m.YawRudder, m.Throttle, m.Aux1, m.Aux2, m.Aux3, m.Aux4, m.Mode, m.NavMode,
+		m.TimeUsec,
+		m.RollAilerons,
+		m.PitchElevator,
+		m.YawRudder,
+		m.Throttle,
+		m.Aux1,
+		m.Aux2,
+		m.Aux3,
+		m.Aux4,
+		m.Mode,
+		m.NavMode,
 	)
 }
 
@@ -10692,7 +11356,20 @@ func (m *ArdupilotmegaHilRcInputsRaw) MsgName() string {
 func (m *ArdupilotmegaHilRcInputsRaw) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilRcInputsRaw{ TimeUsec: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Rssi: %+v }",
-		m.TimeUsec, m.Chan1Raw, m.Chan2Raw, m.Chan3Raw, m.Chan4Raw, m.Chan5Raw, m.Chan6Raw, m.Chan7Raw, m.Chan8Raw, m.Chan9Raw, m.Chan10Raw, m.Chan11Raw, m.Chan12Raw, m.Rssi,
+		m.TimeUsec,
+		m.Chan1Raw,
+		m.Chan2Raw,
+		m.Chan3Raw,
+		m.Chan4Raw,
+		m.Chan5Raw,
+		m.Chan6Raw,
+		m.Chan7Raw,
+		m.Chan8Raw,
+		m.Chan9Raw,
+		m.Chan10Raw,
+		m.Chan11Raw,
+		m.Chan12Raw,
+		m.Rssi,
 	)
 }
 
@@ -10774,7 +11451,10 @@ func (m *ArdupilotmegaHilActuatorControls) MsgName() string {
 func (m *ArdupilotmegaHilActuatorControls) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilActuatorControls{ TimeUsec: %+v, Flags: %+v, Controls: %+v, Mode: %+v }",
-		m.TimeUsec, m.Flags, m.Controls, m.Mode,
+		m.TimeUsec,
+		m.Flags,
+		m.Controls,
+		m.Mode,
 	)
 }
 
@@ -10844,7 +11524,14 @@ func (m *ArdupilotmegaOpticalFlow) MsgName() string {
 func (m *ArdupilotmegaOpticalFlow) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaOpticalFlow{ TimeUsec: %+v, FlowCompMX: %+v, FlowCompMY: %+v, GroundDistance: %+v, FlowX: %+v, FlowY: %+v, SensorID: %+v, Quality: %+v }",
-		m.TimeUsec, m.FlowCompMX, m.FlowCompMY, m.GroundDistance, m.FlowX, m.FlowY, m.SensorID, m.Quality,
+		m.TimeUsec,
+		m.FlowCompMX,
+		m.FlowCompMY,
+		m.GroundDistance,
+		m.FlowX,
+		m.FlowY,
+		m.SensorID,
+		m.Quality,
 	)
 }
 
@@ -10917,7 +11604,13 @@ func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgName() string {
 func (m *ArdupilotmegaGlobalVisionPositionEstimate) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGlobalVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
-		m.Usec, m.X, m.Y, m.Z, m.Roll, m.Pitch, m.Yaw,
+		m.Usec,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
 	)
 }
 
@@ -10988,7 +11681,13 @@ func (m *ArdupilotmegaVisionPositionEstimate) MsgName() string {
 func (m *ArdupilotmegaVisionPositionEstimate) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
-		m.Usec, m.X, m.Y, m.Z, m.Roll, m.Pitch, m.Yaw,
+		m.Usec,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
 	)
 }
 
@@ -11056,7 +11755,10 @@ func (m *ArdupilotmegaVisionSpeedEstimate) MsgName() string {
 func (m *ArdupilotmegaVisionSpeedEstimate) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaVisionSpeedEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v }",
-		m.Usec, m.X, m.Y, m.Z,
+		m.Usec,
+		m.X,
+		m.Y,
+		m.Z,
 	)
 }
 
@@ -11121,7 +11823,13 @@ func (m *ArdupilotmegaViconPositionEstimate) MsgName() string {
 func (m *ArdupilotmegaViconPositionEstimate) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaViconPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
-		m.Usec, m.X, m.Y, m.Z, m.Roll, m.Pitch, m.Yaw,
+		m.Usec,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
 	)
 }
 
@@ -11200,7 +11908,21 @@ func (m *ArdupilotmegaHighresImu) MsgName() string {
 func (m *ArdupilotmegaHighresImu) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHighresImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
-		m.TimeUsec, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag, m.AbsPressure, m.DiffPressure, m.PressureAlt, m.Temperature, m.FieldsUpdated,
+		m.TimeUsec,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
+		m.AbsPressure,
+		m.DiffPressure,
+		m.PressureAlt,
+		m.Temperature,
+		m.FieldsUpdated,
 	)
 }
 
@@ -11292,7 +12014,18 @@ func (m *ArdupilotmegaOpticalFlowRad) MsgName() string {
 func (m *ArdupilotmegaOpticalFlowRad) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaOpticalFlowRad{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
-		m.TimeUsec, m.IntegrationTimeUs, m.IntegratedX, m.IntegratedY, m.IntegratedXgyro, m.IntegratedYgyro, m.IntegratedZgyro, m.TimeDeltaDistanceUs, m.Distance, m.Temperature, m.SensorID, m.Quality,
+		m.TimeUsec,
+		m.IntegrationTimeUs,
+		m.IntegratedX,
+		m.IntegratedY,
+		m.IntegratedXgyro,
+		m.IntegratedYgyro,
+		m.IntegratedZgyro,
+		m.TimeDeltaDistanceUs,
+		m.Distance,
+		m.Temperature,
+		m.SensorID,
+		m.Quality,
 	)
 }
 
@@ -11381,7 +12114,21 @@ func (m *ArdupilotmegaHilSensor) MsgName() string {
 func (m *ArdupilotmegaHilSensor) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilSensor{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
-		m.TimeUsec, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag, m.AbsPressure, m.DiffPressure, m.PressureAlt, m.Temperature, m.FieldsUpdated,
+		m.TimeUsec,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
+		m.AbsPressure,
+		m.DiffPressure,
+		m.PressureAlt,
+		m.Temperature,
+		m.FieldsUpdated,
 	)
 }
 
@@ -11482,7 +12229,27 @@ func (m *ArdupilotmegaSimState) MsgName() string {
 func (m *ArdupilotmegaSimState) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSimState{ Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lon: %+v, Alt: %+v, StdDevHorz: %+v, StdDevVert: %+v, Vn: %+v, Ve: %+v, Vd: %+v }",
-		m.Q1, m.Q2, m.Q3, m.Q4, m.Roll, m.Pitch, m.Yaw, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Lat, m.Lon, m.Alt, m.StdDevHorz, m.StdDevVert, m.Vn, m.Ve, m.Vd,
+		m.Q1,
+		m.Q2,
+		m.Q3,
+		m.Q4,
+		m.Roll,
+		m.Pitch,
+		m.Yaw,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.StdDevHorz,
+		m.StdDevVert,
+		m.Vn,
+		m.Ve,
+		m.Vd,
 	)
 }
 
@@ -11581,7 +12348,13 @@ func (m *ArdupilotmegaRadioStatus) MsgName() string {
 func (m *ArdupilotmegaRadioStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaRadioStatus{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
-		m.Rxerrors, m.Fixed, m.Rssi, m.Remrssi, m.Txbuf, m.Noise, m.Remnoise,
+		m.Rxerrors,
+		m.Fixed,
+		m.Rssi,
+		m.Remrssi,
+		m.Txbuf,
+		m.Noise,
+		m.Remnoise,
 	)
 }
 
@@ -11649,7 +12422,10 @@ func (m *ArdupilotmegaFileTransferProtocol) MsgName() string {
 func (m *ArdupilotmegaFileTransferProtocol) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaFileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
-		m.TargetNetwork, m.TargetSystem, m.TargetComponent, m.Payload,
+		m.TargetNetwork,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Payload,
 	)
 }
 
@@ -11709,7 +12485,8 @@ func (m *ArdupilotmegaTimesync) MsgName() string {
 func (m *ArdupilotmegaTimesync) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaTimesync{ Tc1: %+v, Ts1: %+v }",
-		m.Tc1, m.Ts1,
+		m.Tc1,
+		m.Ts1,
 	)
 }
 
@@ -11765,7 +12542,8 @@ func (m *ArdupilotmegaCameraTrigger) MsgName() string {
 func (m *ArdupilotmegaCameraTrigger) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCameraTrigger{ TimeUsec: %+v, Seq: %+v }",
-		m.TimeUsec, m.Seq,
+		m.TimeUsec,
+		m.Seq,
 	)
 }
 
@@ -11833,7 +12611,19 @@ func (m *ArdupilotmegaHilGps) MsgName() string {
 func (m *ArdupilotmegaHilGps) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilGps{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Vn: %+v, Ve: %+v, Vd: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
-		m.TimeUsec, m.Lat, m.Lon, m.Alt, m.Eph, m.Epv, m.Vel, m.Vn, m.Ve, m.Vd, m.Cog, m.FixType, m.SatellitesVisible,
+		m.TimeUsec,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Eph,
+		m.Epv,
+		m.Vel,
+		m.Vn,
+		m.Ve,
+		m.Vd,
+		m.Cog,
+		m.FixType,
+		m.SatellitesVisible,
 	)
 }
 
@@ -11921,7 +12711,18 @@ func (m *ArdupilotmegaHilOpticalFlow) MsgName() string {
 func (m *ArdupilotmegaHilOpticalFlow) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilOpticalFlow{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
-		m.TimeUsec, m.IntegrationTimeUs, m.IntegratedX, m.IntegratedY, m.IntegratedXgyro, m.IntegratedYgyro, m.IntegratedZgyro, m.TimeDeltaDistanceUs, m.Distance, m.Temperature, m.SensorID, m.Quality,
+		m.TimeUsec,
+		m.IntegrationTimeUs,
+		m.IntegratedX,
+		m.IntegratedY,
+		m.IntegratedXgyro,
+		m.IntegratedYgyro,
+		m.IntegratedZgyro,
+		m.TimeDeltaDistanceUs,
+		m.Distance,
+		m.Temperature,
+		m.SensorID,
+		m.Quality,
 	)
 }
 
@@ -12011,7 +12812,22 @@ func (m *ArdupilotmegaHilStateQuaternion) MsgName() string {
 func (m *ArdupilotmegaHilStateQuaternion) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHilStateQuaternion{ TimeUsec: %+v, AttitudeQuaternion: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, IndAirspeed: %+v, TrueAirspeed: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
-		m.TimeUsec, m.AttitudeQuaternion, m.Rollspeed, m.Pitchspeed, m.Yawspeed, m.Lat, m.Lon, m.Alt, m.Vx, m.Vy, m.Vz, m.IndAirspeed, m.TrueAirspeed, m.Xacc, m.Yacc, m.Zacc,
+		m.TimeUsec,
+		m.AttitudeQuaternion,
+		m.Rollspeed,
+		m.Pitchspeed,
+		m.Yawspeed,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Vx,
+		m.Vy,
+		m.Vz,
+		m.IndAirspeed,
+		m.TrueAirspeed,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
 	)
 }
 
@@ -12107,7 +12923,16 @@ func (m *ArdupilotmegaScaledImu2) MsgName() string {
 func (m *ArdupilotmegaScaledImu2) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledImu2{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
-		m.TimeBootMs, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag,
+		m.TimeBootMs,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
 	)
 }
 
@@ -12181,7 +13006,10 @@ func (m *ArdupilotmegaLogRequestList) MsgName() string {
 func (m *ArdupilotmegaLogRequestList) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogRequestList{ Start: %+v, End: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Start, m.End, m.TargetSystem, m.TargetComponent,
+		m.Start,
+		m.End,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -12244,7 +13072,11 @@ func (m *ArdupilotmegaLogEntry) MsgName() string {
 func (m *ArdupilotmegaLogEntry) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogEntry{ TimeUtc: %+v, Size: %+v, ID: %+v, NumLogs: %+v, LastLogNum: %+v }",
-		m.TimeUtc, m.Size, m.ID, m.NumLogs, m.LastLogNum,
+		m.TimeUtc,
+		m.Size,
+		m.ID,
+		m.NumLogs,
+		m.LastLogNum,
 	)
 }
 
@@ -12309,7 +13141,11 @@ func (m *ArdupilotmegaLogRequestData) MsgName() string {
 func (m *ArdupilotmegaLogRequestData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogRequestData{ Ofs: %+v, Count: %+v, ID: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.Ofs, m.Count, m.ID, m.TargetSystem, m.TargetComponent,
+		m.Ofs,
+		m.Count,
+		m.ID,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -12373,7 +13209,10 @@ func (m *ArdupilotmegaLogData) MsgName() string {
 func (m *ArdupilotmegaLogData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
-		m.Ofs, m.ID, m.Count, m.Data,
+		m.Ofs,
+		m.ID,
+		m.Count,
+		m.Data,
 	)
 }
 
@@ -12433,7 +13272,8 @@ func (m *ArdupilotmegaLogErase) MsgName() string {
 func (m *ArdupilotmegaLogErase) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogErase{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -12489,7 +13329,8 @@ func (m *ArdupilotmegaLogRequestEnd) MsgName() string {
 func (m *ArdupilotmegaLogRequestEnd) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLogRequestEnd{ TargetSystem: %+v, TargetComponent: %+v }",
-		m.TargetSystem, m.TargetComponent,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -12547,7 +13388,10 @@ func (m *ArdupilotmegaGpsInjectData) MsgName() string {
 func (m *ArdupilotmegaGpsInjectData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
-		m.TargetSystem, m.TargetComponent, m.Len, m.Data,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -12617,7 +13461,18 @@ func (m *ArdupilotmegaGps2Raw) MsgName() string {
 func (m *ArdupilotmegaGps2Raw) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGps2Raw{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, DgpsAge: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v, DgpsNumch: %+v }",
-		m.TimeUsec, m.Lat, m.Lon, m.Alt, m.DgpsAge, m.Eph, m.Epv, m.Vel, m.Cog, m.FixType, m.SatellitesVisible, m.DgpsNumch,
+		m.TimeUsec,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.DgpsAge,
+		m.Eph,
+		m.Epv,
+		m.Vel,
+		m.Cog,
+		m.FixType,
+		m.SatellitesVisible,
+		m.DgpsNumch,
 	)
 }
 
@@ -12694,7 +13549,9 @@ func (m *ArdupilotmegaPowerStatus) MsgName() string {
 func (m *ArdupilotmegaPowerStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaPowerStatus{ Vcc: %+v, Vservo: %+v, Flags: %+v }",
-		m.Vcc, m.Vservo, m.Flags,
+		m.Vcc,
+		m.Vservo,
+		m.Flags,
 	)
 }
 
@@ -12756,7 +13613,12 @@ func (m *ArdupilotmegaSerialControl) MsgName() string {
 func (m *ArdupilotmegaSerialControl) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
-		m.Baudrate, m.Timeout, m.Device, m.Flags, m.Count, m.Data,
+		m.Baudrate,
+		m.Timeout,
+		m.Device,
+		m.Flags,
+		m.Count,
+		m.Data,
 	)
 }
 
@@ -12831,7 +13693,19 @@ func (m *ArdupilotmegaGpsRtk) MsgName() string {
 func (m *ArdupilotmegaGpsRtk) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsRtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
-		m.TimeLastBaselineMs, m.Tow, m.BaselineAMm, m.BaselineBMm, m.BaselineCMm, m.Accuracy, m.IarNumHypotheses, m.Wn, m.RtkReceiverID, m.RtkHealth, m.RtkRate, m.Nsats, m.BaselineCoordsType,
+		m.TimeLastBaselineMs,
+		m.Tow,
+		m.BaselineAMm,
+		m.BaselineBMm,
+		m.BaselineCMm,
+		m.Accuracy,
+		m.IarNumHypotheses,
+		m.Wn,
+		m.RtkReceiverID,
+		m.RtkHealth,
+		m.RtkRate,
+		m.Nsats,
+		m.BaselineCoordsType,
 	)
 }
 
@@ -12920,7 +13794,19 @@ func (m *ArdupilotmegaGps2Rtk) MsgName() string {
 func (m *ArdupilotmegaGps2Rtk) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGps2Rtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
-		m.TimeLastBaselineMs, m.Tow, m.BaselineAMm, m.BaselineBMm, m.BaselineCMm, m.Accuracy, m.IarNumHypotheses, m.Wn, m.RtkReceiverID, m.RtkHealth, m.RtkRate, m.Nsats, m.BaselineCoordsType,
+		m.TimeLastBaselineMs,
+		m.Tow,
+		m.BaselineAMm,
+		m.BaselineBMm,
+		m.BaselineCMm,
+		m.Accuracy,
+		m.IarNumHypotheses,
+		m.Wn,
+		m.RtkReceiverID,
+		m.RtkHealth,
+		m.RtkRate,
+		m.Nsats,
+		m.BaselineCoordsType,
 	)
 }
 
@@ -13006,7 +13892,16 @@ func (m *ArdupilotmegaScaledImu3) MsgName() string {
 func (m *ArdupilotmegaScaledImu3) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledImu3{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
-		m.TimeBootMs, m.Xacc, m.Yacc, m.Zacc, m.Xgyro, m.Ygyro, m.Zgyro, m.Xmag, m.Ymag, m.Zmag,
+		m.TimeBootMs,
+		m.Xacc,
+		m.Yacc,
+		m.Zacc,
+		m.Xgyro,
+		m.Ygyro,
+		m.Zgyro,
+		m.Xmag,
+		m.Ymag,
+		m.Zmag,
 	)
 }
 
@@ -13083,7 +13978,13 @@ func (m *ArdupilotmegaDataTransmissionHandshake) MsgName() string {
 func (m *ArdupilotmegaDataTransmissionHandshake) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDataTransmissionHandshake{ Size: %+v, Width: %+v, Height: %+v, Packets: %+v, Type: %+v, Payload: %+v, JpgQuality: %+v }",
-		m.Size, m.Width, m.Height, m.Packets, m.Type, m.Payload, m.JpgQuality,
+		m.Size,
+		m.Width,
+		m.Height,
+		m.Packets,
+		m.Type,
+		m.Payload,
+		m.JpgQuality,
 	)
 }
 
@@ -13149,7 +14050,8 @@ func (m *ArdupilotmegaEncapsulatedData) MsgName() string {
 func (m *ArdupilotmegaEncapsulatedData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaEncapsulatedData{ Seqnr: %+v, Data: %+v }",
-		m.Seqnr, m.Data,
+		m.Seqnr,
+		m.Data,
 	)
 }
 
@@ -13211,7 +14113,14 @@ func (m *ArdupilotmegaDistanceSensor) MsgName() string {
 func (m *ArdupilotmegaDistanceSensor) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDistanceSensor{ TimeBootMs: %+v, MinDistance: %+v, MaxDistance: %+v, CurrentDistance: %+v, Type: %+v, ID: %+v, Orientation: %+v, Covariance: %+v }",
-		m.TimeBootMs, m.MinDistance, m.MaxDistance, m.CurrentDistance, m.Type, m.ID, m.Orientation, m.Covariance,
+		m.TimeBootMs,
+		m.MinDistance,
+		m.MaxDistance,
+		m.CurrentDistance,
+		m.Type,
+		m.ID,
+		m.Orientation,
+		m.Covariance,
 	)
 }
 
@@ -13281,7 +14190,10 @@ func (m *ArdupilotmegaTerrainRequest) MsgName() string {
 func (m *ArdupilotmegaTerrainRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaTerrainRequest{ Mask: %+v, Lat: %+v, Lon: %+v, GridSpacing: %+v }",
-		m.Mask, m.Lat, m.Lon, m.GridSpacing,
+		m.Mask,
+		m.Lat,
+		m.Lon,
+		m.GridSpacing,
 	)
 }
 
@@ -13344,7 +14256,11 @@ func (m *ArdupilotmegaTerrainData) MsgName() string {
 func (m *ArdupilotmegaTerrainData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaTerrainData{ Lat: %+v, Lon: %+v, GridSpacing: %+v, Data: %+v, Gridbit: %+v }",
-		m.Lat, m.Lon, m.GridSpacing, m.Data, m.Gridbit,
+		m.Lat,
+		m.Lon,
+		m.GridSpacing,
+		m.Data,
+		m.Gridbit,
 	)
 }
 
@@ -13410,7 +14326,8 @@ func (m *ArdupilotmegaTerrainCheck) MsgName() string {
 func (m *ArdupilotmegaTerrainCheck) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaTerrainCheck{ Lat: %+v, Lon: %+v }",
-		m.Lat, m.Lon,
+		m.Lat,
+		m.Lon,
 	)
 }
 
@@ -13471,7 +14388,13 @@ func (m *ArdupilotmegaTerrainReport) MsgName() string {
 func (m *ArdupilotmegaTerrainReport) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaTerrainReport{ Lat: %+v, Lon: %+v, TerrainHeight: %+v, CurrentHeight: %+v, Spacing: %+v, Pending: %+v, Loaded: %+v }",
-		m.Lat, m.Lon, m.TerrainHeight, m.CurrentHeight, m.Spacing, m.Pending, m.Loaded,
+		m.Lat,
+		m.Lon,
+		m.TerrainHeight,
+		m.CurrentHeight,
+		m.Spacing,
+		m.Pending,
+		m.Loaded,
 	)
 }
 
@@ -13539,7 +14462,10 @@ func (m *ArdupilotmegaScaledPressure2) MsgName() string {
 func (m *ArdupilotmegaScaledPressure2) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledPressure2{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
-		m.TimeBootMs, m.PressAbs, m.PressDiff, m.Temperature,
+		m.TimeBootMs,
+		m.PressAbs,
+		m.PressDiff,
+		m.Temperature,
 	)
 }
 
@@ -13602,7 +14528,11 @@ func (m *ArdupilotmegaAttPosMocap) MsgName() string {
 func (m *ArdupilotmegaAttPosMocap) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAttPosMocap{ TimeUsec: %+v, Q: %+v, X: %+v, Y: %+v, Z: %+v }",
-		m.TimeUsec, m.Q, m.X, m.Y, m.Z,
+		m.TimeUsec,
+		m.Q,
+		m.X,
+		m.Y,
+		m.Z,
 	)
 }
 
@@ -13671,7 +14601,11 @@ func (m *ArdupilotmegaSetActuatorControlTarget) MsgName() string {
 func (m *ArdupilotmegaSetActuatorControlTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v, TargetSystem: %+v, TargetComponent: %+v }",
-		m.TimeUsec, m.Controls, m.GroupMlx, m.TargetSystem, m.TargetComponent,
+		m.TimeUsec,
+		m.Controls,
+		m.GroupMlx,
+		m.TargetSystem,
+		m.TargetComponent,
 	)
 }
 
@@ -13738,7 +14672,9 @@ func (m *ArdupilotmegaActuatorControlTarget) MsgName() string {
 func (m *ArdupilotmegaActuatorControlTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v }",
-		m.TimeUsec, m.Controls, m.GroupMlx,
+		m.TimeUsec,
+		m.Controls,
+		m.GroupMlx,
 	)
 }
 
@@ -13805,7 +14741,13 @@ func (m *ArdupilotmegaAltitude) MsgName() string {
 func (m *ArdupilotmegaAltitude) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAltitude{ TimeUsec: %+v, AltitudeMonotonic: %+v, AltitudeAmsl: %+v, AltitudeLocal: %+v, AltitudeRelative: %+v, AltitudeTerrain: %+v, BottomClearance: %+v }",
-		m.TimeUsec, m.AltitudeMonotonic, m.AltitudeAmsl, m.AltitudeLocal, m.AltitudeRelative, m.AltitudeTerrain, m.BottomClearance,
+		m.TimeUsec,
+		m.AltitudeMonotonic,
+		m.AltitudeAmsl,
+		m.AltitudeLocal,
+		m.AltitudeRelative,
+		m.AltitudeTerrain,
+		m.BottomClearance,
 	)
 }
 
@@ -13874,7 +14816,11 @@ func (m *ArdupilotmegaResourceRequest) MsgName() string {
 func (m *ArdupilotmegaResourceRequest) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
-		m.RequestID, m.URIType, m.URI, m.TransferType, m.Storage,
+		m.RequestID,
+		m.URIType,
+		m.URI,
+		m.TransferType,
+		m.Storage,
 	)
 }
 
@@ -13938,7 +14884,10 @@ func (m *ArdupilotmegaScaledPressure3) MsgName() string {
 func (m *ArdupilotmegaScaledPressure3) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaScaledPressure3{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
-		m.TimeBootMs, m.PressAbs, m.PressDiff, m.Temperature,
+		m.TimeBootMs,
+		m.PressAbs,
+		m.PressDiff,
+		m.Temperature,
 	)
 }
 
@@ -14007,7 +14956,17 @@ func (m *ArdupilotmegaFollowTarget) MsgName() string {
 func (m *ArdupilotmegaFollowTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaFollowTarget{ Timestamp: %+v, CustomState: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vel: %+v, Acc: %+v, AttitudeQ: %+v, Rates: %+v, PositionCov: %+v, EstCapabilities: %+v }",
-		m.Timestamp, m.CustomState, m.Lat, m.Lon, m.Alt, m.Vel, m.Acc, m.AttitudeQ, m.Rates, m.PositionCov, m.EstCapabilities,
+		m.Timestamp,
+		m.CustomState,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Vel,
+		m.Acc,
+		m.AttitudeQ,
+		m.Rates,
+		m.PositionCov,
+		m.EstCapabilities,
 	)
 }
 
@@ -14116,7 +15075,23 @@ func (m *ArdupilotmegaControlSystemState) MsgName() string {
 func (m *ArdupilotmegaControlSystemState) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaControlSystemState{ TimeUsec: %+v, XAcc: %+v, YAcc: %+v, ZAcc: %+v, XVel: %+v, YVel: %+v, ZVel: %+v, XPos: %+v, YPos: %+v, ZPos: %+v, Airspeed: %+v, VelVariance: %+v, PosVariance: %+v, Q: %+v, RollRate: %+v, PitchRate: %+v, YawRate: %+v }",
-		m.TimeUsec, m.XAcc, m.YAcc, m.ZAcc, m.XVel, m.YVel, m.ZVel, m.XPos, m.YPos, m.ZPos, m.Airspeed, m.VelVariance, m.PosVariance, m.Q, m.RollRate, m.PitchRate, m.YawRate,
+		m.TimeUsec,
+		m.XAcc,
+		m.YAcc,
+		m.ZAcc,
+		m.XVel,
+		m.YVel,
+		m.ZVel,
+		m.XPos,
+		m.YPos,
+		m.ZPos,
+		m.Airspeed,
+		m.VelVariance,
+		m.PosVariance,
+		m.Q,
+		m.RollRate,
+		m.PitchRate,
+		m.YawRate,
 	)
 }
 
@@ -14221,7 +15196,15 @@ func (m *ArdupilotmegaBatteryStatus) MsgName() string {
 func (m *ArdupilotmegaBatteryStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaBatteryStatus{ CurrentConsumed: %+v, EnergyConsumed: %+v, Temperature: %+v, Voltages: %+v, CurrentBattery: %+v, ID: %+v, BatteryFunction: %+v, Type: %+v, BatteryRemaining: %+v }",
-		m.CurrentConsumed, m.EnergyConsumed, m.Temperature, m.Voltages, m.CurrentBattery, m.ID, m.BatteryFunction, m.Type, m.BatteryRemaining,
+		m.CurrentConsumed,
+		m.EnergyConsumed,
+		m.Temperature,
+		m.Voltages,
+		m.CurrentBattery,
+		m.ID,
+		m.BatteryFunction,
+		m.Type,
+		m.BatteryRemaining,
 	)
 }
 
@@ -14304,7 +15287,17 @@ func (m *ArdupilotmegaAutopilotVersion) MsgName() string {
 func (m *ArdupilotmegaAutopilotVersion) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
-		m.Capabilities, m.UID, m.FlightSwVersion, m.MiddlewareSwVersion, m.OsSwVersion, m.BoardVersion, m.VendorID, m.ProductID, m.FlightCustomVersion, m.MiddlewareCustomVersion, m.OsCustomVersion,
+		m.Capabilities,
+		m.UID,
+		m.FlightSwVersion,
+		m.MiddlewareSwVersion,
+		m.OsSwVersion,
+		m.BoardVersion,
+		m.VendorID,
+		m.ProductID,
+		m.FlightCustomVersion,
+		m.MiddlewareCustomVersion,
+		m.OsCustomVersion,
 	)
 }
 
@@ -14384,7 +15377,14 @@ func (m *ArdupilotmegaLandingTarget) MsgName() string {
 func (m *ArdupilotmegaLandingTarget) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaLandingTarget{ TimeUsec: %+v, AngleX: %+v, AngleY: %+v, Distance: %+v, SizeX: %+v, SizeY: %+v, TargetNum: %+v, Frame: %+v }",
-		m.TimeUsec, m.AngleX, m.AngleY, m.Distance, m.SizeX, m.SizeY, m.TargetNum, m.Frame,
+		m.TimeUsec,
+		m.AngleX,
+		m.AngleY,
+		m.Distance,
+		m.SizeX,
+		m.SizeY,
+		m.TargetNum,
+		m.Frame,
 	)
 }
 
@@ -14454,7 +15454,10 @@ func (m *ArdupilotmegaFenceStatus) MsgName() string {
 func (m *ArdupilotmegaFenceStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaFenceStatus{ BreachTime: %+v, BreachCount: %+v, BreachStatus: %+v, BreachType: %+v }",
-		m.BreachTime, m.BreachCount, m.BreachStatus, m.BreachType,
+		m.BreachTime,
+		m.BreachCount,
+		m.BreachStatus,
+		m.BreachType,
 	)
 }
 
@@ -14526,7 +15529,20 @@ func (m *ArdupilotmegaMagCalReport) MsgName() string {
 func (m *ArdupilotmegaMagCalReport) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMagCalReport{ Fitness: %+v, OfsX: %+v, OfsY: %+v, OfsZ: %+v, DiagX: %+v, DiagY: %+v, DiagZ: %+v, OffdiagX: %+v, OffdiagY: %+v, OffdiagZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Autosaved: %+v }",
-		m.Fitness, m.OfsX, m.OfsY, m.OfsZ, m.DiagX, m.DiagY, m.DiagZ, m.OffdiagX, m.OffdiagY, m.OffdiagZ, m.CompassID, m.CalMask, m.CalStatus, m.Autosaved,
+		m.Fitness,
+		m.OfsX,
+		m.OfsY,
+		m.OfsZ,
+		m.DiagX,
+		m.DiagY,
+		m.DiagZ,
+		m.OffdiagX,
+		m.OffdiagY,
+		m.OffdiagZ,
+		m.CompassID,
+		m.CalMask,
+		m.CalStatus,
+		m.Autosaved,
 	)
 }
 
@@ -14621,7 +15637,23 @@ func (m *ArdupilotmegaEfiStatus) MsgName() string {
 func (m *ArdupilotmegaEfiStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaEfiStatus{ EcuIndex: %+v, Rpm: %+v, FuelConsumed: %+v, FuelFlow: %+v, EngineLoad: %+v, ThrottlePosition: %+v, SparkDwellTime: %+v, BarometricPressure: %+v, IntakeManifoldPressure: %+v, IntakeManifoldTemperature: %+v, CylinderHeadTemperature: %+v, IgnitionTiming: %+v, InjectionTime: %+v, ExhaustGasTemperature: %+v, ThrottleOut: %+v, PtCompensation: %+v, Health: %+v }",
-		m.EcuIndex, m.Rpm, m.FuelConsumed, m.FuelFlow, m.EngineLoad, m.ThrottlePosition, m.SparkDwellTime, m.BarometricPressure, m.IntakeManifoldPressure, m.IntakeManifoldTemperature, m.CylinderHeadTemperature, m.IgnitionTiming, m.InjectionTime, m.ExhaustGasTemperature, m.ThrottleOut, m.PtCompensation, m.Health,
+		m.EcuIndex,
+		m.Rpm,
+		m.FuelConsumed,
+		m.FuelFlow,
+		m.EngineLoad,
+		m.ThrottlePosition,
+		m.SparkDwellTime,
+		m.BarometricPressure,
+		m.IntakeManifoldPressure,
+		m.IntakeManifoldTemperature,
+		m.CylinderHeadTemperature,
+		m.IgnitionTiming,
+		m.InjectionTime,
+		m.ExhaustGasTemperature,
+		m.ThrottleOut,
+		m.PtCompensation,
+		m.Health,
 	)
 }
 
@@ -14715,7 +15747,16 @@ func (m *ArdupilotmegaEstimatorStatus) MsgName() string {
 func (m *ArdupilotmegaEstimatorStatus) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaEstimatorStatus{ TimeUsec: %+v, VelRatio: %+v, PosHorizRatio: %+v, PosVertRatio: %+v, MagRatio: %+v, HaglRatio: %+v, TasRatio: %+v, PosHorizAccuracy: %+v, PosVertAccuracy: %+v, Flags: %+v }",
-		m.TimeUsec, m.VelRatio, m.PosHorizRatio, m.PosVertRatio, m.MagRatio, m.HaglRatio, m.TasRatio, m.PosHorizAccuracy, m.PosVertAccuracy, m.Flags,
+		m.TimeUsec,
+		m.VelRatio,
+		m.PosHorizRatio,
+		m.PosVertRatio,
+		m.MagRatio,
+		m.HaglRatio,
+		m.TasRatio,
+		m.PosHorizAccuracy,
+		m.PosVertAccuracy,
+		m.Flags,
 	)
 }
 
@@ -14794,7 +15835,15 @@ func (m *ArdupilotmegaWindCov) MsgName() string {
 func (m *ArdupilotmegaWindCov) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaWindCov{ TimeUsec: %+v, WindX: %+v, WindY: %+v, WindZ: %+v, VarHoriz: %+v, VarVert: %+v, WindAlt: %+v, HorizAccuracy: %+v, VertAccuracy: %+v }",
-		m.TimeUsec, m.WindX, m.WindY, m.WindZ, m.VarHoriz, m.VarVert, m.WindAlt, m.HorizAccuracy, m.VertAccuracy,
+		m.TimeUsec,
+		m.WindX,
+		m.WindY,
+		m.WindZ,
+		m.VarHoriz,
+		m.VarVert,
+		m.WindAlt,
+		m.HorizAccuracy,
+		m.VertAccuracy,
 	)
 }
 
@@ -14880,7 +15929,24 @@ func (m *ArdupilotmegaGpsInput) MsgName() string {
 func (m *ArdupilotmegaGpsInput) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsInput{ TimeUsec: %+v, TimeWeekMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Hdop: %+v, Vdop: %+v, Vn: %+v, Ve: %+v, Vd: %+v, SpeedAccuracy: %+v, HorizAccuracy: %+v, VertAccuracy: %+v, IgnoreFlags: %+v, TimeWeek: %+v, GpsID: %+v, FixType: %+v, SatellitesVisible: %+v }",
-		m.TimeUsec, m.TimeWeekMs, m.Lat, m.Lon, m.Alt, m.Hdop, m.Vdop, m.Vn, m.Ve, m.Vd, m.SpeedAccuracy, m.HorizAccuracy, m.VertAccuracy, m.IgnoreFlags, m.TimeWeek, m.GpsID, m.FixType, m.SatellitesVisible,
+		m.TimeUsec,
+		m.TimeWeekMs,
+		m.Lat,
+		m.Lon,
+		m.Alt,
+		m.Hdop,
+		m.Vdop,
+		m.Vn,
+		m.Ve,
+		m.Vd,
+		m.SpeedAccuracy,
+		m.HorizAccuracy,
+		m.VertAccuracy,
+		m.IgnoreFlags,
+		m.TimeWeek,
+		m.GpsID,
+		m.FixType,
+		m.SatellitesVisible,
 	)
 }
 
@@ -14969,7 +16035,9 @@ func (m *ArdupilotmegaGpsRtcmData) MsgName() string {
 func (m *ArdupilotmegaGpsRtcmData) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaGpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
-		m.Flags, m.Len, m.Data,
+		m.Flags,
+		m.Len,
+		m.Data,
 	)
 }
 
@@ -15049,7 +16117,30 @@ func (m *ArdupilotmegaHighLatency) MsgName() string {
 func (m *ArdupilotmegaHighLatency) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHighLatency{ CustomMode: %+v, Latitude: %+v, Longitude: %+v, Roll: %+v, Pitch: %+v, Heading: %+v, HeadingSp: %+v, AltitudeAmsl: %+v, AltitudeSp: %+v, WpDistance: %+v, BaseMode: %+v, LandedState: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, ClimbRate: %+v, GpsNsat: %+v, GpsFixType: %+v, BatteryRemaining: %+v, Temperature: %+v, TemperatureAir: %+v, Failsafe: %+v, WpNum: %+v }",
-		m.CustomMode, m.Latitude, m.Longitude, m.Roll, m.Pitch, m.Heading, m.HeadingSp, m.AltitudeAmsl, m.AltitudeSp, m.WpDistance, m.BaseMode, m.LandedState, m.Throttle, m.Airspeed, m.AirspeedSp, m.Groundspeed, m.ClimbRate, m.GpsNsat, m.GpsFixType, m.BatteryRemaining, m.Temperature, m.TemperatureAir, m.Failsafe, m.WpNum,
+		m.CustomMode,
+		m.Latitude,
+		m.Longitude,
+		m.Roll,
+		m.Pitch,
+		m.Heading,
+		m.HeadingSp,
+		m.AltitudeAmsl,
+		m.AltitudeSp,
+		m.WpDistance,
+		m.BaseMode,
+		m.LandedState,
+		m.Throttle,
+		m.Airspeed,
+		m.AirspeedSp,
+		m.Groundspeed,
+		m.ClimbRate,
+		m.GpsNsat,
+		m.GpsFixType,
+		m.BatteryRemaining,
+		m.Temperature,
+		m.TemperatureAir,
+		m.Failsafe,
+		m.WpNum,
 	)
 }
 
@@ -15174,7 +16265,33 @@ func (m *ArdupilotmegaHighLatency2) MsgName() string {
 func (m *ArdupilotmegaHighLatency2) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHighLatency2{ Timestamp: %+v, Latitude: %+v, Longitude: %+v, CustomMode: %+v, Altitude: %+v, TargetAltitude: %+v, TargetDistance: %+v, WpNum: %+v, FailureFlags: %+v, Type: %+v, Autopilot: %+v, Heading: %+v, TargetHeading: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, Windspeed: %+v, WindHeading: %+v, Eph: %+v, Epv: %+v, TemperatureAir: %+v, ClimbRate: %+v, Battery: %+v, Custom0: %+v, Custom1: %+v, Custom2: %+v }",
-		m.Timestamp, m.Latitude, m.Longitude, m.CustomMode, m.Altitude, m.TargetAltitude, m.TargetDistance, m.WpNum, m.FailureFlags, m.Type, m.Autopilot, m.Heading, m.TargetHeading, m.Throttle, m.Airspeed, m.AirspeedSp, m.Groundspeed, m.Windspeed, m.WindHeading, m.Eph, m.Epv, m.TemperatureAir, m.ClimbRate, m.Battery, m.Custom0, m.Custom1, m.Custom2,
+		m.Timestamp,
+		m.Latitude,
+		m.Longitude,
+		m.CustomMode,
+		m.Altitude,
+		m.TargetAltitude,
+		m.TargetDistance,
+		m.WpNum,
+		m.FailureFlags,
+		m.Type,
+		m.Autopilot,
+		m.Heading,
+		m.TargetHeading,
+		m.Throttle,
+		m.Airspeed,
+		m.AirspeedSp,
+		m.Groundspeed,
+		m.Windspeed,
+		m.WindHeading,
+		m.Eph,
+		m.Epv,
+		m.TemperatureAir,
+		m.ClimbRate,
+		m.Battery,
+		m.Custom0,
+		m.Custom1,
+		m.Custom2,
 	)
 }
 
@@ -15285,7 +16402,13 @@ func (m *ArdupilotmegaVibration) MsgName() string {
 func (m *ArdupilotmegaVibration) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaVibration{ TimeUsec: %+v, VibrationX: %+v, VibrationY: %+v, VibrationZ: %+v, Clipping0: %+v, Clipping1: %+v, Clipping2: %+v }",
-		m.TimeUsec, m.VibrationX, m.VibrationY, m.VibrationZ, m.Clipping0, m.Clipping1, m.Clipping2,
+		m.TimeUsec,
+		m.VibrationX,
+		m.VibrationY,
+		m.VibrationZ,
+		m.Clipping0,
+		m.Clipping1,
+		m.Clipping2,
 	)
 }
 
@@ -15359,7 +16482,16 @@ func (m *ArdupilotmegaHomePosition) MsgName() string {
 func (m *ArdupilotmegaHomePosition) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v }",
-		m.Latitude, m.Longitude, m.Altitude, m.X, m.Y, m.Z, m.Q, m.ApproachX, m.ApproachY, m.ApproachZ,
+		m.Latitude,
+		m.Longitude,
+		m.Altitude,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Q,
+		m.ApproachX,
+		m.ApproachY,
+		m.ApproachZ,
 	)
 }
 
@@ -15444,7 +16576,17 @@ func (m *ArdupilotmegaSetHomePosition) MsgName() string {
 func (m *ArdupilotmegaSetHomePosition) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaSetHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v, TargetSystem: %+v }",
-		m.Latitude, m.Longitude, m.Altitude, m.X, m.Y, m.Z, m.Q, m.ApproachX, m.ApproachY, m.ApproachZ, m.TargetSystem,
+		m.Latitude,
+		m.Longitude,
+		m.Altitude,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Q,
+		m.ApproachX,
+		m.ApproachY,
+		m.ApproachZ,
+		m.TargetSystem,
 	)
 }
 
@@ -15522,7 +16664,8 @@ func (m *ArdupilotmegaMessageInterval) MsgName() string {
 func (m *ArdupilotmegaMessageInterval) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMessageInterval{ IntervalUs: %+v, MessageID: %+v }",
-		m.IntervalUs, m.MessageID,
+		m.IntervalUs,
+		m.MessageID,
 	)
 }
 
@@ -15578,7 +16721,8 @@ func (m *ArdupilotmegaExtendedSysState) MsgName() string {
 func (m *ArdupilotmegaExtendedSysState) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaExtendedSysState{ VtolState: %+v, LandedState: %+v }",
-		m.VtolState, m.LandedState,
+		m.VtolState,
+		m.LandedState,
 	)
 }
 
@@ -15645,7 +16789,19 @@ func (m *ArdupilotmegaAdsbVehicle) MsgName() string {
 func (m *ArdupilotmegaAdsbVehicle) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaAdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
-		m.IcaoAddress, m.Lat, m.Lon, m.Altitude, m.Heading, m.HorVelocity, m.VerVelocity, m.Flags, m.Squawk, m.AltitudeType, m.Callsign, m.EmitterType, m.Tslc,
+		m.IcaoAddress,
+		m.Lat,
+		m.Lon,
+		m.Altitude,
+		m.Heading,
+		m.HorVelocity,
+		m.VerVelocity,
+		m.Flags,
+		m.Squawk,
+		m.AltitudeType,
+		m.Callsign,
+		m.EmitterType,
+		m.Tslc,
 	)
 }
 
@@ -15728,7 +16884,13 @@ func (m *ArdupilotmegaCollision) MsgName() string {
 func (m *ArdupilotmegaCollision) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaCollision{ ID: %+v, TimeToMinimumDelta: %+v, AltitudeMinimumDelta: %+v, HorizontalMinimumDelta: %+v, Src: %+v, Action: %+v, ThreatLevel: %+v }",
-		m.ID, m.TimeToMinimumDelta, m.AltitudeMinimumDelta, m.HorizontalMinimumDelta, m.Src, m.Action, m.ThreatLevel,
+		m.ID,
+		m.TimeToMinimumDelta,
+		m.AltitudeMinimumDelta,
+		m.HorizontalMinimumDelta,
+		m.Src,
+		m.Action,
+		m.ThreatLevel,
 	)
 }
 
@@ -15797,7 +16959,11 @@ func (m *ArdupilotmegaV2Extension) MsgName() string {
 func (m *ArdupilotmegaV2Extension) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaV2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
-		m.MessageType, m.TargetNetwork, m.TargetSystem, m.TargetComponent, m.Payload,
+		m.MessageType,
+		m.TargetNetwork,
+		m.TargetSystem,
+		m.TargetComponent,
+		m.Payload,
 	)
 }
 
@@ -15861,7 +17027,10 @@ func (m *ArdupilotmegaMemoryVect) MsgName() string {
 func (m *ArdupilotmegaMemoryVect) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaMemoryVect{ Address: %+v, Ver: %+v, Type: %+v, Value: %+v }",
-		m.Address, m.Ver, m.Type, m.Value,
+		m.Address,
+		m.Ver,
+		m.Type,
+		m.Value,
 	)
 }
 
@@ -15928,7 +17097,11 @@ func (m *ArdupilotmegaDebugVect) MsgName() string {
 func (m *ArdupilotmegaDebugVect) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
-		m.TimeUsec, m.X, m.Y, m.Z, m.Name,
+		m.TimeUsec,
+		m.X,
+		m.Y,
+		m.Z,
+		m.Name,
 	)
 }
 
@@ -15991,7 +17164,9 @@ func (m *ArdupilotmegaNamedValueFloat) MsgName() string {
 func (m *ArdupilotmegaNamedValueFloat) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaNamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
-		m.TimeBootMs, m.Value, m.Name,
+		m.TimeBootMs,
+		m.Value,
+		m.Name,
 	)
 }
 
@@ -16050,7 +17225,9 @@ func (m *ArdupilotmegaNamedValueInt) MsgName() string {
 func (m *ArdupilotmegaNamedValueInt) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaNamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
-		m.TimeBootMs, m.Value, m.Name,
+		m.TimeBootMs,
+		m.Value,
+		m.Name,
 	)
 }
 
@@ -16108,7 +17285,8 @@ func (m *ArdupilotmegaStatustext) MsgName() string {
 func (m *ArdupilotmegaStatustext) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaStatustext{ Severity: %+v, Text: %+v }",
-		m.Severity, m.Text,
+		m.Severity,
+		m.Text,
 	)
 }
 
@@ -16165,7 +17343,9 @@ func (m *ArdupilotmegaDebug) MsgName() string {
 func (m *ArdupilotmegaDebug) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaDebug{ TimeBootMs: %+v, Value: %+v, Ind: %+v }",
-		m.TimeBootMs, m.Value, m.Ind,
+		m.TimeBootMs,
+		m.Value,
+		m.Ind,
 	)
 }
 
@@ -16227,7 +17407,12 @@ func (m *ArdupilotmegaHeartbeat) MsgName() string {
 func (m *ArdupilotmegaHeartbeat) String() string {
 	return fmt.Sprintf(
 		"&ArdupilotmegaHeartbeat{ CustomMode: %+v, Type: %+v, Autopilot: %+v, BaseMode: %+v, SystemStatus: %+v, MavlinkVersion: %+v }",
-		m.CustomMode, m.Type, m.Autopilot, m.BaseMode, m.SystemStatus, m.MavlinkVersion,
+		m.CustomMode,
+		m.Type,
+		m.Autopilot,
+		m.BaseMode,
+		m.SystemStatus,
+		m.MavlinkVersion,
 	)
 }
 

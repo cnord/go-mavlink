@@ -588,7 +588,8 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 func (m *{{$dialect}}{{$name}}) String() string {
 	return fmt.Sprintf(
 		"&{{$dialect}}{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
-		{{range .Fields}}m.{{.Name | UpperCamelCase}},{{end}}
+		{{range .Fields}}m.{{.Name | UpperCamelCase}},
+{{end}}
 	)
 }
 
