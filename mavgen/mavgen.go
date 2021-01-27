@@ -46,6 +46,7 @@ type Enum struct {
 	Name        string       `xml:"name,attr"`
 	Description string       `xml:"description"`
 	Entries     []*EnumEntry `xml:"entry"`
+	Source      string
 }
 
 // EnumEntry described schema tag entry
@@ -75,6 +76,7 @@ type Message struct {
 	// this field is only used during ParseDialect phase,
 	// it contains an empty string after ParseDialect returns
 	Raw string `xml:",innerxml"`
+	Source      string
 }
 
 // MessageField described schema tag filed
@@ -333,6 +335,12 @@ func ParseDialect(schemeFile string, name string) (*Dialect, error) {
 	if err != nil {
 		return nil, err
 	}
+	for _, e := range d.Enums {
+		e.Source = schemeFile
+	}
+	for _, m := range d.Messages {
+		m.Source = schemeFile
+	}
 	for _, i := range d.Include {
 		includePath := filepath.Join(filepath.Dir(schemeFile), i)
 		include, err := ParseDialect(includePath, mavgenVersion)
@@ -341,12 +349,18 @@ func ParseDialect(schemeFile string, name string) (*Dialect, error) {
 		}
 		for _, e := range include.Enums {
 			if !enumsContain(d.Enums, e) {
+				e.Source = includePath
 				d.Enums = append(d.Enums, e)
+			} else {
+				fmt.Printf("Warning: enum %s (from scheme %s) will be ignored at include operation time because it already contains in scheme %s\n", e.Name, includePath, e.Source)
 			}
 		}
-		for _, msg := range include.Messages {
-			if !messagesContain(d.Messages, msg) {
-				d.Messages = append(d.Messages, msg)
+		for _, m := range include.Messages {
+			if !messagesContain(d.Messages, m) {
+				m.Source = includePath
+				d.Messages = append(d.Messages, m)
+			} else {
+				fmt.Printf("Warning: message %s ID=%d (from scheme %s) will be ignored at include operation time because it already contains in scheme %s\n", m.Name, m.ID, includePath, m.Source)
 			}
 		}
 	}
