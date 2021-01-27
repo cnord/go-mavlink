@@ -19,8 +19,8 @@ func BenchmarkDecoder(b *testing.B) {
 
 	rand.Seed(time.Now().UnixNano())
 
-	counterOut := uint32(0)
-	counterIn := uint32(0)
+	sended := uint32(0)
+	received := uint32(0)
 	go func() {
 		defer wg.Done()
 		for i := 0; i < b.N; i++ {
@@ -32,23 +32,23 @@ func BenchmarkDecoder(b *testing.B) {
 				b.Fatal(err)
 			}
 			buffer.Write(packet.Bytes())
-			counterOut++
+			sended++
 		}
 	}()
 
 	go func() {
 		defer wg.Done()
-		var packet Packet;
+		var packet Packet
 		for {
 			err := dec.Decode(&packet)
 			if err == nil {
 				return
 			}
-			counterIn++
+			received++
 		}
 	}()
 	wg.Wait()
-	if counterIn != counterOut {
-		b.Fatalf("Sended (%d) and received (%d) packets not equal", counterOut, counterIn)
+	if received != sended {
+		b.Fatalf("Sended (%d) and received (%d) packets not equal", sended, received)
 	}
 }

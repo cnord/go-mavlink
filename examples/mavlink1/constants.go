@@ -38,16 +38,14 @@ const (
 )
 
 var (
-	// ErrCastToPacket define
-	ErrCastToPacket = errors.New("cannot cast interface to Packet struct")
 	// ErrUnknownMsgID define
 	ErrUnknownMsgID = errors.New("unknown msg id")
 	// ErrCrcFail define
 	ErrCrcFail = errors.New("checksum did not match")
 	// ErrNoNewData define
-	ErrNoNewData = errors.New("No new data")
+	ErrNoNewData = errors.New("no new data")
 	// ErrNilPointerReference define
-	ErrNilPointerReference = errors.New("Nil pointer reference")
+	ErrNilPointerReference = errors.New("nil pointer reference")
 	// currentSeqNum
 	currentSeqNum uint8
 )

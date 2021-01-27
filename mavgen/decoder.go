@@ -13,6 +13,7 @@ func decoderTemplate() string {
 		"\n" +
 		"import (\n" +
 		"\t\"bufio\"\n" +
+		"\t\"fmt\"\n" +
 		"\t\"io\"\n" +
 		")\n" +
 		"\n" +
@@ -38,7 +39,7 @@ func decoderTemplate() string {
 		"func (d *Decoder) Decode(v interface{}) error {\n" +
 		"\tpacket, ok := v.(*Packet)\n" +
 		"\tif !ok {\n" +
-		"\t\treturn ErrCastToPacket\n" +
+		"\t\treturn fmt.Errorf(\"cast interface '%+v' to Packet fail\", v)\n" +
 		"\t}\n" +
 		"\tfor {\n" +
 		"\t\tc, err := d.reader.ReadByte()\n" +

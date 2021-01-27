@@ -2,6 +2,7 @@ package mavlink
 
 import (
 	"bytes"
+	"fmt"
 	"math/rand"
 	"sync"
 	"testing"
@@ -19,10 +20,11 @@ func BenchmarkDecoder(b *testing.B) {
 
 	rand.Seed(time.Now().UnixNano())
 
-	counterOut := uint32(0)
-	counterIn := uint32(0)
+	sended := uint32(0)
+	received := uint32(0)
 	go func() {
 		defer wg.Done()
+		fmt.Println("to send", b.N)
 		for i := 0; i < b.N; i++ {
 			dummy := ArdupilotmegaPing{
 				Seq: rand.Uint32(),
@@ -31,24 +33,26 @@ func BenchmarkDecoder(b *testing.B) {
 			if err := packet.encode(uint8(rand.Uint32()%uint32(^uint8(0))), uint8(rand.Uint32()%uint32(^uint8(0))), &dummy); err != nil {
 				b.Fatal(err)
 			}
+			fmt.Println("sended pre")
 			buffer.Write(packet.Bytes())
-			counterOut++
+			sended++
+			fmt.Println("sended")
 		}
 	}()
 
 	go func() {
 		defer wg.Done()
-		var packet Packet;
+		var packet Packet
 		for {
 			err := dec.Decode(&packet)
 			if err == nil {
 				return
 			}
-			counterIn++
+			received++
 		}
 	}()
 	wg.Wait()
-	if counterIn != counterOut {
-		b.Fatalf("Sended (%d) and received (%d) packets not equal", counterOut, counterIn)
+	if received != sended {
+		b.Fatalf("Sended (%d) and received (%d) packets not equal", sended, received)
 	}
 }

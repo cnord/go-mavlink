@@ -8,6 +8,7 @@ package mavlink
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 )
 
@@ -33,7 +34,7 @@ func (d *Decoder) clearParsers() {
 func (d *Decoder) Decode(v interface{}) error {
 	packet, ok := v.(*Packet)
 	if !ok {
-		return ErrCastToPacket
+		return fmt.Errorf("cast interface '%+v' to Packet fail", v)
 	}
 	for {
 		c, err := d.reader.ReadByte()

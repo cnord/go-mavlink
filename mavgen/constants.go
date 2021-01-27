@@ -52,16 +52,14 @@ func constantsTemplate() string {
 		")\n" +
 		"\n" +
 		"var (\n" +
-		"\t// ErrCastToPacket define\n" +
-		"\tErrCastToPacket = errors.New(\"cannot cast interface to Packet struct\")\n" +
 		"\t// ErrUnknownMsgID define\n" +
 		"\tErrUnknownMsgID = errors.New(\"unknown msg id\")\n" +
 		"\t// ErrCrcFail define\n" +
 		"\tErrCrcFail = errors.New(\"checksum did not match\")\n" +
 		"\t// ErrNoNewData define\n" +
-		"\tErrNoNewData = errors.New(\"No new data\")\n" +
+		"\tErrNoNewData = errors.New(\"no new data\")\n" +
 		"\t// ErrNilPointerReference define\n" +
-		"\tErrNilPointerReference = errors.New(\"Nil pointer reference\")\n" +
+		"\tErrNilPointerReference = errors.New(\"nil pointer reference\")\n" +
 		"\t// currentSeqNum\n" +
 		"\tcurrentSeqNum uint8\n" +
 		")\n" +

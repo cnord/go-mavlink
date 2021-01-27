@@ -1,4 +1,5 @@
 //go:generate templify constants.template
+//go:generate templify encoder.template
 //go:generate templify decoder.template
 //go:generate templify dialect.template
 //go:generate templify message.template
@@ -34,6 +35,7 @@ const (
 var (
 	templates = map[string](func() string){
 		"constants":    constantsTemplate,
+		"encoder":      encoderTemplate,
 		"decoder":      decoderTemplate,
 		"dialect":      dialectTemplate,
 		"message":      messageTemplate,
