@@ -266,7 +266,7 @@ func TestParseDialect(t *testing.T) {
 	for ind, c := range cases {
 		t.Run(fmt.Sprintf("%v.%v", ind, c.name), func(t *testing.T) {
 			r := strings.NewReader(c.xml)
-			d, err := ParseDialect(r, c.name)
+			d, err := parseDialect(r, c.name)
 			if err != c.err {
 				t.Fatalf("expected err to be %+v, got %+v", c.err, err)
 			}

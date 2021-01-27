@@ -49,5 +49,5 @@ var (
 	// currentSeqNum
 	currentSeqNum uint8
 	// dialects
-	dialects DialectSlice = DialectSlice{DialectCommon}
+	dialects DialectSlice = DialectSlice{DialectArdupilotmega}
 )

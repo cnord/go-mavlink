@@ -20,13 +20,13 @@ func TestRoundTripChannels(t *testing.T) {
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
 
-	pings := make([]CommonPing, 0, 255)
-	processed := make([]CommonPing, 0, 255)
+	pings := make([]ArdupilotmegaPing, 0, 255)
+	processed := make([]ArdupilotmegaPing, 0, 255)
 
 	go func() {
 		defer wg.Done()
 		for i := 0; i < 255; i++ {
-			ping := CommonPing{
+			ping := ArdupilotmegaPing{
 				Seq: rand.Uint32(),
 			}
 			mtx.Lock()
@@ -48,7 +48,7 @@ func TestRoundTripChannels(t *testing.T) {
 				break
 			}
 			require.Equal(t, packet.MsgID, MSG_ID_PING, "MsgID fail")
-			var ping CommonPing
+			var ping ArdupilotmegaPing
 			require.Nil(t, ping.Unpack(packet), "Unpack fail")
 			processed = append(processed, ping)
 			if len(processed) == 255 {

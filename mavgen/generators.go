@@ -66,16 +66,11 @@ func findOutFile(scheme string) string {
 }
 
 func generateDialect(schemeFile string, mavlinkVersion int) (*string, *string, error) {
-	scheme, err := os.Open(schemeFile)
+	d, err := ParseDialect(schemeFile, baseName(schemeFile))
 	if err != nil {
 		return nil, nil, err
 	}
-	defer scheme.Close()
 
-	d, err := ParseDialect(scheme, baseName(schemeFile))
-	if err != nil {
-		return nil, nil, err
-	}
 	d.MavlinkVersion = mavlinkVersion
 
 	dialectFileName := findOutFile(schemeFile)

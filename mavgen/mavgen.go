@@ -9,6 +9,8 @@ import (
 	"go/format"
 	"io"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -34,7 +36,7 @@ type Dialect struct {
 
 	XMLName  xml.Name   `xml:"mavlink"`
 	Version  string     `xml:"version"`
-	Include  string     `xml:"include"`
+	Include  []string   `xml:"include"`
 	Enums    []*Enum    `xml:"enums>enum"`
 	Messages []*Message `xml:"messages>message"`
 }
@@ -281,10 +283,9 @@ func numBaseFields(rawmsg string) int {
 	}
 }
 
-// ParseDialect read in an xml-based dialect file,
+// parseDialect read in an xml-based dialect stream,
 // and populate a Dialect struct with its contents
-func ParseDialect(in io.Reader, name string) (*Dialect, error) {
-
+func parseDialect(in io.Reader, name string) (*Dialect, error) {
 	filebytes, err := ioutil.ReadAll(in)
 	if err != nil {
 		return nil, err
@@ -317,11 +318,57 @@ func ParseDialect(in io.Reader, name string) (*Dialect, error) {
 	}
 	dialect.Messages = filteredMessages[:n]
 
-	// if dialect.Include != "" {
-	// 	generate(protocol.IncludeName())
-	// }
-
 	return dialect, nil
+}
+
+// ParseDialect read in an xml-based dialect file,
+// and populate a Dialect struct with its contents
+func ParseDialect(schemeFile string, name string) (*Dialect, error) {
+	in, err := os.Open(schemeFile)
+	if err != nil {
+		return nil, err
+	}
+	defer in.Close()
+	d, err := parseDialect(in, name)
+	if err != nil {
+		return nil, err
+	}
+	for _, i := range d.Include {
+		includePath := filepath.Join(filepath.Dir(schemeFile), i)
+		include, err := ParseDialect(includePath, mavgenVersion)
+		if err != nil {
+			return nil, err
+		}
+		for _, e := range include.Enums {
+			if !enumsContain(d.Enums, e) {
+				d.Enums = append(d.Enums, e)
+			}
+		}
+		for _, msg := range include.Messages {
+			if !messagesContain(d.Messages, msg) {
+				d.Messages = append(d.Messages, msg)
+			}
+		}
+	}
+	return d, nil
+}
+
+func enumsContain(enums []*Enum, enum *Enum) bool {
+	for _, e := range enums {
+		if e.Name == enum.Name {
+			return true
+		}
+	}
+	return false
+}
+
+func messagesContain(messages []*Message, message *Message) bool {
+	for _, msg := range messages {
+		if msg.ID == message.ID {
+			return true
+		}
+	}
+	return false
 }
 
 // convert a C primitive type to its corresponding Go type.
