@@ -10,7 +10,6 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -46,7 +45,6 @@ type Enum struct {
 	Name        string       `xml:"name,attr"`
 	Description string       `xml:"description"`
 	Entries     []*EnumEntry `xml:"entry"`
-	Source      string
 }
 
 // EnumEntry described schema tag entry
@@ -76,7 +74,6 @@ type Message struct {
 	// this field is only used during ParseDialect phase,
 	// it contains an empty string after ParseDialect returns
 	Raw string `xml:",innerxml"`
-	Source      string
 }
 
 // MessageField described schema tag filed
@@ -335,54 +332,7 @@ func ParseDialect(schemeFile string, name string) (*Dialect, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, e := range d.Enums {
-		e.Source = schemeFile
-	}
-	for _, m := range d.Messages {
-		m.Source = schemeFile
-	}
-	for _, i := range d.Include {
-		includePath := filepath.Join(filepath.Dir(schemeFile), i)
-		include, err := ParseDialect(includePath, mavgenVersion)
-		if err != nil {
-			return nil, err
-		}
-		for _, e := range include.Enums {
-			if !enumsContain(d.Enums, e) {
-				e.Source = includePath
-				d.Enums = append(d.Enums, e)
-			} else {
-				fmt.Printf("Warning: enum %s (from scheme %s) will be ignored at include operation time because it already contains in scheme %s\n", e.Name, includePath, e.Source)
-			}
-		}
-		for _, m := range include.Messages {
-			if !messagesContain(d.Messages, m) {
-				m.Source = includePath
-				d.Messages = append(d.Messages, m)
-			} else {
-				fmt.Printf("Warning: message %s ID=%d (from scheme %s) will be ignored at include operation time because it already contains in scheme %s\n", m.Name, m.ID, includePath, m.Source)
-			}
-		}
-	}
 	return d, nil
-}
-
-func enumsContain(enums []*Enum, enum *Enum) bool {
-	for _, e := range enums {
-		if e.Name == enum.Name {
-			return true
-		}
-	}
-	return false
-}
-
-func messagesContain(messages []*Message, message *Message) bool {
-	for _, msg := range messages {
-		if msg.ID == message.ID {
-			return true
-		}
-	}
-	return false
 }
 
 // convert a C primitive type to its corresponding Go type.
@@ -453,6 +403,34 @@ func GoTypeInfo(s string) (string, int, int, error) {
 	return name, bitsz, arraylen, nil
 }
 
+func (d *Dialect) needImportFmt() bool {
+	return len(d.Messages) > 0
+}
+
+func (d *Dialect) needImportMath() bool {
+	for _, m := range d.Messages {
+		for _, f := range m.Fields {
+			switch f.CType {
+			case "float", "double":
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (d *Dialect) needImportEncodingBinary() bool {
+	for _, m := range d.Messages {
+		for _, f := range m.Fields {
+			switch f.CType {
+			case "uint16_t", "uint32_t", "uint64_t":
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // GenerateGo generate a .go source file from the given dialect
 func (d *Dialect) GenerateGo(w io.Writer) error {
 	// templatize to buffer, format it, then write out
@@ -469,9 +447,15 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString("package mavlink\n\n")
 
 	bb.WriteString("import (\n")
-	bb.WriteString("\"encoding/binary\"\n")
-	bb.WriteString("\"fmt\"\n")
-	bb.WriteString("\"math\"\n")
+	if d.needImportEncodingBinary() {
+		bb.WriteString("\"encoding/binary\"\n")
+	}
+	if d.needImportFmt() {
+		bb.WriteString("\"fmt\"\n")
+	}
+	if d.needImportMath() {
+		bb.WriteString("\"math\"\n")
+	}
 	bb.WriteString(")\n")
 
 	err := d.generateEnums(&bb)
@@ -537,31 +521,27 @@ const ({{range .Entries}}
 func (d *Dialect) generateMsgIds(w io.Writer) error {
 	msgIDTmpl := `
 {{$dialect := .Name | UpperCamelCase}}
+{{if .Messages}}
 // Message IDs
 const ({{range .Messages}}
 	MSG_ID_{{.Name}} MessageID = {{.ID}}{{end}}
 )
+{{end}}
 
-// Mavlink message CRC extras
-var MAVLINK_MESSAGE_CRC_EXTRAS = map[MessageID]uint8{ {{range .Messages}}
-	MSG_ID_{{.Name}}: {{.CRCExtra}},{{end}}
-}
-
-var MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID = map[MessageID]func(*Packet) Message{ {{range .Messages}}
-	MSG_ID_{{.Name}}: func(p *Packet) Message {
-		msg := new({{$dialect}}{{.Name | UpperCamelCase}})
-		msg.Unpack(p)
-		return msg
-	},{{end}}
-}
-
-// Message function produce message from packet
-func (p *Packet) Message() (Message, error) {
-	constructor, ok := MAVLINK_MESSAGE_CONSTRUCTORS_BY_ID[p.MsgID]
-	if !ok {
-		return nil, ErrUnknownMsgID
-	}
-	return constructor(p), nil
+// init {{$dialect}} variables 
+func init() {
+	{{if .Messages}}// check {{$dialect}} collision's  and if ok add crc extra and constructor{{range .Messages}}
+	if _, ok := msgCrcExtras[MSG_ID_{{.Name}}]; ok {
+		panic("Cannot append MSG_ID_{{.Name}}. Already exists message ID '{{.ID}}'")
+	} else {
+		msgCrcExtras[MSG_ID_{{.Name}}] = {{.CRCExtra}}
+		msgConstructors[MSG_ID_{{.Name}}] = func(p *Packet) Message {
+			msg := new({{$dialect}}{{.Name | UpperCamelCase}})
+			msg.Unpack(p)
+			return msg
+		}
+	}{{end}}
+{{end}}
 }
 `
 	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIDTmpl)).Execute(w, d)

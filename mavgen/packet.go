@@ -11,11 +11,13 @@ package main
 func packetTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
+		"var msgConstructors = map[MessageID]func(*Packet) Message{}\n" +
+		"\n" +
 		"// Packet is a wire type for encoding/decoding mavlink messages.\n" +
 		"// use the ToPacket() and FromPacket() routines on specific message\n" +
 		"// types to convert them to/from the Message type.\n" +
 		"type Packet struct {\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\tInCompatFlags uint8     // incompat flags\n" +
 		"\tCompatFlags   uint8     // compat flags\n" +
 		"{{- end}}\n" +
@@ -83,12 +85,12 @@ func packetTemplate() string {
 		"\n" +
 		"// Bytes make byte slice from packet\n" +
 		"func (p *Packet) Bytes() []byte {\n" +
-		"    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))\n" +
+		"    bytes := make([]byte, 0, {{if eq .MavlinkVersion 2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))\n" +
 		"    // header\n" +
 		"    bytes = append(bytes,\n" +
 		"\t    magicNumber,\n" +
 		"\t    byte(len(p.Payload)),\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\t    uint8(p.InCompatFlags),\n" +
 		"\t    uint8(p.CompatFlags),\n" +
 		"{{- end}}\n" +
@@ -96,7 +98,7 @@ func packetTemplate() string {
 		"\t    p.SysID,\n" +
 		"\t    p.CompID,\n" +
 		"\t    uint8(p.MsgID),\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\t    uint8(p.MsgID >> 8),\n" +
 		"\t    uint8(p.MsgID >> 16),\n" +
 		"{{- end}}\n" +
@@ -111,7 +113,7 @@ func packetTemplate() string {
 		"func (p *Packet) fixChecksum(crcExtra uint8) error {\n" +
 		"\tcrc := NewX25()\n" +
 		"\tcrc.WriteByte(byte(len(p.Payload)))\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\tcrc.WriteByte(p.InCompatFlags)\n" +
 		"\tcrc.WriteByte(p.CompatFlags)\n" +
 		"{{- end}}\n" +
@@ -119,7 +121,7 @@ func packetTemplate() string {
 		"\tcrc.WriteByte(p.SysID)\n" +
 		"\tcrc.WriteByte(p.CompID)\n" +
 		"\tcrc.WriteByte(byte(p.MsgID >> 0 ))\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\tcrc.WriteByte(byte(p.MsgID >> 8 ))\n" +
 		"\tcrc.WriteByte(byte(p.MsgID >> 16))\n" +
 		"{{- end}}\n" +
@@ -131,6 +133,15 @@ func packetTemplate() string {
 		"\n" +
 		"func (p *Packet) u16ToBytes(v uint16) []byte {\n" +
 		"\treturn []byte{byte(v & 0xff), byte(v >> 8)}\n" +
+		"}\n" +
+		"\n" +
+		"// Message function produce message from packet\n" +
+		"func (p *Packet) Message() (Message, error) {\n" +
+		"\tconstructor, ok := msgConstructors[p.MsgID]\n" +
+		"\tif !ok {\n" +
+		"\t\treturn nil, ErrUnknownMsgID\n" +
+		"\t}\n" +
+		"\treturn constructor(p), nil\n" +
 		"}\n" +
 		""
 	return tmpl

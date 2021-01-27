@@ -12,11 +12,11 @@ func TestRoundTripChannels(t *testing.T) {
 	var buffer bytes.Buffer
 	dec := NewDecoder(&buffer)
 
-	pings := make([]ArdupilotmegaPing, 0, 255)
-	processed := make([]ArdupilotmegaPing, 0, 255)
+	pings := make([]CommonPing, 0, 255)
+	processed := make([]CommonPing, 0, 255)
 
 	for i := 0; i < 255; i++ {
-		ping := ArdupilotmegaPing{
+		ping := CommonPing{
 			Seq: rand.Uint32(),
 		}
 		pings = append(pings, ping)
@@ -30,7 +30,7 @@ func TestRoundTripChannels(t *testing.T) {
 			break
 		}
 		require.Equal(t, packet.MsgID, MSG_ID_PING, "MsgID fail")
-		var ping ArdupilotmegaPing
+		var ping CommonPing
 		require.NoError(t, ping.Unpack(&packet), "Unpack fail")
 		processed = append(processed, ping)
 		if len(processed) == 255 {

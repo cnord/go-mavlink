@@ -6,6 +6,8 @@
 
 package mavlink
 
+var msgConstructors = map[MessageID]func(*Packet) Message{}
+
 // Packet is a wire type for encoding/decoding mavlink messages.
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
@@ -116,4 +118,13 @@ func (p *Packet) fixChecksum(crcExtra uint8) error {
 
 func (p *Packet) u16ToBytes(v uint16) []byte {
 	return []byte{byte(v & 0xff), byte(v >> 8)}
+}
+
+// Message function produce message from packet
+func (p *Packet) Message() (Message, error) {
+	constructor, ok := msgConstructors[p.MsgID]
+	if !ok {
+		return nil, ErrUnknownMsgID
+	}
+	return constructor(p), nil
 }

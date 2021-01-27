@@ -4,13 +4,13 @@ import (
 	"errors"
 )
 
-// magicNumber constant for mavlink {{if .Mavlink2 -}} 2 {{- else -}} 1 {{- end}}.0
+// magicNumber constant for mavlink {{if eq .MavlinkVersion 2 -}} 2 {{- else -}} 1 {{- end}}.0
 const (
-	magicNumber = {{if .Mavlink2 -}} 0xfd {{- else -}} 0xfe {{- end}}
+	magicNumber = {{if eq .MavlinkVersion 2 -}} 0xfd {{- else -}} 0xfe {{- end}}
 )
 
 // MessageID typedef
-type MessageID {{if .Mavlink2 -}} uint32 {{else}} uint8 {{- end}}
+type MessageID {{if eq .MavlinkVersion 2 -}} uint32 {{else}} uint8 {{- end}}
 
 
 // MAVLINK_PARSE_STATE typedef
@@ -22,7 +22,7 @@ const (
 	MAVLINK_PARSE_STATE_IDLE               MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_STX            MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_LENGTH         MAVLINK_PARSE_STATE = iota
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	MAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS   MAVLINK_PARSE_STATE = iota
 {{- end}}
@@ -30,7 +30,7 @@ const (
 	MAVLINK_PARSE_STATE_GOT_SYSID          MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_COMPID         MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_MSGID1         MAVLINK_PARSE_STATE = iota
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	MAVLINK_PARSE_STATE_GOT_MSGID2         MAVLINK_PARSE_STATE = iota
 	MAVLINK_PARSE_STATE_GOT_MSGID3         MAVLINK_PARSE_STATE = iota
 {{- end}}

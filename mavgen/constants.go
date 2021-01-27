@@ -15,13 +15,13 @@ func constantsTemplate() string {
 		"\t\"errors\"\n" +
 		")\n" +
 		"\n" +
-		"// magicNumber constant for mavlink {{if .Mavlink2 -}} 2 {{- else -}} 1 {{- end}}.0\n" +
+		"// magicNumber constant for mavlink {{if eq .MavlinkVersion 2 -}} 2 {{- else -}} 1 {{- end}}.0\n" +
 		"const (\n" +
-		"\tmagicNumber = {{if .Mavlink2 -}} 0xfd {{- else -}} 0xfe {{- end}}\n" +
+		"\tmagicNumber = {{if eq .MavlinkVersion 2 -}} 0xfd {{- else -}} 0xfe {{- end}}\n" +
 		")\n" +
 		"\n" +
 		"// MessageID typedef\n" +
-		"type MessageID {{if .Mavlink2 -}} uint32 {{else}} uint8 {{- end}}\n" +
+		"type MessageID {{if eq .MavlinkVersion 2 -}} uint32 {{else}} uint8 {{- end}}\n" +
 		"\n" +
 		"\n" +
 		"// MAVLINK_PARSE_STATE typedef\n" +
@@ -33,7 +33,7 @@ func constantsTemplate() string {
 		"\tMAVLINK_PARSE_STATE_IDLE               MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_STX            MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_LENGTH         MAVLINK_PARSE_STATE = iota\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_INCOMPAT_FLAGS MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_COMPAT_FLAGS   MAVLINK_PARSE_STATE = iota\n" +
 		"{{- end}}\n" +
@@ -41,7 +41,7 @@ func constantsTemplate() string {
 		"\tMAVLINK_PARSE_STATE_GOT_SYSID          MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_COMPID         MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_MSGID1         MAVLINK_PARSE_STATE = iota\n" +
-		"{{- if .Mavlink2}}\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_MSGID2         MAVLINK_PARSE_STATE = iota\n" +
 		"\tMAVLINK_PARSE_STATE_GOT_MSGID3         MAVLINK_PARSE_STATE = iota\n" +
 		"{{- end}}\n" +

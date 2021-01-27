@@ -1,10 +1,12 @@
 package mavlink
 
+var msgConstructors = map[MessageID]func(*Packet) Message{}
+
 // Packet is a wire type for encoding/decoding mavlink messages.
 // use the ToPacket() and FromPacket() routines on specific message
 // types to convert them to/from the Message type.
 type Packet struct {
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	InCompatFlags uint8     // incompat flags
 	CompatFlags   uint8     // compat flags
 {{- end}}
@@ -72,12 +74,12 @@ func Marshal(p *Packet) ([]byte, error) {
 
 // Bytes make byte slice from packet
 func (p *Packet) Bytes() []byte {
-    bytes := make([]byte, 0, {{if .Mavlink2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))
+    bytes := make([]byte, 0, {{if eq .MavlinkVersion 2 -}} 12 {{- else -}} 8 {{- end}}+len(p.Payload))
     // header
     bytes = append(bytes,
 	    magicNumber,
 	    byte(len(p.Payload)),
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	    uint8(p.InCompatFlags),
 	    uint8(p.CompatFlags),
 {{- end}}
@@ -85,7 +87,7 @@ func (p *Packet) Bytes() []byte {
 	    p.SysID,
 	    p.CompID,
 	    uint8(p.MsgID),
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	    uint8(p.MsgID >> 8),
 	    uint8(p.MsgID >> 16),
 {{- end}}
@@ -100,7 +102,7 @@ func (p *Packet) Bytes() []byte {
 func (p *Packet) fixChecksum(crcExtra uint8) error {
 	crc := NewX25()
 	crc.WriteByte(byte(len(p.Payload)))
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	crc.WriteByte(p.InCompatFlags)
 	crc.WriteByte(p.CompatFlags)
 {{- end}}
@@ -108,7 +110,7 @@ func (p *Packet) fixChecksum(crcExtra uint8) error {
 	crc.WriteByte(p.SysID)
 	crc.WriteByte(p.CompID)
 	crc.WriteByte(byte(p.MsgID >> 0 ))
-{{- if .Mavlink2}}
+{{- if eq .MavlinkVersion 2}}
 	crc.WriteByte(byte(p.MsgID >> 8 ))
 	crc.WriteByte(byte(p.MsgID >> 16))
 {{- end}}
@@ -120,4 +122,13 @@ func (p *Packet) fixChecksum(crcExtra uint8) error {
 
 func (p *Packet) u16ToBytes(v uint16) []byte {
 	return []byte{byte(v & 0xff), byte(v >> 8)}
+}
+
+// Message function produce message from packet
+func (p *Packet) Message() (Message, error) {
+	constructor, ok := msgConstructors[p.MsgID]
+	if !ok {
+		return nil, ErrUnknownMsgID
+	}
+	return constructor(p), nil
 }

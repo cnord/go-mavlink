@@ -13,7 +13,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/iancoleman/strcase"
 	"go/format"
 	"log"
 	"os"
@@ -50,22 +49,17 @@ func baseName(s string) string {
 }
 
 func findOutFile(scheme string) string {
-	if *outfile == "" {
-		*outfile = baseName(scheme) + ".go"
-	}
-
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal("Getwd(): ", err)
 	}
-
-	return filepath.Join(dir, *outfile)
+	return filepath.Join(dir, baseName(scheme) + ".go")
 }
 
-func generateDialect(schemeFile string, mavlinkVersion int) (*string, *string, error) {
+func generateDialect(schemeFile string, mavlinkVersion int) (*string, error) {
 	d, err := ParseDialect(schemeFile, baseName(schemeFile))
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	d.MavlinkVersion = mavlinkVersion
@@ -74,17 +68,24 @@ func generateDialect(schemeFile string, mavlinkVersion int) (*string, *string, e
 
 	dialectFile, err := os.Create(dialectFileName)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	defer dialectFile.Close()
 
 	if err := d.GenerateGo(dialectFile); err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	dialectName := "Dialect" + strcase.ToCamel(d.Name)
+	for _, i := range d.Include {
+		includePath := filepath.Join(filepath.Dir(schemeFile), i)
+		_, err = generateDialect(includePath, mavlinkVersion)
+		if err != nil {
+			return nil, err
+		}
+	}
 
-	return &dialectFileName, &dialectName, nil
+
+	return &dialectFileName, nil
 }
 
 func generateCode(dialectDir string, data templateData, templateName string, tmpl string) error {

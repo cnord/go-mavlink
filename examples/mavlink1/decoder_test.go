@@ -26,7 +26,7 @@ func BenchmarkDecoder(b *testing.B) {
 		defer wg.Done()
 		fmt.Println("to send", b.N)
 		for i := 0; i < b.N; i++ {
-			dummy := ArdupilotmegaPing{
+			dummy := CommonPing{
 				Seq: rand.Uint32(),
 			}
 			packet := &Packet{}
