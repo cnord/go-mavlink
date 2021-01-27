@@ -456,6 +456,7 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	bb.WriteString("import (\n")
 	bb.WriteString("\"encoding/binary\"\n")
+	bb.WriteString("\"fmt\"\n")
 	bb.WriteString("\"math\"\n")
 	bb.WriteString(")\n")
 
@@ -585,7 +586,7 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 
 // String (generated function)
 func (m *{{$dialect}}{{$name}}) String() string {
-	return fmt.Sprintf("{{$dialect}}{{$name}}{&+v}", m)
+	return fmt.Sprintf("{{$dialect}}{{$name}}{%+v}", m)
 }
 
 // Pack (generated function)

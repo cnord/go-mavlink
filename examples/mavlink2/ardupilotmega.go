@@ -9,6 +9,7 @@ package mavlink
 
 import (
 	"encoding/binary"
+	"fmt"
 	"math"
 )
 
@@ -2464,7 +2465,7 @@ func (m *ArdupilotmegaSensorOffsets) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSensorOffsets) String() string {
-	return fmt.Sprintf("ArdupilotmegaSensorOffsets{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSensorOffsets{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2545,7 +2546,7 @@ func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetMagOffsets) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetMagOffsets{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetMagOffsets{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2609,7 +2610,7 @@ func (m *ArdupilotmegaMeminfo) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMeminfo) String() string {
-	return fmt.Sprintf("ArdupilotmegaMeminfo{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMeminfo{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2671,7 +2672,7 @@ func (m *ArdupilotmegaApAdc) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaApAdc) String() string {
-	return fmt.Sprintf("ArdupilotmegaApAdc{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaApAdc{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2746,7 +2747,7 @@ func (m *ArdupilotmegaDigicamConfigure) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDigicamConfigure) String() string {
-	return fmt.Sprintf("ArdupilotmegaDigicamConfigure{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDigicamConfigure{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2830,7 +2831,7 @@ func (m *ArdupilotmegaDigicamControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDigicamControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaDigicamControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDigicamControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2908,7 +2909,7 @@ func (m *ArdupilotmegaMountConfigure) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMountConfigure) String() string {
-	return fmt.Sprintf("ArdupilotmegaMountConfigure{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMountConfigure{%+v}", m)
 }
 
 // Pack (generated function)
@@ -2978,7 +2979,7 @@ func (m *ArdupilotmegaMountControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMountControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaMountControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMountControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3047,7 +3048,7 @@ func (m *ArdupilotmegaMountStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMountStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaMountStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMountStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3115,7 +3116,7 @@ func (m *ArdupilotmegaFencePoint) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaFencePoint) String() string {
-	return fmt.Sprintf("ArdupilotmegaFencePoint{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaFencePoint{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3182,7 +3183,7 @@ func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaFenceFetchPoint) String() string {
-	return fmt.Sprintf("ArdupilotmegaFenceFetchPoint{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaFenceFetchPoint{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3247,7 +3248,7 @@ func (m *ArdupilotmegaAhrs) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAhrs) String() string {
-	return fmt.Sprintf("ArdupilotmegaAhrs{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAhrs{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3324,7 +3325,7 @@ func (m *ArdupilotmegaSimstate) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSimstate) String() string {
-	return fmt.Sprintf("ArdupilotmegaSimstate{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSimstate{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3400,7 +3401,7 @@ func (m *ArdupilotmegaHwstatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHwstatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaHwstatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHwstatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3463,7 +3464,7 @@ func (m *ArdupilotmegaRadio) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRadio) String() string {
-	return fmt.Sprintf("ArdupilotmegaRadio{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRadio{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3538,7 +3539,7 @@ func (m *ArdupilotmegaLimitsStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLimitsStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaLimitsStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLimitsStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3611,7 +3612,7 @@ func (m *ArdupilotmegaWind) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaWind) String() string {
-	return fmt.Sprintf("ArdupilotmegaWind{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaWind{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3672,7 +3673,7 @@ func (m *ArdupilotmegaData16) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaData16) String() string {
-	return fmt.Sprintf("ArdupilotmegaData16{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaData16{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3733,7 +3734,7 @@ func (m *ArdupilotmegaData32) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaData32) String() string {
-	return fmt.Sprintf("ArdupilotmegaData32{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaData32{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3794,7 +3795,7 @@ func (m *ArdupilotmegaData64) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaData64) String() string {
-	return fmt.Sprintf("ArdupilotmegaData64{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaData64{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3855,7 +3856,7 @@ func (m *ArdupilotmegaData96) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaData96) String() string {
-	return fmt.Sprintf("ArdupilotmegaData96{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaData96{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3915,7 +3916,7 @@ func (m *ArdupilotmegaRangefinder) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRangefinder) String() string {
-	return fmt.Sprintf("ArdupilotmegaRangefinder{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRangefinder{%+v}", m)
 }
 
 // Pack (generated function)
@@ -3983,7 +3984,7 @@ func (m *ArdupilotmegaAirspeedAutocal) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAirspeedAutocal) String() string {
-	return fmt.Sprintf("ArdupilotmegaAirspeedAutocal{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAirspeedAutocal{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4069,7 +4070,7 @@ func (m *ArdupilotmegaRallyPoint) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRallyPoint) String() string {
-	return fmt.Sprintf("ArdupilotmegaRallyPoint{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRallyPoint{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4144,7 +4145,7 @@ func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRallyFetchPoint) String() string {
-	return fmt.Sprintf("ArdupilotmegaRallyFetchPoint{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRallyFetchPoint{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4208,7 +4209,7 @@ func (m *ArdupilotmegaCompassmotStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCompassmotStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaCompassmotStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCompassmotStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4278,7 +4279,7 @@ func (m *ArdupilotmegaAhrs2) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAhrs2) String() string {
-	return fmt.Sprintf("ArdupilotmegaAhrs2{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAhrs2{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4351,7 +4352,7 @@ func (m *ArdupilotmegaCameraStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCameraStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaCameraStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCameraStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4434,7 +4435,7 @@ func (m *ArdupilotmegaCameraFeedback) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCameraFeedback) String() string {
-	return fmt.Sprintf("ArdupilotmegaCameraFeedback{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCameraFeedback{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4514,7 +4515,7 @@ func (m *ArdupilotmegaBattery2) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaBattery2) String() string {
-	return fmt.Sprintf("ArdupilotmegaBattery2{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaBattery2{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4580,7 +4581,7 @@ func (m *ArdupilotmegaAhrs3) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAhrs3) String() string {
-	return fmt.Sprintf("ArdupilotmegaAhrs3{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAhrs3{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4654,7 +4655,7 @@ func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAutopilotVersionRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaAutopilotVersionRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAutopilotVersionRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4714,7 +4715,7 @@ func (m *ArdupilotmegaRemoteLogDataBlock) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRemoteLogDataBlock) String() string {
-	return fmt.Sprintf("ArdupilotmegaRemoteLogDataBlock{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRemoteLogDataBlock{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4778,7 +4779,7 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRemoteLogBlockStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaRemoteLogBlockStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRemoteLogBlockStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4844,7 +4845,7 @@ func (m *ArdupilotmegaLedControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLedControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaLedControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLedControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4917,7 +4918,7 @@ func (m *ArdupilotmegaMagCalProgress) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMagCalProgress) String() string {
-	return fmt.Sprintf("ArdupilotmegaMagCalProgress{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMagCalProgress{%+v}", m)
 }
 
 // Pack (generated function)
@@ -4993,7 +4994,7 @@ func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaEkfStatusReport) String() string {
-	return fmt.Sprintf("ArdupilotmegaEkfStatusReport{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaEkfStatusReport{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5064,7 +5065,7 @@ func (m *ArdupilotmegaPidTuning) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaPidTuning) String() string {
-	return fmt.Sprintf("ArdupilotmegaPidTuning{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaPidTuning{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5140,7 +5141,7 @@ func (m *ArdupilotmegaDeepstall) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDeepstall) String() string {
-	return fmt.Sprintf("ArdupilotmegaDeepstall{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDeepstall{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5224,7 +5225,7 @@ func (m *ArdupilotmegaGimbalReport) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGimbalReport) String() string {
-	return fmt.Sprintf("ArdupilotmegaGimbalReport{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGimbalReport{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5305,7 +5306,7 @@ func (m *ArdupilotmegaGimbalControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGimbalControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaGimbalControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGimbalControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5372,7 +5373,7 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGimbalTorqueCmdReport) String() string {
-	return fmt.Sprintf("ArdupilotmegaGimbalTorqueCmdReport{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGimbalTorqueCmdReport{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5437,7 +5438,7 @@ func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGoproHeartbeat) String() string {
-	return fmt.Sprintf("ArdupilotmegaGoproHeartbeat{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGoproHeartbeat{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5498,7 +5499,7 @@ func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGoproGetRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaGoproGetRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGoproGetRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5559,7 +5560,7 @@ func (m *ArdupilotmegaGoproGetResponse) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGoproGetResponse) String() string {
-	return fmt.Sprintf("ArdupilotmegaGoproGetResponse{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGoproGetResponse{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5621,7 +5622,7 @@ func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGoproSetRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaGoproSetRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGoproSetRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5683,7 +5684,7 @@ func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGoproSetResponse) String() string {
-	return fmt.Sprintf("ArdupilotmegaGoproSetResponse{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGoproSetResponse{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5741,7 +5742,7 @@ func (m *ArdupilotmegaRpm) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRpm) String() string {
-	return fmt.Sprintf("ArdupilotmegaRpm{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRpm{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5810,7 +5811,7 @@ func (m *ArdupilotmegaSysStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSysStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaSysStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSysStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5890,7 +5891,7 @@ func (m *ArdupilotmegaSystemTime) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSystemTime) String() string {
-	return fmt.Sprintf("ArdupilotmegaSystemTime{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSystemTime{%+v}", m)
 }
 
 // Pack (generated function)
@@ -5950,7 +5951,7 @@ func (m *ArdupilotmegaPing) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaPing) String() string {
-	return fmt.Sprintf("ArdupilotmegaPing{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaPing{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6014,7 +6015,7 @@ func (m *ArdupilotmegaChangeOperatorControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaChangeOperatorControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaChangeOperatorControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaChangeOperatorControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6077,7 +6078,7 @@ func (m *ArdupilotmegaChangeOperatorControlAck) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaChangeOperatorControlAck) String() string {
-	return fmt.Sprintf("ArdupilotmegaChangeOperatorControlAck{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaChangeOperatorControlAck{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6136,7 +6137,7 @@ func (m *ArdupilotmegaAuthKey) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAuthKey) String() string {
-	return fmt.Sprintf("ArdupilotmegaAuthKey{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAuthKey{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6201,7 +6202,7 @@ func (m *ArdupilotmegaLinkNodeStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLinkNodeStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaLinkNodeStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLinkNodeStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6278,7 +6279,7 @@ func (m *ArdupilotmegaSetMode) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetMode) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetMode{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetMode{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6342,7 +6343,7 @@ func (m *ArdupilotmegaParamAckTransaction) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamAckTransaction) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamAckTransaction{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamAckTransaction{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6410,7 +6411,7 @@ func (m *ArdupilotmegaParamRequestRead) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamRequestRead) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamRequestRead{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamRequestRead{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6472,7 +6473,7 @@ func (m *ArdupilotmegaParamRequestList) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamRequestList) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamRequestList{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamRequestList{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6533,7 +6534,7 @@ func (m *ArdupilotmegaParamValue) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamValue) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamValue{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamValue{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6602,7 +6603,7 @@ func (m *ArdupilotmegaParamSet) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamSet) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamSet{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamSet{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6675,7 +6676,7 @@ func (m *ArdupilotmegaGpsRawInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsRawInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsRawInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsRawInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6753,7 +6754,7 @@ func (m *ArdupilotmegaGpsStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6827,7 +6828,7 @@ func (m *ArdupilotmegaScaledImu) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledImu) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledImu{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledImu{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6909,7 +6910,7 @@ func (m *ArdupilotmegaRawImu) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRawImu) String() string {
-	return fmt.Sprintf("ArdupilotmegaRawImu{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRawImu{%+v}", m)
 }
 
 // Pack (generated function)
@@ -6986,7 +6987,7 @@ func (m *ArdupilotmegaRawPressure) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRawPressure) String() string {
-	return fmt.Sprintf("ArdupilotmegaRawPressure{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRawPressure{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7052,7 +7053,7 @@ func (m *ArdupilotmegaScaledPressure) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledPressure) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledPressure{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledPressure{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7119,7 +7120,7 @@ func (m *ArdupilotmegaAttitude) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAttitude) String() string {
-	return fmt.Sprintf("ArdupilotmegaAttitude{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAttitude{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7193,7 +7194,7 @@ func (m *ArdupilotmegaAttitudeQuaternion) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAttitudeQuaternion) String() string {
-	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternion{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternion{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7268,7 +7269,7 @@ func (m *ArdupilotmegaLocalPositionNed) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLocalPositionNed) String() string {
-	return fmt.Sprintf("ArdupilotmegaLocalPositionNed{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNed{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7344,7 +7345,7 @@ func (m *ArdupilotmegaGlobalPositionInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGlobalPositionInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaGlobalPositionInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGlobalPositionInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7425,7 +7426,7 @@ func (m *ArdupilotmegaRcChannelsScaled) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRcChannelsScaled) String() string {
-	return fmt.Sprintf("ArdupilotmegaRcChannelsScaled{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRcChannelsScaled{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7510,7 +7511,7 @@ func (m *ArdupilotmegaRcChannelsRaw) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRcChannelsRaw) String() string {
-	return fmt.Sprintf("ArdupilotmegaRcChannelsRaw{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRcChannelsRaw{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7594,7 +7595,7 @@ func (m *ArdupilotmegaServoOutputRaw) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaServoOutputRaw) String() string {
-	return fmt.Sprintf("ArdupilotmegaServoOutputRaw{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaServoOutputRaw{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7670,7 +7671,7 @@ func (m *ArdupilotmegaMissionRequestPartialList) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionRequestPartialList) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionRequestPartialList{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionRequestPartialList{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7734,7 +7735,7 @@ func (m *ArdupilotmegaMissionWritePartialList) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionWritePartialList) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionWritePartialList{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionWritePartialList{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7809,7 +7810,7 @@ func (m *ArdupilotmegaMissionItem) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionItem) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionItem{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionItem{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7892,7 +7893,7 @@ func (m *ArdupilotmegaMissionRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -7953,7 +7954,7 @@ func (m *ArdupilotmegaMissionSetCurrent) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionSetCurrent) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionSetCurrent{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionSetCurrent{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8012,7 +8013,7 @@ func (m *ArdupilotmegaMissionCurrent) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionCurrent) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionCurrent{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionCurrent{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8068,7 +8069,7 @@ func (m *ArdupilotmegaMissionRequestList) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionRequestList) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionRequestList{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionRequestList{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8127,7 +8128,7 @@ func (m *ArdupilotmegaMissionCount) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionCount) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionCount{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionCount{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8187,7 +8188,7 @@ func (m *ArdupilotmegaMissionClearAll) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionClearAll) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionClearAll{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionClearAll{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8244,7 +8245,7 @@ func (m *ArdupilotmegaMissionItemReached) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionItemReached) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionItemReached{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionItemReached{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8301,7 +8302,7 @@ func (m *ArdupilotmegaMissionAck) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionAck) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionAck{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionAck{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8363,7 +8364,7 @@ func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetGpsGlobalOrigin) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetGpsGlobalOrigin{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetGpsGlobalOrigin{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8426,7 +8427,7 @@ func (m *ArdupilotmegaGpsGlobalOrigin) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsGlobalOrigin) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsGlobalOrigin{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsGlobalOrigin{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8493,7 +8494,7 @@ func (m *ArdupilotmegaParamMapRc) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaParamMapRc) String() string {
-	return fmt.Sprintf("ArdupilotmegaParamMapRc{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaParamMapRc{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8566,7 +8567,7 @@ func (m *ArdupilotmegaMissionRequestInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionRequestInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionRequestInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionRequestInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8629,7 +8630,7 @@ func (m *ArdupilotmegaMissionChanged) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionChanged) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionChanged{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionChanged{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8700,7 +8701,7 @@ func (m *ArdupilotmegaSafetySetAllowedArea) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSafetySetAllowedArea) String() string {
-	return fmt.Sprintf("ArdupilotmegaSafetySetAllowedArea{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSafetySetAllowedArea{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8777,7 +8778,7 @@ func (m *ArdupilotmegaSafetyAllowedArea) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSafetyAllowedArea) String() string {
-	return fmt.Sprintf("ArdupilotmegaSafetyAllowedArea{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSafetyAllowedArea{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8849,7 +8850,7 @@ func (m *ArdupilotmegaAttitudeQuaternionCov) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAttitudeQuaternionCov) String() string {
-	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternionCov{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternionCov{%+v}", m)
 }
 
 // Pack (generated function)
@@ -8929,7 +8930,7 @@ func (m *ArdupilotmegaNavControllerOutput) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaNavControllerOutput) String() string {
-	return fmt.Sprintf("ArdupilotmegaNavControllerOutput{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaNavControllerOutput{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9007,7 +9008,7 @@ func (m *ArdupilotmegaGlobalPositionIntCov) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGlobalPositionIntCov) String() string {
-	return fmt.Sprintf("ArdupilotmegaGlobalPositionIntCov{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGlobalPositionIntCov{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9095,7 +9096,7 @@ func (m *ArdupilotmegaLocalPositionNedCov) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLocalPositionNedCov) String() string {
-	return fmt.Sprintf("ArdupilotmegaLocalPositionNedCov{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNedCov{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9196,7 +9197,7 @@ func (m *ArdupilotmegaRcChannels) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRcChannels) String() string {
-	return fmt.Sprintf("ArdupilotmegaRcChannels{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRcChannels{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9295,7 +9296,7 @@ func (m *ArdupilotmegaRequestDataStream) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRequestDataStream) String() string {
-	return fmt.Sprintf("ArdupilotmegaRequestDataStream{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRequestDataStream{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9360,7 +9361,7 @@ func (m *ArdupilotmegaDataStream) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDataStream) String() string {
-	return fmt.Sprintf("ArdupilotmegaDataStream{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDataStream{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9424,7 +9425,7 @@ func (m *ArdupilotmegaManualControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaManualControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaManualControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaManualControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9498,7 +9499,7 @@ func (m *ArdupilotmegaRcChannelsOverride) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRcChannelsOverride) String() string {
-	return fmt.Sprintf("ArdupilotmegaRcChannelsOverride{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRcChannelsOverride{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9585,7 +9586,7 @@ func (m *ArdupilotmegaMissionItemInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMissionItemInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaMissionItemInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMissionItemInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9671,7 +9672,7 @@ func (m *ArdupilotmegaVfrHud) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaVfrHud) String() string {
-	return fmt.Sprintf("ArdupilotmegaVfrHud{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaVfrHud{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9748,7 +9749,7 @@ func (m *ArdupilotmegaCommandInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCommandInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaCommandInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCommandInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9837,7 +9838,7 @@ func (m *ArdupilotmegaCommandLong) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCommandLong) String() string {
-	return fmt.Sprintf("ArdupilotmegaCommandLong{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCommandLong{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9913,7 +9914,7 @@ func (m *ArdupilotmegaCommandAck) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCommandAck) String() string {
-	return fmt.Sprintf("ArdupilotmegaCommandAck{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCommandAck{%+v}", m)
 }
 
 // Pack (generated function)
@@ -9972,7 +9973,7 @@ func (m *ArdupilotmegaCommandCancel) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCommandCancel) String() string {
-	return fmt.Sprintf("ArdupilotmegaCommandCancel{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCommandCancel{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10037,7 +10038,7 @@ func (m *ArdupilotmegaManualSetpoint) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaManualSetpoint) String() string {
-	return fmt.Sprintf("ArdupilotmegaManualSetpoint{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaManualSetpoint{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10112,7 +10113,7 @@ func (m *ArdupilotmegaSetAttitudeTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetAttitudeTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetAttitudeTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetAttitudeTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10193,7 +10194,7 @@ func (m *ArdupilotmegaAttitudeTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAttitudeTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaAttitudeTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAttitudeTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10279,7 +10280,7 @@ func (m *ArdupilotmegaSetPositionTargetLocalNed) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetPositionTargetLocalNed) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetPositionTargetLocalNed{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetPositionTargetLocalNed{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10377,7 +10378,7 @@ func (m *ArdupilotmegaPositionTargetLocalNed) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaPositionTargetLocalNed) String() string {
-	return fmt.Sprintf("ArdupilotmegaPositionTargetLocalNed{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaPositionTargetLocalNed{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10473,7 +10474,7 @@ func (m *ArdupilotmegaSetPositionTargetGlobalInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetPositionTargetGlobalInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetPositionTargetGlobalInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetPositionTargetGlobalInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10571,7 +10572,7 @@ func (m *ArdupilotmegaPositionTargetGlobalInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaPositionTargetGlobalInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaPositionTargetGlobalInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaPositionTargetGlobalInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10658,7 +10659,7 @@ func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) String() string {
-	return fmt.Sprintf("ArdupilotmegaLocalPositionNedSystemGlobalOffset{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNedSystemGlobalOffset{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10740,7 +10741,7 @@ func (m *ArdupilotmegaHilState) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilState) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilState{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilState{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10835,7 +10836,7 @@ func (m *ArdupilotmegaHilControls) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilControls) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilControls{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilControls{%+v}", m)
 }
 
 // Pack (generated function)
@@ -10923,7 +10924,7 @@ func (m *ArdupilotmegaHilRcInputsRaw) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilRcInputsRaw) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilRcInputsRaw{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilRcInputsRaw{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11007,7 +11008,7 @@ func (m *ArdupilotmegaHilActuatorControls) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilActuatorControls) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilActuatorControls{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilActuatorControls{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11079,7 +11080,7 @@ func (m *ArdupilotmegaOpticalFlow) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaOpticalFlow) String() string {
-	return fmt.Sprintf("ArdupilotmegaOpticalFlow{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaOpticalFlow{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11154,7 +11155,7 @@ func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGlobalVisionPositionEstimate) String() string {
-	return fmt.Sprintf("ArdupilotmegaGlobalVisionPositionEstimate{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGlobalVisionPositionEstimate{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11227,7 +11228,7 @@ func (m *ArdupilotmegaVisionPositionEstimate) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaVisionPositionEstimate) String() string {
-	return fmt.Sprintf("ArdupilotmegaVisionPositionEstimate{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaVisionPositionEstimate{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11297,7 +11298,7 @@ func (m *ArdupilotmegaVisionSpeedEstimate) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaVisionSpeedEstimate) String() string {
-	return fmt.Sprintf("ArdupilotmegaVisionSpeedEstimate{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaVisionSpeedEstimate{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11364,7 +11365,7 @@ func (m *ArdupilotmegaViconPositionEstimate) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaViconPositionEstimate) String() string {
-	return fmt.Sprintf("ArdupilotmegaViconPositionEstimate{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaViconPositionEstimate{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11445,7 +11446,7 @@ func (m *ArdupilotmegaHighresImu) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHighresImu) String() string {
-	return fmt.Sprintf("ArdupilotmegaHighresImu{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHighresImu{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11539,7 +11540,7 @@ func (m *ArdupilotmegaOpticalFlowRad) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaOpticalFlowRad) String() string {
-	return fmt.Sprintf("ArdupilotmegaOpticalFlowRad{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaOpticalFlowRad{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11630,7 +11631,7 @@ func (m *ArdupilotmegaHilSensor) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilSensor) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilSensor{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilSensor{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11733,7 +11734,7 @@ func (m *ArdupilotmegaSimState) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSimState) String() string {
-	return fmt.Sprintf("ArdupilotmegaSimState{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSimState{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11834,7 +11835,7 @@ func (m *ArdupilotmegaRadioStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaRadioStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaRadioStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaRadioStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11904,7 +11905,7 @@ func (m *ArdupilotmegaFileTransferProtocol) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaFileTransferProtocol) String() string {
-	return fmt.Sprintf("ArdupilotmegaFileTransferProtocol{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaFileTransferProtocol{%+v}", m)
 }
 
 // Pack (generated function)
@@ -11966,7 +11967,7 @@ func (m *ArdupilotmegaTimesync) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaTimesync) String() string {
-	return fmt.Sprintf("ArdupilotmegaTimesync{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaTimesync{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12024,7 +12025,7 @@ func (m *ArdupilotmegaCameraTrigger) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCameraTrigger) String() string {
-	return fmt.Sprintf("ArdupilotmegaCameraTrigger{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCameraTrigger{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12094,7 +12095,7 @@ func (m *ArdupilotmegaHilGps) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilGps) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilGps{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilGps{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12184,7 +12185,7 @@ func (m *ArdupilotmegaHilOpticalFlow) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilOpticalFlow) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilOpticalFlow{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilOpticalFlow{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12276,7 +12277,7 @@ func (m *ArdupilotmegaHilStateQuaternion) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHilStateQuaternion) String() string {
-	return fmt.Sprintf("ArdupilotmegaHilStateQuaternion{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHilStateQuaternion{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12374,7 +12375,7 @@ func (m *ArdupilotmegaScaledImu2) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledImu2) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledImu2{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledImu2{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12450,7 +12451,7 @@ func (m *ArdupilotmegaLogRequestList) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogRequestList) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogRequestList{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogRequestList{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12515,7 +12516,7 @@ func (m *ArdupilotmegaLogEntry) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogEntry) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogEntry{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogEntry{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12582,7 +12583,7 @@ func (m *ArdupilotmegaLogRequestData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogRequestData) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogRequestData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogRequestData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12648,7 +12649,7 @@ func (m *ArdupilotmegaLogData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogData) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12710,7 +12711,7 @@ func (m *ArdupilotmegaLogErase) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogErase) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogErase{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogErase{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12768,7 +12769,7 @@ func (m *ArdupilotmegaLogRequestEnd) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLogRequestEnd) String() string {
-	return fmt.Sprintf("ArdupilotmegaLogRequestEnd{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLogRequestEnd{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12828,7 +12829,7 @@ func (m *ArdupilotmegaGpsInjectData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsInjectData) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsInjectData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsInjectData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12900,7 +12901,7 @@ func (m *ArdupilotmegaGps2Raw) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGps2Raw) String() string {
-	return fmt.Sprintf("ArdupilotmegaGps2Raw{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGps2Raw{%+v}", m)
 }
 
 // Pack (generated function)
@@ -12979,7 +12980,7 @@ func (m *ArdupilotmegaPowerStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaPowerStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaPowerStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaPowerStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13043,7 +13044,7 @@ func (m *ArdupilotmegaSerialControl) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSerialControl) String() string {
-	return fmt.Sprintf("ArdupilotmegaSerialControl{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSerialControl{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13120,7 +13121,7 @@ func (m *ArdupilotmegaGpsRtk) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsRtk) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsRtk{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsRtk{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13211,7 +13212,7 @@ func (m *ArdupilotmegaGps2Rtk) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGps2Rtk) String() string {
-	return fmt.Sprintf("ArdupilotmegaGps2Rtk{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGps2Rtk{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13299,7 +13300,7 @@ func (m *ArdupilotmegaScaledImu3) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledImu3) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledImu3{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledImu3{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13378,7 +13379,7 @@ func (m *ArdupilotmegaDataTransmissionHandshake) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDataTransmissionHandshake) String() string {
-	return fmt.Sprintf("ArdupilotmegaDataTransmissionHandshake{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDataTransmissionHandshake{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13446,7 +13447,7 @@ func (m *ArdupilotmegaEncapsulatedData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaEncapsulatedData) String() string {
-	return fmt.Sprintf("ArdupilotmegaEncapsulatedData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaEncapsulatedData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13510,7 +13511,7 @@ func (m *ArdupilotmegaDistanceSensor) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDistanceSensor) String() string {
-	return fmt.Sprintf("ArdupilotmegaDistanceSensor{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDistanceSensor{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13582,7 +13583,7 @@ func (m *ArdupilotmegaTerrainRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaTerrainRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaTerrainRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaTerrainRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13647,7 +13648,7 @@ func (m *ArdupilotmegaTerrainData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaTerrainData) String() string {
-	return fmt.Sprintf("ArdupilotmegaTerrainData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaTerrainData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13715,7 +13716,7 @@ func (m *ArdupilotmegaTerrainCheck) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaTerrainCheck) String() string {
-	return fmt.Sprintf("ArdupilotmegaTerrainCheck{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaTerrainCheck{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13778,7 +13779,7 @@ func (m *ArdupilotmegaTerrainReport) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaTerrainReport) String() string {
-	return fmt.Sprintf("ArdupilotmegaTerrainReport{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaTerrainReport{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13848,7 +13849,7 @@ func (m *ArdupilotmegaScaledPressure2) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledPressure2) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledPressure2{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledPressure2{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13913,7 +13914,7 @@ func (m *ArdupilotmegaAttPosMocap) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAttPosMocap) String() string {
-	return fmt.Sprintf("ArdupilotmegaAttPosMocap{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAttPosMocap{%+v}", m)
 }
 
 // Pack (generated function)
@@ -13984,7 +13985,7 @@ func (m *ArdupilotmegaSetActuatorControlTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetActuatorControlTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetActuatorControlTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetActuatorControlTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14053,7 +14054,7 @@ func (m *ArdupilotmegaActuatorControlTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaActuatorControlTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaActuatorControlTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaActuatorControlTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14122,7 +14123,7 @@ func (m *ArdupilotmegaAltitude) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAltitude) String() string {
-	return fmt.Sprintf("ArdupilotmegaAltitude{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAltitude{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14193,7 +14194,7 @@ func (m *ArdupilotmegaResourceRequest) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaResourceRequest) String() string {
-	return fmt.Sprintf("ArdupilotmegaResourceRequest{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaResourceRequest{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14259,7 +14260,7 @@ func (m *ArdupilotmegaScaledPressure3) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaScaledPressure3) String() string {
-	return fmt.Sprintf("ArdupilotmegaScaledPressure3{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaScaledPressure3{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14330,7 +14331,7 @@ func (m *ArdupilotmegaFollowTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaFollowTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaFollowTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaFollowTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14441,7 +14442,7 @@ func (m *ArdupilotmegaControlSystemState) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaControlSystemState) String() string {
-	return fmt.Sprintf("ArdupilotmegaControlSystemState{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaControlSystemState{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14548,7 +14549,7 @@ func (m *ArdupilotmegaBatteryStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaBatteryStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaBatteryStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaBatteryStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14633,7 +14634,7 @@ func (m *ArdupilotmegaAutopilotVersion) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAutopilotVersion) String() string {
-	return fmt.Sprintf("ArdupilotmegaAutopilotVersion{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAutopilotVersion{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14715,7 +14716,7 @@ func (m *ArdupilotmegaLandingTarget) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaLandingTarget) String() string {
-	return fmt.Sprintf("ArdupilotmegaLandingTarget{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaLandingTarget{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14787,7 +14788,7 @@ func (m *ArdupilotmegaFenceStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaFenceStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaFenceStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaFenceStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14861,7 +14862,7 @@ func (m *ArdupilotmegaMagCalReport) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMagCalReport) String() string {
-	return fmt.Sprintf("ArdupilotmegaMagCalReport{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMagCalReport{%+v}", m)
 }
 
 // Pack (generated function)
@@ -14958,7 +14959,7 @@ func (m *ArdupilotmegaEfiStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaEfiStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaEfiStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaEfiStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15054,7 +15055,7 @@ func (m *ArdupilotmegaEstimatorStatus) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaEstimatorStatus) String() string {
-	return fmt.Sprintf("ArdupilotmegaEstimatorStatus{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaEstimatorStatus{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15135,7 +15136,7 @@ func (m *ArdupilotmegaWindCov) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaWindCov) String() string {
-	return fmt.Sprintf("ArdupilotmegaWindCov{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaWindCov{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15223,7 +15224,7 @@ func (m *ArdupilotmegaGpsInput) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsInput) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsInput{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsInput{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15314,7 +15315,7 @@ func (m *ArdupilotmegaGpsRtcmData) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaGpsRtcmData) String() string {
-	return fmt.Sprintf("ArdupilotmegaGpsRtcmData{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaGpsRtcmData{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15396,7 +15397,7 @@ func (m *ArdupilotmegaHighLatency) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHighLatency) String() string {
-	return fmt.Sprintf("ArdupilotmegaHighLatency{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHighLatency{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15523,7 +15524,7 @@ func (m *ArdupilotmegaHighLatency2) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHighLatency2) String() string {
-	return fmt.Sprintf("ArdupilotmegaHighLatency2{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHighLatency2{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15636,7 +15637,7 @@ func (m *ArdupilotmegaVibration) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaVibration) String() string {
-	return fmt.Sprintf("ArdupilotmegaVibration{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaVibration{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15712,7 +15713,7 @@ func (m *ArdupilotmegaHomePosition) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHomePosition) String() string {
-	return fmt.Sprintf("ArdupilotmegaHomePosition{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHomePosition{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15799,7 +15800,7 @@ func (m *ArdupilotmegaSetHomePosition) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaSetHomePosition) String() string {
-	return fmt.Sprintf("ArdupilotmegaSetHomePosition{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaSetHomePosition{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15879,7 +15880,7 @@ func (m *ArdupilotmegaMessageInterval) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMessageInterval) String() string {
-	return fmt.Sprintf("ArdupilotmegaMessageInterval{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMessageInterval{%+v}", m)
 }
 
 // Pack (generated function)
@@ -15937,7 +15938,7 @@ func (m *ArdupilotmegaExtendedSysState) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaExtendedSysState) String() string {
-	return fmt.Sprintf("ArdupilotmegaExtendedSysState{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaExtendedSysState{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16006,7 +16007,7 @@ func (m *ArdupilotmegaAdsbVehicle) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaAdsbVehicle) String() string {
-	return fmt.Sprintf("ArdupilotmegaAdsbVehicle{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaAdsbVehicle{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16091,7 +16092,7 @@ func (m *ArdupilotmegaCollision) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaCollision) String() string {
-	return fmt.Sprintf("ArdupilotmegaCollision{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaCollision{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16162,7 +16163,7 @@ func (m *ArdupilotmegaV2Extension) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaV2Extension) String() string {
-	return fmt.Sprintf("ArdupilotmegaV2Extension{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaV2Extension{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16228,7 +16229,7 @@ func (m *ArdupilotmegaMemoryVect) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaMemoryVect) String() string {
-	return fmt.Sprintf("ArdupilotmegaMemoryVect{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaMemoryVect{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16297,7 +16298,7 @@ func (m *ArdupilotmegaDebugVect) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDebugVect) String() string {
-	return fmt.Sprintf("ArdupilotmegaDebugVect{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDebugVect{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16362,7 +16363,7 @@ func (m *ArdupilotmegaNamedValueFloat) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaNamedValueFloat) String() string {
-	return fmt.Sprintf("ArdupilotmegaNamedValueFloat{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaNamedValueFloat{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16423,7 +16424,7 @@ func (m *ArdupilotmegaNamedValueInt) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaNamedValueInt) String() string {
-	return fmt.Sprintf("ArdupilotmegaNamedValueInt{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaNamedValueInt{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16483,7 +16484,7 @@ func (m *ArdupilotmegaStatustext) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaStatustext) String() string {
-	return fmt.Sprintf("ArdupilotmegaStatustext{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaStatustext{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16542,7 +16543,7 @@ func (m *ArdupilotmegaDebug) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaDebug) String() string {
-	return fmt.Sprintf("ArdupilotmegaDebug{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaDebug{%+v}", m)
 }
 
 // Pack (generated function)
@@ -16606,7 +16607,7 @@ func (m *ArdupilotmegaHeartbeat) MsgName() string {
 
 // String (generated function)
 func (m *ArdupilotmegaHeartbeat) String() string {
-	return fmt.Sprintf("ArdupilotmegaHeartbeat{&+v}", m)
+	return fmt.Sprintf("ArdupilotmegaHeartbeat{%+v}", m)
 }
 
 // Pack (generated function)
