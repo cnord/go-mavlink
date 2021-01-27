@@ -34,6 +34,7 @@ func messageTemplate() string {
 		"\tMsgID() MessageID\n" +
 		"\tMsgName() string\n" +
 		"\tCRCExtra() uint8\n" +
+		"\tString() string\n" +
 		"}\n" +
 		""
 	return tmpl

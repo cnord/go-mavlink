@@ -2462,6 +2462,11 @@ func (m *ArdupilotmegaSensorOffsets) MsgName() string {
 	return "SensorOffsets"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSensorOffsets) String() string {
+	return fmt.Sprintf("ArdupilotmegaSensorOffsets{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSensorOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -2538,6 +2543,11 @@ func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
 	return "SetMagOffsets"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSetMagOffsets) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetMagOffsets{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSetMagOffsets) Pack(p *Packet) error {
 	payload := make([]byte, 8)
@@ -2597,6 +2607,11 @@ func (m *ArdupilotmegaMeminfo) MsgName() string {
 	return "Meminfo"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMeminfo) String() string {
+	return fmt.Sprintf("ArdupilotmegaMeminfo{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMeminfo) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -2652,6 +2667,11 @@ func (m *ArdupilotmegaApAdc) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaApAdc) MsgName() string {
 	return "ApAdc"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaApAdc) String() string {
+	return fmt.Sprintf("ArdupilotmegaApAdc{&+v}", m)
 }
 
 // Pack (generated function)
@@ -2722,6 +2742,11 @@ func (m *ArdupilotmegaDigicamConfigure) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaDigicamConfigure) MsgName() string {
 	return "DigicamConfigure"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaDigicamConfigure) String() string {
+	return fmt.Sprintf("ArdupilotmegaDigicamConfigure{&+v}", m)
 }
 
 // Pack (generated function)
@@ -2803,6 +2828,11 @@ func (m *ArdupilotmegaDigicamControl) MsgName() string {
 	return "DigicamControl"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaDigicamControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaDigicamControl{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaDigicamControl) Pack(p *Packet) error {
 	payload := make([]byte, 13)
@@ -2876,6 +2906,11 @@ func (m *ArdupilotmegaMountConfigure) MsgName() string {
 	return "MountConfigure"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMountConfigure) String() string {
+	return fmt.Sprintf("ArdupilotmegaMountConfigure{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMountConfigure) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -2939,6 +2974,11 @@ func (m *ArdupilotmegaMountControl) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMountControl) MsgName() string {
 	return "MountControl"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMountControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaMountControl{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3005,6 +3045,11 @@ func (m *ArdupilotmegaMountStatus) MsgName() string {
 	return "MountStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMountStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaMountStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMountStatus) Pack(p *Packet) error {
 	payload := make([]byte, 14)
@@ -3066,6 +3111,11 @@ func (m *ArdupilotmegaFencePoint) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaFencePoint) MsgName() string {
 	return "FencePoint"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaFencePoint) String() string {
+	return fmt.Sprintf("ArdupilotmegaFencePoint{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3130,6 +3180,11 @@ func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
 	return "FenceFetchPoint"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaFenceFetchPoint) String() string {
+	return fmt.Sprintf("ArdupilotmegaFenceFetchPoint{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaFenceFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -3188,6 +3243,11 @@ func (m *ArdupilotmegaAhrs) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAhrs) MsgName() string {
 	return "Ahrs"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAhrs) String() string {
+	return fmt.Sprintf("ArdupilotmegaAhrs{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3262,6 +3322,11 @@ func (m *ArdupilotmegaSimstate) MsgName() string {
 	return "Simstate"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSimstate) String() string {
+	return fmt.Sprintf("ArdupilotmegaSimstate{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSimstate) Pack(p *Packet) error {
 	payload := make([]byte, 44)
@@ -3333,6 +3398,11 @@ func (m *ArdupilotmegaHwstatus) MsgName() string {
 	return "Hwstatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHwstatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaHwstatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHwstatus) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -3389,6 +3459,11 @@ func (m *ArdupilotmegaRadio) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRadio) MsgName() string {
 	return "Radio"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRadio) String() string {
+	return fmt.Sprintf("ArdupilotmegaRadio{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3461,6 +3536,11 @@ func (m *ArdupilotmegaLimitsStatus) MsgName() string {
 	return "LimitsStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLimitsStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaLimitsStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLimitsStatus) Pack(p *Packet) error {
 	payload := make([]byte, 22)
@@ -3529,6 +3609,11 @@ func (m *ArdupilotmegaWind) MsgName() string {
 	return "Wind"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaWind) String() string {
+	return fmt.Sprintf("ArdupilotmegaWind{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaWind) Pack(p *Packet) error {
 	payload := make([]byte, 12)
@@ -3583,6 +3668,11 @@ func (m *ArdupilotmegaData16) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaData16) MsgName() string {
 	return "Data16"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaData16) String() string {
+	return fmt.Sprintf("ArdupilotmegaData16{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3641,6 +3731,11 @@ func (m *ArdupilotmegaData32) MsgName() string {
 	return "Data32"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaData32) String() string {
+	return fmt.Sprintf("ArdupilotmegaData32{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaData32) Pack(p *Packet) error {
 	payload := make([]byte, 34)
@@ -3695,6 +3790,11 @@ func (m *ArdupilotmegaData64) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaData64) MsgName() string {
 	return "Data64"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaData64) String() string {
+	return fmt.Sprintf("ArdupilotmegaData64{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3753,6 +3853,11 @@ func (m *ArdupilotmegaData96) MsgName() string {
 	return "Data96"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaData96) String() string {
+	return fmt.Sprintf("ArdupilotmegaData96{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaData96) Pack(p *Packet) error {
 	payload := make([]byte, 98)
@@ -3806,6 +3911,11 @@ func (m *ArdupilotmegaRangefinder) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRangefinder) MsgName() string {
 	return "Rangefinder"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRangefinder) String() string {
+	return fmt.Sprintf("ArdupilotmegaRangefinder{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3869,6 +3979,11 @@ func (m *ArdupilotmegaAirspeedAutocal) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAirspeedAutocal) MsgName() string {
 	return "AirspeedAutocal"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAirspeedAutocal) String() string {
+	return fmt.Sprintf("ArdupilotmegaAirspeedAutocal{&+v}", m)
 }
 
 // Pack (generated function)
@@ -3952,6 +4067,11 @@ func (m *ArdupilotmegaRallyPoint) MsgName() string {
 	return "RallyPoint"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRallyPoint) String() string {
+	return fmt.Sprintf("ArdupilotmegaRallyPoint{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRallyPoint) Pack(p *Packet) error {
 	payload := make([]byte, 19)
@@ -4022,6 +4142,11 @@ func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
 	return "RallyFetchPoint"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRallyFetchPoint) String() string {
+	return fmt.Sprintf("ArdupilotmegaRallyFetchPoint{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRallyFetchPoint) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -4079,6 +4204,11 @@ func (m *ArdupilotmegaCompassmotStatus) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaCompassmotStatus) MsgName() string {
 	return "CompassmotStatus"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaCompassmotStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaCompassmotStatus{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4144,6 +4274,11 @@ func (m *ArdupilotmegaAhrs2) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAhrs2) MsgName() string {
 	return "Ahrs2"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAhrs2) String() string {
+	return fmt.Sprintf("ArdupilotmegaAhrs2{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4212,6 +4347,11 @@ func (m *ArdupilotmegaCameraStatus) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaCameraStatus) MsgName() string {
 	return "CameraStatus"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaCameraStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaCameraStatus{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4292,6 +4432,11 @@ func (m *ArdupilotmegaCameraFeedback) MsgName() string {
 	return "CameraFeedback"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaCameraFeedback) String() string {
+	return fmt.Sprintf("ArdupilotmegaCameraFeedback{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaCameraFeedback) Pack(p *Packet) error {
 	payload := make([]byte, 45)
@@ -4367,6 +4512,11 @@ func (m *ArdupilotmegaBattery2) MsgName() string {
 	return "Battery2"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaBattery2) String() string {
+	return fmt.Sprintf("ArdupilotmegaBattery2{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaBattery2) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -4426,6 +4576,11 @@ func (m *ArdupilotmegaAhrs3) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAhrs3) MsgName() string {
 	return "Ahrs3"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAhrs3) String() string {
+	return fmt.Sprintf("ArdupilotmegaAhrs3{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4497,6 +4652,11 @@ func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
 	return "AutopilotVersionRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaAutopilotVersionRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaAutopilotVersionRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaAutopilotVersionRequest) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -4550,6 +4710,11 @@ func (m *ArdupilotmegaRemoteLogDataBlock) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRemoteLogDataBlock) MsgName() string {
 	return "RemoteLogDataBlock"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRemoteLogDataBlock) String() string {
+	return fmt.Sprintf("ArdupilotmegaRemoteLogDataBlock{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4611,6 +4776,11 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
 	return "RemoteLogBlockStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRemoteLogBlockStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaRemoteLogBlockStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRemoteLogBlockStatus) Pack(p *Packet) error {
 	payload := make([]byte, 7)
@@ -4670,6 +4840,11 @@ func (m *ArdupilotmegaLedControl) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaLedControl) MsgName() string {
 	return "LedControl"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaLedControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaLedControl{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4738,6 +4913,11 @@ func (m *ArdupilotmegaMagCalProgress) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMagCalProgress) MsgName() string {
 	return "MagCalProgress"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMagCalProgress) String() string {
+	return fmt.Sprintf("ArdupilotmegaMagCalProgress{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4811,6 +4991,11 @@ func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
 	return "EkfStatusReport"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaEkfStatusReport) String() string {
+	return fmt.Sprintf("ArdupilotmegaEkfStatusReport{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaEkfStatusReport) Pack(p *Packet) error {
 	payload := make([]byte, 22)
@@ -4875,6 +5060,11 @@ func (m *ArdupilotmegaPidTuning) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaPidTuning) MsgName() string {
 	return "PidTuning"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaPidTuning) String() string {
+	return fmt.Sprintf("ArdupilotmegaPidTuning{&+v}", m)
 }
 
 // Pack (generated function)
@@ -4946,6 +5136,11 @@ func (m *ArdupilotmegaDeepstall) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaDeepstall) MsgName() string {
 	return "Deepstall"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaDeepstall) String() string {
+	return fmt.Sprintf("ArdupilotmegaDeepstall{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5027,6 +5222,11 @@ func (m *ArdupilotmegaGimbalReport) MsgName() string {
 	return "GimbalReport"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGimbalReport) String() string {
+	return fmt.Sprintf("ArdupilotmegaGimbalReport{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGimbalReport) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -5103,6 +5303,11 @@ func (m *ArdupilotmegaGimbalControl) MsgName() string {
 	return "GimbalControl"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGimbalControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaGimbalControl{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGimbalControl) Pack(p *Packet) error {
 	payload := make([]byte, 14)
@@ -5165,6 +5370,11 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
 	return "GimbalTorqueCmdReport"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGimbalTorqueCmdReport) String() string {
+	return fmt.Sprintf("ArdupilotmegaGimbalTorqueCmdReport{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGimbalTorqueCmdReport) Pack(p *Packet) error {
 	payload := make([]byte, 8)
@@ -5225,6 +5435,11 @@ func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
 	return "GoproHeartbeat"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGoproHeartbeat) String() string {
+	return fmt.Sprintf("ArdupilotmegaGoproHeartbeat{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGoproHeartbeat) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -5281,6 +5496,11 @@ func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
 	return "GoproGetRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGoproGetRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaGoproGetRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGoproGetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -5335,6 +5555,11 @@ func (m *ArdupilotmegaGoproGetResponse) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGoproGetResponse) MsgName() string {
 	return "GoproGetResponse"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGoproGetResponse) String() string {
+	return fmt.Sprintf("ArdupilotmegaGoproGetResponse{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5394,6 +5619,11 @@ func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
 	return "GoproSetRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGoproSetRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaGoproSetRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGoproSetRequest) Pack(p *Packet) error {
 	payload := make([]byte, 7)
@@ -5451,6 +5681,11 @@ func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
 	return "GoproSetResponse"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGoproSetResponse) String() string {
+	return fmt.Sprintf("ArdupilotmegaGoproSetResponse{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGoproSetResponse) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -5502,6 +5737,11 @@ func (m *ArdupilotmegaRpm) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRpm) MsgName() string {
 	return "Rpm"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRpm) String() string {
+	return fmt.Sprintf("ArdupilotmegaRpm{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5566,6 +5806,11 @@ func (m *ArdupilotmegaSysStatus) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSysStatus) MsgName() string {
 	return "SysStatus"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSysStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaSysStatus{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5643,6 +5888,11 @@ func (m *ArdupilotmegaSystemTime) MsgName() string {
 	return "SystemTime"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSystemTime) String() string {
+	return fmt.Sprintf("ArdupilotmegaSystemTime{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSystemTime) Pack(p *Packet) error {
 	payload := make([]byte, 12)
@@ -5696,6 +5946,11 @@ func (m *ArdupilotmegaPing) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaPing) MsgName() string {
 	return "Ping"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaPing) String() string {
+	return fmt.Sprintf("ArdupilotmegaPing{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5757,6 +6012,11 @@ func (m *ArdupilotmegaChangeOperatorControl) MsgName() string {
 	return "ChangeOperatorControl"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaChangeOperatorControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaChangeOperatorControl{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaChangeOperatorControl) Pack(p *Packet) error {
 	payload := make([]byte, 28)
@@ -5815,6 +6075,11 @@ func (m *ArdupilotmegaChangeOperatorControlAck) MsgName() string {
 	return "ChangeOperatorControlAck"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaChangeOperatorControlAck) String() string {
+	return fmt.Sprintf("ArdupilotmegaChangeOperatorControlAck{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaChangeOperatorControlAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -5867,6 +6132,11 @@ func (m *ArdupilotmegaAuthKey) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAuthKey) MsgName() string {
 	return "AuthKey"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAuthKey) String() string {
+	return fmt.Sprintf("ArdupilotmegaAuthKey{&+v}", m)
 }
 
 // Pack (generated function)
@@ -5927,6 +6197,11 @@ func (m *ArdupilotmegaLinkNodeStatus) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaLinkNodeStatus) MsgName() string {
 	return "LinkNodeStatus"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaLinkNodeStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaLinkNodeStatus{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6001,6 +6276,11 @@ func (m *ArdupilotmegaSetMode) MsgName() string {
 	return "SetMode"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSetMode) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetMode{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSetMode) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -6058,6 +6338,11 @@ func (m *ArdupilotmegaParamAckTransaction) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaParamAckTransaction) MsgName() string {
 	return "ParamAckTransaction"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaParamAckTransaction) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamAckTransaction{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6123,6 +6408,11 @@ func (m *ArdupilotmegaParamRequestRead) MsgName() string {
 	return "ParamRequestRead"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaParamRequestRead) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamRequestRead{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaParamRequestRead) Pack(p *Packet) error {
 	payload := make([]byte, 20)
@@ -6180,6 +6470,11 @@ func (m *ArdupilotmegaParamRequestList) MsgName() string {
 	return "ParamRequestList"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaParamRequestList) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamRequestList{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaParamRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -6234,6 +6529,11 @@ func (m *ArdupilotmegaParamValue) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaParamValue) MsgName() string {
 	return "ParamValue"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaParamValue) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamValue{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6298,6 +6598,11 @@ func (m *ArdupilotmegaParamSet) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaParamSet) MsgName() string {
 	return "ParamSet"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaParamSet) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamSet{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6366,6 +6671,11 @@ func (m *ArdupilotmegaGpsRawInt) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsRawInt) MsgName() string {
 	return "GpsRawInt"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGpsRawInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsRawInt{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6441,6 +6751,11 @@ func (m *ArdupilotmegaGpsStatus) MsgName() string {
 	return "GpsStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGpsStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGpsStatus) Pack(p *Packet) error {
 	payload := make([]byte, 101)
@@ -6508,6 +6823,11 @@ func (m *ArdupilotmegaScaledImu) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledImu) MsgName() string {
 	return "ScaledImu"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaScaledImu) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledImu{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6587,6 +6907,11 @@ func (m *ArdupilotmegaRawImu) MsgName() string {
 	return "RawImu"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRawImu) String() string {
+	return fmt.Sprintf("ArdupilotmegaRawImu{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRawImu) Pack(p *Packet) error {
 	payload := make([]byte, 26)
@@ -6659,6 +6984,11 @@ func (m *ArdupilotmegaRawPressure) MsgName() string {
 	return "RawPressure"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRawPressure) String() string {
+	return fmt.Sprintf("ArdupilotmegaRawPressure{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRawPressure) Pack(p *Packet) error {
 	payload := make([]byte, 16)
@@ -6718,6 +7048,11 @@ func (m *ArdupilotmegaScaledPressure) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledPressure) MsgName() string {
 	return "ScaledPressure"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaScaledPressure) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledPressure{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6780,6 +7115,11 @@ func (m *ArdupilotmegaAttitude) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAttitude) MsgName() string {
 	return "Attitude"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAttitude) String() string {
+	return fmt.Sprintf("ArdupilotmegaAttitude{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6849,6 +7189,11 @@ func (m *ArdupilotmegaAttitudeQuaternion) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAttitudeQuaternion) MsgName() string {
 	return "AttitudeQuaternion"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAttitudeQuaternion) String() string {
+	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternion{&+v}", m)
 }
 
 // Pack (generated function)
@@ -6921,6 +7266,11 @@ func (m *ArdupilotmegaLocalPositionNed) MsgName() string {
 	return "LocalPositionNed"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLocalPositionNed) String() string {
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNed{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLocalPositionNed) Pack(p *Packet) error {
 	payload := make([]byte, 28)
@@ -6990,6 +7340,11 @@ func (m *ArdupilotmegaGlobalPositionInt) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGlobalPositionInt) MsgName() string {
 	return "GlobalPositionInt"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGlobalPositionInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaGlobalPositionInt{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7066,6 +7421,11 @@ func (m *ArdupilotmegaRcChannelsScaled) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRcChannelsScaled) MsgName() string {
 	return "RcChannelsScaled"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRcChannelsScaled) String() string {
+	return fmt.Sprintf("ArdupilotmegaRcChannelsScaled{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7148,6 +7508,11 @@ func (m *ArdupilotmegaRcChannelsRaw) MsgName() string {
 	return "RcChannelsRaw"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRcChannelsRaw) String() string {
+	return fmt.Sprintf("ArdupilotmegaRcChannelsRaw{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRcChannelsRaw) Pack(p *Packet) error {
 	payload := make([]byte, 22)
@@ -7227,6 +7592,11 @@ func (m *ArdupilotmegaServoOutputRaw) MsgName() string {
 	return "ServoOutputRaw"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaServoOutputRaw) String() string {
+	return fmt.Sprintf("ArdupilotmegaServoOutputRaw{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaServoOutputRaw) Pack(p *Packet) error {
 	payload := make([]byte, 21)
@@ -7298,6 +7668,11 @@ func (m *ArdupilotmegaMissionRequestPartialList) MsgName() string {
 	return "MissionRequestPartialList"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionRequestPartialList) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionRequestPartialList{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionRequestPartialList) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -7355,6 +7730,11 @@ func (m *ArdupilotmegaMissionWritePartialList) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionWritePartialList) MsgName() string {
 	return "MissionWritePartialList"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionWritePartialList) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionWritePartialList{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7425,6 +7805,11 @@ func (m *ArdupilotmegaMissionItem) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionItem) MsgName() string {
 	return "MissionItem"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionItem) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionItem{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7505,6 +7890,11 @@ func (m *ArdupilotmegaMissionRequest) MsgName() string {
 	return "MissionRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionRequest) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -7561,6 +7951,11 @@ func (m *ArdupilotmegaMissionSetCurrent) MsgName() string {
 	return "MissionSetCurrent"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionSetCurrent) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionSetCurrent{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionSetCurrent) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -7615,6 +8010,11 @@ func (m *ArdupilotmegaMissionCurrent) MsgName() string {
 	return "MissionCurrent"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionCurrent) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionCurrent{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionCurrent) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -7664,6 +8064,11 @@ func (m *ArdupilotmegaMissionRequestList) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionRequestList) MsgName() string {
 	return "MissionRequestList"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionRequestList) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionRequestList{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7718,6 +8123,11 @@ func (m *ArdupilotmegaMissionCount) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionCount) MsgName() string {
 	return "MissionCount"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionCount) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionCount{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7775,6 +8185,11 @@ func (m *ArdupilotmegaMissionClearAll) MsgName() string {
 	return "MissionClearAll"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionClearAll) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionClearAll{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionClearAll) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -7827,6 +8242,11 @@ func (m *ArdupilotmegaMissionItemReached) MsgName() string {
 	return "MissionItemReached"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionItemReached) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionItemReached{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionItemReached) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -7877,6 +8297,11 @@ func (m *ArdupilotmegaMissionAck) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionAck) MsgName() string {
 	return "MissionAck"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionAck) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionAck{&+v}", m)
 }
 
 // Pack (generated function)
@@ -7936,6 +8361,11 @@ func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgName() string {
 	return "SetGpsGlobalOrigin"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSetGpsGlobalOrigin) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetGpsGlobalOrigin{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSetGpsGlobalOrigin) Pack(p *Packet) error {
 	payload := make([]byte, 13)
@@ -7992,6 +8422,11 @@ func (m *ArdupilotmegaGpsGlobalOrigin) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsGlobalOrigin) MsgName() string {
 	return "GpsGlobalOrigin"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGpsGlobalOrigin) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsGlobalOrigin{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8054,6 +8489,11 @@ func (m *ArdupilotmegaParamMapRc) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaParamMapRc) MsgName() string {
 	return "ParamMapRc"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaParamMapRc) String() string {
+	return fmt.Sprintf("ArdupilotmegaParamMapRc{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8124,6 +8564,11 @@ func (m *ArdupilotmegaMissionRequestInt) MsgName() string {
 	return "MissionRequestInt"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionRequestInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionRequestInt{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionRequestInt) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -8180,6 +8625,11 @@ func (m *ArdupilotmegaMissionChanged) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionChanged) MsgName() string {
 	return "MissionChanged"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMissionChanged) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionChanged{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8246,6 +8696,11 @@ func (m *ArdupilotmegaSafetySetAllowedArea) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSafetySetAllowedArea) MsgName() string {
 	return "SafetySetAllowedArea"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSafetySetAllowedArea) String() string {
+	return fmt.Sprintf("ArdupilotmegaSafetySetAllowedArea{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8320,6 +8775,11 @@ func (m *ArdupilotmegaSafetyAllowedArea) MsgName() string {
 	return "SafetyAllowedArea"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSafetyAllowedArea) String() string {
+	return fmt.Sprintf("ArdupilotmegaSafetyAllowedArea{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSafetyAllowedArea) Pack(p *Packet) error {
 	payload := make([]byte, 25)
@@ -8385,6 +8845,11 @@ func (m *ArdupilotmegaAttitudeQuaternionCov) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAttitudeQuaternionCov) MsgName() string {
 	return "AttitudeQuaternionCov"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAttitudeQuaternionCov) String() string {
+	return fmt.Sprintf("ArdupilotmegaAttitudeQuaternionCov{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8462,6 +8927,11 @@ func (m *ArdupilotmegaNavControllerOutput) MsgName() string {
 	return "NavControllerOutput"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaNavControllerOutput) String() string {
+	return fmt.Sprintf("ArdupilotmegaNavControllerOutput{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaNavControllerOutput) Pack(p *Packet) error {
 	payload := make([]byte, 26)
@@ -8533,6 +9003,11 @@ func (m *ArdupilotmegaGlobalPositionIntCov) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGlobalPositionIntCov) MsgName() string {
 	return "GlobalPositionIntCov"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGlobalPositionIntCov) String() string {
+	return fmt.Sprintf("ArdupilotmegaGlobalPositionIntCov{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8616,6 +9091,11 @@ func (m *ArdupilotmegaLocalPositionNedCov) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaLocalPositionNedCov) MsgName() string {
 	return "LocalPositionNedCov"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaLocalPositionNedCov) String() string {
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNedCov{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8714,6 +9194,11 @@ func (m *ArdupilotmegaRcChannels) MsgName() string {
 	return "RcChannels"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRcChannels) String() string {
+	return fmt.Sprintf("ArdupilotmegaRcChannels{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRcChannels) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -8808,6 +9293,11 @@ func (m *ArdupilotmegaRequestDataStream) MsgName() string {
 	return "RequestDataStream"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRequestDataStream) String() string {
+	return fmt.Sprintf("ArdupilotmegaRequestDataStream{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRequestDataStream) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -8868,6 +9358,11 @@ func (m *ArdupilotmegaDataStream) MsgName() string {
 	return "DataStream"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaDataStream) String() string {
+	return fmt.Sprintf("ArdupilotmegaDataStream{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaDataStream) Pack(p *Packet) error {
 	payload := make([]byte, 4)
@@ -8925,6 +9420,11 @@ func (m *ArdupilotmegaManualControl) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaManualControl) MsgName() string {
 	return "ManualControl"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaManualControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaManualControl{&+v}", m)
 }
 
 // Pack (generated function)
@@ -8994,6 +9494,11 @@ func (m *ArdupilotmegaRcChannelsOverride) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaRcChannelsOverride) MsgName() string {
 	return "RcChannelsOverride"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaRcChannelsOverride) String() string {
+	return fmt.Sprintf("ArdupilotmegaRcChannelsOverride{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9078,6 +9583,11 @@ func (m *ArdupilotmegaMissionItemInt) MsgName() string {
 	return "MissionItemInt"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMissionItemInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaMissionItemInt{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMissionItemInt) Pack(p *Packet) error {
 	payload := make([]byte, 37)
@@ -9159,6 +9669,11 @@ func (m *ArdupilotmegaVfrHud) MsgName() string {
 	return "VfrHud"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaVfrHud) String() string {
+	return fmt.Sprintf("ArdupilotmegaVfrHud{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaVfrHud) Pack(p *Packet) error {
 	payload := make([]byte, 20)
@@ -9229,6 +9744,11 @@ func (m *ArdupilotmegaCommandInt) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaCommandInt) MsgName() string {
 	return "CommandInt"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaCommandInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaCommandInt{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9315,6 +9835,11 @@ func (m *ArdupilotmegaCommandLong) MsgName() string {
 	return "CommandLong"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaCommandLong) String() string {
+	return fmt.Sprintf("ArdupilotmegaCommandLong{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaCommandLong) Pack(p *Packet) error {
 	payload := make([]byte, 33)
@@ -9386,6 +9911,11 @@ func (m *ArdupilotmegaCommandAck) MsgName() string {
 	return "CommandAck"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaCommandAck) String() string {
+	return fmt.Sprintf("ArdupilotmegaCommandAck{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaCommandAck) Pack(p *Packet) error {
 	payload := make([]byte, 3)
@@ -9438,6 +9968,11 @@ func (m *ArdupilotmegaCommandCancel) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaCommandCancel) MsgName() string {
 	return "CommandCancel"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaCommandCancel) String() string {
+	return fmt.Sprintf("ArdupilotmegaCommandCancel{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9498,6 +10033,11 @@ func (m *ArdupilotmegaManualSetpoint) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaManualSetpoint) MsgName() string {
 	return "ManualSetpoint"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaManualSetpoint) String() string {
+	return fmt.Sprintf("ArdupilotmegaManualSetpoint{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9568,6 +10108,11 @@ func (m *ArdupilotmegaSetAttitudeTarget) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSetAttitudeTarget) MsgName() string {
 	return "SetAttitudeTarget"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSetAttitudeTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetAttitudeTarget{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9644,6 +10189,11 @@ func (m *ArdupilotmegaAttitudeTarget) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAttitudeTarget) MsgName() string {
 	return "AttitudeTarget"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAttitudeTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaAttitudeTarget{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9725,6 +10275,11 @@ func (m *ArdupilotmegaSetPositionTargetLocalNed) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSetPositionTargetLocalNed) MsgName() string {
 	return "SetPositionTargetLocalNed"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSetPositionTargetLocalNed) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetPositionTargetLocalNed{&+v}", m)
 }
 
 // Pack (generated function)
@@ -9820,6 +10375,11 @@ func (m *ArdupilotmegaPositionTargetLocalNed) MsgName() string {
 	return "PositionTargetLocalNed"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaPositionTargetLocalNed) String() string {
+	return fmt.Sprintf("ArdupilotmegaPositionTargetLocalNed{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaPositionTargetLocalNed) Pack(p *Packet) error {
 	payload := make([]byte, 51)
@@ -9909,6 +10469,11 @@ func (m *ArdupilotmegaSetPositionTargetGlobalInt) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSetPositionTargetGlobalInt) MsgName() string {
 	return "SetPositionTargetGlobalInt"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSetPositionTargetGlobalInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetPositionTargetGlobalInt{&+v}", m)
 }
 
 // Pack (generated function)
@@ -10004,6 +10569,11 @@ func (m *ArdupilotmegaPositionTargetGlobalInt) MsgName() string {
 	return "PositionTargetGlobalInt"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaPositionTargetGlobalInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaPositionTargetGlobalInt{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaPositionTargetGlobalInt) Pack(p *Packet) error {
 	payload := make([]byte, 51)
@@ -10086,6 +10656,11 @@ func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgName() string {
 	return "LocalPositionNedSystemGlobalOffset"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) String() string {
+	return fmt.Sprintf("ArdupilotmegaLocalPositionNedSystemGlobalOffset{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 	payload := make([]byte, 28)
@@ -10161,6 +10736,11 @@ func (m *ArdupilotmegaHilState) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHilState) MsgName() string {
 	return "HilState"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHilState) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilState{&+v}", m)
 }
 
 // Pack (generated function)
@@ -10253,6 +10833,11 @@ func (m *ArdupilotmegaHilControls) MsgName() string {
 	return "HilControls"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHilControls) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilControls{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHilControls) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -10336,6 +10921,11 @@ func (m *ArdupilotmegaHilRcInputsRaw) MsgName() string {
 	return "HilRcInputsRaw"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHilRcInputsRaw) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilRcInputsRaw{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHilRcInputsRaw) Pack(p *Packet) error {
 	payload := make([]byte, 33)
@@ -10415,6 +11005,11 @@ func (m *ArdupilotmegaHilActuatorControls) MsgName() string {
 	return "HilActuatorControls"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHilActuatorControls) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilActuatorControls{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHilActuatorControls) Pack(p *Packet) error {
 	payload := make([]byte, 81)
@@ -10480,6 +11075,11 @@ func (m *ArdupilotmegaOpticalFlow) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaOpticalFlow) MsgName() string {
 	return "OpticalFlow"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaOpticalFlow) String() string {
+	return fmt.Sprintf("ArdupilotmegaOpticalFlow{&+v}", m)
 }
 
 // Pack (generated function)
@@ -10552,6 +11152,11 @@ func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgName() string {
 	return "GlobalVisionPositionEstimate"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGlobalVisionPositionEstimate) String() string {
+	return fmt.Sprintf("ArdupilotmegaGlobalVisionPositionEstimate{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGlobalVisionPositionEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 32)
@@ -10620,6 +11225,11 @@ func (m *ArdupilotmegaVisionPositionEstimate) MsgName() string {
 	return "VisionPositionEstimate"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaVisionPositionEstimate) String() string {
+	return fmt.Sprintf("ArdupilotmegaVisionPositionEstimate{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaVisionPositionEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 32)
@@ -10685,6 +11295,11 @@ func (m *ArdupilotmegaVisionSpeedEstimate) MsgName() string {
 	return "VisionSpeedEstimate"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaVisionSpeedEstimate) String() string {
+	return fmt.Sprintf("ArdupilotmegaVisionSpeedEstimate{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaVisionSpeedEstimate) Pack(p *Packet) error {
 	payload := make([]byte, 20)
@@ -10745,6 +11360,11 @@ func (m *ArdupilotmegaViconPositionEstimate) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaViconPositionEstimate) MsgName() string {
 	return "ViconPositionEstimate"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaViconPositionEstimate) String() string {
+	return fmt.Sprintf("ArdupilotmegaViconPositionEstimate{&+v}", m)
 }
 
 // Pack (generated function)
@@ -10821,6 +11441,11 @@ func (m *ArdupilotmegaHighresImu) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHighresImu) MsgName() string {
 	return "HighresImu"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHighresImu) String() string {
+	return fmt.Sprintf("ArdupilotmegaHighresImu{&+v}", m)
 }
 
 // Pack (generated function)
@@ -10912,6 +11537,11 @@ func (m *ArdupilotmegaOpticalFlowRad) MsgName() string {
 	return "OpticalFlowRad"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaOpticalFlowRad) String() string {
+	return fmt.Sprintf("ArdupilotmegaOpticalFlowRad{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaOpticalFlowRad) Pack(p *Packet) error {
 	payload := make([]byte, 44)
@@ -10996,6 +11626,11 @@ func (m *ArdupilotmegaHilSensor) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHilSensor) MsgName() string {
 	return "HilSensor"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHilSensor) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilSensor{&+v}", m)
 }
 
 // Pack (generated function)
@@ -11096,6 +11731,11 @@ func (m *ArdupilotmegaSimState) MsgName() string {
 	return "SimState"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSimState) String() string {
+	return fmt.Sprintf("ArdupilotmegaSimState{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSimState) Pack(p *Packet) error {
 	payload := make([]byte, 84)
@@ -11192,6 +11832,11 @@ func (m *ArdupilotmegaRadioStatus) MsgName() string {
 	return "RadioStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaRadioStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaRadioStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaRadioStatus) Pack(p *Packet) error {
 	payload := make([]byte, 9)
@@ -11257,6 +11902,11 @@ func (m *ArdupilotmegaFileTransferProtocol) MsgName() string {
 	return "FileTransferProtocol"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaFileTransferProtocol) String() string {
+	return fmt.Sprintf("ArdupilotmegaFileTransferProtocol{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaFileTransferProtocol) Pack(p *Packet) error {
 	payload := make([]byte, 254)
@@ -11314,6 +11964,11 @@ func (m *ArdupilotmegaTimesync) MsgName() string {
 	return "Timesync"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaTimesync) String() string {
+	return fmt.Sprintf("ArdupilotmegaTimesync{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaTimesync) Pack(p *Packet) error {
 	payload := make([]byte, 16)
@@ -11365,6 +12020,11 @@ func (m *ArdupilotmegaCameraTrigger) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaCameraTrigger) MsgName() string {
 	return "CameraTrigger"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaCameraTrigger) String() string {
+	return fmt.Sprintf("ArdupilotmegaCameraTrigger{&+v}", m)
 }
 
 // Pack (generated function)
@@ -11430,6 +12090,11 @@ func (m *ArdupilotmegaHilGps) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHilGps) MsgName() string {
 	return "HilGps"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHilGps) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilGps{&+v}", m)
 }
 
 // Pack (generated function)
@@ -11517,6 +12182,11 @@ func (m *ArdupilotmegaHilOpticalFlow) MsgName() string {
 	return "HilOpticalFlow"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHilOpticalFlow) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilOpticalFlow{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHilOpticalFlow) Pack(p *Packet) error {
 	payload := make([]byte, 44)
@@ -11602,6 +12272,11 @@ func (m *ArdupilotmegaHilStateQuaternion) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHilStateQuaternion) MsgName() string {
 	return "HilStateQuaternion"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHilStateQuaternion) String() string {
+	return fmt.Sprintf("ArdupilotmegaHilStateQuaternion{&+v}", m)
 }
 
 // Pack (generated function)
@@ -11697,6 +12372,11 @@ func (m *ArdupilotmegaScaledImu2) MsgName() string {
 	return "ScaledImu2"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaScaledImu2) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledImu2{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaScaledImu2) Pack(p *Packet) error {
 	payload := make([]byte, 22)
@@ -11768,6 +12448,11 @@ func (m *ArdupilotmegaLogRequestList) MsgName() string {
 	return "LogRequestList"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLogRequestList) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogRequestList{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLogRequestList) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -11826,6 +12511,11 @@ func (m *ArdupilotmegaLogEntry) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaLogEntry) MsgName() string {
 	return "LogEntry"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaLogEntry) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogEntry{&+v}", m)
 }
 
 // Pack (generated function)
@@ -11890,6 +12580,11 @@ func (m *ArdupilotmegaLogRequestData) MsgName() string {
 	return "LogRequestData"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLogRequestData) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogRequestData{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLogRequestData) Pack(p *Packet) error {
 	payload := make([]byte, 12)
@@ -11951,6 +12646,11 @@ func (m *ArdupilotmegaLogData) MsgName() string {
 	return "LogData"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLogData) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogData{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLogData) Pack(p *Packet) error {
 	payload := make([]byte, 97)
@@ -12008,6 +12708,11 @@ func (m *ArdupilotmegaLogErase) MsgName() string {
 	return "LogErase"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLogErase) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogErase{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLogErase) Pack(p *Packet) error {
 	payload := make([]byte, 2)
@@ -12059,6 +12764,11 @@ func (m *ArdupilotmegaLogRequestEnd) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaLogRequestEnd) MsgName() string {
 	return "LogRequestEnd"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaLogRequestEnd) String() string {
+	return fmt.Sprintf("ArdupilotmegaLogRequestEnd{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12114,6 +12824,11 @@ func (m *ArdupilotmegaGpsInjectData) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsInjectData) MsgName() string {
 	return "GpsInjectData"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGpsInjectData) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsInjectData{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12181,6 +12896,11 @@ func (m *ArdupilotmegaGps2Raw) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGps2Raw) MsgName() string {
 	return "Gps2Raw"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGps2Raw) String() string {
+	return fmt.Sprintf("ArdupilotmegaGps2Raw{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12257,6 +12977,11 @@ func (m *ArdupilotmegaPowerStatus) MsgName() string {
 	return "PowerStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaPowerStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaPowerStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaPowerStatus) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -12314,6 +13039,11 @@ func (m *ArdupilotmegaSerialControl) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaSerialControl) MsgName() string {
 	return "SerialControl"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaSerialControl) String() string {
+	return fmt.Sprintf("ArdupilotmegaSerialControl{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12386,6 +13116,11 @@ func (m *ArdupilotmegaGpsRtk) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsRtk) MsgName() string {
 	return "GpsRtk"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGpsRtk) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsRtk{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12474,6 +13209,11 @@ func (m *ArdupilotmegaGps2Rtk) MsgName() string {
 	return "Gps2Rtk"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGps2Rtk) String() string {
+	return fmt.Sprintf("ArdupilotmegaGps2Rtk{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGps2Rtk) Pack(p *Packet) error {
 	payload := make([]byte, 35)
@@ -12557,6 +13297,11 @@ func (m *ArdupilotmegaScaledImu3) MsgName() string {
 	return "ScaledImu3"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaScaledImu3) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledImu3{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaScaledImu3) Pack(p *Packet) error {
 	payload := make([]byte, 22)
@@ -12631,6 +13376,11 @@ func (m *ArdupilotmegaDataTransmissionHandshake) MsgName() string {
 	return "DataTransmissionHandshake"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaDataTransmissionHandshake) String() string {
+	return fmt.Sprintf("ArdupilotmegaDataTransmissionHandshake{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaDataTransmissionHandshake) Pack(p *Packet) error {
 	payload := make([]byte, 13)
@@ -12694,6 +13444,11 @@ func (m *ArdupilotmegaEncapsulatedData) MsgName() string {
 	return "EncapsulatedData"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaEncapsulatedData) String() string {
+	return fmt.Sprintf("ArdupilotmegaEncapsulatedData{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaEncapsulatedData) Pack(p *Packet) error {
 	payload := make([]byte, 255)
@@ -12751,6 +13506,11 @@ func (m *ArdupilotmegaDistanceSensor) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaDistanceSensor) MsgName() string {
 	return "DistanceSensor"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaDistanceSensor) String() string {
+	return fmt.Sprintf("ArdupilotmegaDistanceSensor{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12820,6 +13580,11 @@ func (m *ArdupilotmegaTerrainRequest) MsgName() string {
 	return "TerrainRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaTerrainRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaTerrainRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaTerrainRequest) Pack(p *Packet) error {
 	payload := make([]byte, 18)
@@ -12878,6 +13643,11 @@ func (m *ArdupilotmegaTerrainData) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaTerrainData) MsgName() string {
 	return "TerrainData"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaTerrainData) String() string {
+	return fmt.Sprintf("ArdupilotmegaTerrainData{&+v}", m)
 }
 
 // Pack (generated function)
@@ -12943,6 +13713,11 @@ func (m *ArdupilotmegaTerrainCheck) MsgName() string {
 	return "TerrainCheck"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaTerrainCheck) String() string {
+	return fmt.Sprintf("ArdupilotmegaTerrainCheck{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaTerrainCheck) Pack(p *Packet) error {
 	payload := make([]byte, 8)
@@ -12999,6 +13774,11 @@ func (m *ArdupilotmegaTerrainReport) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaTerrainReport) MsgName() string {
 	return "TerrainReport"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaTerrainReport) String() string {
+	return fmt.Sprintf("ArdupilotmegaTerrainReport{&+v}", m)
 }
 
 // Pack (generated function)
@@ -13066,6 +13846,11 @@ func (m *ArdupilotmegaScaledPressure2) MsgName() string {
 	return "ScaledPressure2"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaScaledPressure2) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledPressure2{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaScaledPressure2) Pack(p *Packet) error {
 	payload := make([]byte, 14)
@@ -13124,6 +13909,11 @@ func (m *ArdupilotmegaAttPosMocap) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAttPosMocap) MsgName() string {
 	return "AttPosMocap"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAttPosMocap) String() string {
+	return fmt.Sprintf("ArdupilotmegaAttPosMocap{&+v}", m)
 }
 
 // Pack (generated function)
@@ -13192,6 +13982,11 @@ func (m *ArdupilotmegaSetActuatorControlTarget) MsgName() string {
 	return "SetActuatorControlTarget"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSetActuatorControlTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetActuatorControlTarget{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSetActuatorControlTarget) Pack(p *Packet) error {
 	payload := make([]byte, 43)
@@ -13256,6 +14051,11 @@ func (m *ArdupilotmegaActuatorControlTarget) MsgName() string {
 	return "ActuatorControlTarget"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaActuatorControlTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaActuatorControlTarget{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaActuatorControlTarget) Pack(p *Packet) error {
 	payload := make([]byte, 41)
@@ -13318,6 +14118,11 @@ func (m *ArdupilotmegaAltitude) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAltitude) MsgName() string {
 	return "Altitude"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAltitude) String() string {
+	return fmt.Sprintf("ArdupilotmegaAltitude{&+v}", m)
 }
 
 // Pack (generated function)
@@ -13386,6 +14191,11 @@ func (m *ArdupilotmegaResourceRequest) MsgName() string {
 	return "ResourceRequest"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaResourceRequest) String() string {
+	return fmt.Sprintf("ArdupilotmegaResourceRequest{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaResourceRequest) Pack(p *Packet) error {
 	payload := make([]byte, 243)
@@ -13445,6 +14255,11 @@ func (m *ArdupilotmegaScaledPressure3) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledPressure3) MsgName() string {
 	return "ScaledPressure3"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaScaledPressure3) String() string {
+	return fmt.Sprintf("ArdupilotmegaScaledPressure3{&+v}", m)
 }
 
 // Pack (generated function)
@@ -13511,6 +14326,11 @@ func (m *ArdupilotmegaFollowTarget) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaFollowTarget) MsgName() string {
 	return "FollowTarget"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaFollowTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaFollowTarget{&+v}", m)
 }
 
 // Pack (generated function)
@@ -13619,6 +14439,11 @@ func (m *ArdupilotmegaControlSystemState) MsgName() string {
 	return "ControlSystemState"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaControlSystemState) String() string {
+	return fmt.Sprintf("ArdupilotmegaControlSystemState{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaControlSystemState) Pack(p *Packet) error {
 	payload := make([]byte, 100)
@@ -13721,6 +14546,11 @@ func (m *ArdupilotmegaBatteryStatus) MsgName() string {
 	return "BatteryStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaBatteryStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaBatteryStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaBatteryStatus) Pack(p *Packet) error {
 	payload := make([]byte, 36)
@@ -13801,6 +14631,11 @@ func (m *ArdupilotmegaAutopilotVersion) MsgName() string {
 	return "AutopilotVersion"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaAutopilotVersion) String() string {
+	return fmt.Sprintf("ArdupilotmegaAutopilotVersion{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaAutopilotVersion) Pack(p *Packet) error {
 	payload := make([]byte, 60)
@@ -13878,6 +14713,11 @@ func (m *ArdupilotmegaLandingTarget) MsgName() string {
 	return "LandingTarget"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaLandingTarget) String() string {
+	return fmt.Sprintf("ArdupilotmegaLandingTarget{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaLandingTarget) Pack(p *Packet) error {
 	payload := make([]byte, 30)
@@ -13943,6 +14783,11 @@ func (m *ArdupilotmegaFenceStatus) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaFenceStatus) MsgName() string {
 	return "FenceStatus"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaFenceStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaFenceStatus{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14012,6 +14857,11 @@ func (m *ArdupilotmegaMagCalReport) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMagCalReport) MsgName() string {
 	return "MagCalReport"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMagCalReport) String() string {
+	return fmt.Sprintf("ArdupilotmegaMagCalReport{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14106,6 +14956,11 @@ func (m *ArdupilotmegaEfiStatus) MsgName() string {
 	return "EfiStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaEfiStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaEfiStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaEfiStatus) Pack(p *Packet) error {
 	payload := make([]byte, 65)
@@ -14197,6 +15052,11 @@ func (m *ArdupilotmegaEstimatorStatus) MsgName() string {
 	return "EstimatorStatus"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaEstimatorStatus) String() string {
+	return fmt.Sprintf("ArdupilotmegaEstimatorStatus{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaEstimatorStatus) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -14271,6 +15131,11 @@ func (m *ArdupilotmegaWindCov) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaWindCov) MsgName() string {
 	return "WindCov"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaWindCov) String() string {
+	return fmt.Sprintf("ArdupilotmegaWindCov{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14354,6 +15219,11 @@ func (m *ArdupilotmegaGpsInput) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsInput) MsgName() string {
 	return "GpsInput"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaGpsInput) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsInput{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14442,6 +15312,11 @@ func (m *ArdupilotmegaGpsRtcmData) MsgName() string {
 	return "GpsRtcmData"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaGpsRtcmData) String() string {
+	return fmt.Sprintf("ArdupilotmegaGpsRtcmData{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaGpsRtcmData) Pack(p *Packet) error {
 	payload := make([]byte, 182)
@@ -14517,6 +15392,11 @@ func (m *ArdupilotmegaHighLatency) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHighLatency) MsgName() string {
 	return "HighLatency"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHighLatency) String() string {
+	return fmt.Sprintf("ArdupilotmegaHighLatency{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14641,6 +15521,11 @@ func (m *ArdupilotmegaHighLatency2) MsgName() string {
 	return "HighLatency2"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaHighLatency2) String() string {
+	return fmt.Sprintf("ArdupilotmegaHighLatency2{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaHighLatency2) Pack(p *Packet) error {
 	payload := make([]byte, 42)
@@ -14749,6 +15634,11 @@ func (m *ArdupilotmegaVibration) MsgName() string {
 	return "Vibration"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaVibration) String() string {
+	return fmt.Sprintf("ArdupilotmegaVibration{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaVibration) Pack(p *Packet) error {
 	payload := make([]byte, 32)
@@ -14818,6 +15708,11 @@ func (m *ArdupilotmegaHomePosition) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHomePosition) MsgName() string {
 	return "HomePosition"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHomePosition) String() string {
+	return fmt.Sprintf("ArdupilotmegaHomePosition{&+v}", m)
 }
 
 // Pack (generated function)
@@ -14902,6 +15797,11 @@ func (m *ArdupilotmegaSetHomePosition) MsgName() string {
 	return "SetHomePosition"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaSetHomePosition) String() string {
+	return fmt.Sprintf("ArdupilotmegaSetHomePosition{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaSetHomePosition) Pack(p *Packet) error {
 	payload := make([]byte, 53)
@@ -14977,6 +15877,11 @@ func (m *ArdupilotmegaMessageInterval) MsgName() string {
 	return "MessageInterval"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaMessageInterval) String() string {
+	return fmt.Sprintf("ArdupilotmegaMessageInterval{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaMessageInterval) Pack(p *Packet) error {
 	payload := make([]byte, 6)
@@ -15028,6 +15933,11 @@ func (m *ArdupilotmegaExtendedSysState) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaExtendedSysState) MsgName() string {
 	return "ExtendedSysState"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaExtendedSysState) String() string {
+	return fmt.Sprintf("ArdupilotmegaExtendedSysState{&+v}", m)
 }
 
 // Pack (generated function)
@@ -15092,6 +16002,11 @@ func (m *ArdupilotmegaAdsbVehicle) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaAdsbVehicle) MsgName() string {
 	return "AdsbVehicle"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaAdsbVehicle) String() string {
+	return fmt.Sprintf("ArdupilotmegaAdsbVehicle{&+v}", m)
 }
 
 // Pack (generated function)
@@ -15174,6 +16089,11 @@ func (m *ArdupilotmegaCollision) MsgName() string {
 	return "Collision"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaCollision) String() string {
+	return fmt.Sprintf("ArdupilotmegaCollision{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaCollision) Pack(p *Packet) error {
 	payload := make([]byte, 19)
@@ -15240,6 +16160,11 @@ func (m *ArdupilotmegaV2Extension) MsgName() string {
 	return "V2Extension"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaV2Extension) String() string {
+	return fmt.Sprintf("ArdupilotmegaV2Extension{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaV2Extension) Pack(p *Packet) error {
 	payload := make([]byte, 254)
@@ -15299,6 +16224,11 @@ func (m *ArdupilotmegaMemoryVect) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaMemoryVect) MsgName() string {
 	return "MemoryVect"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaMemoryVect) String() string {
+	return fmt.Sprintf("ArdupilotmegaMemoryVect{&+v}", m)
 }
 
 // Pack (generated function)
@@ -15365,6 +16295,11 @@ func (m *ArdupilotmegaDebugVect) MsgName() string {
 	return "DebugVect"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaDebugVect) String() string {
+	return fmt.Sprintf("ArdupilotmegaDebugVect{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaDebugVect) Pack(p *Packet) error {
 	payload := make([]byte, 30)
@@ -15425,6 +16360,11 @@ func (m *ArdupilotmegaNamedValueFloat) MsgName() string {
 	return "NamedValueFloat"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaNamedValueFloat) String() string {
+	return fmt.Sprintf("ArdupilotmegaNamedValueFloat{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaNamedValueFloat) Pack(p *Packet) error {
 	payload := make([]byte, 18)
@@ -15479,6 +16419,11 @@ func (m *ArdupilotmegaNamedValueInt) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaNamedValueInt) MsgName() string {
 	return "NamedValueInt"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaNamedValueInt) String() string {
+	return fmt.Sprintf("ArdupilotmegaNamedValueInt{&+v}", m)
 }
 
 // Pack (generated function)
@@ -15536,6 +16481,11 @@ func (m *ArdupilotmegaStatustext) MsgName() string {
 	return "Statustext"
 }
 
+// String (generated function)
+func (m *ArdupilotmegaStatustext) String() string {
+	return fmt.Sprintf("ArdupilotmegaStatustext{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *ArdupilotmegaStatustext) Pack(p *Packet) error {
 	payload := make([]byte, 51)
@@ -15588,6 +16538,11 @@ func (m *ArdupilotmegaDebug) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaDebug) MsgName() string {
 	return "Debug"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaDebug) String() string {
+	return fmt.Sprintf("ArdupilotmegaDebug{&+v}", m)
 }
 
 // Pack (generated function)
@@ -15647,6 +16602,11 @@ func (m *ArdupilotmegaHeartbeat) CRCExtra() uint8 {
 // MsgName (generated function)
 func (m *ArdupilotmegaHeartbeat) MsgName() string {
 	return "Heartbeat"
+}
+
+// String (generated function)
+func (m *ArdupilotmegaHeartbeat) String() string {
+	return fmt.Sprintf("ArdupilotmegaHeartbeat{&+v}", m)
 }
 
 // Pack (generated function)

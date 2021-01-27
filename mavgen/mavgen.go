@@ -583,6 +583,11 @@ func (m *{{$dialect}}{{$name}}) MsgName() string {
 	return "{{.Name | UpperCamelCase}}"
 }
 
+// String (generated function)
+func (m *{{$dialect}}{{$name}}) String() string {
+	return fmt.Sprintf("{{$dialect}}{{$name}}{&+v}", m)
+}
+
 // Pack (generated function)
 func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}

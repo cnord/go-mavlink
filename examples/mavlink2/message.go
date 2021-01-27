@@ -22,4 +22,5 @@ type Message interface {
 	MsgID() MessageID
 	MsgName() string
 	CRCExtra() uint8
+	String() string
 }
