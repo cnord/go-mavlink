@@ -22,28 +22,27 @@ func (p *Packet) nextSeqNum() byte {
 }
 
 // Encode trying to encode message to packet
-func (p *Packet) Encode(sysID, compID uint8, m Message) error {
+func (p *Packet) encode(sysID, compID uint8, m Message) error {
 	p.SeqID = p.nextSeqNum()
 	p.SysID = sysID
 	p.CompID = compID
+	return p.Encode(m)
+}
+
+// Encode trying to encode message to packet
+func (p *Packet) Encode(m Message) error {
 	if err := m.Pack(p); err != nil {
 		return err
 	}
-	if err := p.fixChecksum(m.Dialect()); err != nil {
+	if err := p.fixChecksum(m.CRCExtra()); err != nil {
 		return err
 	}
 	return nil
 }
 
-// EncodeMessage trying to encode message to packet
-func (p *Packet) EncodeMessage(m Message) error {
-	if err := m.Pack(p); err != nil {
-		return err
-	}
-	if err := p.fixChecksum(m.Dialect()); err != nil {
-		return err
-	}
-	return nil
+// Decode trying to decode message to packet
+func (p *Packet) Decode(m Message) error {
+	return m.Unpack(p)
 }
 
 // Unmarshal trying to de-serialize byte slice to packet
@@ -98,7 +97,7 @@ func (p *Packet) Bytes() []byte {
 	return bytes
 }
 
-func (p *Packet) fixChecksum(dialect *Dialect) error {
+func (p *Packet) fixChecksum(crcExtra uint8) error {
 	crc := NewX25()
 	crc.WriteByte(byte(len(p.Payload)))
 {{- if .Mavlink2}}
@@ -114,11 +113,7 @@ func (p *Packet) fixChecksum(dialect *Dialect) error {
 	crc.WriteByte(byte(p.MsgID >> 16))
 {{- end}}
 	crc.Write(p.Payload)
-	crcx, ok := dialect.crcExtras[p.MsgID]
-	if !ok {
-		return ErrUnknownMsgID
-	}
-	crc.WriteByte(crcx)
+	crc.WriteByte(crcExtra)
 	p.Checksum = crc.Sum16()
 	return nil
 }

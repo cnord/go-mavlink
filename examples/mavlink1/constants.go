@@ -38,6 +38,8 @@ const (
 )
 
 var (
+	// ErrCastToPacket define
+	ErrCastToPacket = errors.New("cannot cast interface to Packet struct")
 	// ErrUnknownMsgID define
 	ErrUnknownMsgID = errors.New("unknown msg id")
 	// ErrCrcFail define
@@ -48,6 +50,4 @@ var (
 	ErrNilPointerReference = errors.New("Nil pointer reference")
 	// currentSeqNum
 	currentSeqNum uint8
-	// dialects
-	dialects DialectSlice = DialectSlice{DialectArdupilotmega}
 )

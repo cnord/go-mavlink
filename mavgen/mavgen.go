@@ -527,12 +527,14 @@ const ({{range .Messages}}
 	MSG_ID_{{.Name}} MessageID = {{.ID}}{{end}}
 )
 
+// Mavlink message CRC extras
+var MAVLINK_MESSAGE_CRC_EXTRAS = map[MessageID]uint8{ {{range .Messages}}
+	MSG_ID_{{.Name}}: {{.CRCExtra}},{{end}}
+}
+
 // Dialect{{.Name | UpperCamelCase}} is the dialect represented by {{.Name}}.xml
 var Dialect{{.Name | UpperCamelCase}} = &Dialect{
 	Name: "{{.Name}}",
-	crcExtras: map[MessageID]uint8{ {{range .Messages}}
-		MSG_ID_{{.Name}}: {{.CRCExtra}},{{end}}
-	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{ {{range .Messages}}
 		MSG_ID_{{.Name}}: func(pkt *Packet) Message {
 			msg := new({{$dialect}}{{.Name | UpperCamelCase}})
@@ -569,6 +571,11 @@ func (m *{{$dialect}}{{$name}}) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *{{$dialect}}{{$name}}) MsgID() MessageID {
 	return MSG_ID_{{.Name}}
+}
+
+// CRCExtra (generated function)
+func (m *{{$dialect}}{{$name}}) CRCExtra() uint8 {
+	return {{.CRCExtra}}
 }
 
 // MsgName (generated function)

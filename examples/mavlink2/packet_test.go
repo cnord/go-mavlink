@@ -12,3 +12,4 @@ func TestU16ToBytes(t *testing.T) {
 	require.Equal(t, expected[0], bytes[0], "First byte unexpected")
 	require.Equal(t, expected[1], bytes[1], "Second byte unexpected")
 }
+

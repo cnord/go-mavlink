@@ -13,7 +13,6 @@ package mavlink
 //
 type Dialect struct {
 	Name                      string
-	crcExtras                 map[MessageID]uint8
 	messageConstructorByMsgID map[MessageID]func(*Packet) Message
 }
 
@@ -24,14 +23,4 @@ func (d *Dialect) GetMessage(pkt *Packet) (msg Message, ok bool) {
 		return nil, false
 	}
 	return constructor(pkt), true
-}
-
-// AddDialect append dialect to internal store
-func AddDialect(d *Dialect) {
-	dialects.Add(d)
-}
-
-// RemoveDialect remove dialect from internal store
-func RemoveDialect(d *Dialect) {
-	dialects.Remove(d)
 }

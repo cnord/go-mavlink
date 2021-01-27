@@ -11,8 +11,7 @@ var (
 	mavgenVersion  = "devel"
 	schemeFile     = flag.String("f", "", "mavlink xml-definition file input")
 	outfile        = flag.String("o", "", "output file name")
-	packetmode     = flag.Bool("p", false, "packet mode. if set mavgen will be create nessesary go-sources")
-	version        = flag.String("v", mavgenVersion, "version of mavlink dialect, usage with -p flag.")
+	version        = flag.String("v", mavgenVersion, "version of mavlink dialect")
 	mavlinkVersion = flag.Int("m", 2, "version of mavlink protocol, usage with -p flag.")
 )
 
@@ -30,22 +29,21 @@ func main() {
 	flag.Parse()
 
 	dialectFileName, dialectName, err := generateDialect(*schemeFile, *mavlinkVersion)
-
 	if err != nil {
 		log.Fatal(err)
-	} else if *packetmode {
-		dialectDir := filepath.Dir(*dialectFileName) + string(filepath.Separator)
+	}
 
-		data := templateData{
-			Version:        *version,
-			MavlinkVersion: strconv.Itoa(*mavlinkVersion),
-			Mavlink2:       *mavlinkVersion&(1<<1) > 0,
-			Mavlink1:       *mavlinkVersion&(1<<0) > 0,
-			DialectName:    *dialectName,
-		}
+	dialectDir := filepath.Dir(*dialectFileName) + string(filepath.Separator)
 
-		if err := generateCommons(dialectDir, data); err != nil {
-			log.Fatal(err)
-		}
+	data := templateData{
+		Version:        *version,
+		MavlinkVersion: strconv.Itoa(*mavlinkVersion),
+		Mavlink2:       *mavlinkVersion&(1<<1) > 0,
+		Mavlink1:       *mavlinkVersion&(1<<0) > 0,
+		DialectName:    *dialectName,
+	}
+
+	if err := generateCommons(dialectDir, data); err != nil {
+		log.Fatal(err)
 	}
 }

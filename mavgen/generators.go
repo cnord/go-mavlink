@@ -1,7 +1,6 @@
 //go:generate templify constants.template
 //go:generate templify decoder.template
 //go:generate templify dialect.template
-//go:generate templify dialectSlice.template
 //go:generate templify message.template
 //go:generate templify packet.template
 //go:generate templify parser.template
@@ -14,14 +13,13 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/iancoleman/strcase"
 	"go/format"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
-
-	"github.com/iancoleman/strcase"
 )
 
 const (
@@ -38,7 +36,6 @@ var (
 		"constants":    constantsTemplate,
 		"decoder":      decoderTemplate,
 		"dialect":      dialectTemplate,
-		"dialectSlice": dialectSliceTemplate,
 		"message":      messageTemplate,
 		"packet":       packetTemplate,
 		"parser":       parserTemplate,
@@ -54,7 +51,7 @@ func baseName(s string) string {
 
 func findOutFile(scheme string) string {
 	if *outfile == "" {
-		*outfile = "dialect" + UpperCamelCase(baseName(scheme)) + ".go"
+		*outfile = baseName(scheme) + ".go"
 	}
 
 	dir, err := os.Getwd()

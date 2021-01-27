@@ -33,28 +33,27 @@ func packetTemplate() string {
 		"}\n" +
 		"\n" +
 		"// Encode trying to encode message to packet\n" +
-		"func (p *Packet) Encode(sysID, compID uint8, m Message) error {\n" +
+		"func (p *Packet) encode(sysID, compID uint8, m Message) error {\n" +
 		"\tp.SeqID = p.nextSeqNum()\n" +
 		"\tp.SysID = sysID\n" +
 		"\tp.CompID = compID\n" +
+		"\treturn p.Encode(m)\n" +
+		"}\n" +
+		"\n" +
+		"// Encode trying to encode message to packet\n" +
+		"func (p *Packet) Encode(m Message) error {\n" +
 		"\tif err := m.Pack(p); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
-		"\tif err := p.fixChecksum(m.Dialect()); err != nil {\n" +
+		"\tif err := p.fixChecksum(m.CRCExtra()); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
 		"\treturn nil\n" +
 		"}\n" +
 		"\n" +
-		"// EncodeMessage trying to encode message to packet\n" +
-		"func (p *Packet) EncodeMessage(m Message) error {\n" +
-		"\tif err := m.Pack(p); err != nil {\n" +
-		"\t\treturn err\n" +
-		"\t}\n" +
-		"\tif err := p.fixChecksum(m.Dialect()); err != nil {\n" +
-		"\t\treturn err\n" +
-		"\t}\n" +
-		"\treturn nil\n" +
+		"// Decode trying to decode message to packet\n" +
+		"func (p *Packet) Decode(m Message) error {\n" +
+		"\treturn m.Unpack(p)\n" +
 		"}\n" +
 		"\n" +
 		"// Unmarshal trying to de-serialize byte slice to packet\n" +
@@ -109,7 +108,7 @@ func packetTemplate() string {
 		"\treturn bytes\n" +
 		"}\n" +
 		"\n" +
-		"func (p *Packet) fixChecksum(dialect *Dialect) error {\n" +
+		"func (p *Packet) fixChecksum(crcExtra uint8) error {\n" +
 		"\tcrc := NewX25()\n" +
 		"\tcrc.WriteByte(byte(len(p.Payload)))\n" +
 		"{{- if .Mavlink2}}\n" +
@@ -125,11 +124,7 @@ func packetTemplate() string {
 		"\tcrc.WriteByte(byte(p.MsgID >> 16))\n" +
 		"{{- end}}\n" +
 		"\tcrc.Write(p.Payload)\n" +
-		"\tcrcx, ok := dialect.crcExtras[p.MsgID]\n" +
-		"\tif !ok {\n" +
-		"\t\treturn ErrUnknownMsgID\n" +
-		"\t}\n" +
-		"\tcrc.WriteByte(crcx)\n" +
+		"\tcrc.WriteByte(crcExtra)\n" +
 		"\tp.Checksum = crc.Sum16()\n" +
 		"\treturn nil\n" +
 		"}\n" +

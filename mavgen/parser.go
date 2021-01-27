@@ -29,8 +29,10 @@ func parserTemplate() string {
 		"// Reset set parser to idle state\n" +
 		"func (p *Parser) Reset() {\n" +
 		"\tp.state = MAVLINK_PARSE_STATE_UNINIT\n" +
-		"\tp.crc.Reset()\n" +
-		"\tp.crc = nil\n" +
+		"\tif p.crc != nil {\n" +
+		"\t\tp.crc.Reset()\n" +
+		"\t\tp.crc = nil\n" +
+		"\t}\n" +
 		"}\n" +
 		"\n" +
 		"func (p *Parser) parseChar(c byte) (*Packet, error) {\n" +
@@ -90,11 +92,11 @@ func parserTemplate() string {
 		"\t\t\tp.state = MAVLINK_PARSE_STATE_GOT_PAYLOAD\n" +
 		"\t\t}\n" +
 		"\tcase MAVLINK_PARSE_STATE_GOT_PAYLOAD:\n" +
-		"\t\tcrcExtra, err := dialects.findCrcX(p.packet.MsgID)\n" +
-		"\t\tif err != nil {\n" +
-		"\t\t\tcrcExtra = 0\n" +
-		"\t\t}\n" +
-		"\t\tp.crc.WriteByte(crcExtra)\n" +
+		"        if crcExtra, ok := MAVLINK_MESSAGE_CRC_EXTRAS[p.packet.MsgID]; ok {\n" +
+		"\t\t    p.crc.WriteByte(crcExtra)\n" +
+		"        } else {\n" +
+		"\t\t    p.crc.WriteByte(0)\n" +
+		"        }\n" +
 		"\t\tif c != uint8(p.crc.Sum16()&0xFF) {\n" +
 		"\t\t\tp.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC\n" +
 		"\t\t\tp.packet = Packet{}\n" +

@@ -18,7 +18,6 @@ func dialectTemplate() string {
 		"//\n" +
 		"type Dialect struct {\n" +
 		"\tName                      string\n" +
-		"\tcrcExtras                 map[MessageID]uint8\n" +
 		"\tmessageConstructorByMsgID map[MessageID]func(*Packet) Message\n" +
 		"}\n" +
 		"\n" +
@@ -30,17 +29,6 @@ func dialectTemplate() string {
 		"\t}\n" +
 		"\treturn constructor(pkt), true\n" +
 		"}\n" +
-		"\n" +
-		"// AddDialect append dialect to internal store\n" +
-		"func AddDialect(d *Dialect) {\n" +
-		"\tdialects.Add(d)\n" +
-		"}\n" +
-		"\n" +
-		"// RemoveDialect remove dialect from internal store\n" +
-		"func RemoveDialect(d *Dialect) {\n" +
-		"\tdialects.Remove(d)\n" +
-		"}\n" +
-		"\n" +
 		""
 	return tmpl
 }

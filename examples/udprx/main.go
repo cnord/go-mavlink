@@ -1,13 +1,10 @@
 package main
 
 import (
+	"../mavlinkSwitcher"
 	"flag"
 	"log"
 	"net"
-	"sync"
-	"time"
-
-	"github.com/asmyasnikov/go-mavlink/examples/mavlink1"
 )
 
 //////////////////////////////////////
@@ -17,11 +14,14 @@ import (
 // listen to ardupilot SITL and prints received msgs, more info:
 // http://dev.ardupilot.com/wiki/simulation-2/sitl-simulator-software-in-the-loop/setting-up-sitl-on-linux/
 //
-// run via `go run main.go`
+// run via `go run main.go -mavlink 1`
 //
 //////////////////////////////////////
 
-var rxaddr = flag.String("addr", ":14550", "address to listen on")
+var (
+	mavlink = flag.Int("mavlink", 2, "version of mavlink (1 or 2)")
+	rxaddr = flag.String("addr", ":14550", "address to listen on")
+)
 
 func main() {
 
@@ -31,46 +31,27 @@ func main() {
 }
 
 func listenAndServe(addr string) {
-
 	udpAddr, err := net.ResolveUDPAddr("udp", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	conn, listenerr := net.ListenUDP("udp", udpAddr)
 	if listenerr != nil {
 		log.Fatal(listenerr)
 	}
-
 	log.Println("listening on", udpAddr)
 
-	dec := mavlink.NewChannelDecoder()
+	dec := mavlinkSwitcher.Init(conn, *mavlink)
+	if dec == nil {
+		return
+	}
 
-	wg := &sync.WaitGroup{}
-	wg.Add(2)
-	go func() {
-		defer wg.Done()
-		for {
-			buffer := make([]byte, 0, 255)
-			n, err := conn.Read(buffer)
-			if err != nil {
-				log.Print(err)
-			} else if n > 0 {
-				dec.PushData(buffer[:n])
-			}
+	log.Println("listening packets from decoder")
+	for {
+		if p, err := dec.Decode(); err != nil {
+			log.Fatal(p)
+		} else {
+			log.Println(p)
 		}
-	}()
-	go func() {
-		defer wg.Done()
-		for {
-			packet := dec.NextPacket(time.Second)
-			if packet != nil {
-				log.Println(*packet)
-			}
-		}
-	}()
-
-	mavlink.AddDialect(mavlink.DialectArdupilotmega)
-
-	wg.Wait()
+	}
 }

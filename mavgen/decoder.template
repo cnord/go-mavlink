@@ -1,107 +1,76 @@
 package mavlink
 
 import (
-	"sort"
-	"time"
+	"bufio"
+	"io"
 )
 
 // Decoder struct provide decoding processor
 type Decoder struct {
-	data    chan []byte
-	decoded chan *Packet
+	reader      io.ByteReader
+	parsers     []*Parser
 }
 
-// PushData pushhed decoded packet during timeout
-func (d *Decoder) PushData(data []byte) {
-	d.data <- data
+func (d *Decoder) clearParser(parser *Parser) {
+	parser.Reset()
+	parsersPool.Put(parser)
 }
 
-// NextPacket return decoded packet during timeout
-func (d *Decoder) NextPacket(duration time.Duration) *Packet {
-	select {
-	case packet, ok := <-d.decoded:
-		if ok {
-			return packet
+func (d *Decoder) clearParsers() {
+	for _, parser := range d.parsers {
+		d.clearParser(parser)
+	}
+	d.parsers = d.parsers[:0]
+}
+
+// Decode decode input stream to packet. Method return error or nil
+func (d *Decoder) Decode(v interface{}) error {
+	packet, ok := v.(*Packet)
+	if !ok {
+		return ErrCastToPacket
+	}
+	for {
+		c, err := d.reader.ReadByte()
+		if err != nil {
+			return err
 		}
-		return nil
-	case <-time.After(duration):
-		return nil
+		if c == magicNumber {
+			d.parsers = append(d.parsers, parsersPool.Get().(*Parser))
+		}
+		for i, parser := range d.parsers {
+			p, err := parser.parseChar(c)
+			if err != nil {
+				d.parsers[i] = d.parsers[len(d.parsers)-1]
+				d.parsers = d.parsers[:len(d.parsers)-1]
+				d.clearParser(parser)
+				continue
+			}
+			if p != nil {
+				packet.SeqID = p.SeqID
+				packet.SysID = p.SysID
+				packet.CompID = p.CompID
+				packet.MsgID = p.MsgID
+				packet.Checksum = p.Checksum
+				packet.Payload = append(packet.Payload[:0], p.Payload...)
+				d.clearParsers()
+				return nil
+			}
+		}
 	}
 }
 
-// DecodedChannel return channel with decoded packets (solution for getting decoded packets without timeouts)
-// Don't close this channel manually. For gentle closing use Stop() method
-func (d *Decoder) DecodedChannel() chan *Packet {
-	return d.decoded
-}
-
-// Stop make safely stop of decoder
-func (d *Decoder) Stop() {
-	close(d.data)
-}
-
-// NewChannelDecoder function create decoder instance with default dialect
-func NewChannelDecoder() *Decoder {
-	d := &Decoder{
-		data:    make(chan []byte, 256),
-		decoded: make(chan *Packet, 256),
+func byteReader(r io.Reader) io.ByteReader {
+	if rb, ok := r.(io.ByteReader); ok {
+		return rb
+	} else {
+		return bufio.NewReader(r)
 	}
-	go func() {
-		var parsers []*Parser
-		uniqueIndexesToDelete := map[int]*Parser{}
-		defer func() {
-			for index := range uniqueIndexesToDelete {
-				parsers[index].Reset()
-				parsersPool.Put(parsers[index])
-			}
-		}()
-		var indexesToDelete []int
-		for {
-			buffer, ok := <-d.data
-			if !ok {
-				close(d.decoded)
-				return
-			}
-			for _, c := range buffer {
-				if c == magicNumber {
-					parsers = append(parsers, parsersPool.Get().(*Parser))
-				}
+}
 
-				for i, parser := range parsers {
-					packet, err := parser.parseChar(c)
-					if err != nil {
-						uniqueIndexesToDelete[i] = parser
-						continue
-					}
-					if packet != nil {
-						d.decoded <- packet
-						for j := i; j >= 0; j-- {
-							uniqueIndexesToDelete[i] = parser
-						}
-						continue
-					}
-				}
-
-				if len(uniqueIndexesToDelete) != 0 {
-					for index := range uniqueIndexesToDelete {
-						indexesToDelete = append(indexesToDelete, index)
-						delete(uniqueIndexesToDelete, index)
-					}
-					if len(indexesToDelete) > 1 {
-						sort.Ints(indexesToDelete)
-					}
-					for i := len(indexesToDelete) - 1; i >= 0; i-- {
-						index := indexesToDelete[i]
-						parsers[index].Reset()
-						parsersPool.Put(parsers[index])
-						copy(parsers[index:], parsers[index+1:])
-						parsers[len(parsers)-1] = nil
-						parsers = parsers[:len(parsers)-1]
-					}
-					indexesToDelete = indexesToDelete[:0]
-				}
-			}
-		}
-	}()
-	return d
+// NewDecoder function create decoder instance with default dialect
+func NewDecoder(r io.Reader) *Decoder {
+	return &Decoder{
+		reader:  byteReader(r),
+		parsers: make([]*Parser, 0),
+	}
 }

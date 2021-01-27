@@ -52,6 +52,8 @@ func constantsTemplate() string {
 		")\n" +
 		"\n" +
 		"var (\n" +
+		"\t// ErrCastToPacket define\n" +
+		"\tErrCastToPacket = errors.New(\"cannot cast interface to Packet struct\")\n" +
 		"\t// ErrUnknownMsgID define\n" +
 		"\tErrUnknownMsgID = errors.New(\"unknown msg id\")\n" +
 		"\t// ErrCrcFail define\n" +
@@ -62,8 +64,6 @@ func constantsTemplate() string {
 		"\tErrNilPointerReference = errors.New(\"Nil pointer reference\")\n" +
 		"\t// currentSeqNum\n" +
 		"\tcurrentSeqNum uint8\n" +
-		"\t// dialects\n" +
-		"\tdialects DialectSlice = DialectSlice{ {{- .DialectName -}} }\n" +
 		")\n" +
 		""
 	return tmpl

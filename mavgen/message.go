@@ -33,6 +33,7 @@ func messageTemplate() string {
 		"\tUnpack(*Packet) error\n" +
 		"\tMsgID() MessageID\n" +
 		"\tMsgName() string\n" +
+		"\tCRCExtra() uint8\n" +
 		"}\n" +
 		""
 	return tmpl

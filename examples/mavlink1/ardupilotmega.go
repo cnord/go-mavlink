@@ -2452,6 +2452,11 @@ func (m *ArdupilotmegaSensorOffsets) MsgID() MessageID {
 	return MSG_ID_SENSOR_OFFSETS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSensorOffsets) CRCExtra() uint8 {
+	return 134
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSensorOffsets) MsgName() string {
 	return "SensorOffsets"
@@ -2518,6 +2523,11 @@ func (m *ArdupilotmegaSetMagOffsets) MsgID() MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetMagOffsets) CRCExtra() uint8 {
+	return 219
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
 	return "SetMagOffsets"
@@ -2567,6 +2577,11 @@ func (m *ArdupilotmegaMeminfo) MsgID() MessageID {
 	return MSG_ID_MEMINFO
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMeminfo) CRCExtra() uint8 {
+	return 208
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMeminfo) MsgName() string {
 	return "Meminfo"
@@ -2612,6 +2627,11 @@ func (m *ArdupilotmegaApAdc) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaApAdc) MsgID() MessageID {
 	return MSG_ID_AP_ADC
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaApAdc) CRCExtra() uint8 {
+	return 188
 }
 
 // MsgName (generated function)
@@ -2672,6 +2692,11 @@ func (m *ArdupilotmegaDigicamConfigure) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaDigicamConfigure) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONFIGURE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDigicamConfigure) CRCExtra() uint8 {
+	return 84
 }
 
 // MsgName (generated function)
@@ -2743,6 +2768,11 @@ func (m *ArdupilotmegaDigicamControl) MsgID() MessageID {
 	return MSG_ID_DIGICAM_CONTROL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDigicamControl) CRCExtra() uint8 {
+	return 22
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaDigicamControl) MsgName() string {
 	return "DigicamControl"
@@ -2806,6 +2836,11 @@ func (m *ArdupilotmegaMountConfigure) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMountConfigure) CRCExtra() uint8 {
+	return 19
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMountConfigure) MsgName() string {
 	return "MountConfigure"
@@ -2859,6 +2894,11 @@ func (m *ArdupilotmegaMountControl) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMountControl) MsgID() MessageID {
 	return MSG_ID_MOUNT_CONTROL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMountControl) CRCExtra() uint8 {
+	return 21
 }
 
 // MsgName (generated function)
@@ -2915,6 +2955,11 @@ func (m *ArdupilotmegaMountStatus) MsgID() MessageID {
 	return MSG_ID_MOUNT_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMountStatus) CRCExtra() uint8 {
+	return 134
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMountStatus) MsgName() string {
 	return "MountStatus"
@@ -2966,6 +3011,11 @@ func (m *ArdupilotmegaFencePoint) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaFencePoint) MsgID() MessageID {
 	return MSG_ID_FENCE_POINT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaFencePoint) CRCExtra() uint8 {
+	return 78
 }
 
 // MsgName (generated function)
@@ -3020,6 +3070,11 @@ func (m *ArdupilotmegaFenceFetchPoint) MsgID() MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaFenceFetchPoint) CRCExtra() uint8 {
+	return 68
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
 	return "FenceFetchPoint"
@@ -3068,6 +3123,11 @@ func (m *ArdupilotmegaAhrs) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAhrs) MsgID() MessageID {
 	return MSG_ID_AHRS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAhrs) CRCExtra() uint8 {
+	return 127
 }
 
 // MsgName (generated function)
@@ -3132,6 +3192,11 @@ func (m *ArdupilotmegaSimstate) MsgID() MessageID {
 	return MSG_ID_SIMSTATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSimstate) CRCExtra() uint8 {
+	return 154
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSimstate) MsgName() string {
 	return "Simstate"
@@ -3193,6 +3258,11 @@ func (m *ArdupilotmegaHwstatus) MsgID() MessageID {
 	return MSG_ID_HWSTATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHwstatus) CRCExtra() uint8 {
+	return 21
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHwstatus) MsgName() string {
 	return "Hwstatus"
@@ -3239,6 +3309,11 @@ func (m *ArdupilotmegaRadio) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRadio) MsgID() MessageID {
 	return MSG_ID_RADIO
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRadio) CRCExtra() uint8 {
+	return 21
 }
 
 // MsgName (generated function)
@@ -3301,6 +3376,11 @@ func (m *ArdupilotmegaLimitsStatus) MsgID() MessageID {
 	return MSG_ID_LIMITS_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLimitsStatus) CRCExtra() uint8 {
+	return 144
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLimitsStatus) MsgName() string {
 	return "LimitsStatus"
@@ -3359,6 +3439,11 @@ func (m *ArdupilotmegaWind) MsgID() MessageID {
 	return MSG_ID_WIND
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaWind) CRCExtra() uint8 {
+	return 1
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaWind) MsgName() string {
 	return "Wind"
@@ -3403,6 +3488,11 @@ func (m *ArdupilotmegaData16) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaData16) MsgID() MessageID {
 	return MSG_ID_DATA16
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaData16) CRCExtra() uint8 {
+	return 234
 }
 
 // MsgName (generated function)
@@ -3451,6 +3541,11 @@ func (m *ArdupilotmegaData32) MsgID() MessageID {
 	return MSG_ID_DATA32
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaData32) CRCExtra() uint8 {
+	return 73
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaData32) MsgName() string {
 	return "Data32"
@@ -3495,6 +3590,11 @@ func (m *ArdupilotmegaData64) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaData64) MsgID() MessageID {
 	return MSG_ID_DATA64
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaData64) CRCExtra() uint8 {
+	return 181
 }
 
 // MsgName (generated function)
@@ -3543,6 +3643,11 @@ func (m *ArdupilotmegaData96) MsgID() MessageID {
 	return MSG_ID_DATA96
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaData96) CRCExtra() uint8 {
+	return 22
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaData96) MsgName() string {
 	return "Data96"
@@ -3586,6 +3691,11 @@ func (m *ArdupilotmegaRangefinder) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRangefinder) MsgID() MessageID {
 	return MSG_ID_RANGEFINDER
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRangefinder) CRCExtra() uint8 {
+	return 83
 }
 
 // MsgName (generated function)
@@ -3639,6 +3749,11 @@ func (m *ArdupilotmegaAirspeedAutocal) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAirspeedAutocal) MsgID() MessageID {
 	return MSG_ID_AIRSPEED_AUTOCAL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAirspeedAutocal) CRCExtra() uint8 {
+	return 167
 }
 
 // MsgName (generated function)
@@ -3712,6 +3827,11 @@ func (m *ArdupilotmegaRallyPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_POINT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRallyPoint) CRCExtra() uint8 {
+	return 138
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRallyPoint) MsgName() string {
 	return "RallyPoint"
@@ -3772,6 +3892,11 @@ func (m *ArdupilotmegaRallyFetchPoint) MsgID() MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRallyFetchPoint) CRCExtra() uint8 {
+	return 234
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
 	return "RallyFetchPoint"
@@ -3819,6 +3944,11 @@ func (m *ArdupilotmegaCompassmotStatus) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaCompassmotStatus) MsgID() MessageID {
 	return MSG_ID_COMPASSMOT_STATUS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCompassmotStatus) CRCExtra() uint8 {
+	return 240
 }
 
 // MsgName (generated function)
@@ -3874,6 +4004,11 @@ func (m *ArdupilotmegaAhrs2) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAhrs2) MsgID() MessageID {
 	return MSG_ID_AHRS2
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAhrs2) CRCExtra() uint8 {
+	return 47
 }
 
 // MsgName (generated function)
@@ -3932,6 +4067,11 @@ func (m *ArdupilotmegaCameraStatus) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaCameraStatus) MsgID() MessageID {
 	return MSG_ID_CAMERA_STATUS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCameraStatus) CRCExtra() uint8 {
+	return 189
 }
 
 // MsgName (generated function)
@@ -4002,6 +4142,11 @@ func (m *ArdupilotmegaCameraFeedback) MsgID() MessageID {
 	return MSG_ID_CAMERA_FEEDBACK
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCameraFeedback) CRCExtra() uint8 {
+	return 52
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaCameraFeedback) MsgName() string {
 	return "CameraFeedback"
@@ -4067,6 +4212,11 @@ func (m *ArdupilotmegaBattery2) MsgID() MessageID {
 	return MSG_ID_BATTERY2
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaBattery2) CRCExtra() uint8 {
+	return 174
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaBattery2) MsgName() string {
 	return "Battery2"
@@ -4116,6 +4266,11 @@ func (m *ArdupilotmegaAhrs3) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAhrs3) MsgID() MessageID {
 	return MSG_ID_AHRS3
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAhrs3) CRCExtra() uint8 {
+	return 229
 }
 
 // MsgName (generated function)
@@ -4177,6 +4332,11 @@ func (m *ArdupilotmegaAutopilotVersionRequest) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAutopilotVersionRequest) CRCExtra() uint8 {
+	return 85
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
 	return "AutopilotVersionRequest"
@@ -4220,6 +4380,11 @@ func (m *ArdupilotmegaRemoteLogDataBlock) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRemoteLogDataBlock) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_DATA_BLOCK
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRemoteLogDataBlock) CRCExtra() uint8 {
+	return 159
 }
 
 // MsgName (generated function)
@@ -4271,6 +4436,11 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) MsgID() MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRemoteLogBlockStatus) CRCExtra() uint8 {
+	return 186
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
 	return "RemoteLogBlockStatus"
@@ -4320,6 +4490,11 @@ func (m *ArdupilotmegaLedControl) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaLedControl) MsgID() MessageID {
 	return MSG_ID_LED_CONTROL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLedControl) CRCExtra() uint8 {
+	return 72
 }
 
 // MsgName (generated function)
@@ -4378,6 +4553,11 @@ func (m *ArdupilotmegaMagCalProgress) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMagCalProgress) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_PROGRESS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMagCalProgress) CRCExtra() uint8 {
+	return 92
 }
 
 // MsgName (generated function)
@@ -4441,6 +4621,11 @@ func (m *ArdupilotmegaEkfStatusReport) MsgID() MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaEkfStatusReport) CRCExtra() uint8 {
+	return 71
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
 	return "EkfStatusReport"
@@ -4495,6 +4680,11 @@ func (m *ArdupilotmegaPidTuning) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaPidTuning) MsgID() MessageID {
 	return MSG_ID_PID_TUNING
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaPidTuning) CRCExtra() uint8 {
+	return 98
 }
 
 // MsgName (generated function)
@@ -4556,6 +4746,11 @@ func (m *ArdupilotmegaDeepstall) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaDeepstall) MsgID() MessageID {
 	return MSG_ID_DEEPSTALL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDeepstall) CRCExtra() uint8 {
+	return 120
 }
 
 // MsgName (generated function)
@@ -4627,6 +4822,11 @@ func (m *ArdupilotmegaGimbalReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_REPORT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGimbalReport) CRCExtra() uint8 {
+	return 134
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGimbalReport) MsgName() string {
 	return "GimbalReport"
@@ -4693,6 +4893,11 @@ func (m *ArdupilotmegaGimbalControl) MsgID() MessageID {
 	return MSG_ID_GIMBAL_CONTROL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGimbalControl) CRCExtra() uint8 {
+	return 205
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGimbalControl) MsgName() string {
 	return "GimbalControl"
@@ -4745,6 +4950,11 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgID() MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGimbalTorqueCmdReport) CRCExtra() uint8 {
+	return 69
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
 	return "GimbalTorqueCmdReport"
@@ -4795,6 +5005,11 @@ func (m *ArdupilotmegaGoproHeartbeat) MsgID() MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGoproHeartbeat) CRCExtra() uint8 {
+	return 101
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
 	return "GoproHeartbeat"
@@ -4841,6 +5056,11 @@ func (m *ArdupilotmegaGoproGetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGoproGetRequest) CRCExtra() uint8 {
+	return 50
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
 	return "GoproGetRequest"
@@ -4885,6 +5105,11 @@ func (m *ArdupilotmegaGoproGetResponse) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGoproGetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_GET_RESPONSE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGoproGetResponse) CRCExtra() uint8 {
+	return 202
 }
 
 // MsgName (generated function)
@@ -4934,6 +5159,11 @@ func (m *ArdupilotmegaGoproSetRequest) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGoproSetRequest) CRCExtra() uint8 {
+	return 17
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
 	return "GoproSetRequest"
@@ -4981,6 +5211,11 @@ func (m *ArdupilotmegaGoproSetResponse) MsgID() MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGoproSetResponse) CRCExtra() uint8 {
+	return 162
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
 	return "GoproSetResponse"
@@ -5022,6 +5257,11 @@ func (m *ArdupilotmegaRpm) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRpm) MsgID() MessageID {
 	return MSG_ID_RPM
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRpm) CRCExtra() uint8 {
+	return 207
 }
 
 // MsgName (generated function)
@@ -5076,6 +5316,11 @@ func (m *ArdupilotmegaSysStatus) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSysStatus) MsgID() MessageID {
 	return MSG_ID_SYS_STATUS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSysStatus) CRCExtra() uint8 {
+	return 124
 }
 
 // MsgName (generated function)
@@ -5143,6 +5388,11 @@ func (m *ArdupilotmegaSystemTime) MsgID() MessageID {
 	return MSG_ID_SYSTEM_TIME
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSystemTime) CRCExtra() uint8 {
+	return 137
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSystemTime) MsgName() string {
 	return "SystemTime"
@@ -5186,6 +5436,11 @@ func (m *ArdupilotmegaPing) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaPing) MsgID() MessageID {
 	return MSG_ID_PING
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaPing) CRCExtra() uint8 {
+	return 237
 }
 
 // MsgName (generated function)
@@ -5237,6 +5492,11 @@ func (m *ArdupilotmegaChangeOperatorControl) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaChangeOperatorControl) CRCExtra() uint8 {
+	return 217
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaChangeOperatorControl) MsgName() string {
 	return "ChangeOperatorControl"
@@ -5285,6 +5545,11 @@ func (m *ArdupilotmegaChangeOperatorControlAck) MsgID() MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaChangeOperatorControlAck) CRCExtra() uint8 {
+	return 104
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaChangeOperatorControlAck) MsgName() string {
 	return "ChangeOperatorControlAck"
@@ -5327,6 +5592,11 @@ func (m *ArdupilotmegaAuthKey) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAuthKey) MsgID() MessageID {
 	return MSG_ID_AUTH_KEY
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAuthKey) CRCExtra() uint8 {
+	return 119
 }
 
 // MsgName (generated function)
@@ -5377,6 +5647,11 @@ func (m *ArdupilotmegaLinkNodeStatus) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaLinkNodeStatus) MsgID() MessageID {
 	return MSG_ID_LINK_NODE_STATUS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLinkNodeStatus) CRCExtra() uint8 {
+	return 117
 }
 
 // MsgName (generated function)
@@ -5441,6 +5716,11 @@ func (m *ArdupilotmegaSetMode) MsgID() MessageID {
 	return MSG_ID_SET_MODE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetMode) CRCExtra() uint8 {
+	return 89
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSetMode) MsgName() string {
 	return "SetMode"
@@ -5488,6 +5768,11 @@ func (m *ArdupilotmegaParamAckTransaction) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaParamAckTransaction) MsgID() MessageID {
 	return MSG_ID_PARAM_ACK_TRANSACTION
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamAckTransaction) CRCExtra() uint8 {
+	return 137
 }
 
 // MsgName (generated function)
@@ -5543,6 +5828,11 @@ func (m *ArdupilotmegaParamRequestRead) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamRequestRead) CRCExtra() uint8 {
+	return 214
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaParamRequestRead) MsgName() string {
 	return "ParamRequestRead"
@@ -5590,6 +5880,11 @@ func (m *ArdupilotmegaParamRequestList) MsgID() MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamRequestList) CRCExtra() uint8 {
+	return 159
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaParamRequestList) MsgName() string {
 	return "ParamRequestList"
@@ -5634,6 +5929,11 @@ func (m *ArdupilotmegaParamValue) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaParamValue) MsgID() MessageID {
 	return MSG_ID_PARAM_VALUE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamValue) CRCExtra() uint8 {
+	return 220
 }
 
 // MsgName (generated function)
@@ -5688,6 +5988,11 @@ func (m *ArdupilotmegaParamSet) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaParamSet) MsgID() MessageID {
 	return MSG_ID_PARAM_SET
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamSet) CRCExtra() uint8 {
+	return 168
 }
 
 // MsgName (generated function)
@@ -5746,6 +6051,11 @@ func (m *ArdupilotmegaGpsRawInt) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsRawInt) MsgID() MessageID {
 	return MSG_ID_GPS_RAW_INT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsRawInt) CRCExtra() uint8 {
+	return 24
 }
 
 // MsgName (generated function)
@@ -5811,6 +6121,11 @@ func (m *ArdupilotmegaGpsStatus) MsgID() MessageID {
 	return MSG_ID_GPS_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsStatus) CRCExtra() uint8 {
+	return 23
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsStatus) MsgName() string {
 	return "GpsStatus"
@@ -5868,6 +6183,11 @@ func (m *ArdupilotmegaScaledImu) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledImu) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledImu) CRCExtra() uint8 {
+	return 170
 }
 
 // MsgName (generated function)
@@ -5937,6 +6257,11 @@ func (m *ArdupilotmegaRawImu) MsgID() MessageID {
 	return MSG_ID_RAW_IMU
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRawImu) CRCExtra() uint8 {
+	return 144
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRawImu) MsgName() string {
 	return "RawImu"
@@ -5999,6 +6324,11 @@ func (m *ArdupilotmegaRawPressure) MsgID() MessageID {
 	return MSG_ID_RAW_PRESSURE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRawPressure) CRCExtra() uint8 {
+	return 67
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRawPressure) MsgName() string {
 	return "RawPressure"
@@ -6048,6 +6378,11 @@ func (m *ArdupilotmegaScaledPressure) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledPressure) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledPressure) CRCExtra() uint8 {
+	return 115
 }
 
 // MsgName (generated function)
@@ -6100,6 +6435,11 @@ func (m *ArdupilotmegaAttitude) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAttitude) MsgID() MessageID {
 	return MSG_ID_ATTITUDE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAttitude) CRCExtra() uint8 {
+	return 39
 }
 
 // MsgName (generated function)
@@ -6159,6 +6499,11 @@ func (m *ArdupilotmegaAttitudeQuaternion) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAttitudeQuaternion) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAttitudeQuaternion) CRCExtra() uint8 {
+	return 246
 }
 
 // MsgName (generated function)
@@ -6221,6 +6566,11 @@ func (m *ArdupilotmegaLocalPositionNed) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLocalPositionNed) CRCExtra() uint8 {
+	return 185
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLocalPositionNed) MsgName() string {
 	return "LocalPositionNed"
@@ -6280,6 +6630,11 @@ func (m *ArdupilotmegaGlobalPositionInt) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGlobalPositionInt) MsgID() MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGlobalPositionInt) CRCExtra() uint8 {
+	return 104
 }
 
 // MsgName (generated function)
@@ -6346,6 +6701,11 @@ func (m *ArdupilotmegaRcChannelsScaled) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRcChannelsScaled) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_SCALED
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRcChannelsScaled) CRCExtra() uint8 {
+	return 237
 }
 
 // MsgName (generated function)
@@ -6418,6 +6778,11 @@ func (m *ArdupilotmegaRcChannelsRaw) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRcChannelsRaw) CRCExtra() uint8 {
+	return 244
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRcChannelsRaw) MsgName() string {
 	return "RcChannelsRaw"
@@ -6487,6 +6852,11 @@ func (m *ArdupilotmegaServoOutputRaw) MsgID() MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaServoOutputRaw) CRCExtra() uint8 {
+	return 222
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaServoOutputRaw) MsgName() string {
 	return "ServoOutputRaw"
@@ -6548,6 +6918,11 @@ func (m *ArdupilotmegaMissionRequestPartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionRequestPartialList) CRCExtra() uint8 {
+	return 212
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionRequestPartialList) MsgName() string {
 	return "MissionRequestPartialList"
@@ -6595,6 +6970,11 @@ func (m *ArdupilotmegaMissionWritePartialList) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionWritePartialList) MsgID() MessageID {
 	return MSG_ID_MISSION_WRITE_PARTIAL_LIST
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionWritePartialList) CRCExtra() uint8 {
+	return 9
 }
 
 // MsgName (generated function)
@@ -6655,6 +7035,11 @@ func (m *ArdupilotmegaMissionItem) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionItem) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionItem) CRCExtra() uint8 {
+	return 254
 }
 
 // MsgName (generated function)
@@ -6725,6 +7110,11 @@ func (m *ArdupilotmegaMissionRequest) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionRequest) CRCExtra() uint8 {
+	return 230
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionRequest) MsgName() string {
 	return "MissionRequest"
@@ -6771,6 +7161,11 @@ func (m *ArdupilotmegaMissionSetCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionSetCurrent) CRCExtra() uint8 {
+	return 28
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionSetCurrent) MsgName() string {
 	return "MissionSetCurrent"
@@ -6815,6 +7210,11 @@ func (m *ArdupilotmegaMissionCurrent) MsgID() MessageID {
 	return MSG_ID_MISSION_CURRENT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionCurrent) CRCExtra() uint8 {
+	return 28
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionCurrent) MsgName() string {
 	return "MissionCurrent"
@@ -6854,6 +7254,11 @@ func (m *ArdupilotmegaMissionRequestList) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionRequestList) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_LIST
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionRequestList) CRCExtra() uint8 {
+	return 132
 }
 
 // MsgName (generated function)
@@ -6898,6 +7303,11 @@ func (m *ArdupilotmegaMissionCount) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionCount) MsgID() MessageID {
 	return MSG_ID_MISSION_COUNT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionCount) CRCExtra() uint8 {
+	return 221
 }
 
 // MsgName (generated function)
@@ -6945,6 +7355,11 @@ func (m *ArdupilotmegaMissionClearAll) MsgID() MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionClearAll) CRCExtra() uint8 {
+	return 232
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionClearAll) MsgName() string {
 	return "MissionClearAll"
@@ -6987,6 +7402,11 @@ func (m *ArdupilotmegaMissionItemReached) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionItemReached) CRCExtra() uint8 {
+	return 11
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionItemReached) MsgName() string {
 	return "MissionItemReached"
@@ -7027,6 +7447,11 @@ func (m *ArdupilotmegaMissionAck) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionAck) MsgID() MessageID {
 	return MSG_ID_MISSION_ACK
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionAck) CRCExtra() uint8 {
+	return 153
 }
 
 // MsgName (generated function)
@@ -7076,6 +7501,11 @@ func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetGpsGlobalOrigin) CRCExtra() uint8 {
+	return 41
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSetGpsGlobalOrigin) MsgName() string {
 	return "SetGpsGlobalOrigin"
@@ -7122,6 +7552,11 @@ func (m *ArdupilotmegaGpsGlobalOrigin) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsGlobalOrigin) MsgID() MessageID {
 	return MSG_ID_GPS_GLOBAL_ORIGIN
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsGlobalOrigin) CRCExtra() uint8 {
+	return 39
 }
 
 // MsgName (generated function)
@@ -7174,6 +7609,11 @@ func (m *ArdupilotmegaParamMapRc) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaParamMapRc) MsgID() MessageID {
 	return MSG_ID_PARAM_MAP_RC
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaParamMapRc) CRCExtra() uint8 {
+	return 78
 }
 
 // MsgName (generated function)
@@ -7234,6 +7674,11 @@ func (m *ArdupilotmegaMissionRequestInt) MsgID() MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionRequestInt) CRCExtra() uint8 {
+	return 196
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionRequestInt) MsgName() string {
 	return "MissionRequestInt"
@@ -7280,6 +7725,11 @@ func (m *ArdupilotmegaMissionChanged) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMissionChanged) MsgID() MessageID {
 	return MSG_ID_MISSION_CHANGED
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionChanged) CRCExtra() uint8 {
+	return 132
 }
 
 // MsgName (generated function)
@@ -7336,6 +7786,11 @@ func (m *ArdupilotmegaSafetySetAllowedArea) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSafetySetAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_SET_ALLOWED_AREA
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSafetySetAllowedArea) CRCExtra() uint8 {
+	return 15
 }
 
 // MsgName (generated function)
@@ -7400,6 +7855,11 @@ func (m *ArdupilotmegaSafetyAllowedArea) MsgID() MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSafetyAllowedArea) CRCExtra() uint8 {
+	return 3
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSafetyAllowedArea) MsgName() string {
 	return "SafetyAllowedArea"
@@ -7455,6 +7915,11 @@ func (m *ArdupilotmegaAttitudeQuaternionCov) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAttitudeQuaternionCov) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION_COV
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAttitudeQuaternionCov) CRCExtra() uint8 {
+	return 167
 }
 
 // MsgName (generated function)
@@ -7522,6 +7987,11 @@ func (m *ArdupilotmegaNavControllerOutput) MsgID() MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaNavControllerOutput) CRCExtra() uint8 {
+	return 183
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaNavControllerOutput) MsgName() string {
 	return "NavControllerOutput"
@@ -7583,6 +8053,11 @@ func (m *ArdupilotmegaGlobalPositionIntCov) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGlobalPositionIntCov) MsgID() MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT_COV
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGlobalPositionIntCov) CRCExtra() uint8 {
+	return 119
 }
 
 // MsgName (generated function)
@@ -7656,6 +8131,11 @@ func (m *ArdupilotmegaLocalPositionNedCov) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaLocalPositionNedCov) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_COV
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLocalPositionNedCov) CRCExtra() uint8 {
+	return 191
 }
 
 // MsgName (generated function)
@@ -7744,6 +8224,11 @@ func (m *ArdupilotmegaRcChannels) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRcChannels) CRCExtra() uint8 {
+	return 118
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRcChannels) MsgName() string {
 	return "RcChannels"
@@ -7828,6 +8313,11 @@ func (m *ArdupilotmegaRequestDataStream) MsgID() MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRequestDataStream) CRCExtra() uint8 {
+	return 148
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRequestDataStream) MsgName() string {
 	return "RequestDataStream"
@@ -7878,6 +8368,11 @@ func (m *ArdupilotmegaDataStream) MsgID() MessageID {
 	return MSG_ID_DATA_STREAM
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDataStream) CRCExtra() uint8 {
+	return 21
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaDataStream) MsgName() string {
 	return "DataStream"
@@ -7925,6 +8420,11 @@ func (m *ArdupilotmegaManualControl) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaManualControl) MsgID() MessageID {
 	return MSG_ID_MANUAL_CONTROL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaManualControl) CRCExtra() uint8 {
+	return 243
 }
 
 // MsgName (generated function)
@@ -7984,6 +8484,11 @@ func (m *ArdupilotmegaRcChannelsOverride) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaRcChannelsOverride) MsgID() MessageID {
 	return MSG_ID_RC_CHANNELS_OVERRIDE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRcChannelsOverride) CRCExtra() uint8 {
+	return 124
 }
 
 // MsgName (generated function)
@@ -8058,6 +8563,11 @@ func (m *ArdupilotmegaMissionItemInt) MsgID() MessageID {
 	return MSG_ID_MISSION_ITEM_INT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMissionItemInt) CRCExtra() uint8 {
+	return 38
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMissionItemInt) MsgName() string {
 	return "MissionItemInt"
@@ -8129,6 +8639,11 @@ func (m *ArdupilotmegaVfrHud) MsgID() MessageID {
 	return MSG_ID_VFR_HUD
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaVfrHud) CRCExtra() uint8 {
+	return 20
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaVfrHud) MsgName() string {
 	return "VfrHud"
@@ -8189,6 +8704,11 @@ func (m *ArdupilotmegaCommandInt) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaCommandInt) MsgID() MessageID {
 	return MSG_ID_COMMAND_INT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCommandInt) CRCExtra() uint8 {
+	return 158
 }
 
 // MsgName (generated function)
@@ -8265,6 +8785,11 @@ func (m *ArdupilotmegaCommandLong) MsgID() MessageID {
 	return MSG_ID_COMMAND_LONG
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCommandLong) CRCExtra() uint8 {
+	return 152
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaCommandLong) MsgName() string {
 	return "CommandLong"
@@ -8326,6 +8851,11 @@ func (m *ArdupilotmegaCommandAck) MsgID() MessageID {
 	return MSG_ID_COMMAND_ACK
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCommandAck) CRCExtra() uint8 {
+	return 143
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaCommandAck) MsgName() string {
 	return "CommandAck"
@@ -8368,6 +8898,11 @@ func (m *ArdupilotmegaCommandCancel) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaCommandCancel) MsgID() MessageID {
 	return MSG_ID_COMMAND_CANCEL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCommandCancel) CRCExtra() uint8 {
+	return 14
 }
 
 // MsgName (generated function)
@@ -8418,6 +8953,11 @@ func (m *ArdupilotmegaManualSetpoint) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaManualSetpoint) MsgID() MessageID {
 	return MSG_ID_MANUAL_SETPOINT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaManualSetpoint) CRCExtra() uint8 {
+	return 106
 }
 
 // MsgName (generated function)
@@ -8478,6 +9018,11 @@ func (m *ArdupilotmegaSetAttitudeTarget) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSetAttitudeTarget) MsgID() MessageID {
 	return MSG_ID_SET_ATTITUDE_TARGET
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetAttitudeTarget) CRCExtra() uint8 {
+	return 49
 }
 
 // MsgName (generated function)
@@ -8544,6 +9089,11 @@ func (m *ArdupilotmegaAttitudeTarget) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAttitudeTarget) MsgID() MessageID {
 	return MSG_ID_ATTITUDE_TARGET
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAttitudeTarget) CRCExtra() uint8 {
+	return 22
 }
 
 // MsgName (generated function)
@@ -8615,6 +9165,11 @@ func (m *ArdupilotmegaSetPositionTargetLocalNed) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSetPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_SET_POSITION_TARGET_LOCAL_NED
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetPositionTargetLocalNed) CRCExtra() uint8 {
+	return 143
 }
 
 // MsgName (generated function)
@@ -8700,6 +9255,11 @@ func (m *ArdupilotmegaPositionTargetLocalNed) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaPositionTargetLocalNed) CRCExtra() uint8 {
+	return 140
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaPositionTargetLocalNed) MsgName() string {
 	return "PositionTargetLocalNed"
@@ -8779,6 +9339,11 @@ func (m *ArdupilotmegaSetPositionTargetGlobalInt) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSetPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_SET_POSITION_TARGET_GLOBAL_INT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetPositionTargetGlobalInt) CRCExtra() uint8 {
+	return 5
 }
 
 // MsgName (generated function)
@@ -8864,6 +9429,11 @@ func (m *ArdupilotmegaPositionTargetGlobalInt) MsgID() MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaPositionTargetGlobalInt) CRCExtra() uint8 {
+	return 150
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaPositionTargetGlobalInt) MsgName() string {
 	return "PositionTargetGlobalInt"
@@ -8936,6 +9506,11 @@ func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgID() MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) CRCExtra() uint8 {
+	return 231
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLocalPositionNedSystemGlobalOffset) MsgName() string {
 	return "LocalPositionNedSystemGlobalOffset"
@@ -9001,6 +9576,11 @@ func (m *ArdupilotmegaHilState) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHilState) MsgID() MessageID {
 	return MSG_ID_HIL_STATE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilState) CRCExtra() uint8 {
+	return 183
 }
 
 // MsgName (generated function)
@@ -9083,6 +9663,11 @@ func (m *ArdupilotmegaHilControls) MsgID() MessageID {
 	return MSG_ID_HIL_CONTROLS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilControls) CRCExtra() uint8 {
+	return 63
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHilControls) MsgName() string {
 	return "HilControls"
@@ -9156,6 +9741,11 @@ func (m *ArdupilotmegaHilRcInputsRaw) MsgID() MessageID {
 	return MSG_ID_HIL_RC_INPUTS_RAW
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilRcInputsRaw) CRCExtra() uint8 {
+	return 54
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHilRcInputsRaw) MsgName() string {
 	return "HilRcInputsRaw"
@@ -9225,6 +9815,11 @@ func (m *ArdupilotmegaHilActuatorControls) MsgID() MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilActuatorControls) CRCExtra() uint8 {
+	return 47
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHilActuatorControls) MsgName() string {
 	return "HilActuatorControls"
@@ -9280,6 +9875,11 @@ func (m *ArdupilotmegaOpticalFlow) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaOpticalFlow) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaOpticalFlow) CRCExtra() uint8 {
+	return 175
 }
 
 // MsgName (generated function)
@@ -9342,6 +9942,11 @@ func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGlobalVisionPositionEstimate) CRCExtra() uint8 {
+	return 102
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGlobalVisionPositionEstimate) MsgName() string {
 	return "GlobalVisionPositionEstimate"
@@ -9400,6 +10005,11 @@ func (m *ArdupilotmegaVisionPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaVisionPositionEstimate) CRCExtra() uint8 {
+	return 158
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaVisionPositionEstimate) MsgName() string {
 	return "VisionPositionEstimate"
@@ -9455,6 +10065,11 @@ func (m *ArdupilotmegaVisionSpeedEstimate) MsgID() MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaVisionSpeedEstimate) CRCExtra() uint8 {
+	return 208
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaVisionSpeedEstimate) MsgName() string {
 	return "VisionSpeedEstimate"
@@ -9505,6 +10120,11 @@ func (m *ArdupilotmegaViconPositionEstimate) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaViconPositionEstimate) MsgID() MessageID {
 	return MSG_ID_VICON_POSITION_ESTIMATE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaViconPositionEstimate) CRCExtra() uint8 {
+	return 56
 }
 
 // MsgName (generated function)
@@ -9571,6 +10191,11 @@ func (m *ArdupilotmegaHighresImu) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHighresImu) MsgID() MessageID {
 	return MSG_ID_HIGHRES_IMU
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHighresImu) CRCExtra() uint8 {
+	return 93
 }
 
 // MsgName (generated function)
@@ -9652,6 +10277,11 @@ func (m *ArdupilotmegaOpticalFlowRad) MsgID() MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaOpticalFlowRad) CRCExtra() uint8 {
+	return 138
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaOpticalFlowRad) MsgName() string {
 	return "OpticalFlowRad"
@@ -9726,6 +10356,11 @@ func (m *ArdupilotmegaHilSensor) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHilSensor) MsgID() MessageID {
 	return MSG_ID_HIL_SENSOR
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilSensor) CRCExtra() uint8 {
+	return 108
 }
 
 // MsgName (generated function)
@@ -9816,6 +10451,11 @@ func (m *ArdupilotmegaSimState) MsgID() MessageID {
 	return MSG_ID_SIM_STATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSimState) CRCExtra() uint8 {
+	return 32
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSimState) MsgName() string {
 	return "SimState"
@@ -9902,6 +10542,11 @@ func (m *ArdupilotmegaRadioStatus) MsgID() MessageID {
 	return MSG_ID_RADIO_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaRadioStatus) CRCExtra() uint8 {
+	return 185
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaRadioStatus) MsgName() string {
 	return "RadioStatus"
@@ -9957,6 +10602,11 @@ func (m *ArdupilotmegaFileTransferProtocol) MsgID() MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaFileTransferProtocol) CRCExtra() uint8 {
+	return 84
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaFileTransferProtocol) MsgName() string {
 	return "FileTransferProtocol"
@@ -10004,6 +10654,11 @@ func (m *ArdupilotmegaTimesync) MsgID() MessageID {
 	return MSG_ID_TIMESYNC
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaTimesync) CRCExtra() uint8 {
+	return 34
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaTimesync) MsgName() string {
 	return "Timesync"
@@ -10045,6 +10700,11 @@ func (m *ArdupilotmegaCameraTrigger) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaCameraTrigger) MsgID() MessageID {
 	return MSG_ID_CAMERA_TRIGGER
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCameraTrigger) CRCExtra() uint8 {
+	return 174
 }
 
 // MsgName (generated function)
@@ -10100,6 +10760,11 @@ func (m *ArdupilotmegaHilGps) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHilGps) MsgID() MessageID {
 	return MSG_ID_HIL_GPS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilGps) CRCExtra() uint8 {
+	return 124
 }
 
 // MsgName (generated function)
@@ -10177,6 +10842,11 @@ func (m *ArdupilotmegaHilOpticalFlow) MsgID() MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilOpticalFlow) CRCExtra() uint8 {
+	return 237
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHilOpticalFlow) MsgName() string {
 	return "HilOpticalFlow"
@@ -10252,6 +10922,11 @@ func (m *ArdupilotmegaHilStateQuaternion) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHilStateQuaternion) MsgID() MessageID {
 	return MSG_ID_HIL_STATE_QUATERNION
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHilStateQuaternion) CRCExtra() uint8 {
+	return 4
 }
 
 // MsgName (generated function)
@@ -10337,6 +11012,11 @@ func (m *ArdupilotmegaScaledImu2) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU2
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledImu2) CRCExtra() uint8 {
+	return 76
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledImu2) MsgName() string {
 	return "ScaledImu2"
@@ -10398,6 +11078,11 @@ func (m *ArdupilotmegaLogRequestList) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogRequestList) CRCExtra() uint8 {
+	return 128
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLogRequestList) MsgName() string {
 	return "LogRequestList"
@@ -10446,6 +11131,11 @@ func (m *ArdupilotmegaLogEntry) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaLogEntry) MsgID() MessageID {
 	return MSG_ID_LOG_ENTRY
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogEntry) CRCExtra() uint8 {
+	return 56
 }
 
 // MsgName (generated function)
@@ -10500,6 +11190,11 @@ func (m *ArdupilotmegaLogRequestData) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogRequestData) CRCExtra() uint8 {
+	return 116
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLogRequestData) MsgName() string {
 	return "LogRequestData"
@@ -10551,6 +11246,11 @@ func (m *ArdupilotmegaLogData) MsgID() MessageID {
 	return MSG_ID_LOG_DATA
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogData) CRCExtra() uint8 {
+	return 134
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLogData) MsgName() string {
 	return "LogData"
@@ -10598,6 +11298,11 @@ func (m *ArdupilotmegaLogErase) MsgID() MessageID {
 	return MSG_ID_LOG_ERASE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogErase) CRCExtra() uint8 {
+	return 237
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLogErase) MsgName() string {
 	return "LogErase"
@@ -10639,6 +11344,11 @@ func (m *ArdupilotmegaLogRequestEnd) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaLogRequestEnd) MsgID() MessageID {
 	return MSG_ID_LOG_REQUEST_END
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLogRequestEnd) CRCExtra() uint8 {
+	return 203
 }
 
 // MsgName (generated function)
@@ -10684,6 +11394,11 @@ func (m *ArdupilotmegaGpsInjectData) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsInjectData) MsgID() MessageID {
 	return MSG_ID_GPS_INJECT_DATA
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsInjectData) CRCExtra() uint8 {
+	return 250
 }
 
 // MsgName (generated function)
@@ -10741,6 +11456,11 @@ func (m *ArdupilotmegaGps2Raw) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGps2Raw) MsgID() MessageID {
 	return MSG_ID_GPS2_RAW
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGps2Raw) CRCExtra() uint8 {
+	return 87
 }
 
 // MsgName (generated function)
@@ -10807,6 +11527,11 @@ func (m *ArdupilotmegaPowerStatus) MsgID() MessageID {
 	return MSG_ID_POWER_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaPowerStatus) CRCExtra() uint8 {
+	return 203
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaPowerStatus) MsgName() string {
 	return "PowerStatus"
@@ -10854,6 +11579,11 @@ func (m *ArdupilotmegaSerialControl) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaSerialControl) MsgID() MessageID {
 	return MSG_ID_SERIAL_CONTROL
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSerialControl) CRCExtra() uint8 {
+	return 220
 }
 
 // MsgName (generated function)
@@ -10916,6 +11646,11 @@ func (m *ArdupilotmegaGpsRtk) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsRtk) MsgID() MessageID {
 	return MSG_ID_GPS_RTK
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsRtk) CRCExtra() uint8 {
+	return 25
 }
 
 // MsgName (generated function)
@@ -10994,6 +11729,11 @@ func (m *ArdupilotmegaGps2Rtk) MsgID() MessageID {
 	return MSG_ID_GPS2_RTK
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGps2Rtk) CRCExtra() uint8 {
+	return 226
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGps2Rtk) MsgName() string {
 	return "Gps2Rtk"
@@ -11067,6 +11807,11 @@ func (m *ArdupilotmegaScaledImu3) MsgID() MessageID {
 	return MSG_ID_SCALED_IMU3
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledImu3) CRCExtra() uint8 {
+	return 46
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledImu3) MsgName() string {
 	return "ScaledImu3"
@@ -11131,6 +11876,11 @@ func (m *ArdupilotmegaDataTransmissionHandshake) MsgID() MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDataTransmissionHandshake) CRCExtra() uint8 {
+	return 29
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaDataTransmissionHandshake) MsgName() string {
 	return "DataTransmissionHandshake"
@@ -11184,6 +11934,11 @@ func (m *ArdupilotmegaEncapsulatedData) MsgID() MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaEncapsulatedData) CRCExtra() uint8 {
+	return 223
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaEncapsulatedData) MsgName() string {
 	return "EncapsulatedData"
@@ -11231,6 +11986,11 @@ func (m *ArdupilotmegaDistanceSensor) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaDistanceSensor) MsgID() MessageID {
 	return MSG_ID_DISTANCE_SENSOR
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDistanceSensor) CRCExtra() uint8 {
+	return 85
 }
 
 // MsgName (generated function)
@@ -11290,6 +12050,11 @@ func (m *ArdupilotmegaTerrainRequest) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaTerrainRequest) CRCExtra() uint8 {
+	return 6
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaTerrainRequest) MsgName() string {
 	return "TerrainRequest"
@@ -11338,6 +12103,11 @@ func (m *ArdupilotmegaTerrainData) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaTerrainData) MsgID() MessageID {
 	return MSG_ID_TERRAIN_DATA
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaTerrainData) CRCExtra() uint8 {
+	return 229
 }
 
 // MsgName (generated function)
@@ -11393,6 +12163,11 @@ func (m *ArdupilotmegaTerrainCheck) MsgID() MessageID {
 	return MSG_ID_TERRAIN_CHECK
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaTerrainCheck) CRCExtra() uint8 {
+	return 203
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaTerrainCheck) MsgName() string {
 	return "TerrainCheck"
@@ -11439,6 +12214,11 @@ func (m *ArdupilotmegaTerrainReport) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaTerrainReport) MsgID() MessageID {
 	return MSG_ID_TERRAIN_REPORT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaTerrainReport) CRCExtra() uint8 {
+	return 1
 }
 
 // MsgName (generated function)
@@ -11496,6 +12276,11 @@ func (m *ArdupilotmegaScaledPressure2) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE2
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledPressure2) CRCExtra() uint8 {
+	return 195
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaScaledPressure2) MsgName() string {
 	return "ScaledPressure2"
@@ -11544,6 +12329,11 @@ func (m *ArdupilotmegaAttPosMocap) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAttPosMocap) MsgID() MessageID {
 	return MSG_ID_ATT_POS_MOCAP
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAttPosMocap) CRCExtra() uint8 {
+	return 109
 }
 
 // MsgName (generated function)
@@ -11602,6 +12392,11 @@ func (m *ArdupilotmegaSetActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetActuatorControlTarget) CRCExtra() uint8 {
+	return 168
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSetActuatorControlTarget) MsgName() string {
 	return "SetActuatorControlTarget"
@@ -11656,6 +12451,11 @@ func (m *ArdupilotmegaActuatorControlTarget) MsgID() MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaActuatorControlTarget) CRCExtra() uint8 {
+	return 181
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaActuatorControlTarget) MsgName() string {
 	return "ActuatorControlTarget"
@@ -11708,6 +12508,11 @@ func (m *ArdupilotmegaAltitude) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAltitude) MsgID() MessageID {
 	return MSG_ID_ALTITUDE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAltitude) CRCExtra() uint8 {
+	return 47
 }
 
 // MsgName (generated function)
@@ -11766,6 +12571,11 @@ func (m *ArdupilotmegaResourceRequest) MsgID() MessageID {
 	return MSG_ID_RESOURCE_REQUEST
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaResourceRequest) CRCExtra() uint8 {
+	return 72
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaResourceRequest) MsgName() string {
 	return "ResourceRequest"
@@ -11815,6 +12625,11 @@ func (m *ArdupilotmegaScaledPressure3) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaScaledPressure3) MsgID() MessageID {
 	return MSG_ID_SCALED_PRESSURE3
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaScaledPressure3) CRCExtra() uint8 {
+	return 131
 }
 
 // MsgName (generated function)
@@ -11871,6 +12686,11 @@ func (m *ArdupilotmegaFollowTarget) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaFollowTarget) MsgID() MessageID {
 	return MSG_ID_FOLLOW_TARGET
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaFollowTarget) CRCExtra() uint8 {
+	return 127
 }
 
 // MsgName (generated function)
@@ -11969,6 +12789,11 @@ func (m *ArdupilotmegaControlSystemState) MsgID() MessageID {
 	return MSG_ID_CONTROL_SYSTEM_STATE
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaControlSystemState) CRCExtra() uint8 {
+	return 103
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaControlSystemState) MsgName() string {
 	return "ControlSystemState"
@@ -12061,6 +12886,11 @@ func (m *ArdupilotmegaBatteryStatus) MsgID() MessageID {
 	return MSG_ID_BATTERY_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaBatteryStatus) CRCExtra() uint8 {
+	return 154
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaBatteryStatus) MsgName() string {
 	return "BatteryStatus"
@@ -12131,6 +12961,11 @@ func (m *ArdupilotmegaAutopilotVersion) MsgID() MessageID {
 	return MSG_ID_AUTOPILOT_VERSION
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAutopilotVersion) CRCExtra() uint8 {
+	return 178
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaAutopilotVersion) MsgName() string {
 	return "AutopilotVersion"
@@ -12198,6 +13033,11 @@ func (m *ArdupilotmegaLandingTarget) MsgID() MessageID {
 	return MSG_ID_LANDING_TARGET
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaLandingTarget) CRCExtra() uint8 {
+	return 200
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaLandingTarget) MsgName() string {
 	return "LandingTarget"
@@ -12253,6 +13093,11 @@ func (m *ArdupilotmegaFenceStatus) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaFenceStatus) MsgID() MessageID {
 	return MSG_ID_FENCE_STATUS
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaFenceStatus) CRCExtra() uint8 {
+	return 189
 }
 
 // MsgName (generated function)
@@ -12312,6 +13157,11 @@ func (m *ArdupilotmegaMagCalReport) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMagCalReport) MsgID() MessageID {
 	return MSG_ID_MAG_CAL_REPORT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMagCalReport) CRCExtra() uint8 {
+	return 36
 }
 
 // MsgName (generated function)
@@ -12396,6 +13246,11 @@ func (m *ArdupilotmegaEfiStatus) MsgID() MessageID {
 	return MSG_ID_EFI_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaEfiStatus) CRCExtra() uint8 {
+	return 208
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaEfiStatus) MsgName() string {
 	return "EfiStatus"
@@ -12477,6 +13332,11 @@ func (m *ArdupilotmegaEstimatorStatus) MsgID() MessageID {
 	return MSG_ID_ESTIMATOR_STATUS
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaEstimatorStatus) CRCExtra() uint8 {
+	return 163
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaEstimatorStatus) MsgName() string {
 	return "EstimatorStatus"
@@ -12541,6 +13401,11 @@ func (m *ArdupilotmegaWindCov) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaWindCov) MsgID() MessageID {
 	return MSG_ID_WIND_COV
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaWindCov) CRCExtra() uint8 {
+	return 105
 }
 
 // MsgName (generated function)
@@ -12614,6 +13479,11 @@ func (m *ArdupilotmegaGpsInput) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaGpsInput) MsgID() MessageID {
 	return MSG_ID_GPS_INPUT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsInput) CRCExtra() uint8 {
+	return 151
 }
 
 // MsgName (generated function)
@@ -12692,6 +13562,11 @@ func (m *ArdupilotmegaGpsRtcmData) MsgID() MessageID {
 	return MSG_ID_GPS_RTCM_DATA
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaGpsRtcmData) CRCExtra() uint8 {
+	return 35
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaGpsRtcmData) MsgName() string {
 	return "GpsRtcmData"
@@ -12757,6 +13632,11 @@ func (m *ArdupilotmegaHighLatency) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHighLatency) MsgID() MessageID {
 	return MSG_ID_HIGH_LATENCY
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHighLatency) CRCExtra() uint8 {
+	return 150
 }
 
 // MsgName (generated function)
@@ -12871,6 +13751,11 @@ func (m *ArdupilotmegaHighLatency2) MsgID() MessageID {
 	return MSG_ID_HIGH_LATENCY2
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHighLatency2) CRCExtra() uint8 {
+	return 179
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaHighLatency2) MsgName() string {
 	return "HighLatency2"
@@ -12969,6 +13854,11 @@ func (m *ArdupilotmegaVibration) MsgID() MessageID {
 	return MSG_ID_VIBRATION
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaVibration) CRCExtra() uint8 {
+	return 90
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaVibration) MsgName() string {
 	return "Vibration"
@@ -13028,6 +13918,11 @@ func (m *ArdupilotmegaHomePosition) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHomePosition) MsgID() MessageID {
 	return MSG_ID_HOME_POSITION
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHomePosition) CRCExtra() uint8 {
+	return 104
 }
 
 // MsgName (generated function)
@@ -13102,6 +13997,11 @@ func (m *ArdupilotmegaSetHomePosition) MsgID() MessageID {
 	return MSG_ID_SET_HOME_POSITION
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaSetHomePosition) CRCExtra() uint8 {
+	return 85
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaSetHomePosition) MsgName() string {
 	return "SetHomePosition"
@@ -13167,6 +14067,11 @@ func (m *ArdupilotmegaMessageInterval) MsgID() MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMessageInterval) CRCExtra() uint8 {
+	return 95
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaMessageInterval) MsgName() string {
 	return "MessageInterval"
@@ -13208,6 +14113,11 @@ func (m *ArdupilotmegaExtendedSysState) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaExtendedSysState) MsgID() MessageID {
 	return MSG_ID_EXTENDED_SYS_STATE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaExtendedSysState) CRCExtra() uint8 {
+	return 130
 }
 
 // MsgName (generated function)
@@ -13262,6 +14172,11 @@ func (m *ArdupilotmegaAdsbVehicle) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaAdsbVehicle) MsgID() MessageID {
 	return MSG_ID_ADSB_VEHICLE
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaAdsbVehicle) CRCExtra() uint8 {
+	return 184
 }
 
 // MsgName (generated function)
@@ -13334,6 +14249,11 @@ func (m *ArdupilotmegaCollision) MsgID() MessageID {
 	return MSG_ID_COLLISION
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaCollision) CRCExtra() uint8 {
+	return 81
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaCollision) MsgName() string {
 	return "Collision"
@@ -13390,6 +14310,11 @@ func (m *ArdupilotmegaV2Extension) MsgID() MessageID {
 	return MSG_ID_V2_EXTENSION
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaV2Extension) CRCExtra() uint8 {
+	return 8
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaV2Extension) MsgName() string {
 	return "V2Extension"
@@ -13439,6 +14364,11 @@ func (m *ArdupilotmegaMemoryVect) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaMemoryVect) MsgID() MessageID {
 	return MSG_ID_MEMORY_VECT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaMemoryVect) CRCExtra() uint8 {
+	return 204
 }
 
 // MsgName (generated function)
@@ -13495,6 +14425,11 @@ func (m *ArdupilotmegaDebugVect) MsgID() MessageID {
 	return MSG_ID_DEBUG_VECT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDebugVect) CRCExtra() uint8 {
+	return 49
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaDebugVect) MsgName() string {
 	return "DebugVect"
@@ -13545,6 +14480,11 @@ func (m *ArdupilotmegaNamedValueFloat) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaNamedValueFloat) CRCExtra() uint8 {
+	return 170
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaNamedValueFloat) MsgName() string {
 	return "NamedValueFloat"
@@ -13589,6 +14529,11 @@ func (m *ArdupilotmegaNamedValueInt) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaNamedValueInt) MsgID() MessageID {
 	return MSG_ID_NAMED_VALUE_INT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaNamedValueInt) CRCExtra() uint8 {
+	return 44
 }
 
 // MsgName (generated function)
@@ -13636,6 +14581,11 @@ func (m *ArdupilotmegaStatustext) MsgID() MessageID {
 	return MSG_ID_STATUSTEXT
 }
 
+// CRCExtra (generated function)
+func (m *ArdupilotmegaStatustext) CRCExtra() uint8 {
+	return 83
+}
+
 // MsgName (generated function)
 func (m *ArdupilotmegaStatustext) MsgName() string {
 	return "Statustext"
@@ -13678,6 +14628,11 @@ func (m *ArdupilotmegaDebug) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaDebug) MsgID() MessageID {
 	return MSG_ID_DEBUG
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaDebug) CRCExtra() uint8 {
+	return 46
 }
 
 // MsgName (generated function)
@@ -13727,6 +14682,11 @@ func (m *ArdupilotmegaHeartbeat) Dialect() *Dialect {
 // MsgID (generated function)
 func (m *ArdupilotmegaHeartbeat) MsgID() MessageID {
 	return MSG_ID_HEARTBEAT
+}
+
+// CRCExtra (generated function)
+func (m *ArdupilotmegaHeartbeat) CRCExtra() uint8 {
+	return 50
 }
 
 // MsgName (generated function)
@@ -13959,203 +14919,205 @@ const (
 	MSG_ID_HEARTBEAT                               MessageID = 0
 )
 
+// Mavlink message CRC extras
+var MAVLINK_MESSAGE_CRC_EXTRAS = map[MessageID]uint8{
+	MSG_ID_SENSOR_OFFSETS:                          134,
+	MSG_ID_SET_MAG_OFFSETS:                         219,
+	MSG_ID_MEMINFO:                                 208,
+	MSG_ID_AP_ADC:                                  188,
+	MSG_ID_DIGICAM_CONFIGURE:                       84,
+	MSG_ID_DIGICAM_CONTROL:                         22,
+	MSG_ID_MOUNT_CONFIGURE:                         19,
+	MSG_ID_MOUNT_CONTROL:                           21,
+	MSG_ID_MOUNT_STATUS:                            134,
+	MSG_ID_FENCE_POINT:                             78,
+	MSG_ID_FENCE_FETCH_POINT:                       68,
+	MSG_ID_AHRS:                                    127,
+	MSG_ID_SIMSTATE:                                154,
+	MSG_ID_HWSTATUS:                                21,
+	MSG_ID_RADIO:                                   21,
+	MSG_ID_LIMITS_STATUS:                           144,
+	MSG_ID_WIND:                                    1,
+	MSG_ID_DATA16:                                  234,
+	MSG_ID_DATA32:                                  73,
+	MSG_ID_DATA64:                                  181,
+	MSG_ID_DATA96:                                  22,
+	MSG_ID_RANGEFINDER:                             83,
+	MSG_ID_AIRSPEED_AUTOCAL:                        167,
+	MSG_ID_RALLY_POINT:                             138,
+	MSG_ID_RALLY_FETCH_POINT:                       234,
+	MSG_ID_COMPASSMOT_STATUS:                       240,
+	MSG_ID_AHRS2:                                   47,
+	MSG_ID_CAMERA_STATUS:                           189,
+	MSG_ID_CAMERA_FEEDBACK:                         52,
+	MSG_ID_BATTERY2:                                174,
+	MSG_ID_AHRS3:                                   229,
+	MSG_ID_AUTOPILOT_VERSION_REQUEST:               85,
+	MSG_ID_REMOTE_LOG_DATA_BLOCK:                   159,
+	MSG_ID_REMOTE_LOG_BLOCK_STATUS:                 186,
+	MSG_ID_LED_CONTROL:                             72,
+	MSG_ID_MAG_CAL_PROGRESS:                        92,
+	MSG_ID_EKF_STATUS_REPORT:                       71,
+	MSG_ID_PID_TUNING:                              98,
+	MSG_ID_DEEPSTALL:                               120,
+	MSG_ID_GIMBAL_REPORT:                           134,
+	MSG_ID_GIMBAL_CONTROL:                          205,
+	MSG_ID_GIMBAL_TORQUE_CMD_REPORT:                69,
+	MSG_ID_GOPRO_HEARTBEAT:                         101,
+	MSG_ID_GOPRO_GET_REQUEST:                       50,
+	MSG_ID_GOPRO_GET_RESPONSE:                      202,
+	MSG_ID_GOPRO_SET_REQUEST:                       17,
+	MSG_ID_GOPRO_SET_RESPONSE:                      162,
+	MSG_ID_RPM:                                     207,
+	MSG_ID_SYS_STATUS:                              124,
+	MSG_ID_SYSTEM_TIME:                             137,
+	MSG_ID_PING:                                    237,
+	MSG_ID_CHANGE_OPERATOR_CONTROL:                 217,
+	MSG_ID_CHANGE_OPERATOR_CONTROL_ACK:             104,
+	MSG_ID_AUTH_KEY:                                119,
+	MSG_ID_LINK_NODE_STATUS:                        117,
+	MSG_ID_SET_MODE:                                89,
+	MSG_ID_PARAM_ACK_TRANSACTION:                   137,
+	MSG_ID_PARAM_REQUEST_READ:                      214,
+	MSG_ID_PARAM_REQUEST_LIST:                      159,
+	MSG_ID_PARAM_VALUE:                             220,
+	MSG_ID_PARAM_SET:                               168,
+	MSG_ID_GPS_RAW_INT:                             24,
+	MSG_ID_GPS_STATUS:                              23,
+	MSG_ID_SCALED_IMU:                              170,
+	MSG_ID_RAW_IMU:                                 144,
+	MSG_ID_RAW_PRESSURE:                            67,
+	MSG_ID_SCALED_PRESSURE:                         115,
+	MSG_ID_ATTITUDE:                                39,
+	MSG_ID_ATTITUDE_QUATERNION:                     246,
+	MSG_ID_LOCAL_POSITION_NED:                      185,
+	MSG_ID_GLOBAL_POSITION_INT:                     104,
+	MSG_ID_RC_CHANNELS_SCALED:                      237,
+	MSG_ID_RC_CHANNELS_RAW:                         244,
+	MSG_ID_SERVO_OUTPUT_RAW:                        222,
+	MSG_ID_MISSION_REQUEST_PARTIAL_LIST:            212,
+	MSG_ID_MISSION_WRITE_PARTIAL_LIST:              9,
+	MSG_ID_MISSION_ITEM:                            254,
+	MSG_ID_MISSION_REQUEST:                         230,
+	MSG_ID_MISSION_SET_CURRENT:                     28,
+	MSG_ID_MISSION_CURRENT:                         28,
+	MSG_ID_MISSION_REQUEST_LIST:                    132,
+	MSG_ID_MISSION_COUNT:                           221,
+	MSG_ID_MISSION_CLEAR_ALL:                       232,
+	MSG_ID_MISSION_ITEM_REACHED:                    11,
+	MSG_ID_MISSION_ACK:                             153,
+	MSG_ID_SET_GPS_GLOBAL_ORIGIN:                   41,
+	MSG_ID_GPS_GLOBAL_ORIGIN:                       39,
+	MSG_ID_PARAM_MAP_RC:                            78,
+	MSG_ID_MISSION_REQUEST_INT:                     196,
+	MSG_ID_MISSION_CHANGED:                         132,
+	MSG_ID_SAFETY_SET_ALLOWED_AREA:                 15,
+	MSG_ID_SAFETY_ALLOWED_AREA:                     3,
+	MSG_ID_ATTITUDE_QUATERNION_COV:                 167,
+	MSG_ID_NAV_CONTROLLER_OUTPUT:                   183,
+	MSG_ID_GLOBAL_POSITION_INT_COV:                 119,
+	MSG_ID_LOCAL_POSITION_NED_COV:                  191,
+	MSG_ID_RC_CHANNELS:                             118,
+	MSG_ID_REQUEST_DATA_STREAM:                     148,
+	MSG_ID_DATA_STREAM:                             21,
+	MSG_ID_MANUAL_CONTROL:                          243,
+	MSG_ID_RC_CHANNELS_OVERRIDE:                    124,
+	MSG_ID_MISSION_ITEM_INT:                        38,
+	MSG_ID_VFR_HUD:                                 20,
+	MSG_ID_COMMAND_INT:                             158,
+	MSG_ID_COMMAND_LONG:                            152,
+	MSG_ID_COMMAND_ACK:                             143,
+	MSG_ID_COMMAND_CANCEL:                          14,
+	MSG_ID_MANUAL_SETPOINT:                         106,
+	MSG_ID_SET_ATTITUDE_TARGET:                     49,
+	MSG_ID_ATTITUDE_TARGET:                         22,
+	MSG_ID_SET_POSITION_TARGET_LOCAL_NED:           143,
+	MSG_ID_POSITION_TARGET_LOCAL_NED:               140,
+	MSG_ID_SET_POSITION_TARGET_GLOBAL_INT:          5,
+	MSG_ID_POSITION_TARGET_GLOBAL_INT:              150,
+	MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET: 231,
+	MSG_ID_HIL_STATE:                               183,
+	MSG_ID_HIL_CONTROLS:                            63,
+	MSG_ID_HIL_RC_INPUTS_RAW:                       54,
+	MSG_ID_HIL_ACTUATOR_CONTROLS:                   47,
+	MSG_ID_OPTICAL_FLOW:                            175,
+	MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE:         102,
+	MSG_ID_VISION_POSITION_ESTIMATE:                158,
+	MSG_ID_VISION_SPEED_ESTIMATE:                   208,
+	MSG_ID_VICON_POSITION_ESTIMATE:                 56,
+	MSG_ID_HIGHRES_IMU:                             93,
+	MSG_ID_OPTICAL_FLOW_RAD:                        138,
+	MSG_ID_HIL_SENSOR:                              108,
+	MSG_ID_SIM_STATE:                               32,
+	MSG_ID_RADIO_STATUS:                            185,
+	MSG_ID_FILE_TRANSFER_PROTOCOL:                  84,
+	MSG_ID_TIMESYNC:                                34,
+	MSG_ID_CAMERA_TRIGGER:                          174,
+	MSG_ID_HIL_GPS:                                 124,
+	MSG_ID_HIL_OPTICAL_FLOW:                        237,
+	MSG_ID_HIL_STATE_QUATERNION:                    4,
+	MSG_ID_SCALED_IMU2:                             76,
+	MSG_ID_LOG_REQUEST_LIST:                        128,
+	MSG_ID_LOG_ENTRY:                               56,
+	MSG_ID_LOG_REQUEST_DATA:                        116,
+	MSG_ID_LOG_DATA:                                134,
+	MSG_ID_LOG_ERASE:                               237,
+	MSG_ID_LOG_REQUEST_END:                         203,
+	MSG_ID_GPS_INJECT_DATA:                         250,
+	MSG_ID_GPS2_RAW:                                87,
+	MSG_ID_POWER_STATUS:                            203,
+	MSG_ID_SERIAL_CONTROL:                          220,
+	MSG_ID_GPS_RTK:                                 25,
+	MSG_ID_GPS2_RTK:                                226,
+	MSG_ID_SCALED_IMU3:                             46,
+	MSG_ID_DATA_TRANSMISSION_HANDSHAKE:             29,
+	MSG_ID_ENCAPSULATED_DATA:                       223,
+	MSG_ID_DISTANCE_SENSOR:                         85,
+	MSG_ID_TERRAIN_REQUEST:                         6,
+	MSG_ID_TERRAIN_DATA:                            229,
+	MSG_ID_TERRAIN_CHECK:                           203,
+	MSG_ID_TERRAIN_REPORT:                          1,
+	MSG_ID_SCALED_PRESSURE2:                        195,
+	MSG_ID_ATT_POS_MOCAP:                           109,
+	MSG_ID_SET_ACTUATOR_CONTROL_TARGET:             168,
+	MSG_ID_ACTUATOR_CONTROL_TARGET:                 181,
+	MSG_ID_ALTITUDE:                                47,
+	MSG_ID_RESOURCE_REQUEST:                        72,
+	MSG_ID_SCALED_PRESSURE3:                        131,
+	MSG_ID_FOLLOW_TARGET:                           127,
+	MSG_ID_CONTROL_SYSTEM_STATE:                    103,
+	MSG_ID_BATTERY_STATUS:                          154,
+	MSG_ID_AUTOPILOT_VERSION:                       178,
+	MSG_ID_LANDING_TARGET:                          200,
+	MSG_ID_FENCE_STATUS:                            189,
+	MSG_ID_MAG_CAL_REPORT:                          36,
+	MSG_ID_EFI_STATUS:                              208,
+	MSG_ID_ESTIMATOR_STATUS:                        163,
+	MSG_ID_WIND_COV:                                105,
+	MSG_ID_GPS_INPUT:                               151,
+	MSG_ID_GPS_RTCM_DATA:                           35,
+	MSG_ID_HIGH_LATENCY:                            150,
+	MSG_ID_HIGH_LATENCY2:                           179,
+	MSG_ID_VIBRATION:                               90,
+	MSG_ID_HOME_POSITION:                           104,
+	MSG_ID_SET_HOME_POSITION:                       85,
+	MSG_ID_MESSAGE_INTERVAL:                        95,
+	MSG_ID_EXTENDED_SYS_STATE:                      130,
+	MSG_ID_ADSB_VEHICLE:                            184,
+	MSG_ID_COLLISION:                               81,
+	MSG_ID_V2_EXTENSION:                            8,
+	MSG_ID_MEMORY_VECT:                             204,
+	MSG_ID_DEBUG_VECT:                              49,
+	MSG_ID_NAMED_VALUE_FLOAT:                       170,
+	MSG_ID_NAMED_VALUE_INT:                         44,
+	MSG_ID_STATUSTEXT:                              83,
+	MSG_ID_DEBUG:                                   46,
+	MSG_ID_HEARTBEAT:                               50,
+}
+
 // DialectArdupilotmega is the dialect represented by ardupilotmega.xml
 var DialectArdupilotmega = &Dialect{
 	Name: "ardupilotmega",
-	crcExtras: map[MessageID]uint8{
-		MSG_ID_SENSOR_OFFSETS:                          134,
-		MSG_ID_SET_MAG_OFFSETS:                         219,
-		MSG_ID_MEMINFO:                                 208,
-		MSG_ID_AP_ADC:                                  188,
-		MSG_ID_DIGICAM_CONFIGURE:                       84,
-		MSG_ID_DIGICAM_CONTROL:                         22,
-		MSG_ID_MOUNT_CONFIGURE:                         19,
-		MSG_ID_MOUNT_CONTROL:                           21,
-		MSG_ID_MOUNT_STATUS:                            134,
-		MSG_ID_FENCE_POINT:                             78,
-		MSG_ID_FENCE_FETCH_POINT:                       68,
-		MSG_ID_AHRS:                                    127,
-		MSG_ID_SIMSTATE:                                154,
-		MSG_ID_HWSTATUS:                                21,
-		MSG_ID_RADIO:                                   21,
-		MSG_ID_LIMITS_STATUS:                           144,
-		MSG_ID_WIND:                                    1,
-		MSG_ID_DATA16:                                  234,
-		MSG_ID_DATA32:                                  73,
-		MSG_ID_DATA64:                                  181,
-		MSG_ID_DATA96:                                  22,
-		MSG_ID_RANGEFINDER:                             83,
-		MSG_ID_AIRSPEED_AUTOCAL:                        167,
-		MSG_ID_RALLY_POINT:                             138,
-		MSG_ID_RALLY_FETCH_POINT:                       234,
-		MSG_ID_COMPASSMOT_STATUS:                       240,
-		MSG_ID_AHRS2:                                   47,
-		MSG_ID_CAMERA_STATUS:                           189,
-		MSG_ID_CAMERA_FEEDBACK:                         52,
-		MSG_ID_BATTERY2:                                174,
-		MSG_ID_AHRS3:                                   229,
-		MSG_ID_AUTOPILOT_VERSION_REQUEST:               85,
-		MSG_ID_REMOTE_LOG_DATA_BLOCK:                   159,
-		MSG_ID_REMOTE_LOG_BLOCK_STATUS:                 186,
-		MSG_ID_LED_CONTROL:                             72,
-		MSG_ID_MAG_CAL_PROGRESS:                        92,
-		MSG_ID_EKF_STATUS_REPORT:                       71,
-		MSG_ID_PID_TUNING:                              98,
-		MSG_ID_DEEPSTALL:                               120,
-		MSG_ID_GIMBAL_REPORT:                           134,
-		MSG_ID_GIMBAL_CONTROL:                          205,
-		MSG_ID_GIMBAL_TORQUE_CMD_REPORT:                69,
-		MSG_ID_GOPRO_HEARTBEAT:                         101,
-		MSG_ID_GOPRO_GET_REQUEST:                       50,
-		MSG_ID_GOPRO_GET_RESPONSE:                      202,
-		MSG_ID_GOPRO_SET_REQUEST:                       17,
-		MSG_ID_GOPRO_SET_RESPONSE:                      162,
-		MSG_ID_RPM:                                     207,
-		MSG_ID_SYS_STATUS:                              124,
-		MSG_ID_SYSTEM_TIME:                             137,
-		MSG_ID_PING:                                    237,
-		MSG_ID_CHANGE_OPERATOR_CONTROL:                 217,
-		MSG_ID_CHANGE_OPERATOR_CONTROL_ACK:             104,
-		MSG_ID_AUTH_KEY:                                119,
-		MSG_ID_LINK_NODE_STATUS:                        117,
-		MSG_ID_SET_MODE:                                89,
-		MSG_ID_PARAM_ACK_TRANSACTION:                   137,
-		MSG_ID_PARAM_REQUEST_READ:                      214,
-		MSG_ID_PARAM_REQUEST_LIST:                      159,
-		MSG_ID_PARAM_VALUE:                             220,
-		MSG_ID_PARAM_SET:                               168,
-		MSG_ID_GPS_RAW_INT:                             24,
-		MSG_ID_GPS_STATUS:                              23,
-		MSG_ID_SCALED_IMU:                              170,
-		MSG_ID_RAW_IMU:                                 144,
-		MSG_ID_RAW_PRESSURE:                            67,
-		MSG_ID_SCALED_PRESSURE:                         115,
-		MSG_ID_ATTITUDE:                                39,
-		MSG_ID_ATTITUDE_QUATERNION:                     246,
-		MSG_ID_LOCAL_POSITION_NED:                      185,
-		MSG_ID_GLOBAL_POSITION_INT:                     104,
-		MSG_ID_RC_CHANNELS_SCALED:                      237,
-		MSG_ID_RC_CHANNELS_RAW:                         244,
-		MSG_ID_SERVO_OUTPUT_RAW:                        222,
-		MSG_ID_MISSION_REQUEST_PARTIAL_LIST:            212,
-		MSG_ID_MISSION_WRITE_PARTIAL_LIST:              9,
-		MSG_ID_MISSION_ITEM:                            254,
-		MSG_ID_MISSION_REQUEST:                         230,
-		MSG_ID_MISSION_SET_CURRENT:                     28,
-		MSG_ID_MISSION_CURRENT:                         28,
-		MSG_ID_MISSION_REQUEST_LIST:                    132,
-		MSG_ID_MISSION_COUNT:                           221,
-		MSG_ID_MISSION_CLEAR_ALL:                       232,
-		MSG_ID_MISSION_ITEM_REACHED:                    11,
-		MSG_ID_MISSION_ACK:                             153,
-		MSG_ID_SET_GPS_GLOBAL_ORIGIN:                   41,
-		MSG_ID_GPS_GLOBAL_ORIGIN:                       39,
-		MSG_ID_PARAM_MAP_RC:                            78,
-		MSG_ID_MISSION_REQUEST_INT:                     196,
-		MSG_ID_MISSION_CHANGED:                         132,
-		MSG_ID_SAFETY_SET_ALLOWED_AREA:                 15,
-		MSG_ID_SAFETY_ALLOWED_AREA:                     3,
-		MSG_ID_ATTITUDE_QUATERNION_COV:                 167,
-		MSG_ID_NAV_CONTROLLER_OUTPUT:                   183,
-		MSG_ID_GLOBAL_POSITION_INT_COV:                 119,
-		MSG_ID_LOCAL_POSITION_NED_COV:                  191,
-		MSG_ID_RC_CHANNELS:                             118,
-		MSG_ID_REQUEST_DATA_STREAM:                     148,
-		MSG_ID_DATA_STREAM:                             21,
-		MSG_ID_MANUAL_CONTROL:                          243,
-		MSG_ID_RC_CHANNELS_OVERRIDE:                    124,
-		MSG_ID_MISSION_ITEM_INT:                        38,
-		MSG_ID_VFR_HUD:                                 20,
-		MSG_ID_COMMAND_INT:                             158,
-		MSG_ID_COMMAND_LONG:                            152,
-		MSG_ID_COMMAND_ACK:                             143,
-		MSG_ID_COMMAND_CANCEL:                          14,
-		MSG_ID_MANUAL_SETPOINT:                         106,
-		MSG_ID_SET_ATTITUDE_TARGET:                     49,
-		MSG_ID_ATTITUDE_TARGET:                         22,
-		MSG_ID_SET_POSITION_TARGET_LOCAL_NED:           143,
-		MSG_ID_POSITION_TARGET_LOCAL_NED:               140,
-		MSG_ID_SET_POSITION_TARGET_GLOBAL_INT:          5,
-		MSG_ID_POSITION_TARGET_GLOBAL_INT:              150,
-		MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET: 231,
-		MSG_ID_HIL_STATE:                               183,
-		MSG_ID_HIL_CONTROLS:                            63,
-		MSG_ID_HIL_RC_INPUTS_RAW:                       54,
-		MSG_ID_HIL_ACTUATOR_CONTROLS:                   47,
-		MSG_ID_OPTICAL_FLOW:                            175,
-		MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE:         102,
-		MSG_ID_VISION_POSITION_ESTIMATE:                158,
-		MSG_ID_VISION_SPEED_ESTIMATE:                   208,
-		MSG_ID_VICON_POSITION_ESTIMATE:                 56,
-		MSG_ID_HIGHRES_IMU:                             93,
-		MSG_ID_OPTICAL_FLOW_RAD:                        138,
-		MSG_ID_HIL_SENSOR:                              108,
-		MSG_ID_SIM_STATE:                               32,
-		MSG_ID_RADIO_STATUS:                            185,
-		MSG_ID_FILE_TRANSFER_PROTOCOL:                  84,
-		MSG_ID_TIMESYNC:                                34,
-		MSG_ID_CAMERA_TRIGGER:                          174,
-		MSG_ID_HIL_GPS:                                 124,
-		MSG_ID_HIL_OPTICAL_FLOW:                        237,
-		MSG_ID_HIL_STATE_QUATERNION:                    4,
-		MSG_ID_SCALED_IMU2:                             76,
-		MSG_ID_LOG_REQUEST_LIST:                        128,
-		MSG_ID_LOG_ENTRY:                               56,
-		MSG_ID_LOG_REQUEST_DATA:                        116,
-		MSG_ID_LOG_DATA:                                134,
-		MSG_ID_LOG_ERASE:                               237,
-		MSG_ID_LOG_REQUEST_END:                         203,
-		MSG_ID_GPS_INJECT_DATA:                         250,
-		MSG_ID_GPS2_RAW:                                87,
-		MSG_ID_POWER_STATUS:                            203,
-		MSG_ID_SERIAL_CONTROL:                          220,
-		MSG_ID_GPS_RTK:                                 25,
-		MSG_ID_GPS2_RTK:                                226,
-		MSG_ID_SCALED_IMU3:                             46,
-		MSG_ID_DATA_TRANSMISSION_HANDSHAKE:             29,
-		MSG_ID_ENCAPSULATED_DATA:                       223,
-		MSG_ID_DISTANCE_SENSOR:                         85,
-		MSG_ID_TERRAIN_REQUEST:                         6,
-		MSG_ID_TERRAIN_DATA:                            229,
-		MSG_ID_TERRAIN_CHECK:                           203,
-		MSG_ID_TERRAIN_REPORT:                          1,
-		MSG_ID_SCALED_PRESSURE2:                        195,
-		MSG_ID_ATT_POS_MOCAP:                           109,
-		MSG_ID_SET_ACTUATOR_CONTROL_TARGET:             168,
-		MSG_ID_ACTUATOR_CONTROL_TARGET:                 181,
-		MSG_ID_ALTITUDE:                                47,
-		MSG_ID_RESOURCE_REQUEST:                        72,
-		MSG_ID_SCALED_PRESSURE3:                        131,
-		MSG_ID_FOLLOW_TARGET:                           127,
-		MSG_ID_CONTROL_SYSTEM_STATE:                    103,
-		MSG_ID_BATTERY_STATUS:                          154,
-		MSG_ID_AUTOPILOT_VERSION:                       178,
-		MSG_ID_LANDING_TARGET:                          200,
-		MSG_ID_FENCE_STATUS:                            189,
-		MSG_ID_MAG_CAL_REPORT:                          36,
-		MSG_ID_EFI_STATUS:                              208,
-		MSG_ID_ESTIMATOR_STATUS:                        163,
-		MSG_ID_WIND_COV:                                105,
-		MSG_ID_GPS_INPUT:                               151,
-		MSG_ID_GPS_RTCM_DATA:                           35,
-		MSG_ID_HIGH_LATENCY:                            150,
-		MSG_ID_HIGH_LATENCY2:                           179,
-		MSG_ID_VIBRATION:                               90,
-		MSG_ID_HOME_POSITION:                           104,
-		MSG_ID_SET_HOME_POSITION:                       85,
-		MSG_ID_MESSAGE_INTERVAL:                        95,
-		MSG_ID_EXTENDED_SYS_STATE:                      130,
-		MSG_ID_ADSB_VEHICLE:                            184,
-		MSG_ID_COLLISION:                               81,
-		MSG_ID_V2_EXTENSION:                            8,
-		MSG_ID_MEMORY_VECT:                             204,
-		MSG_ID_DEBUG_VECT:                              49,
-		MSG_ID_NAMED_VALUE_FLOAT:                       170,
-		MSG_ID_NAMED_VALUE_INT:                         44,
-		MSG_ID_STATUSTEXT:                              83,
-		MSG_ID_DEBUG:                                   46,
-		MSG_ID_HEARTBEAT:                               50,
-	},
 	messageConstructorByMsgID: map[MessageID]func(*Packet) Message{
 		MSG_ID_SENSOR_OFFSETS: func(pkt *Packet) Message {
 			msg := new(ArdupilotmegaSensorOffsets)

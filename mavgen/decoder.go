@@ -12,109 +12,78 @@ func decoderTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
 		"import (\n" +
-		"\t\"sort\"\n" +
-		"\t\"time\"\n" +
+		"\t\"bufio\"\n" +
+		"\t\"io\"\n" +
 		")\n" +
 		"\n" +
 		"// Decoder struct provide decoding processor\n" +
 		"type Decoder struct {\n" +
-		"\tdata    chan []byte\n" +
-		"\tdecoded chan *Packet\n" +
+		"\treader      io.ByteReader\n" +
+		"\tparsers     []*Parser\n" +
 		"}\n" +
 		"\n" +
-		"// PushData pushhed decoded packet during timeout\n" +
-		"func (d *Decoder) PushData(data []byte) {\n" +
-		"\td.data <- data\n" +
+		"func (d *Decoder) clearParser(parser *Parser) {\n" +
+		"\tparser.Reset()\n" +
+		"\tparsersPool.Put(parser)\n" +
 		"}\n" +
 		"\n" +
-		"// NextPacket return decoded packet during timeout\n" +
-		"func (d *Decoder) NextPacket(duration time.Duration) *Packet {\n" +
-		"\tselect {\n" +
-		"\tcase packet, ok := <-d.decoded:\n" +
-		"\t\tif ok {\n" +
-		"\t\t\treturn packet\n" +
+		"func (d *Decoder) clearParsers() {\n" +
+		"\tfor _, parser := range d.parsers {\n" +
+		"\t\td.clearParser(parser)\n" +
+		"\t}\n" +
+		"\td.parsers = d.parsers[:0]\n" +
+		"}\n" +
+		"\n" +
+		"// Decode decode input stream to packet. Method return error or nil\n" +
+		"func (d *Decoder) Decode(v interface{}) error {\n" +
+		"\tpacket, ok := v.(*Packet)\n" +
+		"\tif !ok {\n" +
+		"\t\treturn ErrCastToPacket\n" +
+		"\t}\n" +
+		"\tfor {\n" +
+		"\t\tc, err := d.reader.ReadByte()\n" +
+		"\t\tif err != nil {\n" +
+		"\t\t\treturn err\n" +
 		"\t\t}\n" +
-		"\t\treturn nil\n" +
-		"\tcase <-time.After(duration):\n" +
-		"\t\treturn nil\n" +
+		"\t\tif c == magicNumber {\n" +
+		"\t\t\td.parsers = append(d.parsers, parsersPool.Get().(*Parser))\n" +
+		"\t\t}\n" +
+		"\t\tfor i, parser := range d.parsers {\n" +
+		"\t\t\tp, err := parser.parseChar(c)\n" +
+		"\t\t\tif err != nil {\n" +
+		"\t\t\t\td.parsers[i] = d.parsers[len(d.parsers)-1]\n" +
+		"\t\t\t\td.parsers = d.parsers[:len(d.parsers)-1]\n" +
+		"\t\t\t\td.clearParser(parser)\n" +
+		"\t\t\t\tcontinue\n" +
+		"\t\t\t}\n" +
+		"\t\t\tif p != nil {\n" +
+		"\t\t\t\tpacket.SeqID = p.SeqID\n" +
+		"\t\t\t\tpacket.SysID = p.SysID\n" +
+		"\t\t\t\tpacket.CompID = p.CompID\n" +
+		"\t\t\t\tpacket.MsgID = p.MsgID\n" +
+		"\t\t\t\tpacket.Checksum = p.Checksum\n" +
+		"\t\t\t\tpacket.Payload = append(packet.Payload[:0], p.Payload...)\n" +
+		"\t\t\t\td.clearParsers()\n" +
+		"\t\t\t\treturn nil\n" +
+		"\t\t\t}\n" +
+		"\t\t}\n" +
 		"\t}\n" +
 		"}\n" +
 		"\n" +
-		"// DecodedChannel return channel with decoded packets (solution for getting decoded packets without timeouts)\n" +
-		"// Don't close this channel manually. For gentle closing use Stop() method\n" +
-		"func (d *Decoder) DecodedChannel() chan *Packet {\n" +
-		"\treturn d.decoded\n" +
-		"}\n" +
-		"\n" +
-		"// Stop make safely stop of decoder\n" +
-		"func (d *Decoder) Stop() {\n" +
-		"\tclose(d.data)\n" +
-		"}\n" +
-		"\n" +
-		"// NewChannelDecoder function create decoder instance with default dialect\n" +
-		"func NewChannelDecoder() *Decoder {\n" +
-		"\td := &Decoder{\n" +
-		"\t\tdata:    make(chan []byte, 256),\n" +
-		"\t\tdecoded: make(chan *Packet, 256),\n" +
+		"func byteReader(r io.Reader) io.ByteReader {\n" +
+		"\tif rb, ok := r.(io.ByteReader); ok {\n" +
+		"\t\treturn rb\n" +
+		"\t} else {\n" +
+		"\t\treturn bufio.NewReader(r)\n" +
 		"\t}\n" +
-		"\tgo func() {\n" +
-		"\t\tvar parsers []*Parser\n" +
-		"\t\tuniqueIndexesToDelete := map[int]*Parser{}\n" +
-		"\t\tdefer func() {\n" +
-		"\t\t\tfor index := range uniqueIndexesToDelete {\n" +
-		"\t\t\t\tparsers[index].Reset()\n" +
-		"\t\t\t\tparsersPool.Put(parsers[index])\n" +
-		"\t\t\t}\n" +
-		"\t\t}()\n" +
-		"\t\tvar indexesToDelete []int\n" +
-		"\t\tfor {\n" +
-		"\t\t\tbuffer, ok := <-d.data\n" +
-		"\t\t\tif !ok {\n" +
-		"\t\t\t\tclose(d.decoded)\n" +
-		"\t\t\t\treturn\n" +
-		"\t\t\t}\n" +
-		"\t\t\tfor _, c := range buffer {\n" +
-		"\t\t\t\tif c == magicNumber {\n" +
-		"\t\t\t\t\tparsers = append(parsers, parsersPool.Get().(*Parser))\n" +
-		"\t\t\t\t}\n" +
+		"}\n" +
 		"\n" +
-		"\t\t\t\tfor i, parser := range parsers {\n" +
-		"\t\t\t\t\tpacket, err := parser.parseChar(c)\n" +
-		"\t\t\t\t\tif err != nil {\n" +
-		"\t\t\t\t\t\tuniqueIndexesToDelete[i] = parser\n" +
-		"\t\t\t\t\t\tcontinue\n" +
-		"\t\t\t\t\t}\n" +
-		"\t\t\t\t\tif packet != nil {\n" +
-		"\t\t\t\t\t\td.decoded <- packet\n" +
-		"\t\t\t\t\t\tfor j := i; j >= 0; j-- {\n" +
-		"\t\t\t\t\t\t\tuniqueIndexesToDelete[i] = parser\n" +
-		"\t\t\t\t\t\t}\n" +
-		"\t\t\t\t\t\tcontinue\n" +
-		"\t\t\t\t\t}\n" +
-		"\t\t\t\t}\n" +
-		"\n" +
-		"\t\t\t\tif len(uniqueIndexesToDelete) != 0 {\n" +
-		"\t\t\t\t\tfor index := range uniqueIndexesToDelete {\n" +
-		"\t\t\t\t\t\tindexesToDelete = append(indexesToDelete, index)\n" +
-		"\t\t\t\t\t\tdelete(uniqueIndexesToDelete, index)\n" +
-		"\t\t\t\t\t}\n" +
-		"\t\t\t\t\tif len(indexesToDelete) > 1 {\n" +
-		"\t\t\t\t\t\tsort.Ints(indexesToDelete)\n" +
-		"\t\t\t\t\t}\n" +
-		"\t\t\t\t\tfor i := len(indexesToDelete) - 1; i >= 0; i-- {\n" +
-		"\t\t\t\t\t\tindex := indexesToDelete[i]\n" +
-		"\t\t\t\t\t\tparsers[index].Reset()\n" +
-		"\t\t\t\t\t\tparsersPool.Put(parsers[index])\n" +
-		"\t\t\t\t\t\tcopy(parsers[index:], parsers[index+1:])\n" +
-		"\t\t\t\t\t\tparsers[len(parsers)-1] = nil\n" +
-		"\t\t\t\t\t\tparsers = parsers[:len(parsers)-1]\n" +
-		"\t\t\t\t\t}\n" +
-		"\t\t\t\t\tindexesToDelete = indexesToDelete[:0]\n" +
-		"\t\t\t\t}\n" +
-		"\t\t\t}\n" +
-		"\t\t}\n" +
-		"\t}()\n" +
-		"\treturn d\n" +
+		"// NewDecoder function create decoder instance with default dialect\n" +
+		"func NewDecoder(r io.Reader) *Decoder {\n" +
+		"\treturn &Decoder{\n" +
+		"\t\treader:  byteReader(r),\n" +
+		"\t\tparsers: make([]*Parser, 0),\n" +
+		"\t}\n" +
 		"}\n" +
 		""
 	return tmpl

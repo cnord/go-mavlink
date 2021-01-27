@@ -21,4 +21,5 @@ type Message interface {
 	Unpack(*Packet) error
 	MsgID() MessageID
 	MsgName() string
+	CRCExtra() uint8
 }

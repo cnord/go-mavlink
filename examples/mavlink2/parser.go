@@ -24,8 +24,10 @@ var parsersPool = &sync.Pool{
 // Reset set parser to idle state
 func (p *Parser) Reset() {
 	p.state = MAVLINK_PARSE_STATE_UNINIT
-	p.crc.Reset()
-	p.crc = nil
+	if p.crc != nil {
+		p.crc.Reset()
+		p.crc = nil
+	}
 }
 
 func (p *Parser) parseChar(c byte) (*Packet, error) {
@@ -81,11 +83,11 @@ func (p *Parser) parseChar(c byte) (*Packet, error) {
 			p.state = MAVLINK_PARSE_STATE_GOT_PAYLOAD
 		}
 	case MAVLINK_PARSE_STATE_GOT_PAYLOAD:
-		crcExtra, err := dialects.findCrcX(p.packet.MsgID)
-		if err != nil {
-			crcExtra = 0
+		if crcExtra, ok := MAVLINK_MESSAGE_CRC_EXTRAS[p.packet.MsgID]; ok {
+			p.crc.WriteByte(crcExtra)
+		} else {
+			p.crc.WriteByte(0)
 		}
-		p.crc.WriteByte(crcExtra)
 		if c != uint8(p.crc.Sum16()&0xFF) {
 			p.state = MAVLINK_PARSE_STATE_GOT_BAD_CRC
 			p.packet = Packet{}
