@@ -61,7 +61,7 @@ func (m *NavFilterBias) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *NavFilterBias) String() string {
 	return fmt.Sprintf(
-		"&Ualberta.NavFilterBias{ Usec: %+v, Accel0: %+v, Accel1: %+v, Accel2: %+v, Gyro0: %+v, Gyro1: %+v, Gyro2: %+v }",
+		"&ualberta.NavFilterBias{ Usec: %+v, Accel0: %+v, Accel1: %+v, Accel2: %+v, Gyro0: %+v, Gyro1: %+v, Gyro2: %+v }",
 		m.Usec,
 		m.Accel0,
 		m.Accel1,
@@ -122,7 +122,7 @@ func (m *RadioCalibration) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RadioCalibration) String() string {
 	return fmt.Sprintf(
-		"&Ualberta.RadioCalibration{ Aileron: %+v, Elevator: %+v, Rudder: %+v, Gyro: %+v, Pitch: %+v, Throttle: %+v }",
+		"&ualberta.RadioCalibration{ Aileron: %+v, Elevator: %+v, Rudder: %+v, Gyro: %+v, Pitch: %+v, Throttle: %+v }",
 		m.Aileron,
 		m.Elevator,
 		m.Rudder,
@@ -201,7 +201,7 @@ func (m *UalbertaSysStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *UalbertaSysStatus) String() string {
 	return fmt.Sprintf(
-		"&Ualberta.UalbertaSysStatus{ Mode: %+v, NavMode: %+v, Pilot: %+v }",
+		"&ualberta.UalbertaSysStatus{ Mode: %+v, NavMode: %+v, Pilot: %+v }",
 		m.Mode,
 		m.NavMode,
 		m.Pilot,

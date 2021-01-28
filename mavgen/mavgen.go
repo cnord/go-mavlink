@@ -553,7 +553,7 @@ func (d *Dialect) generateClasses(w io.Writer) error {
 
 	classesTmpl := `
 {{$mavlinkVersion := .MavlinkVersion}}
-{{$dialect := .Name | UpperCamelCase}}
+{{$dialect := .Name}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
 // {{$name}} struct (generated typeinfo)  
