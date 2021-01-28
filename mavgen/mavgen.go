@@ -403,6 +403,10 @@ func GoTypeInfo(s string) (string, int, int, error) {
 	return name, bitsz, arraylen, nil
 }
 
+func (d *Dialect) needImportParentMavlink() bool {
+	return len(d.Messages) > 0
+}
+
 func (d *Dialect) needImportFmt() bool {
 	return len(d.Messages) > 0
 }
@@ -444,9 +448,12 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString("//\n")
 	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
-	bb.WriteString("package mavlink\n\n")
+	bb.WriteString("package " + d.Name + "\n\n")
 
 	bb.WriteString("import (\n")
+	if d.needImportParentMavlink() {
+		bb.WriteString("mavlink \"..\"\n")
+	}
 	if d.needImportEncodingBinary() {
 		bb.WriteString("\"encoding/binary\"\n")
 	}
@@ -520,28 +527,20 @@ const ({{range .Entries}}
 
 func (d *Dialect) generateMsgIds(w io.Writer) error {
 	msgIDTmpl := `
-{{$dialect := .Name | UpperCamelCase}}
 {{if .Messages}}
 // Message IDs
 const ({{range .Messages}}
-	MSG_ID_{{.Name}} MessageID = {{.ID}}{{end}}
+	MSG_ID_{{.Name}} mavlink.MessageID = {{.ID}}{{end}}
 )
 {{end}}
 
-// init {{$dialect}} variables 
-func init() {
-	{{if .Messages}}// check {{$dialect}} collision's  and if ok add crc extra and constructor{{range .Messages}}
-	if _, ok := msgCrcExtras[MSG_ID_{{.Name}}]; ok {
-		panic("Cannot append MSG_ID_{{.Name}}. Already exists message ID '{{.ID}}'")
-	} else {
-		msgCrcExtras[MSG_ID_{{.Name}}] = {{.CRCExtra}}
-		msgConstructors[MSG_ID_{{.Name}}] = func(p *Packet) Message {
-			msg := new({{$dialect}}{{.Name | UpperCamelCase}})
-			msg.Unpack(p)
-			return msg
-		}
-	}{{end}}
-{{end}}
+// init {{.Name | UpperCamelCase}} dialect 
+func init() { {{if .Messages}}{{range .Messages}}
+	mavlink.Register(MSG_ID_{{.Name}}, "MSG_ID_{{.Name}}", {{.CRCExtra}}, func(p *mavlink.Packet) mavlink.Message {
+		msg := new({{.Name | UpperCamelCase}})
+		msg.Unpack(p)
+		return msg
+	}){{end}}{{end}}
 }
 `
 	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIDTmpl)).Execute(w, d)
@@ -554,41 +553,40 @@ func (d *Dialect) generateClasses(w io.Writer) error {
 
 	classesTmpl := `
 {{$mavlinkVersion := .MavlinkVersion}}
-{{$dialect := .Name | UpperCamelCase}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
-// {{$dialect}}{{$name}} struct (generated typeinfo)  
+// {{$name}} struct (generated typeinfo)  
 // {{.Description}}
-type {{$dialect}}{{$name}} struct { {{range .Fields}}
+type {{$name}} struct { {{range .Fields}}
   {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
 }
 
 // MsgID (generated function)
-func (m *{{$dialect}}{{$name}}) MsgID() MessageID {
+func (m *{{$name}}) MsgID() mavlink.MessageID {
 	return MSG_ID_{{.Name}}
 }
 
 // CRCExtra (generated function)
-func (m *{{$dialect}}{{$name}}) CRCExtra() uint8 {
+func (m *{{$name}}) CRCExtra() uint8 {
 	return {{.CRCExtra}}
 }
 
 // MsgName (generated function)
-func (m *{{$dialect}}{{$name}}) MsgName() string {
+func (m *{{$name}}) MsgName() string {
 	return "{{.Name | UpperCamelCase}}"
 }
 
 // String (generated function)
-func (m *{{$dialect}}{{$name}}) String() string {
+func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$dialect}}{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
+		"&{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
 		{{range .Fields}}m.{{.Name | UpperCamelCase}},
 {{end}}
 	)
 }
 
 // Pack (generated function)
-func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
+func (m *{{$name}}) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, {{ .Size }}){{range .Fields}}
 	{{.PayloadPackSequence}}{{end}}
 {{- if gt $mavlinkVersion 1 }}
@@ -604,13 +602,13 @@ func (m *{{$dialect}}{{$name}}) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *{{$dialect}}{{$name}}) Unpack(p *Packet) error {
+func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < {{ .Size }} {
 {{- if eq $mavlinkVersion 1 }}
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 {{- else }}
-		payload = append(payload, zeroTail[:{{ .Size }}-len(p.Payload)]...)
+		payload = append(payload, mavlink.ZeroTail[:{{ .Size }}-len(p.Payload)]...)
 {{- end }}
 	}{{range .Fields}}
 	{{.PayloadUnpackSequence}}{{end}}

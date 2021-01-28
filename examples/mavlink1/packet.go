@@ -6,7 +6,10 @@
 
 package mavlink
 
-var msgConstructors = map[MessageID]func(*Packet) Message{}
+var (
+	msgConstructors = map[MessageID]func(*Packet) Message{}
+	msgNames        = map[MessageID]string{}
+)
 
 // Packet is a wire type for encoding/decoding mavlink messages.
 // use the ToPacket() and FromPacket() routines on specific message

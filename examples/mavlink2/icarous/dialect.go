@@ -5,7 +5,7 @@
 //
 //////////////////////////////////////////////////
 
-package mavlink
+package icarous
 
 import ()
 
@@ -28,7 +28,6 @@ const (
 	ICAROUS_FMS_STATE_LAND     = 5 //
 )
 
-// init Icarous variables
+// init Icarous dialect
 func init() {
-
 }

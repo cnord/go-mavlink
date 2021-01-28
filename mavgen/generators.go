@@ -1,3 +1,4 @@
+//go:generate templify register.template
 //go:generate templify constants.template
 //go:generate templify encoder.template
 //go:generate templify decoder.template
@@ -32,6 +33,7 @@ const (
 
 var (
 	templates = map[string](func() string){
+		"register":     registerTemplate,
 		"constants":    constantsTemplate,
 		"encoder":      encoderTemplate,
 		"decoder":      decoderTemplate,
@@ -53,39 +55,41 @@ func findOutFile(scheme string) string {
 	if err != nil {
 		log.Fatal("Getwd(): ", err)
 	}
-	return filepath.Join(dir, baseName(scheme) + ".go")
+	return filepath.Join(dir, baseName(scheme), "dialect.go")
 }
 
-func generateDialect(schemeFile string, mavlinkVersion int) (*string, error) {
+func generateDialect(schemeFile string, mavlinkVersion int) (error) {
 	d, err := ParseDialect(schemeFile, baseName(schemeFile))
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	d.MavlinkVersion = mavlinkVersion
 
 	dialectFileName := findOutFile(schemeFile)
 
+	if err = os.MkdirAll(filepath.Dir(dialectFileName), os.ModePerm); err != nil {
+		return err
+	}
+
 	dialectFile, err := os.Create(dialectFileName)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer dialectFile.Close()
 
 	if err := d.GenerateGo(dialectFile); err != nil {
-		return nil, err
+		return err
 	}
 
 	for _, i := range d.Include {
 		includePath := filepath.Join(filepath.Dir(schemeFile), i)
-		_, err = generateDialect(includePath, mavlinkVersion)
-		if err != nil {
-			return nil, err
+		if err := generateDialect(includePath, mavlinkVersion); err != nil {
+			return err
 		}
 	}
 
-
-	return &dialectFileName, nil
+	return nil
 }
 
 func generateCode(dialectDir string, data templateData, templateName string, tmpl string) error {
@@ -127,9 +131,14 @@ func generateCode(dialectDir string, data templateData, templateName string, tmp
 	return nil
 }
 
-func generateCommons(dialectDir string, data templateData) error {
+func generateCommons(data templateData) error {
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Fatal("Getwd(): ", err)
+	}
+
 	for k, v := range templates {
-		if err := generateCode(dialectDir, data, k, v()); err != nil {
+		if err := generateCode(cwd + string(filepath.Separator), data, k, v()); err != nil {
 			return err
 		}
 	}

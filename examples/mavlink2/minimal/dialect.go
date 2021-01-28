@@ -5,9 +5,10 @@
 //
 //////////////////////////////////////////////////
 
-package mavlink
+package minimal
 
 import (
+	mavlink ".."
 	"encoding/binary"
 	"fmt"
 )
@@ -250,9 +251,9 @@ const (
 	MAV_COMP_ID_SYSTEM_CONTROL           = 250 // Component for handling system messages (e.g. to ARM, takeoff, etc.)
 )
 
-// MinimalHeartbeat struct (generated typeinfo)
+// Heartbeat struct (generated typeinfo)
 // The heartbeat message shows that a system or component is present and responding. The type and autopilot fields (along with the message component id), allow the receiving system to treat further messages from this system appropriately (e.g. by laying out the user interface based on the autopilot). This microservice is documented at https://mavlink.io/en/services/heartbeat.html
-type MinimalHeartbeat struct {
+type Heartbeat struct {
 	CustomMode     uint32 // A bitfield for use for autopilot-specific flags
 	Type           uint8  // Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.
 	Autopilot      uint8  // Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.
@@ -262,24 +263,24 @@ type MinimalHeartbeat struct {
 }
 
 // MsgID (generated function)
-func (m *MinimalHeartbeat) MsgID() MessageID {
+func (m *Heartbeat) MsgID() mavlink.MessageID {
 	return MSG_ID_HEARTBEAT
 }
 
 // CRCExtra (generated function)
-func (m *MinimalHeartbeat) CRCExtra() uint8 {
+func (m *Heartbeat) CRCExtra() uint8 {
 	return 50
 }
 
 // MsgName (generated function)
-func (m *MinimalHeartbeat) MsgName() string {
+func (m *Heartbeat) MsgName() string {
 	return "Heartbeat"
 }
 
 // String (generated function)
-func (m *MinimalHeartbeat) String() string {
+func (m *Heartbeat) String() string {
 	return fmt.Sprintf(
-		"&MinimalHeartbeat{ CustomMode: %+v, Type: %+v, Autopilot: %+v, BaseMode: %+v, SystemStatus: %+v, MavlinkVersion: %+v }",
+		"&Heartbeat{ CustomMode: %+v, Type: %+v, Autopilot: %+v, BaseMode: %+v, SystemStatus: %+v, MavlinkVersion: %+v }",
 		m.CustomMode,
 		m.Type,
 		m.Autopilot,
@@ -290,7 +291,7 @@ func (m *MinimalHeartbeat) String() string {
 }
 
 // Pack (generated function)
-func (m *MinimalHeartbeat) Pack(p *Packet) error {
+func (m *Heartbeat) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	payload[4] = byte(m.Type)
@@ -309,10 +310,10 @@ func (m *MinimalHeartbeat) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *MinimalHeartbeat) Unpack(p *Packet) error {
+func (m *Heartbeat) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 9 {
-		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
+		payload = append(payload, mavlink.ZeroTail[:9-len(p.Payload)]...)
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Type = uint8(payload[4])
@@ -325,21 +326,14 @@ func (m *MinimalHeartbeat) Unpack(p *Packet) error {
 
 // Message IDs
 const (
-	MSG_ID_HEARTBEAT MessageID = 0
+	MSG_ID_HEARTBEAT mavlink.MessageID = 0
 )
 
-// init Minimal variables
+// init Minimal dialect
 func init() {
-	// check Minimal collision's  and if ok add crc extra and constructor
-	if _, ok := msgCrcExtras[MSG_ID_HEARTBEAT]; ok {
-		panic("Cannot append MSG_ID_HEARTBEAT. Already exists message ID '0'")
-	} else {
-		msgCrcExtras[MSG_ID_HEARTBEAT] = 50
-		msgConstructors[MSG_ID_HEARTBEAT] = func(p *Packet) Message {
-			msg := new(MinimalHeartbeat)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-
+	mavlink.Register(MSG_ID_HEARTBEAT, "MSG_ID_HEARTBEAT", 50, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Heartbeat)
+		msg.Unpack(p)
+		return msg
+	})
 }

@@ -6,12 +6,6 @@
 
 package mavlink
 
-// zeroTail is a cache of zero slice for auto append tail to
-// payload in Mavlink2 messages with trimmed payload (variable length)
-var (
-	zeroTail = make([]byte, 256)
-)
-
 // Message is a basic type for encoding/decoding mavlink messages.
 // use the Pack() and Unpack() routines on specific message
 // types to convert them to/from the Packet type.

@@ -60,6 +60,13 @@ func constantsTemplate() string {
 		"\tErrNoNewData = errors.New(\"no new data\")\n" +
 		"\t// ErrNilPointerReference define\n" +
 		"\tErrNilPointerReference = errors.New(\"nil pointer reference\")\n" +
+		"{{- if eq .MavlinkVersion 1 }}\n" +
+		"    // ErrPayloadTooSmall define\n" +
+		"    ErrPayloadTooSmall = errors.New(\"payload too small\")\n" +
+		"{{- end }}\n" +
+		"    // ZeroTail is a cache of zero slice for auto append tail to\n" +
+		"    // payload in Mavlink2 messages with trimmed payload (variable length)\n" +
+		"\tZeroTail           = make([]byte, 256)\n" +
 		"\t// currentSeqNum\n" +
 		"\tcurrentSeqNum uint8\n" +
 		")\n" +

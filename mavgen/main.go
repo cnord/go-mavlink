@@ -3,14 +3,13 @@ package main
 import (
 	"flag"
 	"log"
-	"path/filepath"
 )
 
 var (
 	mavgenVersion  = "devel"
 	schemeFile     = flag.String("f", "", "mavlink xml-definition file input")
 	version        = flag.String("v", mavgenVersion, "version of mavlink dialect")
-	mavlinkVersion = flag.Int("m", 2, "version of mavlink protocol, usage with -p flag.")
+	mavlinkVersion = flag.Int("m", 2, "version of mavlink protocol")
 )
 
 type templateData struct {
@@ -23,19 +22,16 @@ func main() {
 	log.SetPrefix("mavgen: ")
 	flag.Parse()
 
-	dialectFileName, err := generateDialect(*schemeFile, *mavlinkVersion)
-	if err != nil {
+	if err := generateDialect(*schemeFile, *mavlinkVersion); err != nil {
 		log.Fatal(err)
 	}
-
-	dialectDir := filepath.Dir(*dialectFileName) + string(filepath.Separator)
 
 	data := templateData{
 		Version:        *version,
 		MavlinkVersion: *mavlinkVersion,
 	}
 
-	if err := generateCommons(dialectDir, data); err != nil {
+	if err := generateCommons(data); err != nil {
 		log.Fatal(err)
 	}
 }

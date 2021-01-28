@@ -11,7 +11,10 @@ package main
 func packetTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
-		"var msgConstructors = map[MessageID]func(*Packet) Message{}\n" +
+		"var (\n" +
+		"    msgConstructors = map[MessageID]func(*Packet) Message{}\n" +
+		"    msgNames = map[MessageID]string{}\n" +
+		")\n" +
 		"\n" +
 		"// Packet is a wire type for encoding/decoding mavlink messages.\n" +
 		"// use the ToPacket() and FromPacket() routines on specific message\n" +

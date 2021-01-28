@@ -5,9 +5,10 @@
 //
 //////////////////////////////////////////////////
 
-package mavlink
+package ardupilotmega
 
 import (
+	mavlink ".."
 	"encoding/binary"
 	"fmt"
 	"math"
@@ -562,9 +563,9 @@ const (
 	OSD_PARAM_INVALID_PARAMETER       = 3 //
 )
 
-// ArdupilotmegaSensorOffsets struct (generated typeinfo)
+// SensorOffsets struct (generated typeinfo)
 // Offsets and calibrations values for hardware sensors. This makes it easier to debug the calibration process.
-type ArdupilotmegaSensorOffsets struct {
+type SensorOffsets struct {
 	MagDeclination float32 // Magnetic declination.
 	RawPress       int32   // Raw pressure from barometer.
 	RawTemp        int32   // Raw temperature from barometer.
@@ -580,24 +581,24 @@ type ArdupilotmegaSensorOffsets struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaSensorOffsets) MsgID() MessageID {
+func (m *SensorOffsets) MsgID() mavlink.MessageID {
 	return MSG_ID_SENSOR_OFFSETS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaSensorOffsets) CRCExtra() uint8 {
+func (m *SensorOffsets) CRCExtra() uint8 {
 	return 134
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaSensorOffsets) MsgName() string {
+func (m *SensorOffsets) MsgName() string {
 	return "SensorOffsets"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaSensorOffsets) String() string {
+func (m *SensorOffsets) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaSensorOffsets{ MagDeclination: %+v, RawPress: %+v, RawTemp: %+v, GyroCalX: %+v, GyroCalY: %+v, GyroCalZ: %+v, AccelCalX: %+v, AccelCalY: %+v, AccelCalZ: %+v, MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v }",
+		"&SensorOffsets{ MagDeclination: %+v, RawPress: %+v, RawTemp: %+v, GyroCalX: %+v, GyroCalY: %+v, GyroCalZ: %+v, AccelCalX: %+v, AccelCalY: %+v, AccelCalZ: %+v, MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v }",
 		m.MagDeclination,
 		m.RawPress,
 		m.RawTemp,
@@ -614,7 +615,7 @@ func (m *ArdupilotmegaSensorOffsets) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaSensorOffsets) Pack(p *Packet) error {
+func (m *SensorOffsets) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.MagDeclination))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.RawPress))
@@ -628,21 +629,16 @@ func (m *ArdupilotmegaSensorOffsets) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[36:], uint16(m.MagOfsX))
 	binary.LittleEndian.PutUint16(payload[38:], uint16(m.MagOfsY))
 	binary.LittleEndian.PutUint16(payload[40:], uint16(m.MagOfsZ))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaSensorOffsets) Unpack(p *Packet) error {
+func (m *SensorOffsets) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.MagDeclination = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.RawPress = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -659,9 +655,9 @@ func (m *ArdupilotmegaSensorOffsets) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaSetMagOffsets struct (generated typeinfo)
+// SetMagOffsets struct (generated typeinfo)
 // Set the magnetometer offsets
-type ArdupilotmegaSetMagOffsets struct {
+type SetMagOffsets struct {
 	MagOfsX         int16 // Magnetometer X offset.
 	MagOfsY         int16 // Magnetometer Y offset.
 	MagOfsZ         int16 // Magnetometer Z offset.
@@ -670,24 +666,24 @@ type ArdupilotmegaSetMagOffsets struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaSetMagOffsets) MsgID() MessageID {
+func (m *SetMagOffsets) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_MAG_OFFSETS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaSetMagOffsets) CRCExtra() uint8 {
+func (m *SetMagOffsets) CRCExtra() uint8 {
 	return 219
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaSetMagOffsets) MsgName() string {
+func (m *SetMagOffsets) MsgName() string {
 	return "SetMagOffsets"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaSetMagOffsets) String() string {
+func (m *SetMagOffsets) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaSetMagOffsets{ MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&SetMagOffsets{ MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.MagOfsX,
 		m.MagOfsY,
 		m.MagOfsZ,
@@ -697,28 +693,23 @@ func (m *ArdupilotmegaSetMagOffsets) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaSetMagOffsets) Pack(p *Packet) error {
+func (m *SetMagOffsets) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MagOfsX))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.MagOfsY))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MagOfsZ))
 	payload[6] = byte(m.TargetSystem)
 	payload[7] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaSetMagOffsets) Unpack(p *Packet) error {
+func (m *SetMagOffsets) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.MagOfsX = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.MagOfsY = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -728,66 +719,61 @@ func (m *ArdupilotmegaSetMagOffsets) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMeminfo struct (generated typeinfo)
+// Meminfo struct (generated typeinfo)
 // State of APM memory.
-type ArdupilotmegaMeminfo struct {
+type Meminfo struct {
 	Brkval  uint16 // Heap top.
 	Freemem uint16 // Free memory.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaMeminfo) MsgID() MessageID {
+func (m *Meminfo) MsgID() mavlink.MessageID {
 	return MSG_ID_MEMINFO
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaMeminfo) CRCExtra() uint8 {
+func (m *Meminfo) CRCExtra() uint8 {
 	return 208
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaMeminfo) MsgName() string {
+func (m *Meminfo) MsgName() string {
 	return "Meminfo"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaMeminfo) String() string {
+func (m *Meminfo) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaMeminfo{ Brkval: %+v, Freemem: %+v }",
+		"&Meminfo{ Brkval: %+v, Freemem: %+v }",
 		m.Brkval,
 		m.Freemem,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaMeminfo) Pack(p *Packet) error {
+func (m *Meminfo) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Brkval))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Freemem))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaMeminfo) Unpack(p *Packet) error {
+func (m *Meminfo) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Brkval = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Freemem = uint16(binary.LittleEndian.Uint16(payload[2:]))
 	return nil
 }
 
-// ArdupilotmegaApAdc struct (generated typeinfo)
+// ApAdc struct (generated typeinfo)
 // Raw ADC output.
-type ArdupilotmegaApAdc struct {
+type ApAdc struct {
 	Adc1 uint16 // ADC output 1.
 	Adc2 uint16 // ADC output 2.
 	Adc3 uint16 // ADC output 3.
@@ -797,24 +783,24 @@ type ArdupilotmegaApAdc struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaApAdc) MsgID() MessageID {
+func (m *ApAdc) MsgID() mavlink.MessageID {
 	return MSG_ID_AP_ADC
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaApAdc) CRCExtra() uint8 {
+func (m *ApAdc) CRCExtra() uint8 {
 	return 188
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaApAdc) MsgName() string {
+func (m *ApAdc) MsgName() string {
 	return "ApAdc"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaApAdc) String() string {
+func (m *ApAdc) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaApAdc{ Adc1: %+v, Adc2: %+v, Adc3: %+v, Adc4: %+v, Adc5: %+v, Adc6: %+v }",
+		"&ApAdc{ Adc1: %+v, Adc2: %+v, Adc3: %+v, Adc4: %+v, Adc5: %+v, Adc6: %+v }",
 		m.Adc1,
 		m.Adc2,
 		m.Adc3,
@@ -825,7 +811,7 @@ func (m *ArdupilotmegaApAdc) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaApAdc) Pack(p *Packet) error {
+func (m *ApAdc) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Adc1))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Adc2))
@@ -833,21 +819,16 @@ func (m *ArdupilotmegaApAdc) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint16(payload[6:], uint16(m.Adc4))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Adc5))
 	binary.LittleEndian.PutUint16(payload[10:], uint16(m.Adc6))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaApAdc) Unpack(p *Packet) error {
+func (m *ApAdc) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Adc1 = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Adc2 = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -858,9 +839,9 @@ func (m *ArdupilotmegaApAdc) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaDigicamConfigure struct (generated typeinfo)
+// DigicamConfigure struct (generated typeinfo)
 // Configure on-board Camera Control System.
-type ArdupilotmegaDigicamConfigure struct {
+type DigicamConfigure struct {
 	ExtraValue      float32 // Correspondent value to given extra_param.
 	ShutterSpeed    uint16  // Divisor number //e.g. 1000 means 1/1000 (0 means ignore).
 	TargetSystem    uint8   // System ID.
@@ -875,24 +856,24 @@ type ArdupilotmegaDigicamConfigure struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaDigicamConfigure) MsgID() MessageID {
+func (m *DigicamConfigure) MsgID() mavlink.MessageID {
 	return MSG_ID_DIGICAM_CONFIGURE
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaDigicamConfigure) CRCExtra() uint8 {
+func (m *DigicamConfigure) CRCExtra() uint8 {
 	return 84
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaDigicamConfigure) MsgName() string {
+func (m *DigicamConfigure) MsgName() string {
 	return "DigicamConfigure"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaDigicamConfigure) String() string {
+func (m *DigicamConfigure) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaDigicamConfigure{ ExtraValue: %+v, ShutterSpeed: %+v, TargetSystem: %+v, TargetComponent: %+v, Mode: %+v, Aperture: %+v, Iso: %+v, ExposureType: %+v, CommandID: %+v, EngineCutOff: %+v, ExtraParam: %+v }",
+		"&DigicamConfigure{ ExtraValue: %+v, ShutterSpeed: %+v, TargetSystem: %+v, TargetComponent: %+v, Mode: %+v, Aperture: %+v, Iso: %+v, ExposureType: %+v, CommandID: %+v, EngineCutOff: %+v, ExtraParam: %+v }",
 		m.ExtraValue,
 		m.ShutterSpeed,
 		m.TargetSystem,
@@ -908,7 +889,7 @@ func (m *ArdupilotmegaDigicamConfigure) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaDigicamConfigure) Pack(p *Packet) error {
+func (m *DigicamConfigure) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 15)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ShutterSpeed))
@@ -921,21 +902,16 @@ func (m *ArdupilotmegaDigicamConfigure) Pack(p *Packet) error {
 	payload[12] = byte(m.CommandID)
 	payload[13] = byte(m.EngineCutOff)
 	payload[14] = byte(m.ExtraParam)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaDigicamConfigure) Unpack(p *Packet) error {
+func (m *DigicamConfigure) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 15 {
-		payload = append(payload, zeroTail[:15-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.ShutterSpeed = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -951,9 +927,9 @@ func (m *ArdupilotmegaDigicamConfigure) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaDigicamControl struct (generated typeinfo)
+// DigicamControl struct (generated typeinfo)
 // Control on-board Camera Control System to take shots.
-type ArdupilotmegaDigicamControl struct {
+type DigicamControl struct {
 	ExtraValue      float32 // Correspondent value to given extra_param.
 	TargetSystem    uint8   // System ID.
 	TargetComponent uint8   // Component ID.
@@ -967,24 +943,24 @@ type ArdupilotmegaDigicamControl struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaDigicamControl) MsgID() MessageID {
+func (m *DigicamControl) MsgID() mavlink.MessageID {
 	return MSG_ID_DIGICAM_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaDigicamControl) CRCExtra() uint8 {
+func (m *DigicamControl) CRCExtra() uint8 {
 	return 22
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaDigicamControl) MsgName() string {
+func (m *DigicamControl) MsgName() string {
 	return "DigicamControl"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaDigicamControl) String() string {
+func (m *DigicamControl) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaDigicamControl{ ExtraValue: %+v, TargetSystem: %+v, TargetComponent: %+v, Session: %+v, ZoomPos: %+v, ZoomStep: %+v, FocusLock: %+v, Shot: %+v, CommandID: %+v, ExtraParam: %+v }",
+		"&DigicamControl{ ExtraValue: %+v, TargetSystem: %+v, TargetComponent: %+v, Session: %+v, ZoomPos: %+v, ZoomStep: %+v, FocusLock: %+v, Shot: %+v, CommandID: %+v, ExtraParam: %+v }",
 		m.ExtraValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -999,7 +975,7 @@ func (m *ArdupilotmegaDigicamControl) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaDigicamControl) Pack(p *Packet) error {
+func (m *DigicamControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ExtraValue))
 	payload[4] = byte(m.TargetSystem)
@@ -1011,21 +987,16 @@ func (m *ArdupilotmegaDigicamControl) Pack(p *Packet) error {
 	payload[10] = byte(m.Shot)
 	payload[11] = byte(m.CommandID)
 	payload[12] = byte(m.ExtraParam)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaDigicamControl) Unpack(p *Packet) error {
+func (m *DigicamControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 13 {
-		payload = append(payload, zeroTail[:13-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ExtraValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -1040,9 +1011,9 @@ func (m *ArdupilotmegaDigicamControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMountConfigure struct (generated typeinfo)
+// MountConfigure struct (generated typeinfo)
 // Message to configure a camera mount, directional antenna, etc.
-type ArdupilotmegaMountConfigure struct {
+type MountConfigure struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	MountMode       uint8 // Mount operating mode.
@@ -1052,24 +1023,24 @@ type ArdupilotmegaMountConfigure struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaMountConfigure) MsgID() MessageID {
+func (m *MountConfigure) MsgID() mavlink.MessageID {
 	return MSG_ID_MOUNT_CONFIGURE
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaMountConfigure) CRCExtra() uint8 {
+func (m *MountConfigure) CRCExtra() uint8 {
 	return 19
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaMountConfigure) MsgName() string {
+func (m *MountConfigure) MsgName() string {
 	return "MountConfigure"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaMountConfigure) String() string {
+func (m *MountConfigure) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaMountConfigure{ TargetSystem: %+v, TargetComponent: %+v, MountMode: %+v, StabRoll: %+v, StabPitch: %+v, StabYaw: %+v }",
+		"&MountConfigure{ TargetSystem: %+v, TargetComponent: %+v, MountMode: %+v, StabRoll: %+v, StabPitch: %+v, StabYaw: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.MountMode,
@@ -1080,7 +1051,7 @@ func (m *ArdupilotmegaMountConfigure) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaMountConfigure) Pack(p *Packet) error {
+func (m *MountConfigure) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -1088,21 +1059,16 @@ func (m *ArdupilotmegaMountConfigure) Pack(p *Packet) error {
 	payload[3] = byte(m.StabRoll)
 	payload[4] = byte(m.StabPitch)
 	payload[5] = byte(m.StabYaw)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaMountConfigure) Unpack(p *Packet) error {
+func (m *MountConfigure) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -1113,9 +1079,9 @@ func (m *ArdupilotmegaMountConfigure) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMountControl struct (generated typeinfo)
+// MountControl struct (generated typeinfo)
 // Message to control a camera mount, directional antenna, etc.
-type ArdupilotmegaMountControl struct {
+type MountControl struct {
 	InputA          int32 // Pitch (centi-degrees) or lat (degE7), depending on mount mode.
 	InputB          int32 // Roll (centi-degrees) or lon (degE7) depending on mount mode.
 	InputC          int32 // Yaw (centi-degrees) or alt (cm) depending on mount mode.
@@ -1125,24 +1091,24 @@ type ArdupilotmegaMountControl struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaMountControl) MsgID() MessageID {
+func (m *MountControl) MsgID() mavlink.MessageID {
 	return MSG_ID_MOUNT_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaMountControl) CRCExtra() uint8 {
+func (m *MountControl) CRCExtra() uint8 {
 	return 21
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaMountControl) MsgName() string {
+func (m *MountControl) MsgName() string {
 	return "MountControl"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaMountControl) String() string {
+func (m *MountControl) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaMountControl{ InputA: %+v, InputB: %+v, InputC: %+v, TargetSystem: %+v, TargetComponent: %+v, SavePosition: %+v }",
+		"&MountControl{ InputA: %+v, InputB: %+v, InputC: %+v, TargetSystem: %+v, TargetComponent: %+v, SavePosition: %+v }",
 		m.InputA,
 		m.InputB,
 		m.InputC,
@@ -1153,7 +1119,7 @@ func (m *ArdupilotmegaMountControl) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaMountControl) Pack(p *Packet) error {
+func (m *MountControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 15)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.InputA))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.InputB))
@@ -1161,21 +1127,16 @@ func (m *ArdupilotmegaMountControl) Pack(p *Packet) error {
 	payload[12] = byte(m.TargetSystem)
 	payload[13] = byte(m.TargetComponent)
 	payload[14] = byte(m.SavePosition)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaMountControl) Unpack(p *Packet) error {
+func (m *MountControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 15 {
-		payload = append(payload, zeroTail[:15-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.InputA = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.InputB = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1186,9 +1147,9 @@ func (m *ArdupilotmegaMountControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMountStatus struct (generated typeinfo)
+// MountStatus struct (generated typeinfo)
 // Message with some status from APM to GCS about camera or antenna mount.
-type ArdupilotmegaMountStatus struct {
+type MountStatus struct {
 	PointingA       int32 // Pitch.
 	PointingB       int32 // Roll.
 	PointingC       int32 // Yaw.
@@ -1197,24 +1158,24 @@ type ArdupilotmegaMountStatus struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaMountStatus) MsgID() MessageID {
+func (m *MountStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_MOUNT_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaMountStatus) CRCExtra() uint8 {
+func (m *MountStatus) CRCExtra() uint8 {
 	return 134
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaMountStatus) MsgName() string {
+func (m *MountStatus) MsgName() string {
 	return "MountStatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaMountStatus) String() string {
+func (m *MountStatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaMountStatus{ PointingA: %+v, PointingB: %+v, PointingC: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MountStatus{ PointingA: %+v, PointingB: %+v, PointingC: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.PointingA,
 		m.PointingB,
 		m.PointingC,
@@ -1224,28 +1185,23 @@ func (m *ArdupilotmegaMountStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaMountStatus) Pack(p *Packet) error {
+func (m *MountStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.PointingA))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.PointingB))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.PointingC))
 	payload[12] = byte(m.TargetSystem)
 	payload[13] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaMountStatus) Unpack(p *Packet) error {
+func (m *MountStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.PointingA = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PointingB = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1255,9 +1211,9 @@ func (m *ArdupilotmegaMountStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaFencePoint struct (generated typeinfo)
+// FencePoint struct (generated typeinfo)
 // A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
-type ArdupilotmegaFencePoint struct {
+type FencePoint struct {
 	Lat             float32 // Latitude of point.
 	Lng             float32 // Longitude of point.
 	TargetSystem    uint8   // System ID.
@@ -1267,24 +1223,24 @@ type ArdupilotmegaFencePoint struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaFencePoint) MsgID() MessageID {
+func (m *FencePoint) MsgID() mavlink.MessageID {
 	return MSG_ID_FENCE_POINT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaFencePoint) CRCExtra() uint8 {
+func (m *FencePoint) CRCExtra() uint8 {
 	return 78
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaFencePoint) MsgName() string {
+func (m *FencePoint) MsgName() string {
 	return "FencePoint"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaFencePoint) String() string {
+func (m *FencePoint) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaFencePoint{ Lat: %+v, Lng: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v }",
+		"&FencePoint{ Lat: %+v, Lng: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v }",
 		m.Lat,
 		m.Lng,
 		m.TargetSystem,
@@ -1295,7 +1251,7 @@ func (m *ArdupilotmegaFencePoint) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaFencePoint) Pack(p *Packet) error {
+func (m *FencePoint) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Lng))
@@ -1303,21 +1259,16 @@ func (m *ArdupilotmegaFencePoint) Pack(p *Packet) error {
 	payload[9] = byte(m.TargetComponent)
 	payload[10] = byte(m.Idx)
 	payload[11] = byte(m.Count)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaFencePoint) Unpack(p *Packet) error {
+func (m *FencePoint) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Lat = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lng = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1328,33 +1279,33 @@ func (m *ArdupilotmegaFencePoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaFenceFetchPoint struct (generated typeinfo)
+// FenceFetchPoint struct (generated typeinfo)
 // Request a current fence point from MAV.
-type ArdupilotmegaFenceFetchPoint struct {
+type FenceFetchPoint struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	Idx             uint8 // Point index (first point is 1, 0 is for return point).
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) MsgID() MessageID {
+func (m *FenceFetchPoint) MsgID() mavlink.MessageID {
 	return MSG_ID_FENCE_FETCH_POINT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) CRCExtra() uint8 {
+func (m *FenceFetchPoint) CRCExtra() uint8 {
 	return 68
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) MsgName() string {
+func (m *FenceFetchPoint) MsgName() string {
 	return "FenceFetchPoint"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) String() string {
+func (m *FenceFetchPoint) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaFenceFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
+		"&FenceFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Idx,
@@ -1362,26 +1313,21 @@ func (m *ArdupilotmegaFenceFetchPoint) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) Pack(p *Packet) error {
+func (m *FenceFetchPoint) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.Idx)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaFenceFetchPoint) Unpack(p *Packet) error {
+func (m *FenceFetchPoint) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -1389,9 +1335,9 @@ func (m *ArdupilotmegaFenceFetchPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaAhrs struct (generated typeinfo)
+// Ahrs struct (generated typeinfo)
 // Status of DCM attitude estimator.
-type ArdupilotmegaAhrs struct {
+type Ahrs struct {
 	Omegaix     float32 // X gyro drift estimate.
 	Omegaiy     float32 // Y gyro drift estimate.
 	Omegaiz     float32 // Z gyro drift estimate.
@@ -1402,24 +1348,24 @@ type ArdupilotmegaAhrs struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaAhrs) MsgID() MessageID {
+func (m *Ahrs) MsgID() mavlink.MessageID {
 	return MSG_ID_AHRS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaAhrs) CRCExtra() uint8 {
+func (m *Ahrs) CRCExtra() uint8 {
 	return 127
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaAhrs) MsgName() string {
+func (m *Ahrs) MsgName() string {
 	return "Ahrs"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaAhrs) String() string {
+func (m *Ahrs) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaAhrs{ Omegaix: %+v, Omegaiy: %+v, Omegaiz: %+v, AccelWeight: %+v, RenormVal: %+v, ErrorRp: %+v, ErrorYaw: %+v }",
+		"&Ahrs{ Omegaix: %+v, Omegaiy: %+v, Omegaiz: %+v, AccelWeight: %+v, RenormVal: %+v, ErrorRp: %+v, ErrorYaw: %+v }",
 		m.Omegaix,
 		m.Omegaiy,
 		m.Omegaiz,
@@ -1431,7 +1377,7 @@ func (m *ArdupilotmegaAhrs) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaAhrs) Pack(p *Packet) error {
+func (m *Ahrs) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Omegaix))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Omegaiy))
@@ -1440,21 +1386,16 @@ func (m *ArdupilotmegaAhrs) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.RenormVal))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.ErrorRp))
 	binary.LittleEndian.PutUint32(payload[24:], math.Float32bits(m.ErrorYaw))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaAhrs) Unpack(p *Packet) error {
+func (m *Ahrs) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		payload = append(payload, zeroTail[:28-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Omegaix = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Omegaiy = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1466,9 +1407,9 @@ func (m *ArdupilotmegaAhrs) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaSimstate struct (generated typeinfo)
+// Simstate struct (generated typeinfo)
 // Status of simulation environment, if used.
-type ArdupilotmegaSimstate struct {
+type Simstate struct {
 	Roll  float32 // Roll angle.
 	Pitch float32 // Pitch angle.
 	Yaw   float32 // Yaw angle.
@@ -1483,24 +1424,24 @@ type ArdupilotmegaSimstate struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaSimstate) MsgID() MessageID {
+func (m *Simstate) MsgID() mavlink.MessageID {
 	return MSG_ID_SIMSTATE
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaSimstate) CRCExtra() uint8 {
+func (m *Simstate) CRCExtra() uint8 {
 	return 154
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaSimstate) MsgName() string {
+func (m *Simstate) MsgName() string {
 	return "Simstate"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaSimstate) String() string {
+func (m *Simstate) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaSimstate{ Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lng: %+v }",
+		"&Simstate{ Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lng: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -1516,7 +1457,7 @@ func (m *ArdupilotmegaSimstate) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaSimstate) Pack(p *Packet) error {
+func (m *Simstate) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -1529,21 +1470,16 @@ func (m *ArdupilotmegaSimstate) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.Zgyro))
 	binary.LittleEndian.PutUint32(payload[36:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[40:], uint32(m.Lng))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaSimstate) Unpack(p *Packet) error {
+func (m *Simstate) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 44 {
-		payload = append(payload, zeroTail[:44-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1559,66 +1495,61 @@ func (m *ArdupilotmegaSimstate) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaHwstatus struct (generated typeinfo)
+// Hwstatus struct (generated typeinfo)
 // Status of key hardware.
-type ArdupilotmegaHwstatus struct {
+type Hwstatus struct {
 	Vcc    uint16 // Board voltage.
 	I2cerr uint8  // I2C error count.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaHwstatus) MsgID() MessageID {
+func (m *Hwstatus) MsgID() mavlink.MessageID {
 	return MSG_ID_HWSTATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaHwstatus) CRCExtra() uint8 {
+func (m *Hwstatus) CRCExtra() uint8 {
 	return 21
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaHwstatus) MsgName() string {
+func (m *Hwstatus) MsgName() string {
 	return "Hwstatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaHwstatus) String() string {
+func (m *Hwstatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaHwstatus{ Vcc: %+v, I2cerr: %+v }",
+		"&Hwstatus{ Vcc: %+v, I2cerr: %+v }",
 		m.Vcc,
 		m.I2cerr,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaHwstatus) Pack(p *Packet) error {
+func (m *Hwstatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
 	payload[2] = byte(m.I2cerr)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaHwstatus) Unpack(p *Packet) error {
+func (m *Hwstatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Vcc = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.I2cerr = uint8(payload[2])
 	return nil
 }
 
-// ArdupilotmegaRadio struct (generated typeinfo)
+// Radio struct (generated typeinfo)
 // Status generated by radio.
-type ArdupilotmegaRadio struct {
+type Radio struct {
 	Rxerrors uint16 // Receive errors.
 	Fixed    uint16 // Count of error corrected packets.
 	Rssi     uint8  // Local signal strength.
@@ -1629,24 +1560,24 @@ type ArdupilotmegaRadio struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRadio) MsgID() MessageID {
+func (m *Radio) MsgID() mavlink.MessageID {
 	return MSG_ID_RADIO
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRadio) CRCExtra() uint8 {
+func (m *Radio) CRCExtra() uint8 {
 	return 21
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRadio) MsgName() string {
+func (m *Radio) MsgName() string {
 	return "Radio"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRadio) String() string {
+func (m *Radio) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRadio{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
+		"&Radio{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
 		m.Rxerrors,
 		m.Fixed,
 		m.Rssi,
@@ -1658,7 +1589,7 @@ func (m *ArdupilotmegaRadio) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRadio) Pack(p *Packet) error {
+func (m *Radio) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Rxerrors))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Fixed))
@@ -1667,21 +1598,16 @@ func (m *ArdupilotmegaRadio) Pack(p *Packet) error {
 	payload[6] = byte(m.Txbuf)
 	payload[7] = byte(m.Noise)
 	payload[8] = byte(m.Remnoise)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRadio) Unpack(p *Packet) error {
+func (m *Radio) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 9 {
-		payload = append(payload, zeroTail[:9-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Rxerrors = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Fixed = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -1693,9 +1619,9 @@ func (m *ArdupilotmegaRadio) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaLimitsStatus struct (generated typeinfo)
+// LimitsStatus struct (generated typeinfo)
 // Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled.
-type ArdupilotmegaLimitsStatus struct {
+type LimitsStatus struct {
 	LastTrigger   uint32 // Time (since boot) of last breach.
 	LastAction    uint32 // Time (since boot) of last recovery action.
 	LastRecovery  uint32 // Time (since boot) of last successful recovery.
@@ -1708,24 +1634,24 @@ type ArdupilotmegaLimitsStatus struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaLimitsStatus) MsgID() MessageID {
+func (m *LimitsStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_LIMITS_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaLimitsStatus) CRCExtra() uint8 {
+func (m *LimitsStatus) CRCExtra() uint8 {
 	return 144
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaLimitsStatus) MsgName() string {
+func (m *LimitsStatus) MsgName() string {
 	return "LimitsStatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaLimitsStatus) String() string {
+func (m *LimitsStatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaLimitsStatus{ LastTrigger: %+v, LastAction: %+v, LastRecovery: %+v, LastClear: %+v, BreachCount: %+v, LimitsState: %+v, ModsEnabled: %+v, ModsRequired: %+v, ModsTriggered: %+v }",
+		"&LimitsStatus{ LastTrigger: %+v, LastAction: %+v, LastRecovery: %+v, LastClear: %+v, BreachCount: %+v, LimitsState: %+v, ModsEnabled: %+v, ModsRequired: %+v, ModsTriggered: %+v }",
 		m.LastTrigger,
 		m.LastAction,
 		m.LastRecovery,
@@ -1739,7 +1665,7 @@ func (m *ArdupilotmegaLimitsStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaLimitsStatus) Pack(p *Packet) error {
+func (m *LimitsStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.LastTrigger))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LastAction))
@@ -1750,21 +1676,16 @@ func (m *ArdupilotmegaLimitsStatus) Pack(p *Packet) error {
 	payload[19] = byte(m.ModsEnabled)
 	payload[20] = byte(m.ModsRequired)
 	payload[21] = byte(m.ModsTriggered)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaLimitsStatus) Unpack(p *Packet) error {
+func (m *LimitsStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.LastTrigger = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LastAction = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1778,33 +1699,33 @@ func (m *ArdupilotmegaLimitsStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaWind struct (generated typeinfo)
+// Wind struct (generated typeinfo)
 // Wind estimation.
-type ArdupilotmegaWind struct {
+type Wind struct {
 	Direction float32 // Wind direction (that wind is coming from).
 	Speed     float32 // Wind speed in ground plane.
 	SpeedZ    float32 // Vertical wind speed.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaWind) MsgID() MessageID {
+func (m *Wind) MsgID() mavlink.MessageID {
 	return MSG_ID_WIND
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaWind) CRCExtra() uint8 {
+func (m *Wind) CRCExtra() uint8 {
 	return 1
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaWind) MsgName() string {
+func (m *Wind) MsgName() string {
 	return "Wind"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaWind) String() string {
+func (m *Wind) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaWind{ Direction: %+v, Speed: %+v, SpeedZ: %+v }",
+		"&Wind{ Direction: %+v, Speed: %+v, SpeedZ: %+v }",
 		m.Direction,
 		m.Speed,
 		m.SpeedZ,
@@ -1812,26 +1733,21 @@ func (m *ArdupilotmegaWind) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaWind) Pack(p *Packet) error {
+func (m *Wind) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Direction))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Speed))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.SpeedZ))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaWind) Unpack(p *Packet) error {
+func (m *Wind) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		payload = append(payload, zeroTail[:12-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Direction = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Speed = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -1839,33 +1755,33 @@ func (m *ArdupilotmegaWind) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaData16 struct (generated typeinfo)
+// Data16 struct (generated typeinfo)
 // Data packet, size 16.
-type ArdupilotmegaData16 struct {
+type Data16 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [16]uint8 // Raw data.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaData16) MsgID() MessageID {
+func (m *Data16) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA16
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaData16) CRCExtra() uint8 {
+func (m *Data16) CRCExtra() uint8 {
 	return 234
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaData16) MsgName() string {
+func (m *Data16) MsgName() string {
 	return "Data16"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaData16) String() string {
+func (m *Data16) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaData16{ Type: %+v, Len: %+v, Data: %+v }",
+		"&Data16{ Type: %+v, Len: %+v, Data: %+v }",
 		m.Type,
 		m.Len,
 		m.Data,
@@ -1873,26 +1789,21 @@ func (m *ArdupilotmegaData16) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaData16) Pack(p *Packet) error {
+func (m *Data16) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 18)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaData16) Unpack(p *Packet) error {
+func (m *Data16) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 18 {
-		payload = append(payload, zeroTail[:18-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1900,33 +1811,33 @@ func (m *ArdupilotmegaData16) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaData32 struct (generated typeinfo)
+// Data32 struct (generated typeinfo)
 // Data packet, size 32.
-type ArdupilotmegaData32 struct {
+type Data32 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [32]uint8 // Raw data.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaData32) MsgID() MessageID {
+func (m *Data32) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA32
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaData32) CRCExtra() uint8 {
+func (m *Data32) CRCExtra() uint8 {
 	return 73
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaData32) MsgName() string {
+func (m *Data32) MsgName() string {
 	return "Data32"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaData32) String() string {
+func (m *Data32) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaData32{ Type: %+v, Len: %+v, Data: %+v }",
+		"&Data32{ Type: %+v, Len: %+v, Data: %+v }",
 		m.Type,
 		m.Len,
 		m.Data,
@@ -1934,26 +1845,21 @@ func (m *ArdupilotmegaData32) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaData32) Pack(p *Packet) error {
+func (m *Data32) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 34)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaData32) Unpack(p *Packet) error {
+func (m *Data32) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 34 {
-		payload = append(payload, zeroTail[:34-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -1961,33 +1867,33 @@ func (m *ArdupilotmegaData32) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaData64 struct (generated typeinfo)
+// Data64 struct (generated typeinfo)
 // Data packet, size 64.
-type ArdupilotmegaData64 struct {
+type Data64 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [64]uint8 // Raw data.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaData64) MsgID() MessageID {
+func (m *Data64) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA64
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaData64) CRCExtra() uint8 {
+func (m *Data64) CRCExtra() uint8 {
 	return 181
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaData64) MsgName() string {
+func (m *Data64) MsgName() string {
 	return "Data64"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaData64) String() string {
+func (m *Data64) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaData64{ Type: %+v, Len: %+v, Data: %+v }",
+		"&Data64{ Type: %+v, Len: %+v, Data: %+v }",
 		m.Type,
 		m.Len,
 		m.Data,
@@ -1995,26 +1901,21 @@ func (m *ArdupilotmegaData64) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaData64) Pack(p *Packet) error {
+func (m *Data64) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 66)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaData64) Unpack(p *Packet) error {
+func (m *Data64) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 66 {
-		payload = append(payload, zeroTail[:66-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -2022,33 +1923,33 @@ func (m *ArdupilotmegaData64) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaData96 struct (generated typeinfo)
+// Data96 struct (generated typeinfo)
 // Data packet, size 96.
-type ArdupilotmegaData96 struct {
+type Data96 struct {
 	Type uint8     // Data type.
 	Len  uint8     // Data length.
 	Data [96]uint8 // Raw data.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaData96) MsgID() MessageID {
+func (m *Data96) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA96
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaData96) CRCExtra() uint8 {
+func (m *Data96) CRCExtra() uint8 {
 	return 22
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaData96) MsgName() string {
+func (m *Data96) MsgName() string {
 	return "Data96"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaData96) String() string {
+func (m *Data96) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaData96{ Type: %+v, Len: %+v, Data: %+v }",
+		"&Data96{ Type: %+v, Len: %+v, Data: %+v }",
 		m.Type,
 		m.Len,
 		m.Data,
@@ -2056,26 +1957,21 @@ func (m *ArdupilotmegaData96) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaData96) Pack(p *Packet) error {
+func (m *Data96) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 98)
 	payload[0] = byte(m.Type)
 	payload[1] = byte(m.Len)
 	copy(payload[2:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
+func (m *Data96) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 98 {
-		payload = append(payload, zeroTail[:98-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Type = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -2083,66 +1979,61 @@ func (m *ArdupilotmegaData96) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaRangefinder struct (generated typeinfo)
+// Rangefinder struct (generated typeinfo)
 // Rangefinder reporting.
-type ArdupilotmegaRangefinder struct {
+type Rangefinder struct {
 	Distance float32 // Distance.
 	Voltage  float32 // Raw voltage if available, zero otherwise.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRangefinder) MsgID() MessageID {
+func (m *Rangefinder) MsgID() mavlink.MessageID {
 	return MSG_ID_RANGEFINDER
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRangefinder) CRCExtra() uint8 {
+func (m *Rangefinder) CRCExtra() uint8 {
 	return 83
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRangefinder) MsgName() string {
+func (m *Rangefinder) MsgName() string {
 	return "Rangefinder"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRangefinder) String() string {
+func (m *Rangefinder) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRangefinder{ Distance: %+v, Voltage: %+v }",
+		"&Rangefinder{ Distance: %+v, Voltage: %+v }",
 		m.Distance,
 		m.Voltage,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRangefinder) Pack(p *Packet) error {
+func (m *Rangefinder) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Distance))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Voltage))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRangefinder) Unpack(p *Packet) error {
+func (m *Rangefinder) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Distance = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Voltage = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
 	return nil
 }
 
-// ArdupilotmegaAirspeedAutocal struct (generated typeinfo)
+// AirspeedAutocal struct (generated typeinfo)
 // Airspeed auto-calibration.
-type ArdupilotmegaAirspeedAutocal struct {
+type AirspeedAutocal struct {
 	Vx           float32 // GPS velocity north.
 	Vy           float32 // GPS velocity east.
 	Vz           float32 // GPS velocity down.
@@ -2158,24 +2049,24 @@ type ArdupilotmegaAirspeedAutocal struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) MsgID() MessageID {
+func (m *AirspeedAutocal) MsgID() mavlink.MessageID {
 	return MSG_ID_AIRSPEED_AUTOCAL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) CRCExtra() uint8 {
+func (m *AirspeedAutocal) CRCExtra() uint8 {
 	return 167
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) MsgName() string {
+func (m *AirspeedAutocal) MsgName() string {
 	return "AirspeedAutocal"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) String() string {
+func (m *AirspeedAutocal) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaAirspeedAutocal{ Vx: %+v, Vy: %+v, Vz: %+v, DiffPressure: %+v, Eas2tas: %+v, Ratio: %+v, StateX: %+v, StateY: %+v, StateZ: %+v, Pax: %+v, Pby: %+v, Pcz: %+v }",
+		"&AirspeedAutocal{ Vx: %+v, Vy: %+v, Vz: %+v, DiffPressure: %+v, Eas2tas: %+v, Ratio: %+v, StateX: %+v, StateY: %+v, StateZ: %+v, Pax: %+v, Pby: %+v, Pcz: %+v }",
 		m.Vx,
 		m.Vy,
 		m.Vz,
@@ -2192,7 +2083,7 @@ func (m *ArdupilotmegaAirspeedAutocal) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) Pack(p *Packet) error {
+func (m *AirspeedAutocal) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 48)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Vx))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Vy))
@@ -2206,21 +2097,16 @@ func (m *ArdupilotmegaAirspeedAutocal) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.Pax))
 	binary.LittleEndian.PutUint32(payload[40:], math.Float32bits(m.Pby))
 	binary.LittleEndian.PutUint32(payload[44:], math.Float32bits(m.Pcz))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaAirspeedAutocal) Unpack(p *Packet) error {
+func (m *AirspeedAutocal) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 48 {
-		payload = append(payload, zeroTail[:48-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Vx = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Vy = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2237,9 +2123,9 @@ func (m *ArdupilotmegaAirspeedAutocal) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaRallyPoint struct (generated typeinfo)
+// RallyPoint struct (generated typeinfo)
 // A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
-type ArdupilotmegaRallyPoint struct {
+type RallyPoint struct {
 	Lat             int32  // Latitude of point.
 	Lng             int32  // Longitude of point.
 	Alt             int16  // Transit / loiter altitude relative to home.
@@ -2253,24 +2139,24 @@ type ArdupilotmegaRallyPoint struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRallyPoint) MsgID() MessageID {
+func (m *RallyPoint) MsgID() mavlink.MessageID {
 	return MSG_ID_RALLY_POINT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRallyPoint) CRCExtra() uint8 {
+func (m *RallyPoint) CRCExtra() uint8 {
 	return 138
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRallyPoint) MsgName() string {
+func (m *RallyPoint) MsgName() string {
 	return "RallyPoint"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRallyPoint) String() string {
+func (m *RallyPoint) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRallyPoint{ Lat: %+v, Lng: %+v, Alt: %+v, BreakAlt: %+v, LandDir: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v, Flags: %+v }",
+		"&RallyPoint{ Lat: %+v, Lng: %+v, Alt: %+v, BreakAlt: %+v, LandDir: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v, Flags: %+v }",
 		m.Lat,
 		m.Lng,
 		m.Alt,
@@ -2285,7 +2171,7 @@ func (m *ArdupilotmegaRallyPoint) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRallyPoint) Pack(p *Packet) error {
+func (m *RallyPoint) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 19)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lng))
@@ -2297,21 +2183,16 @@ func (m *ArdupilotmegaRallyPoint) Pack(p *Packet) error {
 	payload[16] = byte(m.Idx)
 	payload[17] = byte(m.Count)
 	payload[18] = byte(m.Flags)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRallyPoint) Unpack(p *Packet) error {
+func (m *RallyPoint) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 19 {
-		payload = append(payload, zeroTail[:19-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lng = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -2326,33 +2207,33 @@ func (m *ArdupilotmegaRallyPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaRallyFetchPoint struct (generated typeinfo)
+// RallyFetchPoint struct (generated typeinfo)
 // Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.
-type ArdupilotmegaRallyFetchPoint struct {
+type RallyFetchPoint struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	Idx             uint8 // Point index (first point is 0).
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) MsgID() MessageID {
+func (m *RallyFetchPoint) MsgID() mavlink.MessageID {
 	return MSG_ID_RALLY_FETCH_POINT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) CRCExtra() uint8 {
+func (m *RallyFetchPoint) CRCExtra() uint8 {
 	return 234
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) MsgName() string {
+func (m *RallyFetchPoint) MsgName() string {
 	return "RallyFetchPoint"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) String() string {
+func (m *RallyFetchPoint) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRallyFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
+		"&RallyFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Idx,
@@ -2360,26 +2241,21 @@ func (m *ArdupilotmegaRallyFetchPoint) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) Pack(p *Packet) error {
+func (m *RallyFetchPoint) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.Idx)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRallyFetchPoint) Unpack(p *Packet) error {
+func (m *RallyFetchPoint) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -2387,9 +2263,9 @@ func (m *ArdupilotmegaRallyFetchPoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaCompassmotStatus struct (generated typeinfo)
+// CompassmotStatus struct (generated typeinfo)
 // Status of compassmot calibration.
-type ArdupilotmegaCompassmotStatus struct {
+type CompassmotStatus struct {
 	Current       float32 // Current.
 	Compensationx float32 // Motor Compensation X.
 	Compensationy float32 // Motor Compensation Y.
@@ -2399,24 +2275,24 @@ type ArdupilotmegaCompassmotStatus struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaCompassmotStatus) MsgID() MessageID {
+func (m *CompassmotStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_COMPASSMOT_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaCompassmotStatus) CRCExtra() uint8 {
+func (m *CompassmotStatus) CRCExtra() uint8 {
 	return 240
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaCompassmotStatus) MsgName() string {
+func (m *CompassmotStatus) MsgName() string {
 	return "CompassmotStatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaCompassmotStatus) String() string {
+func (m *CompassmotStatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaCompassmotStatus{ Current: %+v, Compensationx: %+v, Compensationy: %+v, Compensationz: %+v, Throttle: %+v, Interference: %+v }",
+		"&CompassmotStatus{ Current: %+v, Compensationx: %+v, Compensationy: %+v, Compensationz: %+v, Throttle: %+v, Interference: %+v }",
 		m.Current,
 		m.Compensationx,
 		m.Compensationy,
@@ -2427,7 +2303,7 @@ func (m *ArdupilotmegaCompassmotStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaCompassmotStatus) Pack(p *Packet) error {
+func (m *CompassmotStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Current))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Compensationx))
@@ -2435,21 +2311,16 @@ func (m *ArdupilotmegaCompassmotStatus) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Compensationz))
 	binary.LittleEndian.PutUint16(payload[16:], uint16(m.Throttle))
 	binary.LittleEndian.PutUint16(payload[18:], uint16(m.Interference))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaCompassmotStatus) Unpack(p *Packet) error {
+func (m *CompassmotStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		payload = append(payload, zeroTail[:20-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Current = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Compensationx = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2460,9 +2331,9 @@ func (m *ArdupilotmegaCompassmotStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaAhrs2 struct (generated typeinfo)
+// Ahrs2 struct (generated typeinfo)
 // Status of secondary AHRS filter if available.
-type ArdupilotmegaAhrs2 struct {
+type Ahrs2 struct {
 	Roll     float32 // Roll angle.
 	Pitch    float32 // Pitch angle.
 	Yaw      float32 // Yaw angle.
@@ -2472,24 +2343,24 @@ type ArdupilotmegaAhrs2 struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaAhrs2) MsgID() MessageID {
+func (m *Ahrs2) MsgID() mavlink.MessageID {
 	return MSG_ID_AHRS2
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaAhrs2) CRCExtra() uint8 {
+func (m *Ahrs2) CRCExtra() uint8 {
 	return 47
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaAhrs2) MsgName() string {
+func (m *Ahrs2) MsgName() string {
 	return "Ahrs2"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaAhrs2) String() string {
+func (m *Ahrs2) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaAhrs2{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v }",
+		"&Ahrs2{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -2500,7 +2371,7 @@ func (m *ArdupilotmegaAhrs2) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaAhrs2) Pack(p *Packet) error {
+func (m *Ahrs2) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 24)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -2508,21 +2379,16 @@ func (m *ArdupilotmegaAhrs2) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Altitude))
 	binary.LittleEndian.PutUint32(payload[16:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[20:], uint32(m.Lng))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaAhrs2) Unpack(p *Packet) error {
+func (m *Ahrs2) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 24 {
-		payload = append(payload, zeroTail[:24-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2533,9 +2399,9 @@ func (m *ArdupilotmegaAhrs2) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaCameraStatus struct (generated typeinfo)
+// CameraStatus struct (generated typeinfo)
 // Camera Event.
-type ArdupilotmegaCameraStatus struct {
+type CameraStatus struct {
 	TimeUsec     uint64  // Image timestamp (since UNIX epoch, according to camera clock).
 	P1           float32 // Parameter 1 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
 	P2           float32 // Parameter 2 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum).
@@ -2548,24 +2414,24 @@ type ArdupilotmegaCameraStatus struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaCameraStatus) MsgID() MessageID {
+func (m *CameraStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_CAMERA_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaCameraStatus) CRCExtra() uint8 {
+func (m *CameraStatus) CRCExtra() uint8 {
 	return 189
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaCameraStatus) MsgName() string {
+func (m *CameraStatus) MsgName() string {
 	return "CameraStatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaCameraStatus) String() string {
+func (m *CameraStatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaCameraStatus{ TimeUsec: %+v, P1: %+v, P2: %+v, P3: %+v, P4: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, EventID: %+v }",
+		"&CameraStatus{ TimeUsec: %+v, P1: %+v, P2: %+v, P3: %+v, P4: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, EventID: %+v }",
 		m.TimeUsec,
 		m.P1,
 		m.P2,
@@ -2579,7 +2445,7 @@ func (m *ArdupilotmegaCameraStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaCameraStatus) Pack(p *Packet) error {
+func (m *CameraStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 29)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.P1))
@@ -2590,21 +2456,16 @@ func (m *ArdupilotmegaCameraStatus) Pack(p *Packet) error {
 	payload[26] = byte(m.TargetSystem)
 	payload[27] = byte(m.CamIdx)
 	payload[28] = byte(m.EventID)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaCameraStatus) Unpack(p *Packet) error {
+func (m *CameraStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 29 {
-		payload = append(payload, zeroTail[:29-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.P1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -2618,9 +2479,9 @@ func (m *ArdupilotmegaCameraStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaCameraFeedback struct (generated typeinfo)
+// CameraFeedback struct (generated typeinfo)
 // Camera Capture Feedback.
-type ArdupilotmegaCameraFeedback struct {
+type CameraFeedback struct {
 	TimeUsec     uint64  // Image timestamp (since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB).
 	Lat          int32   // Latitude.
 	Lng          int32   // Longitude.
@@ -2637,24 +2498,24 @@ type ArdupilotmegaCameraFeedback struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaCameraFeedback) MsgID() MessageID {
+func (m *CameraFeedback) MsgID() mavlink.MessageID {
 	return MSG_ID_CAMERA_FEEDBACK
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaCameraFeedback) CRCExtra() uint8 {
+func (m *CameraFeedback) CRCExtra() uint8 {
 	return 52
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaCameraFeedback) MsgName() string {
+func (m *CameraFeedback) MsgName() string {
 	return "CameraFeedback"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaCameraFeedback) String() string {
+func (m *CameraFeedback) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaCameraFeedback{ TimeUsec: %+v, Lat: %+v, Lng: %+v, AltMsl: %+v, AltRel: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, FocLen: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, Flags: %+v }",
+		"&CameraFeedback{ TimeUsec: %+v, Lat: %+v, Lng: %+v, AltMsl: %+v, AltRel: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, FocLen: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, Flags: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lng,
@@ -2672,7 +2533,7 @@ func (m *ArdupilotmegaCameraFeedback) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaCameraFeedback) Pack(p *Packet) error {
+func (m *CameraFeedback) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 45)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -2687,21 +2548,16 @@ func (m *ArdupilotmegaCameraFeedback) Pack(p *Packet) error {
 	payload[42] = byte(m.TargetSystem)
 	payload[43] = byte(m.CamIdx)
 	payload[44] = byte(m.Flags)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaCameraFeedback) Unpack(p *Packet) error {
+func (m *CameraFeedback) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 45 {
-		payload = append(payload, zeroTail[:45-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -2719,66 +2575,61 @@ func (m *ArdupilotmegaCameraFeedback) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaBattery2 struct (generated typeinfo)
+// Battery2 struct (generated typeinfo)
 // 2nd Battery status
-type ArdupilotmegaBattery2 struct {
+type Battery2 struct {
 	Voltage        uint16 // Voltage.
 	CurrentBattery int16  // Battery current, -1: autopilot does not measure the current.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaBattery2) MsgID() MessageID {
+func (m *Battery2) MsgID() mavlink.MessageID {
 	return MSG_ID_BATTERY2
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaBattery2) CRCExtra() uint8 {
+func (m *Battery2) CRCExtra() uint8 {
 	return 174
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaBattery2) MsgName() string {
+func (m *Battery2) MsgName() string {
 	return "Battery2"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaBattery2) String() string {
+func (m *Battery2) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaBattery2{ Voltage: %+v, CurrentBattery: %+v }",
+		"&Battery2{ Voltage: %+v, CurrentBattery: %+v }",
 		m.Voltage,
 		m.CurrentBattery,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaBattery2) Pack(p *Packet) error {
+func (m *Battery2) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Voltage))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.CurrentBattery))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaBattery2) Unpack(p *Packet) error {
+func (m *Battery2) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		payload = append(payload, zeroTail[:4-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Voltage = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.CurrentBattery = int16(binary.LittleEndian.Uint16(payload[2:]))
 	return nil
 }
 
-// ArdupilotmegaAhrs3 struct (generated typeinfo)
+// Ahrs3 struct (generated typeinfo)
 // Status of third AHRS filter if available. This is for ANU research group (Ali and Sean).
-type ArdupilotmegaAhrs3 struct {
+type Ahrs3 struct {
 	Roll     float32 // Roll angle.
 	Pitch    float32 // Pitch angle.
 	Yaw      float32 // Yaw angle.
@@ -2792,24 +2643,24 @@ type ArdupilotmegaAhrs3 struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaAhrs3) MsgID() MessageID {
+func (m *Ahrs3) MsgID() mavlink.MessageID {
 	return MSG_ID_AHRS3
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaAhrs3) CRCExtra() uint8 {
+func (m *Ahrs3) CRCExtra() uint8 {
 	return 229
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaAhrs3) MsgName() string {
+func (m *Ahrs3) MsgName() string {
 	return "Ahrs3"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaAhrs3) String() string {
+func (m *Ahrs3) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaAhrs3{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v, V1: %+v, V2: %+v, V3: %+v, V4: %+v }",
+		"&Ahrs3{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v, V1: %+v, V2: %+v, V3: %+v, V4: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -2824,7 +2675,7 @@ func (m *ArdupilotmegaAhrs3) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaAhrs3) Pack(p *Packet) error {
+func (m *Ahrs3) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Roll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Pitch))
@@ -2836,21 +2687,16 @@ func (m *ArdupilotmegaAhrs3) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.V2))
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.V3))
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.V4))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaAhrs3) Unpack(p *Packet) error {
+func (m *Ahrs3) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 40 {
-		payload = append(payload, zeroTail[:40-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Pitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2865,66 +2711,61 @@ func (m *ArdupilotmegaAhrs3) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaAutopilotVersionRequest struct (generated typeinfo)
+// AutopilotVersionRequest struct (generated typeinfo)
 // Request the autopilot version from the system/component.
-type ArdupilotmegaAutopilotVersionRequest struct {
+type AutopilotVersionRequest struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) MsgID() MessageID {
+func (m *AutopilotVersionRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_AUTOPILOT_VERSION_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) CRCExtra() uint8 {
+func (m *AutopilotVersionRequest) CRCExtra() uint8 {
 	return 85
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) MsgName() string {
+func (m *AutopilotVersionRequest) MsgName() string {
 	return "AutopilotVersionRequest"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) String() string {
+func (m *AutopilotVersionRequest) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaAutopilotVersionRequest{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&AutopilotVersionRequest{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) Pack(p *Packet) error {
+func (m *AutopilotVersionRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaAutopilotVersionRequest) Unpack(p *Packet) error {
+func (m *AutopilotVersionRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// ArdupilotmegaRemoteLogDataBlock struct (generated typeinfo)
+// RemoteLogDataBlock struct (generated typeinfo)
 // Send a block of log data to remote location.
-type ArdupilotmegaRemoteLogDataBlock struct {
+type RemoteLogDataBlock struct {
 	Seqno           uint32     // Log data block sequence number.
 	TargetSystem    uint8      // System ID.
 	TargetComponent uint8      // Component ID.
@@ -2932,24 +2773,24 @@ type ArdupilotmegaRemoteLogDataBlock struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) MsgID() MessageID {
+func (m *RemoteLogDataBlock) MsgID() mavlink.MessageID {
 	return MSG_ID_REMOTE_LOG_DATA_BLOCK
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) CRCExtra() uint8 {
+func (m *RemoteLogDataBlock) CRCExtra() uint8 {
 	return 159
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) MsgName() string {
+func (m *RemoteLogDataBlock) MsgName() string {
 	return "RemoteLogDataBlock"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) String() string {
+func (m *RemoteLogDataBlock) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %+v }",
+		"&RemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %+v }",
 		m.Seqno,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2958,27 +2799,22 @@ func (m *ArdupilotmegaRemoteLogDataBlock) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) Pack(p *Packet) error {
+func (m *RemoteLogDataBlock) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 206)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
 	copy(payload[6:], m.Data[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRemoteLogDataBlock) Unpack(p *Packet) error {
+func (m *RemoteLogDataBlock) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 206 {
-		payload = append(payload, zeroTail[:206-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seqno = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2987,9 +2823,9 @@ func (m *ArdupilotmegaRemoteLogDataBlock) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaRemoteLogBlockStatus struct (generated typeinfo)
+// RemoteLogBlockStatus struct (generated typeinfo)
 // Send Status of each log block that autopilot board might have sent.
-type ArdupilotmegaRemoteLogBlockStatus struct {
+type RemoteLogBlockStatus struct {
 	Seqno           uint32 // Log data block sequence number.
 	TargetSystem    uint8  // System ID.
 	TargetComponent uint8  // Component ID.
@@ -2997,24 +2833,24 @@ type ArdupilotmegaRemoteLogBlockStatus struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) MsgID() MessageID {
+func (m *RemoteLogBlockStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_REMOTE_LOG_BLOCK_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) CRCExtra() uint8 {
+func (m *RemoteLogBlockStatus) CRCExtra() uint8 {
 	return 186
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) MsgName() string {
+func (m *RemoteLogBlockStatus) MsgName() string {
 	return "RemoteLogBlockStatus"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) String() string {
+func (m *RemoteLogBlockStatus) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRemoteLogBlockStatus{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Status: %+v }",
+		"&RemoteLogBlockStatus{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Status: %+v }",
 		m.Seqno,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -3023,27 +2859,22 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) Pack(p *Packet) error {
+func (m *RemoteLogBlockStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 7)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seqno))
 	payload[4] = byte(m.TargetSystem)
 	payload[5] = byte(m.TargetComponent)
 	payload[6] = byte(m.Status)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRemoteLogBlockStatus) Unpack(p *Packet) error {
+func (m *RemoteLogBlockStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 7 {
-		payload = append(payload, zeroTail[:7-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seqno = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -3052,9 +2883,9 @@ func (m *ArdupilotmegaRemoteLogBlockStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaLedControl struct (generated typeinfo)
+// LedControl struct (generated typeinfo)
 // Control vehicle LEDs.
-type ArdupilotmegaLedControl struct {
+type LedControl struct {
 	TargetSystem    uint8     // System ID.
 	TargetComponent uint8     // Component ID.
 	Instance        uint8     // Instance (LED instance to control or 255 for all LEDs).
@@ -3064,24 +2895,24 @@ type ArdupilotmegaLedControl struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaLedControl) MsgID() MessageID {
+func (m *LedControl) MsgID() mavlink.MessageID {
 	return MSG_ID_LED_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaLedControl) CRCExtra() uint8 {
+func (m *LedControl) CRCExtra() uint8 {
 	return 72
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaLedControl) MsgName() string {
+func (m *LedControl) MsgName() string {
 	return "LedControl"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaLedControl) String() string {
+func (m *LedControl) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaLedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %+v }",
+		"&LedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Instance,
@@ -3092,7 +2923,7 @@ func (m *ArdupilotmegaLedControl) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaLedControl) Pack(p *Packet) error {
+func (m *LedControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 29)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -3100,21 +2931,16 @@ func (m *ArdupilotmegaLedControl) Pack(p *Packet) error {
 	payload[3] = byte(m.Pattern)
 	payload[4] = byte(m.CustomLen)
 	copy(payload[5:], m.CustomBytes[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaLedControl) Unpack(p *Packet) error {
+func (m *LedControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 29 {
-		payload = append(payload, zeroTail[:29-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -3125,9 +2951,9 @@ func (m *ArdupilotmegaLedControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaMagCalProgress struct (generated typeinfo)
+// MagCalProgress struct (generated typeinfo)
 // Reports progress of compass calibration.
-type ArdupilotmegaMagCalProgress struct {
+type MagCalProgress struct {
 	DirectionX     float32   // Body frame direction vector for display.
 	DirectionY     float32   // Body frame direction vector for display.
 	DirectionZ     float32   // Body frame direction vector for display.
@@ -3140,24 +2966,24 @@ type ArdupilotmegaMagCalProgress struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaMagCalProgress) MsgID() MessageID {
+func (m *MagCalProgress) MsgID() mavlink.MessageID {
 	return MSG_ID_MAG_CAL_PROGRESS
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaMagCalProgress) CRCExtra() uint8 {
+func (m *MagCalProgress) CRCExtra() uint8 {
 	return 92
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaMagCalProgress) MsgName() string {
+func (m *MagCalProgress) MsgName() string {
 	return "MagCalProgress"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaMagCalProgress) String() string {
+func (m *MagCalProgress) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaMagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %+v }",
+		"&MagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %+v }",
 		m.DirectionX,
 		m.DirectionY,
 		m.DirectionZ,
@@ -3171,7 +2997,7 @@ func (m *ArdupilotmegaMagCalProgress) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaMagCalProgress) Pack(p *Packet) error {
+func (m *MagCalProgress) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 27)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DirectionX))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DirectionY))
@@ -3182,21 +3008,16 @@ func (m *ArdupilotmegaMagCalProgress) Pack(p *Packet) error {
 	payload[15] = byte(m.Attempt)
 	payload[16] = byte(m.CompletionPct)
 	copy(payload[17:], m.CompletionMask[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaMagCalProgress) Unpack(p *Packet) error {
+func (m *MagCalProgress) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 27 {
-		payload = append(payload, zeroTail[:27-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.DirectionX = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DirectionY = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3210,9 +3031,9 @@ func (m *ArdupilotmegaMagCalProgress) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaEkfStatusReport struct (generated typeinfo)
+// EkfStatusReport struct (generated typeinfo)
 // EKF Status message including flags and variances.
-type ArdupilotmegaEkfStatusReport struct {
+type EkfStatusReport struct {
 	VelocityVariance   float32 // Velocity variance.
 	PosHorizVariance   float32 // Horizontal Position variance.
 	PosVertVariance    float32 // Vertical Position variance.
@@ -3222,24 +3043,24 @@ type ArdupilotmegaEkfStatusReport struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaEkfStatusReport) MsgID() MessageID {
+func (m *EkfStatusReport) MsgID() mavlink.MessageID {
 	return MSG_ID_EKF_STATUS_REPORT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaEkfStatusReport) CRCExtra() uint8 {
+func (m *EkfStatusReport) CRCExtra() uint8 {
 	return 71
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaEkfStatusReport) MsgName() string {
+func (m *EkfStatusReport) MsgName() string {
 	return "EkfStatusReport"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaEkfStatusReport) String() string {
+func (m *EkfStatusReport) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaEkfStatusReport{ VelocityVariance: %+v, PosHorizVariance: %+v, PosVertVariance: %+v, CompassVariance: %+v, TerrainAltVariance: %+v, Flags: %+v }",
+		"&EkfStatusReport{ VelocityVariance: %+v, PosHorizVariance: %+v, PosVertVariance: %+v, CompassVariance: %+v, TerrainAltVariance: %+v, Flags: %+v }",
 		m.VelocityVariance,
 		m.PosHorizVariance,
 		m.PosVertVariance,
@@ -3250,7 +3071,7 @@ func (m *ArdupilotmegaEkfStatusReport) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaEkfStatusReport) Pack(p *Packet) error {
+func (m *EkfStatusReport) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.VelocityVariance))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PosHorizVariance))
@@ -3258,21 +3079,16 @@ func (m *ArdupilotmegaEkfStatusReport) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.CompassVariance))
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.TerrainAltVariance))
 	binary.LittleEndian.PutUint16(payload[20:], uint16(m.Flags))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaEkfStatusReport) Unpack(p *Packet) error {
+func (m *EkfStatusReport) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		payload = append(payload, zeroTail[:22-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.VelocityVariance = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.PosHorizVariance = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3283,9 +3099,9 @@ func (m *ArdupilotmegaEkfStatusReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaPidTuning struct (generated typeinfo)
+// PidTuning struct (generated typeinfo)
 // PID tuning information.
-type ArdupilotmegaPidTuning struct {
+type PidTuning struct {
 	Desired  float32 // Desired rate.
 	Achieved float32 // Achieved rate.
 	Ff       float32 // FF component.
@@ -3296,24 +3112,24 @@ type ArdupilotmegaPidTuning struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaPidTuning) MsgID() MessageID {
+func (m *PidTuning) MsgID() mavlink.MessageID {
 	return MSG_ID_PID_TUNING
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaPidTuning) CRCExtra() uint8 {
+func (m *PidTuning) CRCExtra() uint8 {
 	return 98
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaPidTuning) MsgName() string {
+func (m *PidTuning) MsgName() string {
 	return "PidTuning"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaPidTuning) String() string {
+func (m *PidTuning) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaPidTuning{ Desired: %+v, Achieved: %+v, Ff: %+v, P: %+v, I: %+v, D: %+v, Axis: %+v }",
+		"&PidTuning{ Desired: %+v, Achieved: %+v, Ff: %+v, P: %+v, I: %+v, D: %+v, Axis: %+v }",
 		m.Desired,
 		m.Achieved,
 		m.Ff,
@@ -3325,7 +3141,7 @@ func (m *ArdupilotmegaPidTuning) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaPidTuning) Pack(p *Packet) error {
+func (m *PidTuning) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Desired))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Achieved))
@@ -3334,21 +3150,16 @@ func (m *ArdupilotmegaPidTuning) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[16:], math.Float32bits(m.I))
 	binary.LittleEndian.PutUint32(payload[20:], math.Float32bits(m.D))
 	payload[24] = byte(m.Axis)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaPidTuning) Unpack(p *Packet) error {
+func (m *PidTuning) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 25 {
-		payload = append(payload, zeroTail[:25-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Desired = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Achieved = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3360,9 +3171,9 @@ func (m *ArdupilotmegaPidTuning) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaDeepstall struct (generated typeinfo)
+// Deepstall struct (generated typeinfo)
 // Deepstall path planning.
-type ArdupilotmegaDeepstall struct {
+type Deepstall struct {
 	LandingLat             int32   // Landing latitude.
 	LandingLon             int32   // Landing longitude.
 	PathLat                int32   // Final heading start point, latitude.
@@ -3376,24 +3187,24 @@ type ArdupilotmegaDeepstall struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaDeepstall) MsgID() MessageID {
+func (m *Deepstall) MsgID() mavlink.MessageID {
 	return MSG_ID_DEEPSTALL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaDeepstall) CRCExtra() uint8 {
+func (m *Deepstall) CRCExtra() uint8 {
 	return 120
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaDeepstall) MsgName() string {
+func (m *Deepstall) MsgName() string {
 	return "Deepstall"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaDeepstall) String() string {
+func (m *Deepstall) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaDeepstall{ LandingLat: %+v, LandingLon: %+v, PathLat: %+v, PathLon: %+v, ArcEntryLat: %+v, ArcEntryLon: %+v, Altitude: %+v, ExpectedTravelDistance: %+v, CrossTrackError: %+v, Stage: %+v }",
+		"&Deepstall{ LandingLat: %+v, LandingLon: %+v, PathLat: %+v, PathLon: %+v, ArcEntryLat: %+v, ArcEntryLon: %+v, Altitude: %+v, ExpectedTravelDistance: %+v, CrossTrackError: %+v, Stage: %+v }",
 		m.LandingLat,
 		m.LandingLon,
 		m.PathLat,
@@ -3408,7 +3219,7 @@ func (m *ArdupilotmegaDeepstall) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaDeepstall) Pack(p *Packet) error {
+func (m *Deepstall) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.LandingLat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LandingLon))
@@ -3420,21 +3231,16 @@ func (m *ArdupilotmegaDeepstall) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[28:], math.Float32bits(m.ExpectedTravelDistance))
 	binary.LittleEndian.PutUint32(payload[32:], math.Float32bits(m.CrossTrackError))
 	payload[36] = byte(m.Stage)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaDeepstall) Unpack(p *Packet) error {
+func (m *Deepstall) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 37 {
-		payload = append(payload, zeroTail[:37-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.LandingLat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LandingLon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -3449,9 +3255,9 @@ func (m *ArdupilotmegaDeepstall) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGimbalReport struct (generated typeinfo)
+// GimbalReport struct (generated typeinfo)
 // 3 axis gimbal measurements.
-type ArdupilotmegaGimbalReport struct {
+type GimbalReport struct {
 	DeltaTime       float32 // Time since last update.
 	DeltaAngleX     float32 // Delta angle X.
 	DeltaAngleY     float32 // Delta angle Y.
@@ -3467,24 +3273,24 @@ type ArdupilotmegaGimbalReport struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGimbalReport) MsgID() MessageID {
+func (m *GimbalReport) MsgID() mavlink.MessageID {
 	return MSG_ID_GIMBAL_REPORT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGimbalReport) CRCExtra() uint8 {
+func (m *GimbalReport) CRCExtra() uint8 {
 	return 134
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGimbalReport) MsgName() string {
+func (m *GimbalReport) MsgName() string {
 	return "GimbalReport"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGimbalReport) String() string {
+func (m *GimbalReport) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGimbalReport{ DeltaTime: %+v, DeltaAngleX: %+v, DeltaAngleY: %+v, DeltaAngleZ: %+v, DeltaVelocityX: %+v, DeltaVelocityY: %+v, DeltaVelocityZ: %+v, JointRoll: %+v, JointEl: %+v, JointAz: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&GimbalReport{ DeltaTime: %+v, DeltaAngleX: %+v, DeltaAngleY: %+v, DeltaAngleZ: %+v, DeltaVelocityX: %+v, DeltaVelocityY: %+v, DeltaVelocityZ: %+v, JointRoll: %+v, JointEl: %+v, JointAz: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.DeltaTime,
 		m.DeltaAngleX,
 		m.DeltaAngleY,
@@ -3501,7 +3307,7 @@ func (m *ArdupilotmegaGimbalReport) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGimbalReport) Pack(p *Packet) error {
+func (m *GimbalReport) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DeltaTime))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DeltaAngleX))
@@ -3515,21 +3321,16 @@ func (m *ArdupilotmegaGimbalReport) Pack(p *Packet) error {
 	binary.LittleEndian.PutUint32(payload[36:], math.Float32bits(m.JointAz))
 	payload[40] = byte(m.TargetSystem)
 	payload[41] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGimbalReport) Unpack(p *Packet) error {
+func (m *GimbalReport) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		payload = append(payload, zeroTail[:42-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.DeltaTime = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DeltaAngleX = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3546,9 +3347,9 @@ func (m *ArdupilotmegaGimbalReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGimbalControl struct (generated typeinfo)
+// GimbalControl struct (generated typeinfo)
 // Control message for rate gimbal.
-type ArdupilotmegaGimbalControl struct {
+type GimbalControl struct {
 	DemandedRateX   float32 // Demanded angular rate X.
 	DemandedRateY   float32 // Demanded angular rate Y.
 	DemandedRateZ   float32 // Demanded angular rate Z.
@@ -3557,24 +3358,24 @@ type ArdupilotmegaGimbalControl struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGimbalControl) MsgID() MessageID {
+func (m *GimbalControl) MsgID() mavlink.MessageID {
 	return MSG_ID_GIMBAL_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGimbalControl) CRCExtra() uint8 {
+func (m *GimbalControl) CRCExtra() uint8 {
 	return 205
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGimbalControl) MsgName() string {
+func (m *GimbalControl) MsgName() string {
 	return "GimbalControl"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGimbalControl) String() string {
+func (m *GimbalControl) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGimbalControl{ DemandedRateX: %+v, DemandedRateY: %+v, DemandedRateZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&GimbalControl{ DemandedRateX: %+v, DemandedRateY: %+v, DemandedRateZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.DemandedRateX,
 		m.DemandedRateY,
 		m.DemandedRateZ,
@@ -3584,28 +3385,23 @@ func (m *ArdupilotmegaGimbalControl) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGimbalControl) Pack(p *Packet) error {
+func (m *GimbalControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.DemandedRateX))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.DemandedRateY))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.DemandedRateZ))
 	payload[12] = byte(m.TargetSystem)
 	payload[13] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGimbalControl) Unpack(p *Packet) error {
+func (m *GimbalControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		payload = append(payload, zeroTail[:14-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.DemandedRateX = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.DemandedRateY = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3615,9 +3411,9 @@ func (m *ArdupilotmegaGimbalControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGimbalTorqueCmdReport struct (generated typeinfo)
+// GimbalTorqueCmdReport struct (generated typeinfo)
 // 100 Hz gimbal torque command telemetry.
-type ArdupilotmegaGimbalTorqueCmdReport struct {
+type GimbalTorqueCmdReport struct {
 	RlTorqueCmd     int16 // Roll Torque Command.
 	ElTorqueCmd     int16 // Elevation Torque Command.
 	AzTorqueCmd     int16 // Azimuth Torque Command.
@@ -3626,24 +3422,24 @@ type ArdupilotmegaGimbalTorqueCmdReport struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgID() MessageID {
+func (m *GimbalTorqueCmdReport) MsgID() mavlink.MessageID {
 	return MSG_ID_GIMBAL_TORQUE_CMD_REPORT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) CRCExtra() uint8 {
+func (m *GimbalTorqueCmdReport) CRCExtra() uint8 {
 	return 69
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) MsgName() string {
+func (m *GimbalTorqueCmdReport) MsgName() string {
 	return "GimbalTorqueCmdReport"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) String() string {
+func (m *GimbalTorqueCmdReport) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGimbalTorqueCmdReport{ RlTorqueCmd: %+v, ElTorqueCmd: %+v, AzTorqueCmd: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&GimbalTorqueCmdReport{ RlTorqueCmd: %+v, ElTorqueCmd: %+v, AzTorqueCmd: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.RlTorqueCmd,
 		m.ElTorqueCmd,
 		m.AzTorqueCmd,
@@ -3653,28 +3449,23 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) Pack(p *Packet) error {
+func (m *GimbalTorqueCmdReport) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.RlTorqueCmd))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.ElTorqueCmd))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.AzTorqueCmd))
 	payload[6] = byte(m.TargetSystem)
 	payload[7] = byte(m.TargetComponent)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGimbalTorqueCmdReport) Unpack(p *Packet) error {
+func (m *GimbalTorqueCmdReport) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.RlTorqueCmd = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.ElTorqueCmd = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -3684,33 +3475,33 @@ func (m *ArdupilotmegaGimbalTorqueCmdReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGoproHeartbeat struct (generated typeinfo)
+// GoproHeartbeat struct (generated typeinfo)
 // Heartbeat from a HeroBus attached GoPro.
-type ArdupilotmegaGoproHeartbeat struct {
+type GoproHeartbeat struct {
 	Status      uint8 // Status.
 	CaptureMode uint8 // Current capture mode.
 	Flags       uint8 // Additional status bits.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) MsgID() MessageID {
+func (m *GoproHeartbeat) MsgID() mavlink.MessageID {
 	return MSG_ID_GOPRO_HEARTBEAT
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) CRCExtra() uint8 {
+func (m *GoproHeartbeat) CRCExtra() uint8 {
 	return 101
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) MsgName() string {
+func (m *GoproHeartbeat) MsgName() string {
 	return "GoproHeartbeat"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) String() string {
+func (m *GoproHeartbeat) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGoproHeartbeat{ Status: %+v, CaptureMode: %+v, Flags: %+v }",
+		"&GoproHeartbeat{ Status: %+v, CaptureMode: %+v, Flags: %+v }",
 		m.Status,
 		m.CaptureMode,
 		m.Flags,
@@ -3718,26 +3509,21 @@ func (m *ArdupilotmegaGoproHeartbeat) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) Pack(p *Packet) error {
+func (m *GoproHeartbeat) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.Status)
 	payload[1] = byte(m.CaptureMode)
 	payload[2] = byte(m.Flags)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGoproHeartbeat) Unpack(p *Packet) error {
+func (m *GoproHeartbeat) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Status = uint8(payload[0])
 	m.CaptureMode = uint8(payload[1])
@@ -3745,33 +3531,33 @@ func (m *ArdupilotmegaGoproHeartbeat) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGoproGetRequest struct (generated typeinfo)
+// GoproGetRequest struct (generated typeinfo)
 // Request a GOPRO_COMMAND response from the GoPro.
-type ArdupilotmegaGoproGetRequest struct {
+type GoproGetRequest struct {
 	TargetSystem    uint8 // System ID.
 	TargetComponent uint8 // Component ID.
 	CmdID           uint8 // Command ID.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGoproGetRequest) MsgID() MessageID {
+func (m *GoproGetRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_GOPRO_GET_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGoproGetRequest) CRCExtra() uint8 {
+func (m *GoproGetRequest) CRCExtra() uint8 {
 	return 50
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGoproGetRequest) MsgName() string {
+func (m *GoproGetRequest) MsgName() string {
 	return "GoproGetRequest"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGoproGetRequest) String() string {
+func (m *GoproGetRequest) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGoproGetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v }",
+		"&GoproGetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CmdID,
@@ -3779,26 +3565,21 @@ func (m *ArdupilotmegaGoproGetRequest) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGoproGetRequest) Pack(p *Packet) error {
+func (m *GoproGetRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.CmdID)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGoproGetRequest) Unpack(p *Packet) error {
+func (m *GoproGetRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		payload = append(payload, zeroTail[:3-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -3806,33 +3587,33 @@ func (m *ArdupilotmegaGoproGetRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGoproGetResponse struct (generated typeinfo)
+// GoproGetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND get request.
-type ArdupilotmegaGoproGetResponse struct {
+type GoproGetResponse struct {
 	CmdID  uint8    // Command ID.
 	Status uint8    // Status.
 	Value  [4]uint8 // Value.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGoproGetResponse) MsgID() MessageID {
+func (m *GoproGetResponse) MsgID() mavlink.MessageID {
 	return MSG_ID_GOPRO_GET_RESPONSE
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGoproGetResponse) CRCExtra() uint8 {
+func (m *GoproGetResponse) CRCExtra() uint8 {
 	return 202
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGoproGetResponse) MsgName() string {
+func (m *GoproGetResponse) MsgName() string {
 	return "GoproGetResponse"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGoproGetResponse) String() string {
+func (m *GoproGetResponse) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGoproGetResponse{ CmdID: %+v, Status: %+v, Value: %+v }",
+		"&GoproGetResponse{ CmdID: %+v, Status: %+v, Value: %+v }",
 		m.CmdID,
 		m.Status,
 		m.Value,
@@ -3840,26 +3621,21 @@ func (m *ArdupilotmegaGoproGetResponse) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGoproGetResponse) Pack(p *Packet) error {
+func (m *GoproGetResponse) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	payload[0] = byte(m.CmdID)
 	payload[1] = byte(m.Status)
 	copy(payload[2:], m.Value[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGoproGetResponse) Unpack(p *Packet) error {
+func (m *GoproGetResponse) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		payload = append(payload, zeroTail[:6-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.CmdID = uint8(payload[0])
 	m.Status = uint8(payload[1])
@@ -3867,9 +3643,9 @@ func (m *ArdupilotmegaGoproGetResponse) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGoproSetRequest struct (generated typeinfo)
+// GoproSetRequest struct (generated typeinfo)
 // Request to set a GOPRO_COMMAND with a desired.
-type ArdupilotmegaGoproSetRequest struct {
+type GoproSetRequest struct {
 	TargetSystem    uint8    // System ID.
 	TargetComponent uint8    // Component ID.
 	CmdID           uint8    // Command ID.
@@ -3877,24 +3653,24 @@ type ArdupilotmegaGoproSetRequest struct {
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGoproSetRequest) MsgID() MessageID {
+func (m *GoproSetRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_GOPRO_SET_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGoproSetRequest) CRCExtra() uint8 {
+func (m *GoproSetRequest) CRCExtra() uint8 {
 	return 17
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGoproSetRequest) MsgName() string {
+func (m *GoproSetRequest) MsgName() string {
 	return "GoproSetRequest"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGoproSetRequest) String() string {
+func (m *GoproSetRequest) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %+v }",
+		"&GoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CmdID,
@@ -3903,27 +3679,22 @@ func (m *ArdupilotmegaGoproSetRequest) String() string {
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGoproSetRequest) Pack(p *Packet) error {
+func (m *GoproSetRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 7)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
 	payload[2] = byte(m.CmdID)
 	copy(payload[3:], m.Value[:])
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGoproSetRequest) Unpack(p *Packet) error {
+func (m *GoproSetRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 7 {
-		payload = append(payload, zeroTail[:7-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -3932,114 +3703,104 @@ func (m *ArdupilotmegaGoproSetRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// ArdupilotmegaGoproSetResponse struct (generated typeinfo)
+// GoproSetResponse struct (generated typeinfo)
 // Response from a GOPRO_COMMAND set request.
-type ArdupilotmegaGoproSetResponse struct {
+type GoproSetResponse struct {
 	CmdID  uint8 // Command ID.
 	Status uint8 // Status.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaGoproSetResponse) MsgID() MessageID {
+func (m *GoproSetResponse) MsgID() mavlink.MessageID {
 	return MSG_ID_GOPRO_SET_RESPONSE
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaGoproSetResponse) CRCExtra() uint8 {
+func (m *GoproSetResponse) CRCExtra() uint8 {
 	return 162
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaGoproSetResponse) MsgName() string {
+func (m *GoproSetResponse) MsgName() string {
 	return "GoproSetResponse"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaGoproSetResponse) String() string {
+func (m *GoproSetResponse) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaGoproSetResponse{ CmdID: %+v, Status: %+v }",
+		"&GoproSetResponse{ CmdID: %+v, Status: %+v }",
 		m.CmdID,
 		m.Status,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaGoproSetResponse) Pack(p *Packet) error {
+func (m *GoproSetResponse) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.CmdID)
 	payload[1] = byte(m.Status)
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaGoproSetResponse) Unpack(p *Packet) error {
+func (m *GoproSetResponse) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		payload = append(payload, zeroTail[:2-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.CmdID = uint8(payload[0])
 	m.Status = uint8(payload[1])
 	return nil
 }
 
-// ArdupilotmegaRpm struct (generated typeinfo)
+// Rpm struct (generated typeinfo)
 // RPM sensor output.
-type ArdupilotmegaRpm struct {
+type Rpm struct {
 	Rpm1 float32 // RPM Sensor1.
 	Rpm2 float32 // RPM Sensor2.
 }
 
 // MsgID (generated function)
-func (m *ArdupilotmegaRpm) MsgID() MessageID {
+func (m *Rpm) MsgID() mavlink.MessageID {
 	return MSG_ID_RPM
 }
 
 // CRCExtra (generated function)
-func (m *ArdupilotmegaRpm) CRCExtra() uint8 {
+func (m *Rpm) CRCExtra() uint8 {
 	return 207
 }
 
 // MsgName (generated function)
-func (m *ArdupilotmegaRpm) MsgName() string {
+func (m *Rpm) MsgName() string {
 	return "Rpm"
 }
 
 // String (generated function)
-func (m *ArdupilotmegaRpm) String() string {
+func (m *Rpm) String() string {
 	return fmt.Sprintf(
-		"&ArdupilotmegaRpm{ Rpm1: %+v, Rpm2: %+v }",
+		"&Rpm{ Rpm1: %+v, Rpm2: %+v }",
 		m.Rpm1,
 		m.Rpm2,
 	)
 }
 
 // Pack (generated function)
-func (m *ArdupilotmegaRpm) Pack(p *Packet) error {
+func (m *Rpm) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Rpm1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Rpm2))
-	payloadLen := len(payload)
-	for payloadLen > 1 && payload[payloadLen-1] == 0 {
-		payloadLen--
-	}
-	payload = payload[:payloadLen]
 	p.MsgID = m.MsgID()
 	p.Payload = payload
 	return nil
 }
 
 // Unpack (generated function)
-func (m *ArdupilotmegaRpm) Unpack(p *Packet) error {
+func (m *Rpm) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		payload = append(payload, zeroTail[:8-len(p.Payload)]...)
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Rpm1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Rpm2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4048,538 +3809,296 @@ func (m *ArdupilotmegaRpm) Unpack(p *Packet) error {
 
 // Message IDs
 const (
-	MSG_ID_SENSOR_OFFSETS            MessageID = 150
-	MSG_ID_SET_MAG_OFFSETS           MessageID = 151
-	MSG_ID_MEMINFO                   MessageID = 152
-	MSG_ID_AP_ADC                    MessageID = 153
-	MSG_ID_DIGICAM_CONFIGURE         MessageID = 154
-	MSG_ID_DIGICAM_CONTROL           MessageID = 155
-	MSG_ID_MOUNT_CONFIGURE           MessageID = 156
-	MSG_ID_MOUNT_CONTROL             MessageID = 157
-	MSG_ID_MOUNT_STATUS              MessageID = 158
-	MSG_ID_FENCE_POINT               MessageID = 160
-	MSG_ID_FENCE_FETCH_POINT         MessageID = 161
-	MSG_ID_AHRS                      MessageID = 163
-	MSG_ID_SIMSTATE                  MessageID = 164
-	MSG_ID_HWSTATUS                  MessageID = 165
-	MSG_ID_RADIO                     MessageID = 166
-	MSG_ID_LIMITS_STATUS             MessageID = 167
-	MSG_ID_WIND                      MessageID = 168
-	MSG_ID_DATA16                    MessageID = 169
-	MSG_ID_DATA32                    MessageID = 170
-	MSG_ID_DATA64                    MessageID = 171
-	MSG_ID_DATA96                    MessageID = 172
-	MSG_ID_RANGEFINDER               MessageID = 173
-	MSG_ID_AIRSPEED_AUTOCAL          MessageID = 174
-	MSG_ID_RALLY_POINT               MessageID = 175
-	MSG_ID_RALLY_FETCH_POINT         MessageID = 176
-	MSG_ID_COMPASSMOT_STATUS         MessageID = 177
-	MSG_ID_AHRS2                     MessageID = 178
-	MSG_ID_CAMERA_STATUS             MessageID = 179
-	MSG_ID_CAMERA_FEEDBACK           MessageID = 180
-	MSG_ID_BATTERY2                  MessageID = 181
-	MSG_ID_AHRS3                     MessageID = 182
-	MSG_ID_AUTOPILOT_VERSION_REQUEST MessageID = 183
-	MSG_ID_REMOTE_LOG_DATA_BLOCK     MessageID = 184
-	MSG_ID_REMOTE_LOG_BLOCK_STATUS   MessageID = 185
-	MSG_ID_LED_CONTROL               MessageID = 186
-	MSG_ID_MAG_CAL_PROGRESS          MessageID = 191
-	MSG_ID_EKF_STATUS_REPORT         MessageID = 193
-	MSG_ID_PID_TUNING                MessageID = 194
-	MSG_ID_DEEPSTALL                 MessageID = 195
-	MSG_ID_GIMBAL_REPORT             MessageID = 200
-	MSG_ID_GIMBAL_CONTROL            MessageID = 201
-	MSG_ID_GIMBAL_TORQUE_CMD_REPORT  MessageID = 214
-	MSG_ID_GOPRO_HEARTBEAT           MessageID = 215
-	MSG_ID_GOPRO_GET_REQUEST         MessageID = 216
-	MSG_ID_GOPRO_GET_RESPONSE        MessageID = 217
-	MSG_ID_GOPRO_SET_REQUEST         MessageID = 218
-	MSG_ID_GOPRO_SET_RESPONSE        MessageID = 219
-	MSG_ID_RPM                       MessageID = 226
+	MSG_ID_SENSOR_OFFSETS            mavlink.MessageID = 150
+	MSG_ID_SET_MAG_OFFSETS           mavlink.MessageID = 151
+	MSG_ID_MEMINFO                   mavlink.MessageID = 152
+	MSG_ID_AP_ADC                    mavlink.MessageID = 153
+	MSG_ID_DIGICAM_CONFIGURE         mavlink.MessageID = 154
+	MSG_ID_DIGICAM_CONTROL           mavlink.MessageID = 155
+	MSG_ID_MOUNT_CONFIGURE           mavlink.MessageID = 156
+	MSG_ID_MOUNT_CONTROL             mavlink.MessageID = 157
+	MSG_ID_MOUNT_STATUS              mavlink.MessageID = 158
+	MSG_ID_FENCE_POINT               mavlink.MessageID = 160
+	MSG_ID_FENCE_FETCH_POINT         mavlink.MessageID = 161
+	MSG_ID_AHRS                      mavlink.MessageID = 163
+	MSG_ID_SIMSTATE                  mavlink.MessageID = 164
+	MSG_ID_HWSTATUS                  mavlink.MessageID = 165
+	MSG_ID_RADIO                     mavlink.MessageID = 166
+	MSG_ID_LIMITS_STATUS             mavlink.MessageID = 167
+	MSG_ID_WIND                      mavlink.MessageID = 168
+	MSG_ID_DATA16                    mavlink.MessageID = 169
+	MSG_ID_DATA32                    mavlink.MessageID = 170
+	MSG_ID_DATA64                    mavlink.MessageID = 171
+	MSG_ID_DATA96                    mavlink.MessageID = 172
+	MSG_ID_RANGEFINDER               mavlink.MessageID = 173
+	MSG_ID_AIRSPEED_AUTOCAL          mavlink.MessageID = 174
+	MSG_ID_RALLY_POINT               mavlink.MessageID = 175
+	MSG_ID_RALLY_FETCH_POINT         mavlink.MessageID = 176
+	MSG_ID_COMPASSMOT_STATUS         mavlink.MessageID = 177
+	MSG_ID_AHRS2                     mavlink.MessageID = 178
+	MSG_ID_CAMERA_STATUS             mavlink.MessageID = 179
+	MSG_ID_CAMERA_FEEDBACK           mavlink.MessageID = 180
+	MSG_ID_BATTERY2                  mavlink.MessageID = 181
+	MSG_ID_AHRS3                     mavlink.MessageID = 182
+	MSG_ID_AUTOPILOT_VERSION_REQUEST mavlink.MessageID = 183
+	MSG_ID_REMOTE_LOG_DATA_BLOCK     mavlink.MessageID = 184
+	MSG_ID_REMOTE_LOG_BLOCK_STATUS   mavlink.MessageID = 185
+	MSG_ID_LED_CONTROL               mavlink.MessageID = 186
+	MSG_ID_MAG_CAL_PROGRESS          mavlink.MessageID = 191
+	MSG_ID_EKF_STATUS_REPORT         mavlink.MessageID = 193
+	MSG_ID_PID_TUNING                mavlink.MessageID = 194
+	MSG_ID_DEEPSTALL                 mavlink.MessageID = 195
+	MSG_ID_GIMBAL_REPORT             mavlink.MessageID = 200
+	MSG_ID_GIMBAL_CONTROL            mavlink.MessageID = 201
+	MSG_ID_GIMBAL_TORQUE_CMD_REPORT  mavlink.MessageID = 214
+	MSG_ID_GOPRO_HEARTBEAT           mavlink.MessageID = 215
+	MSG_ID_GOPRO_GET_REQUEST         mavlink.MessageID = 216
+	MSG_ID_GOPRO_GET_RESPONSE        mavlink.MessageID = 217
+	MSG_ID_GOPRO_SET_REQUEST         mavlink.MessageID = 218
+	MSG_ID_GOPRO_SET_RESPONSE        mavlink.MessageID = 219
+	MSG_ID_RPM                       mavlink.MessageID = 226
 )
 
-// init Ardupilotmega variables
+// init Ardupilotmega dialect
 func init() {
-	// check Ardupilotmega collision's  and if ok add crc extra and constructor
-	if _, ok := msgCrcExtras[MSG_ID_SENSOR_OFFSETS]; ok {
-		panic("Cannot append MSG_ID_SENSOR_OFFSETS. Already exists message ID '150'")
-	} else {
-		msgCrcExtras[MSG_ID_SENSOR_OFFSETS] = 134
-		msgConstructors[MSG_ID_SENSOR_OFFSETS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaSensorOffsets)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_MAG_OFFSETS]; ok {
-		panic("Cannot append MSG_ID_SET_MAG_OFFSETS. Already exists message ID '151'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_MAG_OFFSETS] = 219
-		msgConstructors[MSG_ID_SET_MAG_OFFSETS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaSetMagOffsets)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MEMINFO]; ok {
-		panic("Cannot append MSG_ID_MEMINFO. Already exists message ID '152'")
-	} else {
-		msgCrcExtras[MSG_ID_MEMINFO] = 208
-		msgConstructors[MSG_ID_MEMINFO] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaMeminfo)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AP_ADC]; ok {
-		panic("Cannot append MSG_ID_AP_ADC. Already exists message ID '153'")
-	} else {
-		msgCrcExtras[MSG_ID_AP_ADC] = 188
-		msgConstructors[MSG_ID_AP_ADC] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaApAdc)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DIGICAM_CONFIGURE]; ok {
-		panic("Cannot append MSG_ID_DIGICAM_CONFIGURE. Already exists message ID '154'")
-	} else {
-		msgCrcExtras[MSG_ID_DIGICAM_CONFIGURE] = 84
-		msgConstructors[MSG_ID_DIGICAM_CONFIGURE] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaDigicamConfigure)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DIGICAM_CONTROL]; ok {
-		panic("Cannot append MSG_ID_DIGICAM_CONTROL. Already exists message ID '155'")
-	} else {
-		msgCrcExtras[MSG_ID_DIGICAM_CONTROL] = 22
-		msgConstructors[MSG_ID_DIGICAM_CONTROL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaDigicamControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MOUNT_CONFIGURE]; ok {
-		panic("Cannot append MSG_ID_MOUNT_CONFIGURE. Already exists message ID '156'")
-	} else {
-		msgCrcExtras[MSG_ID_MOUNT_CONFIGURE] = 19
-		msgConstructors[MSG_ID_MOUNT_CONFIGURE] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaMountConfigure)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MOUNT_CONTROL]; ok {
-		panic("Cannot append MSG_ID_MOUNT_CONTROL. Already exists message ID '157'")
-	} else {
-		msgCrcExtras[MSG_ID_MOUNT_CONTROL] = 21
-		msgConstructors[MSG_ID_MOUNT_CONTROL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaMountControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MOUNT_STATUS]; ok {
-		panic("Cannot append MSG_ID_MOUNT_STATUS. Already exists message ID '158'")
-	} else {
-		msgCrcExtras[MSG_ID_MOUNT_STATUS] = 134
-		msgConstructors[MSG_ID_MOUNT_STATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaMountStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_FENCE_POINT]; ok {
-		panic("Cannot append MSG_ID_FENCE_POINT. Already exists message ID '160'")
-	} else {
-		msgCrcExtras[MSG_ID_FENCE_POINT] = 78
-		msgConstructors[MSG_ID_FENCE_POINT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaFencePoint)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_FENCE_FETCH_POINT]; ok {
-		panic("Cannot append MSG_ID_FENCE_FETCH_POINT. Already exists message ID '161'")
-	} else {
-		msgCrcExtras[MSG_ID_FENCE_FETCH_POINT] = 68
-		msgConstructors[MSG_ID_FENCE_FETCH_POINT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaFenceFetchPoint)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AHRS]; ok {
-		panic("Cannot append MSG_ID_AHRS. Already exists message ID '163'")
-	} else {
-		msgCrcExtras[MSG_ID_AHRS] = 127
-		msgConstructors[MSG_ID_AHRS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaAhrs)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SIMSTATE]; ok {
-		panic("Cannot append MSG_ID_SIMSTATE. Already exists message ID '164'")
-	} else {
-		msgCrcExtras[MSG_ID_SIMSTATE] = 154
-		msgConstructors[MSG_ID_SIMSTATE] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaSimstate)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HWSTATUS]; ok {
-		panic("Cannot append MSG_ID_HWSTATUS. Already exists message ID '165'")
-	} else {
-		msgCrcExtras[MSG_ID_HWSTATUS] = 21
-		msgConstructors[MSG_ID_HWSTATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaHwstatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RADIO]; ok {
-		panic("Cannot append MSG_ID_RADIO. Already exists message ID '166'")
-	} else {
-		msgCrcExtras[MSG_ID_RADIO] = 21
-		msgConstructors[MSG_ID_RADIO] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRadio)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LIMITS_STATUS]; ok {
-		panic("Cannot append MSG_ID_LIMITS_STATUS. Already exists message ID '167'")
-	} else {
-		msgCrcExtras[MSG_ID_LIMITS_STATUS] = 144
-		msgConstructors[MSG_ID_LIMITS_STATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaLimitsStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_WIND]; ok {
-		panic("Cannot append MSG_ID_WIND. Already exists message ID '168'")
-	} else {
-		msgCrcExtras[MSG_ID_WIND] = 1
-		msgConstructors[MSG_ID_WIND] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaWind)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA16]; ok {
-		panic("Cannot append MSG_ID_DATA16. Already exists message ID '169'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA16] = 234
-		msgConstructors[MSG_ID_DATA16] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaData16)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA32]; ok {
-		panic("Cannot append MSG_ID_DATA32. Already exists message ID '170'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA32] = 73
-		msgConstructors[MSG_ID_DATA32] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaData32)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA64]; ok {
-		panic("Cannot append MSG_ID_DATA64. Already exists message ID '171'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA64] = 181
-		msgConstructors[MSG_ID_DATA64] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaData64)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA96]; ok {
-		panic("Cannot append MSG_ID_DATA96. Already exists message ID '172'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA96] = 22
-		msgConstructors[MSG_ID_DATA96] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaData96)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RANGEFINDER]; ok {
-		panic("Cannot append MSG_ID_RANGEFINDER. Already exists message ID '173'")
-	} else {
-		msgCrcExtras[MSG_ID_RANGEFINDER] = 83
-		msgConstructors[MSG_ID_RANGEFINDER] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRangefinder)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AIRSPEED_AUTOCAL]; ok {
-		panic("Cannot append MSG_ID_AIRSPEED_AUTOCAL. Already exists message ID '174'")
-	} else {
-		msgCrcExtras[MSG_ID_AIRSPEED_AUTOCAL] = 167
-		msgConstructors[MSG_ID_AIRSPEED_AUTOCAL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaAirspeedAutocal)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RALLY_POINT]; ok {
-		panic("Cannot append MSG_ID_RALLY_POINT. Already exists message ID '175'")
-	} else {
-		msgCrcExtras[MSG_ID_RALLY_POINT] = 138
-		msgConstructors[MSG_ID_RALLY_POINT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRallyPoint)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RALLY_FETCH_POINT]; ok {
-		panic("Cannot append MSG_ID_RALLY_FETCH_POINT. Already exists message ID '176'")
-	} else {
-		msgCrcExtras[MSG_ID_RALLY_FETCH_POINT] = 234
-		msgConstructors[MSG_ID_RALLY_FETCH_POINT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRallyFetchPoint)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COMPASSMOT_STATUS]; ok {
-		panic("Cannot append MSG_ID_COMPASSMOT_STATUS. Already exists message ID '177'")
-	} else {
-		msgCrcExtras[MSG_ID_COMPASSMOT_STATUS] = 240
-		msgConstructors[MSG_ID_COMPASSMOT_STATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaCompassmotStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AHRS2]; ok {
-		panic("Cannot append MSG_ID_AHRS2. Already exists message ID '178'")
-	} else {
-		msgCrcExtras[MSG_ID_AHRS2] = 47
-		msgConstructors[MSG_ID_AHRS2] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaAhrs2)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CAMERA_STATUS]; ok {
-		panic("Cannot append MSG_ID_CAMERA_STATUS. Already exists message ID '179'")
-	} else {
-		msgCrcExtras[MSG_ID_CAMERA_STATUS] = 189
-		msgConstructors[MSG_ID_CAMERA_STATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaCameraStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CAMERA_FEEDBACK]; ok {
-		panic("Cannot append MSG_ID_CAMERA_FEEDBACK. Already exists message ID '180'")
-	} else {
-		msgCrcExtras[MSG_ID_CAMERA_FEEDBACK] = 52
-		msgConstructors[MSG_ID_CAMERA_FEEDBACK] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaCameraFeedback)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_BATTERY2]; ok {
-		panic("Cannot append MSG_ID_BATTERY2. Already exists message ID '181'")
-	} else {
-		msgCrcExtras[MSG_ID_BATTERY2] = 174
-		msgConstructors[MSG_ID_BATTERY2] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaBattery2)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AHRS3]; ok {
-		panic("Cannot append MSG_ID_AHRS3. Already exists message ID '182'")
-	} else {
-		msgCrcExtras[MSG_ID_AHRS3] = 229
-		msgConstructors[MSG_ID_AHRS3] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaAhrs3)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AUTOPILOT_VERSION_REQUEST]; ok {
-		panic("Cannot append MSG_ID_AUTOPILOT_VERSION_REQUEST. Already exists message ID '183'")
-	} else {
-		msgCrcExtras[MSG_ID_AUTOPILOT_VERSION_REQUEST] = 85
-		msgConstructors[MSG_ID_AUTOPILOT_VERSION_REQUEST] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaAutopilotVersionRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_REMOTE_LOG_DATA_BLOCK]; ok {
-		panic("Cannot append MSG_ID_REMOTE_LOG_DATA_BLOCK. Already exists message ID '184'")
-	} else {
-		msgCrcExtras[MSG_ID_REMOTE_LOG_DATA_BLOCK] = 159
-		msgConstructors[MSG_ID_REMOTE_LOG_DATA_BLOCK] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRemoteLogDataBlock)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_REMOTE_LOG_BLOCK_STATUS]; ok {
-		panic("Cannot append MSG_ID_REMOTE_LOG_BLOCK_STATUS. Already exists message ID '185'")
-	} else {
-		msgCrcExtras[MSG_ID_REMOTE_LOG_BLOCK_STATUS] = 186
-		msgConstructors[MSG_ID_REMOTE_LOG_BLOCK_STATUS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRemoteLogBlockStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LED_CONTROL]; ok {
-		panic("Cannot append MSG_ID_LED_CONTROL. Already exists message ID '186'")
-	} else {
-		msgCrcExtras[MSG_ID_LED_CONTROL] = 72
-		msgConstructors[MSG_ID_LED_CONTROL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaLedControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MAG_CAL_PROGRESS]; ok {
-		panic("Cannot append MSG_ID_MAG_CAL_PROGRESS. Already exists message ID '191'")
-	} else {
-		msgCrcExtras[MSG_ID_MAG_CAL_PROGRESS] = 92
-		msgConstructors[MSG_ID_MAG_CAL_PROGRESS] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaMagCalProgress)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_EKF_STATUS_REPORT]; ok {
-		panic("Cannot append MSG_ID_EKF_STATUS_REPORT. Already exists message ID '193'")
-	} else {
-		msgCrcExtras[MSG_ID_EKF_STATUS_REPORT] = 71
-		msgConstructors[MSG_ID_EKF_STATUS_REPORT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaEkfStatusReport)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PID_TUNING]; ok {
-		panic("Cannot append MSG_ID_PID_TUNING. Already exists message ID '194'")
-	} else {
-		msgCrcExtras[MSG_ID_PID_TUNING] = 98
-		msgConstructors[MSG_ID_PID_TUNING] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaPidTuning)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DEEPSTALL]; ok {
-		panic("Cannot append MSG_ID_DEEPSTALL. Already exists message ID '195'")
-	} else {
-		msgCrcExtras[MSG_ID_DEEPSTALL] = 120
-		msgConstructors[MSG_ID_DEEPSTALL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaDeepstall)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GIMBAL_REPORT]; ok {
-		panic("Cannot append MSG_ID_GIMBAL_REPORT. Already exists message ID '200'")
-	} else {
-		msgCrcExtras[MSG_ID_GIMBAL_REPORT] = 134
-		msgConstructors[MSG_ID_GIMBAL_REPORT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGimbalReport)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GIMBAL_CONTROL]; ok {
-		panic("Cannot append MSG_ID_GIMBAL_CONTROL. Already exists message ID '201'")
-	} else {
-		msgCrcExtras[MSG_ID_GIMBAL_CONTROL] = 205
-		msgConstructors[MSG_ID_GIMBAL_CONTROL] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGimbalControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GIMBAL_TORQUE_CMD_REPORT]; ok {
-		panic("Cannot append MSG_ID_GIMBAL_TORQUE_CMD_REPORT. Already exists message ID '214'")
-	} else {
-		msgCrcExtras[MSG_ID_GIMBAL_TORQUE_CMD_REPORT] = 69
-		msgConstructors[MSG_ID_GIMBAL_TORQUE_CMD_REPORT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGimbalTorqueCmdReport)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GOPRO_HEARTBEAT]; ok {
-		panic("Cannot append MSG_ID_GOPRO_HEARTBEAT. Already exists message ID '215'")
-	} else {
-		msgCrcExtras[MSG_ID_GOPRO_HEARTBEAT] = 101
-		msgConstructors[MSG_ID_GOPRO_HEARTBEAT] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGoproHeartbeat)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GOPRO_GET_REQUEST]; ok {
-		panic("Cannot append MSG_ID_GOPRO_GET_REQUEST. Already exists message ID '216'")
-	} else {
-		msgCrcExtras[MSG_ID_GOPRO_GET_REQUEST] = 50
-		msgConstructors[MSG_ID_GOPRO_GET_REQUEST] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGoproGetRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GOPRO_GET_RESPONSE]; ok {
-		panic("Cannot append MSG_ID_GOPRO_GET_RESPONSE. Already exists message ID '217'")
-	} else {
-		msgCrcExtras[MSG_ID_GOPRO_GET_RESPONSE] = 202
-		msgConstructors[MSG_ID_GOPRO_GET_RESPONSE] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGoproGetResponse)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GOPRO_SET_REQUEST]; ok {
-		panic("Cannot append MSG_ID_GOPRO_SET_REQUEST. Already exists message ID '218'")
-	} else {
-		msgCrcExtras[MSG_ID_GOPRO_SET_REQUEST] = 17
-		msgConstructors[MSG_ID_GOPRO_SET_REQUEST] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGoproSetRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GOPRO_SET_RESPONSE]; ok {
-		panic("Cannot append MSG_ID_GOPRO_SET_RESPONSE. Already exists message ID '219'")
-	} else {
-		msgCrcExtras[MSG_ID_GOPRO_SET_RESPONSE] = 162
-		msgConstructors[MSG_ID_GOPRO_SET_RESPONSE] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaGoproSetResponse)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RPM]; ok {
-		panic("Cannot append MSG_ID_RPM. Already exists message ID '226'")
-	} else {
-		msgCrcExtras[MSG_ID_RPM] = 207
-		msgConstructors[MSG_ID_RPM] = func(p *Packet) Message {
-			msg := new(ArdupilotmegaRpm)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-
+	mavlink.Register(MSG_ID_SENSOR_OFFSETS, "MSG_ID_SENSOR_OFFSETS", 134, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SensorOffsets)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_MAG_OFFSETS, "MSG_ID_SET_MAG_OFFSETS", 219, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetMagOffsets)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MEMINFO, "MSG_ID_MEMINFO", 208, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Meminfo)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AP_ADC, "MSG_ID_AP_ADC", 188, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ApAdc)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DIGICAM_CONFIGURE, "MSG_ID_DIGICAM_CONFIGURE", 84, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DigicamConfigure)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DIGICAM_CONTROL, "MSG_ID_DIGICAM_CONTROL", 22, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DigicamControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MOUNT_CONFIGURE, "MSG_ID_MOUNT_CONFIGURE", 19, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MountConfigure)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MOUNT_CONTROL, "MSG_ID_MOUNT_CONTROL", 21, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MountControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MOUNT_STATUS, "MSG_ID_MOUNT_STATUS", 134, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MountStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_FENCE_POINT, "MSG_ID_FENCE_POINT", 78, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(FencePoint)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_FENCE_FETCH_POINT, "MSG_ID_FENCE_FETCH_POINT", 68, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(FenceFetchPoint)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AHRS, "MSG_ID_AHRS", 127, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Ahrs)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SIMSTATE, "MSG_ID_SIMSTATE", 154, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Simstate)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HWSTATUS, "MSG_ID_HWSTATUS", 21, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Hwstatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RADIO, "MSG_ID_RADIO", 21, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Radio)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LIMITS_STATUS, "MSG_ID_LIMITS_STATUS", 144, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LimitsStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_WIND, "MSG_ID_WIND", 1, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Wind)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA16, "MSG_ID_DATA16", 234, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Data16)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA32, "MSG_ID_DATA32", 73, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Data32)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA64, "MSG_ID_DATA64", 181, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Data64)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA96, "MSG_ID_DATA96", 22, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Data96)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RANGEFINDER, "MSG_ID_RANGEFINDER", 83, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Rangefinder)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AIRSPEED_AUTOCAL, "MSG_ID_AIRSPEED_AUTOCAL", 167, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AirspeedAutocal)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RALLY_POINT, "MSG_ID_RALLY_POINT", 138, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RallyPoint)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RALLY_FETCH_POINT, "MSG_ID_RALLY_FETCH_POINT", 234, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RallyFetchPoint)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COMPASSMOT_STATUS, "MSG_ID_COMPASSMOT_STATUS", 240, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CompassmotStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AHRS2, "MSG_ID_AHRS2", 47, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Ahrs2)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CAMERA_STATUS, "MSG_ID_CAMERA_STATUS", 189, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CameraStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CAMERA_FEEDBACK, "MSG_ID_CAMERA_FEEDBACK", 52, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CameraFeedback)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_BATTERY2, "MSG_ID_BATTERY2", 174, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Battery2)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AHRS3, "MSG_ID_AHRS3", 229, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Ahrs3)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AUTOPILOT_VERSION_REQUEST, "MSG_ID_AUTOPILOT_VERSION_REQUEST", 85, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AutopilotVersionRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_REMOTE_LOG_DATA_BLOCK, "MSG_ID_REMOTE_LOG_DATA_BLOCK", 159, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RemoteLogDataBlock)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_REMOTE_LOG_BLOCK_STATUS, "MSG_ID_REMOTE_LOG_BLOCK_STATUS", 186, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RemoteLogBlockStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LED_CONTROL, "MSG_ID_LED_CONTROL", 72, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LedControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MAG_CAL_PROGRESS, "MSG_ID_MAG_CAL_PROGRESS", 92, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MagCalProgress)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_EKF_STATUS_REPORT, "MSG_ID_EKF_STATUS_REPORT", 71, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(EkfStatusReport)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PID_TUNING, "MSG_ID_PID_TUNING", 98, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(PidTuning)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DEEPSTALL, "MSG_ID_DEEPSTALL", 120, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Deepstall)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GIMBAL_REPORT, "MSG_ID_GIMBAL_REPORT", 134, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GimbalReport)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GIMBAL_CONTROL, "MSG_ID_GIMBAL_CONTROL", 205, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GimbalControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GIMBAL_TORQUE_CMD_REPORT, "MSG_ID_GIMBAL_TORQUE_CMD_REPORT", 69, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GimbalTorqueCmdReport)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GOPRO_HEARTBEAT, "MSG_ID_GOPRO_HEARTBEAT", 101, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GoproHeartbeat)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GOPRO_GET_REQUEST, "MSG_ID_GOPRO_GET_REQUEST", 50, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GoproGetRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GOPRO_GET_RESPONSE, "MSG_ID_GOPRO_GET_RESPONSE", 202, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GoproGetResponse)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GOPRO_SET_REQUEST, "MSG_ID_GOPRO_SET_REQUEST", 17, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GoproSetRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GOPRO_SET_RESPONSE, "MSG_ID_GOPRO_SET_RESPONSE", 162, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GoproSetResponse)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RPM, "MSG_ID_RPM", 207, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Rpm)
+		msg.Unpack(p)
+		return msg
+	})
 }

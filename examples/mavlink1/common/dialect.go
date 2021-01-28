@@ -5,9 +5,10 @@
 //
 //////////////////////////////////////////////////
 
-package mavlink
+package common
 
 import (
+	mavlink ".."
 	"encoding/binary"
 	"fmt"
 	"math"
@@ -1688,9 +1689,9 @@ const (
 	MAG_CAL_BAD_RADIUS       = 7 //
 )
 
-// CommonSysStatus struct (generated typeinfo)
+// SysStatus struct (generated typeinfo)
 // The general system state. If the system is following the MAVLink standard, the system state is mainly defined by three orthogonal states/modes: The system mode, which is either LOCKED (motors shut down and locked), MANUAL (system under RC control), GUIDED (system with autonomous position control, position setpoint controlled manually) or AUTO (system guided by path/waypoint planner). The NAV_MODE defined the current flight state: LIFTOFF (often an open-loop maneuver), LANDING, WAYPOINTS or VECTOR. This represents the internal navigation state machine. The system status shows whether the system is currently active or not and if an emergency occurred. During the CRITICAL and EMERGENCY states the MAV is still considered to be active, but should start emergency procedures autonomously. After a failure occurred it should first move from active to critical to allow manual intervention and then move to emergency after a certain timeout.
-type CommonSysStatus struct {
+type SysStatus struct {
 	OnboardControlSensorsPresent uint32 // Bitmap showing which onboard controllers and sensors are present. Value of 0: not present. Value of 1: present.
 	OnboardControlSensorsEnabled uint32 // Bitmap showing which onboard controllers and sensors are enabled:  Value of 0: not enabled. Value of 1: enabled.
 	OnboardControlSensorsHealth  uint32 // Bitmap showing which onboard controllers and sensors have an error (or are operational). Value of 0: error. Value of 1: healthy.
@@ -1707,24 +1708,24 @@ type CommonSysStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSysStatus) MsgID() MessageID {
+func (m *SysStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_SYS_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonSysStatus) CRCExtra() uint8 {
+func (m *SysStatus) CRCExtra() uint8 {
 	return 124
 }
 
 // MsgName (generated function)
-func (m *CommonSysStatus) MsgName() string {
+func (m *SysStatus) MsgName() string {
 	return "SysStatus"
 }
 
 // String (generated function)
-func (m *CommonSysStatus) String() string {
+func (m *SysStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonSysStatus{ OnboardControlSensorsPresent: %+v, OnboardControlSensorsEnabled: %+v, OnboardControlSensorsHealth: %+v, Load: %+v, VoltageBattery: %+v, CurrentBattery: %+v, DropRateComm: %+v, ErrorsComm: %+v, ErrorsCount1: %+v, ErrorsCount2: %+v, ErrorsCount3: %+v, ErrorsCount4: %+v, BatteryRemaining: %+v }",
+		"&SysStatus{ OnboardControlSensorsPresent: %+v, OnboardControlSensorsEnabled: %+v, OnboardControlSensorsHealth: %+v, Load: %+v, VoltageBattery: %+v, CurrentBattery: %+v, DropRateComm: %+v, ErrorsComm: %+v, ErrorsCount1: %+v, ErrorsCount2: %+v, ErrorsCount3: %+v, ErrorsCount4: %+v, BatteryRemaining: %+v }",
 		m.OnboardControlSensorsPresent,
 		m.OnboardControlSensorsEnabled,
 		m.OnboardControlSensorsHealth,
@@ -1742,7 +1743,7 @@ func (m *CommonSysStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSysStatus) Pack(p *Packet) error {
+func (m *SysStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 31)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.OnboardControlSensorsPresent))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.OnboardControlSensorsEnabled))
@@ -1763,10 +1764,10 @@ func (m *CommonSysStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSysStatus) Unpack(p *Packet) error {
+func (m *SysStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 31 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.OnboardControlSensorsPresent = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.OnboardControlSensorsEnabled = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -1784,39 +1785,39 @@ func (m *CommonSysStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSystemTime struct (generated typeinfo)
+// SystemTime struct (generated typeinfo)
 // The system time is the time of the master clock, typically the computer clock of the main onboard computer.
-type CommonSystemTime struct {
+type SystemTime struct {
 	TimeUnixUsec uint64 // Timestamp (UNIX epoch time).
 	TimeBootMs   uint32 // Timestamp (time since system boot).
 }
 
 // MsgID (generated function)
-func (m *CommonSystemTime) MsgID() MessageID {
+func (m *SystemTime) MsgID() mavlink.MessageID {
 	return MSG_ID_SYSTEM_TIME
 }
 
 // CRCExtra (generated function)
-func (m *CommonSystemTime) CRCExtra() uint8 {
+func (m *SystemTime) CRCExtra() uint8 {
 	return 137
 }
 
 // MsgName (generated function)
-func (m *CommonSystemTime) MsgName() string {
+func (m *SystemTime) MsgName() string {
 	return "SystemTime"
 }
 
 // String (generated function)
-func (m *CommonSystemTime) String() string {
+func (m *SystemTime) String() string {
 	return fmt.Sprintf(
-		"&CommonSystemTime{ TimeUnixUsec: %+v, TimeBootMs: %+v }",
+		"&SystemTime{ TimeUnixUsec: %+v, TimeBootMs: %+v }",
 		m.TimeUnixUsec,
 		m.TimeBootMs,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonSystemTime) Pack(p *Packet) error {
+func (m *SystemTime) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUnixUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TimeBootMs))
@@ -1826,19 +1827,19 @@ func (m *CommonSystemTime) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSystemTime) Unpack(p *Packet) error {
+func (m *SystemTime) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUnixUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[8:]))
 	return nil
 }
 
-// CommonPing struct (generated typeinfo)
+// Ping struct (generated typeinfo)
 // A ping message either requesting or responding to a ping. This allows to measure the system latencies, including serial port, radio modem and UDP connections. The ping microservice is documented at https://mavlink.io/en/services/ping.html
-type CommonPing struct {
+type Ping struct {
 	TimeUsec        uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Seq             uint32 // PING sequence
 	TargetSystem    uint8  // 0: request ping from all receiving systems. If greater than 0: message is a ping response and number is the system id of the requesting system
@@ -1846,24 +1847,24 @@ type CommonPing struct {
 }
 
 // MsgID (generated function)
-func (m *CommonPing) MsgID() MessageID {
+func (m *Ping) MsgID() mavlink.MessageID {
 	return MSG_ID_PING
 }
 
 // CRCExtra (generated function)
-func (m *CommonPing) CRCExtra() uint8 {
+func (m *Ping) CRCExtra() uint8 {
 	return 237
 }
 
 // MsgName (generated function)
-func (m *CommonPing) MsgName() string {
+func (m *Ping) MsgName() string {
 	return "Ping"
 }
 
 // String (generated function)
-func (m *CommonPing) String() string {
+func (m *Ping) String() string {
 	return fmt.Sprintf(
-		"&CommonPing{ TimeUsec: %+v, Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Ping{ TimeUsec: %+v, Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.TimeUsec,
 		m.Seq,
 		m.TargetSystem,
@@ -1872,7 +1873,7 @@ func (m *CommonPing) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonPing) Pack(p *Packet) error {
+func (m *Ping) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
@@ -1884,10 +1885,10 @@ func (m *CommonPing) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonPing) Unpack(p *Packet) error {
+func (m *Ping) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -1896,9 +1897,9 @@ func (m *CommonPing) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonChangeOperatorControl struct (generated typeinfo)
+// ChangeOperatorControl struct (generated typeinfo)
 // Request to control this MAV
-type CommonChangeOperatorControl struct {
+type ChangeOperatorControl struct {
 	TargetSystem   uint8    // System the GCS requests control for
 	ControlRequest uint8    // 0: request control of this MAV, 1: Release control of this MAV
 	Version        uint8    // 0: key as plaintext, 1-255: future, different hashing/encryption variants. The GCS should in general use the safest mode possible initially and then gradually move down the encryption level if it gets a NACK message indicating an encryption mismatch.
@@ -1906,24 +1907,24 @@ type CommonChangeOperatorControl struct {
 }
 
 // MsgID (generated function)
-func (m *CommonChangeOperatorControl) MsgID() MessageID {
+func (m *ChangeOperatorControl) MsgID() mavlink.MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *CommonChangeOperatorControl) CRCExtra() uint8 {
+func (m *ChangeOperatorControl) CRCExtra() uint8 {
 	return 217
 }
 
 // MsgName (generated function)
-func (m *CommonChangeOperatorControl) MsgName() string {
+func (m *ChangeOperatorControl) MsgName() string {
 	return "ChangeOperatorControl"
 }
 
 // String (generated function)
-func (m *CommonChangeOperatorControl) String() string {
+func (m *ChangeOperatorControl) String() string {
 	return fmt.Sprintf(
-		"&CommonChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
+		"&ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
 		m.TargetSystem,
 		m.ControlRequest,
 		m.Version,
@@ -1932,7 +1933,7 @@ func (m *CommonChangeOperatorControl) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonChangeOperatorControl) Pack(p *Packet) error {
+func (m *ChangeOperatorControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.ControlRequest)
@@ -1944,10 +1945,10 @@ func (m *CommonChangeOperatorControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonChangeOperatorControl) Unpack(p *Packet) error {
+func (m *ChangeOperatorControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.ControlRequest = uint8(payload[1])
@@ -1956,33 +1957,33 @@ func (m *CommonChangeOperatorControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonChangeOperatorControlAck struct (generated typeinfo)
+// ChangeOperatorControlAck struct (generated typeinfo)
 // Accept / deny control of this MAV
-type CommonChangeOperatorControlAck struct {
+type ChangeOperatorControlAck struct {
 	GcsSystemID    uint8 // ID of the GCS this message
 	ControlRequest uint8 // 0: request control of this MAV, 1: Release control of this MAV
 	Ack            uint8 // 0: ACK, 1: NACK: Wrong passkey, 2: NACK: Unsupported passkey encryption method, 3: NACK: Already under control
 }
 
 // MsgID (generated function)
-func (m *CommonChangeOperatorControlAck) MsgID() MessageID {
+func (m *ChangeOperatorControlAck) MsgID() mavlink.MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
 }
 
 // CRCExtra (generated function)
-func (m *CommonChangeOperatorControlAck) CRCExtra() uint8 {
+func (m *ChangeOperatorControlAck) CRCExtra() uint8 {
 	return 104
 }
 
 // MsgName (generated function)
-func (m *CommonChangeOperatorControlAck) MsgName() string {
+func (m *ChangeOperatorControlAck) MsgName() string {
 	return "ChangeOperatorControlAck"
 }
 
 // String (generated function)
-func (m *CommonChangeOperatorControlAck) String() string {
+func (m *ChangeOperatorControlAck) String() string {
 	return fmt.Sprintf(
-		"&CommonChangeOperatorControlAck{ GcsSystemID: %+v, ControlRequest: %+v, Ack: %+v }",
+		"&ChangeOperatorControlAck{ GcsSystemID: %+v, ControlRequest: %+v, Ack: %+v }",
 		m.GcsSystemID,
 		m.ControlRequest,
 		m.Ack,
@@ -1990,7 +1991,7 @@ func (m *CommonChangeOperatorControlAck) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonChangeOperatorControlAck) Pack(p *Packet) error {
+func (m *ChangeOperatorControlAck) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.GcsSystemID)
 	payload[1] = byte(m.ControlRequest)
@@ -2001,10 +2002,10 @@ func (m *CommonChangeOperatorControlAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonChangeOperatorControlAck) Unpack(p *Packet) error {
+func (m *ChangeOperatorControlAck) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.GcsSystemID = uint8(payload[0])
 	m.ControlRequest = uint8(payload[1])
@@ -2012,37 +2013,37 @@ func (m *CommonChangeOperatorControlAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAuthKey struct (generated typeinfo)
+// AuthKey struct (generated typeinfo)
 // Emit an encrypted signature / key identifying this system. PLEASE NOTE: This protocol has been kept simple, so transmitting the key requires an encrypted channel for true safety.
-type CommonAuthKey struct {
+type AuthKey struct {
 	Key [32]byte // key
 }
 
 // MsgID (generated function)
-func (m *CommonAuthKey) MsgID() MessageID {
+func (m *AuthKey) MsgID() mavlink.MessageID {
 	return MSG_ID_AUTH_KEY
 }
 
 // CRCExtra (generated function)
-func (m *CommonAuthKey) CRCExtra() uint8 {
+func (m *AuthKey) CRCExtra() uint8 {
 	return 119
 }
 
 // MsgName (generated function)
-func (m *CommonAuthKey) MsgName() string {
+func (m *AuthKey) MsgName() string {
 	return "AuthKey"
 }
 
 // String (generated function)
-func (m *CommonAuthKey) String() string {
+func (m *AuthKey) String() string {
 	return fmt.Sprintf(
-		"&CommonAuthKey{ Key: %+v }",
+		"&AuthKey{ Key: %+v }",
 		m.Key,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonAuthKey) Pack(p *Packet) error {
+func (m *AuthKey) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	copy(payload[0:], m.Key[:])
 	p.MsgID = m.MsgID()
@@ -2051,18 +2052,18 @@ func (m *CommonAuthKey) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAuthKey) Unpack(p *Packet) error {
+func (m *AuthKey) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	copy(m.Key[:], payload[0:32])
 	return nil
 }
 
-// CommonLinkNodeStatus struct (generated typeinfo)
+// LinkNodeStatus struct (generated typeinfo)
 // Status generated in each node in the communication chain and injected into MAVLink stream.
-type CommonLinkNodeStatus struct {
+type LinkNodeStatus struct {
 	Timestamp        uint64 // Timestamp (time since system boot).
 	TxRate           uint32 // Transmit rate
 	RxRate           uint32 // Receive rate
@@ -2077,24 +2078,24 @@ type CommonLinkNodeStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLinkNodeStatus) MsgID() MessageID {
+func (m *LinkNodeStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_LINK_NODE_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonLinkNodeStatus) CRCExtra() uint8 {
+func (m *LinkNodeStatus) CRCExtra() uint8 {
 	return 117
 }
 
 // MsgName (generated function)
-func (m *CommonLinkNodeStatus) MsgName() string {
+func (m *LinkNodeStatus) MsgName() string {
 	return "LinkNodeStatus"
 }
 
 // String (generated function)
-func (m *CommonLinkNodeStatus) String() string {
+func (m *LinkNodeStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonLinkNodeStatus{ Timestamp: %+v, TxRate: %+v, RxRate: %+v, MessagesSent: %+v, MessagesReceived: %+v, MessagesLost: %+v, RxParseErr: %+v, TxOverflows: %+v, RxOverflows: %+v, TxBuf: %+v, RxBuf: %+v }",
+		"&LinkNodeStatus{ Timestamp: %+v, TxRate: %+v, RxRate: %+v, MessagesSent: %+v, MessagesReceived: %+v, MessagesLost: %+v, RxParseErr: %+v, TxOverflows: %+v, RxOverflows: %+v, TxBuf: %+v, RxBuf: %+v }",
 		m.Timestamp,
 		m.TxRate,
 		m.RxRate,
@@ -2110,7 +2111,7 @@ func (m *CommonLinkNodeStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLinkNodeStatus) Pack(p *Packet) error {
+func (m *LinkNodeStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TxRate))
@@ -2129,10 +2130,10 @@ func (m *CommonLinkNodeStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLinkNodeStatus) Unpack(p *Packet) error {
+func (m *LinkNodeStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 36 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.TxRate = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -2148,33 +2149,33 @@ func (m *CommonLinkNodeStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetMode struct (generated typeinfo)
+// SetMode struct (generated typeinfo)
 // Set the system mode, as defined by enum MAV_MODE. There is no target component id as the mode is by definition for the overall aircraft, not only for one component.
-type CommonSetMode struct {
+type SetMode struct {
 	CustomMode   uint32 // The new autopilot-specific mode. This field can be ignored by an autopilot.
 	TargetSystem uint8  // The system setting the mode
 	BaseMode     uint8  // The new base mode.
 }
 
 // MsgID (generated function)
-func (m *CommonSetMode) MsgID() MessageID {
+func (m *SetMode) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_MODE
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetMode) CRCExtra() uint8 {
+func (m *SetMode) CRCExtra() uint8 {
 	return 89
 }
 
 // MsgName (generated function)
-func (m *CommonSetMode) MsgName() string {
+func (m *SetMode) MsgName() string {
 	return "SetMode"
 }
 
 // String (generated function)
-func (m *CommonSetMode) String() string {
+func (m *SetMode) String() string {
 	return fmt.Sprintf(
-		"&CommonSetMode{ CustomMode: %+v, TargetSystem: %+v, BaseMode: %+v }",
+		"&SetMode{ CustomMode: %+v, TargetSystem: %+v, BaseMode: %+v }",
 		m.CustomMode,
 		m.TargetSystem,
 		m.BaseMode,
@@ -2182,7 +2183,7 @@ func (m *CommonSetMode) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetMode) Pack(p *Packet) error {
+func (m *SetMode) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	payload[4] = byte(m.TargetSystem)
@@ -2193,10 +2194,10 @@ func (m *CommonSetMode) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetMode) Unpack(p *Packet) error {
+func (m *SetMode) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2204,9 +2205,9 @@ func (m *CommonSetMode) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonParamAckTransaction struct (generated typeinfo)
+// ParamAckTransaction struct (generated typeinfo)
 // Response from a PARAM_SET message when it is used in a transaction.
-type CommonParamAckTransaction struct {
+type ParamAckTransaction struct {
 	ParamValue      float32  // Parameter value (new value if PARAM_ACCEPTED, current value otherwise)
 	TargetSystem    uint8    // Id of system that sent PARAM_SET message.
 	TargetComponent uint8    // Id of system that sent PARAM_SET message.
@@ -2216,24 +2217,24 @@ type CommonParamAckTransaction struct {
 }
 
 // MsgID (generated function)
-func (m *CommonParamAckTransaction) MsgID() MessageID {
+func (m *ParamAckTransaction) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_ACK_TRANSACTION
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamAckTransaction) CRCExtra() uint8 {
+func (m *ParamAckTransaction) CRCExtra() uint8 {
 	return 137
 }
 
 // MsgName (generated function)
-func (m *CommonParamAckTransaction) MsgName() string {
+func (m *ParamAckTransaction) MsgName() string {
 	return "ParamAckTransaction"
 }
 
 // String (generated function)
-func (m *CommonParamAckTransaction) String() string {
+func (m *ParamAckTransaction) String() string {
 	return fmt.Sprintf(
-		"&CommonParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
+		"&ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2244,7 +2245,7 @@ func (m *CommonParamAckTransaction) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonParamAckTransaction) Pack(p *Packet) error {
+func (m *ParamAckTransaction) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 24)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue))
 	payload[4] = byte(m.TargetSystem)
@@ -2258,10 +2259,10 @@ func (m *CommonParamAckTransaction) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamAckTransaction) Unpack(p *Packet) error {
+func (m *ParamAckTransaction) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 24 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2272,9 +2273,9 @@ func (m *CommonParamAckTransaction) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonParamRequestRead struct (generated typeinfo)
+// ParamRequestRead struct (generated typeinfo)
 // Request to read the onboard parameter with the param_id string id. Onboard parameters are stored as key[const char*] -> value[float]. This allows to send a parameter to any other component (such as the GCS) without the need of previous knowledge of possible parameter names. Thus the same GCS can store different parameters for different autopilots. See also https://mavlink.io/en/services/parameter.html for a full documentation of QGroundControl and IMU code.
-type CommonParamRequestRead struct {
+type ParamRequestRead struct {
 	ParamIndex      int16    // Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
@@ -2282,24 +2283,24 @@ type CommonParamRequestRead struct {
 }
 
 // MsgID (generated function)
-func (m *CommonParamRequestRead) MsgID() MessageID {
+func (m *ParamRequestRead) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamRequestRead) CRCExtra() uint8 {
+func (m *ParamRequestRead) CRCExtra() uint8 {
 	return 214
 }
 
 // MsgName (generated function)
-func (m *CommonParamRequestRead) MsgName() string {
+func (m *ParamRequestRead) MsgName() string {
 	return "ParamRequestRead"
 }
 
 // String (generated function)
-func (m *CommonParamRequestRead) String() string {
+func (m *ParamRequestRead) String() string {
 	return fmt.Sprintf(
-		"&CommonParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
+		"&ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2308,7 +2309,7 @@ func (m *CommonParamRequestRead) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonParamRequestRead) Pack(p *Packet) error {
+func (m *ParamRequestRead) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ParamIndex))
 	payload[2] = byte(m.TargetSystem)
@@ -2320,10 +2321,10 @@ func (m *CommonParamRequestRead) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamRequestRead) Unpack(p *Packet) error {
+func (m *ParamRequestRead) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ParamIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -2332,39 +2333,39 @@ func (m *CommonParamRequestRead) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonParamRequestList struct (generated typeinfo)
+// ParamRequestList struct (generated typeinfo)
 // Request all parameters of this component. After this request, all parameters are emitted. The parameter microservice is documented at https://mavlink.io/en/services/parameter.html
-type CommonParamRequestList struct {
+type ParamRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonParamRequestList) MsgID() MessageID {
+func (m *ParamRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamRequestList) CRCExtra() uint8 {
+func (m *ParamRequestList) CRCExtra() uint8 {
 	return 159
 }
 
 // MsgName (generated function)
-func (m *CommonParamRequestList) MsgName() string {
+func (m *ParamRequestList) MsgName() string {
 	return "ParamRequestList"
 }
 
 // String (generated function)
-func (m *CommonParamRequestList) String() string {
+func (m *ParamRequestList) String() string {
 	return fmt.Sprintf(
-		"&CommonParamRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&ParamRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonParamRequestList) Pack(p *Packet) error {
+func (m *ParamRequestList) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -2374,19 +2375,19 @@ func (m *CommonParamRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamRequestList) Unpack(p *Packet) error {
+func (m *ParamRequestList) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// CommonParamValue struct (generated typeinfo)
+// ParamValue struct (generated typeinfo)
 // Emit the value of a onboard parameter. The inclusion of param_count and param_index in the message allows the recipient to keep track of received parameters and allows him to re-request missing parameters after a loss or timeout. The parameter microservice is documented at https://mavlink.io/en/services/parameter.html
-type CommonParamValue struct {
+type ParamValue struct {
 	ParamValue float32  // Onboard parameter value
 	ParamCount uint16   // Total number of onboard parameters
 	ParamIndex uint16   // Index of this onboard parameter
@@ -2395,24 +2396,24 @@ type CommonParamValue struct {
 }
 
 // MsgID (generated function)
-func (m *CommonParamValue) MsgID() MessageID {
+func (m *ParamValue) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_VALUE
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamValue) CRCExtra() uint8 {
+func (m *ParamValue) CRCExtra() uint8 {
 	return 220
 }
 
 // MsgName (generated function)
-func (m *CommonParamValue) MsgName() string {
+func (m *ParamValue) MsgName() string {
 	return "ParamValue"
 }
 
 // String (generated function)
-func (m *CommonParamValue) String() string {
+func (m *ParamValue) String() string {
 	return fmt.Sprintf(
-		"&CommonParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
+		"&ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
 		m.ParamValue,
 		m.ParamCount,
 		m.ParamIndex,
@@ -2422,7 +2423,7 @@ func (m *CommonParamValue) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonParamValue) Pack(p *Packet) error {
+func (m *ParamValue) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ParamCount))
@@ -2435,10 +2436,10 @@ func (m *CommonParamValue) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamValue) Unpack(p *Packet) error {
+func (m *ParamValue) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 25 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.ParamCount = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -2448,11 +2449,11 @@ func (m *CommonParamValue) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonParamSet struct (generated typeinfo)
+// ParamSet struct (generated typeinfo)
 // Set a parameter value (write new value to permanent storage).
 //         The receiving component should acknowledge the new parameter value by broadcasting a PARAM_VALUE message (broadcasting ensures that multiple GCS all have an up-to-date list of all parameters). If the sending GCS did not receive a PARAM_VALUE within its timeout time, it should re-send the PARAM_SET message. The parameter microservice is documented at https://mavlink.io/en/services/parameter.html.
 //         PARAM_SET may also be called within the context of a transaction (started with MAV_CMD_PARAM_TRANSACTION). Within a transaction the receiving component should respond with PARAM_ACK_TRANSACTION to the setter component (instead of broadcasting PARAM_VALUE), and PARAM_SET should be re-sent if this is ACK not received.
-type CommonParamSet struct {
+type ParamSet struct {
 	ParamValue      float32  // Onboard parameter value
 	TargetSystem    uint8    // System ID
 	TargetComponent uint8    // Component ID
@@ -2461,24 +2462,24 @@ type CommonParamSet struct {
 }
 
 // MsgID (generated function)
-func (m *CommonParamSet) MsgID() MessageID {
+func (m *ParamSet) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_SET
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamSet) CRCExtra() uint8 {
+func (m *ParamSet) CRCExtra() uint8 {
 	return 168
 }
 
 // MsgName (generated function)
-func (m *CommonParamSet) MsgName() string {
+func (m *ParamSet) MsgName() string {
 	return "ParamSet"
 }
 
 // String (generated function)
-func (m *CommonParamSet) String() string {
+func (m *ParamSet) String() string {
 	return fmt.Sprintf(
-		"&CommonParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
+		"&ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2488,7 +2489,7 @@ func (m *CommonParamSet) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonParamSet) Pack(p *Packet) error {
+func (m *ParamSet) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 23)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue))
 	payload[4] = byte(m.TargetSystem)
@@ -2501,10 +2502,10 @@ func (m *CommonParamSet) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamSet) Unpack(p *Packet) error {
+func (m *ParamSet) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 23 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ParamValue = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.TargetSystem = uint8(payload[4])
@@ -2514,10 +2515,10 @@ func (m *CommonParamSet) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsRawInt struct (generated typeinfo)
+// GpsRawInt struct (generated typeinfo)
 // The global position, as returned by the Global Positioning System (GPS). This is
 //                 NOT the global position estimate of the system, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate.
-type CommonGpsRawInt struct {
+type GpsRawInt struct {
 	TimeUsec          uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Lat               int32  // Latitude (WGS84, EGM96 ellipsoid)
 	Lon               int32  // Longitude (WGS84, EGM96 ellipsoid)
@@ -2531,24 +2532,24 @@ type CommonGpsRawInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGpsRawInt) MsgID() MessageID {
+func (m *GpsRawInt) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RAW_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsRawInt) CRCExtra() uint8 {
+func (m *GpsRawInt) CRCExtra() uint8 {
 	return 24
 }
 
 // MsgName (generated function)
-func (m *CommonGpsRawInt) MsgName() string {
+func (m *GpsRawInt) MsgName() string {
 	return "GpsRawInt"
 }
 
 // String (generated function)
-func (m *CommonGpsRawInt) String() string {
+func (m *GpsRawInt) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsRawInt{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&GpsRawInt{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -2563,7 +2564,7 @@ func (m *CommonGpsRawInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsRawInt) Pack(p *Packet) error {
+func (m *GpsRawInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -2581,10 +2582,10 @@ func (m *CommonGpsRawInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsRawInt) Unpack(p *Packet) error {
+func (m *GpsRawInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 30 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -2599,9 +2600,9 @@ func (m *CommonGpsRawInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsStatus struct (generated typeinfo)
+// GpsStatus struct (generated typeinfo)
 // The positioning status, as reported by GPS. This message is intended to display status information about each satellite visible to the receiver. See message GLOBAL_POSITION for the global position estimate. This message can contain information for up to 20 satellites.
-type CommonGpsStatus struct {
+type GpsStatus struct {
 	SatellitesVisible  uint8     // Number of satellites visible
 	SatellitePrn       [20]uint8 // Global satellite ID
 	SatelliteUsed      [20]uint8 // 0: Satellite not used, 1: used for localization
@@ -2611,24 +2612,24 @@ type CommonGpsStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGpsStatus) MsgID() MessageID {
+func (m *GpsStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsStatus) CRCExtra() uint8 {
+func (m *GpsStatus) CRCExtra() uint8 {
 	return 23
 }
 
 // MsgName (generated function)
-func (m *CommonGpsStatus) MsgName() string {
+func (m *GpsStatus) MsgName() string {
 	return "GpsStatus"
 }
 
 // String (generated function)
-func (m *CommonGpsStatus) String() string {
+func (m *GpsStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
+		"&GpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
 		m.SatellitesVisible,
 		m.SatellitePrn,
 		m.SatelliteUsed,
@@ -2639,7 +2640,7 @@ func (m *CommonGpsStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsStatus) Pack(p *Packet) error {
+func (m *GpsStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 101)
 	payload[0] = byte(m.SatellitesVisible)
 	copy(payload[1:], m.SatellitePrn[:])
@@ -2653,10 +2654,10 @@ func (m *CommonGpsStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsStatus) Unpack(p *Packet) error {
+func (m *GpsStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 101 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.SatellitesVisible = uint8(payload[0])
 	copy(m.SatellitePrn[:], payload[1:21])
@@ -2667,9 +2668,9 @@ func (m *CommonGpsStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledImu struct (generated typeinfo)
+// ScaledImu struct (generated typeinfo)
 // The RAW IMU readings for the usual 9DOF sensor setup. This message should contain the scaled values to the described units
-type CommonScaledImu struct {
+type ScaledImu struct {
 	TimeBootMs uint32 // Timestamp (time since system boot).
 	Xacc       int16  // X acceleration
 	Yacc       int16  // Y acceleration
@@ -2683,24 +2684,24 @@ type CommonScaledImu struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledImu) MsgID() MessageID {
+func (m *ScaledImu) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledImu) CRCExtra() uint8 {
+func (m *ScaledImu) CRCExtra() uint8 {
 	return 170
 }
 
 // MsgName (generated function)
-func (m *CommonScaledImu) MsgName() string {
+func (m *ScaledImu) MsgName() string {
 	return "ScaledImu"
 }
 
 // String (generated function)
-func (m *CommonScaledImu) String() string {
+func (m *ScaledImu) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledImu{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&ScaledImu{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -2715,7 +2716,7 @@ func (m *CommonScaledImu) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledImu) Pack(p *Packet) error {
+func (m *ScaledImu) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -2733,10 +2734,10 @@ func (m *CommonScaledImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledImu) Unpack(p *Packet) error {
+func (m *ScaledImu) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -2751,9 +2752,9 @@ func (m *CommonScaledImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRawImu struct (generated typeinfo)
+// RawImu struct (generated typeinfo)
 // The RAW IMU readings for a 9DOF sensor, which is identified by the id (default IMU1). This message should always contain the true raw values without any scaling to allow data capture and system debugging.
-type CommonRawImu struct {
+type RawImu struct {
 	TimeUsec uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Xacc     int16  // X acceleration (raw)
 	Yacc     int16  // Y acceleration (raw)
@@ -2767,24 +2768,24 @@ type CommonRawImu struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRawImu) MsgID() MessageID {
+func (m *RawImu) MsgID() mavlink.MessageID {
 	return MSG_ID_RAW_IMU
 }
 
 // CRCExtra (generated function)
-func (m *CommonRawImu) CRCExtra() uint8 {
+func (m *RawImu) CRCExtra() uint8 {
 	return 144
 }
 
 // MsgName (generated function)
-func (m *CommonRawImu) MsgName() string {
+func (m *RawImu) MsgName() string {
 	return "RawImu"
 }
 
 // String (generated function)
-func (m *CommonRawImu) String() string {
+func (m *RawImu) String() string {
 	return fmt.Sprintf(
-		"&CommonRawImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&RawImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -2799,7 +2800,7 @@ func (m *CommonRawImu) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRawImu) Pack(p *Packet) error {
+func (m *RawImu) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Xacc))
@@ -2817,10 +2818,10 @@ func (m *CommonRawImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRawImu) Unpack(p *Packet) error {
+func (m *RawImu) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 26 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[8:]))
@@ -2835,9 +2836,9 @@ func (m *CommonRawImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRawPressure struct (generated typeinfo)
+// RawPressure struct (generated typeinfo)
 // The RAW pressure readings for the typical setup of one absolute pressure and one differential pressure sensor. The sensor values should be the raw, UNSCALED ADC values.
-type CommonRawPressure struct {
+type RawPressure struct {
 	TimeUsec    uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	PressAbs    int16  // Absolute pressure (raw)
 	PressDiff1  int16  // Differential pressure 1 (raw, 0 if nonexistent)
@@ -2846,24 +2847,24 @@ type CommonRawPressure struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRawPressure) MsgID() MessageID {
+func (m *RawPressure) MsgID() mavlink.MessageID {
 	return MSG_ID_RAW_PRESSURE
 }
 
 // CRCExtra (generated function)
-func (m *CommonRawPressure) CRCExtra() uint8 {
+func (m *RawPressure) CRCExtra() uint8 {
 	return 67
 }
 
 // MsgName (generated function)
-func (m *CommonRawPressure) MsgName() string {
+func (m *RawPressure) MsgName() string {
 	return "RawPressure"
 }
 
 // String (generated function)
-func (m *CommonRawPressure) String() string {
+func (m *RawPressure) String() string {
 	return fmt.Sprintf(
-		"&CommonRawPressure{ TimeUsec: %+v, PressAbs: %+v, PressDiff1: %+v, PressDiff2: %+v, Temperature: %+v }",
+		"&RawPressure{ TimeUsec: %+v, PressAbs: %+v, PressDiff1: %+v, PressDiff2: %+v, Temperature: %+v }",
 		m.TimeUsec,
 		m.PressAbs,
 		m.PressDiff1,
@@ -2873,7 +2874,7 @@ func (m *CommonRawPressure) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRawPressure) Pack(p *Packet) error {
+func (m *RawPressure) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.PressAbs))
@@ -2886,10 +2887,10 @@ func (m *CommonRawPressure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRawPressure) Unpack(p *Packet) error {
+func (m *RawPressure) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.PressAbs = int16(binary.LittleEndian.Uint16(payload[8:]))
@@ -2899,9 +2900,9 @@ func (m *CommonRawPressure) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledPressure struct (generated typeinfo)
+// ScaledPressure struct (generated typeinfo)
 // The pressure readings for the typical setup of one absolute and differential pressure sensor. The units are as specified in each field.
-type CommonScaledPressure struct {
+type ScaledPressure struct {
 	TimeBootMs  uint32  // Timestamp (time since system boot).
 	PressAbs    float32 // Absolute pressure
 	PressDiff   float32 // Differential pressure 1
@@ -2909,24 +2910,24 @@ type CommonScaledPressure struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledPressure) MsgID() MessageID {
+func (m *ScaledPressure) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledPressure) CRCExtra() uint8 {
+func (m *ScaledPressure) CRCExtra() uint8 {
 	return 115
 }
 
 // MsgName (generated function)
-func (m *CommonScaledPressure) MsgName() string {
+func (m *ScaledPressure) MsgName() string {
 	return "ScaledPressure"
 }
 
 // String (generated function)
-func (m *CommonScaledPressure) String() string {
+func (m *ScaledPressure) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledPressure{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&ScaledPressure{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -2935,7 +2936,7 @@ func (m *CommonScaledPressure) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledPressure) Pack(p *Packet) error {
+func (m *ScaledPressure) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -2947,10 +2948,10 @@ func (m *CommonScaledPressure) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledPressure) Unpack(p *Packet) error {
+func (m *ScaledPressure) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -2959,9 +2960,9 @@ func (m *CommonScaledPressure) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAttitude struct (generated typeinfo)
+// Attitude struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right).
-type CommonAttitude struct {
+type Attitude struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	Roll       float32 // Roll angle (-pi..+pi)
 	Pitch      float32 // Pitch angle (-pi..+pi)
@@ -2972,24 +2973,24 @@ type CommonAttitude struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAttitude) MsgID() MessageID {
+func (m *Attitude) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE
 }
 
 // CRCExtra (generated function)
-func (m *CommonAttitude) CRCExtra() uint8 {
+func (m *Attitude) CRCExtra() uint8 {
 	return 39
 }
 
 // MsgName (generated function)
-func (m *CommonAttitude) MsgName() string {
+func (m *Attitude) MsgName() string {
 	return "Attitude"
 }
 
 // String (generated function)
-func (m *CommonAttitude) String() string {
+func (m *Attitude) String() string {
 	return fmt.Sprintf(
-		"&CommonAttitude{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
+		"&Attitude{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
 		m.TimeBootMs,
 		m.Roll,
 		m.Pitch,
@@ -3001,7 +3002,7 @@ func (m *CommonAttitude) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAttitude) Pack(p *Packet) error {
+func (m *Attitude) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Roll))
@@ -3016,10 +3017,10 @@ func (m *CommonAttitude) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAttitude) Unpack(p *Packet) error {
+func (m *Attitude) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3031,9 +3032,9 @@ func (m *CommonAttitude) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAttitudeQuaternion struct (generated typeinfo)
+// AttitudeQuaternion struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
-type CommonAttitudeQuaternion struct {
+type AttitudeQuaternion struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	Q1         float32 // Quaternion component 1, w (1 in null-rotation)
 	Q2         float32 // Quaternion component 2, x (0 in null-rotation)
@@ -3045,24 +3046,24 @@ type CommonAttitudeQuaternion struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAttitudeQuaternion) MsgID() MessageID {
+func (m *AttitudeQuaternion) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION
 }
 
 // CRCExtra (generated function)
-func (m *CommonAttitudeQuaternion) CRCExtra() uint8 {
+func (m *AttitudeQuaternion) CRCExtra() uint8 {
 	return 246
 }
 
 // MsgName (generated function)
-func (m *CommonAttitudeQuaternion) MsgName() string {
+func (m *AttitudeQuaternion) MsgName() string {
 	return "AttitudeQuaternion"
 }
 
 // String (generated function)
-func (m *CommonAttitudeQuaternion) String() string {
+func (m *AttitudeQuaternion) String() string {
 	return fmt.Sprintf(
-		"&CommonAttitudeQuaternion{ TimeBootMs: %+v, Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
+		"&AttitudeQuaternion{ TimeBootMs: %+v, Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
 		m.TimeBootMs,
 		m.Q1,
 		m.Q2,
@@ -3075,7 +3076,7 @@ func (m *CommonAttitudeQuaternion) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAttitudeQuaternion) Pack(p *Packet) error {
+func (m *AttitudeQuaternion) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Q1))
@@ -3091,10 +3092,10 @@ func (m *CommonAttitudeQuaternion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAttitudeQuaternion) Unpack(p *Packet) error {
+func (m *AttitudeQuaternion) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3107,9 +3108,9 @@ func (m *CommonAttitudeQuaternion) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLocalPositionNed struct (generated typeinfo)
+// LocalPositionNed struct (generated typeinfo)
 // The filtered local position (e.g. fused computer vision and accelerometers). Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type CommonLocalPositionNed struct {
+type LocalPositionNed struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	X          float32 // X Position
 	Y          float32 // Y Position
@@ -3120,24 +3121,24 @@ type CommonLocalPositionNed struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLocalPositionNed) MsgID() MessageID {
+func (m *LocalPositionNed) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
 }
 
 // CRCExtra (generated function)
-func (m *CommonLocalPositionNed) CRCExtra() uint8 {
+func (m *LocalPositionNed) CRCExtra() uint8 {
 	return 185
 }
 
 // MsgName (generated function)
-func (m *CommonLocalPositionNed) MsgName() string {
+func (m *LocalPositionNed) MsgName() string {
 	return "LocalPositionNed"
 }
 
 // String (generated function)
-func (m *CommonLocalPositionNed) String() string {
+func (m *LocalPositionNed) String() string {
 	return fmt.Sprintf(
-		"&CommonLocalPositionNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v }",
+		"&LocalPositionNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -3149,7 +3150,7 @@ func (m *CommonLocalPositionNed) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLocalPositionNed) Pack(p *Packet) error {
+func (m *LocalPositionNed) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -3164,10 +3165,10 @@ func (m *CommonLocalPositionNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLocalPositionNed) Unpack(p *Packet) error {
+func (m *LocalPositionNed) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3179,10 +3180,10 @@ func (m *CommonLocalPositionNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGlobalPositionInt struct (generated typeinfo)
+// GlobalPositionInt struct (generated typeinfo)
 // The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It
 //                is designed as scaled integer message since the resolution of float is not sufficient.
-type CommonGlobalPositionInt struct {
+type GlobalPositionInt struct {
 	TimeBootMs  uint32 // Timestamp (time since system boot).
 	Lat         int32  // Latitude, expressed
 	Lon         int32  // Longitude, expressed
@@ -3195,24 +3196,24 @@ type CommonGlobalPositionInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGlobalPositionInt) MsgID() MessageID {
+func (m *GlobalPositionInt) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonGlobalPositionInt) CRCExtra() uint8 {
+func (m *GlobalPositionInt) CRCExtra() uint8 {
 	return 104
 }
 
 // MsgName (generated function)
-func (m *CommonGlobalPositionInt) MsgName() string {
+func (m *GlobalPositionInt) MsgName() string {
 	return "GlobalPositionInt"
 }
 
 // String (generated function)
-func (m *CommonGlobalPositionInt) String() string {
+func (m *GlobalPositionInt) String() string {
 	return fmt.Sprintf(
-		"&CommonGlobalPositionInt{ TimeBootMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Hdg: %+v }",
+		"&GlobalPositionInt{ TimeBootMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Hdg: %+v }",
 		m.TimeBootMs,
 		m.Lat,
 		m.Lon,
@@ -3226,7 +3227,7 @@ func (m *CommonGlobalPositionInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGlobalPositionInt) Pack(p *Packet) error {
+func (m *GlobalPositionInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lat))
@@ -3243,10 +3244,10 @@ func (m *CommonGlobalPositionInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGlobalPositionInt) Unpack(p *Packet) error {
+func (m *GlobalPositionInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -3260,9 +3261,9 @@ func (m *CommonGlobalPositionInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRcChannelsScaled struct (generated typeinfo)
+// RcChannelsScaled struct (generated typeinfo)
 // The scaled values of the RC channels received: (-100%) -10000, (0%) 0, (100%) 10000. Channels that are inactive should be set to UINT16_MAX.
-type CommonRcChannelsScaled struct {
+type RcChannelsScaled struct {
 	TimeBootMs  uint32 // Timestamp (time since system boot).
 	Chan1Scaled int16  // RC channel 1 value scaled.
 	Chan2Scaled int16  // RC channel 2 value scaled.
@@ -3277,24 +3278,24 @@ type CommonRcChannelsScaled struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRcChannelsScaled) MsgID() MessageID {
+func (m *RcChannelsScaled) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_SCALED
 }
 
 // CRCExtra (generated function)
-func (m *CommonRcChannelsScaled) CRCExtra() uint8 {
+func (m *RcChannelsScaled) CRCExtra() uint8 {
 	return 237
 }
 
 // MsgName (generated function)
-func (m *CommonRcChannelsScaled) MsgName() string {
+func (m *RcChannelsScaled) MsgName() string {
 	return "RcChannelsScaled"
 }
 
 // String (generated function)
-func (m *CommonRcChannelsScaled) String() string {
+func (m *RcChannelsScaled) String() string {
 	return fmt.Sprintf(
-		"&CommonRcChannelsScaled{ TimeBootMs: %+v, Chan1Scaled: %+v, Chan2Scaled: %+v, Chan3Scaled: %+v, Chan4Scaled: %+v, Chan5Scaled: %+v, Chan6Scaled: %+v, Chan7Scaled: %+v, Chan8Scaled: %+v, Port: %+v, Rssi: %+v }",
+		"&RcChannelsScaled{ TimeBootMs: %+v, Chan1Scaled: %+v, Chan2Scaled: %+v, Chan3Scaled: %+v, Chan4Scaled: %+v, Chan5Scaled: %+v, Chan6Scaled: %+v, Chan7Scaled: %+v, Chan8Scaled: %+v, Port: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Scaled,
 		m.Chan2Scaled,
@@ -3310,7 +3311,7 @@ func (m *CommonRcChannelsScaled) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRcChannelsScaled) Pack(p *Packet) error {
+func (m *RcChannelsScaled) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Scaled))
@@ -3329,10 +3330,10 @@ func (m *CommonRcChannelsScaled) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRcChannelsScaled) Unpack(p *Packet) error {
+func (m *RcChannelsScaled) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Scaled = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -3348,9 +3349,9 @@ func (m *CommonRcChannelsScaled) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRcChannelsRaw struct (generated typeinfo)
+// RcChannelsRaw struct (generated typeinfo)
 // The RAW values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. A value of UINT16_MAX implies the channel is unused. Individual receivers/transmitters might violate this specification.
-type CommonRcChannelsRaw struct {
+type RcChannelsRaw struct {
 	TimeBootMs uint32 // Timestamp (time since system boot).
 	Chan1Raw   uint16 // RC channel 1 value.
 	Chan2Raw   uint16 // RC channel 2 value.
@@ -3365,24 +3366,24 @@ type CommonRcChannelsRaw struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRcChannelsRaw) MsgID() MessageID {
+func (m *RcChannelsRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
 }
 
 // CRCExtra (generated function)
-func (m *CommonRcChannelsRaw) CRCExtra() uint8 {
+func (m *RcChannelsRaw) CRCExtra() uint8 {
 	return 244
 }
 
 // MsgName (generated function)
-func (m *CommonRcChannelsRaw) MsgName() string {
+func (m *RcChannelsRaw) MsgName() string {
 	return "RcChannelsRaw"
 }
 
 // String (generated function)
-func (m *CommonRcChannelsRaw) String() string {
+func (m *RcChannelsRaw) String() string {
 	return fmt.Sprintf(
-		"&CommonRcChannelsRaw{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Port: %+v, Rssi: %+v }",
+		"&RcChannelsRaw{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Port: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -3398,7 +3399,7 @@ func (m *CommonRcChannelsRaw) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRcChannelsRaw) Pack(p *Packet) error {
+func (m *RcChannelsRaw) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Raw))
@@ -3417,10 +3418,10 @@ func (m *CommonRcChannelsRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRcChannelsRaw) Unpack(p *Packet) error {
+func (m *RcChannelsRaw) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -3436,9 +3437,9 @@ func (m *CommonRcChannelsRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonServoOutputRaw struct (generated typeinfo)
+// ServoOutputRaw struct (generated typeinfo)
 // Superseded by ACTUATOR_OUTPUT_STATUS. The RAW values of the servo outputs (for RC input from the remote, use the RC_CHANNELS messages). The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%.
-type CommonServoOutputRaw struct {
+type ServoOutputRaw struct {
 	TimeUsec  uint32 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Servo1Raw uint16 // Servo output 1 value
 	Servo2Raw uint16 // Servo output 2 value
@@ -3452,24 +3453,24 @@ type CommonServoOutputRaw struct {
 }
 
 // MsgID (generated function)
-func (m *CommonServoOutputRaw) MsgID() MessageID {
+func (m *ServoOutputRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
 }
 
 // CRCExtra (generated function)
-func (m *CommonServoOutputRaw) CRCExtra() uint8 {
+func (m *ServoOutputRaw) CRCExtra() uint8 {
 	return 222
 }
 
 // MsgName (generated function)
-func (m *CommonServoOutputRaw) MsgName() string {
+func (m *ServoOutputRaw) MsgName() string {
 	return "ServoOutputRaw"
 }
 
 // String (generated function)
-func (m *CommonServoOutputRaw) String() string {
+func (m *ServoOutputRaw) String() string {
 	return fmt.Sprintf(
-		"&CommonServoOutputRaw{ TimeUsec: %+v, Servo1Raw: %+v, Servo2Raw: %+v, Servo3Raw: %+v, Servo4Raw: %+v, Servo5Raw: %+v, Servo6Raw: %+v, Servo7Raw: %+v, Servo8Raw: %+v, Port: %+v }",
+		"&ServoOutputRaw{ TimeUsec: %+v, Servo1Raw: %+v, Servo2Raw: %+v, Servo3Raw: %+v, Servo4Raw: %+v, Servo5Raw: %+v, Servo6Raw: %+v, Servo7Raw: %+v, Servo8Raw: %+v, Port: %+v }",
 		m.TimeUsec,
 		m.Servo1Raw,
 		m.Servo2Raw,
@@ -3484,7 +3485,7 @@ func (m *CommonServoOutputRaw) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonServoOutputRaw) Pack(p *Packet) error {
+func (m *ServoOutputRaw) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 21)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Servo1Raw))
@@ -3502,10 +3503,10 @@ func (m *CommonServoOutputRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonServoOutputRaw) Unpack(p *Packet) error {
+func (m *ServoOutputRaw) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 21 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Servo1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -3520,9 +3521,9 @@ func (m *CommonServoOutputRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionRequestPartialList struct (generated typeinfo)
+// MissionRequestPartialList struct (generated typeinfo)
 // Request a partial list of mission items from the system/component. https://mavlink.io/en/services/mission.html. If start and end index are the same, just send one waypoint.
-type CommonMissionRequestPartialList struct {
+type MissionRequestPartialList struct {
 	StartIndex      int16 // Start index
 	EndIndex        int16 // End index, -1 by default (-1: send list to end). Else a valid index of the list
 	TargetSystem    uint8 // System ID
@@ -3530,24 +3531,24 @@ type CommonMissionRequestPartialList struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMissionRequestPartialList) MsgID() MessageID {
+func (m *MissionRequestPartialList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionRequestPartialList) CRCExtra() uint8 {
+func (m *MissionRequestPartialList) CRCExtra() uint8 {
 	return 212
 }
 
 // MsgName (generated function)
-func (m *CommonMissionRequestPartialList) MsgName() string {
+func (m *MissionRequestPartialList) MsgName() string {
 	return "MissionRequestPartialList"
 }
 
 // String (generated function)
-func (m *CommonMissionRequestPartialList) String() string {
+func (m *MissionRequestPartialList) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionRequestPartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionRequestPartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.TargetSystem,
@@ -3556,7 +3557,7 @@ func (m *CommonMissionRequestPartialList) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionRequestPartialList) Pack(p *Packet) error {
+func (m *MissionRequestPartialList) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.StartIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
@@ -3568,10 +3569,10 @@ func (m *CommonMissionRequestPartialList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionRequestPartialList) Unpack(p *Packet) error {
+func (m *MissionRequestPartialList) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -3580,9 +3581,9 @@ func (m *CommonMissionRequestPartialList) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionWritePartialList struct (generated typeinfo)
+// MissionWritePartialList struct (generated typeinfo)
 // This message is sent to the MAV to write a partial list. If start index == end index, only one item will be transmitted / updated. If the start index is NOT 0 and above the current list size, this request should be REJECTED!
-type CommonMissionWritePartialList struct {
+type MissionWritePartialList struct {
 	StartIndex      int16 // Start index. Must be smaller / equal to the largest index of the current onboard list.
 	EndIndex        int16 // End index, equal or greater than start index.
 	TargetSystem    uint8 // System ID
@@ -3590,24 +3591,24 @@ type CommonMissionWritePartialList struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMissionWritePartialList) MsgID() MessageID {
+func (m *MissionWritePartialList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_WRITE_PARTIAL_LIST
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionWritePartialList) CRCExtra() uint8 {
+func (m *MissionWritePartialList) CRCExtra() uint8 {
 	return 9
 }
 
 // MsgName (generated function)
-func (m *CommonMissionWritePartialList) MsgName() string {
+func (m *MissionWritePartialList) MsgName() string {
 	return "MissionWritePartialList"
 }
 
 // String (generated function)
-func (m *CommonMissionWritePartialList) String() string {
+func (m *MissionWritePartialList) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionWritePartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionWritePartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.TargetSystem,
@@ -3616,7 +3617,7 @@ func (m *CommonMissionWritePartialList) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionWritePartialList) Pack(p *Packet) error {
+func (m *MissionWritePartialList) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.StartIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
@@ -3628,10 +3629,10 @@ func (m *CommonMissionWritePartialList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionWritePartialList) Unpack(p *Packet) error {
+func (m *MissionWritePartialList) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -3640,10 +3641,10 @@ func (m *CommonMissionWritePartialList) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionItem struct (generated typeinfo)
+// MissionItem struct (generated typeinfo)
 // Message encoding a mission item. This message is emitted to announce
 //                 the presence of a mission item and to set a mission item on the system. The mission item can be either in x, y, z meters (type: LOCAL) or x:lat, y:lon, z:altitude. Local frame is Z-down, right handed (NED), global frame is Z-up, right handed (ENU). NaN may be used to indicate an optional/default value (e.g. to use the system's current latitude or yaw rather than a specific value). See also https://mavlink.io/en/services/mission.html.
-type CommonMissionItem struct {
+type MissionItem struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -3661,24 +3662,24 @@ type CommonMissionItem struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMissionItem) MsgID() MessageID {
+func (m *MissionItem) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionItem) CRCExtra() uint8 {
+func (m *MissionItem) CRCExtra() uint8 {
 	return 254
 }
 
 // MsgName (generated function)
-func (m *CommonMissionItem) MsgName() string {
+func (m *MissionItem) MsgName() string {
 	return "MissionItem"
 }
 
 // String (generated function)
-func (m *CommonMissionItem) String() string {
+func (m *MissionItem) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionItem{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&MissionItem{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -3697,7 +3698,7 @@ func (m *CommonMissionItem) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionItem) Pack(p *Packet) error {
+func (m *MissionItem) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -3719,10 +3720,10 @@ func (m *CommonMissionItem) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionItem) Unpack(p *Packet) error {
+func (m *MissionItem) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 37 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -3741,33 +3742,33 @@ func (m *CommonMissionItem) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionRequest struct (generated typeinfo)
+// MissionRequest struct (generated typeinfo)
 // Request the information of the mission item with the sequence number seq. The response of the system to this message should be a MISSION_ITEM message. https://mavlink.io/en/services/mission.html
-type CommonMissionRequest struct {
+type MissionRequest struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionRequest) MsgID() MessageID {
+func (m *MissionRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionRequest) CRCExtra() uint8 {
+func (m *MissionRequest) CRCExtra() uint8 {
 	return 230
 }
 
 // MsgName (generated function)
-func (m *CommonMissionRequest) MsgName() string {
+func (m *MissionRequest) MsgName() string {
 	return "MissionRequest"
 }
 
 // String (generated function)
-func (m *CommonMissionRequest) String() string {
+func (m *MissionRequest) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionRequest{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionRequest{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -3775,7 +3776,7 @@ func (m *CommonMissionRequest) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionRequest) Pack(p *Packet) error {
+func (m *MissionRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -3786,10 +3787,10 @@ func (m *CommonMissionRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionRequest) Unpack(p *Packet) error {
+func (m *MissionRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -3797,33 +3798,33 @@ func (m *CommonMissionRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionSetCurrent struct (generated typeinfo)
+// MissionSetCurrent struct (generated typeinfo)
 // Set the mission item with sequence number seq as current item. This means that the MAV will continue to this mission item on the shortest path (not following the mission items in-between).
-type CommonMissionSetCurrent struct {
+type MissionSetCurrent struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionSetCurrent) MsgID() MessageID {
+func (m *MissionSetCurrent) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionSetCurrent) CRCExtra() uint8 {
+func (m *MissionSetCurrent) CRCExtra() uint8 {
 	return 28
 }
 
 // MsgName (generated function)
-func (m *CommonMissionSetCurrent) MsgName() string {
+func (m *MissionSetCurrent) MsgName() string {
 	return "MissionSetCurrent"
 }
 
 // String (generated function)
-func (m *CommonMissionSetCurrent) String() string {
+func (m *MissionSetCurrent) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionSetCurrent{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionSetCurrent{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -3831,7 +3832,7 @@ func (m *CommonMissionSetCurrent) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionSetCurrent) Pack(p *Packet) error {
+func (m *MissionSetCurrent) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -3842,10 +3843,10 @@ func (m *CommonMissionSetCurrent) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionSetCurrent) Unpack(p *Packet) error {
+func (m *MissionSetCurrent) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -3853,37 +3854,37 @@ func (m *CommonMissionSetCurrent) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionCurrent struct (generated typeinfo)
+// MissionCurrent struct (generated typeinfo)
 // Message that announces the sequence number of the current active mission item. The MAV will fly towards this mission item.
-type CommonMissionCurrent struct {
+type MissionCurrent struct {
 	Seq uint16 // Sequence
 }
 
 // MsgID (generated function)
-func (m *CommonMissionCurrent) MsgID() MessageID {
+func (m *MissionCurrent) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CURRENT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionCurrent) CRCExtra() uint8 {
+func (m *MissionCurrent) CRCExtra() uint8 {
 	return 28
 }
 
 // MsgName (generated function)
-func (m *CommonMissionCurrent) MsgName() string {
+func (m *MissionCurrent) MsgName() string {
 	return "MissionCurrent"
 }
 
 // String (generated function)
-func (m *CommonMissionCurrent) String() string {
+func (m *MissionCurrent) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionCurrent{ Seq: %+v }",
+		"&MissionCurrent{ Seq: %+v }",
 		m.Seq,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonMissionCurrent) Pack(p *Packet) error {
+func (m *MissionCurrent) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	p.MsgID = m.MsgID()
@@ -3892,48 +3893,48 @@ func (m *CommonMissionCurrent) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionCurrent) Unpack(p *Packet) error {
+func (m *MissionCurrent) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	return nil
 }
 
-// CommonMissionRequestList struct (generated typeinfo)
+// MissionRequestList struct (generated typeinfo)
 // Request the overall list of mission items from the system/component.
-type CommonMissionRequestList struct {
+type MissionRequestList struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionRequestList) MsgID() MessageID {
+func (m *MissionRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_LIST
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionRequestList) CRCExtra() uint8 {
+func (m *MissionRequestList) CRCExtra() uint8 {
 	return 132
 }
 
 // MsgName (generated function)
-func (m *CommonMissionRequestList) MsgName() string {
+func (m *MissionRequestList) MsgName() string {
 	return "MissionRequestList"
 }
 
 // String (generated function)
-func (m *CommonMissionRequestList) String() string {
+func (m *MissionRequestList) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonMissionRequestList) Pack(p *Packet) error {
+func (m *MissionRequestList) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -3943,43 +3944,43 @@ func (m *CommonMissionRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionRequestList) Unpack(p *Packet) error {
+func (m *MissionRequestList) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// CommonMissionCount struct (generated typeinfo)
+// MissionCount struct (generated typeinfo)
 // This message is emitted as response to MISSION_REQUEST_LIST by the MAV and to initiate a write transaction. The GCS can then request the individual mission item based on the knowledge of the total number of waypoints.
-type CommonMissionCount struct {
+type MissionCount struct {
 	Count           uint16 // Number of mission items in the sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionCount) MsgID() MessageID {
+func (m *MissionCount) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_COUNT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionCount) CRCExtra() uint8 {
+func (m *MissionCount) CRCExtra() uint8 {
 	return 221
 }
 
 // MsgName (generated function)
-func (m *CommonMissionCount) MsgName() string {
+func (m *MissionCount) MsgName() string {
 	return "MissionCount"
 }
 
 // String (generated function)
-func (m *CommonMissionCount) String() string {
+func (m *MissionCount) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionCount{ Count: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionCount{ Count: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Count,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -3987,7 +3988,7 @@ func (m *CommonMissionCount) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionCount) Pack(p *Packet) error {
+func (m *MissionCount) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Count))
 	payload[2] = byte(m.TargetSystem)
@@ -3998,10 +3999,10 @@ func (m *CommonMissionCount) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionCount) Unpack(p *Packet) error {
+func (m *MissionCount) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Count = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -4009,39 +4010,39 @@ func (m *CommonMissionCount) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionClearAll struct (generated typeinfo)
+// MissionClearAll struct (generated typeinfo)
 // Delete all mission items at once.
-type CommonMissionClearAll struct {
+type MissionClearAll struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionClearAll) MsgID() MessageID {
+func (m *MissionClearAll) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionClearAll) CRCExtra() uint8 {
+func (m *MissionClearAll) CRCExtra() uint8 {
 	return 232
 }
 
 // MsgName (generated function)
-func (m *CommonMissionClearAll) MsgName() string {
+func (m *MissionClearAll) MsgName() string {
 	return "MissionClearAll"
 }
 
 // String (generated function)
-func (m *CommonMissionClearAll) String() string {
+func (m *MissionClearAll) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionClearAll{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionClearAll{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonMissionClearAll) Pack(p *Packet) error {
+func (m *MissionClearAll) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -4051,47 +4052,47 @@ func (m *CommonMissionClearAll) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionClearAll) Unpack(p *Packet) error {
+func (m *MissionClearAll) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// CommonMissionItemReached struct (generated typeinfo)
+// MissionItemReached struct (generated typeinfo)
 // A certain mission item has been reached. The system will either hold this position (or circle on the orbit) or (if the autocontinue on the WP was set) continue to the next waypoint.
-type CommonMissionItemReached struct {
+type MissionItemReached struct {
 	Seq uint16 // Sequence
 }
 
 // MsgID (generated function)
-func (m *CommonMissionItemReached) MsgID() MessageID {
+func (m *MissionItemReached) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionItemReached) CRCExtra() uint8 {
+func (m *MissionItemReached) CRCExtra() uint8 {
 	return 11
 }
 
 // MsgName (generated function)
-func (m *CommonMissionItemReached) MsgName() string {
+func (m *MissionItemReached) MsgName() string {
 	return "MissionItemReached"
 }
 
 // String (generated function)
-func (m *CommonMissionItemReached) String() string {
+func (m *MissionItemReached) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionItemReached{ Seq: %+v }",
+		"&MissionItemReached{ Seq: %+v }",
 		m.Seq,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonMissionItemReached) Pack(p *Packet) error {
+func (m *MissionItemReached) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	p.MsgID = m.MsgID()
@@ -4100,42 +4101,42 @@ func (m *CommonMissionItemReached) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionItemReached) Unpack(p *Packet) error {
+func (m *MissionItemReached) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	return nil
 }
 
-// CommonMissionAck struct (generated typeinfo)
+// MissionAck struct (generated typeinfo)
 // Acknowledgment message during waypoint handling. The type field states if this message is a positive ack (type=0) or if an error happened (type=non-zero).
-type CommonMissionAck struct {
+type MissionAck struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 	Type            uint8 // Mission result.
 }
 
 // MsgID (generated function)
-func (m *CommonMissionAck) MsgID() MessageID {
+func (m *MissionAck) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ACK
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionAck) CRCExtra() uint8 {
+func (m *MissionAck) CRCExtra() uint8 {
 	return 153
 }
 
 // MsgName (generated function)
-func (m *CommonMissionAck) MsgName() string {
+func (m *MissionAck) MsgName() string {
 	return "MissionAck"
 }
 
 // String (generated function)
-func (m *CommonMissionAck) String() string {
+func (m *MissionAck) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionAck{ TargetSystem: %+v, TargetComponent: %+v, Type: %+v }",
+		"&MissionAck{ TargetSystem: %+v, TargetComponent: %+v, Type: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Type,
@@ -4143,7 +4144,7 @@ func (m *CommonMissionAck) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionAck) Pack(p *Packet) error {
+func (m *MissionAck) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -4154,10 +4155,10 @@ func (m *CommonMissionAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionAck) Unpack(p *Packet) error {
+func (m *MissionAck) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -4165,9 +4166,9 @@ func (m *CommonMissionAck) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetGpsGlobalOrigin struct (generated typeinfo)
+// SetGpsGlobalOrigin struct (generated typeinfo)
 // Sets the GPS co-ordinates of the vehicle local origin (0,0,0) position. Vehicle should emit GPS_GLOBAL_ORIGIN irrespective of whether the origin is changed. This enables transform between the local coordinate frame and the global (GPS) coordinate frame, which may be necessary when (for example) indoor and outdoor settings are connected and the MAV should move from in- to outdoor.
-type CommonSetGpsGlobalOrigin struct {
+type SetGpsGlobalOrigin struct {
 	Latitude     int32 // Latitude (WGS84)
 	Longitude    int32 // Longitude (WGS84)
 	Altitude     int32 // Altitude (MSL). Positive for up.
@@ -4175,24 +4176,24 @@ type CommonSetGpsGlobalOrigin struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetGpsGlobalOrigin) MsgID() MessageID {
+func (m *SetGpsGlobalOrigin) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetGpsGlobalOrigin) CRCExtra() uint8 {
+func (m *SetGpsGlobalOrigin) CRCExtra() uint8 {
 	return 41
 }
 
 // MsgName (generated function)
-func (m *CommonSetGpsGlobalOrigin) MsgName() string {
+func (m *SetGpsGlobalOrigin) MsgName() string {
 	return "SetGpsGlobalOrigin"
 }
 
 // String (generated function)
-func (m *CommonSetGpsGlobalOrigin) String() string {
+func (m *SetGpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
-		"&CommonSetGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v, TargetSystem: %+v }",
+		"&SetGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v, TargetSystem: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -4201,7 +4202,7 @@ func (m *CommonSetGpsGlobalOrigin) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetGpsGlobalOrigin) Pack(p *Packet) error {
+func (m *SetGpsGlobalOrigin) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -4213,10 +4214,10 @@ func (m *CommonSetGpsGlobalOrigin) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetGpsGlobalOrigin) Unpack(p *Packet) error {
+func (m *SetGpsGlobalOrigin) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 13 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -4225,33 +4226,33 @@ func (m *CommonSetGpsGlobalOrigin) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsGlobalOrigin struct (generated typeinfo)
+// GpsGlobalOrigin struct (generated typeinfo)
 // Publishes the GPS co-ordinates of the vehicle local origin (0,0,0) position. Emitted whenever a new GPS-Local position mapping is requested or set - e.g. following SET_GPS_GLOBAL_ORIGIN message.
-type CommonGpsGlobalOrigin struct {
+type GpsGlobalOrigin struct {
 	Latitude  int32 // Latitude (WGS84)
 	Longitude int32 // Longitude (WGS84)
 	Altitude  int32 // Altitude (MSL). Positive for up.
 }
 
 // MsgID (generated function)
-func (m *CommonGpsGlobalOrigin) MsgID() MessageID {
+func (m *GpsGlobalOrigin) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_GLOBAL_ORIGIN
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsGlobalOrigin) CRCExtra() uint8 {
+func (m *GpsGlobalOrigin) CRCExtra() uint8 {
 	return 39
 }
 
 // MsgName (generated function)
-func (m *CommonGpsGlobalOrigin) MsgName() string {
+func (m *GpsGlobalOrigin) MsgName() string {
 	return "GpsGlobalOrigin"
 }
 
 // String (generated function)
-func (m *CommonGpsGlobalOrigin) String() string {
+func (m *GpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v }",
+		"&GpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -4259,7 +4260,7 @@ func (m *CommonGpsGlobalOrigin) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsGlobalOrigin) Pack(p *Packet) error {
+func (m *GpsGlobalOrigin) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -4270,10 +4271,10 @@ func (m *CommonGpsGlobalOrigin) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsGlobalOrigin) Unpack(p *Packet) error {
+func (m *GpsGlobalOrigin) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -4281,9 +4282,9 @@ func (m *CommonGpsGlobalOrigin) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonParamMapRc struct (generated typeinfo)
+// ParamMapRc struct (generated typeinfo)
 // Bind a RC channel to a parameter. The parameter should change according to the RC channel value.
-type CommonParamMapRc struct {
+type ParamMapRc struct {
 	ParamValue0             float32  // Initial parameter value
 	Scale                   float32  // Scale, maps the RC range [-1, 1] to a parameter value
 	ParamValueMin           float32  // Minimum param value. The protocol does not define if this overwrites an onboard minimum value. (Depends on implementation)
@@ -4296,24 +4297,24 @@ type CommonParamMapRc struct {
 }
 
 // MsgID (generated function)
-func (m *CommonParamMapRc) MsgID() MessageID {
+func (m *ParamMapRc) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_MAP_RC
 }
 
 // CRCExtra (generated function)
-func (m *CommonParamMapRc) CRCExtra() uint8 {
+func (m *ParamMapRc) CRCExtra() uint8 {
 	return 78
 }
 
 // MsgName (generated function)
-func (m *CommonParamMapRc) MsgName() string {
+func (m *ParamMapRc) MsgName() string {
 	return "ParamMapRc"
 }
 
 // String (generated function)
-func (m *CommonParamMapRc) String() string {
+func (m *ParamMapRc) String() string {
 	return fmt.Sprintf(
-		"&CommonParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
+		"&ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
 		m.ParamValue0,
 		m.Scale,
 		m.ParamValueMin,
@@ -4327,7 +4328,7 @@ func (m *CommonParamMapRc) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonParamMapRc) Pack(p *Packet) error {
+func (m *ParamMapRc) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.ParamValue0))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Scale))
@@ -4344,10 +4345,10 @@ func (m *CommonParamMapRc) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonParamMapRc) Unpack(p *Packet) error {
+func (m *ParamMapRc) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 37 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ParamValue0 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Scale = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4361,33 +4362,33 @@ func (m *CommonParamMapRc) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionRequestInt struct (generated typeinfo)
+// MissionRequestInt struct (generated typeinfo)
 // Request the information of the mission item with the sequence number seq. The response of the system to this message should be a MISSION_ITEM_INT message. https://mavlink.io/en/services/mission.html
-type CommonMissionRequestInt struct {
+type MissionRequestInt struct {
 	Seq             uint16 // Sequence
 	TargetSystem    uint8  // System ID
 	TargetComponent uint8  // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonMissionRequestInt) MsgID() MessageID {
+func (m *MissionRequestInt) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionRequestInt) CRCExtra() uint8 {
+func (m *MissionRequestInt) CRCExtra() uint8 {
 	return 196
 }
 
 // MsgName (generated function)
-func (m *CommonMissionRequestInt) MsgName() string {
+func (m *MissionRequestInt) MsgName() string {
 	return "MissionRequestInt"
 }
 
 // String (generated function)
-func (m *CommonMissionRequestInt) String() string {
+func (m *MissionRequestInt) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionRequestInt{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&MissionRequestInt{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -4395,7 +4396,7 @@ func (m *CommonMissionRequestInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionRequestInt) Pack(p *Packet) error {
+func (m *MissionRequestInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seq))
 	payload[2] = byte(m.TargetSystem)
@@ -4406,10 +4407,10 @@ func (m *CommonMissionRequestInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionRequestInt) Unpack(p *Packet) error {
+func (m *MissionRequestInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seq = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -4417,9 +4418,9 @@ func (m *CommonMissionRequestInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionChanged struct (generated typeinfo)
+// MissionChanged struct (generated typeinfo)
 // A broadcast message to notify any ground station or SDK if a mission, geofence or safe points have changed on the vehicle.
-type CommonMissionChanged struct {
+type MissionChanged struct {
 	StartIndex   int16 // Start index for partial mission change (-1 for all items).
 	EndIndex     int16 // End index of a partial mission change. -1 is a synonym for the last mission item (i.e. selects all items from start_index). Ignore field if start_index=-1.
 	OriginSysid  uint8 // System ID of the author of the new mission.
@@ -4428,24 +4429,24 @@ type CommonMissionChanged struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMissionChanged) MsgID() MessageID {
+func (m *MissionChanged) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CHANGED
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionChanged) CRCExtra() uint8 {
+func (m *MissionChanged) CRCExtra() uint8 {
 	return 132
 }
 
 // MsgName (generated function)
-func (m *CommonMissionChanged) MsgName() string {
+func (m *MissionChanged) MsgName() string {
 	return "MissionChanged"
 }
 
 // String (generated function)
-func (m *CommonMissionChanged) String() string {
+func (m *MissionChanged) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionChanged{ StartIndex: %+v, EndIndex: %+v, OriginSysid: %+v, OriginCompid: %+v, MissionType: %+v }",
+		"&MissionChanged{ StartIndex: %+v, EndIndex: %+v, OriginSysid: %+v, OriginCompid: %+v, MissionType: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.OriginSysid,
@@ -4455,7 +4456,7 @@ func (m *CommonMissionChanged) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionChanged) Pack(p *Packet) error {
+func (m *MissionChanged) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 7)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.StartIndex))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.EndIndex))
@@ -4468,10 +4469,10 @@ func (m *CommonMissionChanged) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionChanged) Unpack(p *Packet) error {
+func (m *MissionChanged) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 7 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.StartIndex = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.EndIndex = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -4481,9 +4482,9 @@ func (m *CommonMissionChanged) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSafetySetAllowedArea struct (generated typeinfo)
+// SafetySetAllowedArea struct (generated typeinfo)
 // Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/waypoints to accept and which to reject. Safety areas are often enforced by national or competition regulations.
-type CommonSafetySetAllowedArea struct {
+type SafetySetAllowedArea struct {
 	P1x             float32 // x position 1 / Latitude 1
 	P1y             float32 // y position 1 / Longitude 1
 	P1z             float32 // z position 1 / Altitude 1
@@ -4496,24 +4497,24 @@ type CommonSafetySetAllowedArea struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSafetySetAllowedArea) MsgID() MessageID {
+func (m *SafetySetAllowedArea) MsgID() mavlink.MessageID {
 	return MSG_ID_SAFETY_SET_ALLOWED_AREA
 }
 
 // CRCExtra (generated function)
-func (m *CommonSafetySetAllowedArea) CRCExtra() uint8 {
+func (m *SafetySetAllowedArea) CRCExtra() uint8 {
 	return 15
 }
 
 // MsgName (generated function)
-func (m *CommonSafetySetAllowedArea) MsgName() string {
+func (m *SafetySetAllowedArea) MsgName() string {
 	return "SafetySetAllowedArea"
 }
 
 // String (generated function)
-func (m *CommonSafetySetAllowedArea) String() string {
+func (m *SafetySetAllowedArea) String() string {
 	return fmt.Sprintf(
-		"&CommonSafetySetAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v }",
+		"&SafetySetAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v }",
 		m.P1x,
 		m.P1y,
 		m.P1z,
@@ -4527,7 +4528,7 @@ func (m *CommonSafetySetAllowedArea) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSafetySetAllowedArea) Pack(p *Packet) error {
+func (m *SafetySetAllowedArea) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 27)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.P1x))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.P1y))
@@ -4544,10 +4545,10 @@ func (m *CommonSafetySetAllowedArea) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSafetySetAllowedArea) Unpack(p *Packet) error {
+func (m *SafetySetAllowedArea) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 27 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4561,9 +4562,9 @@ func (m *CommonSafetySetAllowedArea) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSafetyAllowedArea struct (generated typeinfo)
+// SafetyAllowedArea struct (generated typeinfo)
 // Read out the safety zone the MAV currently assumes.
-type CommonSafetyAllowedArea struct {
+type SafetyAllowedArea struct {
 	P1x   float32 // x position 1 / Latitude 1
 	P1y   float32 // y position 1 / Longitude 1
 	P1z   float32 // z position 1 / Altitude 1
@@ -4574,24 +4575,24 @@ type CommonSafetyAllowedArea struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSafetyAllowedArea) MsgID() MessageID {
+func (m *SafetyAllowedArea) MsgID() mavlink.MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
 }
 
 // CRCExtra (generated function)
-func (m *CommonSafetyAllowedArea) CRCExtra() uint8 {
+func (m *SafetyAllowedArea) CRCExtra() uint8 {
 	return 3
 }
 
 // MsgName (generated function)
-func (m *CommonSafetyAllowedArea) MsgName() string {
+func (m *SafetyAllowedArea) MsgName() string {
 	return "SafetyAllowedArea"
 }
 
 // String (generated function)
-func (m *CommonSafetyAllowedArea) String() string {
+func (m *SafetyAllowedArea) String() string {
 	return fmt.Sprintf(
-		"&CommonSafetyAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, Frame: %+v }",
+		"&SafetyAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, Frame: %+v }",
 		m.P1x,
 		m.P1y,
 		m.P1z,
@@ -4603,7 +4604,7 @@ func (m *CommonSafetyAllowedArea) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSafetyAllowedArea) Pack(p *Packet) error {
+func (m *SafetyAllowedArea) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 25)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.P1x))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.P1y))
@@ -4618,10 +4619,10 @@ func (m *CommonSafetyAllowedArea) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSafetyAllowedArea) Unpack(p *Packet) error {
+func (m *SafetyAllowedArea) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 25 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.P1x = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.P1y = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4633,9 +4634,9 @@ func (m *CommonSafetyAllowedArea) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAttitudeQuaternionCov struct (generated typeinfo)
+// AttitudeQuaternionCov struct (generated typeinfo)
 // The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
-type CommonAttitudeQuaternionCov struct {
+type AttitudeQuaternionCov struct {
 	TimeUsec   uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Q          [4]float32 // Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation)
 	Rollspeed  float32    // Roll angular speed
@@ -4645,24 +4646,24 @@ type CommonAttitudeQuaternionCov struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAttitudeQuaternionCov) MsgID() MessageID {
+func (m *AttitudeQuaternionCov) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION_COV
 }
 
 // CRCExtra (generated function)
-func (m *CommonAttitudeQuaternionCov) CRCExtra() uint8 {
+func (m *AttitudeQuaternionCov) CRCExtra() uint8 {
 	return 167
 }
 
 // MsgName (generated function)
-func (m *CommonAttitudeQuaternionCov) MsgName() string {
+func (m *AttitudeQuaternionCov) MsgName() string {
 	return "AttitudeQuaternionCov"
 }
 
 // String (generated function)
-func (m *CommonAttitudeQuaternionCov) String() string {
+func (m *AttitudeQuaternionCov) String() string {
 	return fmt.Sprintf(
-		"&CommonAttitudeQuaternionCov{ TimeUsec: %+v, Q: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Covariance: %+v }",
+		"&AttitudeQuaternionCov{ TimeUsec: %+v, Q: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Covariance: %+v }",
 		m.TimeUsec,
 		m.Q,
 		m.Rollspeed,
@@ -4673,7 +4674,7 @@ func (m *CommonAttitudeQuaternionCov) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAttitudeQuaternionCov) Pack(p *Packet) error {
+func (m *AttitudeQuaternionCov) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 72)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Q {
@@ -4691,10 +4692,10 @@ func (m *CommonAttitudeQuaternionCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAttitudeQuaternionCov) Unpack(p *Packet) error {
+func (m *AttitudeQuaternionCov) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 72 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -4709,9 +4710,9 @@ func (m *CommonAttitudeQuaternionCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonNavControllerOutput struct (generated typeinfo)
+// NavControllerOutput struct (generated typeinfo)
 // The state of the fixed wing navigation and position controller.
-type CommonNavControllerOutput struct {
+type NavControllerOutput struct {
 	NavRoll       float32 // Current desired roll
 	NavPitch      float32 // Current desired pitch
 	AltError      float32 // Current altitude error
@@ -4723,24 +4724,24 @@ type CommonNavControllerOutput struct {
 }
 
 // MsgID (generated function)
-func (m *CommonNavControllerOutput) MsgID() MessageID {
+func (m *NavControllerOutput) MsgID() mavlink.MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
 }
 
 // CRCExtra (generated function)
-func (m *CommonNavControllerOutput) CRCExtra() uint8 {
+func (m *NavControllerOutput) CRCExtra() uint8 {
 	return 183
 }
 
 // MsgName (generated function)
-func (m *CommonNavControllerOutput) MsgName() string {
+func (m *NavControllerOutput) MsgName() string {
 	return "NavControllerOutput"
 }
 
 // String (generated function)
-func (m *CommonNavControllerOutput) String() string {
+func (m *NavControllerOutput) String() string {
 	return fmt.Sprintf(
-		"&CommonNavControllerOutput{ NavRoll: %+v, NavPitch: %+v, AltError: %+v, AspdError: %+v, XtrackError: %+v, NavBearing: %+v, TargetBearing: %+v, WpDist: %+v }",
+		"&NavControllerOutput{ NavRoll: %+v, NavPitch: %+v, AltError: %+v, AspdError: %+v, XtrackError: %+v, NavBearing: %+v, TargetBearing: %+v, WpDist: %+v }",
 		m.NavRoll,
 		m.NavPitch,
 		m.AltError,
@@ -4753,7 +4754,7 @@ func (m *CommonNavControllerOutput) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonNavControllerOutput) Pack(p *Packet) error {
+func (m *NavControllerOutput) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.NavRoll))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.NavPitch))
@@ -4769,10 +4770,10 @@ func (m *CommonNavControllerOutput) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonNavControllerOutput) Unpack(p *Packet) error {
+func (m *NavControllerOutput) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 26 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.NavRoll = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.NavPitch = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -4785,9 +4786,9 @@ func (m *CommonNavControllerOutput) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGlobalPositionIntCov struct (generated typeinfo)
+// GlobalPositionIntCov struct (generated typeinfo)
 // The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It  is designed as scaled integer message since the resolution of float is not sufficient. NOTE: This message is intended for onboard networks / companion computers and higher-bandwidth links and optimized for accuracy and completeness. Please use the GLOBAL_POSITION_INT message for a minimal subset.
-type CommonGlobalPositionIntCov struct {
+type GlobalPositionIntCov struct {
 	TimeUsec      uint64      // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Lat           int32       // Latitude
 	Lon           int32       // Longitude
@@ -4801,24 +4802,24 @@ type CommonGlobalPositionIntCov struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGlobalPositionIntCov) MsgID() MessageID {
+func (m *GlobalPositionIntCov) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT_COV
 }
 
 // CRCExtra (generated function)
-func (m *CommonGlobalPositionIntCov) CRCExtra() uint8 {
+func (m *GlobalPositionIntCov) CRCExtra() uint8 {
 	return 119
 }
 
 // MsgName (generated function)
-func (m *CommonGlobalPositionIntCov) MsgName() string {
+func (m *GlobalPositionIntCov) MsgName() string {
 	return "GlobalPositionIntCov"
 }
 
 // String (generated function)
-func (m *CommonGlobalPositionIntCov) String() string {
+func (m *GlobalPositionIntCov) String() string {
 	return fmt.Sprintf(
-		"&CommonGlobalPositionIntCov{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Covariance: %+v, EstimatorType: %+v }",
+		"&GlobalPositionIntCov{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Covariance: %+v, EstimatorType: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -4833,7 +4834,7 @@ func (m *CommonGlobalPositionIntCov) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGlobalPositionIntCov) Pack(p *Packet) error {
+func (m *GlobalPositionIntCov) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 181)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -4853,10 +4854,10 @@ func (m *CommonGlobalPositionIntCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGlobalPositionIntCov) Unpack(p *Packet) error {
+func (m *GlobalPositionIntCov) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 181 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -4873,9 +4874,9 @@ func (m *CommonGlobalPositionIntCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLocalPositionNedCov struct (generated typeinfo)
+// LocalPositionNedCov struct (generated typeinfo)
 // The filtered local position (e.g. fused computer vision and accelerometers). Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type CommonLocalPositionNedCov struct {
+type LocalPositionNedCov struct {
 	TimeUsec      uint64      // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	X             float32     // X Position
 	Y             float32     // Y Position
@@ -4891,24 +4892,24 @@ type CommonLocalPositionNedCov struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLocalPositionNedCov) MsgID() MessageID {
+func (m *LocalPositionNedCov) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_COV
 }
 
 // CRCExtra (generated function)
-func (m *CommonLocalPositionNedCov) CRCExtra() uint8 {
+func (m *LocalPositionNedCov) CRCExtra() uint8 {
 	return 191
 }
 
 // MsgName (generated function)
-func (m *CommonLocalPositionNedCov) MsgName() string {
+func (m *LocalPositionNedCov) MsgName() string {
 	return "LocalPositionNedCov"
 }
 
 // String (generated function)
-func (m *CommonLocalPositionNedCov) String() string {
+func (m *LocalPositionNedCov) String() string {
 	return fmt.Sprintf(
-		"&CommonLocalPositionNedCov{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Ax: %+v, Ay: %+v, Az: %+v, Covariance: %+v, EstimatorType: %+v }",
+		"&LocalPositionNedCov{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Ax: %+v, Ay: %+v, Az: %+v, Covariance: %+v, EstimatorType: %+v }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
@@ -4925,7 +4926,7 @@ func (m *CommonLocalPositionNedCov) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLocalPositionNedCov) Pack(p *Packet) error {
+func (m *LocalPositionNedCov) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 225)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -4947,10 +4948,10 @@ func (m *CommonLocalPositionNedCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLocalPositionNedCov) Unpack(p *Packet) error {
+func (m *LocalPositionNedCov) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 225 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -4969,9 +4970,9 @@ func (m *CommonLocalPositionNedCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRcChannels struct (generated typeinfo)
+// RcChannels struct (generated typeinfo)
 // The PPM values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%.  A value of UINT16_MAX implies the channel is unused. Individual receivers/transmitters might violate this specification.
-type CommonRcChannels struct {
+type RcChannels struct {
 	TimeBootMs uint32 // Timestamp (time since system boot).
 	Chan1Raw   uint16 // RC channel 1 value.
 	Chan2Raw   uint16 // RC channel 2 value.
@@ -4996,24 +4997,24 @@ type CommonRcChannels struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRcChannels) MsgID() MessageID {
+func (m *RcChannels) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS
 }
 
 // CRCExtra (generated function)
-func (m *CommonRcChannels) CRCExtra() uint8 {
+func (m *RcChannels) CRCExtra() uint8 {
 	return 118
 }
 
 // MsgName (generated function)
-func (m *CommonRcChannels) MsgName() string {
+func (m *RcChannels) MsgName() string {
 	return "RcChannels"
 }
 
 // String (generated function)
-func (m *CommonRcChannels) String() string {
+func (m *RcChannels) String() string {
 	return fmt.Sprintf(
-		"&CommonRcChannels{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Chan13Raw: %+v, Chan14Raw: %+v, Chan15Raw: %+v, Chan16Raw: %+v, Chan17Raw: %+v, Chan18Raw: %+v, Chancount: %+v, Rssi: %+v }",
+		"&RcChannels{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Chan13Raw: %+v, Chan14Raw: %+v, Chan15Raw: %+v, Chan16Raw: %+v, Chan17Raw: %+v, Chan18Raw: %+v, Chancount: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -5039,7 +5040,7 @@ func (m *CommonRcChannels) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRcChannels) Pack(p *Packet) error {
+func (m *RcChannels) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Chan1Raw))
@@ -5068,10 +5069,10 @@ func (m *CommonRcChannels) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRcChannels) Unpack(p *Packet) error {
+func (m *RcChannels) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -5097,9 +5098,9 @@ func (m *CommonRcChannels) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRequestDataStream struct (generated typeinfo)
+// RequestDataStream struct (generated typeinfo)
 // Request a data stream.
-type CommonRequestDataStream struct {
+type RequestDataStream struct {
 	ReqMessageRate  uint16 // The requested message rate
 	TargetSystem    uint8  // The target requested to send the message stream.
 	TargetComponent uint8  // The target requested to send the message stream.
@@ -5108,24 +5109,24 @@ type CommonRequestDataStream struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRequestDataStream) MsgID() MessageID {
+func (m *RequestDataStream) MsgID() mavlink.MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
 }
 
 // CRCExtra (generated function)
-func (m *CommonRequestDataStream) CRCExtra() uint8 {
+func (m *RequestDataStream) CRCExtra() uint8 {
 	return 148
 }
 
 // MsgName (generated function)
-func (m *CommonRequestDataStream) MsgName() string {
+func (m *RequestDataStream) MsgName() string {
 	return "RequestDataStream"
 }
 
 // String (generated function)
-func (m *CommonRequestDataStream) String() string {
+func (m *RequestDataStream) String() string {
 	return fmt.Sprintf(
-		"&CommonRequestDataStream{ ReqMessageRate: %+v, TargetSystem: %+v, TargetComponent: %+v, ReqStreamID: %+v, StartStop: %+v }",
+		"&RequestDataStream{ ReqMessageRate: %+v, TargetSystem: %+v, TargetComponent: %+v, ReqStreamID: %+v, StartStop: %+v }",
 		m.ReqMessageRate,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -5135,7 +5136,7 @@ func (m *CommonRequestDataStream) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRequestDataStream) Pack(p *Packet) error {
+func (m *RequestDataStream) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.ReqMessageRate))
 	payload[2] = byte(m.TargetSystem)
@@ -5148,10 +5149,10 @@ func (m *CommonRequestDataStream) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRequestDataStream) Unpack(p *Packet) error {
+func (m *RequestDataStream) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ReqMessageRate = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -5161,33 +5162,33 @@ func (m *CommonRequestDataStream) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonDataStream struct (generated typeinfo)
+// DataStream struct (generated typeinfo)
 // Data stream status information.
-type CommonDataStream struct {
+type DataStream struct {
 	MessageRate uint16 // The message rate
 	StreamID    uint8  // The ID of the requested data stream
 	OnOff       uint8  // 1 stream is enabled, 0 stream is stopped.
 }
 
 // MsgID (generated function)
-func (m *CommonDataStream) MsgID() MessageID {
+func (m *DataStream) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA_STREAM
 }
 
 // CRCExtra (generated function)
-func (m *CommonDataStream) CRCExtra() uint8 {
+func (m *DataStream) CRCExtra() uint8 {
 	return 21
 }
 
 // MsgName (generated function)
-func (m *CommonDataStream) MsgName() string {
+func (m *DataStream) MsgName() string {
 	return "DataStream"
 }
 
 // String (generated function)
-func (m *CommonDataStream) String() string {
+func (m *DataStream) String() string {
 	return fmt.Sprintf(
-		"&CommonDataStream{ MessageRate: %+v, StreamID: %+v, OnOff: %+v }",
+		"&DataStream{ MessageRate: %+v, StreamID: %+v, OnOff: %+v }",
 		m.MessageRate,
 		m.StreamID,
 		m.OnOff,
@@ -5195,7 +5196,7 @@ func (m *CommonDataStream) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonDataStream) Pack(p *Packet) error {
+func (m *DataStream) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MessageRate))
 	payload[2] = byte(m.StreamID)
@@ -5206,10 +5207,10 @@ func (m *CommonDataStream) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonDataStream) Unpack(p *Packet) error {
+func (m *DataStream) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.MessageRate = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.StreamID = uint8(payload[2])
@@ -5217,9 +5218,9 @@ func (m *CommonDataStream) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonManualControl struct (generated typeinfo)
+// ManualControl struct (generated typeinfo)
 // This message provides an API for manually controlling the vehicle using standard joystick axes nomenclature, along with a joystick-like input device. Unused axes can be disabled an buttons are also transmit as boolean values of their
-type CommonManualControl struct {
+type ManualControl struct {
 	X       int16  // X-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to forward(1000)-backward(-1000) movement on a joystick and the pitch of a vehicle.
 	Y       int16  // Y-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to left(-1000)-right(1000) movement on a joystick and the roll of a vehicle.
 	Z       int16  // Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle. Positive values are positive thrust, negative values are negative thrust.
@@ -5229,24 +5230,24 @@ type CommonManualControl struct {
 }
 
 // MsgID (generated function)
-func (m *CommonManualControl) MsgID() MessageID {
+func (m *ManualControl) MsgID() mavlink.MessageID {
 	return MSG_ID_MANUAL_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *CommonManualControl) CRCExtra() uint8 {
+func (m *ManualControl) CRCExtra() uint8 {
 	return 243
 }
 
 // MsgName (generated function)
-func (m *CommonManualControl) MsgName() string {
+func (m *ManualControl) MsgName() string {
 	return "ManualControl"
 }
 
 // String (generated function)
-func (m *CommonManualControl) String() string {
+func (m *ManualControl) String() string {
 	return fmt.Sprintf(
-		"&CommonManualControl{ X: %+v, Y: %+v, Z: %+v, R: %+v, Buttons: %+v, Target: %+v }",
+		"&ManualControl{ X: %+v, Y: %+v, Z: %+v, R: %+v, Buttons: %+v, Target: %+v }",
 		m.X,
 		m.Y,
 		m.Z,
@@ -5257,7 +5258,7 @@ func (m *CommonManualControl) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonManualControl) Pack(p *Packet) error {
+func (m *ManualControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 11)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.X))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Y))
@@ -5271,10 +5272,10 @@ func (m *CommonManualControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonManualControl) Unpack(p *Packet) error {
+func (m *ManualControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 11 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.X = int16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Y = int16(binary.LittleEndian.Uint16(payload[2:]))
@@ -5285,9 +5286,9 @@ func (m *CommonManualControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRcChannelsOverride struct (generated typeinfo)
+// RcChannelsOverride struct (generated typeinfo)
 // The RAW values of the RC channels sent to the MAV to override info received from the RC radio. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.  Note carefully the semantic differences between the first 8 channels and the subsequent channels
-type CommonRcChannelsOverride struct {
+type RcChannelsOverride struct {
 	Chan1Raw        uint16 // RC channel 1 value. A value of UINT16_MAX means to ignore this field. A value of 0 means to release this channel back to the RC radio.
 	Chan2Raw        uint16 // RC channel 2 value. A value of UINT16_MAX means to ignore this field. A value of 0 means to release this channel back to the RC radio.
 	Chan3Raw        uint16 // RC channel 3 value. A value of UINT16_MAX means to ignore this field. A value of 0 means to release this channel back to the RC radio.
@@ -5301,24 +5302,24 @@ type CommonRcChannelsOverride struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRcChannelsOverride) MsgID() MessageID {
+func (m *RcChannelsOverride) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_OVERRIDE
 }
 
 // CRCExtra (generated function)
-func (m *CommonRcChannelsOverride) CRCExtra() uint8 {
+func (m *RcChannelsOverride) CRCExtra() uint8 {
 	return 124
 }
 
 // MsgName (generated function)
-func (m *CommonRcChannelsOverride) MsgName() string {
+func (m *RcChannelsOverride) MsgName() string {
 	return "RcChannelsOverride"
 }
 
 // String (generated function)
-func (m *CommonRcChannelsOverride) String() string {
+func (m *RcChannelsOverride) String() string {
 	return fmt.Sprintf(
-		"&CommonRcChannelsOverride{ Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&RcChannelsOverride{ Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Chan1Raw,
 		m.Chan2Raw,
 		m.Chan3Raw,
@@ -5333,7 +5334,7 @@ func (m *CommonRcChannelsOverride) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRcChannelsOverride) Pack(p *Packet) error {
+func (m *RcChannelsOverride) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Chan1Raw))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Chan2Raw))
@@ -5351,10 +5352,10 @@ func (m *CommonRcChannelsOverride) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRcChannelsOverride) Unpack(p *Packet) error {
+func (m *RcChannelsOverride) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 18 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Chan2Raw = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -5369,10 +5370,10 @@ func (m *CommonRcChannelsOverride) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMissionItemInt struct (generated typeinfo)
+// MissionItemInt struct (generated typeinfo)
 // Message encoding a mission item. This message is emitted to announce
 //                 the presence of a mission item and to set a mission item on the system. The mission item can be either in x, y, z meters (type: LOCAL) or x:lat, y:lon, z:altitude. Local frame is Z-down, right handed (NED), global frame is Z-up, right handed (ENU). NaN or INT32_MAX may be used in float/integer params (respectively) to indicate optional/default values (e.g. to use the component's current latitude, yaw rather than a specific value). See also https://mavlink.io/en/services/mission.html.
-type CommonMissionItemInt struct {
+type MissionItemInt struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -5390,24 +5391,24 @@ type CommonMissionItemInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMissionItemInt) MsgID() MessageID {
+func (m *MissionItemInt) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMissionItemInt) CRCExtra() uint8 {
+func (m *MissionItemInt) CRCExtra() uint8 {
 	return 38
 }
 
 // MsgName (generated function)
-func (m *CommonMissionItemInt) MsgName() string {
+func (m *MissionItemInt) MsgName() string {
 	return "MissionItemInt"
 }
 
 // String (generated function)
-func (m *CommonMissionItemInt) String() string {
+func (m *MissionItemInt) String() string {
 	return fmt.Sprintf(
-		"&CommonMissionItemInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&MissionItemInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -5426,7 +5427,7 @@ func (m *CommonMissionItemInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMissionItemInt) Pack(p *Packet) error {
+func (m *MissionItemInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -5448,10 +5449,10 @@ func (m *CommonMissionItemInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMissionItemInt) Unpack(p *Packet) error {
+func (m *MissionItemInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 37 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5470,9 +5471,9 @@ func (m *CommonMissionItemInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonVfrHud struct (generated typeinfo)
+// VfrHud struct (generated typeinfo)
 // Metrics typically displayed on a HUD for fixed wing aircraft.
-type CommonVfrHud struct {
+type VfrHud struct {
 	Airspeed    float32 // Vehicle speed in form appropriate for vehicle type. For standard aircraft this is typically calibrated airspeed (CAS) or indicated airspeed (IAS) - either of which can be used by a pilot to estimate stall speed.
 	Groundspeed float32 // Current ground speed.
 	Alt         float32 // Current altitude (MSL).
@@ -5482,24 +5483,24 @@ type CommonVfrHud struct {
 }
 
 // MsgID (generated function)
-func (m *CommonVfrHud) MsgID() MessageID {
+func (m *VfrHud) MsgID() mavlink.MessageID {
 	return MSG_ID_VFR_HUD
 }
 
 // CRCExtra (generated function)
-func (m *CommonVfrHud) CRCExtra() uint8 {
+func (m *VfrHud) CRCExtra() uint8 {
 	return 20
 }
 
 // MsgName (generated function)
-func (m *CommonVfrHud) MsgName() string {
+func (m *VfrHud) MsgName() string {
 	return "VfrHud"
 }
 
 // String (generated function)
-func (m *CommonVfrHud) String() string {
+func (m *VfrHud) String() string {
 	return fmt.Sprintf(
-		"&CommonVfrHud{ Airspeed: %+v, Groundspeed: %+v, Alt: %+v, Climb: %+v, Heading: %+v, Throttle: %+v }",
+		"&VfrHud{ Airspeed: %+v, Groundspeed: %+v, Alt: %+v, Climb: %+v, Heading: %+v, Throttle: %+v }",
 		m.Airspeed,
 		m.Groundspeed,
 		m.Alt,
@@ -5510,7 +5511,7 @@ func (m *CommonVfrHud) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonVfrHud) Pack(p *Packet) error {
+func (m *VfrHud) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Airspeed))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Groundspeed))
@@ -5524,10 +5525,10 @@ func (m *CommonVfrHud) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonVfrHud) Unpack(p *Packet) error {
+func (m *VfrHud) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Airspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Groundspeed = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5538,9 +5539,9 @@ func (m *CommonVfrHud) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonCommandInt struct (generated typeinfo)
+// CommandInt struct (generated typeinfo)
 // Message encoding a command with parameters as scaled integers. Scaling depends on the actual command value. The command microservice is documented at https://mavlink.io/en/services/command.html
-type CommonCommandInt struct {
+type CommandInt struct {
 	Param1          float32 // PARAM1, see MAV_CMD enum
 	Param2          float32 // PARAM2, see MAV_CMD enum
 	Param3          float32 // PARAM3, see MAV_CMD enum
@@ -5557,24 +5558,24 @@ type CommonCommandInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonCommandInt) MsgID() MessageID {
+func (m *CommandInt) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonCommandInt) CRCExtra() uint8 {
+func (m *CommandInt) CRCExtra() uint8 {
 	return 158
 }
 
 // MsgName (generated function)
-func (m *CommonCommandInt) MsgName() string {
+func (m *CommandInt) MsgName() string {
 	return "CommandInt"
 }
 
 // String (generated function)
-func (m *CommonCommandInt) String() string {
+func (m *CommandInt) String() string {
 	return fmt.Sprintf(
-		"&CommonCommandInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&CommandInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -5592,7 +5593,7 @@ func (m *CommonCommandInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonCommandInt) Pack(p *Packet) error {
+func (m *CommandInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -5613,10 +5614,10 @@ func (m *CommonCommandInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCommandInt) Unpack(p *Packet) error {
+func (m *CommandInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 35 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5634,9 +5635,9 @@ func (m *CommonCommandInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonCommandLong struct (generated typeinfo)
+// CommandLong struct (generated typeinfo)
 // Send a command with up to seven parameters to the MAV. The command microservice is documented at https://mavlink.io/en/services/command.html
-type CommonCommandLong struct {
+type CommandLong struct {
 	Param1          float32 // Parameter 1 (for the specific command).
 	Param2          float32 // Parameter 2 (for the specific command).
 	Param3          float32 // Parameter 3 (for the specific command).
@@ -5651,24 +5652,24 @@ type CommonCommandLong struct {
 }
 
 // MsgID (generated function)
-func (m *CommonCommandLong) MsgID() MessageID {
+func (m *CommandLong) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_LONG
 }
 
 // CRCExtra (generated function)
-func (m *CommonCommandLong) CRCExtra() uint8 {
+func (m *CommandLong) CRCExtra() uint8 {
 	return 152
 }
 
 // MsgName (generated function)
-func (m *CommonCommandLong) MsgName() string {
+func (m *CommandLong) MsgName() string {
 	return "CommandLong"
 }
 
 // String (generated function)
-func (m *CommonCommandLong) String() string {
+func (m *CommandLong) String() string {
 	return fmt.Sprintf(
-		"&CommonCommandLong{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
+		"&CommandLong{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -5684,7 +5685,7 @@ func (m *CommonCommandLong) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonCommandLong) Pack(p *Packet) error {
+func (m *CommandLong) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 33)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Param1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Param2))
@@ -5703,10 +5704,10 @@ func (m *CommonCommandLong) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCommandLong) Unpack(p *Packet) error {
+func (m *CommandLong) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 33 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Param1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Param2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5722,39 +5723,39 @@ func (m *CommonCommandLong) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonCommandAck struct (generated typeinfo)
+// CommandAck struct (generated typeinfo)
 // Report status of a command. Includes feedback whether the command was executed. The command microservice is documented at https://mavlink.io/en/services/command.html
-type CommonCommandAck struct {
+type CommandAck struct {
 	Command uint16 // Command ID (of acknowledged command).
 	Result  uint8  // Result of command.
 }
 
 // MsgID (generated function)
-func (m *CommonCommandAck) MsgID() MessageID {
+func (m *CommandAck) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_ACK
 }
 
 // CRCExtra (generated function)
-func (m *CommonCommandAck) CRCExtra() uint8 {
+func (m *CommandAck) CRCExtra() uint8 {
 	return 143
 }
 
 // MsgName (generated function)
-func (m *CommonCommandAck) MsgName() string {
+func (m *CommandAck) MsgName() string {
 	return "CommandAck"
 }
 
 // String (generated function)
-func (m *CommonCommandAck) String() string {
+func (m *CommandAck) String() string {
 	return fmt.Sprintf(
-		"&CommonCommandAck{ Command: %+v, Result: %+v }",
+		"&CommandAck{ Command: %+v, Result: %+v }",
 		m.Command,
 		m.Result,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonCommandAck) Pack(p *Packet) error {
+func (m *CommandAck) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 3)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Command))
 	payload[2] = byte(m.Result)
@@ -5764,43 +5765,43 @@ func (m *CommonCommandAck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCommandAck) Unpack(p *Packet) error {
+func (m *CommandAck) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 3 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Command = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Result = uint8(payload[2])
 	return nil
 }
 
-// CommonCommandCancel struct (generated typeinfo)
+// CommandCancel struct (generated typeinfo)
 // Cancel a long running command. The target system should respond with a COMMAND_ACK to the original command with result=MAV_RESULT_CANCELLED if the long running process was cancelled. If it has already completed, the cancel action can be ignored. The cancel action can be retried until some sort of acknowledgement to the original command has been received. The command microservice is documented at https://mavlink.io/en/services/command.html
-type CommonCommandCancel struct {
+type CommandCancel struct {
 	Command         uint16 // Command ID (of command to cancel).
 	TargetSystem    uint8  // System executing long running command. Should not be broadcast (0).
 	TargetComponent uint8  // Component executing long running command.
 }
 
 // MsgID (generated function)
-func (m *CommonCommandCancel) MsgID() MessageID {
+func (m *CommandCancel) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_CANCEL
 }
 
 // CRCExtra (generated function)
-func (m *CommonCommandCancel) CRCExtra() uint8 {
+func (m *CommandCancel) CRCExtra() uint8 {
 	return 14
 }
 
 // MsgName (generated function)
-func (m *CommonCommandCancel) MsgName() string {
+func (m *CommandCancel) MsgName() string {
 	return "CommandCancel"
 }
 
 // String (generated function)
-func (m *CommonCommandCancel) String() string {
+func (m *CommandCancel) String() string {
 	return fmt.Sprintf(
-		"&CommonCommandCancel{ Command: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&CommandCancel{ Command: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Command,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -5808,7 +5809,7 @@ func (m *CommonCommandCancel) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonCommandCancel) Pack(p *Packet) error {
+func (m *CommandCancel) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Command))
 	payload[2] = byte(m.TargetSystem)
@@ -5819,10 +5820,10 @@ func (m *CommonCommandCancel) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCommandCancel) Unpack(p *Packet) error {
+func (m *CommandCancel) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Command = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetSystem = uint8(payload[2])
@@ -5830,9 +5831,9 @@ func (m *CommonCommandCancel) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonManualSetpoint struct (generated typeinfo)
+// ManualSetpoint struct (generated typeinfo)
 // Setpoint in roll, pitch, yaw and thrust from the operator
-type CommonManualSetpoint struct {
+type ManualSetpoint struct {
 	TimeBootMs           uint32  // Timestamp (time since system boot).
 	Roll                 float32 // Desired roll rate
 	Pitch                float32 // Desired pitch rate
@@ -5843,24 +5844,24 @@ type CommonManualSetpoint struct {
 }
 
 // MsgID (generated function)
-func (m *CommonManualSetpoint) MsgID() MessageID {
+func (m *ManualSetpoint) MsgID() mavlink.MessageID {
 	return MSG_ID_MANUAL_SETPOINT
 }
 
 // CRCExtra (generated function)
-func (m *CommonManualSetpoint) CRCExtra() uint8 {
+func (m *ManualSetpoint) CRCExtra() uint8 {
 	return 106
 }
 
 // MsgName (generated function)
-func (m *CommonManualSetpoint) MsgName() string {
+func (m *ManualSetpoint) MsgName() string {
 	return "ManualSetpoint"
 }
 
 // String (generated function)
-func (m *CommonManualSetpoint) String() string {
+func (m *ManualSetpoint) String() string {
 	return fmt.Sprintf(
-		"&CommonManualSetpoint{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Thrust: %+v, ModeSwitch: %+v, ManualOverrideSwitch: %+v }",
+		"&ManualSetpoint{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Thrust: %+v, ModeSwitch: %+v, ManualOverrideSwitch: %+v }",
 		m.TimeBootMs,
 		m.Roll,
 		m.Pitch,
@@ -5872,7 +5873,7 @@ func (m *CommonManualSetpoint) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonManualSetpoint) Pack(p *Packet) error {
+func (m *ManualSetpoint) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Roll))
@@ -5887,10 +5888,10 @@ func (m *CommonManualSetpoint) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonManualSetpoint) Unpack(p *Packet) error {
+func (m *ManualSetpoint) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -5902,9 +5903,9 @@ func (m *CommonManualSetpoint) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetAttitudeTarget struct (generated typeinfo)
+// SetAttitudeTarget struct (generated typeinfo)
 // Sets a desired vehicle attitude. Used by an external controller to command the vehicle (manual controller or other system).
-type CommonSetAttitudeTarget struct {
+type SetAttitudeTarget struct {
 	TimeBootMs      uint32     // Timestamp (time since system boot).
 	Q               [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	BodyRollRate    float32    // Body roll rate
@@ -5917,24 +5918,24 @@ type CommonSetAttitudeTarget struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetAttitudeTarget) MsgID() MessageID {
+func (m *SetAttitudeTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_ATTITUDE_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetAttitudeTarget) CRCExtra() uint8 {
+func (m *SetAttitudeTarget) CRCExtra() uint8 {
 	return 49
 }
 
 // MsgName (generated function)
-func (m *CommonSetAttitudeTarget) MsgName() string {
+func (m *SetAttitudeTarget) MsgName() string {
 	return "SetAttitudeTarget"
 }
 
 // String (generated function)
-func (m *CommonSetAttitudeTarget) String() string {
+func (m *SetAttitudeTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonSetAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TargetSystem: %+v, TargetComponent: %+v, TypeMask: %+v }",
+		"&SetAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TargetSystem: %+v, TargetComponent: %+v, TypeMask: %+v }",
 		m.TimeBootMs,
 		m.Q,
 		m.BodyRollRate,
@@ -5948,7 +5949,7 @@ func (m *CommonSetAttitudeTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetAttitudeTarget) Pack(p *Packet) error {
+func (m *SetAttitudeTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 39)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	for i, v := range m.Q {
@@ -5967,10 +5968,10 @@ func (m *CommonSetAttitudeTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetAttitudeTarget) Unpack(p *Packet) error {
+func (m *SetAttitudeTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 39 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -5986,9 +5987,9 @@ func (m *CommonSetAttitudeTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAttitudeTarget struct (generated typeinfo)
+// AttitudeTarget struct (generated typeinfo)
 // Reports the current commanded attitude of the vehicle as specified by the autopilot. This should match the commands sent in a SET_ATTITUDE_TARGET message if the vehicle is being controlled this way.
-type CommonAttitudeTarget struct {
+type AttitudeTarget struct {
 	TimeBootMs    uint32     // Timestamp (time since system boot).
 	Q             [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	BodyRollRate  float32    // Body roll rate
@@ -5999,24 +6000,24 @@ type CommonAttitudeTarget struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAttitudeTarget) MsgID() MessageID {
+func (m *AttitudeTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonAttitudeTarget) CRCExtra() uint8 {
+func (m *AttitudeTarget) CRCExtra() uint8 {
 	return 22
 }
 
 // MsgName (generated function)
-func (m *CommonAttitudeTarget) MsgName() string {
+func (m *AttitudeTarget) MsgName() string {
 	return "AttitudeTarget"
 }
 
 // String (generated function)
-func (m *CommonAttitudeTarget) String() string {
+func (m *AttitudeTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TypeMask: %+v }",
+		"&AttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TypeMask: %+v }",
 		m.TimeBootMs,
 		m.Q,
 		m.BodyRollRate,
@@ -6028,7 +6029,7 @@ func (m *CommonAttitudeTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAttitudeTarget) Pack(p *Packet) error {
+func (m *AttitudeTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 37)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	for i, v := range m.Q {
@@ -6045,10 +6046,10 @@ func (m *CommonAttitudeTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAttitudeTarget) Unpack(p *Packet) error {
+func (m *AttitudeTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 37 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -6062,9 +6063,9 @@ func (m *CommonAttitudeTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetPositionTargetLocalNed struct (generated typeinfo)
+// SetPositionTargetLocalNed struct (generated typeinfo)
 // Sets a desired vehicle position in a local north-east-down coordinate frame. Used by an external controller to command the vehicle (manual controller or other system).
-type CommonSetPositionTargetLocalNed struct {
+type SetPositionTargetLocalNed struct {
 	TimeBootMs      uint32  // Timestamp (time since system boot).
 	X               float32 // X Position in NED frame
 	Y               float32 // Y Position in NED frame
@@ -6084,24 +6085,24 @@ type CommonSetPositionTargetLocalNed struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetPositionTargetLocalNed) MsgID() MessageID {
+func (m *SetPositionTargetLocalNed) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_POSITION_TARGET_LOCAL_NED
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetPositionTargetLocalNed) CRCExtra() uint8 {
+func (m *SetPositionTargetLocalNed) CRCExtra() uint8 {
 	return 143
 }
 
 // MsgName (generated function)
-func (m *CommonSetPositionTargetLocalNed) MsgName() string {
+func (m *SetPositionTargetLocalNed) MsgName() string {
 	return "SetPositionTargetLocalNed"
 }
 
 // String (generated function)
-func (m *CommonSetPositionTargetLocalNed) String() string {
+func (m *SetPositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
-		"&CommonSetPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
+		"&SetPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6122,7 +6123,7 @@ func (m *CommonSetPositionTargetLocalNed) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetPositionTargetLocalNed) Pack(p *Packet) error {
+func (m *SetPositionTargetLocalNed) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -6146,10 +6147,10 @@ func (m *CommonSetPositionTargetLocalNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetPositionTargetLocalNed) Unpack(p *Packet) error {
+func (m *SetPositionTargetLocalNed) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 53 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -6170,9 +6171,9 @@ func (m *CommonSetPositionTargetLocalNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonPositionTargetLocalNed struct (generated typeinfo)
+// PositionTargetLocalNed struct (generated typeinfo)
 // Reports the current commanded vehicle position, velocity, and acceleration as specified by the autopilot. This should match the commands sent in SET_POSITION_TARGET_LOCAL_NED if the vehicle is being controlled this way.
-type CommonPositionTargetLocalNed struct {
+type PositionTargetLocalNed struct {
 	TimeBootMs      uint32  // Timestamp (time since system boot).
 	X               float32 // X Position in NED frame
 	Y               float32 // Y Position in NED frame
@@ -6190,24 +6191,24 @@ type CommonPositionTargetLocalNed struct {
 }
 
 // MsgID (generated function)
-func (m *CommonPositionTargetLocalNed) MsgID() MessageID {
+func (m *PositionTargetLocalNed) MsgID() mavlink.MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
 }
 
 // CRCExtra (generated function)
-func (m *CommonPositionTargetLocalNed) CRCExtra() uint8 {
+func (m *PositionTargetLocalNed) CRCExtra() uint8 {
 	return 140
 }
 
 // MsgName (generated function)
-func (m *CommonPositionTargetLocalNed) MsgName() string {
+func (m *PositionTargetLocalNed) MsgName() string {
 	return "PositionTargetLocalNed"
 }
 
 // String (generated function)
-func (m *CommonPositionTargetLocalNed) String() string {
+func (m *PositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
-		"&CommonPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
+		"&PositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6226,7 +6227,7 @@ func (m *CommonPositionTargetLocalNed) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonPositionTargetLocalNed) Pack(p *Packet) error {
+func (m *PositionTargetLocalNed) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 51)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -6248,10 +6249,10 @@ func (m *CommonPositionTargetLocalNed) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonPositionTargetLocalNed) Unpack(p *Packet) error {
+func (m *PositionTargetLocalNed) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 51 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -6270,9 +6271,9 @@ func (m *CommonPositionTargetLocalNed) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetPositionTargetGlobalInt struct (generated typeinfo)
+// SetPositionTargetGlobalInt struct (generated typeinfo)
 // Sets a desired vehicle position, velocity, and/or acceleration in a global coordinate system (WGS84). Used by an external controller to command the vehicle (manual controller or other system).
-type CommonSetPositionTargetGlobalInt struct {
+type SetPositionTargetGlobalInt struct {
 	TimeBootMs      uint32  // Timestamp (time since system boot). The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
 	LatInt          int32   // X Position in WGS84 frame
 	LonInt          int32   // Y Position in WGS84 frame
@@ -6292,24 +6293,24 @@ type CommonSetPositionTargetGlobalInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetPositionTargetGlobalInt) MsgID() MessageID {
+func (m *SetPositionTargetGlobalInt) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_POSITION_TARGET_GLOBAL_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetPositionTargetGlobalInt) CRCExtra() uint8 {
+func (m *SetPositionTargetGlobalInt) CRCExtra() uint8 {
 	return 5
 }
 
 // MsgName (generated function)
-func (m *CommonSetPositionTargetGlobalInt) MsgName() string {
+func (m *SetPositionTargetGlobalInt) MsgName() string {
 	return "SetPositionTargetGlobalInt"
 }
 
 // String (generated function)
-func (m *CommonSetPositionTargetGlobalInt) String() string {
+func (m *SetPositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
-		"&CommonSetPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
+		"&SetPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.LatInt,
 		m.LonInt,
@@ -6330,7 +6331,7 @@ func (m *CommonSetPositionTargetGlobalInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetPositionTargetGlobalInt) Pack(p *Packet) error {
+func (m *SetPositionTargetGlobalInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LatInt))
@@ -6354,10 +6355,10 @@ func (m *CommonSetPositionTargetGlobalInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetPositionTargetGlobalInt) Unpack(p *Packet) error {
+func (m *SetPositionTargetGlobalInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 53 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -6378,9 +6379,9 @@ func (m *CommonSetPositionTargetGlobalInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonPositionTargetGlobalInt struct (generated typeinfo)
+// PositionTargetGlobalInt struct (generated typeinfo)
 // Reports the current commanded vehicle position, velocity, and acceleration as specified by the autopilot. This should match the commands sent in SET_POSITION_TARGET_GLOBAL_INT if the vehicle is being controlled this way.
-type CommonPositionTargetGlobalInt struct {
+type PositionTargetGlobalInt struct {
 	TimeBootMs      uint32  // Timestamp (time since system boot). The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
 	LatInt          int32   // X Position in WGS84 frame
 	LonInt          int32   // Y Position in WGS84 frame
@@ -6398,24 +6399,24 @@ type CommonPositionTargetGlobalInt struct {
 }
 
 // MsgID (generated function)
-func (m *CommonPositionTargetGlobalInt) MsgID() MessageID {
+func (m *PositionTargetGlobalInt) MsgID() mavlink.MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonPositionTargetGlobalInt) CRCExtra() uint8 {
+func (m *PositionTargetGlobalInt) CRCExtra() uint8 {
 	return 150
 }
 
 // MsgName (generated function)
-func (m *CommonPositionTargetGlobalInt) MsgName() string {
+func (m *PositionTargetGlobalInt) MsgName() string {
 	return "PositionTargetGlobalInt"
 }
 
 // String (generated function)
-func (m *CommonPositionTargetGlobalInt) String() string {
+func (m *PositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
-		"&CommonPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
+		"&PositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.LatInt,
 		m.LonInt,
@@ -6434,7 +6435,7 @@ func (m *CommonPositionTargetGlobalInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonPositionTargetGlobalInt) Pack(p *Packet) error {
+func (m *PositionTargetGlobalInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 51)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.LatInt))
@@ -6456,10 +6457,10 @@ func (m *CommonPositionTargetGlobalInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonPositionTargetGlobalInt) Unpack(p *Packet) error {
+func (m *PositionTargetGlobalInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 51 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.LatInt = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -6478,9 +6479,9 @@ func (m *CommonPositionTargetGlobalInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLocalPositionNedSystemGlobalOffset struct (generated typeinfo)
+// LocalPositionNedSystemGlobalOffset struct (generated typeinfo)
 // The offset in X, Y, Z and yaw between the LOCAL_POSITION_NED messages of MAV X and the global coordinate frame in NED coordinates. Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
-type CommonLocalPositionNedSystemGlobalOffset struct {
+type LocalPositionNedSystemGlobalOffset struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	X          float32 // X Position
 	Y          float32 // Y Position
@@ -6491,24 +6492,24 @@ type CommonLocalPositionNedSystemGlobalOffset struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) MsgID() MessageID {
+func (m *LocalPositionNedSystemGlobalOffset) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
 }
 
 // CRCExtra (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) CRCExtra() uint8 {
+func (m *LocalPositionNedSystemGlobalOffset) CRCExtra() uint8 {
 	return 231
 }
 
 // MsgName (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) MsgName() string {
+func (m *LocalPositionNedSystemGlobalOffset) MsgName() string {
 	return "LocalPositionNedSystemGlobalOffset"
 }
 
 // String (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) String() string {
+func (m *LocalPositionNedSystemGlobalOffset) String() string {
 	return fmt.Sprintf(
-		"&CommonLocalPositionNedSystemGlobalOffset{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&LocalPositionNedSystemGlobalOffset{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6520,7 +6521,7 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
+func (m *LocalPositionNedSystemGlobalOffset) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 28)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.X))
@@ -6535,10 +6536,10 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
+func (m *LocalPositionNedSystemGlobalOffset) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 28 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -6550,9 +6551,9 @@ func (m *CommonLocalPositionNedSystemGlobalOffset) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilState struct (generated typeinfo)
+// HilState struct (generated typeinfo)
 // Sent from simulation to autopilot. This packet is useful for high throughput applications such as hardware in the loop simulations.
-type CommonHilState struct {
+type HilState struct {
 	TimeUsec   uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Roll       float32 // Roll angle
 	Pitch      float32 // Pitch angle
@@ -6572,24 +6573,24 @@ type CommonHilState struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilState) MsgID() MessageID {
+func (m *HilState) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_STATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilState) CRCExtra() uint8 {
+func (m *HilState) CRCExtra() uint8 {
 	return 183
 }
 
 // MsgName (generated function)
-func (m *CommonHilState) MsgName() string {
+func (m *HilState) MsgName() string {
 	return "HilState"
 }
 
 // String (generated function)
-func (m *CommonHilState) String() string {
+func (m *HilState) String() string {
 	return fmt.Sprintf(
-		"&CommonHilState{ TimeUsec: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
+		"&HilState{ TimeUsec: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
 		m.TimeUsec,
 		m.Roll,
 		m.Pitch,
@@ -6610,7 +6611,7 @@ func (m *CommonHilState) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilState) Pack(p *Packet) error {
+func (m *HilState) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 56)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Roll))
@@ -6634,10 +6635,10 @@ func (m *CommonHilState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilState) Unpack(p *Packet) error {
+func (m *HilState) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 56 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Roll = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -6658,9 +6659,9 @@ func (m *CommonHilState) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilControls struct (generated typeinfo)
+// HilControls struct (generated typeinfo)
 // Sent from autopilot to simulation. Hardware in the loop control outputs
-type CommonHilControls struct {
+type HilControls struct {
 	TimeUsec      uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	RollAilerons  float32 // Control output -1 .. 1
 	PitchElevator float32 // Control output -1 .. 1
@@ -6675,24 +6676,24 @@ type CommonHilControls struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilControls) MsgID() MessageID {
+func (m *HilControls) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_CONTROLS
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilControls) CRCExtra() uint8 {
+func (m *HilControls) CRCExtra() uint8 {
 	return 63
 }
 
 // MsgName (generated function)
-func (m *CommonHilControls) MsgName() string {
+func (m *HilControls) MsgName() string {
 	return "HilControls"
 }
 
 // String (generated function)
-func (m *CommonHilControls) String() string {
+func (m *HilControls) String() string {
 	return fmt.Sprintf(
-		"&CommonHilControls{ TimeUsec: %+v, RollAilerons: %+v, PitchElevator: %+v, YawRudder: %+v, Throttle: %+v, Aux1: %+v, Aux2: %+v, Aux3: %+v, Aux4: %+v, Mode: %+v, NavMode: %+v }",
+		"&HilControls{ TimeUsec: %+v, RollAilerons: %+v, PitchElevator: %+v, YawRudder: %+v, Throttle: %+v, Aux1: %+v, Aux2: %+v, Aux3: %+v, Aux4: %+v, Mode: %+v, NavMode: %+v }",
 		m.TimeUsec,
 		m.RollAilerons,
 		m.PitchElevator,
@@ -6708,7 +6709,7 @@ func (m *CommonHilControls) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilControls) Pack(p *Packet) error {
+func (m *HilControls) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.RollAilerons))
@@ -6727,10 +6728,10 @@ func (m *CommonHilControls) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilControls) Unpack(p *Packet) error {
+func (m *HilControls) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.RollAilerons = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -6746,9 +6747,9 @@ func (m *CommonHilControls) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilRcInputsRaw struct (generated typeinfo)
+// HilRcInputsRaw struct (generated typeinfo)
 // Sent from simulation to autopilot. The RAW values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
-type CommonHilRcInputsRaw struct {
+type HilRcInputsRaw struct {
 	TimeUsec  uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Chan1Raw  uint16 // RC channel 1 value
 	Chan2Raw  uint16 // RC channel 2 value
@@ -6766,24 +6767,24 @@ type CommonHilRcInputsRaw struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilRcInputsRaw) MsgID() MessageID {
+func (m *HilRcInputsRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_RC_INPUTS_RAW
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilRcInputsRaw) CRCExtra() uint8 {
+func (m *HilRcInputsRaw) CRCExtra() uint8 {
 	return 54
 }
 
 // MsgName (generated function)
-func (m *CommonHilRcInputsRaw) MsgName() string {
+func (m *HilRcInputsRaw) MsgName() string {
 	return "HilRcInputsRaw"
 }
 
 // String (generated function)
-func (m *CommonHilRcInputsRaw) String() string {
+func (m *HilRcInputsRaw) String() string {
 	return fmt.Sprintf(
-		"&CommonHilRcInputsRaw{ TimeUsec: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Rssi: %+v }",
+		"&HilRcInputsRaw{ TimeUsec: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Rssi: %+v }",
 		m.TimeUsec,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -6802,7 +6803,7 @@ func (m *CommonHilRcInputsRaw) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilRcInputsRaw) Pack(p *Packet) error {
+func (m *HilRcInputsRaw) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 33)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint16(payload[8:], uint16(m.Chan1Raw))
@@ -6824,10 +6825,10 @@ func (m *CommonHilRcInputsRaw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilRcInputsRaw) Unpack(p *Packet) error {
+func (m *HilRcInputsRaw) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 33 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Chan1Raw = uint16(binary.LittleEndian.Uint16(payload[8:]))
@@ -6846,9 +6847,9 @@ func (m *CommonHilRcInputsRaw) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilActuatorControls struct (generated typeinfo)
+// HilActuatorControls struct (generated typeinfo)
 // Sent from autopilot to simulation. Hardware in the loop control outputs (replacement for HIL_CONTROLS)
-type CommonHilActuatorControls struct {
+type HilActuatorControls struct {
 	TimeUsec uint64      // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Flags    uint64      // Flags as bitfield, 1: indicate simulation using lockstep.
 	Controls [16]float32 // Control outputs -1 .. 1. Channel assignment depends on the simulated hardware.
@@ -6856,24 +6857,24 @@ type CommonHilActuatorControls struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilActuatorControls) MsgID() MessageID {
+func (m *HilActuatorControls) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilActuatorControls) CRCExtra() uint8 {
+func (m *HilActuatorControls) CRCExtra() uint8 {
 	return 47
 }
 
 // MsgName (generated function)
-func (m *CommonHilActuatorControls) MsgName() string {
+func (m *HilActuatorControls) MsgName() string {
 	return "HilActuatorControls"
 }
 
 // String (generated function)
-func (m *CommonHilActuatorControls) String() string {
+func (m *HilActuatorControls) String() string {
 	return fmt.Sprintf(
-		"&CommonHilActuatorControls{ TimeUsec: %+v, Flags: %+v, Controls: %+v, Mode: %+v }",
+		"&HilActuatorControls{ TimeUsec: %+v, Flags: %+v, Controls: %+v, Mode: %+v }",
 		m.TimeUsec,
 		m.Flags,
 		m.Controls,
@@ -6882,7 +6883,7 @@ func (m *CommonHilActuatorControls) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilActuatorControls) Pack(p *Packet) error {
+func (m *HilActuatorControls) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 81)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Flags))
@@ -6896,10 +6897,10 @@ func (m *CommonHilActuatorControls) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilActuatorControls) Unpack(p *Packet) error {
+func (m *HilActuatorControls) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 81 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Flags = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -6910,9 +6911,9 @@ func (m *CommonHilActuatorControls) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonOpticalFlow struct (generated typeinfo)
+// OpticalFlow struct (generated typeinfo)
 // Optical flow from a flow sensor (e.g. optical mouse sensor)
-type CommonOpticalFlow struct {
+type OpticalFlow struct {
 	TimeUsec       uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	FlowCompMX     float32 // Flow in x-sensor direction, angular-speed compensated
 	FlowCompMY     float32 // Flow in y-sensor direction, angular-speed compensated
@@ -6924,24 +6925,24 @@ type CommonOpticalFlow struct {
 }
 
 // MsgID (generated function)
-func (m *CommonOpticalFlow) MsgID() MessageID {
+func (m *OpticalFlow) MsgID() mavlink.MessageID {
 	return MSG_ID_OPTICAL_FLOW
 }
 
 // CRCExtra (generated function)
-func (m *CommonOpticalFlow) CRCExtra() uint8 {
+func (m *OpticalFlow) CRCExtra() uint8 {
 	return 175
 }
 
 // MsgName (generated function)
-func (m *CommonOpticalFlow) MsgName() string {
+func (m *OpticalFlow) MsgName() string {
 	return "OpticalFlow"
 }
 
 // String (generated function)
-func (m *CommonOpticalFlow) String() string {
+func (m *OpticalFlow) String() string {
 	return fmt.Sprintf(
-		"&CommonOpticalFlow{ TimeUsec: %+v, FlowCompMX: %+v, FlowCompMY: %+v, GroundDistance: %+v, FlowX: %+v, FlowY: %+v, SensorID: %+v, Quality: %+v }",
+		"&OpticalFlow{ TimeUsec: %+v, FlowCompMX: %+v, FlowCompMY: %+v, GroundDistance: %+v, FlowX: %+v, FlowY: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.FlowCompMX,
 		m.FlowCompMY,
@@ -6954,7 +6955,7 @@ func (m *CommonOpticalFlow) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonOpticalFlow) Pack(p *Packet) error {
+func (m *OpticalFlow) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 26)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.FlowCompMX))
@@ -6970,10 +6971,10 @@ func (m *CommonOpticalFlow) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonOpticalFlow) Unpack(p *Packet) error {
+func (m *OpticalFlow) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 26 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.FlowCompMX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -6986,9 +6987,9 @@ func (m *CommonOpticalFlow) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGlobalVisionPositionEstimate struct (generated typeinfo)
+// GlobalVisionPositionEstimate struct (generated typeinfo)
 // Global position/attitude estimate from a vision source.
-type CommonGlobalVisionPositionEstimate struct {
+type GlobalVisionPositionEstimate struct {
 	Usec  uint64  // Timestamp (UNIX time or since system boot)
 	X     float32 // Global X position
 	Y     float32 // Global Y position
@@ -6999,24 +7000,24 @@ type CommonGlobalVisionPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGlobalVisionPositionEstimate) MsgID() MessageID {
+func (m *GlobalVisionPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonGlobalVisionPositionEstimate) CRCExtra() uint8 {
+func (m *GlobalVisionPositionEstimate) CRCExtra() uint8 {
 	return 102
 }
 
 // MsgName (generated function)
-func (m *CommonGlobalVisionPositionEstimate) MsgName() string {
+func (m *GlobalVisionPositionEstimate) MsgName() string {
 	return "GlobalVisionPositionEstimate"
 }
 
 // String (generated function)
-func (m *CommonGlobalVisionPositionEstimate) String() string {
+func (m *GlobalVisionPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&CommonGlobalVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&GlobalVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7028,7 +7029,7 @@ func (m *CommonGlobalVisionPositionEstimate) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGlobalVisionPositionEstimate) Pack(p *Packet) error {
+func (m *GlobalVisionPositionEstimate) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -7043,10 +7044,10 @@ func (m *CommonGlobalVisionPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGlobalVisionPositionEstimate) Unpack(p *Packet) error {
+func (m *GlobalVisionPositionEstimate) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7058,9 +7059,9 @@ func (m *CommonGlobalVisionPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonVisionPositionEstimate struct (generated typeinfo)
+// VisionPositionEstimate struct (generated typeinfo)
 // Local position/attitude estimate from a vision source.
-type CommonVisionPositionEstimate struct {
+type VisionPositionEstimate struct {
 	Usec  uint64  // Timestamp (UNIX time or time since system boot)
 	X     float32 // Local X position
 	Y     float32 // Local Y position
@@ -7071,24 +7072,24 @@ type CommonVisionPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *CommonVisionPositionEstimate) MsgID() MessageID {
+func (m *VisionPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonVisionPositionEstimate) CRCExtra() uint8 {
+func (m *VisionPositionEstimate) CRCExtra() uint8 {
 	return 158
 }
 
 // MsgName (generated function)
-func (m *CommonVisionPositionEstimate) MsgName() string {
+func (m *VisionPositionEstimate) MsgName() string {
 	return "VisionPositionEstimate"
 }
 
 // String (generated function)
-func (m *CommonVisionPositionEstimate) String() string {
+func (m *VisionPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&CommonVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&VisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7100,7 +7101,7 @@ func (m *CommonVisionPositionEstimate) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonVisionPositionEstimate) Pack(p *Packet) error {
+func (m *VisionPositionEstimate) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -7115,10 +7116,10 @@ func (m *CommonVisionPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonVisionPositionEstimate) Unpack(p *Packet) error {
+func (m *VisionPositionEstimate) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7130,9 +7131,9 @@ func (m *CommonVisionPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonVisionSpeedEstimate struct (generated typeinfo)
+// VisionSpeedEstimate struct (generated typeinfo)
 // Speed estimate from a vision source.
-type CommonVisionSpeedEstimate struct {
+type VisionSpeedEstimate struct {
 	Usec uint64  // Timestamp (UNIX time or time since system boot)
 	X    float32 // Global X speed
 	Y    float32 // Global Y speed
@@ -7140,24 +7141,24 @@ type CommonVisionSpeedEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *CommonVisionSpeedEstimate) MsgID() MessageID {
+func (m *VisionSpeedEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonVisionSpeedEstimate) CRCExtra() uint8 {
+func (m *VisionSpeedEstimate) CRCExtra() uint8 {
 	return 208
 }
 
 // MsgName (generated function)
-func (m *CommonVisionSpeedEstimate) MsgName() string {
+func (m *VisionSpeedEstimate) MsgName() string {
 	return "VisionSpeedEstimate"
 }
 
 // String (generated function)
-func (m *CommonVisionSpeedEstimate) String() string {
+func (m *VisionSpeedEstimate) String() string {
 	return fmt.Sprintf(
-		"&CommonVisionSpeedEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v }",
+		"&VisionSpeedEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7166,7 +7167,7 @@ func (m *CommonVisionSpeedEstimate) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonVisionSpeedEstimate) Pack(p *Packet) error {
+func (m *VisionSpeedEstimate) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 20)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -7178,10 +7179,10 @@ func (m *CommonVisionSpeedEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonVisionSpeedEstimate) Unpack(p *Packet) error {
+func (m *VisionSpeedEstimate) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 20 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7190,9 +7191,9 @@ func (m *CommonVisionSpeedEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonViconPositionEstimate struct (generated typeinfo)
+// ViconPositionEstimate struct (generated typeinfo)
 // Global position estimate from a Vicon motion system source.
-type CommonViconPositionEstimate struct {
+type ViconPositionEstimate struct {
 	Usec  uint64  // Timestamp (UNIX time or time since system boot)
 	X     float32 // Global X position
 	Y     float32 // Global Y position
@@ -7203,24 +7204,24 @@ type CommonViconPositionEstimate struct {
 }
 
 // MsgID (generated function)
-func (m *CommonViconPositionEstimate) MsgID() MessageID {
+func (m *ViconPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VICON_POSITION_ESTIMATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonViconPositionEstimate) CRCExtra() uint8 {
+func (m *ViconPositionEstimate) CRCExtra() uint8 {
 	return 56
 }
 
 // MsgName (generated function)
-func (m *CommonViconPositionEstimate) MsgName() string {
+func (m *ViconPositionEstimate) MsgName() string {
 	return "ViconPositionEstimate"
 }
 
 // String (generated function)
-func (m *CommonViconPositionEstimate) String() string {
+func (m *ViconPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&CommonViconPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&ViconPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7232,7 +7233,7 @@ func (m *CommonViconPositionEstimate) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonViconPositionEstimate) Pack(p *Packet) error {
+func (m *ViconPositionEstimate) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Usec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -7247,10 +7248,10 @@ func (m *CommonViconPositionEstimate) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonViconPositionEstimate) Unpack(p *Packet) error {
+func (m *ViconPositionEstimate) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Usec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7262,9 +7263,9 @@ func (m *CommonViconPositionEstimate) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHighresImu struct (generated typeinfo)
+// HighresImu struct (generated typeinfo)
 // The IMU readings in SI units in NED body frame
-type CommonHighresImu struct {
+type HighresImu struct {
 	TimeUsec      uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Xacc          float32 // X acceleration
 	Yacc          float32 // Y acceleration
@@ -7283,24 +7284,24 @@ type CommonHighresImu struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHighresImu) MsgID() MessageID {
+func (m *HighresImu) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGHRES_IMU
 }
 
 // CRCExtra (generated function)
-func (m *CommonHighresImu) CRCExtra() uint8 {
+func (m *HighresImu) CRCExtra() uint8 {
 	return 93
 }
 
 // MsgName (generated function)
-func (m *CommonHighresImu) MsgName() string {
+func (m *HighresImu) MsgName() string {
 	return "HighresImu"
 }
 
 // String (generated function)
-func (m *CommonHighresImu) String() string {
+func (m *HighresImu) String() string {
 	return fmt.Sprintf(
-		"&CommonHighresImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
+		"&HighresImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -7320,7 +7321,7 @@ func (m *CommonHighresImu) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHighresImu) Pack(p *Packet) error {
+func (m *HighresImu) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 62)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Xacc))
@@ -7343,10 +7344,10 @@ func (m *CommonHighresImu) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHighresImu) Unpack(p *Packet) error {
+func (m *HighresImu) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 62 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7366,9 +7367,9 @@ func (m *CommonHighresImu) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonOpticalFlowRad struct (generated typeinfo)
+// OpticalFlowRad struct (generated typeinfo)
 // Optical flow from an angular rate flow sensor (e.g. PX4FLOW or mouse sensor)
-type CommonOpticalFlowRad struct {
+type OpticalFlowRad struct {
 	TimeUsec            uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	IntegrationTimeUs   uint32  // Integration time. Divide integrated_x and integrated_y by the integration time to obtain average flow. The integration time also indicates the.
 	IntegratedX         float32 // Flow around X axis (Sensor RH rotation about the X axis induces a positive flow. Sensor linear motion along the positive Y axis induces a negative flow.)
@@ -7384,24 +7385,24 @@ type CommonOpticalFlowRad struct {
 }
 
 // MsgID (generated function)
-func (m *CommonOpticalFlowRad) MsgID() MessageID {
+func (m *OpticalFlowRad) MsgID() mavlink.MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
 }
 
 // CRCExtra (generated function)
-func (m *CommonOpticalFlowRad) CRCExtra() uint8 {
+func (m *OpticalFlowRad) CRCExtra() uint8 {
 	return 138
 }
 
 // MsgName (generated function)
-func (m *CommonOpticalFlowRad) MsgName() string {
+func (m *OpticalFlowRad) MsgName() string {
 	return "OpticalFlowRad"
 }
 
 // String (generated function)
-func (m *CommonOpticalFlowRad) String() string {
+func (m *OpticalFlowRad) String() string {
 	return fmt.Sprintf(
-		"&CommonOpticalFlowRad{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
+		"&OpticalFlowRad{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.IntegrationTimeUs,
 		m.IntegratedX,
@@ -7418,7 +7419,7 @@ func (m *CommonOpticalFlowRad) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonOpticalFlowRad) Pack(p *Packet) error {
+func (m *OpticalFlowRad) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.IntegrationTimeUs))
@@ -7438,10 +7439,10 @@ func (m *CommonOpticalFlowRad) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonOpticalFlowRad) Unpack(p *Packet) error {
+func (m *OpticalFlowRad) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 44 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -7458,9 +7459,9 @@ func (m *CommonOpticalFlowRad) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilSensor struct (generated typeinfo)
+// HilSensor struct (generated typeinfo)
 // The IMU readings in SI units in NED body frame
-type CommonHilSensor struct {
+type HilSensor struct {
 	TimeUsec      uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Xacc          float32 // X acceleration
 	Yacc          float32 // Y acceleration
@@ -7479,24 +7480,24 @@ type CommonHilSensor struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilSensor) MsgID() MessageID {
+func (m *HilSensor) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_SENSOR
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilSensor) CRCExtra() uint8 {
+func (m *HilSensor) CRCExtra() uint8 {
 	return 108
 }
 
 // MsgName (generated function)
-func (m *CommonHilSensor) MsgName() string {
+func (m *HilSensor) MsgName() string {
 	return "HilSensor"
 }
 
 // String (generated function)
-func (m *CommonHilSensor) String() string {
+func (m *HilSensor) String() string {
 	return fmt.Sprintf(
-		"&CommonHilSensor{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
+		"&HilSensor{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -7516,7 +7517,7 @@ func (m *CommonHilSensor) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilSensor) Pack(p *Packet) error {
+func (m *HilSensor) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 64)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Xacc))
@@ -7539,10 +7540,10 @@ func (m *CommonHilSensor) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilSensor) Unpack(p *Packet) error {
+func (m *HilSensor) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 64 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Xacc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -7562,9 +7563,9 @@ func (m *CommonHilSensor) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSimState struct (generated typeinfo)
+// SimState struct (generated typeinfo)
 // Status of simulation environment, if used
-type CommonSimState struct {
+type SimState struct {
 	Q1         float32 // True attitude quaternion component 1, w (1 in null-rotation)
 	Q2         float32 // True attitude quaternion component 2, x (0 in null-rotation)
 	Q3         float32 // True attitude quaternion component 3, y (0 in null-rotation)
@@ -7589,24 +7590,24 @@ type CommonSimState struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSimState) MsgID() MessageID {
+func (m *SimState) MsgID() mavlink.MessageID {
 	return MSG_ID_SIM_STATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonSimState) CRCExtra() uint8 {
+func (m *SimState) CRCExtra() uint8 {
 	return 32
 }
 
 // MsgName (generated function)
-func (m *CommonSimState) MsgName() string {
+func (m *SimState) MsgName() string {
 	return "SimState"
 }
 
 // String (generated function)
-func (m *CommonSimState) String() string {
+func (m *SimState) String() string {
 	return fmt.Sprintf(
-		"&CommonSimState{ Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lon: %+v, Alt: %+v, StdDevHorz: %+v, StdDevVert: %+v, Vn: %+v, Ve: %+v, Vd: %+v }",
+		"&SimState{ Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lon: %+v, Alt: %+v, StdDevHorz: %+v, StdDevVert: %+v, Vn: %+v, Ve: %+v, Vd: %+v }",
 		m.Q1,
 		m.Q2,
 		m.Q3,
@@ -7632,7 +7633,7 @@ func (m *CommonSimState) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSimState) Pack(p *Packet) error {
+func (m *SimState) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 84)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Q1))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Q2))
@@ -7661,10 +7662,10 @@ func (m *CommonSimState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSimState) Unpack(p *Packet) error {
+func (m *SimState) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 84 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Q1 = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Q2 = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -7690,9 +7691,9 @@ func (m *CommonSimState) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonRadioStatus struct (generated typeinfo)
+// RadioStatus struct (generated typeinfo)
 // Status generated by radio and injected into MAVLink stream.
-type CommonRadioStatus struct {
+type RadioStatus struct {
 	Rxerrors uint16 // Count of radio packet receive errors (since boot).
 	Fixed    uint16 // Count of error corrected radio packets (since boot).
 	Rssi     uint8  // Local (message sender) recieved signal strength indication in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
@@ -7703,24 +7704,24 @@ type CommonRadioStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonRadioStatus) MsgID() MessageID {
+func (m *RadioStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_RADIO_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonRadioStatus) CRCExtra() uint8 {
+func (m *RadioStatus) CRCExtra() uint8 {
 	return 185
 }
 
 // MsgName (generated function)
-func (m *CommonRadioStatus) MsgName() string {
+func (m *RadioStatus) MsgName() string {
 	return "RadioStatus"
 }
 
 // String (generated function)
-func (m *CommonRadioStatus) String() string {
+func (m *RadioStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonRadioStatus{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
+		"&RadioStatus{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
 		m.Rxerrors,
 		m.Fixed,
 		m.Rssi,
@@ -7732,7 +7733,7 @@ func (m *CommonRadioStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonRadioStatus) Pack(p *Packet) error {
+func (m *RadioStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Rxerrors))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Fixed))
@@ -7747,10 +7748,10 @@ func (m *CommonRadioStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonRadioStatus) Unpack(p *Packet) error {
+func (m *RadioStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 9 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Rxerrors = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Fixed = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -7762,9 +7763,9 @@ func (m *CommonRadioStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonFileTransferProtocol struct (generated typeinfo)
+// FileTransferProtocol struct (generated typeinfo)
 // File transfer message
-type CommonFileTransferProtocol struct {
+type FileTransferProtocol struct {
 	TargetNetwork   uint8      // Network ID (0 for broadcast)
 	TargetSystem    uint8      // System ID (0 for broadcast)
 	TargetComponent uint8      // Component ID (0 for broadcast)
@@ -7772,24 +7773,24 @@ type CommonFileTransferProtocol struct {
 }
 
 // MsgID (generated function)
-func (m *CommonFileTransferProtocol) MsgID() MessageID {
+func (m *FileTransferProtocol) MsgID() mavlink.MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
 }
 
 // CRCExtra (generated function)
-func (m *CommonFileTransferProtocol) CRCExtra() uint8 {
+func (m *FileTransferProtocol) CRCExtra() uint8 {
 	return 84
 }
 
 // MsgName (generated function)
-func (m *CommonFileTransferProtocol) MsgName() string {
+func (m *FileTransferProtocol) MsgName() string {
 	return "FileTransferProtocol"
 }
 
 // String (generated function)
-func (m *CommonFileTransferProtocol) String() string {
+func (m *FileTransferProtocol) String() string {
 	return fmt.Sprintf(
-		"&CommonFileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&FileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
 		m.TargetNetwork,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -7798,7 +7799,7 @@ func (m *CommonFileTransferProtocol) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonFileTransferProtocol) Pack(p *Packet) error {
+func (m *FileTransferProtocol) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 254)
 	payload[0] = byte(m.TargetNetwork)
 	payload[1] = byte(m.TargetSystem)
@@ -7810,10 +7811,10 @@ func (m *CommonFileTransferProtocol) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonFileTransferProtocol) Unpack(p *Packet) error {
+func (m *FileTransferProtocol) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 254 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetNetwork = uint8(payload[0])
 	m.TargetSystem = uint8(payload[1])
@@ -7822,39 +7823,39 @@ func (m *CommonFileTransferProtocol) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonTimesync struct (generated typeinfo)
+// Timesync struct (generated typeinfo)
 // Time synchronization message.
-type CommonTimesync struct {
+type Timesync struct {
 	Tc1 int64 // Time sync timestamp 1
 	Ts1 int64 // Time sync timestamp 2
 }
 
 // MsgID (generated function)
-func (m *CommonTimesync) MsgID() MessageID {
+func (m *Timesync) MsgID() mavlink.MessageID {
 	return MSG_ID_TIMESYNC
 }
 
 // CRCExtra (generated function)
-func (m *CommonTimesync) CRCExtra() uint8 {
+func (m *Timesync) CRCExtra() uint8 {
 	return 34
 }
 
 // MsgName (generated function)
-func (m *CommonTimesync) MsgName() string {
+func (m *Timesync) MsgName() string {
 	return "Timesync"
 }
 
 // String (generated function)
-func (m *CommonTimesync) String() string {
+func (m *Timesync) String() string {
 	return fmt.Sprintf(
-		"&CommonTimesync{ Tc1: %+v, Ts1: %+v }",
+		"&Timesync{ Tc1: %+v, Ts1: %+v }",
 		m.Tc1,
 		m.Ts1,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonTimesync) Pack(p *Packet) error {
+func (m *Timesync) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 16)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Tc1))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.Ts1))
@@ -7864,49 +7865,49 @@ func (m *CommonTimesync) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonTimesync) Unpack(p *Packet) error {
+func (m *Timesync) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 16 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Tc1 = int64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Ts1 = int64(binary.LittleEndian.Uint64(payload[8:]))
 	return nil
 }
 
-// CommonCameraTrigger struct (generated typeinfo)
+// CameraTrigger struct (generated typeinfo)
 // Camera-IMU triggering and synchronisation message.
-type CommonCameraTrigger struct {
+type CameraTrigger struct {
 	TimeUsec uint64 // Timestamp for image frame (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Seq      uint32 // Image frame sequence
 }
 
 // MsgID (generated function)
-func (m *CommonCameraTrigger) MsgID() MessageID {
+func (m *CameraTrigger) MsgID() mavlink.MessageID {
 	return MSG_ID_CAMERA_TRIGGER
 }
 
 // CRCExtra (generated function)
-func (m *CommonCameraTrigger) CRCExtra() uint8 {
+func (m *CameraTrigger) CRCExtra() uint8 {
 	return 174
 }
 
 // MsgName (generated function)
-func (m *CommonCameraTrigger) MsgName() string {
+func (m *CameraTrigger) MsgName() string {
 	return "CameraTrigger"
 }
 
 // String (generated function)
-func (m *CommonCameraTrigger) String() string {
+func (m *CameraTrigger) String() string {
 	return fmt.Sprintf(
-		"&CommonCameraTrigger{ TimeUsec: %+v, Seq: %+v }",
+		"&CameraTrigger{ TimeUsec: %+v, Seq: %+v }",
 		m.TimeUsec,
 		m.Seq,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonCameraTrigger) Pack(p *Packet) error {
+func (m *CameraTrigger) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Seq))
@@ -7916,20 +7917,20 @@ func (m *CommonCameraTrigger) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCameraTrigger) Unpack(p *Packet) error {
+func (m *CameraTrigger) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Seq = uint32(binary.LittleEndian.Uint32(payload[8:]))
 	return nil
 }
 
-// CommonHilGps struct (generated typeinfo)
+// HilGps struct (generated typeinfo)
 // The global position, as returned by the Global Positioning System (GPS). This is
 //                  NOT the global position estimate of the sytem, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate.
-type CommonHilGps struct {
+type HilGps struct {
 	TimeUsec          uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Lat               int32  // Latitude (WGS84)
 	Lon               int32  // Longitude (WGS84)
@@ -7946,24 +7947,24 @@ type CommonHilGps struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilGps) MsgID() MessageID {
+func (m *HilGps) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_GPS
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilGps) CRCExtra() uint8 {
+func (m *HilGps) CRCExtra() uint8 {
 	return 124
 }
 
 // MsgName (generated function)
-func (m *CommonHilGps) MsgName() string {
+func (m *HilGps) MsgName() string {
 	return "HilGps"
 }
 
 // String (generated function)
-func (m *CommonHilGps) String() string {
+func (m *HilGps) String() string {
 	return fmt.Sprintf(
-		"&CommonHilGps{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Vn: %+v, Ve: %+v, Vd: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&HilGps{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Vn: %+v, Ve: %+v, Vd: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -7981,7 +7982,7 @@ func (m *CommonHilGps) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilGps) Pack(p *Packet) error {
+func (m *HilGps) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -8002,10 +8003,10 @@ func (m *CommonHilGps) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilGps) Unpack(p *Packet) error {
+func (m *HilGps) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 36 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -8023,9 +8024,9 @@ func (m *CommonHilGps) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilOpticalFlow struct (generated typeinfo)
+// HilOpticalFlow struct (generated typeinfo)
 // Simulated optical flow from a flow sensor (e.g. PX4FLOW or optical mouse sensor)
-type CommonHilOpticalFlow struct {
+type HilOpticalFlow struct {
 	TimeUsec            uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	IntegrationTimeUs   uint32  // Integration time. Divide integrated_x and integrated_y by the integration time to obtain average flow. The integration time also indicates the.
 	IntegratedX         float32 // Flow in radians around X axis (Sensor RH rotation about the X axis induces a positive flow. Sensor linear motion along the positive Y axis induces a negative flow.)
@@ -8041,24 +8042,24 @@ type CommonHilOpticalFlow struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilOpticalFlow) MsgID() MessageID {
+func (m *HilOpticalFlow) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilOpticalFlow) CRCExtra() uint8 {
+func (m *HilOpticalFlow) CRCExtra() uint8 {
 	return 237
 }
 
 // MsgName (generated function)
-func (m *CommonHilOpticalFlow) MsgName() string {
+func (m *HilOpticalFlow) MsgName() string {
 	return "HilOpticalFlow"
 }
 
 // String (generated function)
-func (m *CommonHilOpticalFlow) String() string {
+func (m *HilOpticalFlow) String() string {
 	return fmt.Sprintf(
-		"&CommonHilOpticalFlow{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
+		"&HilOpticalFlow{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.IntegrationTimeUs,
 		m.IntegratedX,
@@ -8075,7 +8076,7 @@ func (m *CommonHilOpticalFlow) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilOpticalFlow) Pack(p *Packet) error {
+func (m *HilOpticalFlow) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.IntegrationTimeUs))
@@ -8095,10 +8096,10 @@ func (m *CommonHilOpticalFlow) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilOpticalFlow) Unpack(p *Packet) error {
+func (m *HilOpticalFlow) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 44 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.IntegrationTimeUs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -8115,9 +8116,9 @@ func (m *CommonHilOpticalFlow) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHilStateQuaternion struct (generated typeinfo)
+// HilStateQuaternion struct (generated typeinfo)
 // Sent from simulation to autopilot, avoids in contrast to HIL_STATE singularities. This packet is useful for high throughput applications such as hardware in the loop simulations.
-type CommonHilStateQuaternion struct {
+type HilStateQuaternion struct {
 	TimeUsec           uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	AttitudeQuaternion [4]float32 // Vehicle attitude expressed as normalized quaternion in w, x, y, z order (with 1 0 0 0 being the null-rotation)
 	Rollspeed          float32    // Body frame roll / phi angular speed
@@ -8137,24 +8138,24 @@ type CommonHilStateQuaternion struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHilStateQuaternion) MsgID() MessageID {
+func (m *HilStateQuaternion) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_STATE_QUATERNION
 }
 
 // CRCExtra (generated function)
-func (m *CommonHilStateQuaternion) CRCExtra() uint8 {
+func (m *HilStateQuaternion) CRCExtra() uint8 {
 	return 4
 }
 
 // MsgName (generated function)
-func (m *CommonHilStateQuaternion) MsgName() string {
+func (m *HilStateQuaternion) MsgName() string {
 	return "HilStateQuaternion"
 }
 
 // String (generated function)
-func (m *CommonHilStateQuaternion) String() string {
+func (m *HilStateQuaternion) String() string {
 	return fmt.Sprintf(
-		"&CommonHilStateQuaternion{ TimeUsec: %+v, AttitudeQuaternion: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, IndAirspeed: %+v, TrueAirspeed: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
+		"&HilStateQuaternion{ TimeUsec: %+v, AttitudeQuaternion: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, IndAirspeed: %+v, TrueAirspeed: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
 		m.TimeUsec,
 		m.AttitudeQuaternion,
 		m.Rollspeed,
@@ -8175,7 +8176,7 @@ func (m *CommonHilStateQuaternion) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHilStateQuaternion) Pack(p *Packet) error {
+func (m *HilStateQuaternion) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 64)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.AttitudeQuaternion {
@@ -8201,10 +8202,10 @@ func (m *CommonHilStateQuaternion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHilStateQuaternion) Unpack(p *Packet) error {
+func (m *HilStateQuaternion) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 64 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.AttitudeQuaternion); i++ {
@@ -8227,9 +8228,9 @@ func (m *CommonHilStateQuaternion) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledImu2 struct (generated typeinfo)
+// ScaledImu2 struct (generated typeinfo)
 // The RAW IMU readings for secondary 9DOF sensor setup. This message should contain the scaled values to the described units
-type CommonScaledImu2 struct {
+type ScaledImu2 struct {
 	TimeBootMs uint32 // Timestamp (time since system boot).
 	Xacc       int16  // X acceleration
 	Yacc       int16  // Y acceleration
@@ -8243,24 +8244,24 @@ type CommonScaledImu2 struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledImu2) MsgID() MessageID {
+func (m *ScaledImu2) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU2
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledImu2) CRCExtra() uint8 {
+func (m *ScaledImu2) CRCExtra() uint8 {
 	return 76
 }
 
 // MsgName (generated function)
-func (m *CommonScaledImu2) MsgName() string {
+func (m *ScaledImu2) MsgName() string {
 	return "ScaledImu2"
 }
 
 // String (generated function)
-func (m *CommonScaledImu2) String() string {
+func (m *ScaledImu2) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledImu2{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&ScaledImu2{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -8275,7 +8276,7 @@ func (m *CommonScaledImu2) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledImu2) Pack(p *Packet) error {
+func (m *ScaledImu2) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -8293,10 +8294,10 @@ func (m *CommonScaledImu2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledImu2) Unpack(p *Packet) error {
+func (m *ScaledImu2) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -8311,9 +8312,9 @@ func (m *CommonScaledImu2) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLogRequestList struct (generated typeinfo)
+// LogRequestList struct (generated typeinfo)
 // Request a list of available logs. On some systems calling this may stop on-board logging until LOG_REQUEST_END is called. If there are no log files available this request shall be answered with one LOG_ENTRY message with id = 0 and num_logs = 0.
-type CommonLogRequestList struct {
+type LogRequestList struct {
 	Start           uint16 // First log id (0 for first available)
 	End             uint16 // Last log id (0xffff for last available)
 	TargetSystem    uint8  // System ID
@@ -8321,24 +8322,24 @@ type CommonLogRequestList struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLogRequestList) MsgID() MessageID {
+func (m *LogRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogRequestList) CRCExtra() uint8 {
+func (m *LogRequestList) CRCExtra() uint8 {
 	return 128
 }
 
 // MsgName (generated function)
-func (m *CommonLogRequestList) MsgName() string {
+func (m *LogRequestList) MsgName() string {
 	return "LogRequestList"
 }
 
 // String (generated function)
-func (m *CommonLogRequestList) String() string {
+func (m *LogRequestList) String() string {
 	return fmt.Sprintf(
-		"&CommonLogRequestList{ Start: %+v, End: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&LogRequestList{ Start: %+v, End: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Start,
 		m.End,
 		m.TargetSystem,
@@ -8347,7 +8348,7 @@ func (m *CommonLogRequestList) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLogRequestList) Pack(p *Packet) error {
+func (m *LogRequestList) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Start))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.End))
@@ -8359,10 +8360,10 @@ func (m *CommonLogRequestList) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogRequestList) Unpack(p *Packet) error {
+func (m *LogRequestList) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Start = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.End = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -8371,9 +8372,9 @@ func (m *CommonLogRequestList) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLogEntry struct (generated typeinfo)
+// LogEntry struct (generated typeinfo)
 // Reply to LOG_REQUEST_LIST
-type CommonLogEntry struct {
+type LogEntry struct {
 	TimeUtc    uint32 // UTC timestamp of log since 1970, or 0 if not available
 	Size       uint32 // Size of the log (may be approximate)
 	ID         uint16 // Log id
@@ -8382,24 +8383,24 @@ type CommonLogEntry struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLogEntry) MsgID() MessageID {
+func (m *LogEntry) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_ENTRY
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogEntry) CRCExtra() uint8 {
+func (m *LogEntry) CRCExtra() uint8 {
 	return 56
 }
 
 // MsgName (generated function)
-func (m *CommonLogEntry) MsgName() string {
+func (m *LogEntry) MsgName() string {
 	return "LogEntry"
 }
 
 // String (generated function)
-func (m *CommonLogEntry) String() string {
+func (m *LogEntry) String() string {
 	return fmt.Sprintf(
-		"&CommonLogEntry{ TimeUtc: %+v, Size: %+v, ID: %+v, NumLogs: %+v, LastLogNum: %+v }",
+		"&LogEntry{ TimeUtc: %+v, Size: %+v, ID: %+v, NumLogs: %+v, LastLogNum: %+v }",
 		m.TimeUtc,
 		m.Size,
 		m.ID,
@@ -8409,7 +8410,7 @@ func (m *CommonLogEntry) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLogEntry) Pack(p *Packet) error {
+func (m *LogEntry) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeUtc))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Size))
@@ -8422,10 +8423,10 @@ func (m *CommonLogEntry) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogEntry) Unpack(p *Packet) error {
+func (m *LogEntry) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUtc = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Size = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -8435,9 +8436,9 @@ func (m *CommonLogEntry) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLogRequestData struct (generated typeinfo)
+// LogRequestData struct (generated typeinfo)
 // Request a chunk of a log
-type CommonLogRequestData struct {
+type LogRequestData struct {
 	Ofs             uint32 // Offset into the log
 	Count           uint32 // Number of bytes
 	ID              uint16 // Log id (from LOG_ENTRY reply)
@@ -8446,24 +8447,24 @@ type CommonLogRequestData struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLogRequestData) MsgID() MessageID {
+func (m *LogRequestData) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogRequestData) CRCExtra() uint8 {
+func (m *LogRequestData) CRCExtra() uint8 {
 	return 116
 }
 
 // MsgName (generated function)
-func (m *CommonLogRequestData) MsgName() string {
+func (m *LogRequestData) MsgName() string {
 	return "LogRequestData"
 }
 
 // String (generated function)
-func (m *CommonLogRequestData) String() string {
+func (m *LogRequestData) String() string {
 	return fmt.Sprintf(
-		"&CommonLogRequestData{ Ofs: %+v, Count: %+v, ID: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&LogRequestData{ Ofs: %+v, Count: %+v, ID: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Ofs,
 		m.Count,
 		m.ID,
@@ -8473,7 +8474,7 @@ func (m *CommonLogRequestData) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLogRequestData) Pack(p *Packet) error {
+func (m *LogRequestData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 12)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Ofs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Count))
@@ -8486,10 +8487,10 @@ func (m *CommonLogRequestData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogRequestData) Unpack(p *Packet) error {
+func (m *LogRequestData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 12 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Count = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -8499,9 +8500,9 @@ func (m *CommonLogRequestData) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLogData struct (generated typeinfo)
+// LogData struct (generated typeinfo)
 // Reply to LOG_REQUEST_DATA
-type CommonLogData struct {
+type LogData struct {
 	Ofs   uint32    // Offset into the log
 	ID    uint16    // Log id (from LOG_ENTRY reply)
 	Count uint8     // Number of bytes (zero for end of log)
@@ -8509,24 +8510,24 @@ type CommonLogData struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLogData) MsgID() MessageID {
+func (m *LogData) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogData) CRCExtra() uint8 {
+func (m *LogData) CRCExtra() uint8 {
 	return 134
 }
 
 // MsgName (generated function)
-func (m *CommonLogData) MsgName() string {
+func (m *LogData) MsgName() string {
 	return "LogData"
 }
 
 // String (generated function)
-func (m *CommonLogData) String() string {
+func (m *LogData) String() string {
 	return fmt.Sprintf(
-		"&CommonLogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
+		"&LogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
 		m.Ofs,
 		m.ID,
 		m.Count,
@@ -8535,7 +8536,7 @@ func (m *CommonLogData) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLogData) Pack(p *Packet) error {
+func (m *LogData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 97)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Ofs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.ID))
@@ -8547,10 +8548,10 @@ func (m *CommonLogData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogData) Unpack(p *Packet) error {
+func (m *LogData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 97 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Ofs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.ID = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -8559,39 +8560,39 @@ func (m *CommonLogData) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLogErase struct (generated typeinfo)
+// LogErase struct (generated typeinfo)
 // Erase all logs
-type CommonLogErase struct {
+type LogErase struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonLogErase) MsgID() MessageID {
+func (m *LogErase) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_ERASE
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogErase) CRCExtra() uint8 {
+func (m *LogErase) CRCExtra() uint8 {
 	return 237
 }
 
 // MsgName (generated function)
-func (m *CommonLogErase) MsgName() string {
+func (m *LogErase) MsgName() string {
 	return "LogErase"
 }
 
 // String (generated function)
-func (m *CommonLogErase) String() string {
+func (m *LogErase) String() string {
 	return fmt.Sprintf(
-		"&CommonLogErase{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&LogErase{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonLogErase) Pack(p *Packet) error {
+func (m *LogErase) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -8601,49 +8602,49 @@ func (m *CommonLogErase) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogErase) Unpack(p *Packet) error {
+func (m *LogErase) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// CommonLogRequestEnd struct (generated typeinfo)
+// LogRequestEnd struct (generated typeinfo)
 // Stop log transfer and resume normal logging
-type CommonLogRequestEnd struct {
+type LogRequestEnd struct {
 	TargetSystem    uint8 // System ID
 	TargetComponent uint8 // Component ID
 }
 
 // MsgID (generated function)
-func (m *CommonLogRequestEnd) MsgID() MessageID {
+func (m *LogRequestEnd) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_END
 }
 
 // CRCExtra (generated function)
-func (m *CommonLogRequestEnd) CRCExtra() uint8 {
+func (m *LogRequestEnd) CRCExtra() uint8 {
 	return 203
 }
 
 // MsgName (generated function)
-func (m *CommonLogRequestEnd) MsgName() string {
+func (m *LogRequestEnd) MsgName() string {
 	return "LogRequestEnd"
 }
 
 // String (generated function)
-func (m *CommonLogRequestEnd) String() string {
+func (m *LogRequestEnd) String() string {
 	return fmt.Sprintf(
-		"&CommonLogRequestEnd{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&LogRequestEnd{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonLogRequestEnd) Pack(p *Packet) error {
+func (m *LogRequestEnd) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -8653,19 +8654,19 @@ func (m *CommonLogRequestEnd) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLogRequestEnd) Unpack(p *Packet) error {
+func (m *LogRequestEnd) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
 	return nil
 }
 
-// CommonGpsInjectData struct (generated typeinfo)
+// GpsInjectData struct (generated typeinfo)
 // Data for injecting into the onboard GPS (used for DGPS)
-type CommonGpsInjectData struct {
+type GpsInjectData struct {
 	TargetSystem    uint8      // System ID
 	TargetComponent uint8      // Component ID
 	Len             uint8      // Data length
@@ -8673,24 +8674,24 @@ type CommonGpsInjectData struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGpsInjectData) MsgID() MessageID {
+func (m *GpsInjectData) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_INJECT_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsInjectData) CRCExtra() uint8 {
+func (m *GpsInjectData) CRCExtra() uint8 {
 	return 250
 }
 
 // MsgName (generated function)
-func (m *CommonGpsInjectData) MsgName() string {
+func (m *GpsInjectData) MsgName() string {
 	return "GpsInjectData"
 }
 
 // String (generated function)
-func (m *CommonGpsInjectData) String() string {
+func (m *GpsInjectData) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
+		"&GpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Len,
@@ -8699,7 +8700,7 @@ func (m *CommonGpsInjectData) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsInjectData) Pack(p *Packet) error {
+func (m *GpsInjectData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 113)
 	payload[0] = byte(m.TargetSystem)
 	payload[1] = byte(m.TargetComponent)
@@ -8711,10 +8712,10 @@ func (m *CommonGpsInjectData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsInjectData) Unpack(p *Packet) error {
+func (m *GpsInjectData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 113 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TargetSystem = uint8(payload[0])
 	m.TargetComponent = uint8(payload[1])
@@ -8723,9 +8724,9 @@ func (m *CommonGpsInjectData) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGps2Raw struct (generated typeinfo)
+// Gps2Raw struct (generated typeinfo)
 // Second GPS data.
-type CommonGps2Raw struct {
+type Gps2Raw struct {
 	TimeUsec          uint64 // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Lat               int32  // Latitude (WGS84)
 	Lon               int32  // Longitude (WGS84)
@@ -8741,24 +8742,24 @@ type CommonGps2Raw struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGps2Raw) MsgID() MessageID {
+func (m *Gps2Raw) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS2_RAW
 }
 
 // CRCExtra (generated function)
-func (m *CommonGps2Raw) CRCExtra() uint8 {
+func (m *Gps2Raw) CRCExtra() uint8 {
 	return 87
 }
 
 // MsgName (generated function)
-func (m *CommonGps2Raw) MsgName() string {
+func (m *Gps2Raw) MsgName() string {
 	return "Gps2Raw"
 }
 
 // String (generated function)
-func (m *CommonGps2Raw) String() string {
+func (m *Gps2Raw) String() string {
 	return fmt.Sprintf(
-		"&CommonGps2Raw{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, DgpsAge: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v, DgpsNumch: %+v }",
+		"&Gps2Raw{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, DgpsAge: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v, DgpsNumch: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -8775,7 +8776,7 @@ func (m *CommonGps2Raw) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGps2Raw) Pack(p *Packet) error {
+func (m *Gps2Raw) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -8795,10 +8796,10 @@ func (m *CommonGps2Raw) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGps2Raw) Unpack(p *Packet) error {
+func (m *Gps2Raw) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 35 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -8815,33 +8816,33 @@ func (m *CommonGps2Raw) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonPowerStatus struct (generated typeinfo)
+// PowerStatus struct (generated typeinfo)
 // Power supply status
-type CommonPowerStatus struct {
+type PowerStatus struct {
 	Vcc    uint16 // 5V rail voltage.
 	Vservo uint16 // Servo rail voltage.
 	Flags  uint16 // Bitmap of power supply status flags.
 }
 
 // MsgID (generated function)
-func (m *CommonPowerStatus) MsgID() MessageID {
+func (m *PowerStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_POWER_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonPowerStatus) CRCExtra() uint8 {
+func (m *PowerStatus) CRCExtra() uint8 {
 	return 203
 }
 
 // MsgName (generated function)
-func (m *CommonPowerStatus) MsgName() string {
+func (m *PowerStatus) MsgName() string {
 	return "PowerStatus"
 }
 
 // String (generated function)
-func (m *CommonPowerStatus) String() string {
+func (m *PowerStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonPowerStatus{ Vcc: %+v, Vservo: %+v, Flags: %+v }",
+		"&PowerStatus{ Vcc: %+v, Vservo: %+v, Flags: %+v }",
 		m.Vcc,
 		m.Vservo,
 		m.Flags,
@@ -8849,7 +8850,7 @@ func (m *CommonPowerStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonPowerStatus) Pack(p *Packet) error {
+func (m *PowerStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Vcc))
 	binary.LittleEndian.PutUint16(payload[2:], uint16(m.Vservo))
@@ -8860,10 +8861,10 @@ func (m *CommonPowerStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonPowerStatus) Unpack(p *Packet) error {
+func (m *PowerStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Vcc = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Vservo = uint16(binary.LittleEndian.Uint16(payload[2:]))
@@ -8871,9 +8872,9 @@ func (m *CommonPowerStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSerialControl struct (generated typeinfo)
+// SerialControl struct (generated typeinfo)
 // Control a serial port. This can be used for raw access to an onboard serial peripheral such as a GPS or telemetry radio. It is designed to make it possible to update the devices firmware via MAVLink messages or change the devices settings. A message with zero bytes can be used to change just the baudrate.
-type CommonSerialControl struct {
+type SerialControl struct {
 	Baudrate uint32    // Baudrate of transfer. Zero means no change.
 	Timeout  uint16    // Timeout for reply data
 	Device   uint8     // Serial control device type.
@@ -8883,24 +8884,24 @@ type CommonSerialControl struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSerialControl) MsgID() MessageID {
+func (m *SerialControl) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_CONTROL
 }
 
 // CRCExtra (generated function)
-func (m *CommonSerialControl) CRCExtra() uint8 {
+func (m *SerialControl) CRCExtra() uint8 {
 	return 220
 }
 
 // MsgName (generated function)
-func (m *CommonSerialControl) MsgName() string {
+func (m *SerialControl) MsgName() string {
 	return "SerialControl"
 }
 
 // String (generated function)
-func (m *CommonSerialControl) String() string {
+func (m *SerialControl) String() string {
 	return fmt.Sprintf(
-		"&CommonSerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
+		"&SerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
 		m.Baudrate,
 		m.Timeout,
 		m.Device,
@@ -8911,7 +8912,7 @@ func (m *CommonSerialControl) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSerialControl) Pack(p *Packet) error {
+func (m *SerialControl) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 79)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Baudrate))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Timeout))
@@ -8925,10 +8926,10 @@ func (m *CommonSerialControl) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSerialControl) Unpack(p *Packet) error {
+func (m *SerialControl) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 79 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Baudrate = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Timeout = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -8939,9 +8940,9 @@ func (m *CommonSerialControl) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsRtk struct (generated typeinfo)
+// GpsRtk struct (generated typeinfo)
 // RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
-type CommonGpsRtk struct {
+type GpsRtk struct {
 	TimeLastBaselineMs uint32 // Time since boot of last baseline message received.
 	Tow                uint32 // GPS Time of Week of last baseline
 	BaselineAMm        int32  // Current baseline in ECEF x or NED north component.
@@ -8958,24 +8959,24 @@ type CommonGpsRtk struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGpsRtk) MsgID() MessageID {
+func (m *GpsRtk) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RTK
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsRtk) CRCExtra() uint8 {
+func (m *GpsRtk) CRCExtra() uint8 {
 	return 25
 }
 
 // MsgName (generated function)
-func (m *CommonGpsRtk) MsgName() string {
+func (m *GpsRtk) MsgName() string {
 	return "GpsRtk"
 }
 
 // String (generated function)
-func (m *CommonGpsRtk) String() string {
+func (m *GpsRtk) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsRtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
+		"&GpsRtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
 		m.TimeLastBaselineMs,
 		m.Tow,
 		m.BaselineAMm,
@@ -8993,7 +8994,7 @@ func (m *CommonGpsRtk) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsRtk) Pack(p *Packet) error {
+func (m *GpsRtk) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeLastBaselineMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Tow))
@@ -9014,10 +9015,10 @@ func (m *CommonGpsRtk) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsRtk) Unpack(p *Packet) error {
+func (m *GpsRtk) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 35 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9035,9 +9036,9 @@ func (m *CommonGpsRtk) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGps2Rtk struct (generated typeinfo)
+// Gps2Rtk struct (generated typeinfo)
 // RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
-type CommonGps2Rtk struct {
+type Gps2Rtk struct {
 	TimeLastBaselineMs uint32 // Time since boot of last baseline message received.
 	Tow                uint32 // GPS Time of Week of last baseline
 	BaselineAMm        int32  // Current baseline in ECEF x or NED north component.
@@ -9054,24 +9055,24 @@ type CommonGps2Rtk struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGps2Rtk) MsgID() MessageID {
+func (m *Gps2Rtk) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS2_RTK
 }
 
 // CRCExtra (generated function)
-func (m *CommonGps2Rtk) CRCExtra() uint8 {
+func (m *Gps2Rtk) CRCExtra() uint8 {
 	return 226
 }
 
 // MsgName (generated function)
-func (m *CommonGps2Rtk) MsgName() string {
+func (m *Gps2Rtk) MsgName() string {
 	return "Gps2Rtk"
 }
 
 // String (generated function)
-func (m *CommonGps2Rtk) String() string {
+func (m *Gps2Rtk) String() string {
 	return fmt.Sprintf(
-		"&CommonGps2Rtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
+		"&Gps2Rtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
 		m.TimeLastBaselineMs,
 		m.Tow,
 		m.BaselineAMm,
@@ -9089,7 +9090,7 @@ func (m *CommonGps2Rtk) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGps2Rtk) Pack(p *Packet) error {
+func (m *Gps2Rtk) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 35)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeLastBaselineMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Tow))
@@ -9110,10 +9111,10 @@ func (m *CommonGps2Rtk) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGps2Rtk) Unpack(p *Packet) error {
+func (m *Gps2Rtk) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 35 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeLastBaselineMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Tow = uint32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9131,9 +9132,9 @@ func (m *CommonGps2Rtk) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledImu3 struct (generated typeinfo)
+// ScaledImu3 struct (generated typeinfo)
 // The RAW IMU readings for 3rd 9DOF sensor setup. This message should contain the scaled values to the described units
-type CommonScaledImu3 struct {
+type ScaledImu3 struct {
 	TimeBootMs uint32 // Timestamp (time since system boot).
 	Xacc       int16  // X acceleration
 	Yacc       int16  // Y acceleration
@@ -9147,24 +9148,24 @@ type CommonScaledImu3 struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledImu3) MsgID() MessageID {
+func (m *ScaledImu3) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU3
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledImu3) CRCExtra() uint8 {
+func (m *ScaledImu3) CRCExtra() uint8 {
 	return 46
 }
 
 // MsgName (generated function)
-func (m *CommonScaledImu3) MsgName() string {
+func (m *ScaledImu3) MsgName() string {
 	return "ScaledImu3"
 }
 
 // String (generated function)
-func (m *CommonScaledImu3) String() string {
+func (m *ScaledImu3) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledImu3{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&ScaledImu3{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -9179,7 +9180,7 @@ func (m *CommonScaledImu3) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledImu3) Pack(p *Packet) error {
+func (m *ScaledImu3) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Xacc))
@@ -9197,10 +9198,10 @@ func (m *CommonScaledImu3) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledImu3) Unpack(p *Packet) error {
+func (m *ScaledImu3) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Xacc = int16(binary.LittleEndian.Uint16(payload[4:]))
@@ -9215,9 +9216,9 @@ func (m *CommonScaledImu3) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonDataTransmissionHandshake struct (generated typeinfo)
+// DataTransmissionHandshake struct (generated typeinfo)
 // Handshake message to initiate, control and stop image streaming when using the Image Transmission Protocol: https://mavlink.io/en/services/image_transmission.html.
-type CommonDataTransmissionHandshake struct {
+type DataTransmissionHandshake struct {
 	Size       uint32 // total data size (set on ACK only).
 	Width      uint16 // Width of a matrix or image.
 	Height     uint16 // Height of a matrix or image.
@@ -9228,24 +9229,24 @@ type CommonDataTransmissionHandshake struct {
 }
 
 // MsgID (generated function)
-func (m *CommonDataTransmissionHandshake) MsgID() MessageID {
+func (m *DataTransmissionHandshake) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
 }
 
 // CRCExtra (generated function)
-func (m *CommonDataTransmissionHandshake) CRCExtra() uint8 {
+func (m *DataTransmissionHandshake) CRCExtra() uint8 {
 	return 29
 }
 
 // MsgName (generated function)
-func (m *CommonDataTransmissionHandshake) MsgName() string {
+func (m *DataTransmissionHandshake) MsgName() string {
 	return "DataTransmissionHandshake"
 }
 
 // String (generated function)
-func (m *CommonDataTransmissionHandshake) String() string {
+func (m *DataTransmissionHandshake) String() string {
 	return fmt.Sprintf(
-		"&CommonDataTransmissionHandshake{ Size: %+v, Width: %+v, Height: %+v, Packets: %+v, Type: %+v, Payload: %+v, JpgQuality: %+v }",
+		"&DataTransmissionHandshake{ Size: %+v, Width: %+v, Height: %+v, Packets: %+v, Type: %+v, Payload: %+v, JpgQuality: %+v }",
 		m.Size,
 		m.Width,
 		m.Height,
@@ -9257,7 +9258,7 @@ func (m *CommonDataTransmissionHandshake) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonDataTransmissionHandshake) Pack(p *Packet) error {
+func (m *DataTransmissionHandshake) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 13)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Size))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.Width))
@@ -9272,10 +9273,10 @@ func (m *CommonDataTransmissionHandshake) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonDataTransmissionHandshake) Unpack(p *Packet) error {
+func (m *DataTransmissionHandshake) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 13 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Size = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Width = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -9287,39 +9288,39 @@ func (m *CommonDataTransmissionHandshake) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonEncapsulatedData struct (generated typeinfo)
+// EncapsulatedData struct (generated typeinfo)
 // Data packet for images sent using the Image Transmission Protocol: https://mavlink.io/en/services/image_transmission.html.
-type CommonEncapsulatedData struct {
+type EncapsulatedData struct {
 	Seqnr uint16     // sequence number (starting with 0 on every transmission)
 	Data  [253]uint8 // image data bytes
 }
 
 // MsgID (generated function)
-func (m *CommonEncapsulatedData) MsgID() MessageID {
+func (m *EncapsulatedData) MsgID() mavlink.MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonEncapsulatedData) CRCExtra() uint8 {
+func (m *EncapsulatedData) CRCExtra() uint8 {
 	return 223
 }
 
 // MsgName (generated function)
-func (m *CommonEncapsulatedData) MsgName() string {
+func (m *EncapsulatedData) MsgName() string {
 	return "EncapsulatedData"
 }
 
 // String (generated function)
-func (m *CommonEncapsulatedData) String() string {
+func (m *EncapsulatedData) String() string {
 	return fmt.Sprintf(
-		"&CommonEncapsulatedData{ Seqnr: %+v, Data: %+v }",
+		"&EncapsulatedData{ Seqnr: %+v, Data: %+v }",
 		m.Seqnr,
 		m.Data,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonEncapsulatedData) Pack(p *Packet) error {
+func (m *EncapsulatedData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 255)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Seqnr))
 	copy(payload[2:], m.Data[:])
@@ -9329,19 +9330,19 @@ func (m *CommonEncapsulatedData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonEncapsulatedData) Unpack(p *Packet) error {
+func (m *EncapsulatedData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 255 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Seqnr = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	copy(m.Data[:], payload[2:255])
 	return nil
 }
 
-// CommonDistanceSensor struct (generated typeinfo)
+// DistanceSensor struct (generated typeinfo)
 // Distance sensor information for an onboard rangefinder.
-type CommonDistanceSensor struct {
+type DistanceSensor struct {
 	TimeBootMs      uint32 // Timestamp (time since system boot).
 	MinDistance     uint16 // Minimum distance the sensor can measure
 	MaxDistance     uint16 // Maximum distance the sensor can measure
@@ -9353,24 +9354,24 @@ type CommonDistanceSensor struct {
 }
 
 // MsgID (generated function)
-func (m *CommonDistanceSensor) MsgID() MessageID {
+func (m *DistanceSensor) MsgID() mavlink.MessageID {
 	return MSG_ID_DISTANCE_SENSOR
 }
 
 // CRCExtra (generated function)
-func (m *CommonDistanceSensor) CRCExtra() uint8 {
+func (m *DistanceSensor) CRCExtra() uint8 {
 	return 85
 }
 
 // MsgName (generated function)
-func (m *CommonDistanceSensor) MsgName() string {
+func (m *DistanceSensor) MsgName() string {
 	return "DistanceSensor"
 }
 
 // String (generated function)
-func (m *CommonDistanceSensor) String() string {
+func (m *DistanceSensor) String() string {
 	return fmt.Sprintf(
-		"&CommonDistanceSensor{ TimeBootMs: %+v, MinDistance: %+v, MaxDistance: %+v, CurrentDistance: %+v, Type: %+v, ID: %+v, Orientation: %+v, Covariance: %+v }",
+		"&DistanceSensor{ TimeBootMs: %+v, MinDistance: %+v, MaxDistance: %+v, CurrentDistance: %+v, Type: %+v, ID: %+v, Orientation: %+v, Covariance: %+v }",
 		m.TimeBootMs,
 		m.MinDistance,
 		m.MaxDistance,
@@ -9383,7 +9384,7 @@ func (m *CommonDistanceSensor) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonDistanceSensor) Pack(p *Packet) error {
+func (m *DistanceSensor) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MinDistance))
@@ -9399,10 +9400,10 @@ func (m *CommonDistanceSensor) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonDistanceSensor) Unpack(p *Packet) error {
+func (m *DistanceSensor) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.MinDistance = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -9415,9 +9416,9 @@ func (m *CommonDistanceSensor) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonTerrainRequest struct (generated typeinfo)
+// TerrainRequest struct (generated typeinfo)
 // Request for terrain data and terrain status. See terrain protocol docs: https://mavlink.io/en/services/terrain.html
-type CommonTerrainRequest struct {
+type TerrainRequest struct {
 	Mask        uint64 // Bitmask of requested 4x4 grids (row major 8x7 array of grids, 56 bits)
 	Lat         int32  // Latitude of SW corner of first grid
 	Lon         int32  // Longitude of SW corner of first grid
@@ -9425,24 +9426,24 @@ type CommonTerrainRequest struct {
 }
 
 // MsgID (generated function)
-func (m *CommonTerrainRequest) MsgID() MessageID {
+func (m *TerrainRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *CommonTerrainRequest) CRCExtra() uint8 {
+func (m *TerrainRequest) CRCExtra() uint8 {
 	return 6
 }
 
 // MsgName (generated function)
-func (m *CommonTerrainRequest) MsgName() string {
+func (m *TerrainRequest) MsgName() string {
 	return "TerrainRequest"
 }
 
 // String (generated function)
-func (m *CommonTerrainRequest) String() string {
+func (m *TerrainRequest) String() string {
 	return fmt.Sprintf(
-		"&CommonTerrainRequest{ Mask: %+v, Lat: %+v, Lon: %+v, GridSpacing: %+v }",
+		"&TerrainRequest{ Mask: %+v, Lat: %+v, Lon: %+v, GridSpacing: %+v }",
 		m.Mask,
 		m.Lat,
 		m.Lon,
@@ -9451,7 +9452,7 @@ func (m *CommonTerrainRequest) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonTerrainRequest) Pack(p *Packet) error {
+func (m *TerrainRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Mask))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.Lat))
@@ -9463,10 +9464,10 @@ func (m *CommonTerrainRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonTerrainRequest) Unpack(p *Packet) error {
+func (m *TerrainRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 18 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Mask = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[8:]))
@@ -9475,9 +9476,9 @@ func (m *CommonTerrainRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonTerrainData struct (generated typeinfo)
+// TerrainData struct (generated typeinfo)
 // Terrain data sent from GCS. The lat/lon and grid_spacing must be the same as a lat/lon from a TERRAIN_REQUEST. See terrain protocol docs: https://mavlink.io/en/services/terrain.html
-type CommonTerrainData struct {
+type TerrainData struct {
 	Lat         int32     // Latitude of SW corner of first grid
 	Lon         int32     // Longitude of SW corner of first grid
 	GridSpacing uint16    // Grid spacing
@@ -9486,24 +9487,24 @@ type CommonTerrainData struct {
 }
 
 // MsgID (generated function)
-func (m *CommonTerrainData) MsgID() MessageID {
+func (m *TerrainData) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonTerrainData) CRCExtra() uint8 {
+func (m *TerrainData) CRCExtra() uint8 {
 	return 229
 }
 
 // MsgName (generated function)
-func (m *CommonTerrainData) MsgName() string {
+func (m *TerrainData) MsgName() string {
 	return "TerrainData"
 }
 
 // String (generated function)
-func (m *CommonTerrainData) String() string {
+func (m *TerrainData) String() string {
 	return fmt.Sprintf(
-		"&CommonTerrainData{ Lat: %+v, Lon: %+v, GridSpacing: %+v, Data: %+v, Gridbit: %+v }",
+		"&TerrainData{ Lat: %+v, Lon: %+v, GridSpacing: %+v, Data: %+v, Gridbit: %+v }",
 		m.Lat,
 		m.Lon,
 		m.GridSpacing,
@@ -9513,7 +9514,7 @@ func (m *CommonTerrainData) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonTerrainData) Pack(p *Packet) error {
+func (m *TerrainData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 43)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -9528,10 +9529,10 @@ func (m *CommonTerrainData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonTerrainData) Unpack(p *Packet) error {
+func (m *TerrainData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 43 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9543,39 +9544,39 @@ func (m *CommonTerrainData) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonTerrainCheck struct (generated typeinfo)
+// TerrainCheck struct (generated typeinfo)
 // Request that the vehicle report terrain height at the given location (expected response is a TERRAIN_REPORT). Used by GCS to check if vehicle has all terrain data needed for a mission.
-type CommonTerrainCheck struct {
+type TerrainCheck struct {
 	Lat int32 // Latitude
 	Lon int32 // Longitude
 }
 
 // MsgID (generated function)
-func (m *CommonTerrainCheck) MsgID() MessageID {
+func (m *TerrainCheck) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_CHECK
 }
 
 // CRCExtra (generated function)
-func (m *CommonTerrainCheck) CRCExtra() uint8 {
+func (m *TerrainCheck) CRCExtra() uint8 {
 	return 203
 }
 
 // MsgName (generated function)
-func (m *CommonTerrainCheck) MsgName() string {
+func (m *TerrainCheck) MsgName() string {
 	return "TerrainCheck"
 }
 
 // String (generated function)
-func (m *CommonTerrainCheck) String() string {
+func (m *TerrainCheck) String() string {
 	return fmt.Sprintf(
-		"&CommonTerrainCheck{ Lat: %+v, Lon: %+v }",
+		"&TerrainCheck{ Lat: %+v, Lon: %+v }",
 		m.Lat,
 		m.Lon,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonTerrainCheck) Pack(p *Packet) error {
+func (m *TerrainCheck) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -9585,19 +9586,19 @@ func (m *CommonTerrainCheck) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonTerrainCheck) Unpack(p *Packet) error {
+func (m *TerrainCheck) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
 	return nil
 }
 
-// CommonTerrainReport struct (generated typeinfo)
+// TerrainReport struct (generated typeinfo)
 // Streamed from drone to report progress of terrain map download (initiated by TERRAIN_REQUEST), or sent as a response to a TERRAIN_CHECK request. See terrain protocol docs: https://mavlink.io/en/services/terrain.html
-type CommonTerrainReport struct {
+type TerrainReport struct {
 	Lat           int32   // Latitude
 	Lon           int32   // Longitude
 	TerrainHeight float32 // Terrain height MSL
@@ -9608,24 +9609,24 @@ type CommonTerrainReport struct {
 }
 
 // MsgID (generated function)
-func (m *CommonTerrainReport) MsgID() MessageID {
+func (m *TerrainReport) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_REPORT
 }
 
 // CRCExtra (generated function)
-func (m *CommonTerrainReport) CRCExtra() uint8 {
+func (m *TerrainReport) CRCExtra() uint8 {
 	return 1
 }
 
 // MsgName (generated function)
-func (m *CommonTerrainReport) MsgName() string {
+func (m *TerrainReport) MsgName() string {
 	return "TerrainReport"
 }
 
 // String (generated function)
-func (m *CommonTerrainReport) String() string {
+func (m *TerrainReport) String() string {
 	return fmt.Sprintf(
-		"&CommonTerrainReport{ Lat: %+v, Lon: %+v, TerrainHeight: %+v, CurrentHeight: %+v, Spacing: %+v, Pending: %+v, Loaded: %+v }",
+		"&TerrainReport{ Lat: %+v, Lon: %+v, TerrainHeight: %+v, CurrentHeight: %+v, Spacing: %+v, Pending: %+v, Loaded: %+v }",
 		m.Lat,
 		m.Lon,
 		m.TerrainHeight,
@@ -9637,7 +9638,7 @@ func (m *CommonTerrainReport) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonTerrainReport) Pack(p *Packet) error {
+func (m *TerrainReport) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 22)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Lat))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lon))
@@ -9652,10 +9653,10 @@ func (m *CommonTerrainReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonTerrainReport) Unpack(p *Packet) error {
+func (m *TerrainReport) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 22 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lon = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -9667,9 +9668,9 @@ func (m *CommonTerrainReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledPressure2 struct (generated typeinfo)
+// ScaledPressure2 struct (generated typeinfo)
 // Barometer readings for 2nd barometer
-type CommonScaledPressure2 struct {
+type ScaledPressure2 struct {
 	TimeBootMs  uint32  // Timestamp (time since system boot).
 	PressAbs    float32 // Absolute pressure
 	PressDiff   float32 // Differential pressure
@@ -9677,24 +9678,24 @@ type CommonScaledPressure2 struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledPressure2) MsgID() MessageID {
+func (m *ScaledPressure2) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE2
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledPressure2) CRCExtra() uint8 {
+func (m *ScaledPressure2) CRCExtra() uint8 {
 	return 195
 }
 
 // MsgName (generated function)
-func (m *CommonScaledPressure2) MsgName() string {
+func (m *ScaledPressure2) MsgName() string {
 	return "ScaledPressure2"
 }
 
 // String (generated function)
-func (m *CommonScaledPressure2) String() string {
+func (m *ScaledPressure2) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledPressure2{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&ScaledPressure2{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -9703,7 +9704,7 @@ func (m *CommonScaledPressure2) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledPressure2) Pack(p *Packet) error {
+func (m *ScaledPressure2) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -9715,10 +9716,10 @@ func (m *CommonScaledPressure2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledPressure2) Unpack(p *Packet) error {
+func (m *ScaledPressure2) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -9727,9 +9728,9 @@ func (m *CommonScaledPressure2) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAttPosMocap struct (generated typeinfo)
+// AttPosMocap struct (generated typeinfo)
 // Motion capture attitude and position
-type CommonAttPosMocap struct {
+type AttPosMocap struct {
 	TimeUsec uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Q        [4]float32 // Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
 	X        float32    // X position (NED)
@@ -9738,24 +9739,24 @@ type CommonAttPosMocap struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAttPosMocap) MsgID() MessageID {
+func (m *AttPosMocap) MsgID() mavlink.MessageID {
 	return MSG_ID_ATT_POS_MOCAP
 }
 
 // CRCExtra (generated function)
-func (m *CommonAttPosMocap) CRCExtra() uint8 {
+func (m *AttPosMocap) CRCExtra() uint8 {
 	return 109
 }
 
 // MsgName (generated function)
-func (m *CommonAttPosMocap) MsgName() string {
+func (m *AttPosMocap) MsgName() string {
 	return "AttPosMocap"
 }
 
 // String (generated function)
-func (m *CommonAttPosMocap) String() string {
+func (m *AttPosMocap) String() string {
 	return fmt.Sprintf(
-		"&CommonAttPosMocap{ TimeUsec: %+v, Q: %+v, X: %+v, Y: %+v, Z: %+v }",
+		"&AttPosMocap{ TimeUsec: %+v, Q: %+v, X: %+v, Y: %+v, Z: %+v }",
 		m.TimeUsec,
 		m.Q,
 		m.X,
@@ -9765,7 +9766,7 @@ func (m *CommonAttPosMocap) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAttPosMocap) Pack(p *Packet) error {
+func (m *AttPosMocap) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Q {
@@ -9780,10 +9781,10 @@ func (m *CommonAttPosMocap) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAttPosMocap) Unpack(p *Packet) error {
+func (m *AttPosMocap) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 36 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Q); i++ {
@@ -9795,9 +9796,9 @@ func (m *CommonAttPosMocap) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetActuatorControlTarget struct (generated typeinfo)
+// SetActuatorControlTarget struct (generated typeinfo)
 // Set the vehicle attitude and body angular rates.
-type CommonSetActuatorControlTarget struct {
+type SetActuatorControlTarget struct {
 	TimeUsec        uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Controls        [8]float32 // Actuator controls. Normed to -1..+1 where 0 is neutral position. Throttle for single rotation direction motors is 0..1, negative range for reverse direction. Standard mapping for attitude controls (group 0): (index 0-7): roll, pitch, yaw, throttle, flaps, spoilers, airbrakes, landing gear. Load a pass-through mixer to repurpose them as generic outputs.
 	GroupMlx        uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
@@ -9806,24 +9807,24 @@ type CommonSetActuatorControlTarget struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetActuatorControlTarget) MsgID() MessageID {
+func (m *SetActuatorControlTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetActuatorControlTarget) CRCExtra() uint8 {
+func (m *SetActuatorControlTarget) CRCExtra() uint8 {
 	return 168
 }
 
 // MsgName (generated function)
-func (m *CommonSetActuatorControlTarget) MsgName() string {
+func (m *SetActuatorControlTarget) MsgName() string {
 	return "SetActuatorControlTarget"
 }
 
 // String (generated function)
-func (m *CommonSetActuatorControlTarget) String() string {
+func (m *SetActuatorControlTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonSetActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&SetActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.TimeUsec,
 		m.Controls,
 		m.GroupMlx,
@@ -9833,7 +9834,7 @@ func (m *CommonSetActuatorControlTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetActuatorControlTarget) Pack(p *Packet) error {
+func (m *SetActuatorControlTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 43)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Controls {
@@ -9848,10 +9849,10 @@ func (m *CommonSetActuatorControlTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetActuatorControlTarget) Unpack(p *Packet) error {
+func (m *SetActuatorControlTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 43 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -9863,33 +9864,33 @@ func (m *CommonSetActuatorControlTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonActuatorControlTarget struct (generated typeinfo)
+// ActuatorControlTarget struct (generated typeinfo)
 // Set the vehicle attitude and body angular rates.
-type CommonActuatorControlTarget struct {
+type ActuatorControlTarget struct {
 	TimeUsec uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	Controls [8]float32 // Actuator controls. Normed to -1..+1 where 0 is neutral position. Throttle for single rotation direction motors is 0..1, negative range for reverse direction. Standard mapping for attitude controls (group 0): (index 0-7): roll, pitch, yaw, throttle, flaps, spoilers, airbrakes, landing gear. Load a pass-through mixer to repurpose them as generic outputs.
 	GroupMlx uint8      // Actuator group. The "_mlx" indicates this is a multi-instance message and a MAVLink parser should use this field to difference between instances.
 }
 
 // MsgID (generated function)
-func (m *CommonActuatorControlTarget) MsgID() MessageID {
+func (m *ActuatorControlTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonActuatorControlTarget) CRCExtra() uint8 {
+func (m *ActuatorControlTarget) CRCExtra() uint8 {
 	return 181
 }
 
 // MsgName (generated function)
-func (m *CommonActuatorControlTarget) MsgName() string {
+func (m *ActuatorControlTarget) MsgName() string {
 	return "ActuatorControlTarget"
 }
 
 // String (generated function)
-func (m *CommonActuatorControlTarget) String() string {
+func (m *ActuatorControlTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v }",
+		"&ActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v }",
 		m.TimeUsec,
 		m.Controls,
 		m.GroupMlx,
@@ -9897,7 +9898,7 @@ func (m *CommonActuatorControlTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonActuatorControlTarget) Pack(p *Packet) error {
+func (m *ActuatorControlTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 41)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	for i, v := range m.Controls {
@@ -9910,10 +9911,10 @@ func (m *CommonActuatorControlTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonActuatorControlTarget) Unpack(p *Packet) error {
+func (m *ActuatorControlTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 41 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	for i := 0; i < len(m.Controls); i++ {
@@ -9923,9 +9924,9 @@ func (m *CommonActuatorControlTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAltitude struct (generated typeinfo)
+// Altitude struct (generated typeinfo)
 // The current system altitude.
-type CommonAltitude struct {
+type Altitude struct {
 	TimeUsec          uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	AltitudeMonotonic float32 // This altitude measure is initialized on system boot and monotonic (it is never reset, but represents the local altitude change). The only guarantee on this field is that it will never be reset and is consistent within a flight. The recommended value for this field is the uncorrected barometric altitude at boot time. This altitude will also drift and vary between flights.
 	AltitudeAmsl      float32 // This altitude measure is strictly above mean sea level and might be non-monotonic (it might reset on events like GPS lock or when a new QNH value is set). It should be the altitude to which global altitude waypoints are compared to. Note that it is *not* the GPS altitude, however, most GPS modules already output MSL by default and not the WGS84 altitude.
@@ -9936,24 +9937,24 @@ type CommonAltitude struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAltitude) MsgID() MessageID {
+func (m *Altitude) MsgID() mavlink.MessageID {
 	return MSG_ID_ALTITUDE
 }
 
 // CRCExtra (generated function)
-func (m *CommonAltitude) CRCExtra() uint8 {
+func (m *Altitude) CRCExtra() uint8 {
 	return 47
 }
 
 // MsgName (generated function)
-func (m *CommonAltitude) MsgName() string {
+func (m *Altitude) MsgName() string {
 	return "Altitude"
 }
 
 // String (generated function)
-func (m *CommonAltitude) String() string {
+func (m *Altitude) String() string {
 	return fmt.Sprintf(
-		"&CommonAltitude{ TimeUsec: %+v, AltitudeMonotonic: %+v, AltitudeAmsl: %+v, AltitudeLocal: %+v, AltitudeRelative: %+v, AltitudeTerrain: %+v, BottomClearance: %+v }",
+		"&Altitude{ TimeUsec: %+v, AltitudeMonotonic: %+v, AltitudeAmsl: %+v, AltitudeLocal: %+v, AltitudeRelative: %+v, AltitudeTerrain: %+v, BottomClearance: %+v }",
 		m.TimeUsec,
 		m.AltitudeMonotonic,
 		m.AltitudeAmsl,
@@ -9965,7 +9966,7 @@ func (m *CommonAltitude) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAltitude) Pack(p *Packet) error {
+func (m *Altitude) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.AltitudeMonotonic))
@@ -9980,10 +9981,10 @@ func (m *CommonAltitude) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAltitude) Unpack(p *Packet) error {
+func (m *Altitude) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.AltitudeMonotonic = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -9995,9 +9996,9 @@ func (m *CommonAltitude) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonResourceRequest struct (generated typeinfo)
+// ResourceRequest struct (generated typeinfo)
 // The autopilot is requesting a resource (file, binary, other type of data)
-type CommonResourceRequest struct {
+type ResourceRequest struct {
 	RequestID    uint8      // Request ID. This ID should be re-used when sending back URI contents
 	URIType      uint8      // The type of requested URI. 0 = a file via URL. 1 = a UAVCAN binary
 	URI          [120]uint8 // The requested unique resource identifier (URI). It is not necessarily a straight domain name (depends on the URI type enum)
@@ -10006,24 +10007,24 @@ type CommonResourceRequest struct {
 }
 
 // MsgID (generated function)
-func (m *CommonResourceRequest) MsgID() MessageID {
+func (m *ResourceRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_RESOURCE_REQUEST
 }
 
 // CRCExtra (generated function)
-func (m *CommonResourceRequest) CRCExtra() uint8 {
+func (m *ResourceRequest) CRCExtra() uint8 {
 	return 72
 }
 
 // MsgName (generated function)
-func (m *CommonResourceRequest) MsgName() string {
+func (m *ResourceRequest) MsgName() string {
 	return "ResourceRequest"
 }
 
 // String (generated function)
-func (m *CommonResourceRequest) String() string {
+func (m *ResourceRequest) String() string {
 	return fmt.Sprintf(
-		"&CommonResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
+		"&ResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
 		m.RequestID,
 		m.URIType,
 		m.URI,
@@ -10033,7 +10034,7 @@ func (m *CommonResourceRequest) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonResourceRequest) Pack(p *Packet) error {
+func (m *ResourceRequest) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 243)
 	payload[0] = byte(m.RequestID)
 	payload[1] = byte(m.URIType)
@@ -10046,10 +10047,10 @@ func (m *CommonResourceRequest) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonResourceRequest) Unpack(p *Packet) error {
+func (m *ResourceRequest) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 243 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.RequestID = uint8(payload[0])
 	m.URIType = uint8(payload[1])
@@ -10059,9 +10060,9 @@ func (m *CommonResourceRequest) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonScaledPressure3 struct (generated typeinfo)
+// ScaledPressure3 struct (generated typeinfo)
 // Barometer readings for 3rd barometer
-type CommonScaledPressure3 struct {
+type ScaledPressure3 struct {
 	TimeBootMs  uint32  // Timestamp (time since system boot).
 	PressAbs    float32 // Absolute pressure
 	PressDiff   float32 // Differential pressure
@@ -10069,24 +10070,24 @@ type CommonScaledPressure3 struct {
 }
 
 // MsgID (generated function)
-func (m *CommonScaledPressure3) MsgID() MessageID {
+func (m *ScaledPressure3) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE3
 }
 
 // CRCExtra (generated function)
-func (m *CommonScaledPressure3) CRCExtra() uint8 {
+func (m *ScaledPressure3) CRCExtra() uint8 {
 	return 131
 }
 
 // MsgName (generated function)
-func (m *CommonScaledPressure3) MsgName() string {
+func (m *ScaledPressure3) MsgName() string {
 	return "ScaledPressure3"
 }
 
 // String (generated function)
-func (m *CommonScaledPressure3) String() string {
+func (m *ScaledPressure3) String() string {
 	return fmt.Sprintf(
-		"&CommonScaledPressure3{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&ScaledPressure3{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -10095,7 +10096,7 @@ func (m *CommonScaledPressure3) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonScaledPressure3) Pack(p *Packet) error {
+func (m *ScaledPressure3) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 14)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.PressAbs))
@@ -10107,10 +10108,10 @@ func (m *CommonScaledPressure3) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonScaledPressure3) Unpack(p *Packet) error {
+func (m *ScaledPressure3) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 14 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.PressAbs = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -10119,9 +10120,9 @@ func (m *CommonScaledPressure3) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonFollowTarget struct (generated typeinfo)
+// FollowTarget struct (generated typeinfo)
 // Current motion information from a designated system
-type CommonFollowTarget struct {
+type FollowTarget struct {
 	Timestamp       uint64     // Timestamp (time since system boot).
 	CustomState     uint64     // button states or switches of a tracker device
 	Lat             int32      // Latitude (WGS84)
@@ -10136,24 +10137,24 @@ type CommonFollowTarget struct {
 }
 
 // MsgID (generated function)
-func (m *CommonFollowTarget) MsgID() MessageID {
+func (m *FollowTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_FOLLOW_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonFollowTarget) CRCExtra() uint8 {
+func (m *FollowTarget) CRCExtra() uint8 {
 	return 127
 }
 
 // MsgName (generated function)
-func (m *CommonFollowTarget) MsgName() string {
+func (m *FollowTarget) MsgName() string {
 	return "FollowTarget"
 }
 
 // String (generated function)
-func (m *CommonFollowTarget) String() string {
+func (m *FollowTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonFollowTarget{ Timestamp: %+v, CustomState: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vel: %+v, Acc: %+v, AttitudeQ: %+v, Rates: %+v, PositionCov: %+v, EstCapabilities: %+v }",
+		"&FollowTarget{ Timestamp: %+v, CustomState: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vel: %+v, Acc: %+v, AttitudeQ: %+v, Rates: %+v, PositionCov: %+v, EstCapabilities: %+v }",
 		m.Timestamp,
 		m.CustomState,
 		m.Lat,
@@ -10169,7 +10170,7 @@ func (m *CommonFollowTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonFollowTarget) Pack(p *Packet) error {
+func (m *FollowTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 93)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.CustomState))
@@ -10198,10 +10199,10 @@ func (m *CommonFollowTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonFollowTarget) Unpack(p *Packet) error {
+func (m *FollowTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 93 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.CustomState = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -10227,9 +10228,9 @@ func (m *CommonFollowTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonControlSystemState struct (generated typeinfo)
+// ControlSystemState struct (generated typeinfo)
 // The smoothed, monotonic system state used to feed the control loops of the system.
-type CommonControlSystemState struct {
+type ControlSystemState struct {
 	TimeUsec    uint64     // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	XAcc        float32    // X acceleration in body frame
 	YAcc        float32    // Y acceleration in body frame
@@ -10250,24 +10251,24 @@ type CommonControlSystemState struct {
 }
 
 // MsgID (generated function)
-func (m *CommonControlSystemState) MsgID() MessageID {
+func (m *ControlSystemState) MsgID() mavlink.MessageID {
 	return MSG_ID_CONTROL_SYSTEM_STATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonControlSystemState) CRCExtra() uint8 {
+func (m *ControlSystemState) CRCExtra() uint8 {
 	return 103
 }
 
 // MsgName (generated function)
-func (m *CommonControlSystemState) MsgName() string {
+func (m *ControlSystemState) MsgName() string {
 	return "ControlSystemState"
 }
 
 // String (generated function)
-func (m *CommonControlSystemState) String() string {
+func (m *ControlSystemState) String() string {
 	return fmt.Sprintf(
-		"&CommonControlSystemState{ TimeUsec: %+v, XAcc: %+v, YAcc: %+v, ZAcc: %+v, XVel: %+v, YVel: %+v, ZVel: %+v, XPos: %+v, YPos: %+v, ZPos: %+v, Airspeed: %+v, VelVariance: %+v, PosVariance: %+v, Q: %+v, RollRate: %+v, PitchRate: %+v, YawRate: %+v }",
+		"&ControlSystemState{ TimeUsec: %+v, XAcc: %+v, YAcc: %+v, ZAcc: %+v, XVel: %+v, YVel: %+v, ZVel: %+v, XPos: %+v, YPos: %+v, ZPos: %+v, Airspeed: %+v, VelVariance: %+v, PosVariance: %+v, Q: %+v, RollRate: %+v, PitchRate: %+v, YawRate: %+v }",
 		m.TimeUsec,
 		m.XAcc,
 		m.YAcc,
@@ -10289,7 +10290,7 @@ func (m *CommonControlSystemState) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonControlSystemState) Pack(p *Packet) error {
+func (m *ControlSystemState) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 100)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.XAcc))
@@ -10320,10 +10321,10 @@ func (m *CommonControlSystemState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonControlSystemState) Unpack(p *Packet) error {
+func (m *ControlSystemState) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 100 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.XAcc = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -10351,9 +10352,9 @@ func (m *CommonControlSystemState) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonBatteryStatus struct (generated typeinfo)
+// BatteryStatus struct (generated typeinfo)
 // Battery information. Updates GCS with flight controller battery status. Smart batteries also use this message, but may additionally send SMART_BATTERY_INFO.
-type CommonBatteryStatus struct {
+type BatteryStatus struct {
 	CurrentConsumed  int32      // Consumed charge, -1: autopilot does not provide consumption estimate
 	EnergyConsumed   int32      // Consumed energy, -1: autopilot does not provide energy consumption estimate
 	Temperature      int16      // Temperature of the battery. INT16_MAX for unknown temperature.
@@ -10366,24 +10367,24 @@ type CommonBatteryStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonBatteryStatus) MsgID() MessageID {
+func (m *BatteryStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_BATTERY_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonBatteryStatus) CRCExtra() uint8 {
+func (m *BatteryStatus) CRCExtra() uint8 {
 	return 154
 }
 
 // MsgName (generated function)
-func (m *CommonBatteryStatus) MsgName() string {
+func (m *BatteryStatus) MsgName() string {
 	return "BatteryStatus"
 }
 
 // String (generated function)
-func (m *CommonBatteryStatus) String() string {
+func (m *BatteryStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonBatteryStatus{ CurrentConsumed: %+v, EnergyConsumed: %+v, Temperature: %+v, Voltages: %+v, CurrentBattery: %+v, ID: %+v, BatteryFunction: %+v, Type: %+v, BatteryRemaining: %+v }",
+		"&BatteryStatus{ CurrentConsumed: %+v, EnergyConsumed: %+v, Temperature: %+v, Voltages: %+v, CurrentBattery: %+v, ID: %+v, BatteryFunction: %+v, Type: %+v, BatteryRemaining: %+v }",
 		m.CurrentConsumed,
 		m.EnergyConsumed,
 		m.Temperature,
@@ -10397,7 +10398,7 @@ func (m *CommonBatteryStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonBatteryStatus) Pack(p *Packet) error {
+func (m *BatteryStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CurrentConsumed))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.EnergyConsumed))
@@ -10416,10 +10417,10 @@ func (m *CommonBatteryStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonBatteryStatus) Unpack(p *Packet) error {
+func (m *BatteryStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 36 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.CurrentConsumed = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.EnergyConsumed = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -10435,9 +10436,9 @@ func (m *CommonBatteryStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonAutopilotVersion struct (generated typeinfo)
+// AutopilotVersion struct (generated typeinfo)
 // Version and capability of autopilot software. This should be emitted in response to a request with MAV_CMD_REQUEST_MESSAGE.
-type CommonAutopilotVersion struct {
+type AutopilotVersion struct {
 	Capabilities            uint64   // Bitmap of capabilities
 	UID                     uint64   // UID if provided by hardware (see uid2)
 	FlightSwVersion         uint32   // Firmware version number
@@ -10452,24 +10453,24 @@ type CommonAutopilotVersion struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAutopilotVersion) MsgID() MessageID {
+func (m *AutopilotVersion) MsgID() mavlink.MessageID {
 	return MSG_ID_AUTOPILOT_VERSION
 }
 
 // CRCExtra (generated function)
-func (m *CommonAutopilotVersion) CRCExtra() uint8 {
+func (m *AutopilotVersion) CRCExtra() uint8 {
 	return 178
 }
 
 // MsgName (generated function)
-func (m *CommonAutopilotVersion) MsgName() string {
+func (m *AutopilotVersion) MsgName() string {
 	return "AutopilotVersion"
 }
 
 // String (generated function)
-func (m *CommonAutopilotVersion) String() string {
+func (m *AutopilotVersion) String() string {
 	return fmt.Sprintf(
-		"&CommonAutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
+		"&AutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
 		m.Capabilities,
 		m.UID,
 		m.FlightSwVersion,
@@ -10485,7 +10486,7 @@ func (m *CommonAutopilotVersion) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAutopilotVersion) Pack(p *Packet) error {
+func (m *AutopilotVersion) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 60)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Capabilities))
 	binary.LittleEndian.PutUint64(payload[8:], uint64(m.UID))
@@ -10504,10 +10505,10 @@ func (m *CommonAutopilotVersion) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAutopilotVersion) Unpack(p *Packet) error {
+func (m *AutopilotVersion) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 60 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Capabilities = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.UID = uint64(binary.LittleEndian.Uint64(payload[8:]))
@@ -10523,9 +10524,9 @@ func (m *CommonAutopilotVersion) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonLandingTarget struct (generated typeinfo)
+// LandingTarget struct (generated typeinfo)
 // The location of a landing target. See: https://mavlink.io/en/services/landing_target.html
-type CommonLandingTarget struct {
+type LandingTarget struct {
 	TimeUsec  uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	AngleX    float32 // X-axis angular offset of the target from the center of the image
 	AngleY    float32 // Y-axis angular offset of the target from the center of the image
@@ -10537,24 +10538,24 @@ type CommonLandingTarget struct {
 }
 
 // MsgID (generated function)
-func (m *CommonLandingTarget) MsgID() MessageID {
+func (m *LandingTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_LANDING_TARGET
 }
 
 // CRCExtra (generated function)
-func (m *CommonLandingTarget) CRCExtra() uint8 {
+func (m *LandingTarget) CRCExtra() uint8 {
 	return 200
 }
 
 // MsgName (generated function)
-func (m *CommonLandingTarget) MsgName() string {
+func (m *LandingTarget) MsgName() string {
 	return "LandingTarget"
 }
 
 // String (generated function)
-func (m *CommonLandingTarget) String() string {
+func (m *LandingTarget) String() string {
 	return fmt.Sprintf(
-		"&CommonLandingTarget{ TimeUsec: %+v, AngleX: %+v, AngleY: %+v, Distance: %+v, SizeX: %+v, SizeY: %+v, TargetNum: %+v, Frame: %+v }",
+		"&LandingTarget{ TimeUsec: %+v, AngleX: %+v, AngleY: %+v, Distance: %+v, SizeX: %+v, SizeY: %+v, TargetNum: %+v, Frame: %+v }",
 		m.TimeUsec,
 		m.AngleX,
 		m.AngleY,
@@ -10567,7 +10568,7 @@ func (m *CommonLandingTarget) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonLandingTarget) Pack(p *Packet) error {
+func (m *LandingTarget) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.AngleX))
@@ -10583,10 +10584,10 @@ func (m *CommonLandingTarget) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonLandingTarget) Unpack(p *Packet) error {
+func (m *LandingTarget) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 30 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.AngleX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -10599,9 +10600,9 @@ func (m *CommonLandingTarget) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonFenceStatus struct (generated typeinfo)
+// FenceStatus struct (generated typeinfo)
 // Status of geo-fencing. Sent in extended status stream when fencing enabled.
-type CommonFenceStatus struct {
+type FenceStatus struct {
 	BreachTime   uint32 // Time (since boot) of last breach.
 	BreachCount  uint16 // Number of fence breaches.
 	BreachStatus uint8  // Breach status (0 if currently inside fence, 1 if outside).
@@ -10609,24 +10610,24 @@ type CommonFenceStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonFenceStatus) MsgID() MessageID {
+func (m *FenceStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_FENCE_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonFenceStatus) CRCExtra() uint8 {
+func (m *FenceStatus) CRCExtra() uint8 {
 	return 189
 }
 
 // MsgName (generated function)
-func (m *CommonFenceStatus) MsgName() string {
+func (m *FenceStatus) MsgName() string {
 	return "FenceStatus"
 }
 
 // String (generated function)
-func (m *CommonFenceStatus) String() string {
+func (m *FenceStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonFenceStatus{ BreachTime: %+v, BreachCount: %+v, BreachStatus: %+v, BreachType: %+v }",
+		"&FenceStatus{ BreachTime: %+v, BreachCount: %+v, BreachStatus: %+v, BreachType: %+v }",
 		m.BreachTime,
 		m.BreachCount,
 		m.BreachStatus,
@@ -10635,7 +10636,7 @@ func (m *CommonFenceStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonFenceStatus) Pack(p *Packet) error {
+func (m *FenceStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 8)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.BreachTime))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.BreachCount))
@@ -10647,10 +10648,10 @@ func (m *CommonFenceStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonFenceStatus) Unpack(p *Packet) error {
+func (m *FenceStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 8 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.BreachTime = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.BreachCount = uint16(binary.LittleEndian.Uint16(payload[4:]))
@@ -10659,9 +10660,9 @@ func (m *CommonFenceStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMagCalReport struct (generated typeinfo)
+// MagCalReport struct (generated typeinfo)
 // Reports results of completed compass calibration. Sent until MAG_CAL_ACK received.
-type CommonMagCalReport struct {
+type MagCalReport struct {
 	Fitness   float32 // RMS milligauss residuals.
 	OfsX      float32 // X offset.
 	OfsY      float32 // Y offset.
@@ -10679,24 +10680,24 @@ type CommonMagCalReport struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMagCalReport) MsgID() MessageID {
+func (m *MagCalReport) MsgID() mavlink.MessageID {
 	return MSG_ID_MAG_CAL_REPORT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMagCalReport) CRCExtra() uint8 {
+func (m *MagCalReport) CRCExtra() uint8 {
 	return 36
 }
 
 // MsgName (generated function)
-func (m *CommonMagCalReport) MsgName() string {
+func (m *MagCalReport) MsgName() string {
 	return "MagCalReport"
 }
 
 // String (generated function)
-func (m *CommonMagCalReport) String() string {
+func (m *MagCalReport) String() string {
 	return fmt.Sprintf(
-		"&CommonMagCalReport{ Fitness: %+v, OfsX: %+v, OfsY: %+v, OfsZ: %+v, DiagX: %+v, DiagY: %+v, DiagZ: %+v, OffdiagX: %+v, OffdiagY: %+v, OffdiagZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Autosaved: %+v }",
+		"&MagCalReport{ Fitness: %+v, OfsX: %+v, OfsY: %+v, OfsZ: %+v, DiagX: %+v, DiagY: %+v, DiagZ: %+v, OffdiagX: %+v, OffdiagY: %+v, OffdiagZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Autosaved: %+v }",
 		m.Fitness,
 		m.OfsX,
 		m.OfsY,
@@ -10715,7 +10716,7 @@ func (m *CommonMagCalReport) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMagCalReport) Pack(p *Packet) error {
+func (m *MagCalReport) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 44)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.Fitness))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.OfsX))
@@ -10737,10 +10738,10 @@ func (m *CommonMagCalReport) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMagCalReport) Unpack(p *Packet) error {
+func (m *MagCalReport) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 44 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Fitness = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.OfsX = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -10759,9 +10760,9 @@ func (m *CommonMagCalReport) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonEfiStatus struct (generated typeinfo)
+// EfiStatus struct (generated typeinfo)
 // EFI status output
-type CommonEfiStatus struct {
+type EfiStatus struct {
 	EcuIndex                  float32 // ECU index
 	Rpm                       float32 // RPM
 	FuelConsumed              float32 // Fuel consumed
@@ -10782,24 +10783,24 @@ type CommonEfiStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonEfiStatus) MsgID() MessageID {
+func (m *EfiStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_EFI_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonEfiStatus) CRCExtra() uint8 {
+func (m *EfiStatus) CRCExtra() uint8 {
 	return 208
 }
 
 // MsgName (generated function)
-func (m *CommonEfiStatus) MsgName() string {
+func (m *EfiStatus) MsgName() string {
 	return "EfiStatus"
 }
 
 // String (generated function)
-func (m *CommonEfiStatus) String() string {
+func (m *EfiStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonEfiStatus{ EcuIndex: %+v, Rpm: %+v, FuelConsumed: %+v, FuelFlow: %+v, EngineLoad: %+v, ThrottlePosition: %+v, SparkDwellTime: %+v, BarometricPressure: %+v, IntakeManifoldPressure: %+v, IntakeManifoldTemperature: %+v, CylinderHeadTemperature: %+v, IgnitionTiming: %+v, InjectionTime: %+v, ExhaustGasTemperature: %+v, ThrottleOut: %+v, PtCompensation: %+v, Health: %+v }",
+		"&EfiStatus{ EcuIndex: %+v, Rpm: %+v, FuelConsumed: %+v, FuelFlow: %+v, EngineLoad: %+v, ThrottlePosition: %+v, SparkDwellTime: %+v, BarometricPressure: %+v, IntakeManifoldPressure: %+v, IntakeManifoldTemperature: %+v, CylinderHeadTemperature: %+v, IgnitionTiming: %+v, InjectionTime: %+v, ExhaustGasTemperature: %+v, ThrottleOut: %+v, PtCompensation: %+v, Health: %+v }",
 		m.EcuIndex,
 		m.Rpm,
 		m.FuelConsumed,
@@ -10821,7 +10822,7 @@ func (m *CommonEfiStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonEfiStatus) Pack(p *Packet) error {
+func (m *EfiStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 65)
 	binary.LittleEndian.PutUint32(payload[0:], math.Float32bits(m.EcuIndex))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Rpm))
@@ -10846,10 +10847,10 @@ func (m *CommonEfiStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonEfiStatus) Unpack(p *Packet) error {
+func (m *EfiStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 65 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.EcuIndex = math.Float32frombits(binary.LittleEndian.Uint32(payload[0:]))
 	m.Rpm = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -10871,9 +10872,9 @@ func (m *CommonEfiStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonEstimatorStatus struct (generated typeinfo)
+// EstimatorStatus struct (generated typeinfo)
 // Estimator status message including flags, innovation test ratios and estimated accuracies. The flags message is an integer bitmask containing information on which EKF outputs are valid. See the ESTIMATOR_STATUS_FLAGS enum definition for further information. The innovation test ratios show the magnitude of the sensor innovation divided by the innovation check threshold. Under normal operation the innovation test ratios should be below 0.5 with occasional values up to 1.0. Values greater than 1.0 should be rare under normal operation and indicate that a measurement has been rejected by the filter. The user should be notified if an innovation test ratio greater than 1.0 is recorded. Notifications for values in the range between 0.5 and 1.0 should be optional and controllable by the user.
-type CommonEstimatorStatus struct {
+type EstimatorStatus struct {
 	TimeUsec         uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	VelRatio         float32 // Velocity innovation test ratio
 	PosHorizRatio    float32 // Horizontal position innovation test ratio
@@ -10887,24 +10888,24 @@ type CommonEstimatorStatus struct {
 }
 
 // MsgID (generated function)
-func (m *CommonEstimatorStatus) MsgID() MessageID {
+func (m *EstimatorStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_ESTIMATOR_STATUS
 }
 
 // CRCExtra (generated function)
-func (m *CommonEstimatorStatus) CRCExtra() uint8 {
+func (m *EstimatorStatus) CRCExtra() uint8 {
 	return 163
 }
 
 // MsgName (generated function)
-func (m *CommonEstimatorStatus) MsgName() string {
+func (m *EstimatorStatus) MsgName() string {
 	return "EstimatorStatus"
 }
 
 // String (generated function)
-func (m *CommonEstimatorStatus) String() string {
+func (m *EstimatorStatus) String() string {
 	return fmt.Sprintf(
-		"&CommonEstimatorStatus{ TimeUsec: %+v, VelRatio: %+v, PosHorizRatio: %+v, PosVertRatio: %+v, MagRatio: %+v, HaglRatio: %+v, TasRatio: %+v, PosHorizAccuracy: %+v, PosVertAccuracy: %+v, Flags: %+v }",
+		"&EstimatorStatus{ TimeUsec: %+v, VelRatio: %+v, PosHorizRatio: %+v, PosVertRatio: %+v, MagRatio: %+v, HaglRatio: %+v, TasRatio: %+v, PosHorizAccuracy: %+v, PosVertAccuracy: %+v, Flags: %+v }",
 		m.TimeUsec,
 		m.VelRatio,
 		m.PosHorizRatio,
@@ -10919,7 +10920,7 @@ func (m *CommonEstimatorStatus) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonEstimatorStatus) Pack(p *Packet) error {
+func (m *EstimatorStatus) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.VelRatio))
@@ -10937,10 +10938,10 @@ func (m *CommonEstimatorStatus) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonEstimatorStatus) Unpack(p *Packet) error {
+func (m *EstimatorStatus) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.VelRatio = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -10955,9 +10956,9 @@ func (m *CommonEstimatorStatus) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonWindCov struct (generated typeinfo)
+// WindCov struct (generated typeinfo)
 // Wind covariance estimate from vehicle.
-type CommonWindCov struct {
+type WindCov struct {
 	TimeUsec      uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	WindX         float32 // Wind in X (NED) direction
 	WindY         float32 // Wind in Y (NED) direction
@@ -10970,24 +10971,24 @@ type CommonWindCov struct {
 }
 
 // MsgID (generated function)
-func (m *CommonWindCov) MsgID() MessageID {
+func (m *WindCov) MsgID() mavlink.MessageID {
 	return MSG_ID_WIND_COV
 }
 
 // CRCExtra (generated function)
-func (m *CommonWindCov) CRCExtra() uint8 {
+func (m *WindCov) CRCExtra() uint8 {
 	return 105
 }
 
 // MsgName (generated function)
-func (m *CommonWindCov) MsgName() string {
+func (m *WindCov) MsgName() string {
 	return "WindCov"
 }
 
 // String (generated function)
-func (m *CommonWindCov) String() string {
+func (m *WindCov) String() string {
 	return fmt.Sprintf(
-		"&CommonWindCov{ TimeUsec: %+v, WindX: %+v, WindY: %+v, WindZ: %+v, VarHoriz: %+v, VarVert: %+v, WindAlt: %+v, HorizAccuracy: %+v, VertAccuracy: %+v }",
+		"&WindCov{ TimeUsec: %+v, WindX: %+v, WindY: %+v, WindZ: %+v, VarHoriz: %+v, VarVert: %+v, WindAlt: %+v, HorizAccuracy: %+v, VertAccuracy: %+v }",
 		m.TimeUsec,
 		m.WindX,
 		m.WindY,
@@ -11001,7 +11002,7 @@ func (m *CommonWindCov) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonWindCov) Pack(p *Packet) error {
+func (m *WindCov) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.WindX))
@@ -11018,10 +11019,10 @@ func (m *CommonWindCov) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonWindCov) Unpack(p *Packet) error {
+func (m *WindCov) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 40 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.WindX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -11035,9 +11036,9 @@ func (m *CommonWindCov) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsInput struct (generated typeinfo)
+// GpsInput struct (generated typeinfo)
 // GPS sensor input message.  This is a raw sensor value sent by the GPS. This is NOT the global position estimate of the system.
-type CommonGpsInput struct {
+type GpsInput struct {
 	TimeUsec          uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	TimeWeekMs        uint32  // GPS time (from start of GPS week)
 	Lat               int32   // Latitude (WGS84)
@@ -11059,24 +11060,24 @@ type CommonGpsInput struct {
 }
 
 // MsgID (generated function)
-func (m *CommonGpsInput) MsgID() MessageID {
+func (m *GpsInput) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_INPUT
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsInput) CRCExtra() uint8 {
+func (m *GpsInput) CRCExtra() uint8 {
 	return 151
 }
 
 // MsgName (generated function)
-func (m *CommonGpsInput) MsgName() string {
+func (m *GpsInput) MsgName() string {
 	return "GpsInput"
 }
 
 // String (generated function)
-func (m *CommonGpsInput) String() string {
+func (m *GpsInput) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsInput{ TimeUsec: %+v, TimeWeekMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Hdop: %+v, Vdop: %+v, Vn: %+v, Ve: %+v, Vd: %+v, SpeedAccuracy: %+v, HorizAccuracy: %+v, VertAccuracy: %+v, IgnoreFlags: %+v, TimeWeek: %+v, GpsID: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&GpsInput{ TimeUsec: %+v, TimeWeekMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Hdop: %+v, Vdop: %+v, Vn: %+v, Ve: %+v, Vd: %+v, SpeedAccuracy: %+v, HorizAccuracy: %+v, VertAccuracy: %+v, IgnoreFlags: %+v, TimeWeek: %+v, GpsID: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.TimeWeekMs,
 		m.Lat,
@@ -11099,7 +11100,7 @@ func (m *CommonGpsInput) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsInput) Pack(p *Packet) error {
+func (m *GpsInput) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 63)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], uint32(m.TimeWeekMs))
@@ -11125,10 +11126,10 @@ func (m *CommonGpsInput) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsInput) Unpack(p *Packet) error {
+func (m *GpsInput) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 63 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.TimeWeekMs = uint32(binary.LittleEndian.Uint32(payload[8:]))
@@ -11151,33 +11152,33 @@ func (m *CommonGpsInput) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonGpsRtcmData struct (generated typeinfo)
+// GpsRtcmData struct (generated typeinfo)
 // RTCM message for injecting into the onboard GPS (used for DGPS)
-type CommonGpsRtcmData struct {
+type GpsRtcmData struct {
 	Flags uint8      // LSB: 1 means message is fragmented, next 2 bits are the fragment ID, the remaining 5 bits are used for the sequence ID. Messages are only to be flushed to the GPS when the entire message has been reconstructed on the autopilot. The fragment ID specifies which order the fragments should be assembled into a buffer, while the sequence ID is used to detect a mismatch between different buffers. The buffer is considered fully reconstructed when either all 4 fragments are present, or all the fragments before the first fragment with a non full payload is received. This management is used to ensure that normal GPS operation doesn't corrupt RTCM data, and to recover from a unreliable transport delivery order.
 	Len   uint8      // data length
 	Data  [180]uint8 // RTCM message (may be fragmented)
 }
 
 // MsgID (generated function)
-func (m *CommonGpsRtcmData) MsgID() MessageID {
+func (m *GpsRtcmData) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RTCM_DATA
 }
 
 // CRCExtra (generated function)
-func (m *CommonGpsRtcmData) CRCExtra() uint8 {
+func (m *GpsRtcmData) CRCExtra() uint8 {
 	return 35
 }
 
 // MsgName (generated function)
-func (m *CommonGpsRtcmData) MsgName() string {
+func (m *GpsRtcmData) MsgName() string {
 	return "GpsRtcmData"
 }
 
 // String (generated function)
-func (m *CommonGpsRtcmData) String() string {
+func (m *GpsRtcmData) String() string {
 	return fmt.Sprintf(
-		"&CommonGpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
+		"&GpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
 		m.Flags,
 		m.Len,
 		m.Data,
@@ -11185,7 +11186,7 @@ func (m *CommonGpsRtcmData) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonGpsRtcmData) Pack(p *Packet) error {
+func (m *GpsRtcmData) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 182)
 	payload[0] = byte(m.Flags)
 	payload[1] = byte(m.Len)
@@ -11196,10 +11197,10 @@ func (m *CommonGpsRtcmData) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonGpsRtcmData) Unpack(p *Packet) error {
+func (m *GpsRtcmData) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 182 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Flags = uint8(payload[0])
 	m.Len = uint8(payload[1])
@@ -11207,9 +11208,9 @@ func (m *CommonGpsRtcmData) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHighLatency struct (generated typeinfo)
+// HighLatency struct (generated typeinfo)
 // Message appropriate for high latency connections like Iridium
-type CommonHighLatency struct {
+type HighLatency struct {
 	CustomMode       uint32 // A bitfield for use for autopilot-specific flags.
 	Latitude         int32  // Latitude
 	Longitude        int32  // Longitude
@@ -11237,24 +11238,24 @@ type CommonHighLatency struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHighLatency) MsgID() MessageID {
+func (m *HighLatency) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGH_LATENCY
 }
 
 // CRCExtra (generated function)
-func (m *CommonHighLatency) CRCExtra() uint8 {
+func (m *HighLatency) CRCExtra() uint8 {
 	return 150
 }
 
 // MsgName (generated function)
-func (m *CommonHighLatency) MsgName() string {
+func (m *HighLatency) MsgName() string {
 	return "HighLatency"
 }
 
 // String (generated function)
-func (m *CommonHighLatency) String() string {
+func (m *HighLatency) String() string {
 	return fmt.Sprintf(
-		"&CommonHighLatency{ CustomMode: %+v, Latitude: %+v, Longitude: %+v, Roll: %+v, Pitch: %+v, Heading: %+v, HeadingSp: %+v, AltitudeAmsl: %+v, AltitudeSp: %+v, WpDistance: %+v, BaseMode: %+v, LandedState: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, ClimbRate: %+v, GpsNsat: %+v, GpsFixType: %+v, BatteryRemaining: %+v, Temperature: %+v, TemperatureAir: %+v, Failsafe: %+v, WpNum: %+v }",
+		"&HighLatency{ CustomMode: %+v, Latitude: %+v, Longitude: %+v, Roll: %+v, Pitch: %+v, Heading: %+v, HeadingSp: %+v, AltitudeAmsl: %+v, AltitudeSp: %+v, WpDistance: %+v, BaseMode: %+v, LandedState: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, ClimbRate: %+v, GpsNsat: %+v, GpsFixType: %+v, BatteryRemaining: %+v, Temperature: %+v, TemperatureAir: %+v, Failsafe: %+v, WpNum: %+v }",
 		m.CustomMode,
 		m.Latitude,
 		m.Longitude,
@@ -11283,7 +11284,7 @@ func (m *CommonHighLatency) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHighLatency) Pack(p *Packet) error {
+func (m *HighLatency) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 40)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.CustomMode))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Latitude))
@@ -11315,10 +11316,10 @@ func (m *CommonHighLatency) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHighLatency) Unpack(p *Packet) error {
+func (m *HighLatency) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 40 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.CustomMode = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -11347,9 +11348,9 @@ func (m *CommonHighLatency) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHighLatency2 struct (generated typeinfo)
+// HighLatency2 struct (generated typeinfo)
 // Message appropriate for high latency connections like Iridium (version 2)
-type CommonHighLatency2 struct {
+type HighLatency2 struct {
 	Timestamp      uint32 // Timestamp (milliseconds since boot or Unix epoch)
 	Latitude       int32  // Latitude
 	Longitude      int32  // Longitude
@@ -11380,24 +11381,24 @@ type CommonHighLatency2 struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHighLatency2) MsgID() MessageID {
+func (m *HighLatency2) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGH_LATENCY2
 }
 
 // CRCExtra (generated function)
-func (m *CommonHighLatency2) CRCExtra() uint8 {
+func (m *HighLatency2) CRCExtra() uint8 {
 	return 179
 }
 
 // MsgName (generated function)
-func (m *CommonHighLatency2) MsgName() string {
+func (m *HighLatency2) MsgName() string {
 	return "HighLatency2"
 }
 
 // String (generated function)
-func (m *CommonHighLatency2) String() string {
+func (m *HighLatency2) String() string {
 	return fmt.Sprintf(
-		"&CommonHighLatency2{ Timestamp: %+v, Latitude: %+v, Longitude: %+v, CustomMode: %+v, Altitude: %+v, TargetAltitude: %+v, TargetDistance: %+v, WpNum: %+v, FailureFlags: %+v, Type: %+v, Autopilot: %+v, Heading: %+v, TargetHeading: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, Windspeed: %+v, WindHeading: %+v, Eph: %+v, Epv: %+v, TemperatureAir: %+v, ClimbRate: %+v, Battery: %+v, Custom0: %+v, Custom1: %+v, Custom2: %+v }",
+		"&HighLatency2{ Timestamp: %+v, Latitude: %+v, Longitude: %+v, CustomMode: %+v, Altitude: %+v, TargetAltitude: %+v, TargetDistance: %+v, WpNum: %+v, FailureFlags: %+v, Type: %+v, Autopilot: %+v, Heading: %+v, TargetHeading: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, Windspeed: %+v, WindHeading: %+v, Eph: %+v, Epv: %+v, TemperatureAir: %+v, ClimbRate: %+v, Battery: %+v, Custom0: %+v, Custom1: %+v, Custom2: %+v }",
 		m.Timestamp,
 		m.Latitude,
 		m.Longitude,
@@ -11429,7 +11430,7 @@ func (m *CommonHighLatency2) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHighLatency2) Pack(p *Packet) error {
+func (m *HighLatency2) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 42)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Timestamp))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Latitude))
@@ -11464,10 +11465,10 @@ func (m *CommonHighLatency2) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHighLatency2) Unpack(p *Packet) error {
+func (m *HighLatency2) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 42 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Timestamp = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -11499,9 +11500,9 @@ func (m *CommonHighLatency2) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonVibration struct (generated typeinfo)
+// Vibration struct (generated typeinfo)
 // Vibration levels and accelerometer clipping
-type CommonVibration struct {
+type Vibration struct {
 	TimeUsec   uint64  // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	VibrationX float32 // Vibration levels on X-axis
 	VibrationY float32 // Vibration levels on Y-axis
@@ -11512,24 +11513,24 @@ type CommonVibration struct {
 }
 
 // MsgID (generated function)
-func (m *CommonVibration) MsgID() MessageID {
+func (m *Vibration) MsgID() mavlink.MessageID {
 	return MSG_ID_VIBRATION
 }
 
 // CRCExtra (generated function)
-func (m *CommonVibration) CRCExtra() uint8 {
+func (m *Vibration) CRCExtra() uint8 {
 	return 90
 }
 
 // MsgName (generated function)
-func (m *CommonVibration) MsgName() string {
+func (m *Vibration) MsgName() string {
 	return "Vibration"
 }
 
 // String (generated function)
-func (m *CommonVibration) String() string {
+func (m *Vibration) String() string {
 	return fmt.Sprintf(
-		"&CommonVibration{ TimeUsec: %+v, VibrationX: %+v, VibrationY: %+v, VibrationZ: %+v, Clipping0: %+v, Clipping1: %+v, Clipping2: %+v }",
+		"&Vibration{ TimeUsec: %+v, VibrationX: %+v, VibrationY: %+v, VibrationZ: %+v, Clipping0: %+v, Clipping1: %+v, Clipping2: %+v }",
 		m.TimeUsec,
 		m.VibrationX,
 		m.VibrationY,
@@ -11541,7 +11542,7 @@ func (m *CommonVibration) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonVibration) Pack(p *Packet) error {
+func (m *Vibration) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 32)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.VibrationX))
@@ -11556,10 +11557,10 @@ func (m *CommonVibration) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonVibration) Unpack(p *Packet) error {
+func (m *Vibration) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 32 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.VibrationX = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -11571,9 +11572,9 @@ func (m *CommonVibration) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonHomePosition struct (generated typeinfo)
+// HomePosition struct (generated typeinfo)
 // This message can be requested by sending the MAV_CMD_GET_HOME_POSITION command. The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitly set by the operator before or after. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.
-type CommonHomePosition struct {
+type HomePosition struct {
 	Latitude  int32      // Latitude (WGS84)
 	Longitude int32      // Longitude (WGS84)
 	Altitude  int32      // Altitude (MSL). Positive for up.
@@ -11587,24 +11588,24 @@ type CommonHomePosition struct {
 }
 
 // MsgID (generated function)
-func (m *CommonHomePosition) MsgID() MessageID {
+func (m *HomePosition) MsgID() mavlink.MessageID {
 	return MSG_ID_HOME_POSITION
 }
 
 // CRCExtra (generated function)
-func (m *CommonHomePosition) CRCExtra() uint8 {
+func (m *HomePosition) CRCExtra() uint8 {
 	return 104
 }
 
 // MsgName (generated function)
-func (m *CommonHomePosition) MsgName() string {
+func (m *HomePosition) MsgName() string {
 	return "HomePosition"
 }
 
 // String (generated function)
-func (m *CommonHomePosition) String() string {
+func (m *HomePosition) String() string {
 	return fmt.Sprintf(
-		"&CommonHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v }",
+		"&HomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -11619,7 +11620,7 @@ func (m *CommonHomePosition) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonHomePosition) Pack(p *Packet) error {
+func (m *HomePosition) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 52)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -11639,10 +11640,10 @@ func (m *CommonHomePosition) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonHomePosition) Unpack(p *Packet) error {
+func (m *HomePosition) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 52 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -11659,9 +11660,9 @@ func (m *CommonHomePosition) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonSetHomePosition struct (generated typeinfo)
+// SetHomePosition struct (generated typeinfo)
 // The position the system will return to and land on. The position is set automatically by the system during the takeoff in case it was not explicitly set by the operator before or after. The global and local positions encode the position in the respective coordinate frames, while the q parameter encodes the orientation of the surface. Under normal conditions it describes the heading and terrain slope, which can be used by the aircraft to adjust the approach. The approach 3D vector describes the point to which the system should fly in normal flight mode and then perform a landing sequence along the vector.
-type CommonSetHomePosition struct {
+type SetHomePosition struct {
 	Latitude     int32      // Latitude (WGS84)
 	Longitude    int32      // Longitude (WGS84)
 	Altitude     int32      // Altitude (MSL). Positive for up.
@@ -11676,24 +11677,24 @@ type CommonSetHomePosition struct {
 }
 
 // MsgID (generated function)
-func (m *CommonSetHomePosition) MsgID() MessageID {
+func (m *SetHomePosition) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_HOME_POSITION
 }
 
 // CRCExtra (generated function)
-func (m *CommonSetHomePosition) CRCExtra() uint8 {
+func (m *SetHomePosition) CRCExtra() uint8 {
 	return 85
 }
 
 // MsgName (generated function)
-func (m *CommonSetHomePosition) MsgName() string {
+func (m *SetHomePosition) MsgName() string {
 	return "SetHomePosition"
 }
 
 // String (generated function)
-func (m *CommonSetHomePosition) String() string {
+func (m *SetHomePosition) String() string {
 	return fmt.Sprintf(
-		"&CommonSetHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v, TargetSystem: %+v }",
+		"&SetHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v, TargetSystem: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -11709,7 +11710,7 @@ func (m *CommonSetHomePosition) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonSetHomePosition) Pack(p *Packet) error {
+func (m *SetHomePosition) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 53)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Latitude))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Longitude))
@@ -11730,10 +11731,10 @@ func (m *CommonSetHomePosition) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonSetHomePosition) Unpack(p *Packet) error {
+func (m *SetHomePosition) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 53 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Latitude = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Longitude = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -11751,39 +11752,39 @@ func (m *CommonSetHomePosition) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMessageInterval struct (generated typeinfo)
+// MessageInterval struct (generated typeinfo)
 // The interval between messages for a particular MAVLink message ID. This message is the response to the MAV_CMD_GET_MESSAGE_INTERVAL command. This interface replaces DATA_STREAM.
-type CommonMessageInterval struct {
+type MessageInterval struct {
 	IntervalUs int32  // The interval between two messages. A value of -1 indicates this stream is disabled, 0 indicates it is not available, &gt; 0 indicates the interval at which it is sent.
 	MessageID  uint16 // The ID of the requested MAVLink message. v1.0 is limited to 254 messages.
 }
 
 // MsgID (generated function)
-func (m *CommonMessageInterval) MsgID() MessageID {
+func (m *MessageInterval) MsgID() mavlink.MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
 }
 
 // CRCExtra (generated function)
-func (m *CommonMessageInterval) CRCExtra() uint8 {
+func (m *MessageInterval) CRCExtra() uint8 {
 	return 95
 }
 
 // MsgName (generated function)
-func (m *CommonMessageInterval) MsgName() string {
+func (m *MessageInterval) MsgName() string {
 	return "MessageInterval"
 }
 
 // String (generated function)
-func (m *CommonMessageInterval) String() string {
+func (m *MessageInterval) String() string {
 	return fmt.Sprintf(
-		"&CommonMessageInterval{ IntervalUs: %+v, MessageID: %+v }",
+		"&MessageInterval{ IntervalUs: %+v, MessageID: %+v }",
 		m.IntervalUs,
 		m.MessageID,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonMessageInterval) Pack(p *Packet) error {
+func (m *MessageInterval) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 6)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.IntervalUs))
 	binary.LittleEndian.PutUint16(payload[4:], uint16(m.MessageID))
@@ -11793,49 +11794,49 @@ func (m *CommonMessageInterval) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMessageInterval) Unpack(p *Packet) error {
+func (m *MessageInterval) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 6 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.IntervalUs = int32(binary.LittleEndian.Uint32(payload[0:]))
 	m.MessageID = uint16(binary.LittleEndian.Uint16(payload[4:]))
 	return nil
 }
 
-// CommonExtendedSysState struct (generated typeinfo)
+// ExtendedSysState struct (generated typeinfo)
 // Provides state for additional features
-type CommonExtendedSysState struct {
+type ExtendedSysState struct {
 	VtolState   uint8 // The VTOL state if applicable. Is set to MAV_VTOL_STATE_UNDEFINED if UAV is not in VTOL configuration.
 	LandedState uint8 // The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
 }
 
 // MsgID (generated function)
-func (m *CommonExtendedSysState) MsgID() MessageID {
+func (m *ExtendedSysState) MsgID() mavlink.MessageID {
 	return MSG_ID_EXTENDED_SYS_STATE
 }
 
 // CRCExtra (generated function)
-func (m *CommonExtendedSysState) CRCExtra() uint8 {
+func (m *ExtendedSysState) CRCExtra() uint8 {
 	return 130
 }
 
 // MsgName (generated function)
-func (m *CommonExtendedSysState) MsgName() string {
+func (m *ExtendedSysState) MsgName() string {
 	return "ExtendedSysState"
 }
 
 // String (generated function)
-func (m *CommonExtendedSysState) String() string {
+func (m *ExtendedSysState) String() string {
 	return fmt.Sprintf(
-		"&CommonExtendedSysState{ VtolState: %+v, LandedState: %+v }",
+		"&ExtendedSysState{ VtolState: %+v, LandedState: %+v }",
 		m.VtolState,
 		m.LandedState,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonExtendedSysState) Pack(p *Packet) error {
+func (m *ExtendedSysState) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 2)
 	payload[0] = byte(m.VtolState)
 	payload[1] = byte(m.LandedState)
@@ -11845,19 +11846,19 @@ func (m *CommonExtendedSysState) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonExtendedSysState) Unpack(p *Packet) error {
+func (m *ExtendedSysState) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 2 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.VtolState = uint8(payload[0])
 	m.LandedState = uint8(payload[1])
 	return nil
 }
 
-// CommonAdsbVehicle struct (generated typeinfo)
+// AdsbVehicle struct (generated typeinfo)
 // The location and information of an ADSB vehicle
-type CommonAdsbVehicle struct {
+type AdsbVehicle struct {
 	IcaoAddress  uint32  // ICAO address
 	Lat          int32   // Latitude
 	Lon          int32   // Longitude
@@ -11874,24 +11875,24 @@ type CommonAdsbVehicle struct {
 }
 
 // MsgID (generated function)
-func (m *CommonAdsbVehicle) MsgID() MessageID {
+func (m *AdsbVehicle) MsgID() mavlink.MessageID {
 	return MSG_ID_ADSB_VEHICLE
 }
 
 // CRCExtra (generated function)
-func (m *CommonAdsbVehicle) CRCExtra() uint8 {
+func (m *AdsbVehicle) CRCExtra() uint8 {
 	return 184
 }
 
 // MsgName (generated function)
-func (m *CommonAdsbVehicle) MsgName() string {
+func (m *AdsbVehicle) MsgName() string {
 	return "AdsbVehicle"
 }
 
 // String (generated function)
-func (m *CommonAdsbVehicle) String() string {
+func (m *AdsbVehicle) String() string {
 	return fmt.Sprintf(
-		"&CommonAdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
+		"&AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
 		m.IcaoAddress,
 		m.Lat,
 		m.Lon,
@@ -11909,7 +11910,7 @@ func (m *CommonAdsbVehicle) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonAdsbVehicle) Pack(p *Packet) error {
+func (m *AdsbVehicle) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 38)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.IcaoAddress))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Lat))
@@ -11930,10 +11931,10 @@ func (m *CommonAdsbVehicle) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonAdsbVehicle) Unpack(p *Packet) error {
+func (m *AdsbVehicle) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 38 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.IcaoAddress = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Lat = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -11951,9 +11952,9 @@ func (m *CommonAdsbVehicle) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonCollision struct (generated typeinfo)
+// Collision struct (generated typeinfo)
 // Information about a potential collision
-type CommonCollision struct {
+type Collision struct {
 	ID                     uint32  // Unique identifier, domain based on src field
 	TimeToMinimumDelta     float32 // Estimated time until collision occurs
 	AltitudeMinimumDelta   float32 // Closest vertical distance between vehicle and object
@@ -11964,24 +11965,24 @@ type CommonCollision struct {
 }
 
 // MsgID (generated function)
-func (m *CommonCollision) MsgID() MessageID {
+func (m *Collision) MsgID() mavlink.MessageID {
 	return MSG_ID_COLLISION
 }
 
 // CRCExtra (generated function)
-func (m *CommonCollision) CRCExtra() uint8 {
+func (m *Collision) CRCExtra() uint8 {
 	return 81
 }
 
 // MsgName (generated function)
-func (m *CommonCollision) MsgName() string {
+func (m *Collision) MsgName() string {
 	return "Collision"
 }
 
 // String (generated function)
-func (m *CommonCollision) String() string {
+func (m *Collision) String() string {
 	return fmt.Sprintf(
-		"&CommonCollision{ ID: %+v, TimeToMinimumDelta: %+v, AltitudeMinimumDelta: %+v, HorizontalMinimumDelta: %+v, Src: %+v, Action: %+v, ThreatLevel: %+v }",
+		"&Collision{ ID: %+v, TimeToMinimumDelta: %+v, AltitudeMinimumDelta: %+v, HorizontalMinimumDelta: %+v, Src: %+v, Action: %+v, ThreatLevel: %+v }",
 		m.ID,
 		m.TimeToMinimumDelta,
 		m.AltitudeMinimumDelta,
@@ -11993,7 +11994,7 @@ func (m *CommonCollision) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonCollision) Pack(p *Packet) error {
+func (m *Collision) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 19)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.ID))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.TimeToMinimumDelta))
@@ -12008,10 +12009,10 @@ func (m *CommonCollision) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonCollision) Unpack(p *Packet) error {
+func (m *Collision) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 19 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.ID = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.TimeToMinimumDelta = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -12023,9 +12024,9 @@ func (m *CommonCollision) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonV2Extension struct (generated typeinfo)
+// V2Extension struct (generated typeinfo)
 // Message implementing parts of the V2 payload specs in V1 frames for transitional support.
-type CommonV2Extension struct {
+type V2Extension struct {
 	MessageType     uint16     // A code that identifies the software component that understands this message (analogous to USB device classes or mime type strings). If this code is less than 32768, it is considered a 'registered' protocol extension and the corresponding entry should be added to https://github.com/mavlink/mavlink/definition_files/extension_message_ids.xml. Software creators can register blocks of message IDs as needed (useful for GCS specific metadata, etc...). Message_types greater than 32767 are considered local experiments and should not be checked in to any widely distributed codebase.
 	TargetNetwork   uint8      // Network ID (0 for broadcast)
 	TargetSystem    uint8      // System ID (0 for broadcast)
@@ -12034,24 +12035,24 @@ type CommonV2Extension struct {
 }
 
 // MsgID (generated function)
-func (m *CommonV2Extension) MsgID() MessageID {
+func (m *V2Extension) MsgID() mavlink.MessageID {
 	return MSG_ID_V2_EXTENSION
 }
 
 // CRCExtra (generated function)
-func (m *CommonV2Extension) CRCExtra() uint8 {
+func (m *V2Extension) CRCExtra() uint8 {
 	return 8
 }
 
 // MsgName (generated function)
-func (m *CommonV2Extension) MsgName() string {
+func (m *V2Extension) MsgName() string {
 	return "V2Extension"
 }
 
 // String (generated function)
-func (m *CommonV2Extension) String() string {
+func (m *V2Extension) String() string {
 	return fmt.Sprintf(
-		"&CommonV2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&V2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
 		m.MessageType,
 		m.TargetNetwork,
 		m.TargetSystem,
@@ -12061,7 +12062,7 @@ func (m *CommonV2Extension) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonV2Extension) Pack(p *Packet) error {
+func (m *V2Extension) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 254)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.MessageType))
 	payload[2] = byte(m.TargetNetwork)
@@ -12074,10 +12075,10 @@ func (m *CommonV2Extension) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonV2Extension) Unpack(p *Packet) error {
+func (m *V2Extension) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 254 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.MessageType = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.TargetNetwork = uint8(payload[2])
@@ -12087,9 +12088,9 @@ func (m *CommonV2Extension) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonMemoryVect struct (generated typeinfo)
+// MemoryVect struct (generated typeinfo)
 // Send raw controller memory. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type CommonMemoryVect struct {
+type MemoryVect struct {
 	Address uint16   // Starting address of the debug variables
 	Ver     uint8    // Version code of the type variable. 0=unknown, type ignored and assumed int16_t. 1=as below
 	Type    uint8    // Type code of the memory variables. for ver = 1: 0=16 x int16_t, 1=16 x uint16_t, 2=16 x Q15, 3=16 x 1Q14
@@ -12097,24 +12098,24 @@ type CommonMemoryVect struct {
 }
 
 // MsgID (generated function)
-func (m *CommonMemoryVect) MsgID() MessageID {
+func (m *MemoryVect) MsgID() mavlink.MessageID {
 	return MSG_ID_MEMORY_VECT
 }
 
 // CRCExtra (generated function)
-func (m *CommonMemoryVect) CRCExtra() uint8 {
+func (m *MemoryVect) CRCExtra() uint8 {
 	return 204
 }
 
 // MsgName (generated function)
-func (m *CommonMemoryVect) MsgName() string {
+func (m *MemoryVect) MsgName() string {
 	return "MemoryVect"
 }
 
 // String (generated function)
-func (m *CommonMemoryVect) String() string {
+func (m *MemoryVect) String() string {
 	return fmt.Sprintf(
-		"&CommonMemoryVect{ Address: %+v, Ver: %+v, Type: %+v, Value: %+v }",
+		"&MemoryVect{ Address: %+v, Ver: %+v, Type: %+v, Value: %+v }",
 		m.Address,
 		m.Ver,
 		m.Type,
@@ -12123,7 +12124,7 @@ func (m *CommonMemoryVect) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonMemoryVect) Pack(p *Packet) error {
+func (m *MemoryVect) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 36)
 	binary.LittleEndian.PutUint16(payload[0:], uint16(m.Address))
 	payload[2] = byte(m.Ver)
@@ -12137,10 +12138,10 @@ func (m *CommonMemoryVect) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonMemoryVect) Unpack(p *Packet) error {
+func (m *MemoryVect) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 36 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Address = uint16(binary.LittleEndian.Uint16(payload[0:]))
 	m.Ver = uint8(payload[2])
@@ -12151,9 +12152,9 @@ func (m *CommonMemoryVect) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonDebugVect struct (generated typeinfo)
+// DebugVect struct (generated typeinfo)
 // To debug something using a named 3D vector.
-type CommonDebugVect struct {
+type DebugVect struct {
 	TimeUsec uint64   // Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
 	X        float32  // x
 	Y        float32  // y
@@ -12162,24 +12163,24 @@ type CommonDebugVect struct {
 }
 
 // MsgID (generated function)
-func (m *CommonDebugVect) MsgID() MessageID {
+func (m *DebugVect) MsgID() mavlink.MessageID {
 	return MSG_ID_DEBUG_VECT
 }
 
 // CRCExtra (generated function)
-func (m *CommonDebugVect) CRCExtra() uint8 {
+func (m *DebugVect) CRCExtra() uint8 {
 	return 49
 }
 
 // MsgName (generated function)
-func (m *CommonDebugVect) MsgName() string {
+func (m *DebugVect) MsgName() string {
 	return "DebugVect"
 }
 
 // String (generated function)
-func (m *CommonDebugVect) String() string {
+func (m *DebugVect) String() string {
 	return fmt.Sprintf(
-		"&CommonDebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
+		"&DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
@@ -12189,7 +12190,7 @@ func (m *CommonDebugVect) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonDebugVect) Pack(p *Packet) error {
+func (m *DebugVect) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 30)
 	binary.LittleEndian.PutUint64(payload[0:], uint64(m.TimeUsec))
 	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.X))
@@ -12202,10 +12203,10 @@ func (m *CommonDebugVect) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonDebugVect) Unpack(p *Packet) error {
+func (m *DebugVect) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 30 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeUsec = uint64(binary.LittleEndian.Uint64(payload[0:]))
 	m.X = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
@@ -12215,33 +12216,33 @@ func (m *CommonDebugVect) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonNamedValueFloat struct (generated typeinfo)
+// NamedValueFloat struct (generated typeinfo)
 // Send a key-value pair as float. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type CommonNamedValueFloat struct {
+type NamedValueFloat struct {
 	TimeBootMs uint32   // Timestamp (time since system boot).
 	Value      float32  // Floating point value
 	Name       [10]byte // Name of the debug variable
 }
 
 // MsgID (generated function)
-func (m *CommonNamedValueFloat) MsgID() MessageID {
+func (m *NamedValueFloat) MsgID() mavlink.MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
 }
 
 // CRCExtra (generated function)
-func (m *CommonNamedValueFloat) CRCExtra() uint8 {
+func (m *NamedValueFloat) CRCExtra() uint8 {
 	return 170
 }
 
 // MsgName (generated function)
-func (m *CommonNamedValueFloat) MsgName() string {
+func (m *NamedValueFloat) MsgName() string {
 	return "NamedValueFloat"
 }
 
 // String (generated function)
-func (m *CommonNamedValueFloat) String() string {
+func (m *NamedValueFloat) String() string {
 	return fmt.Sprintf(
-		"&CommonNamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name,
@@ -12249,7 +12250,7 @@ func (m *CommonNamedValueFloat) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonNamedValueFloat) Pack(p *Packet) error {
+func (m *NamedValueFloat) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
@@ -12260,10 +12261,10 @@ func (m *CommonNamedValueFloat) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonNamedValueFloat) Unpack(p *Packet) error {
+func (m *NamedValueFloat) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 18 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -12271,33 +12272,33 @@ func (m *CommonNamedValueFloat) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonNamedValueInt struct (generated typeinfo)
+// NamedValueInt struct (generated typeinfo)
 // Send a key-value pair as integer. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
-type CommonNamedValueInt struct {
+type NamedValueInt struct {
 	TimeBootMs uint32   // Timestamp (time since system boot).
 	Value      int32    // Signed integer value
 	Name       [10]byte // Name of the debug variable
 }
 
 // MsgID (generated function)
-func (m *CommonNamedValueInt) MsgID() MessageID {
+func (m *NamedValueInt) MsgID() mavlink.MessageID {
 	return MSG_ID_NAMED_VALUE_INT
 }
 
 // CRCExtra (generated function)
-func (m *CommonNamedValueInt) CRCExtra() uint8 {
+func (m *NamedValueInt) CRCExtra() uint8 {
 	return 44
 }
 
 // MsgName (generated function)
-func (m *CommonNamedValueInt) MsgName() string {
+func (m *NamedValueInt) MsgName() string {
 	return "NamedValueInt"
 }
 
 // String (generated function)
-func (m *CommonNamedValueInt) String() string {
+func (m *NamedValueInt) String() string {
 	return fmt.Sprintf(
-		"&CommonNamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name,
@@ -12305,7 +12306,7 @@ func (m *CommonNamedValueInt) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonNamedValueInt) Pack(p *Packet) error {
+func (m *NamedValueInt) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 18)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], uint32(m.Value))
@@ -12316,10 +12317,10 @@ func (m *CommonNamedValueInt) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonNamedValueInt) Unpack(p *Packet) error {
+func (m *NamedValueInt) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 18 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = int32(binary.LittleEndian.Uint32(payload[4:]))
@@ -12327,39 +12328,39 @@ func (m *CommonNamedValueInt) Unpack(p *Packet) error {
 	return nil
 }
 
-// CommonStatustext struct (generated typeinfo)
+// Statustext struct (generated typeinfo)
 // Status text message. These messages are printed in yellow in the COMM console of QGroundControl. WARNING: They consume quite some bandwidth, so use only for important status and error messages. If implemented wisely, these messages are buffered on the MCU and sent only at a limited rate (e.g. 10 Hz).
-type CommonStatustext struct {
+type Statustext struct {
 	Severity uint8    // Severity of status. Relies on the definitions within RFC-5424.
 	Text     [50]byte // Status text message, without null termination character
 }
 
 // MsgID (generated function)
-func (m *CommonStatustext) MsgID() MessageID {
+func (m *Statustext) MsgID() mavlink.MessageID {
 	return MSG_ID_STATUSTEXT
 }
 
 // CRCExtra (generated function)
-func (m *CommonStatustext) CRCExtra() uint8 {
+func (m *Statustext) CRCExtra() uint8 {
 	return 83
 }
 
 // MsgName (generated function)
-func (m *CommonStatustext) MsgName() string {
+func (m *Statustext) MsgName() string {
 	return "Statustext"
 }
 
 // String (generated function)
-func (m *CommonStatustext) String() string {
+func (m *Statustext) String() string {
 	return fmt.Sprintf(
-		"&CommonStatustext{ Severity: %+v, Text: %+v }",
+		"&Statustext{ Severity: %+v, Text: %+v }",
 		m.Severity,
 		m.Text,
 	)
 }
 
 // Pack (generated function)
-func (m *CommonStatustext) Pack(p *Packet) error {
+func (m *Statustext) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 51)
 	payload[0] = byte(m.Severity)
 	copy(payload[1:], m.Text[:])
@@ -12369,43 +12370,43 @@ func (m *CommonStatustext) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonStatustext) Unpack(p *Packet) error {
+func (m *Statustext) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 51 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.Severity = uint8(payload[0])
 	copy(m.Text[:], payload[1:51])
 	return nil
 }
 
-// CommonDebug struct (generated typeinfo)
+// Debug struct (generated typeinfo)
 // Send a debug value. The index is used to discriminate between values. These values show up in the plot of QGroundControl as DEBUG N.
-type CommonDebug struct {
+type Debug struct {
 	TimeBootMs uint32  // Timestamp (time since system boot).
 	Value      float32 // DEBUG value
 	Ind        uint8   // index of debug variable
 }
 
 // MsgID (generated function)
-func (m *CommonDebug) MsgID() MessageID {
+func (m *Debug) MsgID() mavlink.MessageID {
 	return MSG_ID_DEBUG
 }
 
 // CRCExtra (generated function)
-func (m *CommonDebug) CRCExtra() uint8 {
+func (m *Debug) CRCExtra() uint8 {
 	return 46
 }
 
 // MsgName (generated function)
-func (m *CommonDebug) MsgName() string {
+func (m *Debug) MsgName() string {
 	return "Debug"
 }
 
 // String (generated function)
-func (m *CommonDebug) String() string {
+func (m *Debug) String() string {
 	return fmt.Sprintf(
-		"&CommonDebug{ TimeBootMs: %+v, Value: %+v, Ind: %+v }",
+		"&Debug{ TimeBootMs: %+v, Value: %+v, Ind: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Ind,
@@ -12413,7 +12414,7 @@ func (m *CommonDebug) String() string {
 }
 
 // Pack (generated function)
-func (m *CommonDebug) Pack(p *Packet) error {
+func (m *Debug) Pack(p *mavlink.Packet) error {
 	payload := make([]byte, 9)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.TimeBootMs))
 	binary.LittleEndian.PutUint32(payload[4:], math.Float32bits(m.Value))
@@ -12424,10 +12425,10 @@ func (m *CommonDebug) Pack(p *Packet) error {
 }
 
 // Unpack (generated function)
-func (m *CommonDebug) Unpack(p *Packet) error {
+func (m *Debug) Unpack(p *mavlink.Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 9 {
-		return errPayloadTooSmall
+		return mavlink.ErrPayloadTooSmall
 	}
 	m.TimeBootMs = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	m.Value = math.Float32frombits(binary.LittleEndian.Uint32(payload[4:]))
@@ -12437,1583 +12438,866 @@ func (m *CommonDebug) Unpack(p *Packet) error {
 
 // Message IDs
 const (
-	MSG_ID_SYS_STATUS                              MessageID = 1
-	MSG_ID_SYSTEM_TIME                             MessageID = 2
-	MSG_ID_PING                                    MessageID = 4
-	MSG_ID_CHANGE_OPERATOR_CONTROL                 MessageID = 5
-	MSG_ID_CHANGE_OPERATOR_CONTROL_ACK             MessageID = 6
-	MSG_ID_AUTH_KEY                                MessageID = 7
-	MSG_ID_LINK_NODE_STATUS                        MessageID = 8
-	MSG_ID_SET_MODE                                MessageID = 11
-	MSG_ID_PARAM_ACK_TRANSACTION                   MessageID = 19
-	MSG_ID_PARAM_REQUEST_READ                      MessageID = 20
-	MSG_ID_PARAM_REQUEST_LIST                      MessageID = 21
-	MSG_ID_PARAM_VALUE                             MessageID = 22
-	MSG_ID_PARAM_SET                               MessageID = 23
-	MSG_ID_GPS_RAW_INT                             MessageID = 24
-	MSG_ID_GPS_STATUS                              MessageID = 25
-	MSG_ID_SCALED_IMU                              MessageID = 26
-	MSG_ID_RAW_IMU                                 MessageID = 27
-	MSG_ID_RAW_PRESSURE                            MessageID = 28
-	MSG_ID_SCALED_PRESSURE                         MessageID = 29
-	MSG_ID_ATTITUDE                                MessageID = 30
-	MSG_ID_ATTITUDE_QUATERNION                     MessageID = 31
-	MSG_ID_LOCAL_POSITION_NED                      MessageID = 32
-	MSG_ID_GLOBAL_POSITION_INT                     MessageID = 33
-	MSG_ID_RC_CHANNELS_SCALED                      MessageID = 34
-	MSG_ID_RC_CHANNELS_RAW                         MessageID = 35
-	MSG_ID_SERVO_OUTPUT_RAW                        MessageID = 36
-	MSG_ID_MISSION_REQUEST_PARTIAL_LIST            MessageID = 37
-	MSG_ID_MISSION_WRITE_PARTIAL_LIST              MessageID = 38
-	MSG_ID_MISSION_ITEM                            MessageID = 39
-	MSG_ID_MISSION_REQUEST                         MessageID = 40
-	MSG_ID_MISSION_SET_CURRENT                     MessageID = 41
-	MSG_ID_MISSION_CURRENT                         MessageID = 42
-	MSG_ID_MISSION_REQUEST_LIST                    MessageID = 43
-	MSG_ID_MISSION_COUNT                           MessageID = 44
-	MSG_ID_MISSION_CLEAR_ALL                       MessageID = 45
-	MSG_ID_MISSION_ITEM_REACHED                    MessageID = 46
-	MSG_ID_MISSION_ACK                             MessageID = 47
-	MSG_ID_SET_GPS_GLOBAL_ORIGIN                   MessageID = 48
-	MSG_ID_GPS_GLOBAL_ORIGIN                       MessageID = 49
-	MSG_ID_PARAM_MAP_RC                            MessageID = 50
-	MSG_ID_MISSION_REQUEST_INT                     MessageID = 51
-	MSG_ID_MISSION_CHANGED                         MessageID = 52
-	MSG_ID_SAFETY_SET_ALLOWED_AREA                 MessageID = 54
-	MSG_ID_SAFETY_ALLOWED_AREA                     MessageID = 55
-	MSG_ID_ATTITUDE_QUATERNION_COV                 MessageID = 61
-	MSG_ID_NAV_CONTROLLER_OUTPUT                   MessageID = 62
-	MSG_ID_GLOBAL_POSITION_INT_COV                 MessageID = 63
-	MSG_ID_LOCAL_POSITION_NED_COV                  MessageID = 64
-	MSG_ID_RC_CHANNELS                             MessageID = 65
-	MSG_ID_REQUEST_DATA_STREAM                     MessageID = 66
-	MSG_ID_DATA_STREAM                             MessageID = 67
-	MSG_ID_MANUAL_CONTROL                          MessageID = 69
-	MSG_ID_RC_CHANNELS_OVERRIDE                    MessageID = 70
-	MSG_ID_MISSION_ITEM_INT                        MessageID = 73
-	MSG_ID_VFR_HUD                                 MessageID = 74
-	MSG_ID_COMMAND_INT                             MessageID = 75
-	MSG_ID_COMMAND_LONG                            MessageID = 76
-	MSG_ID_COMMAND_ACK                             MessageID = 77
-	MSG_ID_COMMAND_CANCEL                          MessageID = 80
-	MSG_ID_MANUAL_SETPOINT                         MessageID = 81
-	MSG_ID_SET_ATTITUDE_TARGET                     MessageID = 82
-	MSG_ID_ATTITUDE_TARGET                         MessageID = 83
-	MSG_ID_SET_POSITION_TARGET_LOCAL_NED           MessageID = 84
-	MSG_ID_POSITION_TARGET_LOCAL_NED               MessageID = 85
-	MSG_ID_SET_POSITION_TARGET_GLOBAL_INT          MessageID = 86
-	MSG_ID_POSITION_TARGET_GLOBAL_INT              MessageID = 87
-	MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET MessageID = 89
-	MSG_ID_HIL_STATE                               MessageID = 90
-	MSG_ID_HIL_CONTROLS                            MessageID = 91
-	MSG_ID_HIL_RC_INPUTS_RAW                       MessageID = 92
-	MSG_ID_HIL_ACTUATOR_CONTROLS                   MessageID = 93
-	MSG_ID_OPTICAL_FLOW                            MessageID = 100
-	MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE         MessageID = 101
-	MSG_ID_VISION_POSITION_ESTIMATE                MessageID = 102
-	MSG_ID_VISION_SPEED_ESTIMATE                   MessageID = 103
-	MSG_ID_VICON_POSITION_ESTIMATE                 MessageID = 104
-	MSG_ID_HIGHRES_IMU                             MessageID = 105
-	MSG_ID_OPTICAL_FLOW_RAD                        MessageID = 106
-	MSG_ID_HIL_SENSOR                              MessageID = 107
-	MSG_ID_SIM_STATE                               MessageID = 108
-	MSG_ID_RADIO_STATUS                            MessageID = 109
-	MSG_ID_FILE_TRANSFER_PROTOCOL                  MessageID = 110
-	MSG_ID_TIMESYNC                                MessageID = 111
-	MSG_ID_CAMERA_TRIGGER                          MessageID = 112
-	MSG_ID_HIL_GPS                                 MessageID = 113
-	MSG_ID_HIL_OPTICAL_FLOW                        MessageID = 114
-	MSG_ID_HIL_STATE_QUATERNION                    MessageID = 115
-	MSG_ID_SCALED_IMU2                             MessageID = 116
-	MSG_ID_LOG_REQUEST_LIST                        MessageID = 117
-	MSG_ID_LOG_ENTRY                               MessageID = 118
-	MSG_ID_LOG_REQUEST_DATA                        MessageID = 119
-	MSG_ID_LOG_DATA                                MessageID = 120
-	MSG_ID_LOG_ERASE                               MessageID = 121
-	MSG_ID_LOG_REQUEST_END                         MessageID = 122
-	MSG_ID_GPS_INJECT_DATA                         MessageID = 123
-	MSG_ID_GPS2_RAW                                MessageID = 124
-	MSG_ID_POWER_STATUS                            MessageID = 125
-	MSG_ID_SERIAL_CONTROL                          MessageID = 126
-	MSG_ID_GPS_RTK                                 MessageID = 127
-	MSG_ID_GPS2_RTK                                MessageID = 128
-	MSG_ID_SCALED_IMU3                             MessageID = 129
-	MSG_ID_DATA_TRANSMISSION_HANDSHAKE             MessageID = 130
-	MSG_ID_ENCAPSULATED_DATA                       MessageID = 131
-	MSG_ID_DISTANCE_SENSOR                         MessageID = 132
-	MSG_ID_TERRAIN_REQUEST                         MessageID = 133
-	MSG_ID_TERRAIN_DATA                            MessageID = 134
-	MSG_ID_TERRAIN_CHECK                           MessageID = 135
-	MSG_ID_TERRAIN_REPORT                          MessageID = 136
-	MSG_ID_SCALED_PRESSURE2                        MessageID = 137
-	MSG_ID_ATT_POS_MOCAP                           MessageID = 138
-	MSG_ID_SET_ACTUATOR_CONTROL_TARGET             MessageID = 139
-	MSG_ID_ACTUATOR_CONTROL_TARGET                 MessageID = 140
-	MSG_ID_ALTITUDE                                MessageID = 141
-	MSG_ID_RESOURCE_REQUEST                        MessageID = 142
-	MSG_ID_SCALED_PRESSURE3                        MessageID = 143
-	MSG_ID_FOLLOW_TARGET                           MessageID = 144
-	MSG_ID_CONTROL_SYSTEM_STATE                    MessageID = 146
-	MSG_ID_BATTERY_STATUS                          MessageID = 147
-	MSG_ID_AUTOPILOT_VERSION                       MessageID = 148
-	MSG_ID_LANDING_TARGET                          MessageID = 149
-	MSG_ID_FENCE_STATUS                            MessageID = 162
-	MSG_ID_MAG_CAL_REPORT                          MessageID = 192
-	MSG_ID_EFI_STATUS                              MessageID = 225
-	MSG_ID_ESTIMATOR_STATUS                        MessageID = 230
-	MSG_ID_WIND_COV                                MessageID = 231
-	MSG_ID_GPS_INPUT                               MessageID = 232
-	MSG_ID_GPS_RTCM_DATA                           MessageID = 233
-	MSG_ID_HIGH_LATENCY                            MessageID = 234
-	MSG_ID_HIGH_LATENCY2                           MessageID = 235
-	MSG_ID_VIBRATION                               MessageID = 241
-	MSG_ID_HOME_POSITION                           MessageID = 242
-	MSG_ID_SET_HOME_POSITION                       MessageID = 243
-	MSG_ID_MESSAGE_INTERVAL                        MessageID = 244
-	MSG_ID_EXTENDED_SYS_STATE                      MessageID = 245
-	MSG_ID_ADSB_VEHICLE                            MessageID = 246
-	MSG_ID_COLLISION                               MessageID = 247
-	MSG_ID_V2_EXTENSION                            MessageID = 248
-	MSG_ID_MEMORY_VECT                             MessageID = 249
-	MSG_ID_DEBUG_VECT                              MessageID = 250
-	MSG_ID_NAMED_VALUE_FLOAT                       MessageID = 251
-	MSG_ID_NAMED_VALUE_INT                         MessageID = 252
-	MSG_ID_STATUSTEXT                              MessageID = 253
-	MSG_ID_DEBUG                                   MessageID = 254
+	MSG_ID_SYS_STATUS                              mavlink.MessageID = 1
+	MSG_ID_SYSTEM_TIME                             mavlink.MessageID = 2
+	MSG_ID_PING                                    mavlink.MessageID = 4
+	MSG_ID_CHANGE_OPERATOR_CONTROL                 mavlink.MessageID = 5
+	MSG_ID_CHANGE_OPERATOR_CONTROL_ACK             mavlink.MessageID = 6
+	MSG_ID_AUTH_KEY                                mavlink.MessageID = 7
+	MSG_ID_LINK_NODE_STATUS                        mavlink.MessageID = 8
+	MSG_ID_SET_MODE                                mavlink.MessageID = 11
+	MSG_ID_PARAM_ACK_TRANSACTION                   mavlink.MessageID = 19
+	MSG_ID_PARAM_REQUEST_READ                      mavlink.MessageID = 20
+	MSG_ID_PARAM_REQUEST_LIST                      mavlink.MessageID = 21
+	MSG_ID_PARAM_VALUE                             mavlink.MessageID = 22
+	MSG_ID_PARAM_SET                               mavlink.MessageID = 23
+	MSG_ID_GPS_RAW_INT                             mavlink.MessageID = 24
+	MSG_ID_GPS_STATUS                              mavlink.MessageID = 25
+	MSG_ID_SCALED_IMU                              mavlink.MessageID = 26
+	MSG_ID_RAW_IMU                                 mavlink.MessageID = 27
+	MSG_ID_RAW_PRESSURE                            mavlink.MessageID = 28
+	MSG_ID_SCALED_PRESSURE                         mavlink.MessageID = 29
+	MSG_ID_ATTITUDE                                mavlink.MessageID = 30
+	MSG_ID_ATTITUDE_QUATERNION                     mavlink.MessageID = 31
+	MSG_ID_LOCAL_POSITION_NED                      mavlink.MessageID = 32
+	MSG_ID_GLOBAL_POSITION_INT                     mavlink.MessageID = 33
+	MSG_ID_RC_CHANNELS_SCALED                      mavlink.MessageID = 34
+	MSG_ID_RC_CHANNELS_RAW                         mavlink.MessageID = 35
+	MSG_ID_SERVO_OUTPUT_RAW                        mavlink.MessageID = 36
+	MSG_ID_MISSION_REQUEST_PARTIAL_LIST            mavlink.MessageID = 37
+	MSG_ID_MISSION_WRITE_PARTIAL_LIST              mavlink.MessageID = 38
+	MSG_ID_MISSION_ITEM                            mavlink.MessageID = 39
+	MSG_ID_MISSION_REQUEST                         mavlink.MessageID = 40
+	MSG_ID_MISSION_SET_CURRENT                     mavlink.MessageID = 41
+	MSG_ID_MISSION_CURRENT                         mavlink.MessageID = 42
+	MSG_ID_MISSION_REQUEST_LIST                    mavlink.MessageID = 43
+	MSG_ID_MISSION_COUNT                           mavlink.MessageID = 44
+	MSG_ID_MISSION_CLEAR_ALL                       mavlink.MessageID = 45
+	MSG_ID_MISSION_ITEM_REACHED                    mavlink.MessageID = 46
+	MSG_ID_MISSION_ACK                             mavlink.MessageID = 47
+	MSG_ID_SET_GPS_GLOBAL_ORIGIN                   mavlink.MessageID = 48
+	MSG_ID_GPS_GLOBAL_ORIGIN                       mavlink.MessageID = 49
+	MSG_ID_PARAM_MAP_RC                            mavlink.MessageID = 50
+	MSG_ID_MISSION_REQUEST_INT                     mavlink.MessageID = 51
+	MSG_ID_MISSION_CHANGED                         mavlink.MessageID = 52
+	MSG_ID_SAFETY_SET_ALLOWED_AREA                 mavlink.MessageID = 54
+	MSG_ID_SAFETY_ALLOWED_AREA                     mavlink.MessageID = 55
+	MSG_ID_ATTITUDE_QUATERNION_COV                 mavlink.MessageID = 61
+	MSG_ID_NAV_CONTROLLER_OUTPUT                   mavlink.MessageID = 62
+	MSG_ID_GLOBAL_POSITION_INT_COV                 mavlink.MessageID = 63
+	MSG_ID_LOCAL_POSITION_NED_COV                  mavlink.MessageID = 64
+	MSG_ID_RC_CHANNELS                             mavlink.MessageID = 65
+	MSG_ID_REQUEST_DATA_STREAM                     mavlink.MessageID = 66
+	MSG_ID_DATA_STREAM                             mavlink.MessageID = 67
+	MSG_ID_MANUAL_CONTROL                          mavlink.MessageID = 69
+	MSG_ID_RC_CHANNELS_OVERRIDE                    mavlink.MessageID = 70
+	MSG_ID_MISSION_ITEM_INT                        mavlink.MessageID = 73
+	MSG_ID_VFR_HUD                                 mavlink.MessageID = 74
+	MSG_ID_COMMAND_INT                             mavlink.MessageID = 75
+	MSG_ID_COMMAND_LONG                            mavlink.MessageID = 76
+	MSG_ID_COMMAND_ACK                             mavlink.MessageID = 77
+	MSG_ID_COMMAND_CANCEL                          mavlink.MessageID = 80
+	MSG_ID_MANUAL_SETPOINT                         mavlink.MessageID = 81
+	MSG_ID_SET_ATTITUDE_TARGET                     mavlink.MessageID = 82
+	MSG_ID_ATTITUDE_TARGET                         mavlink.MessageID = 83
+	MSG_ID_SET_POSITION_TARGET_LOCAL_NED           mavlink.MessageID = 84
+	MSG_ID_POSITION_TARGET_LOCAL_NED               mavlink.MessageID = 85
+	MSG_ID_SET_POSITION_TARGET_GLOBAL_INT          mavlink.MessageID = 86
+	MSG_ID_POSITION_TARGET_GLOBAL_INT              mavlink.MessageID = 87
+	MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET mavlink.MessageID = 89
+	MSG_ID_HIL_STATE                               mavlink.MessageID = 90
+	MSG_ID_HIL_CONTROLS                            mavlink.MessageID = 91
+	MSG_ID_HIL_RC_INPUTS_RAW                       mavlink.MessageID = 92
+	MSG_ID_HIL_ACTUATOR_CONTROLS                   mavlink.MessageID = 93
+	MSG_ID_OPTICAL_FLOW                            mavlink.MessageID = 100
+	MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE         mavlink.MessageID = 101
+	MSG_ID_VISION_POSITION_ESTIMATE                mavlink.MessageID = 102
+	MSG_ID_VISION_SPEED_ESTIMATE                   mavlink.MessageID = 103
+	MSG_ID_VICON_POSITION_ESTIMATE                 mavlink.MessageID = 104
+	MSG_ID_HIGHRES_IMU                             mavlink.MessageID = 105
+	MSG_ID_OPTICAL_FLOW_RAD                        mavlink.MessageID = 106
+	MSG_ID_HIL_SENSOR                              mavlink.MessageID = 107
+	MSG_ID_SIM_STATE                               mavlink.MessageID = 108
+	MSG_ID_RADIO_STATUS                            mavlink.MessageID = 109
+	MSG_ID_FILE_TRANSFER_PROTOCOL                  mavlink.MessageID = 110
+	MSG_ID_TIMESYNC                                mavlink.MessageID = 111
+	MSG_ID_CAMERA_TRIGGER                          mavlink.MessageID = 112
+	MSG_ID_HIL_GPS                                 mavlink.MessageID = 113
+	MSG_ID_HIL_OPTICAL_FLOW                        mavlink.MessageID = 114
+	MSG_ID_HIL_STATE_QUATERNION                    mavlink.MessageID = 115
+	MSG_ID_SCALED_IMU2                             mavlink.MessageID = 116
+	MSG_ID_LOG_REQUEST_LIST                        mavlink.MessageID = 117
+	MSG_ID_LOG_ENTRY                               mavlink.MessageID = 118
+	MSG_ID_LOG_REQUEST_DATA                        mavlink.MessageID = 119
+	MSG_ID_LOG_DATA                                mavlink.MessageID = 120
+	MSG_ID_LOG_ERASE                               mavlink.MessageID = 121
+	MSG_ID_LOG_REQUEST_END                         mavlink.MessageID = 122
+	MSG_ID_GPS_INJECT_DATA                         mavlink.MessageID = 123
+	MSG_ID_GPS2_RAW                                mavlink.MessageID = 124
+	MSG_ID_POWER_STATUS                            mavlink.MessageID = 125
+	MSG_ID_SERIAL_CONTROL                          mavlink.MessageID = 126
+	MSG_ID_GPS_RTK                                 mavlink.MessageID = 127
+	MSG_ID_GPS2_RTK                                mavlink.MessageID = 128
+	MSG_ID_SCALED_IMU3                             mavlink.MessageID = 129
+	MSG_ID_DATA_TRANSMISSION_HANDSHAKE             mavlink.MessageID = 130
+	MSG_ID_ENCAPSULATED_DATA                       mavlink.MessageID = 131
+	MSG_ID_DISTANCE_SENSOR                         mavlink.MessageID = 132
+	MSG_ID_TERRAIN_REQUEST                         mavlink.MessageID = 133
+	MSG_ID_TERRAIN_DATA                            mavlink.MessageID = 134
+	MSG_ID_TERRAIN_CHECK                           mavlink.MessageID = 135
+	MSG_ID_TERRAIN_REPORT                          mavlink.MessageID = 136
+	MSG_ID_SCALED_PRESSURE2                        mavlink.MessageID = 137
+	MSG_ID_ATT_POS_MOCAP                           mavlink.MessageID = 138
+	MSG_ID_SET_ACTUATOR_CONTROL_TARGET             mavlink.MessageID = 139
+	MSG_ID_ACTUATOR_CONTROL_TARGET                 mavlink.MessageID = 140
+	MSG_ID_ALTITUDE                                mavlink.MessageID = 141
+	MSG_ID_RESOURCE_REQUEST                        mavlink.MessageID = 142
+	MSG_ID_SCALED_PRESSURE3                        mavlink.MessageID = 143
+	MSG_ID_FOLLOW_TARGET                           mavlink.MessageID = 144
+	MSG_ID_CONTROL_SYSTEM_STATE                    mavlink.MessageID = 146
+	MSG_ID_BATTERY_STATUS                          mavlink.MessageID = 147
+	MSG_ID_AUTOPILOT_VERSION                       mavlink.MessageID = 148
+	MSG_ID_LANDING_TARGET                          mavlink.MessageID = 149
+	MSG_ID_FENCE_STATUS                            mavlink.MessageID = 162
+	MSG_ID_MAG_CAL_REPORT                          mavlink.MessageID = 192
+	MSG_ID_EFI_STATUS                              mavlink.MessageID = 225
+	MSG_ID_ESTIMATOR_STATUS                        mavlink.MessageID = 230
+	MSG_ID_WIND_COV                                mavlink.MessageID = 231
+	MSG_ID_GPS_INPUT                               mavlink.MessageID = 232
+	MSG_ID_GPS_RTCM_DATA                           mavlink.MessageID = 233
+	MSG_ID_HIGH_LATENCY                            mavlink.MessageID = 234
+	MSG_ID_HIGH_LATENCY2                           mavlink.MessageID = 235
+	MSG_ID_VIBRATION                               mavlink.MessageID = 241
+	MSG_ID_HOME_POSITION                           mavlink.MessageID = 242
+	MSG_ID_SET_HOME_POSITION                       mavlink.MessageID = 243
+	MSG_ID_MESSAGE_INTERVAL                        mavlink.MessageID = 244
+	MSG_ID_EXTENDED_SYS_STATE                      mavlink.MessageID = 245
+	MSG_ID_ADSB_VEHICLE                            mavlink.MessageID = 246
+	MSG_ID_COLLISION                               mavlink.MessageID = 247
+	MSG_ID_V2_EXTENSION                            mavlink.MessageID = 248
+	MSG_ID_MEMORY_VECT                             mavlink.MessageID = 249
+	MSG_ID_DEBUG_VECT                              mavlink.MessageID = 250
+	MSG_ID_NAMED_VALUE_FLOAT                       mavlink.MessageID = 251
+	MSG_ID_NAMED_VALUE_INT                         mavlink.MessageID = 252
+	MSG_ID_STATUSTEXT                              mavlink.MessageID = 253
+	MSG_ID_DEBUG                                   mavlink.MessageID = 254
 )
 
-// init Common variables
+// init Common dialect
 func init() {
-	// check Common collision's  and if ok add crc extra and constructor
-	if _, ok := msgCrcExtras[MSG_ID_SYS_STATUS]; ok {
-		panic("Cannot append MSG_ID_SYS_STATUS. Already exists message ID '1'")
-	} else {
-		msgCrcExtras[MSG_ID_SYS_STATUS] = 124
-		msgConstructors[MSG_ID_SYS_STATUS] = func(p *Packet) Message {
-			msg := new(CommonSysStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SYSTEM_TIME]; ok {
-		panic("Cannot append MSG_ID_SYSTEM_TIME. Already exists message ID '2'")
-	} else {
-		msgCrcExtras[MSG_ID_SYSTEM_TIME] = 137
-		msgConstructors[MSG_ID_SYSTEM_TIME] = func(p *Packet) Message {
-			msg := new(CommonSystemTime)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PING]; ok {
-		panic("Cannot append MSG_ID_PING. Already exists message ID '4'")
-	} else {
-		msgCrcExtras[MSG_ID_PING] = 237
-		msgConstructors[MSG_ID_PING] = func(p *Packet) Message {
-			msg := new(CommonPing)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CHANGE_OPERATOR_CONTROL]; ok {
-		panic("Cannot append MSG_ID_CHANGE_OPERATOR_CONTROL. Already exists message ID '5'")
-	} else {
-		msgCrcExtras[MSG_ID_CHANGE_OPERATOR_CONTROL] = 217
-		msgConstructors[MSG_ID_CHANGE_OPERATOR_CONTROL] = func(p *Packet) Message {
-			msg := new(CommonChangeOperatorControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CHANGE_OPERATOR_CONTROL_ACK]; ok {
-		panic("Cannot append MSG_ID_CHANGE_OPERATOR_CONTROL_ACK. Already exists message ID '6'")
-	} else {
-		msgCrcExtras[MSG_ID_CHANGE_OPERATOR_CONTROL_ACK] = 104
-		msgConstructors[MSG_ID_CHANGE_OPERATOR_CONTROL_ACK] = func(p *Packet) Message {
-			msg := new(CommonChangeOperatorControlAck)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AUTH_KEY]; ok {
-		panic("Cannot append MSG_ID_AUTH_KEY. Already exists message ID '7'")
-	} else {
-		msgCrcExtras[MSG_ID_AUTH_KEY] = 119
-		msgConstructors[MSG_ID_AUTH_KEY] = func(p *Packet) Message {
-			msg := new(CommonAuthKey)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LINK_NODE_STATUS]; ok {
-		panic("Cannot append MSG_ID_LINK_NODE_STATUS. Already exists message ID '8'")
-	} else {
-		msgCrcExtras[MSG_ID_LINK_NODE_STATUS] = 117
-		msgConstructors[MSG_ID_LINK_NODE_STATUS] = func(p *Packet) Message {
-			msg := new(CommonLinkNodeStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_MODE]; ok {
-		panic("Cannot append MSG_ID_SET_MODE. Already exists message ID '11'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_MODE] = 89
-		msgConstructors[MSG_ID_SET_MODE] = func(p *Packet) Message {
-			msg := new(CommonSetMode)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_ACK_TRANSACTION]; ok {
-		panic("Cannot append MSG_ID_PARAM_ACK_TRANSACTION. Already exists message ID '19'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_ACK_TRANSACTION] = 137
-		msgConstructors[MSG_ID_PARAM_ACK_TRANSACTION] = func(p *Packet) Message {
-			msg := new(CommonParamAckTransaction)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_REQUEST_READ]; ok {
-		panic("Cannot append MSG_ID_PARAM_REQUEST_READ. Already exists message ID '20'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_REQUEST_READ] = 214
-		msgConstructors[MSG_ID_PARAM_REQUEST_READ] = func(p *Packet) Message {
-			msg := new(CommonParamRequestRead)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_REQUEST_LIST]; ok {
-		panic("Cannot append MSG_ID_PARAM_REQUEST_LIST. Already exists message ID '21'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_REQUEST_LIST] = 159
-		msgConstructors[MSG_ID_PARAM_REQUEST_LIST] = func(p *Packet) Message {
-			msg := new(CommonParamRequestList)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_VALUE]; ok {
-		panic("Cannot append MSG_ID_PARAM_VALUE. Already exists message ID '22'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_VALUE] = 220
-		msgConstructors[MSG_ID_PARAM_VALUE] = func(p *Packet) Message {
-			msg := new(CommonParamValue)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_SET]; ok {
-		panic("Cannot append MSG_ID_PARAM_SET. Already exists message ID '23'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_SET] = 168
-		msgConstructors[MSG_ID_PARAM_SET] = func(p *Packet) Message {
-			msg := new(CommonParamSet)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_RAW_INT]; ok {
-		panic("Cannot append MSG_ID_GPS_RAW_INT. Already exists message ID '24'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_RAW_INT] = 24
-		msgConstructors[MSG_ID_GPS_RAW_INT] = func(p *Packet) Message {
-			msg := new(CommonGpsRawInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_STATUS]; ok {
-		panic("Cannot append MSG_ID_GPS_STATUS. Already exists message ID '25'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_STATUS] = 23
-		msgConstructors[MSG_ID_GPS_STATUS] = func(p *Packet) Message {
-			msg := new(CommonGpsStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_IMU]; ok {
-		panic("Cannot append MSG_ID_SCALED_IMU. Already exists message ID '26'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_IMU] = 170
-		msgConstructors[MSG_ID_SCALED_IMU] = func(p *Packet) Message {
-			msg := new(CommonScaledImu)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RAW_IMU]; ok {
-		panic("Cannot append MSG_ID_RAW_IMU. Already exists message ID '27'")
-	} else {
-		msgCrcExtras[MSG_ID_RAW_IMU] = 144
-		msgConstructors[MSG_ID_RAW_IMU] = func(p *Packet) Message {
-			msg := new(CommonRawImu)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RAW_PRESSURE]; ok {
-		panic("Cannot append MSG_ID_RAW_PRESSURE. Already exists message ID '28'")
-	} else {
-		msgCrcExtras[MSG_ID_RAW_PRESSURE] = 67
-		msgConstructors[MSG_ID_RAW_PRESSURE] = func(p *Packet) Message {
-			msg := new(CommonRawPressure)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_PRESSURE]; ok {
-		panic("Cannot append MSG_ID_SCALED_PRESSURE. Already exists message ID '29'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_PRESSURE] = 115
-		msgConstructors[MSG_ID_SCALED_PRESSURE] = func(p *Packet) Message {
-			msg := new(CommonScaledPressure)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ATTITUDE]; ok {
-		panic("Cannot append MSG_ID_ATTITUDE. Already exists message ID '30'")
-	} else {
-		msgCrcExtras[MSG_ID_ATTITUDE] = 39
-		msgConstructors[MSG_ID_ATTITUDE] = func(p *Packet) Message {
-			msg := new(CommonAttitude)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ATTITUDE_QUATERNION]; ok {
-		panic("Cannot append MSG_ID_ATTITUDE_QUATERNION. Already exists message ID '31'")
-	} else {
-		msgCrcExtras[MSG_ID_ATTITUDE_QUATERNION] = 246
-		msgConstructors[MSG_ID_ATTITUDE_QUATERNION] = func(p *Packet) Message {
-			msg := new(CommonAttitudeQuaternion)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOCAL_POSITION_NED]; ok {
-		panic("Cannot append MSG_ID_LOCAL_POSITION_NED. Already exists message ID '32'")
-	} else {
-		msgCrcExtras[MSG_ID_LOCAL_POSITION_NED] = 185
-		msgConstructors[MSG_ID_LOCAL_POSITION_NED] = func(p *Packet) Message {
-			msg := new(CommonLocalPositionNed)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GLOBAL_POSITION_INT]; ok {
-		panic("Cannot append MSG_ID_GLOBAL_POSITION_INT. Already exists message ID '33'")
-	} else {
-		msgCrcExtras[MSG_ID_GLOBAL_POSITION_INT] = 104
-		msgConstructors[MSG_ID_GLOBAL_POSITION_INT] = func(p *Packet) Message {
-			msg := new(CommonGlobalPositionInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RC_CHANNELS_SCALED]; ok {
-		panic("Cannot append MSG_ID_RC_CHANNELS_SCALED. Already exists message ID '34'")
-	} else {
-		msgCrcExtras[MSG_ID_RC_CHANNELS_SCALED] = 237
-		msgConstructors[MSG_ID_RC_CHANNELS_SCALED] = func(p *Packet) Message {
-			msg := new(CommonRcChannelsScaled)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RC_CHANNELS_RAW]; ok {
-		panic("Cannot append MSG_ID_RC_CHANNELS_RAW. Already exists message ID '35'")
-	} else {
-		msgCrcExtras[MSG_ID_RC_CHANNELS_RAW] = 244
-		msgConstructors[MSG_ID_RC_CHANNELS_RAW] = func(p *Packet) Message {
-			msg := new(CommonRcChannelsRaw)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SERVO_OUTPUT_RAW]; ok {
-		panic("Cannot append MSG_ID_SERVO_OUTPUT_RAW. Already exists message ID '36'")
-	} else {
-		msgCrcExtras[MSG_ID_SERVO_OUTPUT_RAW] = 222
-		msgConstructors[MSG_ID_SERVO_OUTPUT_RAW] = func(p *Packet) Message {
-			msg := new(CommonServoOutputRaw)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_REQUEST_PARTIAL_LIST]; ok {
-		panic("Cannot append MSG_ID_MISSION_REQUEST_PARTIAL_LIST. Already exists message ID '37'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_REQUEST_PARTIAL_LIST] = 212
-		msgConstructors[MSG_ID_MISSION_REQUEST_PARTIAL_LIST] = func(p *Packet) Message {
-			msg := new(CommonMissionRequestPartialList)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_WRITE_PARTIAL_LIST]; ok {
-		panic("Cannot append MSG_ID_MISSION_WRITE_PARTIAL_LIST. Already exists message ID '38'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_WRITE_PARTIAL_LIST] = 9
-		msgConstructors[MSG_ID_MISSION_WRITE_PARTIAL_LIST] = func(p *Packet) Message {
-			msg := new(CommonMissionWritePartialList)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_ITEM]; ok {
-		panic("Cannot append MSG_ID_MISSION_ITEM. Already exists message ID '39'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_ITEM] = 254
-		msgConstructors[MSG_ID_MISSION_ITEM] = func(p *Packet) Message {
-			msg := new(CommonMissionItem)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_REQUEST]; ok {
-		panic("Cannot append MSG_ID_MISSION_REQUEST. Already exists message ID '40'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_REQUEST] = 230
-		msgConstructors[MSG_ID_MISSION_REQUEST] = func(p *Packet) Message {
-			msg := new(CommonMissionRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_SET_CURRENT]; ok {
-		panic("Cannot append MSG_ID_MISSION_SET_CURRENT. Already exists message ID '41'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_SET_CURRENT] = 28
-		msgConstructors[MSG_ID_MISSION_SET_CURRENT] = func(p *Packet) Message {
-			msg := new(CommonMissionSetCurrent)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_CURRENT]; ok {
-		panic("Cannot append MSG_ID_MISSION_CURRENT. Already exists message ID '42'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_CURRENT] = 28
-		msgConstructors[MSG_ID_MISSION_CURRENT] = func(p *Packet) Message {
-			msg := new(CommonMissionCurrent)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_REQUEST_LIST]; ok {
-		panic("Cannot append MSG_ID_MISSION_REQUEST_LIST. Already exists message ID '43'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_REQUEST_LIST] = 132
-		msgConstructors[MSG_ID_MISSION_REQUEST_LIST] = func(p *Packet) Message {
-			msg := new(CommonMissionRequestList)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_COUNT]; ok {
-		panic("Cannot append MSG_ID_MISSION_COUNT. Already exists message ID '44'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_COUNT] = 221
-		msgConstructors[MSG_ID_MISSION_COUNT] = func(p *Packet) Message {
-			msg := new(CommonMissionCount)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_CLEAR_ALL]; ok {
-		panic("Cannot append MSG_ID_MISSION_CLEAR_ALL. Already exists message ID '45'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_CLEAR_ALL] = 232
-		msgConstructors[MSG_ID_MISSION_CLEAR_ALL] = func(p *Packet) Message {
-			msg := new(CommonMissionClearAll)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_ITEM_REACHED]; ok {
-		panic("Cannot append MSG_ID_MISSION_ITEM_REACHED. Already exists message ID '46'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_ITEM_REACHED] = 11
-		msgConstructors[MSG_ID_MISSION_ITEM_REACHED] = func(p *Packet) Message {
-			msg := new(CommonMissionItemReached)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_ACK]; ok {
-		panic("Cannot append MSG_ID_MISSION_ACK. Already exists message ID '47'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_ACK] = 153
-		msgConstructors[MSG_ID_MISSION_ACK] = func(p *Packet) Message {
-			msg := new(CommonMissionAck)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_GPS_GLOBAL_ORIGIN]; ok {
-		panic("Cannot append MSG_ID_SET_GPS_GLOBAL_ORIGIN. Already exists message ID '48'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_GPS_GLOBAL_ORIGIN] = 41
-		msgConstructors[MSG_ID_SET_GPS_GLOBAL_ORIGIN] = func(p *Packet) Message {
-			msg := new(CommonSetGpsGlobalOrigin)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_GLOBAL_ORIGIN]; ok {
-		panic("Cannot append MSG_ID_GPS_GLOBAL_ORIGIN. Already exists message ID '49'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_GLOBAL_ORIGIN] = 39
-		msgConstructors[MSG_ID_GPS_GLOBAL_ORIGIN] = func(p *Packet) Message {
-			msg := new(CommonGpsGlobalOrigin)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_PARAM_MAP_RC]; ok {
-		panic("Cannot append MSG_ID_PARAM_MAP_RC. Already exists message ID '50'")
-	} else {
-		msgCrcExtras[MSG_ID_PARAM_MAP_RC] = 78
-		msgConstructors[MSG_ID_PARAM_MAP_RC] = func(p *Packet) Message {
-			msg := new(CommonParamMapRc)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_REQUEST_INT]; ok {
-		panic("Cannot append MSG_ID_MISSION_REQUEST_INT. Already exists message ID '51'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_REQUEST_INT] = 196
-		msgConstructors[MSG_ID_MISSION_REQUEST_INT] = func(p *Packet) Message {
-			msg := new(CommonMissionRequestInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_CHANGED]; ok {
-		panic("Cannot append MSG_ID_MISSION_CHANGED. Already exists message ID '52'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_CHANGED] = 132
-		msgConstructors[MSG_ID_MISSION_CHANGED] = func(p *Packet) Message {
-			msg := new(CommonMissionChanged)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SAFETY_SET_ALLOWED_AREA]; ok {
-		panic("Cannot append MSG_ID_SAFETY_SET_ALLOWED_AREA. Already exists message ID '54'")
-	} else {
-		msgCrcExtras[MSG_ID_SAFETY_SET_ALLOWED_AREA] = 15
-		msgConstructors[MSG_ID_SAFETY_SET_ALLOWED_AREA] = func(p *Packet) Message {
-			msg := new(CommonSafetySetAllowedArea)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SAFETY_ALLOWED_AREA]; ok {
-		panic("Cannot append MSG_ID_SAFETY_ALLOWED_AREA. Already exists message ID '55'")
-	} else {
-		msgCrcExtras[MSG_ID_SAFETY_ALLOWED_AREA] = 3
-		msgConstructors[MSG_ID_SAFETY_ALLOWED_AREA] = func(p *Packet) Message {
-			msg := new(CommonSafetyAllowedArea)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ATTITUDE_QUATERNION_COV]; ok {
-		panic("Cannot append MSG_ID_ATTITUDE_QUATERNION_COV. Already exists message ID '61'")
-	} else {
-		msgCrcExtras[MSG_ID_ATTITUDE_QUATERNION_COV] = 167
-		msgConstructors[MSG_ID_ATTITUDE_QUATERNION_COV] = func(p *Packet) Message {
-			msg := new(CommonAttitudeQuaternionCov)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_NAV_CONTROLLER_OUTPUT]; ok {
-		panic("Cannot append MSG_ID_NAV_CONTROLLER_OUTPUT. Already exists message ID '62'")
-	} else {
-		msgCrcExtras[MSG_ID_NAV_CONTROLLER_OUTPUT] = 183
-		msgConstructors[MSG_ID_NAV_CONTROLLER_OUTPUT] = func(p *Packet) Message {
-			msg := new(CommonNavControllerOutput)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GLOBAL_POSITION_INT_COV]; ok {
-		panic("Cannot append MSG_ID_GLOBAL_POSITION_INT_COV. Already exists message ID '63'")
-	} else {
-		msgCrcExtras[MSG_ID_GLOBAL_POSITION_INT_COV] = 119
-		msgConstructors[MSG_ID_GLOBAL_POSITION_INT_COV] = func(p *Packet) Message {
-			msg := new(CommonGlobalPositionIntCov)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOCAL_POSITION_NED_COV]; ok {
-		panic("Cannot append MSG_ID_LOCAL_POSITION_NED_COV. Already exists message ID '64'")
-	} else {
-		msgCrcExtras[MSG_ID_LOCAL_POSITION_NED_COV] = 191
-		msgConstructors[MSG_ID_LOCAL_POSITION_NED_COV] = func(p *Packet) Message {
-			msg := new(CommonLocalPositionNedCov)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RC_CHANNELS]; ok {
-		panic("Cannot append MSG_ID_RC_CHANNELS. Already exists message ID '65'")
-	} else {
-		msgCrcExtras[MSG_ID_RC_CHANNELS] = 118
-		msgConstructors[MSG_ID_RC_CHANNELS] = func(p *Packet) Message {
-			msg := new(CommonRcChannels)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_REQUEST_DATA_STREAM]; ok {
-		panic("Cannot append MSG_ID_REQUEST_DATA_STREAM. Already exists message ID '66'")
-	} else {
-		msgCrcExtras[MSG_ID_REQUEST_DATA_STREAM] = 148
-		msgConstructors[MSG_ID_REQUEST_DATA_STREAM] = func(p *Packet) Message {
-			msg := new(CommonRequestDataStream)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA_STREAM]; ok {
-		panic("Cannot append MSG_ID_DATA_STREAM. Already exists message ID '67'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA_STREAM] = 21
-		msgConstructors[MSG_ID_DATA_STREAM] = func(p *Packet) Message {
-			msg := new(CommonDataStream)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MANUAL_CONTROL]; ok {
-		panic("Cannot append MSG_ID_MANUAL_CONTROL. Already exists message ID '69'")
-	} else {
-		msgCrcExtras[MSG_ID_MANUAL_CONTROL] = 243
-		msgConstructors[MSG_ID_MANUAL_CONTROL] = func(p *Packet) Message {
-			msg := new(CommonManualControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RC_CHANNELS_OVERRIDE]; ok {
-		panic("Cannot append MSG_ID_RC_CHANNELS_OVERRIDE. Already exists message ID '70'")
-	} else {
-		msgCrcExtras[MSG_ID_RC_CHANNELS_OVERRIDE] = 124
-		msgConstructors[MSG_ID_RC_CHANNELS_OVERRIDE] = func(p *Packet) Message {
-			msg := new(CommonRcChannelsOverride)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MISSION_ITEM_INT]; ok {
-		panic("Cannot append MSG_ID_MISSION_ITEM_INT. Already exists message ID '73'")
-	} else {
-		msgCrcExtras[MSG_ID_MISSION_ITEM_INT] = 38
-		msgConstructors[MSG_ID_MISSION_ITEM_INT] = func(p *Packet) Message {
-			msg := new(CommonMissionItemInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_VFR_HUD]; ok {
-		panic("Cannot append MSG_ID_VFR_HUD. Already exists message ID '74'")
-	} else {
-		msgCrcExtras[MSG_ID_VFR_HUD] = 20
-		msgConstructors[MSG_ID_VFR_HUD] = func(p *Packet) Message {
-			msg := new(CommonVfrHud)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COMMAND_INT]; ok {
-		panic("Cannot append MSG_ID_COMMAND_INT. Already exists message ID '75'")
-	} else {
-		msgCrcExtras[MSG_ID_COMMAND_INT] = 158
-		msgConstructors[MSG_ID_COMMAND_INT] = func(p *Packet) Message {
-			msg := new(CommonCommandInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COMMAND_LONG]; ok {
-		panic("Cannot append MSG_ID_COMMAND_LONG. Already exists message ID '76'")
-	} else {
-		msgCrcExtras[MSG_ID_COMMAND_LONG] = 152
-		msgConstructors[MSG_ID_COMMAND_LONG] = func(p *Packet) Message {
-			msg := new(CommonCommandLong)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COMMAND_ACK]; ok {
-		panic("Cannot append MSG_ID_COMMAND_ACK. Already exists message ID '77'")
-	} else {
-		msgCrcExtras[MSG_ID_COMMAND_ACK] = 143
-		msgConstructors[MSG_ID_COMMAND_ACK] = func(p *Packet) Message {
-			msg := new(CommonCommandAck)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COMMAND_CANCEL]; ok {
-		panic("Cannot append MSG_ID_COMMAND_CANCEL. Already exists message ID '80'")
-	} else {
-		msgCrcExtras[MSG_ID_COMMAND_CANCEL] = 14
-		msgConstructors[MSG_ID_COMMAND_CANCEL] = func(p *Packet) Message {
-			msg := new(CommonCommandCancel)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MANUAL_SETPOINT]; ok {
-		panic("Cannot append MSG_ID_MANUAL_SETPOINT. Already exists message ID '81'")
-	} else {
-		msgCrcExtras[MSG_ID_MANUAL_SETPOINT] = 106
-		msgConstructors[MSG_ID_MANUAL_SETPOINT] = func(p *Packet) Message {
-			msg := new(CommonManualSetpoint)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_ATTITUDE_TARGET]; ok {
-		panic("Cannot append MSG_ID_SET_ATTITUDE_TARGET. Already exists message ID '82'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_ATTITUDE_TARGET] = 49
-		msgConstructors[MSG_ID_SET_ATTITUDE_TARGET] = func(p *Packet) Message {
-			msg := new(CommonSetAttitudeTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ATTITUDE_TARGET]; ok {
-		panic("Cannot append MSG_ID_ATTITUDE_TARGET. Already exists message ID '83'")
-	} else {
-		msgCrcExtras[MSG_ID_ATTITUDE_TARGET] = 22
-		msgConstructors[MSG_ID_ATTITUDE_TARGET] = func(p *Packet) Message {
-			msg := new(CommonAttitudeTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_POSITION_TARGET_LOCAL_NED]; ok {
-		panic("Cannot append MSG_ID_SET_POSITION_TARGET_LOCAL_NED. Already exists message ID '84'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_POSITION_TARGET_LOCAL_NED] = 143
-		msgConstructors[MSG_ID_SET_POSITION_TARGET_LOCAL_NED] = func(p *Packet) Message {
-			msg := new(CommonSetPositionTargetLocalNed)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_POSITION_TARGET_LOCAL_NED]; ok {
-		panic("Cannot append MSG_ID_POSITION_TARGET_LOCAL_NED. Already exists message ID '85'")
-	} else {
-		msgCrcExtras[MSG_ID_POSITION_TARGET_LOCAL_NED] = 140
-		msgConstructors[MSG_ID_POSITION_TARGET_LOCAL_NED] = func(p *Packet) Message {
-			msg := new(CommonPositionTargetLocalNed)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_POSITION_TARGET_GLOBAL_INT]; ok {
-		panic("Cannot append MSG_ID_SET_POSITION_TARGET_GLOBAL_INT. Already exists message ID '86'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_POSITION_TARGET_GLOBAL_INT] = 5
-		msgConstructors[MSG_ID_SET_POSITION_TARGET_GLOBAL_INT] = func(p *Packet) Message {
-			msg := new(CommonSetPositionTargetGlobalInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_POSITION_TARGET_GLOBAL_INT]; ok {
-		panic("Cannot append MSG_ID_POSITION_TARGET_GLOBAL_INT. Already exists message ID '87'")
-	} else {
-		msgCrcExtras[MSG_ID_POSITION_TARGET_GLOBAL_INT] = 150
-		msgConstructors[MSG_ID_POSITION_TARGET_GLOBAL_INT] = func(p *Packet) Message {
-			msg := new(CommonPositionTargetGlobalInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET]; ok {
-		panic("Cannot append MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET. Already exists message ID '89'")
-	} else {
-		msgCrcExtras[MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET] = 231
-		msgConstructors[MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET] = func(p *Packet) Message {
-			msg := new(CommonLocalPositionNedSystemGlobalOffset)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_STATE]; ok {
-		panic("Cannot append MSG_ID_HIL_STATE. Already exists message ID '90'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_STATE] = 183
-		msgConstructors[MSG_ID_HIL_STATE] = func(p *Packet) Message {
-			msg := new(CommonHilState)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_CONTROLS]; ok {
-		panic("Cannot append MSG_ID_HIL_CONTROLS. Already exists message ID '91'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_CONTROLS] = 63
-		msgConstructors[MSG_ID_HIL_CONTROLS] = func(p *Packet) Message {
-			msg := new(CommonHilControls)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_RC_INPUTS_RAW]; ok {
-		panic("Cannot append MSG_ID_HIL_RC_INPUTS_RAW. Already exists message ID '92'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_RC_INPUTS_RAW] = 54
-		msgConstructors[MSG_ID_HIL_RC_INPUTS_RAW] = func(p *Packet) Message {
-			msg := new(CommonHilRcInputsRaw)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_ACTUATOR_CONTROLS]; ok {
-		panic("Cannot append MSG_ID_HIL_ACTUATOR_CONTROLS. Already exists message ID '93'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_ACTUATOR_CONTROLS] = 47
-		msgConstructors[MSG_ID_HIL_ACTUATOR_CONTROLS] = func(p *Packet) Message {
-			msg := new(CommonHilActuatorControls)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_OPTICAL_FLOW]; ok {
-		panic("Cannot append MSG_ID_OPTICAL_FLOW. Already exists message ID '100'")
-	} else {
-		msgCrcExtras[MSG_ID_OPTICAL_FLOW] = 175
-		msgConstructors[MSG_ID_OPTICAL_FLOW] = func(p *Packet) Message {
-			msg := new(CommonOpticalFlow)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE]; ok {
-		panic("Cannot append MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE. Already exists message ID '101'")
-	} else {
-		msgCrcExtras[MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE] = 102
-		msgConstructors[MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE] = func(p *Packet) Message {
-			msg := new(CommonGlobalVisionPositionEstimate)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_VISION_POSITION_ESTIMATE]; ok {
-		panic("Cannot append MSG_ID_VISION_POSITION_ESTIMATE. Already exists message ID '102'")
-	} else {
-		msgCrcExtras[MSG_ID_VISION_POSITION_ESTIMATE] = 158
-		msgConstructors[MSG_ID_VISION_POSITION_ESTIMATE] = func(p *Packet) Message {
-			msg := new(CommonVisionPositionEstimate)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_VISION_SPEED_ESTIMATE]; ok {
-		panic("Cannot append MSG_ID_VISION_SPEED_ESTIMATE. Already exists message ID '103'")
-	} else {
-		msgCrcExtras[MSG_ID_VISION_SPEED_ESTIMATE] = 208
-		msgConstructors[MSG_ID_VISION_SPEED_ESTIMATE] = func(p *Packet) Message {
-			msg := new(CommonVisionSpeedEstimate)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_VICON_POSITION_ESTIMATE]; ok {
-		panic("Cannot append MSG_ID_VICON_POSITION_ESTIMATE. Already exists message ID '104'")
-	} else {
-		msgCrcExtras[MSG_ID_VICON_POSITION_ESTIMATE] = 56
-		msgConstructors[MSG_ID_VICON_POSITION_ESTIMATE] = func(p *Packet) Message {
-			msg := new(CommonViconPositionEstimate)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIGHRES_IMU]; ok {
-		panic("Cannot append MSG_ID_HIGHRES_IMU. Already exists message ID '105'")
-	} else {
-		msgCrcExtras[MSG_ID_HIGHRES_IMU] = 93
-		msgConstructors[MSG_ID_HIGHRES_IMU] = func(p *Packet) Message {
-			msg := new(CommonHighresImu)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_OPTICAL_FLOW_RAD]; ok {
-		panic("Cannot append MSG_ID_OPTICAL_FLOW_RAD. Already exists message ID '106'")
-	} else {
-		msgCrcExtras[MSG_ID_OPTICAL_FLOW_RAD] = 138
-		msgConstructors[MSG_ID_OPTICAL_FLOW_RAD] = func(p *Packet) Message {
-			msg := new(CommonOpticalFlowRad)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_SENSOR]; ok {
-		panic("Cannot append MSG_ID_HIL_SENSOR. Already exists message ID '107'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_SENSOR] = 108
-		msgConstructors[MSG_ID_HIL_SENSOR] = func(p *Packet) Message {
-			msg := new(CommonHilSensor)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SIM_STATE]; ok {
-		panic("Cannot append MSG_ID_SIM_STATE. Already exists message ID '108'")
-	} else {
-		msgCrcExtras[MSG_ID_SIM_STATE] = 32
-		msgConstructors[MSG_ID_SIM_STATE] = func(p *Packet) Message {
-			msg := new(CommonSimState)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RADIO_STATUS]; ok {
-		panic("Cannot append MSG_ID_RADIO_STATUS. Already exists message ID '109'")
-	} else {
-		msgCrcExtras[MSG_ID_RADIO_STATUS] = 185
-		msgConstructors[MSG_ID_RADIO_STATUS] = func(p *Packet) Message {
-			msg := new(CommonRadioStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_FILE_TRANSFER_PROTOCOL]; ok {
-		panic("Cannot append MSG_ID_FILE_TRANSFER_PROTOCOL. Already exists message ID '110'")
-	} else {
-		msgCrcExtras[MSG_ID_FILE_TRANSFER_PROTOCOL] = 84
-		msgConstructors[MSG_ID_FILE_TRANSFER_PROTOCOL] = func(p *Packet) Message {
-			msg := new(CommonFileTransferProtocol)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_TIMESYNC]; ok {
-		panic("Cannot append MSG_ID_TIMESYNC. Already exists message ID '111'")
-	} else {
-		msgCrcExtras[MSG_ID_TIMESYNC] = 34
-		msgConstructors[MSG_ID_TIMESYNC] = func(p *Packet) Message {
-			msg := new(CommonTimesync)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CAMERA_TRIGGER]; ok {
-		panic("Cannot append MSG_ID_CAMERA_TRIGGER. Already exists message ID '112'")
-	} else {
-		msgCrcExtras[MSG_ID_CAMERA_TRIGGER] = 174
-		msgConstructors[MSG_ID_CAMERA_TRIGGER] = func(p *Packet) Message {
-			msg := new(CommonCameraTrigger)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_GPS]; ok {
-		panic("Cannot append MSG_ID_HIL_GPS. Already exists message ID '113'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_GPS] = 124
-		msgConstructors[MSG_ID_HIL_GPS] = func(p *Packet) Message {
-			msg := new(CommonHilGps)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_OPTICAL_FLOW]; ok {
-		panic("Cannot append MSG_ID_HIL_OPTICAL_FLOW. Already exists message ID '114'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_OPTICAL_FLOW] = 237
-		msgConstructors[MSG_ID_HIL_OPTICAL_FLOW] = func(p *Packet) Message {
-			msg := new(CommonHilOpticalFlow)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIL_STATE_QUATERNION]; ok {
-		panic("Cannot append MSG_ID_HIL_STATE_QUATERNION. Already exists message ID '115'")
-	} else {
-		msgCrcExtras[MSG_ID_HIL_STATE_QUATERNION] = 4
-		msgConstructors[MSG_ID_HIL_STATE_QUATERNION] = func(p *Packet) Message {
-			msg := new(CommonHilStateQuaternion)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_IMU2]; ok {
-		panic("Cannot append MSG_ID_SCALED_IMU2. Already exists message ID '116'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_IMU2] = 76
-		msgConstructors[MSG_ID_SCALED_IMU2] = func(p *Packet) Message {
-			msg := new(CommonScaledImu2)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_REQUEST_LIST]; ok {
-		panic("Cannot append MSG_ID_LOG_REQUEST_LIST. Already exists message ID '117'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_REQUEST_LIST] = 128
-		msgConstructors[MSG_ID_LOG_REQUEST_LIST] = func(p *Packet) Message {
-			msg := new(CommonLogRequestList)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_ENTRY]; ok {
-		panic("Cannot append MSG_ID_LOG_ENTRY. Already exists message ID '118'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_ENTRY] = 56
-		msgConstructors[MSG_ID_LOG_ENTRY] = func(p *Packet) Message {
-			msg := new(CommonLogEntry)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_REQUEST_DATA]; ok {
-		panic("Cannot append MSG_ID_LOG_REQUEST_DATA. Already exists message ID '119'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_REQUEST_DATA] = 116
-		msgConstructors[MSG_ID_LOG_REQUEST_DATA] = func(p *Packet) Message {
-			msg := new(CommonLogRequestData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_DATA]; ok {
-		panic("Cannot append MSG_ID_LOG_DATA. Already exists message ID '120'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_DATA] = 134
-		msgConstructors[MSG_ID_LOG_DATA] = func(p *Packet) Message {
-			msg := new(CommonLogData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_ERASE]; ok {
-		panic("Cannot append MSG_ID_LOG_ERASE. Already exists message ID '121'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_ERASE] = 237
-		msgConstructors[MSG_ID_LOG_ERASE] = func(p *Packet) Message {
-			msg := new(CommonLogErase)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LOG_REQUEST_END]; ok {
-		panic("Cannot append MSG_ID_LOG_REQUEST_END. Already exists message ID '122'")
-	} else {
-		msgCrcExtras[MSG_ID_LOG_REQUEST_END] = 203
-		msgConstructors[MSG_ID_LOG_REQUEST_END] = func(p *Packet) Message {
-			msg := new(CommonLogRequestEnd)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_INJECT_DATA]; ok {
-		panic("Cannot append MSG_ID_GPS_INJECT_DATA. Already exists message ID '123'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_INJECT_DATA] = 250
-		msgConstructors[MSG_ID_GPS_INJECT_DATA] = func(p *Packet) Message {
-			msg := new(CommonGpsInjectData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS2_RAW]; ok {
-		panic("Cannot append MSG_ID_GPS2_RAW. Already exists message ID '124'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS2_RAW] = 87
-		msgConstructors[MSG_ID_GPS2_RAW] = func(p *Packet) Message {
-			msg := new(CommonGps2Raw)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_POWER_STATUS]; ok {
-		panic("Cannot append MSG_ID_POWER_STATUS. Already exists message ID '125'")
-	} else {
-		msgCrcExtras[MSG_ID_POWER_STATUS] = 203
-		msgConstructors[MSG_ID_POWER_STATUS] = func(p *Packet) Message {
-			msg := new(CommonPowerStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SERIAL_CONTROL]; ok {
-		panic("Cannot append MSG_ID_SERIAL_CONTROL. Already exists message ID '126'")
-	} else {
-		msgCrcExtras[MSG_ID_SERIAL_CONTROL] = 220
-		msgConstructors[MSG_ID_SERIAL_CONTROL] = func(p *Packet) Message {
-			msg := new(CommonSerialControl)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_RTK]; ok {
-		panic("Cannot append MSG_ID_GPS_RTK. Already exists message ID '127'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_RTK] = 25
-		msgConstructors[MSG_ID_GPS_RTK] = func(p *Packet) Message {
-			msg := new(CommonGpsRtk)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS2_RTK]; ok {
-		panic("Cannot append MSG_ID_GPS2_RTK. Already exists message ID '128'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS2_RTK] = 226
-		msgConstructors[MSG_ID_GPS2_RTK] = func(p *Packet) Message {
-			msg := new(CommonGps2Rtk)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_IMU3]; ok {
-		panic("Cannot append MSG_ID_SCALED_IMU3. Already exists message ID '129'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_IMU3] = 46
-		msgConstructors[MSG_ID_SCALED_IMU3] = func(p *Packet) Message {
-			msg := new(CommonScaledImu3)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DATA_TRANSMISSION_HANDSHAKE]; ok {
-		panic("Cannot append MSG_ID_DATA_TRANSMISSION_HANDSHAKE. Already exists message ID '130'")
-	} else {
-		msgCrcExtras[MSG_ID_DATA_TRANSMISSION_HANDSHAKE] = 29
-		msgConstructors[MSG_ID_DATA_TRANSMISSION_HANDSHAKE] = func(p *Packet) Message {
-			msg := new(CommonDataTransmissionHandshake)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ENCAPSULATED_DATA]; ok {
-		panic("Cannot append MSG_ID_ENCAPSULATED_DATA. Already exists message ID '131'")
-	} else {
-		msgCrcExtras[MSG_ID_ENCAPSULATED_DATA] = 223
-		msgConstructors[MSG_ID_ENCAPSULATED_DATA] = func(p *Packet) Message {
-			msg := new(CommonEncapsulatedData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DISTANCE_SENSOR]; ok {
-		panic("Cannot append MSG_ID_DISTANCE_SENSOR. Already exists message ID '132'")
-	} else {
-		msgCrcExtras[MSG_ID_DISTANCE_SENSOR] = 85
-		msgConstructors[MSG_ID_DISTANCE_SENSOR] = func(p *Packet) Message {
-			msg := new(CommonDistanceSensor)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_TERRAIN_REQUEST]; ok {
-		panic("Cannot append MSG_ID_TERRAIN_REQUEST. Already exists message ID '133'")
-	} else {
-		msgCrcExtras[MSG_ID_TERRAIN_REQUEST] = 6
-		msgConstructors[MSG_ID_TERRAIN_REQUEST] = func(p *Packet) Message {
-			msg := new(CommonTerrainRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_TERRAIN_DATA]; ok {
-		panic("Cannot append MSG_ID_TERRAIN_DATA. Already exists message ID '134'")
-	} else {
-		msgCrcExtras[MSG_ID_TERRAIN_DATA] = 229
-		msgConstructors[MSG_ID_TERRAIN_DATA] = func(p *Packet) Message {
-			msg := new(CommonTerrainData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_TERRAIN_CHECK]; ok {
-		panic("Cannot append MSG_ID_TERRAIN_CHECK. Already exists message ID '135'")
-	} else {
-		msgCrcExtras[MSG_ID_TERRAIN_CHECK] = 203
-		msgConstructors[MSG_ID_TERRAIN_CHECK] = func(p *Packet) Message {
-			msg := new(CommonTerrainCheck)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_TERRAIN_REPORT]; ok {
-		panic("Cannot append MSG_ID_TERRAIN_REPORT. Already exists message ID '136'")
-	} else {
-		msgCrcExtras[MSG_ID_TERRAIN_REPORT] = 1
-		msgConstructors[MSG_ID_TERRAIN_REPORT] = func(p *Packet) Message {
-			msg := new(CommonTerrainReport)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_PRESSURE2]; ok {
-		panic("Cannot append MSG_ID_SCALED_PRESSURE2. Already exists message ID '137'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_PRESSURE2] = 195
-		msgConstructors[MSG_ID_SCALED_PRESSURE2] = func(p *Packet) Message {
-			msg := new(CommonScaledPressure2)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ATT_POS_MOCAP]; ok {
-		panic("Cannot append MSG_ID_ATT_POS_MOCAP. Already exists message ID '138'")
-	} else {
-		msgCrcExtras[MSG_ID_ATT_POS_MOCAP] = 109
-		msgConstructors[MSG_ID_ATT_POS_MOCAP] = func(p *Packet) Message {
-			msg := new(CommonAttPosMocap)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_ACTUATOR_CONTROL_TARGET]; ok {
-		panic("Cannot append MSG_ID_SET_ACTUATOR_CONTROL_TARGET. Already exists message ID '139'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_ACTUATOR_CONTROL_TARGET] = 168
-		msgConstructors[MSG_ID_SET_ACTUATOR_CONTROL_TARGET] = func(p *Packet) Message {
-			msg := new(CommonSetActuatorControlTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ACTUATOR_CONTROL_TARGET]; ok {
-		panic("Cannot append MSG_ID_ACTUATOR_CONTROL_TARGET. Already exists message ID '140'")
-	} else {
-		msgCrcExtras[MSG_ID_ACTUATOR_CONTROL_TARGET] = 181
-		msgConstructors[MSG_ID_ACTUATOR_CONTROL_TARGET] = func(p *Packet) Message {
-			msg := new(CommonActuatorControlTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ALTITUDE]; ok {
-		panic("Cannot append MSG_ID_ALTITUDE. Already exists message ID '141'")
-	} else {
-		msgCrcExtras[MSG_ID_ALTITUDE] = 47
-		msgConstructors[MSG_ID_ALTITUDE] = func(p *Packet) Message {
-			msg := new(CommonAltitude)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_RESOURCE_REQUEST]; ok {
-		panic("Cannot append MSG_ID_RESOURCE_REQUEST. Already exists message ID '142'")
-	} else {
-		msgCrcExtras[MSG_ID_RESOURCE_REQUEST] = 72
-		msgConstructors[MSG_ID_RESOURCE_REQUEST] = func(p *Packet) Message {
-			msg := new(CommonResourceRequest)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SCALED_PRESSURE3]; ok {
-		panic("Cannot append MSG_ID_SCALED_PRESSURE3. Already exists message ID '143'")
-	} else {
-		msgCrcExtras[MSG_ID_SCALED_PRESSURE3] = 131
-		msgConstructors[MSG_ID_SCALED_PRESSURE3] = func(p *Packet) Message {
-			msg := new(CommonScaledPressure3)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_FOLLOW_TARGET]; ok {
-		panic("Cannot append MSG_ID_FOLLOW_TARGET. Already exists message ID '144'")
-	} else {
-		msgCrcExtras[MSG_ID_FOLLOW_TARGET] = 127
-		msgConstructors[MSG_ID_FOLLOW_TARGET] = func(p *Packet) Message {
-			msg := new(CommonFollowTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_CONTROL_SYSTEM_STATE]; ok {
-		panic("Cannot append MSG_ID_CONTROL_SYSTEM_STATE. Already exists message ID '146'")
-	} else {
-		msgCrcExtras[MSG_ID_CONTROL_SYSTEM_STATE] = 103
-		msgConstructors[MSG_ID_CONTROL_SYSTEM_STATE] = func(p *Packet) Message {
-			msg := new(CommonControlSystemState)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_BATTERY_STATUS]; ok {
-		panic("Cannot append MSG_ID_BATTERY_STATUS. Already exists message ID '147'")
-	} else {
-		msgCrcExtras[MSG_ID_BATTERY_STATUS] = 154
-		msgConstructors[MSG_ID_BATTERY_STATUS] = func(p *Packet) Message {
-			msg := new(CommonBatteryStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_AUTOPILOT_VERSION]; ok {
-		panic("Cannot append MSG_ID_AUTOPILOT_VERSION. Already exists message ID '148'")
-	} else {
-		msgCrcExtras[MSG_ID_AUTOPILOT_VERSION] = 178
-		msgConstructors[MSG_ID_AUTOPILOT_VERSION] = func(p *Packet) Message {
-			msg := new(CommonAutopilotVersion)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_LANDING_TARGET]; ok {
-		panic("Cannot append MSG_ID_LANDING_TARGET. Already exists message ID '149'")
-	} else {
-		msgCrcExtras[MSG_ID_LANDING_TARGET] = 200
-		msgConstructors[MSG_ID_LANDING_TARGET] = func(p *Packet) Message {
-			msg := new(CommonLandingTarget)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_FENCE_STATUS]; ok {
-		panic("Cannot append MSG_ID_FENCE_STATUS. Already exists message ID '162'")
-	} else {
-		msgCrcExtras[MSG_ID_FENCE_STATUS] = 189
-		msgConstructors[MSG_ID_FENCE_STATUS] = func(p *Packet) Message {
-			msg := new(CommonFenceStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MAG_CAL_REPORT]; ok {
-		panic("Cannot append MSG_ID_MAG_CAL_REPORT. Already exists message ID '192'")
-	} else {
-		msgCrcExtras[MSG_ID_MAG_CAL_REPORT] = 36
-		msgConstructors[MSG_ID_MAG_CAL_REPORT] = func(p *Packet) Message {
-			msg := new(CommonMagCalReport)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_EFI_STATUS]; ok {
-		panic("Cannot append MSG_ID_EFI_STATUS. Already exists message ID '225'")
-	} else {
-		msgCrcExtras[MSG_ID_EFI_STATUS] = 208
-		msgConstructors[MSG_ID_EFI_STATUS] = func(p *Packet) Message {
-			msg := new(CommonEfiStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ESTIMATOR_STATUS]; ok {
-		panic("Cannot append MSG_ID_ESTIMATOR_STATUS. Already exists message ID '230'")
-	} else {
-		msgCrcExtras[MSG_ID_ESTIMATOR_STATUS] = 163
-		msgConstructors[MSG_ID_ESTIMATOR_STATUS] = func(p *Packet) Message {
-			msg := new(CommonEstimatorStatus)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_WIND_COV]; ok {
-		panic("Cannot append MSG_ID_WIND_COV. Already exists message ID '231'")
-	} else {
-		msgCrcExtras[MSG_ID_WIND_COV] = 105
-		msgConstructors[MSG_ID_WIND_COV] = func(p *Packet) Message {
-			msg := new(CommonWindCov)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_INPUT]; ok {
-		panic("Cannot append MSG_ID_GPS_INPUT. Already exists message ID '232'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_INPUT] = 151
-		msgConstructors[MSG_ID_GPS_INPUT] = func(p *Packet) Message {
-			msg := new(CommonGpsInput)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_GPS_RTCM_DATA]; ok {
-		panic("Cannot append MSG_ID_GPS_RTCM_DATA. Already exists message ID '233'")
-	} else {
-		msgCrcExtras[MSG_ID_GPS_RTCM_DATA] = 35
-		msgConstructors[MSG_ID_GPS_RTCM_DATA] = func(p *Packet) Message {
-			msg := new(CommonGpsRtcmData)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIGH_LATENCY]; ok {
-		panic("Cannot append MSG_ID_HIGH_LATENCY. Already exists message ID '234'")
-	} else {
-		msgCrcExtras[MSG_ID_HIGH_LATENCY] = 150
-		msgConstructors[MSG_ID_HIGH_LATENCY] = func(p *Packet) Message {
-			msg := new(CommonHighLatency)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HIGH_LATENCY2]; ok {
-		panic("Cannot append MSG_ID_HIGH_LATENCY2. Already exists message ID '235'")
-	} else {
-		msgCrcExtras[MSG_ID_HIGH_LATENCY2] = 179
-		msgConstructors[MSG_ID_HIGH_LATENCY2] = func(p *Packet) Message {
-			msg := new(CommonHighLatency2)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_VIBRATION]; ok {
-		panic("Cannot append MSG_ID_VIBRATION. Already exists message ID '241'")
-	} else {
-		msgCrcExtras[MSG_ID_VIBRATION] = 90
-		msgConstructors[MSG_ID_VIBRATION] = func(p *Packet) Message {
-			msg := new(CommonVibration)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_HOME_POSITION]; ok {
-		panic("Cannot append MSG_ID_HOME_POSITION. Already exists message ID '242'")
-	} else {
-		msgCrcExtras[MSG_ID_HOME_POSITION] = 104
-		msgConstructors[MSG_ID_HOME_POSITION] = func(p *Packet) Message {
-			msg := new(CommonHomePosition)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_SET_HOME_POSITION]; ok {
-		panic("Cannot append MSG_ID_SET_HOME_POSITION. Already exists message ID '243'")
-	} else {
-		msgCrcExtras[MSG_ID_SET_HOME_POSITION] = 85
-		msgConstructors[MSG_ID_SET_HOME_POSITION] = func(p *Packet) Message {
-			msg := new(CommonSetHomePosition)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MESSAGE_INTERVAL]; ok {
-		panic("Cannot append MSG_ID_MESSAGE_INTERVAL. Already exists message ID '244'")
-	} else {
-		msgCrcExtras[MSG_ID_MESSAGE_INTERVAL] = 95
-		msgConstructors[MSG_ID_MESSAGE_INTERVAL] = func(p *Packet) Message {
-			msg := new(CommonMessageInterval)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_EXTENDED_SYS_STATE]; ok {
-		panic("Cannot append MSG_ID_EXTENDED_SYS_STATE. Already exists message ID '245'")
-	} else {
-		msgCrcExtras[MSG_ID_EXTENDED_SYS_STATE] = 130
-		msgConstructors[MSG_ID_EXTENDED_SYS_STATE] = func(p *Packet) Message {
-			msg := new(CommonExtendedSysState)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_ADSB_VEHICLE]; ok {
-		panic("Cannot append MSG_ID_ADSB_VEHICLE. Already exists message ID '246'")
-	} else {
-		msgCrcExtras[MSG_ID_ADSB_VEHICLE] = 184
-		msgConstructors[MSG_ID_ADSB_VEHICLE] = func(p *Packet) Message {
-			msg := new(CommonAdsbVehicle)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_COLLISION]; ok {
-		panic("Cannot append MSG_ID_COLLISION. Already exists message ID '247'")
-	} else {
-		msgCrcExtras[MSG_ID_COLLISION] = 81
-		msgConstructors[MSG_ID_COLLISION] = func(p *Packet) Message {
-			msg := new(CommonCollision)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_V2_EXTENSION]; ok {
-		panic("Cannot append MSG_ID_V2_EXTENSION. Already exists message ID '248'")
-	} else {
-		msgCrcExtras[MSG_ID_V2_EXTENSION] = 8
-		msgConstructors[MSG_ID_V2_EXTENSION] = func(p *Packet) Message {
-			msg := new(CommonV2Extension)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_MEMORY_VECT]; ok {
-		panic("Cannot append MSG_ID_MEMORY_VECT. Already exists message ID '249'")
-	} else {
-		msgCrcExtras[MSG_ID_MEMORY_VECT] = 204
-		msgConstructors[MSG_ID_MEMORY_VECT] = func(p *Packet) Message {
-			msg := new(CommonMemoryVect)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DEBUG_VECT]; ok {
-		panic("Cannot append MSG_ID_DEBUG_VECT. Already exists message ID '250'")
-	} else {
-		msgCrcExtras[MSG_ID_DEBUG_VECT] = 49
-		msgConstructors[MSG_ID_DEBUG_VECT] = func(p *Packet) Message {
-			msg := new(CommonDebugVect)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_NAMED_VALUE_FLOAT]; ok {
-		panic("Cannot append MSG_ID_NAMED_VALUE_FLOAT. Already exists message ID '251'")
-	} else {
-		msgCrcExtras[MSG_ID_NAMED_VALUE_FLOAT] = 170
-		msgConstructors[MSG_ID_NAMED_VALUE_FLOAT] = func(p *Packet) Message {
-			msg := new(CommonNamedValueFloat)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_NAMED_VALUE_INT]; ok {
-		panic("Cannot append MSG_ID_NAMED_VALUE_INT. Already exists message ID '252'")
-	} else {
-		msgCrcExtras[MSG_ID_NAMED_VALUE_INT] = 44
-		msgConstructors[MSG_ID_NAMED_VALUE_INT] = func(p *Packet) Message {
-			msg := new(CommonNamedValueInt)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_STATUSTEXT]; ok {
-		panic("Cannot append MSG_ID_STATUSTEXT. Already exists message ID '253'")
-	} else {
-		msgCrcExtras[MSG_ID_STATUSTEXT] = 83
-		msgConstructors[MSG_ID_STATUSTEXT] = func(p *Packet) Message {
-			msg := new(CommonStatustext)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-	if _, ok := msgCrcExtras[MSG_ID_DEBUG]; ok {
-		panic("Cannot append MSG_ID_DEBUG. Already exists message ID '254'")
-	} else {
-		msgCrcExtras[MSG_ID_DEBUG] = 46
-		msgConstructors[MSG_ID_DEBUG] = func(p *Packet) Message {
-			msg := new(CommonDebug)
-			msg.Unpack(p)
-			return msg
-		}
-	}
-
+	mavlink.Register(MSG_ID_SYS_STATUS, "MSG_ID_SYS_STATUS", 124, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SysStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SYSTEM_TIME, "MSG_ID_SYSTEM_TIME", 137, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SystemTime)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PING, "MSG_ID_PING", 237, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Ping)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CHANGE_OPERATOR_CONTROL, "MSG_ID_CHANGE_OPERATOR_CONTROL", 217, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ChangeOperatorControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CHANGE_OPERATOR_CONTROL_ACK, "MSG_ID_CHANGE_OPERATOR_CONTROL_ACK", 104, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ChangeOperatorControlAck)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AUTH_KEY, "MSG_ID_AUTH_KEY", 119, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AuthKey)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LINK_NODE_STATUS, "MSG_ID_LINK_NODE_STATUS", 117, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LinkNodeStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_MODE, "MSG_ID_SET_MODE", 89, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetMode)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_ACK_TRANSACTION, "MSG_ID_PARAM_ACK_TRANSACTION", 137, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamAckTransaction)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_REQUEST_READ, "MSG_ID_PARAM_REQUEST_READ", 214, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamRequestRead)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_REQUEST_LIST, "MSG_ID_PARAM_REQUEST_LIST", 159, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamRequestList)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_VALUE, "MSG_ID_PARAM_VALUE", 220, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamValue)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_SET, "MSG_ID_PARAM_SET", 168, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamSet)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_RAW_INT, "MSG_ID_GPS_RAW_INT", 24, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsRawInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_STATUS, "MSG_ID_GPS_STATUS", 23, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_IMU, "MSG_ID_SCALED_IMU", 170, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledImu)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RAW_IMU, "MSG_ID_RAW_IMU", 144, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RawImu)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RAW_PRESSURE, "MSG_ID_RAW_PRESSURE", 67, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RawPressure)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_PRESSURE, "MSG_ID_SCALED_PRESSURE", 115, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledPressure)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ATTITUDE, "MSG_ID_ATTITUDE", 39, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Attitude)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ATTITUDE_QUATERNION, "MSG_ID_ATTITUDE_QUATERNION", 246, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AttitudeQuaternion)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOCAL_POSITION_NED, "MSG_ID_LOCAL_POSITION_NED", 185, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LocalPositionNed)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GLOBAL_POSITION_INT, "MSG_ID_GLOBAL_POSITION_INT", 104, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GlobalPositionInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RC_CHANNELS_SCALED, "MSG_ID_RC_CHANNELS_SCALED", 237, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RcChannelsScaled)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RC_CHANNELS_RAW, "MSG_ID_RC_CHANNELS_RAW", 244, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RcChannelsRaw)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SERVO_OUTPUT_RAW, "MSG_ID_SERVO_OUTPUT_RAW", 222, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ServoOutputRaw)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_REQUEST_PARTIAL_LIST, "MSG_ID_MISSION_REQUEST_PARTIAL_LIST", 212, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionRequestPartialList)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_WRITE_PARTIAL_LIST, "MSG_ID_MISSION_WRITE_PARTIAL_LIST", 9, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionWritePartialList)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_ITEM, "MSG_ID_MISSION_ITEM", 254, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionItem)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_REQUEST, "MSG_ID_MISSION_REQUEST", 230, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_SET_CURRENT, "MSG_ID_MISSION_SET_CURRENT", 28, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionSetCurrent)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_CURRENT, "MSG_ID_MISSION_CURRENT", 28, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionCurrent)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_REQUEST_LIST, "MSG_ID_MISSION_REQUEST_LIST", 132, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionRequestList)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_COUNT, "MSG_ID_MISSION_COUNT", 221, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionCount)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_CLEAR_ALL, "MSG_ID_MISSION_CLEAR_ALL", 232, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionClearAll)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_ITEM_REACHED, "MSG_ID_MISSION_ITEM_REACHED", 11, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionItemReached)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_ACK, "MSG_ID_MISSION_ACK", 153, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionAck)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_GPS_GLOBAL_ORIGIN, "MSG_ID_SET_GPS_GLOBAL_ORIGIN", 41, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetGpsGlobalOrigin)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_GLOBAL_ORIGIN, "MSG_ID_GPS_GLOBAL_ORIGIN", 39, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsGlobalOrigin)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_PARAM_MAP_RC, "MSG_ID_PARAM_MAP_RC", 78, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ParamMapRc)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_REQUEST_INT, "MSG_ID_MISSION_REQUEST_INT", 196, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionRequestInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_CHANGED, "MSG_ID_MISSION_CHANGED", 132, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionChanged)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SAFETY_SET_ALLOWED_AREA, "MSG_ID_SAFETY_SET_ALLOWED_AREA", 15, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SafetySetAllowedArea)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SAFETY_ALLOWED_AREA, "MSG_ID_SAFETY_ALLOWED_AREA", 3, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SafetyAllowedArea)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ATTITUDE_QUATERNION_COV, "MSG_ID_ATTITUDE_QUATERNION_COV", 167, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AttitudeQuaternionCov)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_NAV_CONTROLLER_OUTPUT, "MSG_ID_NAV_CONTROLLER_OUTPUT", 183, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(NavControllerOutput)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GLOBAL_POSITION_INT_COV, "MSG_ID_GLOBAL_POSITION_INT_COV", 119, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GlobalPositionIntCov)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOCAL_POSITION_NED_COV, "MSG_ID_LOCAL_POSITION_NED_COV", 191, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LocalPositionNedCov)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RC_CHANNELS, "MSG_ID_RC_CHANNELS", 118, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RcChannels)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_REQUEST_DATA_STREAM, "MSG_ID_REQUEST_DATA_STREAM", 148, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RequestDataStream)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA_STREAM, "MSG_ID_DATA_STREAM", 21, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DataStream)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MANUAL_CONTROL, "MSG_ID_MANUAL_CONTROL", 243, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ManualControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RC_CHANNELS_OVERRIDE, "MSG_ID_RC_CHANNELS_OVERRIDE", 124, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RcChannelsOverride)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MISSION_ITEM_INT, "MSG_ID_MISSION_ITEM_INT", 38, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MissionItemInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_VFR_HUD, "MSG_ID_VFR_HUD", 20, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(VfrHud)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COMMAND_INT, "MSG_ID_COMMAND_INT", 158, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CommandInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COMMAND_LONG, "MSG_ID_COMMAND_LONG", 152, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CommandLong)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COMMAND_ACK, "MSG_ID_COMMAND_ACK", 143, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CommandAck)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COMMAND_CANCEL, "MSG_ID_COMMAND_CANCEL", 14, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CommandCancel)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MANUAL_SETPOINT, "MSG_ID_MANUAL_SETPOINT", 106, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ManualSetpoint)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_ATTITUDE_TARGET, "MSG_ID_SET_ATTITUDE_TARGET", 49, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetAttitudeTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ATTITUDE_TARGET, "MSG_ID_ATTITUDE_TARGET", 22, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AttitudeTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_POSITION_TARGET_LOCAL_NED, "MSG_ID_SET_POSITION_TARGET_LOCAL_NED", 143, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetPositionTargetLocalNed)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_POSITION_TARGET_LOCAL_NED, "MSG_ID_POSITION_TARGET_LOCAL_NED", 140, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(PositionTargetLocalNed)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_POSITION_TARGET_GLOBAL_INT, "MSG_ID_SET_POSITION_TARGET_GLOBAL_INT", 5, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetPositionTargetGlobalInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_POSITION_TARGET_GLOBAL_INT, "MSG_ID_POSITION_TARGET_GLOBAL_INT", 150, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(PositionTargetGlobalInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET, "MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET", 231, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LocalPositionNedSystemGlobalOffset)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_STATE, "MSG_ID_HIL_STATE", 183, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilState)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_CONTROLS, "MSG_ID_HIL_CONTROLS", 63, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilControls)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_RC_INPUTS_RAW, "MSG_ID_HIL_RC_INPUTS_RAW", 54, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilRcInputsRaw)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_ACTUATOR_CONTROLS, "MSG_ID_HIL_ACTUATOR_CONTROLS", 47, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilActuatorControls)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_OPTICAL_FLOW, "MSG_ID_OPTICAL_FLOW", 175, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(OpticalFlow)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE, "MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE", 102, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GlobalVisionPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_VISION_POSITION_ESTIMATE, "MSG_ID_VISION_POSITION_ESTIMATE", 158, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(VisionPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_VISION_SPEED_ESTIMATE, "MSG_ID_VISION_SPEED_ESTIMATE", 208, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(VisionSpeedEstimate)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_VICON_POSITION_ESTIMATE, "MSG_ID_VICON_POSITION_ESTIMATE", 56, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ViconPositionEstimate)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIGHRES_IMU, "MSG_ID_HIGHRES_IMU", 93, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HighresImu)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_OPTICAL_FLOW_RAD, "MSG_ID_OPTICAL_FLOW_RAD", 138, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(OpticalFlowRad)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_SENSOR, "MSG_ID_HIL_SENSOR", 108, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilSensor)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SIM_STATE, "MSG_ID_SIM_STATE", 32, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SimState)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RADIO_STATUS, "MSG_ID_RADIO_STATUS", 185, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(RadioStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_FILE_TRANSFER_PROTOCOL, "MSG_ID_FILE_TRANSFER_PROTOCOL", 84, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(FileTransferProtocol)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_TIMESYNC, "MSG_ID_TIMESYNC", 34, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Timesync)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CAMERA_TRIGGER, "MSG_ID_CAMERA_TRIGGER", 174, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(CameraTrigger)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_GPS, "MSG_ID_HIL_GPS", 124, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilGps)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_OPTICAL_FLOW, "MSG_ID_HIL_OPTICAL_FLOW", 237, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilOpticalFlow)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIL_STATE_QUATERNION, "MSG_ID_HIL_STATE_QUATERNION", 4, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HilStateQuaternion)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_IMU2, "MSG_ID_SCALED_IMU2", 76, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledImu2)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_REQUEST_LIST, "MSG_ID_LOG_REQUEST_LIST", 128, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogRequestList)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_ENTRY, "MSG_ID_LOG_ENTRY", 56, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogEntry)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_REQUEST_DATA, "MSG_ID_LOG_REQUEST_DATA", 116, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogRequestData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_DATA, "MSG_ID_LOG_DATA", 134, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_ERASE, "MSG_ID_LOG_ERASE", 237, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogErase)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LOG_REQUEST_END, "MSG_ID_LOG_REQUEST_END", 203, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LogRequestEnd)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_INJECT_DATA, "MSG_ID_GPS_INJECT_DATA", 250, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsInjectData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS2_RAW, "MSG_ID_GPS2_RAW", 87, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Gps2Raw)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_POWER_STATUS, "MSG_ID_POWER_STATUS", 203, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(PowerStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SERIAL_CONTROL, "MSG_ID_SERIAL_CONTROL", 220, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SerialControl)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_RTK, "MSG_ID_GPS_RTK", 25, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsRtk)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS2_RTK, "MSG_ID_GPS2_RTK", 226, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Gps2Rtk)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_IMU3, "MSG_ID_SCALED_IMU3", 46, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledImu3)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DATA_TRANSMISSION_HANDSHAKE, "MSG_ID_DATA_TRANSMISSION_HANDSHAKE", 29, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DataTransmissionHandshake)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ENCAPSULATED_DATA, "MSG_ID_ENCAPSULATED_DATA", 223, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(EncapsulatedData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DISTANCE_SENSOR, "MSG_ID_DISTANCE_SENSOR", 85, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DistanceSensor)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_TERRAIN_REQUEST, "MSG_ID_TERRAIN_REQUEST", 6, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(TerrainRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_TERRAIN_DATA, "MSG_ID_TERRAIN_DATA", 229, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(TerrainData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_TERRAIN_CHECK, "MSG_ID_TERRAIN_CHECK", 203, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(TerrainCheck)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_TERRAIN_REPORT, "MSG_ID_TERRAIN_REPORT", 1, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(TerrainReport)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_PRESSURE2, "MSG_ID_SCALED_PRESSURE2", 195, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledPressure2)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ATT_POS_MOCAP, "MSG_ID_ATT_POS_MOCAP", 109, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AttPosMocap)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_ACTUATOR_CONTROL_TARGET, "MSG_ID_SET_ACTUATOR_CONTROL_TARGET", 168, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetActuatorControlTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ACTUATOR_CONTROL_TARGET, "MSG_ID_ACTUATOR_CONTROL_TARGET", 181, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ActuatorControlTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ALTITUDE, "MSG_ID_ALTITUDE", 47, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Altitude)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_RESOURCE_REQUEST, "MSG_ID_RESOURCE_REQUEST", 72, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ResourceRequest)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SCALED_PRESSURE3, "MSG_ID_SCALED_PRESSURE3", 131, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ScaledPressure3)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_FOLLOW_TARGET, "MSG_ID_FOLLOW_TARGET", 127, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(FollowTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_CONTROL_SYSTEM_STATE, "MSG_ID_CONTROL_SYSTEM_STATE", 103, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ControlSystemState)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_BATTERY_STATUS, "MSG_ID_BATTERY_STATUS", 154, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(BatteryStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_AUTOPILOT_VERSION, "MSG_ID_AUTOPILOT_VERSION", 178, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AutopilotVersion)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_LANDING_TARGET, "MSG_ID_LANDING_TARGET", 200, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(LandingTarget)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_FENCE_STATUS, "MSG_ID_FENCE_STATUS", 189, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(FenceStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MAG_CAL_REPORT, "MSG_ID_MAG_CAL_REPORT", 36, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MagCalReport)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_EFI_STATUS, "MSG_ID_EFI_STATUS", 208, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(EfiStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ESTIMATOR_STATUS, "MSG_ID_ESTIMATOR_STATUS", 163, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(EstimatorStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_WIND_COV, "MSG_ID_WIND_COV", 105, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(WindCov)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_INPUT, "MSG_ID_GPS_INPUT", 151, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsInput)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_GPS_RTCM_DATA, "MSG_ID_GPS_RTCM_DATA", 35, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(GpsRtcmData)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIGH_LATENCY, "MSG_ID_HIGH_LATENCY", 150, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HighLatency)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HIGH_LATENCY2, "MSG_ID_HIGH_LATENCY2", 179, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HighLatency2)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_VIBRATION, "MSG_ID_VIBRATION", 90, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Vibration)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_HOME_POSITION, "MSG_ID_HOME_POSITION", 104, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(HomePosition)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SET_HOME_POSITION, "MSG_ID_SET_HOME_POSITION", 85, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SetHomePosition)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MESSAGE_INTERVAL, "MSG_ID_MESSAGE_INTERVAL", 95, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MessageInterval)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_EXTENDED_SYS_STATE, "MSG_ID_EXTENDED_SYS_STATE", 130, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(ExtendedSysState)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_ADSB_VEHICLE, "MSG_ID_ADSB_VEHICLE", 184, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(AdsbVehicle)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_COLLISION, "MSG_ID_COLLISION", 81, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Collision)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_V2_EXTENSION, "MSG_ID_V2_EXTENSION", 8, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(V2Extension)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_MEMORY_VECT, "MSG_ID_MEMORY_VECT", 204, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(MemoryVect)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DEBUG_VECT, "MSG_ID_DEBUG_VECT", 49, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(DebugVect)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_NAMED_VALUE_FLOAT, "MSG_ID_NAMED_VALUE_FLOAT", 170, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(NamedValueFloat)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_NAMED_VALUE_INT, "MSG_ID_NAMED_VALUE_INT", 44, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(NamedValueInt)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_STATUSTEXT, "MSG_ID_STATUSTEXT", 83, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Statustext)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_DEBUG, "MSG_ID_DEBUG", 46, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(Debug)
+		msg.Unpack(p)
+		return msg
+	})
 }

@@ -5,7 +5,7 @@
 //
 //////////////////////////////////////////////////
 
-package mavlink
+package uAvionix
 
 import ()
 
@@ -101,7 +101,6 @@ const (
 	UAVIONIX_ADSB_OUT_RESERVED                        = 7 //
 )
 
-// init Uavionix variables
+// init Uavionix dialect
 func init() {
-
 }
