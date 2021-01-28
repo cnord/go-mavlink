@@ -12,11 +12,11 @@ func TestRoundTripChannels(t *testing.T) {
 	var buffer bytes.Buffer
 	dec := NewDecoder(&buffer)
 
-	pings := make([]ping, 0, 255)
-	processed := make([]ping, 0, 255)
+	pings := make([]pingMock, 0, 255)
+	processed := make([]pingMock, 0, 255)
 
 	for i := 0; i < 255; i++ {
-		ping := ping{
+		ping := pingMock{
 			Seq: rand.Uint32(),
 		}
 		pings = append(pings, ping)
@@ -30,7 +30,7 @@ func TestRoundTripChannels(t *testing.T) {
 			break
 		}
 		require.Equal(t, packet.MsgID, MSG_ID_PING_MOCK, "MsgID fail")
-		var ping ping
+		var ping pingMock
 		require.NoError(t, ping.Unpack(&packet), "Unpack fail")
 		processed = append(processed, ping)
 		if len(processed) == 255 {

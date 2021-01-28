@@ -24,7 +24,7 @@ func BenchmarkDecoder(b *testing.B) {
 	go func() {
 		defer wg.Done()
 		for i := 0; i < b.N; i++ {
-			dummy := ping{
+			dummy := pingMock{
 				Seq: rand.Uint32(),
 			}
 			packet := &Packet{}

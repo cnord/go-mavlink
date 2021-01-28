@@ -14,7 +14,7 @@ func TestU16ToBytes(t *testing.T) {
 }
 
 func TestMarshallUnmarshal(t *testing.T) {
-	ping := &ping{
+	ping := &pingMock{
 		Seq:  1000,
 	}
 	packet := &Packet{}
@@ -26,7 +26,7 @@ func TestMarshallUnmarshal(t *testing.T) {
 }
 
 func TestEncodeDecode(t *testing.T) {
-	ping := &ping{
+	ping := &pingMock{
 		Seq:  1000,
 	}
 	packet := &Packet{}

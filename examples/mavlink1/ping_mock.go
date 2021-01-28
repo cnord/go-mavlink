@@ -9,27 +9,26 @@ const (
 	MSG_ID_PING_MOCK MessageID = 222
 )
 
-// ping struct (generated typeinfo)
-// A ping message either requesting or responding to a ping. This allows to measure the system latencies, including serial port, radio modem and UDP connections. The ping microservice is documented at https://io/en/services/ping.html
-type ping struct {
-	Seq             uint32 // ping sequence
+// pingMock struct
+type pingMock struct {
+	Seq uint32 // pingMock sequence
 }
 
-// MsgID (generated function)
-func (m *ping) MsgID() MessageID {
+// MsgID
+func (m *pingMock) MsgID() MessageID {
 	return MSG_ID_PING_MOCK
 }
 
-// String (generated function)
-func (m *ping) String() string {
+// String
+func (m *pingMock) String() string {
 	return fmt.Sprintf(
-		"&ping{ Seq: %+v }",
+		"&pingMock{ Seq: %+v }",
 		m.Seq,
 	)
 }
 
-// Pack (generated function)
-func (m *ping) Pack(p *Packet) error {
+// Pack
+func (m *pingMock) Pack(p *Packet) error {
 	payload := make([]byte, 4)
 	binary.LittleEndian.PutUint32(payload[0:], uint32(m.Seq))
 	p.MsgID = m.MsgID()
@@ -37,8 +36,8 @@ func (m *ping) Pack(p *Packet) error {
 	return nil
 }
 
-// Unpack (generated function)
-func (m *ping) Unpack(p *Packet) error {
+// Unpack
+func (m *pingMock) Unpack(p *Packet) error {
 	payload := p.Payload[:]
 	if len(p.Payload) < 4 {
 		return ErrPayloadTooSmall
@@ -46,4 +45,3 @@ func (m *ping) Unpack(p *Packet) error {
 	m.Seq = uint32(binary.LittleEndian.Uint32(payload[0:]))
 	return nil
 }
-
