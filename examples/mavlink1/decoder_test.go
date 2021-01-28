@@ -1,7 +1,6 @@
 package mavlink
 
 import (
-	"./common"
 	"bytes"
 	"fmt"
 	"math/rand"
@@ -27,7 +26,7 @@ func BenchmarkDecoder(b *testing.B) {
 		defer wg.Done()
 		fmt.Println("to send", b.N)
 		for i := 0; i < b.N; i++ {
-			dummy := common.Ping{
+			dummy := ping{
 				Seq: rand.Uint32(),
 			}
 			packet := &Packet{}

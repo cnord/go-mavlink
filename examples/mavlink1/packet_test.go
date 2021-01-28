@@ -14,26 +14,22 @@ func TestU16ToBytes(t *testing.T) {
 }
 
 func TestMarshallUnmarshal(t *testing.T) {
-	mi := &ArdupilotmegaMeminfo{
-		Brkval:  1000,
-		Freemem: 10,
+	ping := &ping{
+		Seq:  9999,
 	}
-
 	packet := &Packet{}
-	require.NoError(t, packet.Encode(mi), "encode failed")
+	require.NoError(t, packet.Encode(ping), "encode failed")
 	bytes, err := Marshal(packet)
 	require.NoError(t, err)
-	require.Equal(t, []byte{0xfe, 0x4, 0x0, 0x0, 0x0, 0x98, 0xe8, 0x3, 0xa, 0x0, 0xad, 0xbb}, bytes)
-	require.NoError(t, Unmarshal([]byte{0xfe, 0x4, 0x0, 0x0, 0x0, 0x98, 0xe8, 0x3, 0xa, 0x0, 0xad, 0xbb}, packet))
+	require.Equal(t, []byte{0xfe, 0x4, 0x0, 0x0, 0x0, 0xde, 0xf, 0x27, 0x0, 0x0, 0xf4, 0xe2}, bytes)
+	require.NoError(t, Unmarshal([]byte{0xfe, 0x4, 0x0, 0x0, 0x0, 0xde, 0xf, 0x27, 0x0, 0x0, 0xf4, 0xe2}, packet))
 }
 
 func TestEncodeDecode(t *testing.T) {
-	mi := &ArdupilotmegaMeminfo{
-		Brkval:  1000,
-		Freemem: 10,
+	ping := &ping{
+		Seq:  1000,
 	}
-
 	packet := &Packet{}
-	require.NoError(t, packet.Encode(mi), "encode failed")
-	require.NoError(t, packet.Decode(mi), "decode failed")
+	require.NoError(t, packet.Encode(ping), "encode failed")
+	require.NoError(t, packet.Decode(ping), "decode failed")
 }

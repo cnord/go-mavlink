@@ -550,7 +550,6 @@ func init() { {{if .Messages}}{{range .Messages}}
 // for now, pack/unpack payloads via encoding/binary since it
 // is expedient and correct. optimize this if/when needed.
 func (d *Dialect) generateClasses(w io.Writer) error {
-
 	classesTmpl := `
 {{$mavlinkVersion := .MavlinkVersion}}
 {{$dialect := .Name}}

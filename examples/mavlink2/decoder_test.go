@@ -6,7 +6,6 @@ import (
 	"sync"
 	"testing"
 	"time"
-	"./common"
 )
 
 func BenchmarkDecoder(b *testing.B) {
@@ -25,7 +24,7 @@ func BenchmarkDecoder(b *testing.B) {
 	go func() {
 		defer wg.Done()
 		for i := 0; i < b.N; i++ {
-			dummy := common.Ping{
+			dummy := ping{
 				Seq: rand.Uint32(),
 			}
 			packet := &Packet{}
