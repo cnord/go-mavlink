@@ -44,20 +44,10 @@ func (m *FlexifunctionSet) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_SET
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionSet) CRCExtra() uint8 {
-	return 181
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionSet) MsgName() string {
-	return "FlexifunctionSet"
-}
-
 // String (generated function)
 func (m *FlexifunctionSet) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionSet{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Matrixpilot.FlexifunctionSet{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -98,20 +88,10 @@ func (m *FlexifunctionReadReq) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_READ_REQ
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionReadReq) CRCExtra() uint8 {
-	return 26
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionReadReq) MsgName() string {
-	return "FlexifunctionReadReq"
-}
-
 // String (generated function)
 func (m *FlexifunctionReadReq) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionReadReq{ ReadReqType: %+v, DataIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Matrixpilot.FlexifunctionReadReq{ ReadReqType: %+v, DataIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.ReadReqType,
 		m.DataIndex,
 		m.TargetSystem,
@@ -161,20 +141,10 @@ func (m *FlexifunctionBufferFunction) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionBufferFunction) CRCExtra() uint8 {
-	return 101
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionBufferFunction) MsgName() string {
-	return "FlexifunctionBufferFunction"
-}
-
 // String (generated function)
 func (m *FlexifunctionBufferFunction) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionBufferFunction{ FuncIndex: %+v, FuncCount: %+v, DataAddress: %+v, DataSize: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %+v }",
+		"&Matrixpilot.FlexifunctionBufferFunction{ FuncIndex: %+v, FuncCount: %+v, DataAddress: %+v, DataSize: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %+v }",
 		m.FuncIndex,
 		m.FuncCount,
 		m.DataAddress,
@@ -234,20 +204,10 @@ func (m *FlexifunctionBufferFunctionAck) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_BUFFER_FUNCTION_ACK
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionBufferFunctionAck) CRCExtra() uint8 {
-	return 109
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionBufferFunctionAck) MsgName() string {
-	return "FlexifunctionBufferFunctionAck"
-}
-
 // String (generated function)
 func (m *FlexifunctionBufferFunctionAck) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionBufferFunctionAck{ FuncIndex: %+v, Result: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Matrixpilot.FlexifunctionBufferFunctionAck{ FuncIndex: %+v, Result: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.FuncIndex,
 		m.Result,
 		m.TargetSystem,
@@ -296,20 +256,10 @@ func (m *FlexifunctionDirectory) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionDirectory) CRCExtra() uint8 {
-	return 12
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionDirectory) MsgName() string {
-	return "FlexifunctionDirectory"
-}
-
 // String (generated function)
 func (m *FlexifunctionDirectory) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionDirectory{ TargetSystem: %+v, TargetComponent: %+v, DirectoryType: %+v, StartIndex: %+v, Count: %+v, DirectoryData: %+v }",
+		"&Matrixpilot.FlexifunctionDirectory{ TargetSystem: %+v, TargetComponent: %+v, DirectoryType: %+v, StartIndex: %+v, Count: %+v, DirectoryData: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.DirectoryType,
@@ -368,20 +318,10 @@ func (m *FlexifunctionDirectoryAck) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_DIRECTORY_ACK
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionDirectoryAck) CRCExtra() uint8 {
-	return 218
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionDirectoryAck) MsgName() string {
-	return "FlexifunctionDirectoryAck"
-}
-
 // String (generated function)
 func (m *FlexifunctionDirectoryAck) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionDirectoryAck{ Result: %+v, TargetSystem: %+v, TargetComponent: %+v, DirectoryType: %+v, StartIndex: %+v, Count: %+v }",
+		"&Matrixpilot.FlexifunctionDirectoryAck{ Result: %+v, TargetSystem: %+v, TargetComponent: %+v, DirectoryType: %+v, StartIndex: %+v, Count: %+v }",
 		m.Result,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -433,20 +373,10 @@ func (m *FlexifunctionCommand) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionCommand) CRCExtra() uint8 {
-	return 133
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionCommand) MsgName() string {
-	return "FlexifunctionCommand"
-}
-
 // String (generated function)
 func (m *FlexifunctionCommand) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionCommand{ TargetSystem: %+v, TargetComponent: %+v, CommandType: %+v }",
+		"&Matrixpilot.FlexifunctionCommand{ TargetSystem: %+v, TargetComponent: %+v, CommandType: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CommandType,
@@ -488,20 +418,10 @@ func (m *FlexifunctionCommandAck) MsgID() mavlink.MessageID {
 	return MSG_ID_FLEXIFUNCTION_COMMAND_ACK
 }
 
-// CRCExtra (generated function)
-func (m *FlexifunctionCommandAck) CRCExtra() uint8 {
-	return 208
-}
-
-// MsgName (generated function)
-func (m *FlexifunctionCommandAck) MsgName() string {
-	return "FlexifunctionCommandAck"
-}
-
 // String (generated function)
 func (m *FlexifunctionCommandAck) String() string {
 	return fmt.Sprintf(
-		"&FlexifunctionCommandAck{ CommandType: %+v, Result: %+v }",
+		"&Matrixpilot.FlexifunctionCommandAck{ CommandType: %+v, Result: %+v }",
 		m.CommandType,
 		m.Result,
 	)
@@ -565,20 +485,10 @@ func (m *SerialUdbExtraF2A) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_A
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF2A) CRCExtra() uint8 {
-	return 103
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF2A) MsgName() string {
-	return "SerialUdbExtraF2A"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF2A) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF2A{ SueTime: %+v, SueLatitude: %+v, SueLongitude: %+v, SueAltitude: %+v, SueWaypointIndex: %+v, SueRmat0: %+v, SueRmat1: %+v, SueRmat2: %+v, SueRmat3: %+v, SueRmat4: %+v, SueRmat5: %+v, SueRmat6: %+v, SueRmat7: %+v, SueRmat8: %+v, SueCog: %+v, SueSog: %+v, SueCPULoad: %+v, SueAirSpeed3dimu: %+v, SueEstimatedWind0: %+v, SueEstimatedWind1: %+v, SueEstimatedWind2: %+v, SueMagfieldearth0: %+v, SueMagfieldearth1: %+v, SueMagfieldearth2: %+v, SueSvs: %+v, SueHdop: %+v, SueStatus: %+v }",
+		"&Matrixpilot.SerialUdbExtraF2A{ SueTime: %+v, SueLatitude: %+v, SueLongitude: %+v, SueAltitude: %+v, SueWaypointIndex: %+v, SueRmat0: %+v, SueRmat1: %+v, SueRmat2: %+v, SueRmat3: %+v, SueRmat4: %+v, SueRmat5: %+v, SueRmat6: %+v, SueRmat7: %+v, SueRmat8: %+v, SueCog: %+v, SueSog: %+v, SueCPULoad: %+v, SueAirSpeed3dimu: %+v, SueEstimatedWind0: %+v, SueEstimatedWind1: %+v, SueEstimatedWind2: %+v, SueMagfieldearth0: %+v, SueMagfieldearth1: %+v, SueMagfieldearth2: %+v, SueSvs: %+v, SueHdop: %+v, SueStatus: %+v }",
 		m.SueTime,
 		m.SueLatitude,
 		m.SueLongitude,
@@ -740,20 +650,10 @@ func (m *SerialUdbExtraF2B) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F2_B
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF2B) CRCExtra() uint8 {
-	return 245
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF2B) MsgName() string {
-	return "SerialUdbExtraF2B"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF2B) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF2B{ SueTime: %+v, SueFlags: %+v, SueBaromPress: %+v, SueBaromAlt: %+v, SuePwmInput1: %+v, SuePwmInput2: %+v, SuePwmInput3: %+v, SuePwmInput4: %+v, SuePwmInput5: %+v, SuePwmInput6: %+v, SuePwmInput7: %+v, SuePwmInput8: %+v, SuePwmInput9: %+v, SuePwmInput10: %+v, SuePwmInput11: %+v, SuePwmInput12: %+v, SuePwmOutput1: %+v, SuePwmOutput2: %+v, SuePwmOutput3: %+v, SuePwmOutput4: %+v, SuePwmOutput5: %+v, SuePwmOutput6: %+v, SuePwmOutput7: %+v, SuePwmOutput8: %+v, SuePwmOutput9: %+v, SuePwmOutput10: %+v, SuePwmOutput11: %+v, SuePwmOutput12: %+v, SueImuLocationX: %+v, SueImuLocationY: %+v, SueImuLocationZ: %+v, SueLocationErrorEarthX: %+v, SueLocationErrorEarthY: %+v, SueLocationErrorEarthZ: %+v, SueOscFails: %+v, SueImuVelocityX: %+v, SueImuVelocityY: %+v, SueImuVelocityZ: %+v, SueWaypointGoalX: %+v, SueWaypointGoalY: %+v, SueWaypointGoalZ: %+v, SueAeroX: %+v, SueAeroY: %+v, SueAeroZ: %+v, SueBaromTemp: %+v, SueBatVolt: %+v, SueBatAmp: %+v, SueBatAmpHours: %+v, SueDesiredHeight: %+v, SueMemoryStackFree: %+v }",
+		"&Matrixpilot.SerialUdbExtraF2B{ SueTime: %+v, SueFlags: %+v, SueBaromPress: %+v, SueBaromAlt: %+v, SuePwmInput1: %+v, SuePwmInput2: %+v, SuePwmInput3: %+v, SuePwmInput4: %+v, SuePwmInput5: %+v, SuePwmInput6: %+v, SuePwmInput7: %+v, SuePwmInput8: %+v, SuePwmInput9: %+v, SuePwmInput10: %+v, SuePwmInput11: %+v, SuePwmInput12: %+v, SuePwmOutput1: %+v, SuePwmOutput2: %+v, SuePwmOutput3: %+v, SuePwmOutput4: %+v, SuePwmOutput5: %+v, SuePwmOutput6: %+v, SuePwmOutput7: %+v, SuePwmOutput8: %+v, SuePwmOutput9: %+v, SuePwmOutput10: %+v, SuePwmOutput11: %+v, SuePwmOutput12: %+v, SueImuLocationX: %+v, SueImuLocationY: %+v, SueImuLocationZ: %+v, SueLocationErrorEarthX: %+v, SueLocationErrorEarthY: %+v, SueLocationErrorEarthZ: %+v, SueOscFails: %+v, SueImuVelocityX: %+v, SueImuVelocityY: %+v, SueImuVelocityZ: %+v, SueWaypointGoalX: %+v, SueWaypointGoalY: %+v, SueWaypointGoalZ: %+v, SueAeroX: %+v, SueAeroY: %+v, SueAeroZ: %+v, SueBaromTemp: %+v, SueBatVolt: %+v, SueBatAmp: %+v, SueBatAmpHours: %+v, SueDesiredHeight: %+v, SueMemoryStackFree: %+v }",
 		m.SueTime,
 		m.SueFlags,
 		m.SueBaromPress,
@@ -944,20 +844,10 @@ func (m *SerialUdbExtraF4) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F4
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF4) CRCExtra() uint8 {
-	return 191
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF4) MsgName() string {
-	return "SerialUdbExtraF4"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF4) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF4{ SueRollStabilizationAilerons: %+v, SueRollStabilizationRudder: %+v, SuePitchStabilization: %+v, SueYawStabilizationRudder: %+v, SueYawStabilizationAileron: %+v, SueAileronNavigation: %+v, SueRudderNavigation: %+v, SueAltitudeholdStabilized: %+v, SueAltitudeholdWaypoint: %+v, SueRacingMode: %+v }",
+		"&Matrixpilot.SerialUdbExtraF4{ SueRollStabilizationAilerons: %+v, SueRollStabilizationRudder: %+v, SuePitchStabilization: %+v, SueYawStabilizationRudder: %+v, SueYawStabilizationAileron: %+v, SueAileronNavigation: %+v, SueRudderNavigation: %+v, SueAltitudeholdStabilized: %+v, SueAltitudeholdWaypoint: %+v, SueRacingMode: %+v }",
 		m.SueRollStabilizationAilerons,
 		m.SueRollStabilizationRudder,
 		m.SuePitchStabilization,
@@ -1022,20 +912,10 @@ func (m *SerialUdbExtraF5) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F5
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF5) CRCExtra() uint8 {
-	return 54
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF5) MsgName() string {
-	return "SerialUdbExtraF5"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF5) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF5{ SueYawkpAileron: %+v, SueYawkdAileron: %+v, SueRollkp: %+v, SueRollkd: %+v }",
+		"&Matrixpilot.SerialUdbExtraF5{ SueYawkpAileron: %+v, SueYawkdAileron: %+v, SueRollkp: %+v, SueRollkd: %+v }",
 		m.SueYawkpAileron,
 		m.SueYawkdAileron,
 		m.SueRollkp,
@@ -1083,20 +963,10 @@ func (m *SerialUdbExtraF6) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F6
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF6) CRCExtra() uint8 {
-	return 54
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF6) MsgName() string {
-	return "SerialUdbExtraF6"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF6) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF6{ SuePitchgain: %+v, SuePitchkd: %+v, SueRudderElevMix: %+v, SueRollElevMix: %+v, SueElevatorBoost: %+v }",
+		"&Matrixpilot.SerialUdbExtraF6{ SuePitchgain: %+v, SuePitchkd: %+v, SueRudderElevMix: %+v, SueRollElevMix: %+v, SueElevatorBoost: %+v }",
 		m.SuePitchgain,
 		m.SuePitchkd,
 		m.SueRudderElevMix,
@@ -1148,20 +1018,10 @@ func (m *SerialUdbExtraF7) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F7
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF7) CRCExtra() uint8 {
-	return 171
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF7) MsgName() string {
-	return "SerialUdbExtraF7"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF7) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF7{ SueYawkpRudder: %+v, SueYawkdRudder: %+v, SueRollkpRudder: %+v, SueRollkdRudder: %+v, SueRudderBoost: %+v, SueRtlPitchDown: %+v }",
+		"&Matrixpilot.SerialUdbExtraF7{ SueYawkpRudder: %+v, SueYawkdRudder: %+v, SueRollkpRudder: %+v, SueRollkdRudder: %+v, SueRudderBoost: %+v, SueRtlPitchDown: %+v }",
 		m.SueYawkpRudder,
 		m.SueYawkdRudder,
 		m.SueRollkpRudder,
@@ -1217,20 +1077,10 @@ func (m *SerialUdbExtraF8) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F8
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF8) CRCExtra() uint8 {
-	return 142
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF8) MsgName() string {
-	return "SerialUdbExtraF8"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF8) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF8{ SueHeightTargetMax: %+v, SueHeightTargetMin: %+v, SueAltHoldThrottleMin: %+v, SueAltHoldThrottleMax: %+v, SueAltHoldPitchMin: %+v, SueAltHoldPitchMax: %+v, SueAltHoldPitchHigh: %+v }",
+		"&Matrixpilot.SerialUdbExtraF8{ SueHeightTargetMax: %+v, SueHeightTargetMin: %+v, SueAltHoldThrottleMin: %+v, SueAltHoldThrottleMax: %+v, SueAltHoldPitchMin: %+v, SueAltHoldPitchMax: %+v, SueAltHoldPitchHigh: %+v }",
 		m.SueHeightTargetMax,
 		m.SueHeightTargetMin,
 		m.SueAltHoldThrottleMin,
@@ -1286,20 +1136,10 @@ func (m *SerialUdbExtraF13) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F13
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF13) CRCExtra() uint8 {
-	return 249
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF13) MsgName() string {
-	return "SerialUdbExtraF13"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF13) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF13{ SueLatOrigin: %+v, SueLonOrigin: %+v, SueAltOrigin: %+v, SueWeekNo: %+v }",
+		"&Matrixpilot.SerialUdbExtraF13{ SueLatOrigin: %+v, SueLonOrigin: %+v, SueAltOrigin: %+v, SueWeekNo: %+v }",
 		m.SueLatOrigin,
 		m.SueLonOrigin,
 		m.SueAltOrigin,
@@ -1353,20 +1193,10 @@ func (m *SerialUdbExtraF14) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F14
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF14) CRCExtra() uint8 {
-	return 123
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF14) MsgName() string {
-	return "SerialUdbExtraF14"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF14) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF14{ SueTrapSource: %+v, SueRcon: %+v, SueTrapFlags: %+v, SueOscFailCount: %+v, SueWindEstimation: %+v, SueGpsType: %+v, SueDr: %+v, SueBoardType: %+v, SueAirframe: %+v, SueClockConfig: %+v, SueFlightPlanType: %+v }",
+		"&Matrixpilot.SerialUdbExtraF14{ SueTrapSource: %+v, SueRcon: %+v, SueTrapFlags: %+v, SueOscFailCount: %+v, SueWindEstimation: %+v, SueGpsType: %+v, SueDr: %+v, SueBoardType: %+v, SueAirframe: %+v, SueClockConfig: %+v, SueFlightPlanType: %+v }",
 		m.SueTrapSource,
 		m.SueRcon,
 		m.SueTrapFlags,
@@ -1432,20 +1262,10 @@ func (m *SerialUdbExtraF15) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F15
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF15) CRCExtra() uint8 {
-	return 7
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF15) MsgName() string {
-	return "SerialUdbExtraF15"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF15) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF15{ SueIDVehicleModelName: %+v, SueIDVehicleRegistration: %+v }",
+		"&Matrixpilot.SerialUdbExtraF15{ SueIDVehicleModelName: %+v, SueIDVehicleRegistration: %+v }",
 		m.SueIDVehicleModelName,
 		m.SueIDVehicleRegistration,
 	)
@@ -1484,20 +1304,10 @@ func (m *SerialUdbExtraF16) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F16
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF16) CRCExtra() uint8 {
-	return 222
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF16) MsgName() string {
-	return "SerialUdbExtraF16"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF16) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF16{ SueIDLeadPilot: %+v, SueIDDiyDronesURL: %+v }",
+		"&Matrixpilot.SerialUdbExtraF16{ SueIDLeadPilot: %+v, SueIDDiyDronesURL: %+v }",
 		m.SueIDLeadPilot,
 		m.SueIDDiyDronesURL,
 	)
@@ -1541,20 +1351,10 @@ func (m *Altitudes) MsgID() mavlink.MessageID {
 	return MSG_ID_ALTITUDES
 }
 
-// CRCExtra (generated function)
-func (m *Altitudes) CRCExtra() uint8 {
-	return 55
-}
-
-// MsgName (generated function)
-func (m *Altitudes) MsgName() string {
-	return "Altitudes"
-}
-
 // String (generated function)
 func (m *Altitudes) String() string {
 	return fmt.Sprintf(
-		"&Altitudes{ TimeBootMs: %+v, AltGps: %+v, AltImu: %+v, AltBarometric: %+v, AltOpticalFlow: %+v, AltRangeFinder: %+v, AltExtra: %+v }",
+		"&Matrixpilot.Altitudes{ TimeBootMs: %+v, AltGps: %+v, AltImu: %+v, AltBarometric: %+v, AltOpticalFlow: %+v, AltRangeFinder: %+v, AltExtra: %+v }",
 		m.TimeBootMs,
 		m.AltGps,
 		m.AltImu,
@@ -1613,20 +1413,10 @@ func (m *Airspeeds) MsgID() mavlink.MessageID {
 	return MSG_ID_AIRSPEEDS
 }
 
-// CRCExtra (generated function)
-func (m *Airspeeds) CRCExtra() uint8 {
-	return 154
-}
-
-// MsgName (generated function)
-func (m *Airspeeds) MsgName() string {
-	return "Airspeeds"
-}
-
 // String (generated function)
 func (m *Airspeeds) String() string {
 	return fmt.Sprintf(
-		"&Airspeeds{ TimeBootMs: %+v, AirspeedImu: %+v, AirspeedPitot: %+v, AirspeedHotWire: %+v, AirspeedUltrasonic: %+v, Aoa: %+v, Aoy: %+v }",
+		"&Matrixpilot.Airspeeds{ TimeBootMs: %+v, AirspeedImu: %+v, AirspeedPitot: %+v, AirspeedHotWire: %+v, AirspeedUltrasonic: %+v, Aoa: %+v, Aoy: %+v }",
 		m.TimeBootMs,
 		m.AirspeedImu,
 		m.AirspeedPitot,
@@ -1681,20 +1471,10 @@ func (m *SerialUdbExtraF17) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F17
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF17) CRCExtra() uint8 {
-	return 175
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF17) MsgName() string {
-	return "SerialUdbExtraF17"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF17) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF17{ SueFeedForward: %+v, SueTurnRateNav: %+v, SueTurnRateFbw: %+v }",
+		"&Matrixpilot.SerialUdbExtraF17{ SueFeedForward: %+v, SueTurnRateNav: %+v, SueTurnRateFbw: %+v }",
 		m.SueFeedForward,
 		m.SueTurnRateNav,
 		m.SueTurnRateFbw,
@@ -1739,20 +1519,10 @@ func (m *SerialUdbExtraF18) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F18
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF18) CRCExtra() uint8 {
-	return 41
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF18) MsgName() string {
-	return "SerialUdbExtraF18"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF18) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF18{ AngleOfAttackNormal: %+v, AngleOfAttackInverted: %+v, ElevatorTrimNormal: %+v, ElevatorTrimInverted: %+v, ReferenceSpeed: %+v }",
+		"&Matrixpilot.SerialUdbExtraF18{ AngleOfAttackNormal: %+v, AngleOfAttackInverted: %+v, ElevatorTrimNormal: %+v, ElevatorTrimInverted: %+v, ReferenceSpeed: %+v }",
 		m.AngleOfAttackNormal,
 		m.AngleOfAttackInverted,
 		m.ElevatorTrimNormal,
@@ -1806,20 +1576,10 @@ func (m *SerialUdbExtraF19) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F19
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF19) CRCExtra() uint8 {
-	return 87
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF19) MsgName() string {
-	return "SerialUdbExtraF19"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF19) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF19{ SueAileronOutputChannel: %+v, SueAileronReversed: %+v, SueElevatorOutputChannel: %+v, SueElevatorReversed: %+v, SueThrottleOutputChannel: %+v, SueThrottleReversed: %+v, SueRudderOutputChannel: %+v, SueRudderReversed: %+v }",
+		"&Matrixpilot.SerialUdbExtraF19{ SueAileronOutputChannel: %+v, SueAileronReversed: %+v, SueElevatorOutputChannel: %+v, SueElevatorReversed: %+v, SueThrottleOutputChannel: %+v, SueThrottleReversed: %+v, SueRudderOutputChannel: %+v, SueRudderReversed: %+v }",
 		m.SueAileronOutputChannel,
 		m.SueAileronReversed,
 		m.SueElevatorOutputChannel,
@@ -1887,20 +1647,10 @@ func (m *SerialUdbExtraF20) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F20
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF20) CRCExtra() uint8 {
-	return 144
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF20) MsgName() string {
-	return "SerialUdbExtraF20"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF20) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF20{ SueTrimValueInput1: %+v, SueTrimValueInput2: %+v, SueTrimValueInput3: %+v, SueTrimValueInput4: %+v, SueTrimValueInput5: %+v, SueTrimValueInput6: %+v, SueTrimValueInput7: %+v, SueTrimValueInput8: %+v, SueTrimValueInput9: %+v, SueTrimValueInput10: %+v, SueTrimValueInput11: %+v, SueTrimValueInput12: %+v, SueNumberOfInputs: %+v }",
+		"&Matrixpilot.SerialUdbExtraF20{ SueTrimValueInput1: %+v, SueTrimValueInput2: %+v, SueTrimValueInput3: %+v, SueTrimValueInput4: %+v, SueTrimValueInput5: %+v, SueTrimValueInput6: %+v, SueTrimValueInput7: %+v, SueTrimValueInput8: %+v, SueTrimValueInput9: %+v, SueTrimValueInput10: %+v, SueTrimValueInput11: %+v, SueTrimValueInput12: %+v, SueNumberOfInputs: %+v }",
 		m.SueTrimValueInput1,
 		m.SueTrimValueInput2,
 		m.SueTrimValueInput3,
@@ -1976,20 +1726,10 @@ func (m *SerialUdbExtraF21) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F21
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF21) CRCExtra() uint8 {
-	return 134
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF21) MsgName() string {
-	return "SerialUdbExtraF21"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF21) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF21{ SueAccelXOffset: %+v, SueAccelYOffset: %+v, SueAccelZOffset: %+v, SueGyroXOffset: %+v, SueGyroYOffset: %+v, SueGyroZOffset: %+v }",
+		"&Matrixpilot.SerialUdbExtraF21{ SueAccelXOffset: %+v, SueAccelYOffset: %+v, SueAccelZOffset: %+v, SueGyroXOffset: %+v, SueGyroYOffset: %+v, SueGyroZOffset: %+v }",
 		m.SueAccelXOffset,
 		m.SueAccelYOffset,
 		m.SueAccelZOffset,
@@ -2044,20 +1784,10 @@ func (m *SerialUdbExtraF22) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_UDB_EXTRA_F22
 }
 
-// CRCExtra (generated function)
-func (m *SerialUdbExtraF22) CRCExtra() uint8 {
-	return 91
-}
-
-// MsgName (generated function)
-func (m *SerialUdbExtraF22) MsgName() string {
-	return "SerialUdbExtraF22"
-}
-
 // String (generated function)
 func (m *SerialUdbExtraF22) String() string {
 	return fmt.Sprintf(
-		"&SerialUdbExtraF22{ SueAccelXAtCalibration: %+v, SueAccelYAtCalibration: %+v, SueAccelZAtCalibration: %+v, SueGyroXAtCalibration: %+v, SueGyroYAtCalibration: %+v, SueGyroZAtCalibration: %+v }",
+		"&Matrixpilot.SerialUdbExtraF22{ SueAccelXAtCalibration: %+v, SueAccelYAtCalibration: %+v, SueAccelZAtCalibration: %+v, SueGyroXAtCalibration: %+v, SueGyroYAtCalibration: %+v, SueGyroZAtCalibration: %+v }",
 		m.SueAccelXAtCalibration,
 		m.SueAccelYAtCalibration,
 		m.SueAccelZAtCalibration,

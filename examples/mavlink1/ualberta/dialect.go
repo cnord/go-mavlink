@@ -58,20 +58,10 @@ func (m *NavFilterBias) MsgID() mavlink.MessageID {
 	return MSG_ID_NAV_FILTER_BIAS
 }
 
-// CRCExtra (generated function)
-func (m *NavFilterBias) CRCExtra() uint8 {
-	return 34
-}
-
-// MsgName (generated function)
-func (m *NavFilterBias) MsgName() string {
-	return "NavFilterBias"
-}
-
 // String (generated function)
 func (m *NavFilterBias) String() string {
 	return fmt.Sprintf(
-		"&NavFilterBias{ Usec: %+v, Accel0: %+v, Accel1: %+v, Accel2: %+v, Gyro0: %+v, Gyro1: %+v, Gyro2: %+v }",
+		"&Ualberta.NavFilterBias{ Usec: %+v, Accel0: %+v, Accel1: %+v, Accel2: %+v, Gyro0: %+v, Gyro1: %+v, Gyro2: %+v }",
 		m.Usec,
 		m.Accel0,
 		m.Accel1,
@@ -129,20 +119,10 @@ func (m *RadioCalibration) MsgID() mavlink.MessageID {
 	return MSG_ID_RADIO_CALIBRATION
 }
 
-// CRCExtra (generated function)
-func (m *RadioCalibration) CRCExtra() uint8 {
-	return 71
-}
-
-// MsgName (generated function)
-func (m *RadioCalibration) MsgName() string {
-	return "RadioCalibration"
-}
-
 // String (generated function)
 func (m *RadioCalibration) String() string {
 	return fmt.Sprintf(
-		"&RadioCalibration{ Aileron: %+v, Elevator: %+v, Rudder: %+v, Gyro: %+v, Pitch: %+v, Throttle: %+v }",
+		"&Ualberta.RadioCalibration{ Aileron: %+v, Elevator: %+v, Rudder: %+v, Gyro: %+v, Pitch: %+v, Throttle: %+v }",
 		m.Aileron,
 		m.Elevator,
 		m.Rudder,
@@ -218,20 +198,10 @@ func (m *UalbertaSysStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_UALBERTA_SYS_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *UalbertaSysStatus) CRCExtra() uint8 {
-	return 15
-}
-
-// MsgName (generated function)
-func (m *UalbertaSysStatus) MsgName() string {
-	return "UalbertaSysStatus"
-}
-
 // String (generated function)
 func (m *UalbertaSysStatus) String() string {
 	return fmt.Sprintf(
-		"&UalbertaSysStatus{ Mode: %+v, NavMode: %+v, Pilot: %+v }",
+		"&Ualberta.UalbertaSysStatus{ Mode: %+v, NavMode: %+v, Pilot: %+v }",
 		m.Mode,
 		m.NavMode,
 		m.Pilot,

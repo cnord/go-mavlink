@@ -1712,20 +1712,10 @@ func (m *SysStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_SYS_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *SysStatus) CRCExtra() uint8 {
-	return 124
-}
-
-// MsgName (generated function)
-func (m *SysStatus) MsgName() string {
-	return "SysStatus"
-}
-
 // String (generated function)
 func (m *SysStatus) String() string {
 	return fmt.Sprintf(
-		"&SysStatus{ OnboardControlSensorsPresent: %+v, OnboardControlSensorsEnabled: %+v, OnboardControlSensorsHealth: %+v, Load: %+v, VoltageBattery: %+v, CurrentBattery: %+v, DropRateComm: %+v, ErrorsComm: %+v, ErrorsCount1: %+v, ErrorsCount2: %+v, ErrorsCount3: %+v, ErrorsCount4: %+v, BatteryRemaining: %+v }",
+		"&Common.SysStatus{ OnboardControlSensorsPresent: %+v, OnboardControlSensorsEnabled: %+v, OnboardControlSensorsHealth: %+v, Load: %+v, VoltageBattery: %+v, CurrentBattery: %+v, DropRateComm: %+v, ErrorsComm: %+v, ErrorsCount1: %+v, ErrorsCount2: %+v, ErrorsCount3: %+v, ErrorsCount4: %+v, BatteryRemaining: %+v }",
 		m.OnboardControlSensorsPresent,
 		m.OnboardControlSensorsEnabled,
 		m.OnboardControlSensorsHealth,
@@ -1802,20 +1792,10 @@ func (m *SystemTime) MsgID() mavlink.MessageID {
 	return MSG_ID_SYSTEM_TIME
 }
 
-// CRCExtra (generated function)
-func (m *SystemTime) CRCExtra() uint8 {
-	return 137
-}
-
-// MsgName (generated function)
-func (m *SystemTime) MsgName() string {
-	return "SystemTime"
-}
-
 // String (generated function)
 func (m *SystemTime) String() string {
 	return fmt.Sprintf(
-		"&SystemTime{ TimeUnixUsec: %+v, TimeBootMs: %+v }",
+		"&Common.SystemTime{ TimeUnixUsec: %+v, TimeBootMs: %+v }",
 		m.TimeUnixUsec,
 		m.TimeBootMs,
 	)
@@ -1861,20 +1841,10 @@ func (m *Ping) MsgID() mavlink.MessageID {
 	return MSG_ID_PING
 }
 
-// CRCExtra (generated function)
-func (m *Ping) CRCExtra() uint8 {
-	return 237
-}
-
-// MsgName (generated function)
-func (m *Ping) MsgName() string {
-	return "Ping"
-}
-
 // String (generated function)
 func (m *Ping) String() string {
 	return fmt.Sprintf(
-		"&Ping{ TimeUsec: %+v, Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.Ping{ TimeUsec: %+v, Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.TimeUsec,
 		m.Seq,
 		m.TargetSystem,
@@ -1926,20 +1896,10 @@ func (m *ChangeOperatorControl) MsgID() mavlink.MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL
 }
 
-// CRCExtra (generated function)
-func (m *ChangeOperatorControl) CRCExtra() uint8 {
-	return 217
-}
-
-// MsgName (generated function)
-func (m *ChangeOperatorControl) MsgName() string {
-	return "ChangeOperatorControl"
-}
-
 // String (generated function)
 func (m *ChangeOperatorControl) String() string {
 	return fmt.Sprintf(
-		"&ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
+		"&Common.ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
 		m.TargetSystem,
 		m.ControlRequest,
 		m.Version,
@@ -1990,20 +1950,10 @@ func (m *ChangeOperatorControlAck) MsgID() mavlink.MessageID {
 	return MSG_ID_CHANGE_OPERATOR_CONTROL_ACK
 }
 
-// CRCExtra (generated function)
-func (m *ChangeOperatorControlAck) CRCExtra() uint8 {
-	return 104
-}
-
-// MsgName (generated function)
-func (m *ChangeOperatorControlAck) MsgName() string {
-	return "ChangeOperatorControlAck"
-}
-
 // String (generated function)
 func (m *ChangeOperatorControlAck) String() string {
 	return fmt.Sprintf(
-		"&ChangeOperatorControlAck{ GcsSystemID: %+v, ControlRequest: %+v, Ack: %+v }",
+		"&Common.ChangeOperatorControlAck{ GcsSystemID: %+v, ControlRequest: %+v, Ack: %+v }",
 		m.GcsSystemID,
 		m.ControlRequest,
 		m.Ack,
@@ -2049,20 +1999,10 @@ func (m *AuthKey) MsgID() mavlink.MessageID {
 	return MSG_ID_AUTH_KEY
 }
 
-// CRCExtra (generated function)
-func (m *AuthKey) CRCExtra() uint8 {
-	return 119
-}
-
-// MsgName (generated function)
-func (m *AuthKey) MsgName() string {
-	return "AuthKey"
-}
-
 // String (generated function)
 func (m *AuthKey) String() string {
 	return fmt.Sprintf(
-		"&AuthKey{ Key: %+v }",
+		"&Common.AuthKey{ Key: %+v }",
 		m.Key,
 	)
 }
@@ -2112,20 +2052,10 @@ func (m *LinkNodeStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_LINK_NODE_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *LinkNodeStatus) CRCExtra() uint8 {
-	return 117
-}
-
-// MsgName (generated function)
-func (m *LinkNodeStatus) MsgName() string {
-	return "LinkNodeStatus"
-}
-
 // String (generated function)
 func (m *LinkNodeStatus) String() string {
 	return fmt.Sprintf(
-		"&LinkNodeStatus{ Timestamp: %+v, TxRate: %+v, RxRate: %+v, MessagesSent: %+v, MessagesReceived: %+v, MessagesLost: %+v, RxParseErr: %+v, TxOverflows: %+v, RxOverflows: %+v, TxBuf: %+v, RxBuf: %+v }",
+		"&Common.LinkNodeStatus{ Timestamp: %+v, TxRate: %+v, RxRate: %+v, MessagesSent: %+v, MessagesReceived: %+v, MessagesLost: %+v, RxParseErr: %+v, TxOverflows: %+v, RxOverflows: %+v, TxBuf: %+v, RxBuf: %+v }",
 		m.Timestamp,
 		m.TxRate,
 		m.RxRate,
@@ -2197,20 +2127,10 @@ func (m *SetMode) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_MODE
 }
 
-// CRCExtra (generated function)
-func (m *SetMode) CRCExtra() uint8 {
-	return 89
-}
-
-// MsgName (generated function)
-func (m *SetMode) MsgName() string {
-	return "SetMode"
-}
-
 // String (generated function)
 func (m *SetMode) String() string {
 	return fmt.Sprintf(
-		"&SetMode{ CustomMode: %+v, TargetSystem: %+v, BaseMode: %+v }",
+		"&Common.SetMode{ CustomMode: %+v, TargetSystem: %+v, BaseMode: %+v }",
 		m.CustomMode,
 		m.TargetSystem,
 		m.BaseMode,
@@ -2261,20 +2181,10 @@ func (m *ParamAckTransaction) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_ACK_TRANSACTION
 }
 
-// CRCExtra (generated function)
-func (m *ParamAckTransaction) CRCExtra() uint8 {
-	return 137
-}
-
-// MsgName (generated function)
-func (m *ParamAckTransaction) MsgName() string {
-	return "ParamAckTransaction"
-}
-
 // String (generated function)
 func (m *ParamAckTransaction) String() string {
 	return fmt.Sprintf(
-		"&ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
+		"&Common.ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2332,20 +2242,10 @@ func (m *ParamRequestRead) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_REQUEST_READ
 }
 
-// CRCExtra (generated function)
-func (m *ParamRequestRead) CRCExtra() uint8 {
-	return 214
-}
-
-// MsgName (generated function)
-func (m *ParamRequestRead) MsgName() string {
-	return "ParamRequestRead"
-}
-
 // String (generated function)
 func (m *ParamRequestRead) String() string {
 	return fmt.Sprintf(
-		"&ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
+		"&Common.ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2395,20 +2295,10 @@ func (m *ParamRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_REQUEST_LIST
 }
 
-// CRCExtra (generated function)
-func (m *ParamRequestList) CRCExtra() uint8 {
-	return 159
-}
-
-// MsgName (generated function)
-func (m *ParamRequestList) MsgName() string {
-	return "ParamRequestList"
-}
-
 // String (generated function)
 func (m *ParamRequestList) String() string {
 	return fmt.Sprintf(
-		"&ParamRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.ParamRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -2455,20 +2345,10 @@ func (m *ParamValue) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_VALUE
 }
 
-// CRCExtra (generated function)
-func (m *ParamValue) CRCExtra() uint8 {
-	return 220
-}
-
-// MsgName (generated function)
-func (m *ParamValue) MsgName() string {
-	return "ParamValue"
-}
-
 // String (generated function)
 func (m *ParamValue) String() string {
 	return fmt.Sprintf(
-		"&ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
+		"&Common.ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
 		m.ParamValue,
 		m.ParamCount,
 		m.ParamIndex,
@@ -2526,20 +2406,10 @@ func (m *ParamSet) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_SET
 }
 
-// CRCExtra (generated function)
-func (m *ParamSet) CRCExtra() uint8 {
-	return 168
-}
-
-// MsgName (generated function)
-func (m *ParamSet) MsgName() string {
-	return "ParamSet"
-}
-
 // String (generated function)
 func (m *ParamSet) String() string {
 	return fmt.Sprintf(
-		"&ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
+		"&Common.ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2601,20 +2471,10 @@ func (m *GpsRawInt) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RAW_INT
 }
 
-// CRCExtra (generated function)
-func (m *GpsRawInt) CRCExtra() uint8 {
-	return 24
-}
-
-// MsgName (generated function)
-func (m *GpsRawInt) MsgName() string {
-	return "GpsRawInt"
-}
-
 // String (generated function)
 func (m *GpsRawInt) String() string {
 	return fmt.Sprintf(
-		"&GpsRawInt{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&Common.GpsRawInt{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -2686,20 +2546,10 @@ func (m *GpsStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *GpsStatus) CRCExtra() uint8 {
-	return 23
-}
-
-// MsgName (generated function)
-func (m *GpsStatus) MsgName() string {
-	return "GpsStatus"
-}
-
 // String (generated function)
 func (m *GpsStatus) String() string {
 	return fmt.Sprintf(
-		"&GpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
+		"&Common.GpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
 		m.SatellitesVisible,
 		m.SatellitePrn,
 		m.SatelliteUsed,
@@ -2763,20 +2613,10 @@ func (m *ScaledImu) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU
 }
 
-// CRCExtra (generated function)
-func (m *ScaledImu) CRCExtra() uint8 {
-	return 170
-}
-
-// MsgName (generated function)
-func (m *ScaledImu) MsgName() string {
-	return "ScaledImu"
-}
-
 // String (generated function)
 func (m *ScaledImu) String() string {
 	return fmt.Sprintf(
-		"&ScaledImu{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&Common.ScaledImu{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -2852,20 +2692,10 @@ func (m *RawImu) MsgID() mavlink.MessageID {
 	return MSG_ID_RAW_IMU
 }
 
-// CRCExtra (generated function)
-func (m *RawImu) CRCExtra() uint8 {
-	return 144
-}
-
-// MsgName (generated function)
-func (m *RawImu) MsgName() string {
-	return "RawImu"
-}
-
 // String (generated function)
 func (m *RawImu) String() string {
 	return fmt.Sprintf(
-		"&RawImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&Common.RawImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -2936,20 +2766,10 @@ func (m *RawPressure) MsgID() mavlink.MessageID {
 	return MSG_ID_RAW_PRESSURE
 }
 
-// CRCExtra (generated function)
-func (m *RawPressure) CRCExtra() uint8 {
-	return 67
-}
-
-// MsgName (generated function)
-func (m *RawPressure) MsgName() string {
-	return "RawPressure"
-}
-
 // String (generated function)
 func (m *RawPressure) String() string {
 	return fmt.Sprintf(
-		"&RawPressure{ TimeUsec: %+v, PressAbs: %+v, PressDiff1: %+v, PressDiff2: %+v, Temperature: %+v }",
+		"&Common.RawPressure{ TimeUsec: %+v, PressAbs: %+v, PressDiff1: %+v, PressDiff2: %+v, Temperature: %+v }",
 		m.TimeUsec,
 		m.PressAbs,
 		m.PressDiff1,
@@ -3004,20 +2824,10 @@ func (m *ScaledPressure) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE
 }
 
-// CRCExtra (generated function)
-func (m *ScaledPressure) CRCExtra() uint8 {
-	return 115
-}
-
-// MsgName (generated function)
-func (m *ScaledPressure) MsgName() string {
-	return "ScaledPressure"
-}
-
 // String (generated function)
 func (m *ScaledPressure) String() string {
 	return fmt.Sprintf(
-		"&ScaledPressure{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&Common.ScaledPressure{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -3072,20 +2882,10 @@ func (m *Attitude) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE
 }
 
-// CRCExtra (generated function)
-func (m *Attitude) CRCExtra() uint8 {
-	return 39
-}
-
-// MsgName (generated function)
-func (m *Attitude) MsgName() string {
-	return "Attitude"
-}
-
 // String (generated function)
 func (m *Attitude) String() string {
 	return fmt.Sprintf(
-		"&Attitude{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
+		"&Common.Attitude{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
 		m.TimeBootMs,
 		m.Roll,
 		m.Pitch,
@@ -3150,20 +2950,10 @@ func (m *AttitudeQuaternion) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION
 }
 
-// CRCExtra (generated function)
-func (m *AttitudeQuaternion) CRCExtra() uint8 {
-	return 246
-}
-
-// MsgName (generated function)
-func (m *AttitudeQuaternion) MsgName() string {
-	return "AttitudeQuaternion"
-}
-
 // String (generated function)
 func (m *AttitudeQuaternion) String() string {
 	return fmt.Sprintf(
-		"&AttitudeQuaternion{ TimeBootMs: %+v, Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
+		"&Common.AttitudeQuaternion{ TimeBootMs: %+v, Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v }",
 		m.TimeBootMs,
 		m.Q1,
 		m.Q2,
@@ -3230,20 +3020,10 @@ func (m *LocalPositionNed) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED
 }
 
-// CRCExtra (generated function)
-func (m *LocalPositionNed) CRCExtra() uint8 {
-	return 185
-}
-
-// MsgName (generated function)
-func (m *LocalPositionNed) MsgName() string {
-	return "LocalPositionNed"
-}
-
 // String (generated function)
 func (m *LocalPositionNed) String() string {
 	return fmt.Sprintf(
-		"&LocalPositionNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v }",
+		"&Common.LocalPositionNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -3310,20 +3090,10 @@ func (m *GlobalPositionInt) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT
 }
 
-// CRCExtra (generated function)
-func (m *GlobalPositionInt) CRCExtra() uint8 {
-	return 104
-}
-
-// MsgName (generated function)
-func (m *GlobalPositionInt) MsgName() string {
-	return "GlobalPositionInt"
-}
-
 // String (generated function)
 func (m *GlobalPositionInt) String() string {
 	return fmt.Sprintf(
-		"&GlobalPositionInt{ TimeBootMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Hdg: %+v }",
+		"&Common.GlobalPositionInt{ TimeBootMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Hdg: %+v }",
 		m.TimeBootMs,
 		m.Lat,
 		m.Lon,
@@ -3397,20 +3167,10 @@ func (m *RcChannelsScaled) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_SCALED
 }
 
-// CRCExtra (generated function)
-func (m *RcChannelsScaled) CRCExtra() uint8 {
-	return 237
-}
-
-// MsgName (generated function)
-func (m *RcChannelsScaled) MsgName() string {
-	return "RcChannelsScaled"
-}
-
 // String (generated function)
 func (m *RcChannelsScaled) String() string {
 	return fmt.Sprintf(
-		"&RcChannelsScaled{ TimeBootMs: %+v, Chan1Scaled: %+v, Chan2Scaled: %+v, Chan3Scaled: %+v, Chan4Scaled: %+v, Chan5Scaled: %+v, Chan6Scaled: %+v, Chan7Scaled: %+v, Chan8Scaled: %+v, Port: %+v, Rssi: %+v }",
+		"&Common.RcChannelsScaled{ TimeBootMs: %+v, Chan1Scaled: %+v, Chan2Scaled: %+v, Chan3Scaled: %+v, Chan4Scaled: %+v, Chan5Scaled: %+v, Chan6Scaled: %+v, Chan7Scaled: %+v, Chan8Scaled: %+v, Port: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Scaled,
 		m.Chan2Scaled,
@@ -3490,20 +3250,10 @@ func (m *RcChannelsRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_RAW
 }
 
-// CRCExtra (generated function)
-func (m *RcChannelsRaw) CRCExtra() uint8 {
-	return 244
-}
-
-// MsgName (generated function)
-func (m *RcChannelsRaw) MsgName() string {
-	return "RcChannelsRaw"
-}
-
 // String (generated function)
 func (m *RcChannelsRaw) String() string {
 	return fmt.Sprintf(
-		"&RcChannelsRaw{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Port: %+v, Rssi: %+v }",
+		"&Common.RcChannelsRaw{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Port: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -3582,20 +3332,10 @@ func (m *ServoOutputRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_SERVO_OUTPUT_RAW
 }
 
-// CRCExtra (generated function)
-func (m *ServoOutputRaw) CRCExtra() uint8 {
-	return 222
-}
-
-// MsgName (generated function)
-func (m *ServoOutputRaw) MsgName() string {
-	return "ServoOutputRaw"
-}
-
 // String (generated function)
 func (m *ServoOutputRaw) String() string {
 	return fmt.Sprintf(
-		"&ServoOutputRaw{ TimeUsec: %+v, Servo1Raw: %+v, Servo2Raw: %+v, Servo3Raw: %+v, Servo4Raw: %+v, Servo5Raw: %+v, Servo6Raw: %+v, Servo7Raw: %+v, Servo8Raw: %+v, Port: %+v }",
+		"&Common.ServoOutputRaw{ TimeUsec: %+v, Servo1Raw: %+v, Servo2Raw: %+v, Servo3Raw: %+v, Servo4Raw: %+v, Servo5Raw: %+v, Servo6Raw: %+v, Servo7Raw: %+v, Servo8Raw: %+v, Port: %+v }",
 		m.TimeUsec,
 		m.Servo1Raw,
 		m.Servo2Raw,
@@ -3665,20 +3405,10 @@ func (m *MissionRequestPartialList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_PARTIAL_LIST
 }
 
-// CRCExtra (generated function)
-func (m *MissionRequestPartialList) CRCExtra() uint8 {
-	return 212
-}
-
-// MsgName (generated function)
-func (m *MissionRequestPartialList) MsgName() string {
-	return "MissionRequestPartialList"
-}
-
 // String (generated function)
 func (m *MissionRequestPartialList) String() string {
 	return fmt.Sprintf(
-		"&MissionRequestPartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionRequestPartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.TargetSystem,
@@ -3730,20 +3460,10 @@ func (m *MissionWritePartialList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_WRITE_PARTIAL_LIST
 }
 
-// CRCExtra (generated function)
-func (m *MissionWritePartialList) CRCExtra() uint8 {
-	return 9
-}
-
-// MsgName (generated function)
-func (m *MissionWritePartialList) MsgName() string {
-	return "MissionWritePartialList"
-}
-
 // String (generated function)
 func (m *MissionWritePartialList) String() string {
 	return fmt.Sprintf(
-		"&MissionWritePartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionWritePartialList{ StartIndex: %+v, EndIndex: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.TargetSystem,
@@ -3806,20 +3526,10 @@ func (m *MissionItem) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM
 }
 
-// CRCExtra (generated function)
-func (m *MissionItem) CRCExtra() uint8 {
-	return 254
-}
-
-// MsgName (generated function)
-func (m *MissionItem) MsgName() string {
-	return "MissionItem"
-}
-
 // String (generated function)
 func (m *MissionItem) String() string {
 	return fmt.Sprintf(
-		"&MissionItem{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&Common.MissionItem{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -3900,20 +3610,10 @@ func (m *MissionRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST
 }
 
-// CRCExtra (generated function)
-func (m *MissionRequest) CRCExtra() uint8 {
-	return 230
-}
-
-// MsgName (generated function)
-func (m *MissionRequest) MsgName() string {
-	return "MissionRequest"
-}
-
 // String (generated function)
 func (m *MissionRequest) String() string {
 	return fmt.Sprintf(
-		"&MissionRequest{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionRequest{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -3961,20 +3661,10 @@ func (m *MissionSetCurrent) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_SET_CURRENT
 }
 
-// CRCExtra (generated function)
-func (m *MissionSetCurrent) CRCExtra() uint8 {
-	return 28
-}
-
-// MsgName (generated function)
-func (m *MissionSetCurrent) MsgName() string {
-	return "MissionSetCurrent"
-}
-
 // String (generated function)
 func (m *MissionSetCurrent) String() string {
 	return fmt.Sprintf(
-		"&MissionSetCurrent{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionSetCurrent{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -4020,20 +3710,10 @@ func (m *MissionCurrent) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CURRENT
 }
 
-// CRCExtra (generated function)
-func (m *MissionCurrent) CRCExtra() uint8 {
-	return 28
-}
-
-// MsgName (generated function)
-func (m *MissionCurrent) MsgName() string {
-	return "MissionCurrent"
-}
-
 // String (generated function)
 func (m *MissionCurrent) String() string {
 	return fmt.Sprintf(
-		"&MissionCurrent{ Seq: %+v }",
+		"&Common.MissionCurrent{ Seq: %+v }",
 		m.Seq,
 	)
 }
@@ -4074,20 +3754,10 @@ func (m *MissionRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_LIST
 }
 
-// CRCExtra (generated function)
-func (m *MissionRequestList) CRCExtra() uint8 {
-	return 132
-}
-
-// MsgName (generated function)
-func (m *MissionRequestList) MsgName() string {
-	return "MissionRequestList"
-}
-
 // String (generated function)
 func (m *MissionRequestList) String() string {
 	return fmt.Sprintf(
-		"&MissionRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionRequestList{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -4132,20 +3802,10 @@ func (m *MissionCount) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_COUNT
 }
 
-// CRCExtra (generated function)
-func (m *MissionCount) CRCExtra() uint8 {
-	return 221
-}
-
-// MsgName (generated function)
-func (m *MissionCount) MsgName() string {
-	return "MissionCount"
-}
-
 // String (generated function)
 func (m *MissionCount) String() string {
 	return fmt.Sprintf(
-		"&MissionCount{ Count: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionCount{ Count: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Count,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -4192,20 +3852,10 @@ func (m *MissionClearAll) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CLEAR_ALL
 }
 
-// CRCExtra (generated function)
-func (m *MissionClearAll) CRCExtra() uint8 {
-	return 232
-}
-
-// MsgName (generated function)
-func (m *MissionClearAll) MsgName() string {
-	return "MissionClearAll"
-}
-
 // String (generated function)
 func (m *MissionClearAll) String() string {
 	return fmt.Sprintf(
-		"&MissionClearAll{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionClearAll{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -4248,20 +3898,10 @@ func (m *MissionItemReached) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM_REACHED
 }
 
-// CRCExtra (generated function)
-func (m *MissionItemReached) CRCExtra() uint8 {
-	return 11
-}
-
-// MsgName (generated function)
-func (m *MissionItemReached) MsgName() string {
-	return "MissionItemReached"
-}
-
 // String (generated function)
 func (m *MissionItemReached) String() string {
 	return fmt.Sprintf(
-		"&MissionItemReached{ Seq: %+v }",
+		"&Common.MissionItemReached{ Seq: %+v }",
 		m.Seq,
 	)
 }
@@ -4303,20 +3943,10 @@ func (m *MissionAck) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ACK
 }
 
-// CRCExtra (generated function)
-func (m *MissionAck) CRCExtra() uint8 {
-	return 153
-}
-
-// MsgName (generated function)
-func (m *MissionAck) MsgName() string {
-	return "MissionAck"
-}
-
 // String (generated function)
 func (m *MissionAck) String() string {
 	return fmt.Sprintf(
-		"&MissionAck{ TargetSystem: %+v, TargetComponent: %+v, Type: %+v }",
+		"&Common.MissionAck{ TargetSystem: %+v, TargetComponent: %+v, Type: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Type,
@@ -4365,20 +3995,10 @@ func (m *SetGpsGlobalOrigin) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_GPS_GLOBAL_ORIGIN
 }
 
-// CRCExtra (generated function)
-func (m *SetGpsGlobalOrigin) CRCExtra() uint8 {
-	return 41
-}
-
-// MsgName (generated function)
-func (m *SetGpsGlobalOrigin) MsgName() string {
-	return "SetGpsGlobalOrigin"
-}
-
 // String (generated function)
 func (m *SetGpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
-		"&SetGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v, TargetSystem: %+v }",
+		"&Common.SetGpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v, TargetSystem: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -4429,20 +4049,10 @@ func (m *GpsGlobalOrigin) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_GLOBAL_ORIGIN
 }
 
-// CRCExtra (generated function)
-func (m *GpsGlobalOrigin) CRCExtra() uint8 {
-	return 39
-}
-
-// MsgName (generated function)
-func (m *GpsGlobalOrigin) MsgName() string {
-	return "GpsGlobalOrigin"
-}
-
 // String (generated function)
 func (m *GpsGlobalOrigin) String() string {
 	return fmt.Sprintf(
-		"&GpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v }",
+		"&Common.GpsGlobalOrigin{ Latitude: %+v, Longitude: %+v, Altitude: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -4496,20 +4106,10 @@ func (m *ParamMapRc) MsgID() mavlink.MessageID {
 	return MSG_ID_PARAM_MAP_RC
 }
 
-// CRCExtra (generated function)
-func (m *ParamMapRc) CRCExtra() uint8 {
-	return 78
-}
-
-// MsgName (generated function)
-func (m *ParamMapRc) MsgName() string {
-	return "ParamMapRc"
-}
-
 // String (generated function)
 func (m *ParamMapRc) String() string {
 	return fmt.Sprintf(
-		"&ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
+		"&Common.ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
 		m.ParamValue0,
 		m.Scale,
 		m.ParamValueMin,
@@ -4575,20 +4175,10 @@ func (m *MissionRequestInt) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_REQUEST_INT
 }
 
-// CRCExtra (generated function)
-func (m *MissionRequestInt) CRCExtra() uint8 {
-	return 196
-}
-
-// MsgName (generated function)
-func (m *MissionRequestInt) MsgName() string {
-	return "MissionRequestInt"
-}
-
 // String (generated function)
 func (m *MissionRequestInt) String() string {
 	return fmt.Sprintf(
-		"&MissionRequestInt{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.MissionRequestInt{ Seq: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Seq,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -4638,20 +4228,10 @@ func (m *MissionChanged) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_CHANGED
 }
 
-// CRCExtra (generated function)
-func (m *MissionChanged) CRCExtra() uint8 {
-	return 132
-}
-
-// MsgName (generated function)
-func (m *MissionChanged) MsgName() string {
-	return "MissionChanged"
-}
-
 // String (generated function)
 func (m *MissionChanged) String() string {
 	return fmt.Sprintf(
-		"&MissionChanged{ StartIndex: %+v, EndIndex: %+v, OriginSysid: %+v, OriginCompid: %+v, MissionType: %+v }",
+		"&Common.MissionChanged{ StartIndex: %+v, EndIndex: %+v, OriginSysid: %+v, OriginCompid: %+v, MissionType: %+v }",
 		m.StartIndex,
 		m.EndIndex,
 		m.OriginSysid,
@@ -4711,20 +4291,10 @@ func (m *SafetySetAllowedArea) MsgID() mavlink.MessageID {
 	return MSG_ID_SAFETY_SET_ALLOWED_AREA
 }
 
-// CRCExtra (generated function)
-func (m *SafetySetAllowedArea) CRCExtra() uint8 {
-	return 15
-}
-
-// MsgName (generated function)
-func (m *SafetySetAllowedArea) MsgName() string {
-	return "SafetySetAllowedArea"
-}
-
 // String (generated function)
 func (m *SafetySetAllowedArea) String() string {
 	return fmt.Sprintf(
-		"&SafetySetAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v }",
+		"&Common.SafetySetAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v }",
 		m.P1x,
 		m.P1y,
 		m.P1z,
@@ -4794,20 +4364,10 @@ func (m *SafetyAllowedArea) MsgID() mavlink.MessageID {
 	return MSG_ID_SAFETY_ALLOWED_AREA
 }
 
-// CRCExtra (generated function)
-func (m *SafetyAllowedArea) CRCExtra() uint8 {
-	return 3
-}
-
-// MsgName (generated function)
-func (m *SafetyAllowedArea) MsgName() string {
-	return "SafetyAllowedArea"
-}
-
 // String (generated function)
 func (m *SafetyAllowedArea) String() string {
 	return fmt.Sprintf(
-		"&SafetyAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, Frame: %+v }",
+		"&Common.SafetyAllowedArea{ P1x: %+v, P1y: %+v, P1z: %+v, P2x: %+v, P2y: %+v, P2z: %+v, Frame: %+v }",
 		m.P1x,
 		m.P1y,
 		m.P1z,
@@ -4870,20 +4430,10 @@ func (m *AttitudeQuaternionCov) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_QUATERNION_COV
 }
 
-// CRCExtra (generated function)
-func (m *AttitudeQuaternionCov) CRCExtra() uint8 {
-	return 167
-}
-
-// MsgName (generated function)
-func (m *AttitudeQuaternionCov) MsgName() string {
-	return "AttitudeQuaternionCov"
-}
-
 // String (generated function)
 func (m *AttitudeQuaternionCov) String() string {
 	return fmt.Sprintf(
-		"&AttitudeQuaternionCov{ TimeUsec: %+v, Q: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Covariance: %+v }",
+		"&Common.AttitudeQuaternionCov{ TimeUsec: %+v, Q: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Covariance: %+v }",
 		m.TimeUsec,
 		m.Q,
 		m.Rollspeed,
@@ -4953,20 +4503,10 @@ func (m *NavControllerOutput) MsgID() mavlink.MessageID {
 	return MSG_ID_NAV_CONTROLLER_OUTPUT
 }
 
-// CRCExtra (generated function)
-func (m *NavControllerOutput) CRCExtra() uint8 {
-	return 183
-}
-
-// MsgName (generated function)
-func (m *NavControllerOutput) MsgName() string {
-	return "NavControllerOutput"
-}
-
 // String (generated function)
 func (m *NavControllerOutput) String() string {
 	return fmt.Sprintf(
-		"&NavControllerOutput{ NavRoll: %+v, NavPitch: %+v, AltError: %+v, AspdError: %+v, XtrackError: %+v, NavBearing: %+v, TargetBearing: %+v, WpDist: %+v }",
+		"&Common.NavControllerOutput{ NavRoll: %+v, NavPitch: %+v, AltError: %+v, AspdError: %+v, XtrackError: %+v, NavBearing: %+v, TargetBearing: %+v, WpDist: %+v }",
 		m.NavRoll,
 		m.NavPitch,
 		m.AltError,
@@ -5036,20 +4576,10 @@ func (m *GlobalPositionIntCov) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_POSITION_INT_COV
 }
 
-// CRCExtra (generated function)
-func (m *GlobalPositionIntCov) CRCExtra() uint8 {
-	return 119
-}
-
-// MsgName (generated function)
-func (m *GlobalPositionIntCov) MsgName() string {
-	return "GlobalPositionIntCov"
-}
-
 // String (generated function)
 func (m *GlobalPositionIntCov) String() string {
 	return fmt.Sprintf(
-		"&GlobalPositionIntCov{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Covariance: %+v, EstimatorType: %+v }",
+		"&Common.GlobalPositionIntCov{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, RelativeAlt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Covariance: %+v, EstimatorType: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -5131,20 +4661,10 @@ func (m *LocalPositionNedCov) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_COV
 }
 
-// CRCExtra (generated function)
-func (m *LocalPositionNedCov) CRCExtra() uint8 {
-	return 191
-}
-
-// MsgName (generated function)
-func (m *LocalPositionNedCov) MsgName() string {
-	return "LocalPositionNedCov"
-}
-
 // String (generated function)
 func (m *LocalPositionNedCov) String() string {
 	return fmt.Sprintf(
-		"&LocalPositionNedCov{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Ax: %+v, Ay: %+v, Az: %+v, Covariance: %+v, EstimatorType: %+v }",
+		"&Common.LocalPositionNedCov{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Ax: %+v, Ay: %+v, Az: %+v, Covariance: %+v, EstimatorType: %+v }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
@@ -5241,20 +4761,10 @@ func (m *RcChannels) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS
 }
 
-// CRCExtra (generated function)
-func (m *RcChannels) CRCExtra() uint8 {
-	return 118
-}
-
-// MsgName (generated function)
-func (m *RcChannels) MsgName() string {
-	return "RcChannels"
-}
-
 // String (generated function)
 func (m *RcChannels) String() string {
 	return fmt.Sprintf(
-		"&RcChannels{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Chan13Raw: %+v, Chan14Raw: %+v, Chan15Raw: %+v, Chan16Raw: %+v, Chan17Raw: %+v, Chan18Raw: %+v, Chancount: %+v, Rssi: %+v }",
+		"&Common.RcChannels{ TimeBootMs: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Chan13Raw: %+v, Chan14Raw: %+v, Chan15Raw: %+v, Chan16Raw: %+v, Chan17Raw: %+v, Chan18Raw: %+v, Chancount: %+v, Rssi: %+v }",
 		m.TimeBootMs,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -5358,20 +4868,10 @@ func (m *RequestDataStream) MsgID() mavlink.MessageID {
 	return MSG_ID_REQUEST_DATA_STREAM
 }
 
-// CRCExtra (generated function)
-func (m *RequestDataStream) CRCExtra() uint8 {
-	return 148
-}
-
-// MsgName (generated function)
-func (m *RequestDataStream) MsgName() string {
-	return "RequestDataStream"
-}
-
 // String (generated function)
 func (m *RequestDataStream) String() string {
 	return fmt.Sprintf(
-		"&RequestDataStream{ ReqMessageRate: %+v, TargetSystem: %+v, TargetComponent: %+v, ReqStreamID: %+v, StartStop: %+v }",
+		"&Common.RequestDataStream{ ReqMessageRate: %+v, TargetSystem: %+v, TargetComponent: %+v, ReqStreamID: %+v, StartStop: %+v }",
 		m.ReqMessageRate,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -5425,20 +4925,10 @@ func (m *DataStream) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA_STREAM
 }
 
-// CRCExtra (generated function)
-func (m *DataStream) CRCExtra() uint8 {
-	return 21
-}
-
-// MsgName (generated function)
-func (m *DataStream) MsgName() string {
-	return "DataStream"
-}
-
 // String (generated function)
 func (m *DataStream) String() string {
 	return fmt.Sprintf(
-		"&DataStream{ MessageRate: %+v, StreamID: %+v, OnOff: %+v }",
+		"&Common.DataStream{ MessageRate: %+v, StreamID: %+v, OnOff: %+v }",
 		m.MessageRate,
 		m.StreamID,
 		m.OnOff,
@@ -5489,20 +4979,10 @@ func (m *ManualControl) MsgID() mavlink.MessageID {
 	return MSG_ID_MANUAL_CONTROL
 }
 
-// CRCExtra (generated function)
-func (m *ManualControl) CRCExtra() uint8 {
-	return 243
-}
-
-// MsgName (generated function)
-func (m *ManualControl) MsgName() string {
-	return "ManualControl"
-}
-
 // String (generated function)
 func (m *ManualControl) String() string {
 	return fmt.Sprintf(
-		"&ManualControl{ X: %+v, Y: %+v, Z: %+v, R: %+v, Buttons: %+v, Target: %+v }",
+		"&Common.ManualControl{ X: %+v, Y: %+v, Z: %+v, R: %+v, Buttons: %+v, Target: %+v }",
 		m.X,
 		m.Y,
 		m.Z,
@@ -5566,20 +5046,10 @@ func (m *RcChannelsOverride) MsgID() mavlink.MessageID {
 	return MSG_ID_RC_CHANNELS_OVERRIDE
 }
 
-// CRCExtra (generated function)
-func (m *RcChannelsOverride) CRCExtra() uint8 {
-	return 124
-}
-
-// MsgName (generated function)
-func (m *RcChannelsOverride) MsgName() string {
-	return "RcChannelsOverride"
-}
-
 // String (generated function)
 func (m *RcChannelsOverride) String() string {
 	return fmt.Sprintf(
-		"&RcChannelsOverride{ Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.RcChannelsOverride{ Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Chan1Raw,
 		m.Chan2Raw,
 		m.Chan3Raw,
@@ -5660,20 +5130,10 @@ func (m *MissionItemInt) MsgID() mavlink.MessageID {
 	return MSG_ID_MISSION_ITEM_INT
 }
 
-// CRCExtra (generated function)
-func (m *MissionItemInt) CRCExtra() uint8 {
-	return 38
-}
-
-// MsgName (generated function)
-func (m *MissionItemInt) MsgName() string {
-	return "MissionItemInt"
-}
-
 // String (generated function)
 func (m *MissionItemInt) String() string {
 	return fmt.Sprintf(
-		"&MissionItemInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&Common.MissionItemInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Seq: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -5757,20 +5217,10 @@ func (m *VfrHud) MsgID() mavlink.MessageID {
 	return MSG_ID_VFR_HUD
 }
 
-// CRCExtra (generated function)
-func (m *VfrHud) CRCExtra() uint8 {
-	return 20
-}
-
-// MsgName (generated function)
-func (m *VfrHud) MsgName() string {
-	return "VfrHud"
-}
-
 // String (generated function)
 func (m *VfrHud) String() string {
 	return fmt.Sprintf(
-		"&VfrHud{ Airspeed: %+v, Groundspeed: %+v, Alt: %+v, Climb: %+v, Heading: %+v, Throttle: %+v }",
+		"&Common.VfrHud{ Airspeed: %+v, Groundspeed: %+v, Alt: %+v, Climb: %+v, Heading: %+v, Throttle: %+v }",
 		m.Airspeed,
 		m.Groundspeed,
 		m.Alt,
@@ -5837,20 +5287,10 @@ func (m *CommandInt) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_INT
 }
 
-// CRCExtra (generated function)
-func (m *CommandInt) CRCExtra() uint8 {
-	return 158
-}
-
-// MsgName (generated function)
-func (m *CommandInt) MsgName() string {
-	return "CommandInt"
-}
-
 // String (generated function)
 func (m *CommandInt) String() string {
 	return fmt.Sprintf(
-		"&CommandInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&Common.CommandInt{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -5936,20 +5376,10 @@ func (m *CommandLong) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_LONG
 }
 
-// CRCExtra (generated function)
-func (m *CommandLong) CRCExtra() uint8 {
-	return 152
-}
-
-// MsgName (generated function)
-func (m *CommandLong) MsgName() string {
-	return "CommandLong"
-}
-
 // String (generated function)
 func (m *CommandLong) String() string {
 	return fmt.Sprintf(
-		"&CommandLong{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
+		"&Common.CommandLong{ Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
 		m.Param1,
 		m.Param2,
 		m.Param3,
@@ -6020,20 +5450,10 @@ func (m *CommandAck) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_ACK
 }
 
-// CRCExtra (generated function)
-func (m *CommandAck) CRCExtra() uint8 {
-	return 143
-}
-
-// MsgName (generated function)
-func (m *CommandAck) MsgName() string {
-	return "CommandAck"
-}
-
 // String (generated function)
 func (m *CommandAck) String() string {
 	return fmt.Sprintf(
-		"&CommandAck{ Command: %+v, Result: %+v }",
+		"&Common.CommandAck{ Command: %+v, Result: %+v }",
 		m.Command,
 		m.Result,
 	)
@@ -6078,20 +5498,10 @@ func (m *CommandCancel) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_CANCEL
 }
 
-// CRCExtra (generated function)
-func (m *CommandCancel) CRCExtra() uint8 {
-	return 14
-}
-
-// MsgName (generated function)
-func (m *CommandCancel) MsgName() string {
-	return "CommandCancel"
-}
-
 // String (generated function)
 func (m *CommandCancel) String() string {
 	return fmt.Sprintf(
-		"&CommandCancel{ Command: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.CommandCancel{ Command: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Command,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -6143,20 +5553,10 @@ func (m *ManualSetpoint) MsgID() mavlink.MessageID {
 	return MSG_ID_MANUAL_SETPOINT
 }
 
-// CRCExtra (generated function)
-func (m *ManualSetpoint) CRCExtra() uint8 {
-	return 106
-}
-
-// MsgName (generated function)
-func (m *ManualSetpoint) MsgName() string {
-	return "ManualSetpoint"
-}
-
 // String (generated function)
 func (m *ManualSetpoint) String() string {
 	return fmt.Sprintf(
-		"&ManualSetpoint{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Thrust: %+v, ModeSwitch: %+v, ManualOverrideSwitch: %+v }",
+		"&Common.ManualSetpoint{ TimeBootMs: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Thrust: %+v, ModeSwitch: %+v, ManualOverrideSwitch: %+v }",
 		m.TimeBootMs,
 		m.Roll,
 		m.Pitch,
@@ -6222,20 +5622,10 @@ func (m *SetAttitudeTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_ATTITUDE_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *SetAttitudeTarget) CRCExtra() uint8 {
-	return 49
-}
-
-// MsgName (generated function)
-func (m *SetAttitudeTarget) MsgName() string {
-	return "SetAttitudeTarget"
-}
-
 // String (generated function)
 func (m *SetAttitudeTarget) String() string {
 	return fmt.Sprintf(
-		"&SetAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TargetSystem: %+v, TargetComponent: %+v, TypeMask: %+v }",
+		"&Common.SetAttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TargetSystem: %+v, TargetComponent: %+v, TypeMask: %+v }",
 		m.TimeBootMs,
 		m.Q,
 		m.BodyRollRate,
@@ -6309,20 +5699,10 @@ func (m *AttitudeTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_ATTITUDE_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *AttitudeTarget) CRCExtra() uint8 {
-	return 22
-}
-
-// MsgName (generated function)
-func (m *AttitudeTarget) MsgName() string {
-	return "AttitudeTarget"
-}
-
 // String (generated function)
 func (m *AttitudeTarget) String() string {
 	return fmt.Sprintf(
-		"&AttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TypeMask: %+v }",
+		"&Common.AttitudeTarget{ TimeBootMs: %+v, Q: %+v, BodyRollRate: %+v, BodyPitchRate: %+v, BodyYawRate: %+v, Thrust: %+v, TypeMask: %+v }",
 		m.TimeBootMs,
 		m.Q,
 		m.BodyRollRate,
@@ -6399,20 +5779,10 @@ func (m *SetPositionTargetLocalNed) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_POSITION_TARGET_LOCAL_NED
 }
 
-// CRCExtra (generated function)
-func (m *SetPositionTargetLocalNed) CRCExtra() uint8 {
-	return 143
-}
-
-// MsgName (generated function)
-func (m *SetPositionTargetLocalNed) MsgName() string {
-	return "SetPositionTargetLocalNed"
-}
-
 // String (generated function)
 func (m *SetPositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
-		"&SetPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
+		"&Common.SetPositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6510,20 +5880,10 @@ func (m *PositionTargetLocalNed) MsgID() mavlink.MessageID {
 	return MSG_ID_POSITION_TARGET_LOCAL_NED
 }
 
-// CRCExtra (generated function)
-func (m *PositionTargetLocalNed) CRCExtra() uint8 {
-	return 140
-}
-
-// MsgName (generated function)
-func (m *PositionTargetLocalNed) MsgName() string {
-	return "PositionTargetLocalNed"
-}
-
 // String (generated function)
 func (m *PositionTargetLocalNed) String() string {
 	return fmt.Sprintf(
-		"&PositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
+		"&Common.PositionTargetLocalNed{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6617,20 +5977,10 @@ func (m *SetPositionTargetGlobalInt) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_POSITION_TARGET_GLOBAL_INT
 }
 
-// CRCExtra (generated function)
-func (m *SetPositionTargetGlobalInt) CRCExtra() uint8 {
-	return 5
-}
-
-// MsgName (generated function)
-func (m *SetPositionTargetGlobalInt) MsgName() string {
-	return "SetPositionTargetGlobalInt"
-}
-
 // String (generated function)
 func (m *SetPositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
-		"&SetPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
+		"&Common.SetPositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, TargetSystem: %+v, TargetComponent: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.LatInt,
 		m.LonInt,
@@ -6728,20 +6078,10 @@ func (m *PositionTargetGlobalInt) MsgID() mavlink.MessageID {
 	return MSG_ID_POSITION_TARGET_GLOBAL_INT
 }
 
-// CRCExtra (generated function)
-func (m *PositionTargetGlobalInt) CRCExtra() uint8 {
-	return 150
-}
-
-// MsgName (generated function)
-func (m *PositionTargetGlobalInt) MsgName() string {
-	return "PositionTargetGlobalInt"
-}
-
 // String (generated function)
 func (m *PositionTargetGlobalInt) String() string {
 	return fmt.Sprintf(
-		"&PositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
+		"&Common.PositionTargetGlobalInt{ TimeBootMs: %+v, LatInt: %+v, LonInt: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Afx: %+v, Afy: %+v, Afz: %+v, Yaw: %+v, YawRate: %+v, TypeMask: %+v, CoordinateFrame: %+v }",
 		m.TimeBootMs,
 		m.LatInt,
 		m.LonInt,
@@ -6826,20 +6166,10 @@ func (m *LocalPositionNedSystemGlobalOffset) MsgID() mavlink.MessageID {
 	return MSG_ID_LOCAL_POSITION_NED_SYSTEM_GLOBAL_OFFSET
 }
 
-// CRCExtra (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) CRCExtra() uint8 {
-	return 231
-}
-
-// MsgName (generated function)
-func (m *LocalPositionNedSystemGlobalOffset) MsgName() string {
-	return "LocalPositionNedSystemGlobalOffset"
-}
-
 // String (generated function)
 func (m *LocalPositionNedSystemGlobalOffset) String() string {
 	return fmt.Sprintf(
-		"&LocalPositionNedSystemGlobalOffset{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&Common.LocalPositionNedSystemGlobalOffset{ TimeBootMs: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.TimeBootMs,
 		m.X,
 		m.Y,
@@ -6912,20 +6242,10 @@ func (m *HilState) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_STATE
 }
 
-// CRCExtra (generated function)
-func (m *HilState) CRCExtra() uint8 {
-	return 183
-}
-
-// MsgName (generated function)
-func (m *HilState) MsgName() string {
-	return "HilState"
-}
-
 // String (generated function)
 func (m *HilState) String() string {
 	return fmt.Sprintf(
-		"&HilState{ TimeUsec: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
+		"&Common.HilState{ TimeUsec: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
 		m.TimeUsec,
 		m.Roll,
 		m.Pitch,
@@ -7020,20 +6340,10 @@ func (m *HilControls) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_CONTROLS
 }
 
-// CRCExtra (generated function)
-func (m *HilControls) CRCExtra() uint8 {
-	return 63
-}
-
-// MsgName (generated function)
-func (m *HilControls) MsgName() string {
-	return "HilControls"
-}
-
 // String (generated function)
 func (m *HilControls) String() string {
 	return fmt.Sprintf(
-		"&HilControls{ TimeUsec: %+v, RollAilerons: %+v, PitchElevator: %+v, YawRudder: %+v, Throttle: %+v, Aux1: %+v, Aux2: %+v, Aux3: %+v, Aux4: %+v, Mode: %+v, NavMode: %+v }",
+		"&Common.HilControls{ TimeUsec: %+v, RollAilerons: %+v, PitchElevator: %+v, YawRudder: %+v, Throttle: %+v, Aux1: %+v, Aux2: %+v, Aux3: %+v, Aux4: %+v, Mode: %+v, NavMode: %+v }",
 		m.TimeUsec,
 		m.RollAilerons,
 		m.PitchElevator,
@@ -7116,20 +6426,10 @@ func (m *HilRcInputsRaw) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_RC_INPUTS_RAW
 }
 
-// CRCExtra (generated function)
-func (m *HilRcInputsRaw) CRCExtra() uint8 {
-	return 54
-}
-
-// MsgName (generated function)
-func (m *HilRcInputsRaw) MsgName() string {
-	return "HilRcInputsRaw"
-}
-
 // String (generated function)
 func (m *HilRcInputsRaw) String() string {
 	return fmt.Sprintf(
-		"&HilRcInputsRaw{ TimeUsec: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Rssi: %+v }",
+		"&Common.HilRcInputsRaw{ TimeUsec: %+v, Chan1Raw: %+v, Chan2Raw: %+v, Chan3Raw: %+v, Chan4Raw: %+v, Chan5Raw: %+v, Chan6Raw: %+v, Chan7Raw: %+v, Chan8Raw: %+v, Chan9Raw: %+v, Chan10Raw: %+v, Chan11Raw: %+v, Chan12Raw: %+v, Rssi: %+v }",
 		m.TimeUsec,
 		m.Chan1Raw,
 		m.Chan2Raw,
@@ -7211,20 +6511,10 @@ func (m *HilActuatorControls) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_ACTUATOR_CONTROLS
 }
 
-// CRCExtra (generated function)
-func (m *HilActuatorControls) CRCExtra() uint8 {
-	return 47
-}
-
-// MsgName (generated function)
-func (m *HilActuatorControls) MsgName() string {
-	return "HilActuatorControls"
-}
-
 // String (generated function)
 func (m *HilActuatorControls) String() string {
 	return fmt.Sprintf(
-		"&HilActuatorControls{ TimeUsec: %+v, Flags: %+v, Controls: %+v, Mode: %+v }",
+		"&Common.HilActuatorControls{ TimeUsec: %+v, Flags: %+v, Controls: %+v, Mode: %+v }",
 		m.TimeUsec,
 		m.Flags,
 		m.Controls,
@@ -7284,20 +6574,10 @@ func (m *OpticalFlow) MsgID() mavlink.MessageID {
 	return MSG_ID_OPTICAL_FLOW
 }
 
-// CRCExtra (generated function)
-func (m *OpticalFlow) CRCExtra() uint8 {
-	return 175
-}
-
-// MsgName (generated function)
-func (m *OpticalFlow) MsgName() string {
-	return "OpticalFlow"
-}
-
 // String (generated function)
 func (m *OpticalFlow) String() string {
 	return fmt.Sprintf(
-		"&OpticalFlow{ TimeUsec: %+v, FlowCompMX: %+v, FlowCompMY: %+v, GroundDistance: %+v, FlowX: %+v, FlowY: %+v, SensorID: %+v, Quality: %+v }",
+		"&Common.OpticalFlow{ TimeUsec: %+v, FlowCompMX: %+v, FlowCompMY: %+v, GroundDistance: %+v, FlowX: %+v, FlowY: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.FlowCompMX,
 		m.FlowCompMY,
@@ -7364,20 +6644,10 @@ func (m *GlobalVisionPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_GLOBAL_VISION_POSITION_ESTIMATE
 }
 
-// CRCExtra (generated function)
-func (m *GlobalVisionPositionEstimate) CRCExtra() uint8 {
-	return 102
-}
-
-// MsgName (generated function)
-func (m *GlobalVisionPositionEstimate) MsgName() string {
-	return "GlobalVisionPositionEstimate"
-}
-
 // String (generated function)
 func (m *GlobalVisionPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&GlobalVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&Common.GlobalVisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7441,20 +6711,10 @@ func (m *VisionPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VISION_POSITION_ESTIMATE
 }
 
-// CRCExtra (generated function)
-func (m *VisionPositionEstimate) CRCExtra() uint8 {
-	return 158
-}
-
-// MsgName (generated function)
-func (m *VisionPositionEstimate) MsgName() string {
-	return "VisionPositionEstimate"
-}
-
 // String (generated function)
 func (m *VisionPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&VisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&Common.VisionPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7515,20 +6775,10 @@ func (m *VisionSpeedEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VISION_SPEED_ESTIMATE
 }
 
-// CRCExtra (generated function)
-func (m *VisionSpeedEstimate) CRCExtra() uint8 {
-	return 208
-}
-
-// MsgName (generated function)
-func (m *VisionSpeedEstimate) MsgName() string {
-	return "VisionSpeedEstimate"
-}
-
 // String (generated function)
 func (m *VisionSpeedEstimate) String() string {
 	return fmt.Sprintf(
-		"&VisionSpeedEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v }",
+		"&Common.VisionSpeedEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7583,20 +6833,10 @@ func (m *ViconPositionEstimate) MsgID() mavlink.MessageID {
 	return MSG_ID_VICON_POSITION_ESTIMATE
 }
 
-// CRCExtra (generated function)
-func (m *ViconPositionEstimate) CRCExtra() uint8 {
-	return 56
-}
-
-// MsgName (generated function)
-func (m *ViconPositionEstimate) MsgName() string {
-	return "ViconPositionEstimate"
-}
-
 // String (generated function)
 func (m *ViconPositionEstimate) String() string {
 	return fmt.Sprintf(
-		"&ViconPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
+		"&Common.ViconPositionEstimate{ Usec: %+v, X: %+v, Y: %+v, Z: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v }",
 		m.Usec,
 		m.X,
 		m.Y,
@@ -7668,20 +6908,10 @@ func (m *HighresImu) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGHRES_IMU
 }
 
-// CRCExtra (generated function)
-func (m *HighresImu) CRCExtra() uint8 {
-	return 93
-}
-
-// MsgName (generated function)
-func (m *HighresImu) MsgName() string {
-	return "HighresImu"
-}
-
 // String (generated function)
 func (m *HighresImu) String() string {
 	return fmt.Sprintf(
-		"&HighresImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
+		"&Common.HighresImu{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -7774,20 +7004,10 @@ func (m *OpticalFlowRad) MsgID() mavlink.MessageID {
 	return MSG_ID_OPTICAL_FLOW_RAD
 }
 
-// CRCExtra (generated function)
-func (m *OpticalFlowRad) CRCExtra() uint8 {
-	return 138
-}
-
-// MsgName (generated function)
-func (m *OpticalFlowRad) MsgName() string {
-	return "OpticalFlowRad"
-}
-
 // String (generated function)
 func (m *OpticalFlowRad) String() string {
 	return fmt.Sprintf(
-		"&OpticalFlowRad{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
+		"&Common.OpticalFlowRad{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.IntegrationTimeUs,
 		m.IntegratedX,
@@ -7874,20 +7094,10 @@ func (m *HilSensor) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_SENSOR
 }
 
-// CRCExtra (generated function)
-func (m *HilSensor) CRCExtra() uint8 {
-	return 108
-}
-
-// MsgName (generated function)
-func (m *HilSensor) MsgName() string {
-	return "HilSensor"
-}
-
 // String (generated function)
 func (m *HilSensor) String() string {
 	return fmt.Sprintf(
-		"&HilSensor{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
+		"&Common.HilSensor{ TimeUsec: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v, AbsPressure: %+v, DiffPressure: %+v, PressureAlt: %+v, Temperature: %+v, FieldsUpdated: %+v }",
 		m.TimeUsec,
 		m.Xacc,
 		m.Yacc,
@@ -7989,20 +7199,10 @@ func (m *SimState) MsgID() mavlink.MessageID {
 	return MSG_ID_SIM_STATE
 }
 
-// CRCExtra (generated function)
-func (m *SimState) CRCExtra() uint8 {
-	return 32
-}
-
-// MsgName (generated function)
-func (m *SimState) MsgName() string {
-	return "SimState"
-}
-
 // String (generated function)
 func (m *SimState) String() string {
 	return fmt.Sprintf(
-		"&SimState{ Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lon: %+v, Alt: %+v, StdDevHorz: %+v, StdDevVert: %+v, Vn: %+v, Ve: %+v, Vd: %+v }",
+		"&Common.SimState{ Q1: %+v, Q2: %+v, Q3: %+v, Q4: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lon: %+v, Alt: %+v, StdDevHorz: %+v, StdDevVert: %+v, Vn: %+v, Ve: %+v, Vd: %+v }",
 		m.Q1,
 		m.Q2,
 		m.Q3,
@@ -8108,20 +7308,10 @@ func (m *RadioStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_RADIO_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *RadioStatus) CRCExtra() uint8 {
-	return 185
-}
-
-// MsgName (generated function)
-func (m *RadioStatus) MsgName() string {
-	return "RadioStatus"
-}
-
 // String (generated function)
 func (m *RadioStatus) String() string {
 	return fmt.Sprintf(
-		"&RadioStatus{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
+		"&Common.RadioStatus{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
 		m.Rxerrors,
 		m.Fixed,
 		m.Rssi,
@@ -8182,20 +7372,10 @@ func (m *FileTransferProtocol) MsgID() mavlink.MessageID {
 	return MSG_ID_FILE_TRANSFER_PROTOCOL
 }
 
-// CRCExtra (generated function)
-func (m *FileTransferProtocol) CRCExtra() uint8 {
-	return 84
-}
-
-// MsgName (generated function)
-func (m *FileTransferProtocol) MsgName() string {
-	return "FileTransferProtocol"
-}
-
 // String (generated function)
 func (m *FileTransferProtocol) String() string {
 	return fmt.Sprintf(
-		"&FileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&Common.FileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
 		m.TargetNetwork,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -8245,20 +7425,10 @@ func (m *Timesync) MsgID() mavlink.MessageID {
 	return MSG_ID_TIMESYNC
 }
 
-// CRCExtra (generated function)
-func (m *Timesync) CRCExtra() uint8 {
-	return 34
-}
-
-// MsgName (generated function)
-func (m *Timesync) MsgName() string {
-	return "Timesync"
-}
-
 // String (generated function)
 func (m *Timesync) String() string {
 	return fmt.Sprintf(
-		"&Timesync{ Tc1: %+v, Ts1: %+v }",
+		"&Common.Timesync{ Tc1: %+v, Ts1: %+v }",
 		m.Tc1,
 		m.Ts1,
 	)
@@ -8302,20 +7472,10 @@ func (m *CameraTrigger) MsgID() mavlink.MessageID {
 	return MSG_ID_CAMERA_TRIGGER
 }
 
-// CRCExtra (generated function)
-func (m *CameraTrigger) CRCExtra() uint8 {
-	return 174
-}
-
-// MsgName (generated function)
-func (m *CameraTrigger) MsgName() string {
-	return "CameraTrigger"
-}
-
 // String (generated function)
 func (m *CameraTrigger) String() string {
 	return fmt.Sprintf(
-		"&CameraTrigger{ TimeUsec: %+v, Seq: %+v }",
+		"&Common.CameraTrigger{ TimeUsec: %+v, Seq: %+v }",
 		m.TimeUsec,
 		m.Seq,
 	)
@@ -8371,20 +7531,10 @@ func (m *HilGps) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_GPS
 }
 
-// CRCExtra (generated function)
-func (m *HilGps) CRCExtra() uint8 {
-	return 124
-}
-
-// MsgName (generated function)
-func (m *HilGps) MsgName() string {
-	return "HilGps"
-}
-
 // String (generated function)
 func (m *HilGps) String() string {
 	return fmt.Sprintf(
-		"&HilGps{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Vn: %+v, Ve: %+v, Vd: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&Common.HilGps{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Vn: %+v, Ve: %+v, Vd: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -8471,20 +7621,10 @@ func (m *HilOpticalFlow) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_OPTICAL_FLOW
 }
 
-// CRCExtra (generated function)
-func (m *HilOpticalFlow) CRCExtra() uint8 {
-	return 237
-}
-
-// MsgName (generated function)
-func (m *HilOpticalFlow) MsgName() string {
-	return "HilOpticalFlow"
-}
-
 // String (generated function)
 func (m *HilOpticalFlow) String() string {
 	return fmt.Sprintf(
-		"&HilOpticalFlow{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
+		"&Common.HilOpticalFlow{ TimeUsec: %+v, IntegrationTimeUs: %+v, IntegratedX: %+v, IntegratedY: %+v, IntegratedXgyro: %+v, IntegratedYgyro: %+v, IntegratedZgyro: %+v, TimeDeltaDistanceUs: %+v, Distance: %+v, Temperature: %+v, SensorID: %+v, Quality: %+v }",
 		m.TimeUsec,
 		m.IntegrationTimeUs,
 		m.IntegratedX,
@@ -8572,20 +7712,10 @@ func (m *HilStateQuaternion) MsgID() mavlink.MessageID {
 	return MSG_ID_HIL_STATE_QUATERNION
 }
 
-// CRCExtra (generated function)
-func (m *HilStateQuaternion) CRCExtra() uint8 {
-	return 4
-}
-
-// MsgName (generated function)
-func (m *HilStateQuaternion) MsgName() string {
-	return "HilStateQuaternion"
-}
-
 // String (generated function)
 func (m *HilStateQuaternion) String() string {
 	return fmt.Sprintf(
-		"&HilStateQuaternion{ TimeUsec: %+v, AttitudeQuaternion: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, IndAirspeed: %+v, TrueAirspeed: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
+		"&Common.HilStateQuaternion{ TimeUsec: %+v, AttitudeQuaternion: %+v, Rollspeed: %+v, Pitchspeed: %+v, Yawspeed: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vx: %+v, Vy: %+v, Vz: %+v, IndAirspeed: %+v, TrueAirspeed: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v }",
 		m.TimeUsec,
 		m.AttitudeQuaternion,
 		m.Rollspeed,
@@ -8683,20 +7813,10 @@ func (m *ScaledImu2) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU2
 }
 
-// CRCExtra (generated function)
-func (m *ScaledImu2) CRCExtra() uint8 {
-	return 76
-}
-
-// MsgName (generated function)
-func (m *ScaledImu2) MsgName() string {
-	return "ScaledImu2"
-}
-
 // String (generated function)
 func (m *ScaledImu2) String() string {
 	return fmt.Sprintf(
-		"&ScaledImu2{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&Common.ScaledImu2{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -8766,20 +7886,10 @@ func (m *LogRequestList) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_LIST
 }
 
-// CRCExtra (generated function)
-func (m *LogRequestList) CRCExtra() uint8 {
-	return 128
-}
-
-// MsgName (generated function)
-func (m *LogRequestList) MsgName() string {
-	return "LogRequestList"
-}
-
 // String (generated function)
 func (m *LogRequestList) String() string {
 	return fmt.Sprintf(
-		"&LogRequestList{ Start: %+v, End: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.LogRequestList{ Start: %+v, End: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Start,
 		m.End,
 		m.TargetSystem,
@@ -8832,20 +7942,10 @@ func (m *LogEntry) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_ENTRY
 }
 
-// CRCExtra (generated function)
-func (m *LogEntry) CRCExtra() uint8 {
-	return 56
-}
-
-// MsgName (generated function)
-func (m *LogEntry) MsgName() string {
-	return "LogEntry"
-}
-
 // String (generated function)
 func (m *LogEntry) String() string {
 	return fmt.Sprintf(
-		"&LogEntry{ TimeUtc: %+v, Size: %+v, ID: %+v, NumLogs: %+v, LastLogNum: %+v }",
+		"&Common.LogEntry{ TimeUtc: %+v, Size: %+v, ID: %+v, NumLogs: %+v, LastLogNum: %+v }",
 		m.TimeUtc,
 		m.Size,
 		m.ID,
@@ -8901,20 +8001,10 @@ func (m *LogRequestData) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_DATA
 }
 
-// CRCExtra (generated function)
-func (m *LogRequestData) CRCExtra() uint8 {
-	return 116
-}
-
-// MsgName (generated function)
-func (m *LogRequestData) MsgName() string {
-	return "LogRequestData"
-}
-
 // String (generated function)
 func (m *LogRequestData) String() string {
 	return fmt.Sprintf(
-		"&LogRequestData{ Ofs: %+v, Count: %+v, ID: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.LogRequestData{ Ofs: %+v, Count: %+v, ID: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.Ofs,
 		m.Count,
 		m.ID,
@@ -8969,20 +8059,10 @@ func (m *LogData) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_DATA
 }
 
-// CRCExtra (generated function)
-func (m *LogData) CRCExtra() uint8 {
-	return 134
-}
-
-// MsgName (generated function)
-func (m *LogData) MsgName() string {
-	return "LogData"
-}
-
 // String (generated function)
 func (m *LogData) String() string {
 	return fmt.Sprintf(
-		"&LogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
+		"&Common.LogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
 		m.Ofs,
 		m.ID,
 		m.Count,
@@ -9032,20 +8112,10 @@ func (m *LogErase) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_ERASE
 }
 
-// CRCExtra (generated function)
-func (m *LogErase) CRCExtra() uint8 {
-	return 237
-}
-
-// MsgName (generated function)
-func (m *LogErase) MsgName() string {
-	return "LogErase"
-}
-
 // String (generated function)
 func (m *LogErase) String() string {
 	return fmt.Sprintf(
-		"&LogErase{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.LogErase{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -9089,20 +8159,10 @@ func (m *LogRequestEnd) MsgID() mavlink.MessageID {
 	return MSG_ID_LOG_REQUEST_END
 }
 
-// CRCExtra (generated function)
-func (m *LogRequestEnd) CRCExtra() uint8 {
-	return 203
-}
-
-// MsgName (generated function)
-func (m *LogRequestEnd) MsgName() string {
-	return "LogRequestEnd"
-}
-
 // String (generated function)
 func (m *LogRequestEnd) String() string {
 	return fmt.Sprintf(
-		"&LogRequestEnd{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.LogRequestEnd{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -9148,20 +8208,10 @@ func (m *GpsInjectData) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_INJECT_DATA
 }
 
-// CRCExtra (generated function)
-func (m *GpsInjectData) CRCExtra() uint8 {
-	return 250
-}
-
-// MsgName (generated function)
-func (m *GpsInjectData) MsgName() string {
-	return "GpsInjectData"
-}
-
 // String (generated function)
 func (m *GpsInjectData) String() string {
 	return fmt.Sprintf(
-		"&GpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
+		"&Common.GpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Len,
@@ -9221,20 +8271,10 @@ func (m *Gps2Raw) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS2_RAW
 }
 
-// CRCExtra (generated function)
-func (m *Gps2Raw) CRCExtra() uint8 {
-	return 87
-}
-
-// MsgName (generated function)
-func (m *Gps2Raw) MsgName() string {
-	return "Gps2Raw"
-}
-
 // String (generated function)
 func (m *Gps2Raw) String() string {
 	return fmt.Sprintf(
-		"&Gps2Raw{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, DgpsAge: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v, DgpsNumch: %+v }",
+		"&Common.Gps2Raw{ TimeUsec: %+v, Lat: %+v, Lon: %+v, Alt: %+v, DgpsAge: %+v, Eph: %+v, Epv: %+v, Vel: %+v, Cog: %+v, FixType: %+v, SatellitesVisible: %+v, DgpsNumch: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lon,
@@ -9309,20 +8349,10 @@ func (m *PowerStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_POWER_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *PowerStatus) CRCExtra() uint8 {
-	return 203
-}
-
-// MsgName (generated function)
-func (m *PowerStatus) MsgName() string {
-	return "PowerStatus"
-}
-
 // String (generated function)
 func (m *PowerStatus) String() string {
 	return fmt.Sprintf(
-		"&PowerStatus{ Vcc: %+v, Vservo: %+v, Flags: %+v }",
+		"&Common.PowerStatus{ Vcc: %+v, Vservo: %+v, Flags: %+v }",
 		m.Vcc,
 		m.Vservo,
 		m.Flags,
@@ -9373,20 +8403,10 @@ func (m *SerialControl) MsgID() mavlink.MessageID {
 	return MSG_ID_SERIAL_CONTROL
 }
 
-// CRCExtra (generated function)
-func (m *SerialControl) CRCExtra() uint8 {
-	return 220
-}
-
-// MsgName (generated function)
-func (m *SerialControl) MsgName() string {
-	return "SerialControl"
-}
-
 // String (generated function)
 func (m *SerialControl) String() string {
 	return fmt.Sprintf(
-		"&SerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
+		"&Common.SerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
 		m.Baudrate,
 		m.Timeout,
 		m.Device,
@@ -9453,20 +8473,10 @@ func (m *GpsRtk) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RTK
 }
 
-// CRCExtra (generated function)
-func (m *GpsRtk) CRCExtra() uint8 {
-	return 25
-}
-
-// MsgName (generated function)
-func (m *GpsRtk) MsgName() string {
-	return "GpsRtk"
-}
-
 // String (generated function)
 func (m *GpsRtk) String() string {
 	return fmt.Sprintf(
-		"&GpsRtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
+		"&Common.GpsRtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
 		m.TimeLastBaselineMs,
 		m.Tow,
 		m.BaselineAMm,
@@ -9554,20 +8564,10 @@ func (m *Gps2Rtk) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS2_RTK
 }
 
-// CRCExtra (generated function)
-func (m *Gps2Rtk) CRCExtra() uint8 {
-	return 226
-}
-
-// MsgName (generated function)
-func (m *Gps2Rtk) MsgName() string {
-	return "Gps2Rtk"
-}
-
 // String (generated function)
 func (m *Gps2Rtk) String() string {
 	return fmt.Sprintf(
-		"&Gps2Rtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
+		"&Common.Gps2Rtk{ TimeLastBaselineMs: %+v, Tow: %+v, BaselineAMm: %+v, BaselineBMm: %+v, BaselineCMm: %+v, Accuracy: %+v, IarNumHypotheses: %+v, Wn: %+v, RtkReceiverID: %+v, RtkHealth: %+v, RtkRate: %+v, Nsats: %+v, BaselineCoordsType: %+v }",
 		m.TimeLastBaselineMs,
 		m.Tow,
 		m.BaselineAMm,
@@ -9652,20 +8652,10 @@ func (m *ScaledImu3) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_IMU3
 }
 
-// CRCExtra (generated function)
-func (m *ScaledImu3) CRCExtra() uint8 {
-	return 46
-}
-
-// MsgName (generated function)
-func (m *ScaledImu3) MsgName() string {
-	return "ScaledImu3"
-}
-
 // String (generated function)
 func (m *ScaledImu3) String() string {
 	return fmt.Sprintf(
-		"&ScaledImu3{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
+		"&Common.ScaledImu3{ TimeBootMs: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Xmag: %+v, Ymag: %+v, Zmag: %+v }",
 		m.TimeBootMs,
 		m.Xacc,
 		m.Yacc,
@@ -9738,20 +8728,10 @@ func (m *DataTransmissionHandshake) MsgID() mavlink.MessageID {
 	return MSG_ID_DATA_TRANSMISSION_HANDSHAKE
 }
 
-// CRCExtra (generated function)
-func (m *DataTransmissionHandshake) CRCExtra() uint8 {
-	return 29
-}
-
-// MsgName (generated function)
-func (m *DataTransmissionHandshake) MsgName() string {
-	return "DataTransmissionHandshake"
-}
-
 // String (generated function)
 func (m *DataTransmissionHandshake) String() string {
 	return fmt.Sprintf(
-		"&DataTransmissionHandshake{ Size: %+v, Width: %+v, Height: %+v, Packets: %+v, Type: %+v, Payload: %+v, JpgQuality: %+v }",
+		"&Common.DataTransmissionHandshake{ Size: %+v, Width: %+v, Height: %+v, Packets: %+v, Type: %+v, Payload: %+v, JpgQuality: %+v }",
 		m.Size,
 		m.Width,
 		m.Height,
@@ -9810,20 +8790,10 @@ func (m *EncapsulatedData) MsgID() mavlink.MessageID {
 	return MSG_ID_ENCAPSULATED_DATA
 }
 
-// CRCExtra (generated function)
-func (m *EncapsulatedData) CRCExtra() uint8 {
-	return 223
-}
-
-// MsgName (generated function)
-func (m *EncapsulatedData) MsgName() string {
-	return "EncapsulatedData"
-}
-
 // String (generated function)
 func (m *EncapsulatedData) String() string {
 	return fmt.Sprintf(
-		"&EncapsulatedData{ Seqnr: %+v, Data: %+v }",
+		"&Common.EncapsulatedData{ Seqnr: %+v, Data: %+v }",
 		m.Seqnr,
 		m.Data,
 	)
@@ -9873,20 +8843,10 @@ func (m *DistanceSensor) MsgID() mavlink.MessageID {
 	return MSG_ID_DISTANCE_SENSOR
 }
 
-// CRCExtra (generated function)
-func (m *DistanceSensor) CRCExtra() uint8 {
-	return 85
-}
-
-// MsgName (generated function)
-func (m *DistanceSensor) MsgName() string {
-	return "DistanceSensor"
-}
-
 // String (generated function)
 func (m *DistanceSensor) String() string {
 	return fmt.Sprintf(
-		"&DistanceSensor{ TimeBootMs: %+v, MinDistance: %+v, MaxDistance: %+v, CurrentDistance: %+v, Type: %+v, ID: %+v, Orientation: %+v, Covariance: %+v }",
+		"&Common.DistanceSensor{ TimeBootMs: %+v, MinDistance: %+v, MaxDistance: %+v, CurrentDistance: %+v, Type: %+v, ID: %+v, Orientation: %+v, Covariance: %+v }",
 		m.TimeBootMs,
 		m.MinDistance,
 		m.MaxDistance,
@@ -9950,20 +8910,10 @@ func (m *TerrainRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_REQUEST
 }
 
-// CRCExtra (generated function)
-func (m *TerrainRequest) CRCExtra() uint8 {
-	return 6
-}
-
-// MsgName (generated function)
-func (m *TerrainRequest) MsgName() string {
-	return "TerrainRequest"
-}
-
 // String (generated function)
 func (m *TerrainRequest) String() string {
 	return fmt.Sprintf(
-		"&TerrainRequest{ Mask: %+v, Lat: %+v, Lon: %+v, GridSpacing: %+v }",
+		"&Common.TerrainRequest{ Mask: %+v, Lat: %+v, Lon: %+v, GridSpacing: %+v }",
 		m.Mask,
 		m.Lat,
 		m.Lon,
@@ -10016,20 +8966,10 @@ func (m *TerrainData) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_DATA
 }
 
-// CRCExtra (generated function)
-func (m *TerrainData) CRCExtra() uint8 {
-	return 229
-}
-
-// MsgName (generated function)
-func (m *TerrainData) MsgName() string {
-	return "TerrainData"
-}
-
 // String (generated function)
 func (m *TerrainData) String() string {
 	return fmt.Sprintf(
-		"&TerrainData{ Lat: %+v, Lon: %+v, GridSpacing: %+v, Data: %+v, Gridbit: %+v }",
+		"&Common.TerrainData{ Lat: %+v, Lon: %+v, GridSpacing: %+v, Data: %+v, Gridbit: %+v }",
 		m.Lat,
 		m.Lon,
 		m.GridSpacing,
@@ -10086,20 +9026,10 @@ func (m *TerrainCheck) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_CHECK
 }
 
-// CRCExtra (generated function)
-func (m *TerrainCheck) CRCExtra() uint8 {
-	return 203
-}
-
-// MsgName (generated function)
-func (m *TerrainCheck) MsgName() string {
-	return "TerrainCheck"
-}
-
 // String (generated function)
 func (m *TerrainCheck) String() string {
 	return fmt.Sprintf(
-		"&TerrainCheck{ Lat: %+v, Lon: %+v }",
+		"&Common.TerrainCheck{ Lat: %+v, Lon: %+v }",
 		m.Lat,
 		m.Lon,
 	)
@@ -10148,20 +9078,10 @@ func (m *TerrainReport) MsgID() mavlink.MessageID {
 	return MSG_ID_TERRAIN_REPORT
 }
 
-// CRCExtra (generated function)
-func (m *TerrainReport) CRCExtra() uint8 {
-	return 1
-}
-
-// MsgName (generated function)
-func (m *TerrainReport) MsgName() string {
-	return "TerrainReport"
-}
-
 // String (generated function)
 func (m *TerrainReport) String() string {
 	return fmt.Sprintf(
-		"&TerrainReport{ Lat: %+v, Lon: %+v, TerrainHeight: %+v, CurrentHeight: %+v, Spacing: %+v, Pending: %+v, Loaded: %+v }",
+		"&Common.TerrainReport{ Lat: %+v, Lon: %+v, TerrainHeight: %+v, CurrentHeight: %+v, Spacing: %+v, Pending: %+v, Loaded: %+v }",
 		m.Lat,
 		m.Lon,
 		m.TerrainHeight,
@@ -10222,20 +9142,10 @@ func (m *ScaledPressure2) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE2
 }
 
-// CRCExtra (generated function)
-func (m *ScaledPressure2) CRCExtra() uint8 {
-	return 195
-}
-
-// MsgName (generated function)
-func (m *ScaledPressure2) MsgName() string {
-	return "ScaledPressure2"
-}
-
 // String (generated function)
 func (m *ScaledPressure2) String() string {
 	return fmt.Sprintf(
-		"&ScaledPressure2{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&Common.ScaledPressure2{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -10288,20 +9198,10 @@ func (m *AttPosMocap) MsgID() mavlink.MessageID {
 	return MSG_ID_ATT_POS_MOCAP
 }
 
-// CRCExtra (generated function)
-func (m *AttPosMocap) CRCExtra() uint8 {
-	return 109
-}
-
-// MsgName (generated function)
-func (m *AttPosMocap) MsgName() string {
-	return "AttPosMocap"
-}
-
 // String (generated function)
 func (m *AttPosMocap) String() string {
 	return fmt.Sprintf(
-		"&AttPosMocap{ TimeUsec: %+v, Q: %+v, X: %+v, Y: %+v, Z: %+v }",
+		"&Common.AttPosMocap{ TimeUsec: %+v, Q: %+v, X: %+v, Y: %+v, Z: %+v }",
 		m.TimeUsec,
 		m.Q,
 		m.X,
@@ -10361,20 +9261,10 @@ func (m *SetActuatorControlTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_ACTUATOR_CONTROL_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *SetActuatorControlTarget) CRCExtra() uint8 {
-	return 168
-}
-
-// MsgName (generated function)
-func (m *SetActuatorControlTarget) MsgName() string {
-	return "SetActuatorControlTarget"
-}
-
 // String (generated function)
 func (m *SetActuatorControlTarget) String() string {
 	return fmt.Sprintf(
-		"&SetActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&Common.SetActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.TimeUsec,
 		m.Controls,
 		m.GroupMlx,
@@ -10432,20 +9322,10 @@ func (m *ActuatorControlTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_ACTUATOR_CONTROL_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *ActuatorControlTarget) CRCExtra() uint8 {
-	return 181
-}
-
-// MsgName (generated function)
-func (m *ActuatorControlTarget) MsgName() string {
-	return "ActuatorControlTarget"
-}
-
 // String (generated function)
 func (m *ActuatorControlTarget) String() string {
 	return fmt.Sprintf(
-		"&ActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v }",
+		"&Common.ActuatorControlTarget{ TimeUsec: %+v, Controls: %+v, GroupMlx: %+v }",
 		m.TimeUsec,
 		m.Controls,
 		m.GroupMlx,
@@ -10501,20 +9381,10 @@ func (m *Altitude) MsgID() mavlink.MessageID {
 	return MSG_ID_ALTITUDE
 }
 
-// CRCExtra (generated function)
-func (m *Altitude) CRCExtra() uint8 {
-	return 47
-}
-
-// MsgName (generated function)
-func (m *Altitude) MsgName() string {
-	return "Altitude"
-}
-
 // String (generated function)
 func (m *Altitude) String() string {
 	return fmt.Sprintf(
-		"&Altitude{ TimeUsec: %+v, AltitudeMonotonic: %+v, AltitudeAmsl: %+v, AltitudeLocal: %+v, AltitudeRelative: %+v, AltitudeTerrain: %+v, BottomClearance: %+v }",
+		"&Common.Altitude{ TimeUsec: %+v, AltitudeMonotonic: %+v, AltitudeAmsl: %+v, AltitudeLocal: %+v, AltitudeRelative: %+v, AltitudeTerrain: %+v, BottomClearance: %+v }",
 		m.TimeUsec,
 		m.AltitudeMonotonic,
 		m.AltitudeAmsl,
@@ -10576,20 +9446,10 @@ func (m *ResourceRequest) MsgID() mavlink.MessageID {
 	return MSG_ID_RESOURCE_REQUEST
 }
 
-// CRCExtra (generated function)
-func (m *ResourceRequest) CRCExtra() uint8 {
-	return 72
-}
-
-// MsgName (generated function)
-func (m *ResourceRequest) MsgName() string {
-	return "ResourceRequest"
-}
-
 // String (generated function)
 func (m *ResourceRequest) String() string {
 	return fmt.Sprintf(
-		"&ResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
+		"&Common.ResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
 		m.RequestID,
 		m.URIType,
 		m.URI,
@@ -10644,20 +9504,10 @@ func (m *ScaledPressure3) MsgID() mavlink.MessageID {
 	return MSG_ID_SCALED_PRESSURE3
 }
 
-// CRCExtra (generated function)
-func (m *ScaledPressure3) CRCExtra() uint8 {
-	return 131
-}
-
-// MsgName (generated function)
-func (m *ScaledPressure3) MsgName() string {
-	return "ScaledPressure3"
-}
-
 // String (generated function)
 func (m *ScaledPressure3) String() string {
 	return fmt.Sprintf(
-		"&ScaledPressure3{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
+		"&Common.ScaledPressure3{ TimeBootMs: %+v, PressAbs: %+v, PressDiff: %+v, Temperature: %+v }",
 		m.TimeBootMs,
 		m.PressAbs,
 		m.PressDiff,
@@ -10716,20 +9566,10 @@ func (m *FollowTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_FOLLOW_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *FollowTarget) CRCExtra() uint8 {
-	return 127
-}
-
-// MsgName (generated function)
-func (m *FollowTarget) MsgName() string {
-	return "FollowTarget"
-}
-
 // String (generated function)
 func (m *FollowTarget) String() string {
 	return fmt.Sprintf(
-		"&FollowTarget{ Timestamp: %+v, CustomState: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vel: %+v, Acc: %+v, AttitudeQ: %+v, Rates: %+v, PositionCov: %+v, EstCapabilities: %+v }",
+		"&Common.FollowTarget{ Timestamp: %+v, CustomState: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Vel: %+v, Acc: %+v, AttitudeQ: %+v, Rates: %+v, PositionCov: %+v, EstCapabilities: %+v }",
 		m.Timestamp,
 		m.CustomState,
 		m.Lat,
@@ -10835,20 +9675,10 @@ func (m *ControlSystemState) MsgID() mavlink.MessageID {
 	return MSG_ID_CONTROL_SYSTEM_STATE
 }
 
-// CRCExtra (generated function)
-func (m *ControlSystemState) CRCExtra() uint8 {
-	return 103
-}
-
-// MsgName (generated function)
-func (m *ControlSystemState) MsgName() string {
-	return "ControlSystemState"
-}
-
 // String (generated function)
 func (m *ControlSystemState) String() string {
 	return fmt.Sprintf(
-		"&ControlSystemState{ TimeUsec: %+v, XAcc: %+v, YAcc: %+v, ZAcc: %+v, XVel: %+v, YVel: %+v, ZVel: %+v, XPos: %+v, YPos: %+v, ZPos: %+v, Airspeed: %+v, VelVariance: %+v, PosVariance: %+v, Q: %+v, RollRate: %+v, PitchRate: %+v, YawRate: %+v }",
+		"&Common.ControlSystemState{ TimeUsec: %+v, XAcc: %+v, YAcc: %+v, ZAcc: %+v, XVel: %+v, YVel: %+v, ZVel: %+v, XPos: %+v, YPos: %+v, ZPos: %+v, Airspeed: %+v, VelVariance: %+v, PosVariance: %+v, Q: %+v, RollRate: %+v, PitchRate: %+v, YawRate: %+v }",
 		m.TimeUsec,
 		m.XAcc,
 		m.YAcc,
@@ -10956,20 +9786,10 @@ func (m *BatteryStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_BATTERY_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *BatteryStatus) CRCExtra() uint8 {
-	return 154
-}
-
-// MsgName (generated function)
-func (m *BatteryStatus) MsgName() string {
-	return "BatteryStatus"
-}
-
 // String (generated function)
 func (m *BatteryStatus) String() string {
 	return fmt.Sprintf(
-		"&BatteryStatus{ CurrentConsumed: %+v, EnergyConsumed: %+v, Temperature: %+v, Voltages: %+v, CurrentBattery: %+v, ID: %+v, BatteryFunction: %+v, Type: %+v, BatteryRemaining: %+v }",
+		"&Common.BatteryStatus{ CurrentConsumed: %+v, EnergyConsumed: %+v, Temperature: %+v, Voltages: %+v, CurrentBattery: %+v, ID: %+v, BatteryFunction: %+v, Type: %+v, BatteryRemaining: %+v }",
 		m.CurrentConsumed,
 		m.EnergyConsumed,
 		m.Temperature,
@@ -11047,20 +9867,10 @@ func (m *AutopilotVersion) MsgID() mavlink.MessageID {
 	return MSG_ID_AUTOPILOT_VERSION
 }
 
-// CRCExtra (generated function)
-func (m *AutopilotVersion) CRCExtra() uint8 {
-	return 178
-}
-
-// MsgName (generated function)
-func (m *AutopilotVersion) MsgName() string {
-	return "AutopilotVersion"
-}
-
 // String (generated function)
 func (m *AutopilotVersion) String() string {
 	return fmt.Sprintf(
-		"&AutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
+		"&Common.AutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
 		m.Capabilities,
 		m.UID,
 		m.FlightSwVersion,
@@ -11137,20 +9947,10 @@ func (m *LandingTarget) MsgID() mavlink.MessageID {
 	return MSG_ID_LANDING_TARGET
 }
 
-// CRCExtra (generated function)
-func (m *LandingTarget) CRCExtra() uint8 {
-	return 200
-}
-
-// MsgName (generated function)
-func (m *LandingTarget) MsgName() string {
-	return "LandingTarget"
-}
-
 // String (generated function)
 func (m *LandingTarget) String() string {
 	return fmt.Sprintf(
-		"&LandingTarget{ TimeUsec: %+v, AngleX: %+v, AngleY: %+v, Distance: %+v, SizeX: %+v, SizeY: %+v, TargetNum: %+v, Frame: %+v }",
+		"&Common.LandingTarget{ TimeUsec: %+v, AngleX: %+v, AngleY: %+v, Distance: %+v, SizeX: %+v, SizeY: %+v, TargetNum: %+v, Frame: %+v }",
 		m.TimeUsec,
 		m.AngleX,
 		m.AngleY,
@@ -11214,20 +10014,10 @@ func (m *FenceStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_FENCE_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *FenceStatus) CRCExtra() uint8 {
-	return 189
-}
-
-// MsgName (generated function)
-func (m *FenceStatus) MsgName() string {
-	return "FenceStatus"
-}
-
 // String (generated function)
 func (m *FenceStatus) String() string {
 	return fmt.Sprintf(
-		"&FenceStatus{ BreachTime: %+v, BreachCount: %+v, BreachStatus: %+v, BreachType: %+v }",
+		"&Common.FenceStatus{ BreachTime: %+v, BreachCount: %+v, BreachStatus: %+v, BreachType: %+v }",
 		m.BreachTime,
 		m.BreachCount,
 		m.BreachStatus,
@@ -11289,20 +10079,10 @@ func (m *MagCalReport) MsgID() mavlink.MessageID {
 	return MSG_ID_MAG_CAL_REPORT
 }
 
-// CRCExtra (generated function)
-func (m *MagCalReport) CRCExtra() uint8 {
-	return 36
-}
-
-// MsgName (generated function)
-func (m *MagCalReport) MsgName() string {
-	return "MagCalReport"
-}
-
 // String (generated function)
 func (m *MagCalReport) String() string {
 	return fmt.Sprintf(
-		"&MagCalReport{ Fitness: %+v, OfsX: %+v, OfsY: %+v, OfsZ: %+v, DiagX: %+v, DiagY: %+v, DiagZ: %+v, OffdiagX: %+v, OffdiagY: %+v, OffdiagZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Autosaved: %+v }",
+		"&Common.MagCalReport{ Fitness: %+v, OfsX: %+v, OfsY: %+v, OfsZ: %+v, DiagX: %+v, DiagY: %+v, DiagZ: %+v, OffdiagX: %+v, OffdiagY: %+v, OffdiagZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Autosaved: %+v }",
 		m.Fitness,
 		m.OfsX,
 		m.OfsY,
@@ -11397,20 +10177,10 @@ func (m *EfiStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_EFI_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *EfiStatus) CRCExtra() uint8 {
-	return 208
-}
-
-// MsgName (generated function)
-func (m *EfiStatus) MsgName() string {
-	return "EfiStatus"
-}
-
 // String (generated function)
 func (m *EfiStatus) String() string {
 	return fmt.Sprintf(
-		"&EfiStatus{ EcuIndex: %+v, Rpm: %+v, FuelConsumed: %+v, FuelFlow: %+v, EngineLoad: %+v, ThrottlePosition: %+v, SparkDwellTime: %+v, BarometricPressure: %+v, IntakeManifoldPressure: %+v, IntakeManifoldTemperature: %+v, CylinderHeadTemperature: %+v, IgnitionTiming: %+v, InjectionTime: %+v, ExhaustGasTemperature: %+v, ThrottleOut: %+v, PtCompensation: %+v, Health: %+v }",
+		"&Common.EfiStatus{ EcuIndex: %+v, Rpm: %+v, FuelConsumed: %+v, FuelFlow: %+v, EngineLoad: %+v, ThrottlePosition: %+v, SparkDwellTime: %+v, BarometricPressure: %+v, IntakeManifoldPressure: %+v, IntakeManifoldTemperature: %+v, CylinderHeadTemperature: %+v, IgnitionTiming: %+v, InjectionTime: %+v, ExhaustGasTemperature: %+v, ThrottleOut: %+v, PtCompensation: %+v, Health: %+v }",
 		m.EcuIndex,
 		m.Rpm,
 		m.FuelConsumed,
@@ -11507,20 +10277,10 @@ func (m *EstimatorStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_ESTIMATOR_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *EstimatorStatus) CRCExtra() uint8 {
-	return 163
-}
-
-// MsgName (generated function)
-func (m *EstimatorStatus) MsgName() string {
-	return "EstimatorStatus"
-}
-
 // String (generated function)
 func (m *EstimatorStatus) String() string {
 	return fmt.Sprintf(
-		"&EstimatorStatus{ TimeUsec: %+v, VelRatio: %+v, PosHorizRatio: %+v, PosVertRatio: %+v, MagRatio: %+v, HaglRatio: %+v, TasRatio: %+v, PosHorizAccuracy: %+v, PosVertAccuracy: %+v, Flags: %+v }",
+		"&Common.EstimatorStatus{ TimeUsec: %+v, VelRatio: %+v, PosHorizRatio: %+v, PosVertRatio: %+v, MagRatio: %+v, HaglRatio: %+v, TasRatio: %+v, PosHorizAccuracy: %+v, PosVertAccuracy: %+v, Flags: %+v }",
 		m.TimeUsec,
 		m.VelRatio,
 		m.PosHorizRatio,
@@ -11595,20 +10355,10 @@ func (m *WindCov) MsgID() mavlink.MessageID {
 	return MSG_ID_WIND_COV
 }
 
-// CRCExtra (generated function)
-func (m *WindCov) CRCExtra() uint8 {
-	return 105
-}
-
-// MsgName (generated function)
-func (m *WindCov) MsgName() string {
-	return "WindCov"
-}
-
 // String (generated function)
 func (m *WindCov) String() string {
 	return fmt.Sprintf(
-		"&WindCov{ TimeUsec: %+v, WindX: %+v, WindY: %+v, WindZ: %+v, VarHoriz: %+v, VarVert: %+v, WindAlt: %+v, HorizAccuracy: %+v, VertAccuracy: %+v }",
+		"&Common.WindCov{ TimeUsec: %+v, WindX: %+v, WindY: %+v, WindZ: %+v, VarHoriz: %+v, VarVert: %+v, WindAlt: %+v, HorizAccuracy: %+v, VertAccuracy: %+v }",
 		m.TimeUsec,
 		m.WindX,
 		m.WindY,
@@ -11689,20 +10439,10 @@ func (m *GpsInput) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_INPUT
 }
 
-// CRCExtra (generated function)
-func (m *GpsInput) CRCExtra() uint8 {
-	return 151
-}
-
-// MsgName (generated function)
-func (m *GpsInput) MsgName() string {
-	return "GpsInput"
-}
-
 // String (generated function)
 func (m *GpsInput) String() string {
 	return fmt.Sprintf(
-		"&GpsInput{ TimeUsec: %+v, TimeWeekMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Hdop: %+v, Vdop: %+v, Vn: %+v, Ve: %+v, Vd: %+v, SpeedAccuracy: %+v, HorizAccuracy: %+v, VertAccuracy: %+v, IgnoreFlags: %+v, TimeWeek: %+v, GpsID: %+v, FixType: %+v, SatellitesVisible: %+v }",
+		"&Common.GpsInput{ TimeUsec: %+v, TimeWeekMs: %+v, Lat: %+v, Lon: %+v, Alt: %+v, Hdop: %+v, Vdop: %+v, Vn: %+v, Ve: %+v, Vd: %+v, SpeedAccuracy: %+v, HorizAccuracy: %+v, VertAccuracy: %+v, IgnoreFlags: %+v, TimeWeek: %+v, GpsID: %+v, FixType: %+v, SatellitesVisible: %+v }",
 		m.TimeUsec,
 		m.TimeWeekMs,
 		m.Lat,
@@ -11795,20 +10535,10 @@ func (m *GpsRtcmData) MsgID() mavlink.MessageID {
 	return MSG_ID_GPS_RTCM_DATA
 }
 
-// CRCExtra (generated function)
-func (m *GpsRtcmData) CRCExtra() uint8 {
-	return 35
-}
-
-// MsgName (generated function)
-func (m *GpsRtcmData) MsgName() string {
-	return "GpsRtcmData"
-}
-
 // String (generated function)
 func (m *GpsRtcmData) String() string {
 	return fmt.Sprintf(
-		"&GpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
+		"&Common.GpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
 		m.Flags,
 		m.Len,
 		m.Data,
@@ -11877,20 +10607,10 @@ func (m *HighLatency) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGH_LATENCY
 }
 
-// CRCExtra (generated function)
-func (m *HighLatency) CRCExtra() uint8 {
-	return 150
-}
-
-// MsgName (generated function)
-func (m *HighLatency) MsgName() string {
-	return "HighLatency"
-}
-
 // String (generated function)
 func (m *HighLatency) String() string {
 	return fmt.Sprintf(
-		"&HighLatency{ CustomMode: %+v, Latitude: %+v, Longitude: %+v, Roll: %+v, Pitch: %+v, Heading: %+v, HeadingSp: %+v, AltitudeAmsl: %+v, AltitudeSp: %+v, WpDistance: %+v, BaseMode: %+v, LandedState: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, ClimbRate: %+v, GpsNsat: %+v, GpsFixType: %+v, BatteryRemaining: %+v, Temperature: %+v, TemperatureAir: %+v, Failsafe: %+v, WpNum: %+v }",
+		"&Common.HighLatency{ CustomMode: %+v, Latitude: %+v, Longitude: %+v, Roll: %+v, Pitch: %+v, Heading: %+v, HeadingSp: %+v, AltitudeAmsl: %+v, AltitudeSp: %+v, WpDistance: %+v, BaseMode: %+v, LandedState: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, ClimbRate: %+v, GpsNsat: %+v, GpsFixType: %+v, BatteryRemaining: %+v, Temperature: %+v, TemperatureAir: %+v, Failsafe: %+v, WpNum: %+v }",
 		m.CustomMode,
 		m.Latitude,
 		m.Longitude,
@@ -12025,20 +10745,10 @@ func (m *HighLatency2) MsgID() mavlink.MessageID {
 	return MSG_ID_HIGH_LATENCY2
 }
 
-// CRCExtra (generated function)
-func (m *HighLatency2) CRCExtra() uint8 {
-	return 179
-}
-
-// MsgName (generated function)
-func (m *HighLatency2) MsgName() string {
-	return "HighLatency2"
-}
-
 // String (generated function)
 func (m *HighLatency2) String() string {
 	return fmt.Sprintf(
-		"&HighLatency2{ Timestamp: %+v, Latitude: %+v, Longitude: %+v, CustomMode: %+v, Altitude: %+v, TargetAltitude: %+v, TargetDistance: %+v, WpNum: %+v, FailureFlags: %+v, Type: %+v, Autopilot: %+v, Heading: %+v, TargetHeading: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, Windspeed: %+v, WindHeading: %+v, Eph: %+v, Epv: %+v, TemperatureAir: %+v, ClimbRate: %+v, Battery: %+v, Custom0: %+v, Custom1: %+v, Custom2: %+v }",
+		"&Common.HighLatency2{ Timestamp: %+v, Latitude: %+v, Longitude: %+v, CustomMode: %+v, Altitude: %+v, TargetAltitude: %+v, TargetDistance: %+v, WpNum: %+v, FailureFlags: %+v, Type: %+v, Autopilot: %+v, Heading: %+v, TargetHeading: %+v, Throttle: %+v, Airspeed: %+v, AirspeedSp: %+v, Groundspeed: %+v, Windspeed: %+v, WindHeading: %+v, Eph: %+v, Epv: %+v, TemperatureAir: %+v, ClimbRate: %+v, Battery: %+v, Custom0: %+v, Custom1: %+v, Custom2: %+v }",
 		m.Timestamp,
 		m.Latitude,
 		m.Longitude,
@@ -12162,20 +10872,10 @@ func (m *Vibration) MsgID() mavlink.MessageID {
 	return MSG_ID_VIBRATION
 }
 
-// CRCExtra (generated function)
-func (m *Vibration) CRCExtra() uint8 {
-	return 90
-}
-
-// MsgName (generated function)
-func (m *Vibration) MsgName() string {
-	return "Vibration"
-}
-
 // String (generated function)
 func (m *Vibration) String() string {
 	return fmt.Sprintf(
-		"&Vibration{ TimeUsec: %+v, VibrationX: %+v, VibrationY: %+v, VibrationZ: %+v, Clipping0: %+v, Clipping1: %+v, Clipping2: %+v }",
+		"&Common.Vibration{ TimeUsec: %+v, VibrationX: %+v, VibrationY: %+v, VibrationZ: %+v, Clipping0: %+v, Clipping1: %+v, Clipping2: %+v }",
 		m.TimeUsec,
 		m.VibrationX,
 		m.VibrationY,
@@ -12242,20 +10942,10 @@ func (m *HomePosition) MsgID() mavlink.MessageID {
 	return MSG_ID_HOME_POSITION
 }
 
-// CRCExtra (generated function)
-func (m *HomePosition) CRCExtra() uint8 {
-	return 104
-}
-
-// MsgName (generated function)
-func (m *HomePosition) MsgName() string {
-	return "HomePosition"
-}
-
 // String (generated function)
 func (m *HomePosition) String() string {
 	return fmt.Sprintf(
-		"&HomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v }",
+		"&Common.HomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -12336,20 +11026,10 @@ func (m *SetHomePosition) MsgID() mavlink.MessageID {
 	return MSG_ID_SET_HOME_POSITION
 }
 
-// CRCExtra (generated function)
-func (m *SetHomePosition) CRCExtra() uint8 {
-	return 85
-}
-
-// MsgName (generated function)
-func (m *SetHomePosition) MsgName() string {
-	return "SetHomePosition"
-}
-
 // String (generated function)
 func (m *SetHomePosition) String() string {
 	return fmt.Sprintf(
-		"&SetHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v, TargetSystem: %+v }",
+		"&Common.SetHomePosition{ Latitude: %+v, Longitude: %+v, Altitude: %+v, X: %+v, Y: %+v, Z: %+v, Q: %+v, ApproachX: %+v, ApproachY: %+v, ApproachZ: %+v, TargetSystem: %+v }",
 		m.Latitude,
 		m.Longitude,
 		m.Altitude,
@@ -12424,20 +11104,10 @@ func (m *MessageInterval) MsgID() mavlink.MessageID {
 	return MSG_ID_MESSAGE_INTERVAL
 }
 
-// CRCExtra (generated function)
-func (m *MessageInterval) CRCExtra() uint8 {
-	return 95
-}
-
-// MsgName (generated function)
-func (m *MessageInterval) MsgName() string {
-	return "MessageInterval"
-}
-
 // String (generated function)
 func (m *MessageInterval) String() string {
 	return fmt.Sprintf(
-		"&MessageInterval{ IntervalUs: %+v, MessageID: %+v }",
+		"&Common.MessageInterval{ IntervalUs: %+v, MessageID: %+v }",
 		m.IntervalUs,
 		m.MessageID,
 	)
@@ -12481,20 +11151,10 @@ func (m *ExtendedSysState) MsgID() mavlink.MessageID {
 	return MSG_ID_EXTENDED_SYS_STATE
 }
 
-// CRCExtra (generated function)
-func (m *ExtendedSysState) CRCExtra() uint8 {
-	return 130
-}
-
-// MsgName (generated function)
-func (m *ExtendedSysState) MsgName() string {
-	return "ExtendedSysState"
-}
-
 // String (generated function)
 func (m *ExtendedSysState) String() string {
 	return fmt.Sprintf(
-		"&ExtendedSysState{ VtolState: %+v, LandedState: %+v }",
+		"&Common.ExtendedSysState{ VtolState: %+v, LandedState: %+v }",
 		m.VtolState,
 		m.LandedState,
 	)
@@ -12549,20 +11209,10 @@ func (m *AdsbVehicle) MsgID() mavlink.MessageID {
 	return MSG_ID_ADSB_VEHICLE
 }
 
-// CRCExtra (generated function)
-func (m *AdsbVehicle) CRCExtra() uint8 {
-	return 184
-}
-
-// MsgName (generated function)
-func (m *AdsbVehicle) MsgName() string {
-	return "AdsbVehicle"
-}
-
 // String (generated function)
 func (m *AdsbVehicle) String() string {
 	return fmt.Sprintf(
-		"&AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
+		"&Common.AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
 		m.IcaoAddress,
 		m.Lat,
 		m.Lon,
@@ -12644,20 +11294,10 @@ func (m *Collision) MsgID() mavlink.MessageID {
 	return MSG_ID_COLLISION
 }
 
-// CRCExtra (generated function)
-func (m *Collision) CRCExtra() uint8 {
-	return 81
-}
-
-// MsgName (generated function)
-func (m *Collision) MsgName() string {
-	return "Collision"
-}
-
 // String (generated function)
 func (m *Collision) String() string {
 	return fmt.Sprintf(
-		"&Collision{ ID: %+v, TimeToMinimumDelta: %+v, AltitudeMinimumDelta: %+v, HorizontalMinimumDelta: %+v, Src: %+v, Action: %+v, ThreatLevel: %+v }",
+		"&Common.Collision{ ID: %+v, TimeToMinimumDelta: %+v, AltitudeMinimumDelta: %+v, HorizontalMinimumDelta: %+v, Src: %+v, Action: %+v, ThreatLevel: %+v }",
 		m.ID,
 		m.TimeToMinimumDelta,
 		m.AltitudeMinimumDelta,
@@ -12719,20 +11359,10 @@ func (m *V2Extension) MsgID() mavlink.MessageID {
 	return MSG_ID_V2_EXTENSION
 }
 
-// CRCExtra (generated function)
-func (m *V2Extension) CRCExtra() uint8 {
-	return 8
-}
-
-// MsgName (generated function)
-func (m *V2Extension) MsgName() string {
-	return "V2Extension"
-}
-
 // String (generated function)
 func (m *V2Extension) String() string {
 	return fmt.Sprintf(
-		"&V2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&Common.V2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
 		m.MessageType,
 		m.TargetNetwork,
 		m.TargetSystem,
@@ -12787,20 +11417,10 @@ func (m *MemoryVect) MsgID() mavlink.MessageID {
 	return MSG_ID_MEMORY_VECT
 }
 
-// CRCExtra (generated function)
-func (m *MemoryVect) CRCExtra() uint8 {
-	return 204
-}
-
-// MsgName (generated function)
-func (m *MemoryVect) MsgName() string {
-	return "MemoryVect"
-}
-
 // String (generated function)
 func (m *MemoryVect) String() string {
 	return fmt.Sprintf(
-		"&MemoryVect{ Address: %+v, Ver: %+v, Type: %+v, Value: %+v }",
+		"&Common.MemoryVect{ Address: %+v, Ver: %+v, Type: %+v, Value: %+v }",
 		m.Address,
 		m.Ver,
 		m.Type,
@@ -12857,20 +11477,10 @@ func (m *DebugVect) MsgID() mavlink.MessageID {
 	return MSG_ID_DEBUG_VECT
 }
 
-// CRCExtra (generated function)
-func (m *DebugVect) CRCExtra() uint8 {
-	return 49
-}
-
-// MsgName (generated function)
-func (m *DebugVect) MsgName() string {
-	return "DebugVect"
-}
-
 // String (generated function)
 func (m *DebugVect) String() string {
 	return fmt.Sprintf(
-		"&DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
+		"&Common.DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
@@ -12924,20 +11534,10 @@ func (m *NamedValueFloat) MsgID() mavlink.MessageID {
 	return MSG_ID_NAMED_VALUE_FLOAT
 }
 
-// CRCExtra (generated function)
-func (m *NamedValueFloat) CRCExtra() uint8 {
-	return 170
-}
-
-// MsgName (generated function)
-func (m *NamedValueFloat) MsgName() string {
-	return "NamedValueFloat"
-}
-
 // String (generated function)
 func (m *NamedValueFloat) String() string {
 	return fmt.Sprintf(
-		"&NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&Common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name,
@@ -12985,20 +11585,10 @@ func (m *NamedValueInt) MsgID() mavlink.MessageID {
 	return MSG_ID_NAMED_VALUE_INT
 }
 
-// CRCExtra (generated function)
-func (m *NamedValueInt) CRCExtra() uint8 {
-	return 44
-}
-
-// MsgName (generated function)
-func (m *NamedValueInt) MsgName() string {
-	return "NamedValueInt"
-}
-
 // String (generated function)
 func (m *NamedValueInt) String() string {
 	return fmt.Sprintf(
-		"&NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&Common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name,
@@ -13045,20 +11635,10 @@ func (m *Statustext) MsgID() mavlink.MessageID {
 	return MSG_ID_STATUSTEXT
 }
 
-// CRCExtra (generated function)
-func (m *Statustext) CRCExtra() uint8 {
-	return 83
-}
-
-// MsgName (generated function)
-func (m *Statustext) MsgName() string {
-	return "Statustext"
-}
-
 // String (generated function)
 func (m *Statustext) String() string {
 	return fmt.Sprintf(
-		"&Statustext{ Severity: %+v, Text: %+v }",
+		"&Common.Statustext{ Severity: %+v, Text: %+v }",
 		m.Severity,
 		m.Text,
 	)
@@ -13103,20 +11683,10 @@ func (m *Debug) MsgID() mavlink.MessageID {
 	return MSG_ID_DEBUG
 }
 
-// CRCExtra (generated function)
-func (m *Debug) CRCExtra() uint8 {
-	return 46
-}
-
-// MsgName (generated function)
-func (m *Debug) MsgName() string {
-	return "Debug"
-}
-
 // String (generated function)
 func (m *Debug) String() string {
 	return fmt.Sprintf(
-		"&Debug{ TimeBootMs: %+v, Value: %+v, Ind: %+v }",
+		"&Common.Debug{ TimeBootMs: %+v, Value: %+v, Ind: %+v }",
 		m.TimeBootMs,
 		m.Value,
 		m.Ind,

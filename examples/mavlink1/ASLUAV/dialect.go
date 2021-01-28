@@ -63,20 +63,10 @@ func (m *CommandIntStamped) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_INT_STAMPED
 }
 
-// CRCExtra (generated function)
-func (m *CommandIntStamped) CRCExtra() uint8 {
-	return 119
-}
-
-// MsgName (generated function)
-func (m *CommandIntStamped) MsgName() string {
-	return "CommandIntStamped"
-}
-
 // String (generated function)
 func (m *CommandIntStamped) String() string {
 	return fmt.Sprintf(
-		"&CommandIntStamped{ VehicleTimestamp: %+v, UtcTime: %+v, Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
+		"&Asluav.CommandIntStamped{ VehicleTimestamp: %+v, UtcTime: %+v, Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, X: %+v, Y: %+v, Z: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Frame: %+v, Current: %+v, Autocontinue: %+v }",
 		m.VehicleTimestamp,
 		m.UtcTime,
 		m.Param1,
@@ -165,20 +155,10 @@ func (m *CommandLongStamped) MsgID() mavlink.MessageID {
 	return MSG_ID_COMMAND_LONG_STAMPED
 }
 
-// CRCExtra (generated function)
-func (m *CommandLongStamped) CRCExtra() uint8 {
-	return 102
-}
-
-// MsgName (generated function)
-func (m *CommandLongStamped) MsgName() string {
-	return "CommandLongStamped"
-}
-
 // String (generated function)
 func (m *CommandLongStamped) String() string {
 	return fmt.Sprintf(
-		"&CommandLongStamped{ VehicleTimestamp: %+v, UtcTime: %+v, Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
+		"&Asluav.CommandLongStamped{ VehicleTimestamp: %+v, UtcTime: %+v, Param1: %+v, Param2: %+v, Param3: %+v, Param4: %+v, Param5: %+v, Param6: %+v, Param7: %+v, Command: %+v, TargetSystem: %+v, TargetComponent: %+v, Confirmation: %+v }",
 		m.VehicleTimestamp,
 		m.UtcTime,
 		m.Param1,
@@ -252,20 +232,10 @@ func (m *SensPower) MsgID() mavlink.MessageID {
 	return MSG_ID_SENS_POWER
 }
 
-// CRCExtra (generated function)
-func (m *SensPower) CRCExtra() uint8 {
-	return 218
-}
-
-// MsgName (generated function)
-func (m *SensPower) MsgName() string {
-	return "SensPower"
-}
-
 // String (generated function)
 func (m *SensPower) String() string {
 	return fmt.Sprintf(
-		"&SensPower{ Adc121VspbVolt: %+v, Adc121CspbAmp: %+v, Adc121Cs1Amp: %+v, Adc121Cs2Amp: %+v }",
+		"&Asluav.SensPower{ Adc121VspbVolt: %+v, Adc121CspbAmp: %+v, Adc121Cs1Amp: %+v, Adc121Cs2Amp: %+v }",
 		m.Adc121VspbVolt,
 		m.Adc121CspbAmp,
 		m.Adc121Cs1Amp,
@@ -321,20 +291,10 @@ func (m *SensMppt) MsgID() mavlink.MessageID {
 	return MSG_ID_SENS_MPPT
 }
 
-// CRCExtra (generated function)
-func (m *SensMppt) CRCExtra() uint8 {
-	return 231
-}
-
-// MsgName (generated function)
-func (m *SensMppt) MsgName() string {
-	return "SensMppt"
-}
-
 // String (generated function)
 func (m *SensMppt) String() string {
 	return fmt.Sprintf(
-		"&SensMppt{ MpptTimestamp: %+v, Mppt1Volt: %+v, Mppt1Amp: %+v, Mppt2Volt: %+v, Mppt2Amp: %+v, Mppt3Volt: %+v, Mppt3Amp: %+v, Mppt1Pwm: %+v, Mppt2Pwm: %+v, Mppt3Pwm: %+v, Mppt1Status: %+v, Mppt2Status: %+v, Mppt3Status: %+v }",
+		"&Asluav.SensMppt{ MpptTimestamp: %+v, Mppt1Volt: %+v, Mppt1Amp: %+v, Mppt2Volt: %+v, Mppt2Amp: %+v, Mppt3Volt: %+v, Mppt3Amp: %+v, Mppt1Pwm: %+v, Mppt2Pwm: %+v, Mppt3Pwm: %+v, Mppt1Status: %+v, Mppt2Status: %+v, Mppt3Status: %+v }",
 		m.MpptTimestamp,
 		m.Mppt1Volt,
 		m.Mppt1Amp,
@@ -429,20 +389,10 @@ func (m *AslctrlData) MsgID() mavlink.MessageID {
 	return MSG_ID_ASLCTRL_DATA
 }
 
-// CRCExtra (generated function)
-func (m *AslctrlData) CRCExtra() uint8 {
-	return 172
-}
-
-// MsgName (generated function)
-func (m *AslctrlData) MsgName() string {
-	return "AslctrlData"
-}
-
 // String (generated function)
 func (m *AslctrlData) String() string {
 	return fmt.Sprintf(
-		"&AslctrlData{ Timestamp: %+v, H: %+v, Href: %+v, HrefT: %+v, Pitchangle: %+v, Pitchangleref: %+v, Q: %+v, Qref: %+v, Uelev: %+v, Uthrot: %+v, Uthrot2: %+v, Nz: %+v, Airspeedref: %+v, Yawangle: %+v, Yawangleref: %+v, Rollangle: %+v, Rollangleref: %+v, P: %+v, Pref: %+v, R: %+v, Rref: %+v, Uail: %+v, Urud: %+v, AslctrlMode: %+v, Spoilersengaged: %+v }",
+		"&Asluav.AslctrlData{ Timestamp: %+v, H: %+v, Href: %+v, HrefT: %+v, Pitchangle: %+v, Pitchangleref: %+v, Q: %+v, Qref: %+v, Uelev: %+v, Uthrot: %+v, Uthrot2: %+v, Nz: %+v, Airspeedref: %+v, Yawangle: %+v, Yawangleref: %+v, Rollangle: %+v, Rollangleref: %+v, P: %+v, Pref: %+v, R: %+v, Rref: %+v, Uail: %+v, Urud: %+v, AslctrlMode: %+v, Spoilersengaged: %+v }",
 		m.Timestamp,
 		m.H,
 		m.Href,
@@ -559,20 +509,10 @@ func (m *AslctrlDebug) MsgID() mavlink.MessageID {
 	return MSG_ID_ASLCTRL_DEBUG
 }
 
-// CRCExtra (generated function)
-func (m *AslctrlDebug) CRCExtra() uint8 {
-	return 251
-}
-
-// MsgName (generated function)
-func (m *AslctrlDebug) MsgName() string {
-	return "AslctrlDebug"
-}
-
 // String (generated function)
 func (m *AslctrlDebug) String() string {
 	return fmt.Sprintf(
-		"&AslctrlDebug{ I321: %+v, F1: %+v, F2: %+v, F3: %+v, F4: %+v, F5: %+v, F6: %+v, F7: %+v, F8: %+v, I81: %+v, I82: %+v }",
+		"&Asluav.AslctrlDebug{ I321: %+v, F1: %+v, F2: %+v, F3: %+v, F4: %+v, F5: %+v, F6: %+v, F7: %+v, F8: %+v, I81: %+v, I82: %+v }",
 		m.I321,
 		m.F1,
 		m.F2,
@@ -640,20 +580,10 @@ func (m *AsluavStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_ASLUAV_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *AsluavStatus) CRCExtra() uint8 {
-	return 97
-}
-
-// MsgName (generated function)
-func (m *AsluavStatus) MsgName() string {
-	return "AsluavStatus"
-}
-
 // String (generated function)
 func (m *AsluavStatus) String() string {
 	return fmt.Sprintf(
-		"&AsluavStatus{ MotorRpm: %+v, LedStatus: %+v, SatcomStatus: %+v, ServoStatus: %+v }",
+		"&Asluav.AsluavStatus{ MotorRpm: %+v, LedStatus: %+v, SatcomStatus: %+v, ServoStatus: %+v }",
 		m.MotorRpm,
 		m.LedStatus,
 		m.SatcomStatus,
@@ -703,20 +633,10 @@ func (m *EkfExt) MsgID() mavlink.MessageID {
 	return MSG_ID_EKF_EXT
 }
 
-// CRCExtra (generated function)
-func (m *EkfExt) CRCExtra() uint8 {
-	return 64
-}
-
-// MsgName (generated function)
-func (m *EkfExt) MsgName() string {
-	return "EkfExt"
-}
-
 // String (generated function)
 func (m *EkfExt) String() string {
 	return fmt.Sprintf(
-		"&EkfExt{ Timestamp: %+v, Windspeed: %+v, Winddir: %+v, Windz: %+v, Airspeed: %+v, Beta: %+v, Alpha: %+v }",
+		"&Asluav.EkfExt{ Timestamp: %+v, Windspeed: %+v, Winddir: %+v, Windz: %+v, Airspeed: %+v, Beta: %+v, Alpha: %+v }",
 		m.Timestamp,
 		m.Windspeed,
 		m.Winddir,
@@ -776,20 +696,10 @@ func (m *AslObctrl) MsgID() mavlink.MessageID {
 	return MSG_ID_ASL_OBCTRL
 }
 
-// CRCExtra (generated function)
-func (m *AslObctrl) CRCExtra() uint8 {
-	return 234
-}
-
-// MsgName (generated function)
-func (m *AslObctrl) MsgName() string {
-	return "AslObctrl"
-}
-
 // String (generated function)
 func (m *AslObctrl) String() string {
 	return fmt.Sprintf(
-		"&AslObctrl{ Timestamp: %+v, Uelev: %+v, Uthrot: %+v, Uthrot2: %+v, Uaill: %+v, Uailr: %+v, Urud: %+v, ObctrlStatus: %+v }",
+		"&Asluav.AslObctrl{ Timestamp: %+v, Uelev: %+v, Uthrot: %+v, Uthrot2: %+v, Uaill: %+v, Uailr: %+v, Urud: %+v, ObctrlStatus: %+v }",
 		m.Timestamp,
 		m.Uelev,
 		m.Uthrot,
@@ -847,20 +757,10 @@ func (m *SensAtmos) MsgID() mavlink.MessageID {
 	return MSG_ID_SENS_ATMOS
 }
 
-// CRCExtra (generated function)
-func (m *SensAtmos) CRCExtra() uint8 {
-	return 144
-}
-
-// MsgName (generated function)
-func (m *SensAtmos) MsgName() string {
-	return "SensAtmos"
-}
-
 // String (generated function)
 func (m *SensAtmos) String() string {
 	return fmt.Sprintf(
-		"&SensAtmos{ Timestamp: %+v, Tempambient: %+v, Humidity: %+v }",
+		"&Asluav.SensAtmos{ Timestamp: %+v, Tempambient: %+v, Humidity: %+v }",
 		m.Timestamp,
 		m.Tempambient,
 		m.Humidity,
@@ -915,20 +815,10 @@ func (m *SensBatmon) MsgID() mavlink.MessageID {
 	return MSG_ID_SENS_BATMON
 }
 
-// CRCExtra (generated function)
-func (m *SensBatmon) CRCExtra() uint8 {
-	return 155
-}
-
-// MsgName (generated function)
-func (m *SensBatmon) MsgName() string {
-	return "SensBatmon"
-}
-
 // String (generated function)
 func (m *SensBatmon) String() string {
 	return fmt.Sprintf(
-		"&SensBatmon{ BatmonTimestamp: %+v, Temperature: %+v, Safetystatus: %+v, Operationstatus: %+v, Voltage: %+v, Current: %+v, Batterystatus: %+v, Serialnumber: %+v, Cellvoltage1: %+v, Cellvoltage2: %+v, Cellvoltage3: %+v, Cellvoltage4: %+v, Cellvoltage5: %+v, Cellvoltage6: %+v, Soc: %+v }",
+		"&Asluav.SensBatmon{ BatmonTimestamp: %+v, Temperature: %+v, Safetystatus: %+v, Operationstatus: %+v, Voltage: %+v, Current: %+v, Batterystatus: %+v, Serialnumber: %+v, Cellvoltage1: %+v, Cellvoltage2: %+v, Cellvoltage3: %+v, Cellvoltage4: %+v, Cellvoltage5: %+v, Cellvoltage6: %+v, Soc: %+v }",
 		m.BatmonTimestamp,
 		m.Temperature,
 		m.Safetystatus,
@@ -1029,20 +919,10 @@ func (m *FwSoaringData) MsgID() mavlink.MessageID {
 	return MSG_ID_FW_SOARING_DATA
 }
 
-// CRCExtra (generated function)
-func (m *FwSoaringData) CRCExtra() uint8 {
-	return 20
-}
-
-// MsgName (generated function)
-func (m *FwSoaringData) MsgName() string {
-	return "FwSoaringData"
-}
-
 // String (generated function)
 func (m *FwSoaringData) String() string {
 	return fmt.Sprintf(
-		"&FwSoaringData{ Timestamp: %+v, Timestampmodechanged: %+v, Xw: %+v, Xr: %+v, Xlat: %+v, Xlon: %+v, Varw: %+v, Varr: %+v, Varlat: %+v, Varlon: %+v, Loiterradius: %+v, Loiterdirection: %+v, Disttosoarpoint: %+v, Vsinkexp: %+v, Z1Localupdraftspeed: %+v, Z2Deltaroll: %+v, Z1Exp: %+v, Z2Exp: %+v, Thermalgsnorth: %+v, Thermalgseast: %+v, TseDot: %+v, Debugvar1: %+v, Debugvar2: %+v, Controlmode: %+v, Valid: %+v }",
+		"&Asluav.FwSoaringData{ Timestamp: %+v, Timestampmodechanged: %+v, Xw: %+v, Xr: %+v, Xlat: %+v, Xlon: %+v, Varw: %+v, Varr: %+v, Varlat: %+v, Varlon: %+v, Loiterradius: %+v, Loiterdirection: %+v, Disttosoarpoint: %+v, Vsinkexp: %+v, Z1Localupdraftspeed: %+v, Z2Deltaroll: %+v, Z1Exp: %+v, Z2Exp: %+v, Thermalgsnorth: %+v, Thermalgseast: %+v, TseDot: %+v, Debugvar1: %+v, Debugvar2: %+v, Controlmode: %+v, Valid: %+v }",
 		m.Timestamp,
 		m.Timestampmodechanged,
 		m.Xw,
@@ -1156,20 +1036,10 @@ func (m *SensorpodStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_SENSORPOD_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *SensorpodStatus) CRCExtra() uint8 {
-	return 54
-}
-
-// MsgName (generated function)
-func (m *SensorpodStatus) MsgName() string {
-	return "SensorpodStatus"
-}
-
 // String (generated function)
 func (m *SensorpodStatus) String() string {
 	return fmt.Sprintf(
-		"&SensorpodStatus{ Timestamp: %+v, FreeSpace: %+v, VisensorRate1: %+v, VisensorRate2: %+v, VisensorRate3: %+v, VisensorRate4: %+v, RecordingNodesCount: %+v, CPUTemp: %+v }",
+		"&Asluav.SensorpodStatus{ Timestamp: %+v, FreeSpace: %+v, VisensorRate1: %+v, VisensorRate2: %+v, VisensorRate3: %+v, VisensorRate4: %+v, RecordingNodesCount: %+v, CPUTemp: %+v }",
 		m.Timestamp,
 		m.FreeSpace,
 		m.VisensorRate1,
@@ -1236,20 +1106,10 @@ func (m *SensPowerBoard) MsgID() mavlink.MessageID {
 	return MSG_ID_SENS_POWER_BOARD
 }
 
-// CRCExtra (generated function)
-func (m *SensPowerBoard) CRCExtra() uint8 {
-	return 222
-}
-
-// MsgName (generated function)
-func (m *SensPowerBoard) MsgName() string {
-	return "SensPowerBoard"
-}
-
 // String (generated function)
 func (m *SensPowerBoard) String() string {
 	return fmt.Sprintf(
-		"&SensPowerBoard{ Timestamp: %+v, PwrBrdSystemVolt: %+v, PwrBrdServoVolt: %+v, PwrBrdDigitalVolt: %+v, PwrBrdMotLAmp: %+v, PwrBrdMotRAmp: %+v, PwrBrdAnalogAmp: %+v, PwrBrdDigitalAmp: %+v, PwrBrdExtAmp: %+v, PwrBrdAuxAmp: %+v, PwrBrdStatus: %+v, PwrBrdLedStatus: %+v }",
+		"&Asluav.SensPowerBoard{ Timestamp: %+v, PwrBrdSystemVolt: %+v, PwrBrdServoVolt: %+v, PwrBrdDigitalVolt: %+v, PwrBrdMotLAmp: %+v, PwrBrdMotRAmp: %+v, PwrBrdAnalogAmp: %+v, PwrBrdDigitalAmp: %+v, PwrBrdExtAmp: %+v, PwrBrdAuxAmp: %+v, PwrBrdStatus: %+v, PwrBrdLedStatus: %+v }",
 		m.Timestamp,
 		m.PwrBrdSystemVolt,
 		m.PwrBrdServoVolt,
@@ -1323,20 +1183,10 @@ func (m *GsmLinkStatus) MsgID() mavlink.MessageID {
 	return MSG_ID_GSM_LINK_STATUS
 }
 
-// CRCExtra (generated function)
-func (m *GsmLinkStatus) CRCExtra() uint8 {
-	return 200
-}
-
-// MsgName (generated function)
-func (m *GsmLinkStatus) MsgName() string {
-	return "GsmLinkStatus"
-}
-
 // String (generated function)
 func (m *GsmLinkStatus) String() string {
 	return fmt.Sprintf(
-		"&GsmLinkStatus{ Timestamp: %+v, GsmModemType: %+v, GsmLinkType: %+v, Rssi: %+v, RsrpRscp: %+v, SinrEcio: %+v, Rsrq: %+v }",
+		"&Asluav.GsmLinkStatus{ Timestamp: %+v, GsmModemType: %+v, GsmLinkType: %+v, Rssi: %+v, RsrpRscp: %+v, SinrEcio: %+v, Rsrq: %+v }",
 		m.Timestamp,
 		m.GsmModemType,
 		m.GsmLinkType,

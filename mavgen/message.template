@@ -7,7 +7,5 @@ type Message interface {
 	Pack(*Packet) error
 	Unpack(*Packet) error
 	MsgID() MessageID
-	MsgName() string
-	CRCExtra() uint8
 	String() string
 }

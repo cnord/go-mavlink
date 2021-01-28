@@ -553,6 +553,7 @@ func (d *Dialect) generateClasses(w io.Writer) error {
 
 	classesTmpl := `
 {{$mavlinkVersion := .MavlinkVersion}}
+{{$dialect := .Name | UpperCamelCase}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
 // {{$name}} struct (generated typeinfo)  
@@ -566,20 +567,10 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 	return MSG_ID_{{.Name}}
 }
 
-// CRCExtra (generated function)
-func (m *{{$name}}) CRCExtra() uint8 {
-	return {{.CRCExtra}}
-}
-
-// MsgName (generated function)
-func (m *{{$name}}) MsgName() string {
-	return "{{.Name | UpperCamelCase}}"
-}
-
 // String (generated function)
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
+		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
 		{{range .Fields}}m.{{.Name | UpperCamelCase}},
 {{end}}
 	)

@@ -39,7 +39,7 @@ func (p *Packet) Encode(m Message) error {
 	if err := m.Pack(p); err != nil {
 		return err
 	}
-	if err := p.fixChecksum(m.CRCExtra()); err != nil {
+	if err := p.fixChecksum(msgCrcExtras[m.MsgID()]); err != nil {
 		return err
 	}
 	return nil

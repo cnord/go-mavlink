@@ -50,7 +50,7 @@ func packetTemplate() string {
 		"\tif err := m.Pack(p); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
-		"\tif err := p.fixChecksum(m.CRCExtra()); err != nil {\n" +
+		"\tif err := p.fixChecksum(msgCrcExtras[m.MsgID()]); err != nil {\n" +
 		"\t\treturn err\n" +
 		"\t}\n" +
 		"\treturn nil\n" +

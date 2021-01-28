@@ -18,8 +18,6 @@ func messageTemplate() string {
 		"\tPack(*Packet) error\n" +
 		"\tUnpack(*Packet) error\n" +
 		"\tMsgID() MessageID\n" +
-		"\tMsgName() string\n" +
-		"\tCRCExtra() uint8\n" +
 		"\tString() string\n" +
 		"}\n" +
 		""

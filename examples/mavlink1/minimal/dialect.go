@@ -267,20 +267,10 @@ func (m *Heartbeat) MsgID() mavlink.MessageID {
 	return MSG_ID_HEARTBEAT
 }
 
-// CRCExtra (generated function)
-func (m *Heartbeat) CRCExtra() uint8 {
-	return 50
-}
-
-// MsgName (generated function)
-func (m *Heartbeat) MsgName() string {
-	return "Heartbeat"
-}
-
 // String (generated function)
 func (m *Heartbeat) String() string {
 	return fmt.Sprintf(
-		"&Heartbeat{ CustomMode: %+v, Type: %+v, Autopilot: %+v, BaseMode: %+v, SystemStatus: %+v, MavlinkVersion: %+v }",
+		"&Minimal.Heartbeat{ CustomMode: %+v, Type: %+v, Autopilot: %+v, BaseMode: %+v, SystemStatus: %+v, MavlinkVersion: %+v }",
 		m.CustomMode,
 		m.Type,
 		m.Autopilot,
