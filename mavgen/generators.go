@@ -33,15 +33,15 @@ const (
 
 var (
 	templates = map[string](func() string){
-		"register":     registerTemplate,
-		"constants":    constantsTemplate,
-		"encoder":      encoderTemplate,
-		"decoder":      decoderTemplate,
-		"message":      messageTemplate,
-		"packet":       packetTemplate,
-		"parser":       parserTemplate,
-		"version":      versionTemplate,
-		"x25":          x25Template,
+		"register":  registerTemplate,
+		"constants": constantsTemplate,
+		"encoder":   encoderTemplate,
+		"decoder":   decoderTemplate,
+		"message":   messageTemplate,
+		"packet":    packetTemplate,
+		"parser":    parserTemplate,
+		"version":   versionTemplate,
+		"x25":       x25Template,
 	}
 )
 
@@ -58,7 +58,7 @@ func findOutFile(scheme string) string {
 	return filepath.Join(dir, baseName(scheme), "dialect.go")
 }
 
-func generateDialect(schemeFile string, mavlinkVersion int) (error) {
+func generateDialect(schemeFile string, mavlinkVersion int) error {
 	d, err := ParseDialect(schemeFile, baseName(schemeFile))
 	if err != nil {
 		return err
@@ -138,7 +138,7 @@ func generateCommons(data templateData) error {
 	}
 
 	for k, v := range templates {
-		if err := generateCode(cwd + string(filepath.Separator), data, k, v()); err != nil {
+		if err := generateCode(cwd+string(filepath.Separator), data, k, v()); err != nil {
 			return err
 		}
 	}

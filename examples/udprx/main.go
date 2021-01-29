@@ -19,7 +19,7 @@ import (
 //////////////////////////////////////
 
 var (
-	address  = flag.String("address", ":14550", "address to listen on")
+	address = flag.String("address", ":14550", "address to listen on")
 )
 
 func main() {

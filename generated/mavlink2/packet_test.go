@@ -15,7 +15,7 @@ func TestU16ToBytes(t *testing.T) {
 
 func TestMarshallUnmarshal(t *testing.T) {
 	ping := &pingMock{
-		Seq:  1000,
+		Seq: 1000,
 	}
 	packet := &Packet{}
 	require.NoError(t, packet.Encode(ping), "encode failed")
@@ -27,7 +27,7 @@ func TestMarshallUnmarshal(t *testing.T) {
 
 func TestEncodeDecode(t *testing.T) {
 	ping := &pingMock{
-		Seq:  1000,
+		Seq: 1000,
 	}
 	packet := &Packet{}
 	require.NoError(t, packet.Encode(ping), "encode failed")
