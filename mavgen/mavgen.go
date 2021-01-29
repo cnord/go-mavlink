@@ -448,7 +448,7 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString("//\n")
 	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
-	bb.WriteString("package " + d.Name + "\n\n")
+	bb.WriteString("package " + strings.ToLower(d.Name) + "\n\n")
 
 	bb.WriteString("import (\n")
 	if d.needImportParentMavlink() {

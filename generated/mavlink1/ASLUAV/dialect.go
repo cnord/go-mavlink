@@ -5,7 +5,7 @@
 //
 //////////////////////////////////////////////////
 
-package ASLUAV
+package asluav
 
 import (
 	mavlink ".."
