@@ -74,12 +74,11 @@ func decoderTemplate() string {
 		"func byteReader(r io.Reader) io.ByteReader {\n" +
 		"\tif rb, ok := r.(io.ByteReader); ok {\n" +
 		"\t\treturn rb\n" +
-		"\t} else {\n" +
-		"\t\treturn bufio.NewReader(r)\n" +
 		"\t}\n" +
+		"    return bufio.NewReader(r)\n" +
 		"}\n" +
 		"\n" +
-		"// NewDecoder function create decoder instance with default dialect\n" +
+		"// NewDecoder function create decoder instance\n" +
 		"func NewDecoder(r io.Reader) *Decoder {\n" +
 		"\treturn &Decoder{\n" +
 		"\t\treader:  byteReader(r),\n" +

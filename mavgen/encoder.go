@@ -22,12 +22,12 @@ func encoderTemplate() string {
 		"\t\"io\"\n" +
 		")\n" +
 		"\n" +
-		"// Decoder struct provide decoding processor\n" +
+		"// Encoder struct provide decoding processor\n" +
 		"type Encoder struct {\n" +
 		"\twriter  io.Writer\n" +
 		"}\n" +
 		"\n" +
-		"// Decode decode input stream to packet. Method return error or nil\n" +
+		"// Encode encode packet to output stream. Method return error or nil\n" +
 		"func (e *Encoder) Encode(v interface{}) error {\n" +
 		"\tpacket, ok := v.(*Packet)\n" +
 		"\tif !ok {\n" +
@@ -41,7 +41,7 @@ func encoderTemplate() string {
 		"\treturn err\n" +
 		"}\n" +
 		"\n" +
-		"// NewDecoder function create decoder instance with default dialect\n" +
+		"// NewEncoder function create encoder instance\n" +
 		"func NewEncoder(w io.Writer) *Encoder {\n" +
 		"\treturn &Encoder{\n" +
 		"\t\twriter:  w,\n" +

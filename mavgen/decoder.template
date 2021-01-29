@@ -63,12 +63,11 @@ func (d *Decoder) Decode(v interface{}) error {
 func byteReader(r io.Reader) io.ByteReader {
 	if rb, ok := r.(io.ByteReader); ok {
 		return rb
-	} else {
-		return bufio.NewReader(r)
 	}
+    return bufio.NewReader(r)
 }
 
-// NewDecoder function create decoder instance with default dialect
+// NewDecoder function create decoder instance
 func NewDecoder(r io.Reader) *Decoder {
 	return &Decoder{
 		reader:  byteReader(r),

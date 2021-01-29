@@ -17,12 +17,12 @@ import (
 	"io"
 )
 
-// Decoder struct provide decoding processor
+// Encoder struct provide decoding processor
 type Encoder struct {
 	writer io.Writer
 }
 
-// Decode decode input stream to packet. Method return error or nil
+// Encode encode packet to output stream. Method return error or nil
 func (e *Encoder) Encode(v interface{}) error {
 	packet, ok := v.(*Packet)
 	if !ok {
@@ -36,7 +36,7 @@ func (e *Encoder) Encode(v interface{}) error {
 	return err
 }
 
-// NewDecoder function create decoder instance with default dialect
+// NewEncoder function create encoder instance
 func NewEncoder(w io.Writer) *Encoder {
 	return &Encoder{
 		writer: w,
