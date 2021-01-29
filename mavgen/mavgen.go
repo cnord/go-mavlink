@@ -450,20 +450,27 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 
 	bb.WriteString("package " + strings.ToLower(d.Name) + "\n\n")
 
-	bb.WriteString("import (\n")
-	if d.needImportParentMavlink() {
-		bb.WriteString("mavlink \"..\"\n")
+	needImportParentMavlink := d.needImportParentMavlink()
+	needImportEncodingBinary := d.needImportEncodingBinary()
+	needImportFmt := d.needImportFmt()
+	needImportMath := d.needImportMath()
+
+	if needImportParentMavlink || needImportEncodingBinary || needImportFmt || needImportMath {
+		bb.WriteString("import (\n")
+		if needImportParentMavlink {
+			bb.WriteString("mavlink \"..\"\n")
+		}
+		if needImportEncodingBinary {
+			bb.WriteString("\"encoding/binary\"\n")
+		}
+		if needImportFmt {
+			bb.WriteString("\"fmt\"\n")
+		}
+		if needImportMath {
+			bb.WriteString("\"math\"\n")
+		}
+		bb.WriteString(")\n")
 	}
-	if d.needImportEncodingBinary() {
-		bb.WriteString("\"encoding/binary\"\n")
-	}
-	if d.needImportFmt() {
-		bb.WriteString("\"fmt\"\n")
-	}
-	if d.needImportMath() {
-		bb.WriteString("\"math\"\n")
-	}
-	bb.WriteString(")\n")
 
 	err := d.generateEnums(&bb)
 	if err != nil {
