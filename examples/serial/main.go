@@ -2,6 +2,16 @@ package main
 
 import (
 	"../../common"
+	_ "../../generated/mavlink1/ardupilotmega"
+	_ "../../generated/mavlink1/common"
+	_ "../../generated/mavlink1/icarous"
+	_ "../../generated/mavlink1/minimal"
+	_ "../../generated/mavlink1/uAvionix"
+	_ "../../generated/mavlink2/ardupilotmega"
+	_ "../../generated/mavlink2/common"
+	_ "../../generated/mavlink2/icarous"
+	_ "../../generated/mavlink2/minimal"
+	_ "../../generated/mavlink2/uAvionix"
 	"flag"
 	"github.com/tarm/serial"
 	"log"

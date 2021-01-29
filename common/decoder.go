@@ -2,17 +2,7 @@ package common
 
 import (
 	mavlink1 "../generated/mavlink1"
-	_ "../generated/mavlink1/ardupilotmega"
-	_ "../generated/mavlink1/common"
-	_ "../generated/mavlink1/icarous"
-	_ "../generated/mavlink1/minimal"
-	_ "../generated/mavlink1/uAvionix"
 	mavlink2 "../generated/mavlink2"
-	_ "../generated/mavlink2/ardupilotmega"
-	_ "../generated/mavlink2/common"
-	_ "../generated/mavlink2/icarous"
-	_ "../generated/mavlink2/minimal"
-	_ "../generated/mavlink2/uAvionix"
 	"io"
 	"log"
 )
