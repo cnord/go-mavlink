@@ -48,7 +48,8 @@ func (r *hexByteReader) Read(p []byte) (n int, err error) {
 	if err != nil {
 		return 0, err
 	}
-	p, err = hex.DecodeString(reg.ReplaceAllString(string(b), ""))
+	b, err = hex.DecodeString(reg.ReplaceAllString(string(b), ""))
+	copy(p, b)
 	return len(p), err
 }
 

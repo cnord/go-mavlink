@@ -1,20 +1,16 @@
 package main
 
 import (
-	"../../common"
-	_ "../../generated/mavlink1/ardupilotmega"
-	_ "../../generated/mavlink1/common"
-	_ "../../generated/mavlink1/icarous"
-	_ "../../generated/mavlink1/minimal"
-	_ "../../generated/mavlink1/uAvionix"
-	_ "../../generated/mavlink2/ardupilotmega"
-	_ "../../generated/mavlink2/common"
-	_ "../../generated/mavlink2/icarous"
-	_ "../../generated/mavlink2/minimal"
-	_ "../../generated/mavlink2/uAvionix"
+	_ "../../common"
+	mavlink "../../generated/mavlink2"
+	"../../generated/mavlink2/ardupilotmega"
+	"../../generated/mavlink2/common"
+	"../../generated/mavlink2/minimal"
 	"flag"
 	"github.com/tarm/serial"
+	"io"
 	"log"
+	"sync"
 	"time"
 )
 
@@ -35,13 +31,9 @@ var (
 
 func main() {
 	flag.Parse()
-	listenAndServe(*device, *baudrate)
-}
-
-func listenAndServe(device string, baudrate int) {
 	port, err := serial.OpenPort(&serial.Config{
-		Name:        device,
-		Baud:        baudrate,
+		Name:        *device,
+		Baud:        *baudrate,
 		ReadTimeout: time.Second,
 		Size:        8,
 		Parity:      serial.ParityNone,
@@ -50,16 +42,123 @@ func listenAndServe(device string, baudrate int) {
 	if err != nil {
 		log.Fatalf("Error on opening device %s: %s\n", device, err)
 	}
-	dec := common.NewDecoder(port)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go listenAndServe(&wg, port)
+	go handshake(&wg, port)
+	wg.Wait()
+}
+
+func listenAndServe(wg *sync.WaitGroup, device io.Reader) {
+	defer wg.Done()
+	dec := mavlink.NewDecoder(device)
 	if dec == nil {
 		return
 	}
 	log.Println("listening packets from decoder")
+	var packet mavlink.Packet
 	for {
-		if p, err := dec.Decode(); err != nil {
-			log.Fatal(p)
+		if err := dec.Decode(&packet); err != nil {
+			log.Fatal(err)
 		} else {
-			log.Println(p)
+			log.Println(packet.Message())
 		}
 	}
+}
+
+func makeHeartbeat() *mavlink.Packet {
+	return makePacket(&minimal.Heartbeat{
+		CustomMode:     0,
+		Type:           minimal.MAV_TYPE_GCS,
+		Autopilot:      minimal.MAV_AUTOPILOT_INVALID,
+		BaseMode:       0,
+		SystemStatus:   0,
+		MavlinkVersion: 3,
+	})
+}
+
+func makeTextArray(text string) (bytes [50]byte) {
+	copy(bytes[:], text)
+	return bytes
+}
+
+func makePayload(payload []byte) (bytes [251]byte) {
+	copy(bytes[:], payload)
+	return bytes
+}
+
+func makeStatustext(text string) *mavlink.Packet {
+	return makePacket(&common.Statustext{
+		Severity: common.MAV_SEVERITY_INFO,
+		Text: makeTextArray(text),
+	})
+}
+
+func makeCommandLong(cmd uint16) *mavlink.Packet {
+	return makePacket(&common.CommandLong{
+		Param1:          0,
+		Param2:          0,
+		Param3:          0,
+		Param4:          0,
+		Param5:          0,
+		Param6:          0,
+		Param7:          0,
+		Command:         cmd,
+		TargetSystem:    1,
+		TargetComponent: 1,
+		Confirmation:    0,
+	})
+}
+
+func makeParamRequestList() *mavlink.Packet {
+	return makePacket(&common.ParamRequestList{
+		TargetSystem:    1,
+		TargetComponent: 1,
+	})
+}
+
+func makeFileTransferProtocol(payload []byte) *mavlink.Packet {
+	return makePacket(&common.FileTransferProtocol{
+		TargetNetwork:   0,
+		TargetSystem:    1,
+		TargetComponent: 1,
+		Payload:         makePayload(payload),
+	})
+}
+
+var seq = uint8(0)
+
+func nextSeq() uint8 {
+	seq++
+	return seq
+}
+
+func makePacket(message mavlink.Message) *mavlink.Packet {
+	packet := mavlink.Packet{
+		SeqID:         nextSeq(),
+		SysID:         0,
+		CompID:        0,
+	}
+	if err := message.Pack(&packet); err != nil {
+		log.Fatalf("Error on pack message: %s\n", err)
+	}
+	return &packet
+}
+
+func sendPacket(writer io.Writer, packet *mavlink.Packet) {
+	bytes := packet.Bytes()
+	if n ,err := writer.Write(bytes); err != nil {
+		log.Fatalf("Error on write packet: %s\n", err)
+	} else if n != len(bytes) {
+		log.Fatalf("Writed %d bytes but need write %d bytes\n", n, len(bytes))
+	}
+}
+
+func handshake(wg *sync.WaitGroup, writer io.Writer) {
+	defer wg.Done()
+	time.Sleep(time.Second)
+	sendPacket(writer, makeHeartbeat())
+	sendPacket(writer, makeStatustext("Custom GCS"))
+	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_DO_SEND_BANNER))
+	sendPacket(writer, makeFileTransferProtocol([]byte{0, 0, 0, 4, 16, 0, 0, 0, 0, 0, 0, 0, 64, 80, 65, 82, 65, 77, 47, 112, 97, 114, 97, 109, 46, 112, 99, 107, 0}))
 }
