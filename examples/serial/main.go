@@ -77,6 +77,16 @@ func makeHeartbeat() *mavlink.Packet {
 	})
 }
 
+func makeRequestDataStream(msgID uint8, rate uint16) *mavlink.Packet {
+	return makePacket(&common.RequestDataStream{
+		ReqMessageRate:  rate,
+		TargetSystem:    1,
+		TargetComponent: 1,
+		ReqStreamID:     uint8(msgID),
+		StartStop:       1,
+	})
+}
+
 func makeTextArray(text string) (bytes [50]byte) {
 	copy(bytes[:], text)
 	return bytes
@@ -157,6 +167,13 @@ func sendPacket(writer io.Writer, packet *mavlink.Packet) {
 func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	defer wg.Done()
 	time.Sleep(time.Second)
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTENDED_STATUS, 2))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_POSITION, 2))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA1, 4))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA2, 4))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA3, 4))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RAW_SENSORS, 2))
+	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RC_CHANNELS, 2))
 	sendPacket(writer, makeHeartbeat())
 	sendPacket(writer, makeStatustext("Custom GCS"))
 	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_DO_SEND_BANNER))
