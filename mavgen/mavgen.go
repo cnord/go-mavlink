@@ -586,7 +586,7 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
 		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{if IsByteArrayField .}} (\"%s\"){{end}}{{end}} }", 
-		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}){{end}},
+		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}[:]){{end}},
 {{end}}
 	)
 }

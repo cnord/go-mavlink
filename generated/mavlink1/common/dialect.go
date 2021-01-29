@@ -1888,7 +1888,7 @@ func (m *ChangeOperatorControl) String() string {
 		m.TargetSystem,
 		m.ControlRequest,
 		m.Version,
-		m.Passkey, string(m.Passkey),
+		m.Passkey, string(m.Passkey[:]),
 	)
 }
 
@@ -1978,7 +1978,7 @@ func (m *AuthKey) MsgID() mavlink.MessageID {
 func (m *AuthKey) String() string {
 	return fmt.Sprintf(
 		"&common.AuthKey{ Key: %+v (\"%s\") }",
-		m.Key, string(m.Key),
+		m.Key, string(m.Key[:]),
 	)
 }
 
@@ -2148,7 +2148,7 @@ func (m *ParamAckTransaction) String() string {
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID, string(m.ParamID),
+		m.ParamID, string(m.ParamID[:]),
 		m.ParamType,
 		m.ParamResult,
 	)
@@ -2204,7 +2204,7 @@ func (m *ParamRequestRead) String() string {
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID, string(m.ParamID),
+		m.ParamID, string(m.ParamID[:]),
 	)
 }
 
@@ -2297,7 +2297,7 @@ func (m *ParamValue) String() string {
 		m.ParamValue,
 		m.ParamCount,
 		m.ParamIndex,
-		m.ParamID, string(m.ParamID),
+		m.ParamID, string(m.ParamID[:]),
 		m.ParamType,
 	)
 }
@@ -2353,7 +2353,7 @@ func (m *ParamSet) String() string {
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID, string(m.ParamID),
+		m.ParamID, string(m.ParamID[:]),
 		m.ParamType,
 	)
 }
@@ -3922,7 +3922,7 @@ func (m *ParamMapRc) String() string {
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID, string(m.ParamID),
+		m.ParamID, string(m.ParamID[:]),
 		m.ParameterRcChannelIndex,
 	)
 }
@@ -10553,7 +10553,7 @@ func (m *AdsbVehicle) String() string {
 		m.Flags,
 		m.Squawk,
 		m.AltitudeType,
-		m.Callsign, string(m.Callsign),
+		m.Callsign, string(m.Callsign[:]),
 		m.EmitterType,
 		m.Tslc,
 	)
@@ -10795,7 +10795,7 @@ func (m *DebugVect) String() string {
 		m.X,
 		m.Y,
 		m.Z,
-		m.Name, string(m.Name),
+		m.Name, string(m.Name[:]),
 	)
 }
 
@@ -10845,7 +10845,7 @@ func (m *NamedValueFloat) String() string {
 		"&common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
-		m.Name, string(m.Name),
+		m.Name, string(m.Name[:]),
 	)
 }
 
@@ -10891,7 +10891,7 @@ func (m *NamedValueInt) String() string {
 		"&common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
-		m.Name, string(m.Name),
+		m.Name, string(m.Name[:]),
 	)
 }
 
@@ -10935,7 +10935,7 @@ func (m *Statustext) String() string {
 	return fmt.Sprintf(
 		"&common.Statustext{ Severity: %+v, Text: %+v (\"%s\") }",
 		m.Severity,
-		m.Text, string(m.Text),
+		m.Text, string(m.Text[:]),
 	)
 }
 
