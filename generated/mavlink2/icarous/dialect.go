@@ -27,7 +27,3 @@ const (
 	ICAROUS_FMS_STATE_APPROACH = 4 //
 	ICAROUS_FMS_STATE_LAND     = 5 //
 )
-
-// init Icarous dialect
-func init() {
-}

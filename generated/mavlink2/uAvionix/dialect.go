@@ -100,7 +100,3 @@ const (
 	UAVIONIX_ADSB_OUT_DOWNED_AIRCRAFT_EMERGENCY       = 6 //
 	UAVIONIX_ADSB_OUT_RESERVED                        = 7 //
 )
-
-// init Uavionix dialect
-func init() {
-}

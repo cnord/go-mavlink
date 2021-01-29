@@ -534,14 +534,14 @@ const ({{range .Messages}}
 )
 {{end}}
 
-// init {{.Name | UpperCamelCase}} dialect 
-func init() { {{if .Messages}}{{range .Messages}}
+{{if .Messages}}// init {{.Name | UpperCamelCase}} dialect 
+func init() { {{range .Messages}} 
 	mavlink.Register(MSG_ID_{{.Name}}, "MSG_ID_{{.Name}}", {{.CRCExtra}}, func(p *mavlink.Packet) mavlink.Message {
 		msg := new({{.Name | UpperCamelCase}})
 		msg.Unpack(p)
 		return msg
-	}){{end}}{{end}}
-}
+	}){{end}}
+} {{end}}
 `
 	return template.Must(template.New("msgIds").Funcs(funcMap).Parse(msgIDTmpl)).Execute(w, d)
 }
