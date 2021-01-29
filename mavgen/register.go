@@ -13,6 +13,7 @@ func registerTemplate() string {
 		"\n" +
 		"import \"strconv\"\n" +
 		"\n" +
+		"// Register method provide register dialect message on decoder knowledge\n" +
 		"func Register(msgID MessageID, msgName string, crcExtra uint8, msgConstructor func(p *Packet) Message) {\n" +
 		"\tif exists, ok := msgNames[msgID]; ok {\n" +
 		"\t\tpanic(\"Message with ID = \" + strconv.Itoa(int(msgID)) + \" already exists. Fix collision '\" + msgName + \"' vs '\" + exists + \"' and re-run mavgen\")\n" +
