@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../mavlinkSwitcher"
+	"../../common"
 	"flag"
 	"github.com/tarm/serial"
 	"log"
@@ -19,21 +19,16 @@ import (
 //////////////////////////////////////
 
 var (
-	mavlink1 = flag.Bool("1", false, "mavlink 1")
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
-	device = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
+	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
 )
 
 func main() {
 	flag.Parse()
-	mavlink := 2
-	if mavlink1 != nil && *mavlink1 == true {
-		mavlink = 1
-	}
-	listenAndServe(mavlink, *device, *baudrate)
+	listenAndServe(*device, *baudrate)
 }
 
-func listenAndServe(mavlink int, device string, baudrate int) {
+func listenAndServe(device string, baudrate int) {
 	port, err := serial.OpenPort(&serial.Config{
 		Name:        device,
 		Baud:        baudrate,
@@ -45,7 +40,7 @@ func listenAndServe(mavlink int, device string, baudrate int) {
 	if err != nil {
 		log.Fatalf("Error on opening device %s: %s\n", device, err)
 	}
-	dec := mavlinkSwitcher.Init(port, mavlink)
+	dec := common.NewDecoder(port)
 	if dec == nil {
 		return
 	}

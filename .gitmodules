@@ -1,3 +1,3 @@
-[submodule "examples/schemas/public/mavlink-upstream"]                     
-        path = examples/schemas/public/mavlink-upstream
-        url = https://github.com/mavlink/mavlink 
+[submodule "schemas/public/mavlink-upstream"]
+	path = schemas/public/mavlink-upstream
+	url = https://github.com/mavlink/mavlink.git

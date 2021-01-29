@@ -1,15 +1,16 @@
 package main
 
 import (
+	"../common"
 	"flag"
 	"log"
 )
 
 var (
-	mavgenVersion  = "devel"
-	schemeFile     = flag.String("f", "", "mavlink xml-definition file input")
-	version        = flag.String("v", mavgenVersion, "version of mavlink dialect")
-	mavlinkVersion = flag.Int("m", 2, "version of mavlink protocol")
+	mavgenVersion      = "devel"
+	schemeFile         = flag.String("f", "", "mavlink xml-definition file input")
+	version            = flag.String("v", mavgenVersion, "custom version of mavlink dialect")
+	commonPackageFiles = flag.Bool("c", false, "generate common mavlink package code")
 )
 
 type templateData struct {
@@ -22,16 +23,22 @@ func main() {
 	log.SetPrefix("mavgen: ")
 	flag.Parse()
 
-	if err := generateDialect(*schemeFile, *mavlinkVersion); err != nil {
+	if len(*schemeFile) == 0 {
+		flag.PrintDefaults()
+		return
+	}
+
+	if err := generateDialect(*schemeFile, common.MavlinkVersion()); err != nil {
 		log.Fatal(err)
 	}
 
-	data := templateData{
-		Version:        *version,
-		MavlinkVersion: *mavlinkVersion,
-	}
-
-	if err := generateCommons(data); err != nil {
-		log.Fatal(err)
+	if *commonPackageFiles {
+		data := templateData{
+			Version:        *version,
+			MavlinkVersion: common.MavlinkVersion(),
+		}
+		if err := generateCommons(data); err != nil {
+			log.Fatal(err)
+		}
 	}
 }

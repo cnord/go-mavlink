@@ -1,11 +1,14 @@
 package main
 
 import (
-	"../mavlinkSwitcher"
+	"../../common"
 	"bufio"
+	"encoding/hex"
 	"flag"
+	"io"
 	"log"
 	"os"
+	"regexp"
 )
 
 //////////////////////////////////////
@@ -19,15 +22,32 @@ import (
 //////////////////////////////////////
 
 var (
-	mavlink = flag.Int("version", 2, "version of mavlink (1 or 2)")
+	hexInput = flag.Bool("h", false, "process input stream as hex dump")
 )
+
+type hexByteReader struct {
+	r *bufio.Reader
+}
+
+func (r *hexByteReader) Read(p []byte) (n int, err error) {
+	b, err := r.r.ReadBytes('\n')
+	if err != nil {
+		return 0, err
+	}
+	reg, err := regexp.Compile("[^a-fA-F0-9]+")
+	if err != nil {
+		return 0, err
+	}
+	p, err = hex.DecodeString(reg.ReplaceAllString(string(b), ""))
+	return len(p), err
+}
 
 func main() {
 	flag.Parse()
-	listenAndServe(*mavlink)
+	listenAndServe()
 }
 
-func listenAndServe(version int) {
+func listenAndServe() {
 	info, err := os.Stdin.Stat()
 	if err != nil {
 		panic(err)
@@ -36,8 +56,15 @@ func listenAndServe(version int) {
 		log.Println("The command is intended to work with pipes.")
 		return
 	}
-	reader := bufio.NewReader(os.Stdin)
-	dec := mavlinkSwitcher.Init(reader, version)
+	var reader io.Reader
+	if *hexInput {
+		reader = &hexByteReader{
+			r: bufio.NewReader(os.Stdin),
+		}
+	} else {
+		reader = bufio.NewReader(os.Stdin)
+	}
+	dec := common.NewDecoder(reader)
 	if dec == nil {
 		return
 	}

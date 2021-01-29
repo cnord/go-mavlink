@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../mavlinkSwitcher"
+	"../../common"
 	"flag"
 	"log"
 	"net"
@@ -19,15 +19,12 @@ import (
 //////////////////////////////////////
 
 var (
-	mavlink = flag.Int("mavlink", 2, "version of mavlink (1 or 2)")
-	rxaddr = flag.String("addr", ":14550", "address to listen on")
+	address  = flag.String("address", ":14550", "address to listen on")
 )
 
 func main() {
-
 	flag.Parse()
-
-	listenAndServe(*rxaddr)
+	listenAndServe(*address)
 }
 
 func listenAndServe(addr string) {
@@ -41,7 +38,7 @@ func listenAndServe(addr string) {
 	}
 	log.Println("listening on", udpAddr)
 
-	dec := mavlinkSwitcher.Init(conn, *mavlink)
+	dec := common.NewDecoder(conn)
 	if dec == nil {
 		return
 	}

@@ -1228,23 +1228,145 @@ func (m *GsmLinkStatus) Unpack(p *mavlink.Packet) error {
 	return nil
 }
 
+// SatcomLinkStatus struct (generated typeinfo)
+// Status of the SatCom link
+type SatcomLinkStatus struct {
+	Timestamp          uint64 // Timestamp
+	LastHeartbeat      uint64 // Timestamp of the last successful sbd session
+	FailedSessions     uint16 // Number of failed sessions
+	SuccessfulSessions uint16 // Number of successful sessions
+	SignalQuality      uint8  // Signal quality
+	RingPending        uint8  // Ring call pending
+	TxSessionPending   uint8  // Transmission session pending
+	RxSessionPending   uint8  // Receiving session pending
+}
+
+// MsgID (generated function)
+func (m *SatcomLinkStatus) MsgID() mavlink.MessageID {
+	return MSG_ID_SATCOM_LINK_STATUS
+}
+
+// String (generated function)
+func (m *SatcomLinkStatus) String() string {
+	return fmt.Sprintf(
+		"&ASLUAV.SatcomLinkStatus{ Timestamp: %+v, LastHeartbeat: %+v, FailedSessions: %+v, SuccessfulSessions: %+v, SignalQuality: %+v, RingPending: %+v, TxSessionPending: %+v, RxSessionPending: %+v }",
+		m.Timestamp,
+		m.LastHeartbeat,
+		m.FailedSessions,
+		m.SuccessfulSessions,
+		m.SignalQuality,
+		m.RingPending,
+		m.TxSessionPending,
+		m.RxSessionPending,
+	)
+}
+
+// Pack (generated function)
+func (m *SatcomLinkStatus) Pack(p *mavlink.Packet) error {
+	payload := make([]byte, 24)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
+	binary.LittleEndian.PutUint64(payload[8:], uint64(m.LastHeartbeat))
+	binary.LittleEndian.PutUint16(payload[16:], uint16(m.FailedSessions))
+	binary.LittleEndian.PutUint16(payload[18:], uint16(m.SuccessfulSessions))
+	payload[20] = byte(m.SignalQuality)
+	payload[21] = byte(m.RingPending)
+	payload[22] = byte(m.TxSessionPending)
+	payload[23] = byte(m.RxSessionPending)
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *SatcomLinkStatus) Unpack(p *mavlink.Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 24 {
+		return mavlink.ErrPayloadTooSmall
+	}
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.LastHeartbeat = uint64(binary.LittleEndian.Uint64(payload[8:]))
+	m.FailedSessions = uint16(binary.LittleEndian.Uint16(payload[16:]))
+	m.SuccessfulSessions = uint16(binary.LittleEndian.Uint16(payload[18:]))
+	m.SignalQuality = uint8(payload[20])
+	m.RingPending = uint8(payload[21])
+	m.TxSessionPending = uint8(payload[22])
+	m.RxSessionPending = uint8(payload[23])
+	return nil
+}
+
+// SensorAirflowAngles struct (generated typeinfo)
+// Calibrated airflow angle measurements
+type SensorAirflowAngles struct {
+	Timestamp          uint64  // Timestamp
+	Angleofattack      float32 // Angle of attack
+	Sideslip           float32 // Sideslip angle
+	AngleofattackValid uint8   // Angle of attack measurement valid
+	SideslipValid      uint8   // Sideslip angle measurement valid
+}
+
+// MsgID (generated function)
+func (m *SensorAirflowAngles) MsgID() mavlink.MessageID {
+	return MSG_ID_SENSOR_AIRFLOW_ANGLES
+}
+
+// String (generated function)
+func (m *SensorAirflowAngles) String() string {
+	return fmt.Sprintf(
+		"&ASLUAV.SensorAirflowAngles{ Timestamp: %+v, Angleofattack: %+v, Sideslip: %+v, AngleofattackValid: %+v, SideslipValid: %+v }",
+		m.Timestamp,
+		m.Angleofattack,
+		m.Sideslip,
+		m.AngleofattackValid,
+		m.SideslipValid,
+	)
+}
+
+// Pack (generated function)
+func (m *SensorAirflowAngles) Pack(p *mavlink.Packet) error {
+	payload := make([]byte, 18)
+	binary.LittleEndian.PutUint64(payload[0:], uint64(m.Timestamp))
+	binary.LittleEndian.PutUint32(payload[8:], math.Float32bits(m.Angleofattack))
+	binary.LittleEndian.PutUint32(payload[12:], math.Float32bits(m.Sideslip))
+	payload[16] = byte(m.AngleofattackValid)
+	payload[17] = byte(m.SideslipValid)
+	p.MsgID = m.MsgID()
+	p.Payload = payload
+	return nil
+}
+
+// Unpack (generated function)
+func (m *SensorAirflowAngles) Unpack(p *mavlink.Packet) error {
+	payload := p.Payload[:]
+	if len(p.Payload) < 18 {
+		return mavlink.ErrPayloadTooSmall
+	}
+	m.Timestamp = uint64(binary.LittleEndian.Uint64(payload[0:]))
+	m.Angleofattack = math.Float32frombits(binary.LittleEndian.Uint32(payload[8:]))
+	m.Sideslip = math.Float32frombits(binary.LittleEndian.Uint32(payload[12:]))
+	m.AngleofattackValid = uint8(payload[16])
+	m.SideslipValid = uint8(payload[17])
+	return nil
+}
+
 // Message IDs
 const (
-	MSG_ID_COMMAND_INT_STAMPED  mavlink.MessageID = 78
-	MSG_ID_COMMAND_LONG_STAMPED mavlink.MessageID = 79
-	MSG_ID_SENS_POWER           mavlink.MessageID = 201
-	MSG_ID_SENS_MPPT            mavlink.MessageID = 202
-	MSG_ID_ASLCTRL_DATA         mavlink.MessageID = 203
-	MSG_ID_ASLCTRL_DEBUG        mavlink.MessageID = 204
-	MSG_ID_ASLUAV_STATUS        mavlink.MessageID = 205
-	MSG_ID_EKF_EXT              mavlink.MessageID = 206
-	MSG_ID_ASL_OBCTRL           mavlink.MessageID = 207
-	MSG_ID_SENS_ATMOS           mavlink.MessageID = 208
-	MSG_ID_SENS_BATMON          mavlink.MessageID = 209
-	MSG_ID_FW_SOARING_DATA      mavlink.MessageID = 210
-	MSG_ID_SENSORPOD_STATUS     mavlink.MessageID = 211
-	MSG_ID_SENS_POWER_BOARD     mavlink.MessageID = 212
-	MSG_ID_GSM_LINK_STATUS      mavlink.MessageID = 213
+	MSG_ID_COMMAND_INT_STAMPED   mavlink.MessageID = 78
+	MSG_ID_COMMAND_LONG_STAMPED  mavlink.MessageID = 79
+	MSG_ID_SENS_POWER            mavlink.MessageID = 201
+	MSG_ID_SENS_MPPT             mavlink.MessageID = 202
+	MSG_ID_ASLCTRL_DATA          mavlink.MessageID = 203
+	MSG_ID_ASLCTRL_DEBUG         mavlink.MessageID = 204
+	MSG_ID_ASLUAV_STATUS         mavlink.MessageID = 205
+	MSG_ID_EKF_EXT               mavlink.MessageID = 206
+	MSG_ID_ASL_OBCTRL            mavlink.MessageID = 207
+	MSG_ID_SENS_ATMOS            mavlink.MessageID = 208
+	MSG_ID_SENS_BATMON           mavlink.MessageID = 209
+	MSG_ID_FW_SOARING_DATA       mavlink.MessageID = 210
+	MSG_ID_SENSORPOD_STATUS      mavlink.MessageID = 211
+	MSG_ID_SENS_POWER_BOARD      mavlink.MessageID = 212
+	MSG_ID_GSM_LINK_STATUS       mavlink.MessageID = 213
+	MSG_ID_SATCOM_LINK_STATUS    mavlink.MessageID = 214
+	MSG_ID_SENSOR_AIRFLOW_ANGLES mavlink.MessageID = 215
 )
 
 // init Asluav dialect
@@ -1321,6 +1443,16 @@ func init() {
 	})
 	mavlink.Register(MSG_ID_GSM_LINK_STATUS, "MSG_ID_GSM_LINK_STATUS", 200, func(p *mavlink.Packet) mavlink.Message {
 		msg := new(GsmLinkStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SATCOM_LINK_STATUS, "MSG_ID_SATCOM_LINK_STATUS", 23, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SatcomLinkStatus)
+		msg.Unpack(p)
+		return msg
+	})
+	mavlink.Register(MSG_ID_SENSOR_AIRFLOW_ANGLES, "MSG_ID_SENSOR_AIRFLOW_ANGLES", 149, func(p *mavlink.Packet) mavlink.Message {
+		msg := new(SensorAirflowAngles)
 		msg.Unpack(p)
 		return msg
 	})

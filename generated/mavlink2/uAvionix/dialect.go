@@ -7,8 +7,6 @@
 
 package uAvionix
 
-import ()
-
 // UavionixAdsbOutDynamicState (generated enum)
 // State flags for ADS-B transponder dynamic report
 const (
