@@ -1884,11 +1884,11 @@ func (m *ChangeOperatorControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ChangeOperatorControl) String() string {
 	return fmt.Sprintf(
-		"&common.ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v }",
+		"&common.ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v (\"%s\") }",
 		m.TargetSystem,
 		m.ControlRequest,
 		m.Version,
-		m.Passkey,
+		m.Passkey, string(m.Passkey),
 	)
 }
 
@@ -1977,8 +1977,8 @@ func (m *AuthKey) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AuthKey) String() string {
 	return fmt.Sprintf(
-		"&common.AuthKey{ Key: %+v }",
-		m.Key,
+		"&common.AuthKey{ Key: %+v (\"%s\") }",
+		m.Key, string(m.Key),
 	)
 }
 
@@ -2144,11 +2144,11 @@ func (m *ParamAckTransaction) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamAckTransaction) String() string {
 	return fmt.Sprintf(
-		"&common.ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v, ParamResult: %+v }",
+		"&common.ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParamType: %+v, ParamResult: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID,
+		m.ParamID, string(m.ParamID),
 		m.ParamType,
 		m.ParamResult,
 	)
@@ -2200,11 +2200,11 @@ func (m *ParamRequestRead) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamRequestRead) String() string {
 	return fmt.Sprintf(
-		"&common.ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v }",
+		"&common.ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\") }",
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID,
+		m.ParamID, string(m.ParamID),
 	)
 }
 
@@ -2293,11 +2293,11 @@ func (m *ParamValue) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamValue) String() string {
 	return fmt.Sprintf(
-		"&common.ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v, ParamType: %+v }",
+		"&common.ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v (\"%s\"), ParamType: %+v }",
 		m.ParamValue,
 		m.ParamCount,
 		m.ParamIndex,
-		m.ParamID,
+		m.ParamID, string(m.ParamID),
 		m.ParamType,
 	)
 }
@@ -2349,11 +2349,11 @@ func (m *ParamSet) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamSet) String() string {
 	return fmt.Sprintf(
-		"&common.ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParamType: %+v }",
+		"&common.ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParamType: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID,
+		m.ParamID, string(m.ParamID),
 		m.ParamType,
 	)
 }
@@ -3914,7 +3914,7 @@ func (m *ParamMapRc) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamMapRc) String() string {
 	return fmt.Sprintf(
-		"&common.ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v, ParameterRcChannelIndex: %+v }",
+		"&common.ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParameterRcChannelIndex: %+v }",
 		m.ParamValue0,
 		m.Scale,
 		m.ParamValueMin,
@@ -3922,7 +3922,7 @@ func (m *ParamMapRc) String() string {
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.ParamID,
+		m.ParamID, string(m.ParamID),
 		m.ParameterRcChannelIndex,
 	)
 }
@@ -10542,7 +10542,7 @@ func (m *AdsbVehicle) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AdsbVehicle) String() string {
 	return fmt.Sprintf(
-		"&common.AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v, EmitterType: %+v, Tslc: %+v }",
+		"&common.AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v (\"%s\"), EmitterType: %+v, Tslc: %+v }",
 		m.IcaoAddress,
 		m.Lat,
 		m.Lon,
@@ -10553,7 +10553,7 @@ func (m *AdsbVehicle) String() string {
 		m.Flags,
 		m.Squawk,
 		m.AltitudeType,
-		m.Callsign,
+		m.Callsign, string(m.Callsign),
 		m.EmitterType,
 		m.Tslc,
 	)
@@ -10790,12 +10790,12 @@ func (m *DebugVect) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *DebugVect) String() string {
 	return fmt.Sprintf(
-		"&common.DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v }",
+		"&common.DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v (\"%s\") }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
 		m.Z,
-		m.Name,
+		m.Name, string(m.Name),
 	)
 }
 
@@ -10842,10 +10842,10 @@ func (m *NamedValueFloat) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *NamedValueFloat) String() string {
 	return fmt.Sprintf(
-		"&common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
-		m.Name,
+		m.Name, string(m.Name),
 	)
 }
 
@@ -10888,10 +10888,10 @@ func (m *NamedValueInt) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *NamedValueInt) String() string {
 	return fmt.Sprintf(
-		"&common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v }",
+		"&common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
-		m.Name,
+		m.Name, string(m.Name),
 	)
 }
 
@@ -10933,9 +10933,9 @@ func (m *Statustext) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Statustext) String() string {
 	return fmt.Sprintf(
-		"&common.Statustext{ Severity: %+v, Text: %+v }",
+		"&common.Statustext{ Severity: %+v, Text: %+v (\"%s\") }",
 		m.Severity,
-		m.Text,
+		m.Text, string(m.Text),
 	)
 }
 

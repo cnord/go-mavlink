@@ -90,6 +90,7 @@ type MessageField struct {
 
 var funcMap = template.FuncMap{
 	"UpperCamelCase": UpperCamelCase,
+	"IsByteArrayField": IsByteArrayField,
 }
 
 // SizeInBytes function calculate size in bytes of message field
@@ -144,6 +145,14 @@ func (m *Message) Less(i, j int) bool {
 
 func (m *Message) Swap(i, j int) {
 	m.Fields[i], m.Fields[j] = m.Fields[j], m.Fields[i]
+}
+
+// UpperCamelCase function convert names to upper camel case
+func IsByteArrayField(v interface{}) bool {
+	if field, ok := v.(*MessageField); ok {
+		return field.ArrayLen > 0 && strings.Contains(strings.ToLower(field.GoType), "byte")
+	}
+	return false
 }
 
 // UpperCamelCase function convert names to upper camel case
@@ -576,8 +585,8 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{end}} }", 
-		{{range .Fields}}m.{{.Name | UpperCamelCase}},
+		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{if IsByteArrayField .}} (\"%s\"){{end}}{{end}} }", 
+		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}){{end}},
 {{end}}
 	)
 }
