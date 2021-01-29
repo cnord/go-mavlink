@@ -17,6 +17,7 @@ import (
 	"log"
 )
 
+// Decoder struct provide top-level Decoder API over mavlink1/mavlink2 protocols
 type Decoder interface {
 	Decode() (interface{}, error)
 }
@@ -25,6 +26,7 @@ type mavlink1Decoder struct {
 	dec *mavlink1.Decoder
 }
 
+// Decode trying to return decoded message from input stream
 func (d *mavlink1Decoder) Decode() (interface{}, error) {
 	var packet mavlink1.Packet
 	if err := d.dec.Decode(&packet); err != nil {
@@ -37,6 +39,7 @@ type mavlink2Decoder struct {
 	dec *mavlink2.Decoder
 }
 
+// Decode trying to return decoded message from input stream
 func (d *mavlink2Decoder) Decode() (interface{}, error) {
 	var packet mavlink2.Packet
 	if err := d.dec.Decode(&packet); err != nil {
@@ -45,6 +48,7 @@ func (d *mavlink2Decoder) Decode() (interface{}, error) {
 	return packet.Message()
 }
 
+// NewDecoder return decoder depended from mavlink version
 func NewDecoder(reader io.Reader) Decoder {
 	switch MavlinkVersion() {
 	case 1:

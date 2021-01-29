@@ -6,7 +6,8 @@ import (
 )
 
 const (
-	MSG_ID_PING_MOCK MessageID = 222 // PING MSG ID
+	// MSG_ID_PING_MOCK is a define of id of ping message
+	MSG_ID_PING_MOCK MessageID = 222
 )
 
 // pingMock struct
