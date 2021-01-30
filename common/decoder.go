@@ -22,7 +22,7 @@ func (d *mavlink1Decoder) Decode() (interface{}, error) {
 	if err := d.dec.Decode(&packet); err != nil {
 		return nil, err
 	}
-	return packet.Message()
+	return &packet, nil
 }
 
 type mavlink2Decoder struct {
@@ -35,7 +35,7 @@ func (d *mavlink2Decoder) Decode() (interface{}, error) {
 	if err := d.dec.Decode(&packet); err != nil {
 		return nil, err
 	}
-	return packet.Message()
+	return &packet, nil
 }
 
 // NewDecoder return decoder depended from mavlink version
