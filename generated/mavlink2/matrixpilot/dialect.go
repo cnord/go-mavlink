@@ -1350,7 +1350,7 @@ func (m *SerialUdbExtraF15) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *SerialUdbExtraF15) String() string {
 	return fmt.Sprintf(
-		"&matrixpilot.SerialUdbExtraF15{ SueIDVehicleModelName: %0b (\"%s\"), SueIDVehicleRegistration: %0b (\"%s\") }",
+		"&matrixpilot.SerialUdbExtraF15{ SueIDVehicleModelName: %0X (\"%s\"), SueIDVehicleRegistration: %0X (\"%s\") }",
 		m.SueIDVehicleModelName, string(m.SueIDVehicleModelName[:]),
 		m.SueIDVehicleRegistration, string(m.SueIDVehicleRegistration[:]),
 	)
@@ -1397,7 +1397,7 @@ func (m *SerialUdbExtraF16) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *SerialUdbExtraF16) String() string {
 	return fmt.Sprintf(
-		"&matrixpilot.SerialUdbExtraF16{ SueIDLeadPilot: %0b (\"%s\"), SueIDDiyDronesURL: %0b (\"%s\") }",
+		"&matrixpilot.SerialUdbExtraF16{ SueIDLeadPilot: %0X (\"%s\"), SueIDDiyDronesURL: %0X (\"%s\") }",
 		m.SueIDLeadPilot, string(m.SueIDLeadPilot[:]),
 		m.SueIDDiyDronesURL, string(m.SueIDDiyDronesURL[:]),
 	)

@@ -583,7 +583,7 @@ func (m *AsluavStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AsluavStatus) String() string {
 	return fmt.Sprintf(
-		"&ASLUAV.AsluavStatus{ MotorRpm: %+v, LedStatus: %+v, SatcomStatus: %+v, ServoStatus: %0b (\"%s\") }",
+		"&ASLUAV.AsluavStatus{ MotorRpm: %+v, LedStatus: %+v, SatcomStatus: %+v, ServoStatus: %0X (\"%s\") }",
 		m.MotorRpm,
 		m.LedStatus,
 		m.SatcomStatus,

@@ -1601,7 +1601,7 @@ func (m *Data16) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data16) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.Data16{ Type: %+v, Len: %+v, Data: %0b (\"%s\") }",
+		"&ardupilotmega.Data16{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -1647,7 +1647,7 @@ func (m *Data32) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data32) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.Data32{ Type: %+v, Len: %+v, Data: %0b (\"%s\") }",
+		"&ardupilotmega.Data32{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -1693,7 +1693,7 @@ func (m *Data64) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data64) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.Data64{ Type: %+v, Len: %+v, Data: %0b (\"%s\") }",
+		"&ardupilotmega.Data64{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -1739,7 +1739,7 @@ func (m *Data96) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data96) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.Data96{ Type: %+v, Len: %+v, Data: %0b (\"%s\") }",
+		"&ardupilotmega.Data96{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -2460,7 +2460,7 @@ func (m *RemoteLogDataBlock) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RemoteLogDataBlock) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.RemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %0b (\"%s\") }",
+		"&ardupilotmega.RemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %0X (\"%s\") }",
 		m.Seqno,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2562,7 +2562,7 @@ func (m *LedControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *LedControl) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.LedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %0b (\"%s\") }",
+		"&ardupilotmega.LedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %0X (\"%s\") }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Instance,
@@ -2623,7 +2623,7 @@ func (m *MagCalProgress) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *MagCalProgress) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.MagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %0b (\"%s\") }",
+		"&ardupilotmega.MagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %0X (\"%s\") }",
 		m.DirectionX,
 		m.DirectionY,
 		m.DirectionZ,
@@ -3163,7 +3163,7 @@ func (m *GoproGetResponse) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproGetResponse) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.GoproGetResponse{ CmdID: %+v, Status: %+v, Value: %0b (\"%s\") }",
+		"&ardupilotmega.GoproGetResponse{ CmdID: %+v, Status: %+v, Value: %0X (\"%s\") }",
 		m.CmdID,
 		m.Status,
 		m.Value, string(m.Value[:]),
@@ -3210,7 +3210,7 @@ func (m *GoproSetRequest) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproSetRequest) String() string {
 	return fmt.Sprintf(
-		"&ardupilotmega.GoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %0b (\"%s\") }",
+		"&ardupilotmega.GoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %0X (\"%s\") }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CmdID,
