@@ -2,10 +2,10 @@ package main
 
 import (
 	_ "../../common"
-	mavlink "../../generated/mavlink2"
-	"../../generated/mavlink2/ardupilotmega"
-	"../../generated/mavlink2/common"
-	"../../generated/mavlink2/minimal"
+	mavlink "../../generated/mavlink1"
+	"../../generated/mavlink1/ardupilotmega"
+	"../../generated/mavlink1/common"
+	"../../generated/mavlink1/minimal"
 	"flag"
 	"github.com/tarm/serial"
 	"io"
@@ -27,6 +27,7 @@ import (
 var (
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
 	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
+	ro = flag.Bool("ro", false, "read-only mode")
 )
 
 func main() {
@@ -43,9 +44,12 @@ func main() {
 		log.Fatalf("Error on opening device %s: %s\n", device, err)
 	}
 	wg := sync.WaitGroup{}
-	wg.Add(2)
+	wg.Add(1)
 	go listenAndServe(&wg, port)
-	go handshake(&wg, port)
+	if !*ro {
+		wg.Add(1)
+		go handshake(&wg, port)
+	}
 	wg.Wait()
 }
 
@@ -53,6 +57,7 @@ func listenAndServe(wg *sync.WaitGroup, device io.Reader) {
 	defer wg.Done()
 	dec := mavlink.NewDecoder(device)
 	if dec == nil {
+		log.Fatal("Nil decoder")
 		return
 	}
 	log.Println("listening packets from decoder")
@@ -61,8 +66,9 @@ func listenAndServe(wg *sync.WaitGroup, device io.Reader) {
 		if err := dec.Decode(&packet); err != nil {
 			log.Fatal(err)
 		} else {
-			log.Println(packet.Message())
+			log.Println("<-", packet.String())
 		}
+
 	}
 }
 
@@ -104,9 +110,9 @@ func makeStatustext(text string) *mavlink.Packet {
 	})
 }
 
-func makeCommandLong(cmd uint16) *mavlink.Packet {
+func makeCommandLong(cmd uint16, param1 uint32) *mavlink.Packet {
 	return makePacket(&common.CommandLong{
-		Param1:          0,
+		Param1:          1,
 		Param2:          0,
 		Param3:          0,
 		Param4:          0,
@@ -146,8 +152,8 @@ func nextSeq() uint8 {
 func makePacket(message mavlink.Message) *mavlink.Packet {
 	packet := mavlink.Packet{
 		SeqID:         nextSeq(),
-		SysID:         0,
-		CompID:        0,
+		SysID:         255,
+		CompID:        minimal.MAV_COMP_ID_MISSIONPLANNER,
 	}
 	if err := message.Pack(&packet); err != nil {
 		log.Fatalf("Error on pack message: %s\n", err)
@@ -155,18 +161,29 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 	return &packet
 }
 
+const (
+	RETRY_COUNT = 2
+)
+
 func sendPacket(writer io.Writer, packet *mavlink.Packet) {
-	bytes := packet.Bytes()
-	if n ,err := writer.Write(bytes); err != nil {
-		log.Fatalf("Error on write packet: %s\n", err)
-	} else if n != len(bytes) {
-		log.Fatalf("Writed %d bytes but need write %d bytes\n", n, len(bytes))
+	for i := 0; i < RETRY_COUNT; i++ {
+		bytes := packet.Bytes()
+		if n, err := writer.Write(bytes); err != nil {
+			log.Fatalf("Error on write packet: %s\n", err)
+		} else if n != len(bytes) {
+			log.Fatalf("Writed %d bytes but need write %d bytes\n", n, len(bytes))
+		} else {
+			log.Println("->", packet.String())
+		}
+		time.Sleep(time.Millisecond * 500)
 	}
 }
 
 func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	defer wg.Done()
 	time.Sleep(time.Second)
+	sendPacket(writer, makeCommandLong(common.MAV_CMD_REQUEST_PROTOCOL_VERSION, 1))
+	sendPacket(writer, makeCommandLong(common.MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES, 1))
 	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTENDED_STATUS, 2))
 	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_POSITION, 2))
 	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA1, 4))
@@ -175,7 +192,7 @@ func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RAW_SENSORS, 2))
 	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RC_CHANNELS, 2))
 	sendPacket(writer, makeHeartbeat())
-	sendPacket(writer, makeStatustext("Custom GCS"))
-	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_DO_SEND_BANNER))
+	sendPacket(writer, makeStatustext("Mission Planner 1.3.74"))
+	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_DO_SEND_BANNER, 0))
 	sendPacket(writer, makeFileTransferProtocol([]byte{0, 0, 0, 4, 16, 0, 0, 0, 0, 0, 0, 0, 64, 80, 65, 82, 65, 77, 47, 112, 97, 114, 97, 109, 46, 112, 99, 107, 0}))
 }
