@@ -24,6 +24,10 @@ import (
 //
 //////////////////////////////////////
 
+const (
+	RETRY_COUNT = 2
+)
+
 var (
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
 	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
@@ -106,7 +110,7 @@ func makePayload(payload []byte) (bytes [251]byte) {
 func makeStatustext(text string) *mavlink.Packet {
 	return makePacket(&common.Statustext{
 		Severity: common.MAV_SEVERITY_INFO,
-		Text: makeTextArray(text),
+		Text:     makeTextArray(text),
 	})
 }
 
@@ -161,10 +165,6 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 	return &packet
 }
 
-const (
-	RETRY_COUNT = 2
-)
-
 func sendPacket(writer io.Writer, packet *mavlink.Packet) {
 	for i := 0; i < RETRY_COUNT; i++ {
 		bytes := packet.Bytes()
@@ -179,6 +179,7 @@ func sendPacket(writer io.Writer, packet *mavlink.Packet) {
 	}
 }
 
+// https://mavlink.io/en/guide/mavlink_version.html#version_handshaking
 func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	defer wg.Done()
 	time.Sleep(time.Second)
