@@ -24,6 +24,10 @@ import (
 //
 //////////////////////////////////////
 
+const (
+	RETRY_COUNT = 2
+)
+
 var (
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
 	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
@@ -100,7 +104,7 @@ func makePayload(payload []byte) (bytes [251]byte) {
 func makeStatustext(text string) *mavlink.Packet {
 	return makePacket(&common.Statustext{
 		Severity: common.MAV_SEVERITY_INFO,
-		Text: makeTextArray(text),
+		Text:     makeTextArray(text),
 	})
 }
 
@@ -145,9 +149,9 @@ func nextSeq() uint8 {
 
 func makePacket(message mavlink.Message) *mavlink.Packet {
 	packet := mavlink.Packet{
-		SeqID:         nextSeq(),
-		SysID:         0,
-		CompID:        0,
+		SeqID:  nextSeq(),
+		SysID:  0,
+		CompID: 0,
 	}
 	if err := message.Pack(&packet); err != nil {
 		log.Fatalf("Error on pack message: %s\n", err)
@@ -156,14 +160,17 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 }
 
 func sendPacket(writer io.Writer, packet *mavlink.Packet) {
-	bytes := packet.Bytes()
-	if n ,err := writer.Write(bytes); err != nil {
-		log.Fatalf("Error on write packet: %s\n", err)
-	} else if n != len(bytes) {
-		log.Fatalf("Writed %d bytes but need write %d bytes\n", n, len(bytes))
+	for i := 0; i < RETRY_COUNT; i++ {
+		bytes := packet.Bytes()
+		if n, err := writer.Write(bytes); err != nil {
+			log.Fatalf("Error on write packet: %s\n", err)
+		} else if n != len(bytes) {
+			log.Fatalf("Writed %d bytes but need write %d bytes\n", n, len(bytes))
+		}
 	}
 }
 
+// https://mavlink.io/en/guide/mavlink_version.html#version_handshaking
 func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	defer wg.Done()
 	time.Sleep(time.Second)
