@@ -11,6 +11,10 @@ package main
 func packetTemplate() string {
 	var tmpl = "package mavlink\n" +
 		"\n" +
+		"import (\n" +
+		"    \"fmt\"\n" +
+		")\n" +
+		"\n" +
 		"var (\n" +
 		"    msgConstructors = map[MessageID]func(*Packet) Message{}\n" +
 		"    msgNames = map[MessageID]string{}\n" +
@@ -145,6 +149,29 @@ func packetTemplate() string {
 		"\t\treturn nil, ErrUnknownMsgID\n" +
 		"\t}\n" +
 		"\treturn constructor(p), nil\n" +
+		"}\n" +
+		"\n" +
+		"// String function return string view of Packet struct\n" +
+		"func (p *Packet) String() string {\n" +
+		"\treturn fmt.Sprintf(\n" +
+		"\t\t\"&mavlink.Packet{ {{ if eq .MavlinkVersion 2 }}InCompatFlags: %08b, CompatFlags: %08b, {{ end }}SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }\",\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
+		"    \tp.InCompatFlags,\n" +
+		"\t    p.CompatFlags,\n" +
+		"{{- end}}\n" +
+		"\t\tp.SeqID,\n" +
+		"\t\tp.SysID,\n" +
+		"\t\tp.CompID,\n" +
+		"\t\tint64(p.MsgID),\n" +
+		"\t\tfunc() string {\n" +
+		"\t\t\tmsg, err := p.Message()\n" +
+		"\t\t\tif err != nil {\n" +
+		"\t\t\t\treturn fmt.Sprintf(\"%0X\", p.Payload)\n" +
+		"\t\t\t}\n" +
+		"\t\t\treturn msg.String()\n" +
+		"\t\t}(),\n" +
+		"\t\tp.Checksum,\n" +
+		"\t)\n" +
 		"}\n" +
 		""
 	return tmpl

@@ -6,6 +6,10 @@
 
 package mavlink
 
+import (
+	"fmt"
+)
+
 var (
 	msgConstructors = map[MessageID]func(*Packet) Message{}
 	msgNames        = map[MessageID]string{}
@@ -130,4 +134,25 @@ func (p *Packet) Message() (Message, error) {
 		return nil, ErrUnknownMsgID
 	}
 	return constructor(p), nil
+}
+
+// String function return string view of Packet struct
+func (p *Packet) String() string {
+	return fmt.Sprintf(
+		"&mavlink.Packet{ InCompatFlags: %08b, CompatFlags: %08b, SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }",
+		p.InCompatFlags,
+		p.CompatFlags,
+		p.SeqID,
+		p.SysID,
+		p.CompID,
+		int64(p.MsgID),
+		func() string {
+			msg, err := p.Message()
+			if err != nil {
+				return fmt.Sprintf("%0X", p.Payload)
+			}
+			return msg.String()
+		}(),
+		p.Checksum,
+	)
 }
