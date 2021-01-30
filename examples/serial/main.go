@@ -57,7 +57,7 @@ func main() {
 	wg.Wait()
 }
 
-func listenAndServe(wg *sync.WaitGroup, device io.Reader) {
+func listenAndServe(wg *sync.WaitGroup, device io.ReadWriteCloser) {
 	defer wg.Done()
 	dec := mavlink.NewDecoder(device)
 	if dec == nil {
@@ -72,7 +72,14 @@ func listenAndServe(wg *sync.WaitGroup, device io.Reader) {
 		} else {
 			log.Println("<-", packet.String())
 		}
-
+		if packet.MsgID == common.MSG_ID_TIMESYNC {
+			ts := common.Timesync{}
+			if err := ts.Unpack(&packet); err != nil {
+				log.Fatal(err)
+			} else {
+				sendPacket(device, makeTimeSync(ts.Tc1))
+			}
+		}
 	}
 }
 
@@ -134,6 +141,13 @@ func makeParamRequestList() *mavlink.Packet {
 	return makePacket(&common.ParamRequestList{
 		TargetSystem:    1,
 		TargetComponent: 1,
+	})
+}
+
+func makeTimeSync(ts int64) *mavlink.Packet {
+	return makePacket(&common.Timesync{
+		Tc1: time.Now().UnixNano()*1000000,
+		Ts1: ts,
 	})
 }
 
