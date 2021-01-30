@@ -1884,7 +1884,7 @@ func (m *ChangeOperatorControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ChangeOperatorControl) String() string {
 	return fmt.Sprintf(
-		"&common.ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %+v (\"%s\") }",
+		"&common.ChangeOperatorControl{ TargetSystem: %+v, ControlRequest: %+v, Version: %+v, Passkey: %0b (\"%s\") }",
 		m.TargetSystem,
 		m.ControlRequest,
 		m.Version,
@@ -1977,7 +1977,7 @@ func (m *AuthKey) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AuthKey) String() string {
 	return fmt.Sprintf(
-		"&common.AuthKey{ Key: %+v (\"%s\") }",
+		"&common.AuthKey{ Key: %0b (\"%s\") }",
 		m.Key, string(m.Key[:]),
 	)
 }
@@ -2144,7 +2144,7 @@ func (m *ParamAckTransaction) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamAckTransaction) String() string {
 	return fmt.Sprintf(
-		"&common.ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParamType: %+v, ParamResult: %+v }",
+		"&common.ParamAckTransaction{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %0b (\"%s\"), ParamType: %+v, ParamResult: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2200,7 +2200,7 @@ func (m *ParamRequestRead) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamRequestRead) String() string {
 	return fmt.Sprintf(
-		"&common.ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\") }",
+		"&common.ParamRequestRead{ ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %0b (\"%s\") }",
 		m.ParamIndex,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2293,7 +2293,7 @@ func (m *ParamValue) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamValue) String() string {
 	return fmt.Sprintf(
-		"&common.ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %+v (\"%s\"), ParamType: %+v }",
+		"&common.ParamValue{ ParamValue: %+v, ParamCount: %+v, ParamIndex: %+v, ParamID: %0b (\"%s\"), ParamType: %+v }",
 		m.ParamValue,
 		m.ParamCount,
 		m.ParamIndex,
@@ -2349,7 +2349,7 @@ func (m *ParamSet) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamSet) String() string {
 	return fmt.Sprintf(
-		"&common.ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParamType: %+v }",
+		"&common.ParamSet{ ParamValue: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %0b (\"%s\"), ParamType: %+v }",
 		m.ParamValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -2479,13 +2479,13 @@ func (m *GpsStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GpsStatus) String() string {
 	return fmt.Sprintf(
-		"&common.GpsStatus{ SatellitesVisible: %+v, SatellitePrn: %+v, SatelliteUsed: %+v, SatelliteElevation: %+v, SatelliteAzimuth: %+v, SatelliteSnr: %+v }",
+		"&common.GpsStatus{ SatellitesVisible: %+v, SatellitePrn: %0b (\"%s\"), SatelliteUsed: %0b (\"%s\"), SatelliteElevation: %0b (\"%s\"), SatelliteAzimuth: %0b (\"%s\"), SatelliteSnr: %0b (\"%s\") }",
 		m.SatellitesVisible,
-		m.SatellitePrn,
-		m.SatelliteUsed,
-		m.SatelliteElevation,
-		m.SatelliteAzimuth,
-		m.SatelliteSnr,
+		m.SatellitePrn, string(m.SatellitePrn[:]),
+		m.SatelliteUsed, string(m.SatelliteUsed[:]),
+		m.SatelliteElevation, string(m.SatelliteElevation[:]),
+		m.SatelliteAzimuth, string(m.SatelliteAzimuth[:]),
+		m.SatelliteSnr, string(m.SatelliteSnr[:]),
 	)
 }
 
@@ -3914,7 +3914,7 @@ func (m *ParamMapRc) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ParamMapRc) String() string {
 	return fmt.Sprintf(
-		"&common.ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %+v (\"%s\"), ParameterRcChannelIndex: %+v }",
+		"&common.ParamMapRc{ ParamValue0: %+v, Scale: %+v, ParamValueMin: %+v, ParamValueMax: %+v, ParamIndex: %+v, TargetSystem: %+v, TargetComponent: %+v, ParamID: %0b (\"%s\"), ParameterRcChannelIndex: %+v }",
 		m.ParamValue0,
 		m.Scale,
 		m.ParamValueMin,
@@ -6970,11 +6970,11 @@ func (m *FileTransferProtocol) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *FileTransferProtocol) String() string {
 	return fmt.Sprintf(
-		"&common.FileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&common.FileTransferProtocol{ TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %0b (\"%s\") }",
 		m.TargetNetwork,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.Payload,
+		m.Payload, string(m.Payload[:]),
 	)
 }
 
@@ -7607,11 +7607,11 @@ func (m *LogData) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *LogData) String() string {
 	return fmt.Sprintf(
-		"&common.LogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %+v }",
+		"&common.LogData{ Ofs: %+v, ID: %+v, Count: %+v, Data: %0b (\"%s\") }",
 		m.Ofs,
 		m.ID,
 		m.Count,
-		m.Data,
+		m.Data, string(m.Data[:]),
 	)
 }
 
@@ -7741,11 +7741,11 @@ func (m *GpsInjectData) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GpsInjectData) String() string {
 	return fmt.Sprintf(
-		"&common.GpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %+v }",
+		"&common.GpsInjectData{ TargetSystem: %+v, TargetComponent: %+v, Len: %+v, Data: %0b (\"%s\") }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Len,
-		m.Data,
+		m.Data, string(m.Data[:]),
 	)
 }
 
@@ -7921,13 +7921,13 @@ func (m *SerialControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *SerialControl) String() string {
 	return fmt.Sprintf(
-		"&common.SerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %+v }",
+		"&common.SerialControl{ Baudrate: %+v, Timeout: %+v, Device: %+v, Flags: %+v, Count: %+v, Data: %0b (\"%s\") }",
 		m.Baudrate,
 		m.Timeout,
 		m.Device,
 		m.Flags,
 		m.Count,
-		m.Data,
+		m.Data, string(m.Data[:]),
 	)
 }
 
@@ -8283,9 +8283,9 @@ func (m *EncapsulatedData) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *EncapsulatedData) String() string {
 	return fmt.Sprintf(
-		"&common.EncapsulatedData{ Seqnr: %+v, Data: %+v }",
+		"&common.EncapsulatedData{ Seqnr: %+v, Data: %0b (\"%s\") }",
 		m.Seqnr,
-		m.Data,
+		m.Data, string(m.Data[:]),
 	)
 }
 
@@ -8884,12 +8884,12 @@ func (m *ResourceRequest) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ResourceRequest) String() string {
 	return fmt.Sprintf(
-		"&common.ResourceRequest{ RequestID: %+v, URIType: %+v, URI: %+v, TransferType: %+v, Storage: %+v }",
+		"&common.ResourceRequest{ RequestID: %+v, URIType: %+v, URI: %0b (\"%s\"), TransferType: %+v, Storage: %0b (\"%s\") }",
 		m.RequestID,
 		m.URIType,
-		m.URI,
+		m.URI, string(m.URI[:]),
 		m.TransferType,
-		m.Storage,
+		m.Storage, string(m.Storage[:]),
 	)
 }
 
@@ -9280,7 +9280,7 @@ func (m *AutopilotVersion) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AutopilotVersion) String() string {
 	return fmt.Sprintf(
-		"&common.AutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %+v, MiddlewareCustomVersion: %+v, OsCustomVersion: %+v }",
+		"&common.AutopilotVersion{ Capabilities: %+v, UID: %+v, FlightSwVersion: %+v, MiddlewareSwVersion: %+v, OsSwVersion: %+v, BoardVersion: %+v, VendorID: %+v, ProductID: %+v, FlightCustomVersion: %0b (\"%s\"), MiddlewareCustomVersion: %0b (\"%s\"), OsCustomVersion: %0b (\"%s\") }",
 		m.Capabilities,
 		m.UID,
 		m.FlightSwVersion,
@@ -9289,9 +9289,9 @@ func (m *AutopilotVersion) String() string {
 		m.BoardVersion,
 		m.VendorID,
 		m.ProductID,
-		m.FlightCustomVersion,
-		m.MiddlewareCustomVersion,
-		m.OsCustomVersion,
+		m.FlightCustomVersion, string(m.FlightCustomVersion[:]),
+		m.MiddlewareCustomVersion, string(m.MiddlewareCustomVersion[:]),
+		m.OsCustomVersion, string(m.OsCustomVersion[:]),
 	)
 }
 
@@ -9908,10 +9908,10 @@ func (m *GpsRtcmData) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GpsRtcmData) String() string {
 	return fmt.Sprintf(
-		"&common.GpsRtcmData{ Flags: %+v, Len: %+v, Data: %+v }",
+		"&common.GpsRtcmData{ Flags: %+v, Len: %+v, Data: %0b (\"%s\") }",
 		m.Flags,
 		m.Len,
-		m.Data,
+		m.Data, string(m.Data[:]),
 	)
 }
 
@@ -10542,7 +10542,7 @@ func (m *AdsbVehicle) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AdsbVehicle) String() string {
 	return fmt.Sprintf(
-		"&common.AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %+v (\"%s\"), EmitterType: %+v, Tslc: %+v }",
+		"&common.AdsbVehicle{ IcaoAddress: %+v, Lat: %+v, Lon: %+v, Altitude: %+v, Heading: %+v, HorVelocity: %+v, VerVelocity: %+v, Flags: %+v, Squawk: %+v, AltitudeType: %+v, Callsign: %0b (\"%s\"), EmitterType: %+v, Tslc: %+v }",
 		m.IcaoAddress,
 		m.Lat,
 		m.Lon,
@@ -10682,12 +10682,12 @@ func (m *V2Extension) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *V2Extension) String() string {
 	return fmt.Sprintf(
-		"&common.V2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %+v }",
+		"&common.V2Extension{ MessageType: %+v, TargetNetwork: %+v, TargetSystem: %+v, TargetComponent: %+v, Payload: %0b (\"%s\") }",
 		m.MessageType,
 		m.TargetNetwork,
 		m.TargetSystem,
 		m.TargetComponent,
-		m.Payload,
+		m.Payload, string(m.Payload[:]),
 	)
 }
 
@@ -10790,7 +10790,7 @@ func (m *DebugVect) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *DebugVect) String() string {
 	return fmt.Sprintf(
-		"&common.DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %+v (\"%s\") }",
+		"&common.DebugVect{ TimeUsec: %+v, X: %+v, Y: %+v, Z: %+v, Name: %0b (\"%s\") }",
 		m.TimeUsec,
 		m.X,
 		m.Y,
@@ -10842,7 +10842,7 @@ func (m *NamedValueFloat) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *NamedValueFloat) String() string {
 	return fmt.Sprintf(
-		"&common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
+		"&common.NamedValueFloat{ TimeBootMs: %+v, Value: %+v, Name: %0b (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name, string(m.Name[:]),
@@ -10888,7 +10888,7 @@ func (m *NamedValueInt) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *NamedValueInt) String() string {
 	return fmt.Sprintf(
-		"&common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %+v (\"%s\") }",
+		"&common.NamedValueInt{ TimeBootMs: %+v, Value: %+v, Name: %0b (\"%s\") }",
 		m.TimeBootMs,
 		m.Value,
 		m.Name, string(m.Name[:]),
@@ -10933,7 +10933,7 @@ func (m *Statustext) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Statustext) String() string {
 	return fmt.Sprintf(
-		"&common.Statustext{ Severity: %+v, Text: %+v (\"%s\") }",
+		"&common.Statustext{ Severity: %+v, Text: %0b (\"%s\") }",
 		m.Severity,
 		m.Text, string(m.Text[:]),
 	)

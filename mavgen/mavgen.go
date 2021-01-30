@@ -150,7 +150,15 @@ func (m *Message) Swap(i, j int) {
 // UpperCamelCase function convert names to upper camel case
 func IsByteArrayField(v interface{}) bool {
 	if field, ok := v.(*MessageField); ok {
-		return field.ArrayLen > 0 && strings.Contains(strings.ToLower(field.GoType), "byte")
+		if field.ArrayLen == 0 {
+			return false
+		}
+		t := strings.ToLower(field.GoType)
+		for _, s := range []string{"byte", "uint8"} {
+			if strings.Contains(t, s) {
+				return true
+			}
+		}
 	}
 	return false
 }
@@ -585,7 +593,7 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: %+v{{if IsByteArrayField .}} (\"%s\"){{end}}{{end}} }", 
+		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: {{if IsByteArrayField .}}%0b (\"%s\"){{else}}%+v{{end}}{{end}} }", 
 		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}[:]){{end}},
 {{end}}
 	)
