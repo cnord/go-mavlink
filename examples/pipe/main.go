@@ -19,6 +19,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"sync"
 )
 
 //////////////////////////////////////
@@ -42,13 +43,20 @@ type hexByteReader struct {
 func (r *hexByteReader) Read(p []byte) (n int, err error) {
 	b, err := r.r.ReadBytes('\n')
 	if err != nil {
+		log.Fatal("Error on reader.ReadBytes(): " + err.Error())
 		return 0, err
 	}
 	reg, err := regexp.Compile("[^a-fA-F0-9]+")
 	if err != nil {
+		log.Fatal("Error on regexp.Compile(): " + err.Error())
 		return 0, err
 	}
 	b, err = hex.DecodeString(reg.ReplaceAllString(string(b), ""))
+	if err != nil {
+		log.Printf("%0X", b)
+		log.Fatal("Error on hex.DecodeString(): " + err.Error())
+		return 0, err
+	}
 	copy(p, b)
 	return len(p), err
 }
@@ -75,16 +83,22 @@ func listenAndServe() {
 	} else {
 		reader = bufio.NewReader(os.Stdin)
 	}
-	dec := common.NewDecoder(reader)
-	if dec == nil {
-		return
+	wg := sync.WaitGroup{}
+	decs := common.Decoders(reader)
+	for i := range decs {
+		wg.Add(1)
+		dec := decs[i]
+		go func() {
+			defer wg.Done()
+			log.Println("listening packets from decoder " + dec.Name())
+			for {
+				if p, err := dec.Decode(); err != nil {
+					log.Fatal("Error on " + dec.Name() + " decode:" + err.Error())
+				} else {
+					log.Println("<-", p.String())
+				}
+			}
+		}()
 	}
-	log.Println("listening packets from decoder")
-	for {
-		if p, err := dec.Decode(); err != nil {
-			log.Fatal(p)
-		} else {
-			log.Println(p)
-		}
-	}
+	wg.Wait()
 }

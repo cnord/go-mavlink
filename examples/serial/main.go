@@ -1,11 +1,17 @@
 package main
 
 import (
-	_ "../../common"
+	decoders "../../common"
 	mavlink "../../generated/mavlink1"
 	"../../generated/mavlink1/ardupilotmega"
 	"../../generated/mavlink1/common"
 	"../../generated/mavlink1/minimal"
+	_ "../../generated/mavlink1/ardupilotmega"
+	_ "../../generated/mavlink1/common"
+	_ "../../generated/mavlink1/minimal"
+	_ "../../generated/mavlink2/ardupilotmega"
+	_ "../../generated/mavlink2/common"
+	_ "../../generated/mavlink2/minimal"
 	"flag"
 	"github.com/tarm/serial"
 	"io"
@@ -59,27 +65,29 @@ func main() {
 
 func listenAndServe(wg *sync.WaitGroup, device io.ReadWriteCloser) {
 	defer wg.Done()
-	dec := mavlink.NewDecoder(device)
-	if dec == nil {
-		log.Fatal("Nil decoder")
-		return
-	}
-	log.Println("listening packets from decoder")
-	var packet mavlink.Packet
-	for {
-		if err := dec.Decode(&packet); err != nil {
-			log.Fatal(err)
-		} else {
-			log.Println("<-", packet.String())
-		}
-		if packet.MsgID == common.MSG_ID_TIMESYNC {
-			ts := common.Timesync{}
-			if err := ts.Unpack(&packet); err != nil {
-				log.Fatal(err)
-			} else {
-				sendPacket(device, makeTimeSync(ts.Tc1))
+	decs := decoders.Decoders(device)
+	for i := range decs {
+		wg.Add(1)
+		go func(dec decoders.Decoder) {
+			defer wg.Done()
+			log.Println("listening packets from decoder " + dec.Name())
+			for {
+				packet, err := dec.Decode()
+				if err != nil {
+					log.Fatal(dec.Name(), " error: ", err.Error())
+				} else {
+					log.Println("<-", packet.String())
+				}
+				//if packet.MsgID == common.MSG_ID_TIMESYNC {
+				//	ts := common.Timesync{}
+				//	if err := ts.Unpack(&packet); err != nil {
+				//		log.Fatal(err)
+				//	} else {
+				//		sendPacket(device, makeTimeSync(ts.Ts1))
+				//	}
+				//}
 			}
-		}
+		}(decs[i])
 	}
 }
 
@@ -146,7 +154,7 @@ func makeParamRequestList() *mavlink.Packet {
 
 func makeTimeSync(ts int64) *mavlink.Packet {
 	return makePacket(&common.Timesync{
-		Tc1: time.Now().UnixNano()*1000000,
+		Tc1: time.Now().UnixNano(),
 		Ts1: ts,
 	})
 }

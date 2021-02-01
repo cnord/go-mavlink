@@ -49,15 +49,15 @@ func decoderTemplate() string {
 		"\t\tif c == magicNumber {\n" +
 		"\t\t\td.parsers = append(d.parsers, parsersPool.Get().(*Parser))\n" +
 		"\t\t}\n" +
-		"\t\tfor i, parser := range d.parsers {\n" +
-		"\t\t\tp, err := parser.parseChar(c)\n" +
-		"\t\t\tif err != nil {\n" +
-		"\t\t\t\td.parsers[i] = d.parsers[len(d.parsers)-1]\n" +
-		"\t\t\t\td.parsers = d.parsers[:len(d.parsers)-1]\n" +
+		"\t\tparsers := make([]*Parser, 0, len(d.parsers))\n" +
+		"\t\tfor _, parser := range d.parsers {\n" +
+		"\t\t\tif p, err := parser.parseChar(c); err != nil {\n" +
 		"\t\t\t\td.clearParser(parser)\n" +
-		"\t\t\t\tcontinue\n" +
-		"\t\t\t}\n" +
-		"\t\t\tif p != nil {\n" +
+		"\t\t\t} else if p != nil {\n" +
+		"{{- if eq .MavlinkVersion 2}}\n" +
+		"\t\t\t\tpacket.InCompatFlags = p.InCompatFlags\n" +
+		"\t\t\t\tpacket.CompatFlags = p.CompatFlags\n" +
+		"{{- end}}\n" +
 		"\t\t\t\tpacket.SeqID = p.SeqID\n" +
 		"\t\t\t\tpacket.SysID = p.SysID\n" +
 		"\t\t\t\tpacket.CompID = p.CompID\n" +
@@ -66,8 +66,11 @@ func decoderTemplate() string {
 		"\t\t\t\tpacket.Payload = append(packet.Payload[:0], p.Payload...)\n" +
 		"\t\t\t\td.clearParsers()\n" +
 		"\t\t\t\treturn nil\n" +
+		"\t\t\t} else {\n" +
+		"\t\t\t\tparsers = append(parsers, parser)\n" +
 		"\t\t\t}\n" +
 		"\t\t}\n" +
+		"\t\td.parsers = parsers\n" +
 		"\t}\n" +
 		"}\n" +
 		"\n" +

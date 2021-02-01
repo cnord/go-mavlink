@@ -129,7 +129,7 @@ func (p *Packet) Message() (Message, error) {
 // String function return string view of Packet struct
 func (p *Packet) String() string {
 	return fmt.Sprintf(
-		"&mavlink.Packet{ SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }",
+		"&mavlink1.Packet{ SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }",
 		p.SeqID,
 		p.SysID,
 		p.CompID,

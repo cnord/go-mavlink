@@ -9,13 +9,23 @@ var (
 	Mavlink2 = flag.Bool("2", false, "mavlink v2")
 )
 
+const (
+	MAVLINK_V1 = 1
+	MAVLINK_V2 = 2
+)
+
 // MavlinkVersion process user flags and return mavlink version
 func MavlinkVersion() int {
-	if *Mavlink1 {
-		return 1
+	return mavlinkVersion(*Mavlink1, *Mavlink2)
+}
+
+func mavlinkVersion(mavlink1 bool, mavlink2 bool) int {
+	mavlink := MAVLINK_V1 | MAVLINK_V2
+	if !mavlink1 && mavlink2 {
+		mavlink &= ^MAVLINK_V1
 	}
-	if *Mavlink2 {
-		return 2
+	if !mavlink2 && mavlink1 {
+		mavlink &= ^MAVLINK_V2
 	}
-	return -1
+	return mavlink
 }

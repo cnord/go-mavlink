@@ -154,7 +154,7 @@ func packetTemplate() string {
 		"// String function return string view of Packet struct\n" +
 		"func (p *Packet) String() string {\n" +
 		"\treturn fmt.Sprintf(\n" +
-		"\t\t\"&mavlink.Packet{ {{ if eq .MavlinkVersion 2 }}InCompatFlags: %08b, CompatFlags: %08b, {{ end }}SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }\",\n" +
+		"\t\t\"&mavlink{{.MavlinkVersion}}.Packet{ {{ if eq .MavlinkVersion 2 }}InCompatFlags: %08b, CompatFlags: %08b, {{ end }}SeqID: %d, SysID: %d, CompID: %d, MsgID: %d, Payload: %s, Checksum: %d }\",\n" +
 		"{{- if eq .MavlinkVersion 2}}\n" +
 		"    \tp.InCompatFlags,\n" +
 		"\t    p.CompatFlags,\n" +

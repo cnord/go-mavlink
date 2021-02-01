@@ -44,15 +44,14 @@ func (d *Decoder) Decode(v interface{}) error {
 		if c == magicNumber {
 			d.parsers = append(d.parsers, parsersPool.Get().(*Parser))
 		}
-		for i, parser := range d.parsers {
-			p, err := parser.parseChar(c)
-			if err != nil {
-				d.parsers[i] = d.parsers[len(d.parsers)-1]
-				d.parsers = d.parsers[:len(d.parsers)-1]
+		parsers := make([]*Parser, 0, len(d.parsers))
+		for _, parser := range d.parsers {
+			if p, err := parser.parseChar(c); err != nil {
 				d.clearParser(parser)
-				continue
-			}
-			if p != nil {
+				fmt.Println(err)
+			} else if p != nil {
+				packet.InCompatFlags = p.InCompatFlags
+				packet.CompatFlags = p.CompatFlags
 				packet.SeqID = p.SeqID
 				packet.SysID = p.SysID
 				packet.CompID = p.CompID
@@ -61,8 +60,11 @@ func (d *Decoder) Decode(v interface{}) error {
 				packet.Payload = append(packet.Payload[:0], p.Payload...)
 				d.clearParsers()
 				return nil
+			} else {
+				parsers = append(parsers, parser)
 			}
 		}
+		d.parsers = parsers
 	}
 }
 
