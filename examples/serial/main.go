@@ -24,9 +24,9 @@ import (
 //////////////////////////////////////
 
 var (
-	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
-	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
-	ro       = flag.Bool("ro", false, "read-only mode")
+	baudrate   = flag.Int("b", 57600, "baudrate of serial port connection")
+	device     = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
+	ro         = flag.Bool("ro", false, "read-only mode")
 	retryCount = flag.Int("retry-count", 2, "retry count for sending packets")
 )
 
