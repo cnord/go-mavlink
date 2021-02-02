@@ -1,18 +1,18 @@
 package main
 
 import (
+	"flag"
 	decoders "github.com/asmyasnikov/go-mavlink/common"
 	mavlink "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
 	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
-	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
-	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
+	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
+	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/ardupilotmega"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/common"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/minimal"
-	"flag"
 	"github.com/tarm/serial"
 	"io"
 	"log"
@@ -37,7 +37,7 @@ const (
 var (
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
 	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
-	ro = flag.Bool("ro", false, "read-only mode")
+	ro       = flag.Bool("ro", false, "read-only mode")
 )
 
 func main() {
@@ -177,9 +177,9 @@ func nextSeq() uint8 {
 
 func makePacket(message mavlink.Message) *mavlink.Packet {
 	packet := mavlink.Packet{
-		SeqID:         nextSeq(),
-		SysID:         255,
-		CompID:        minimal.MAV_COMP_ID_MISSIONPLANNER,
+		SeqID:  nextSeq(),
+		SysID:  255,
+		CompID: minimal.MAV_COMP_ID_MISSIONPLANNER,
 	}
 	if err := message.Pack(&packet); err != nil {
 		log.Fatalf("Error on pack message: %s\n", err)

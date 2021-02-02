@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/asmyasnikov/go-mavlink/common"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
@@ -12,7 +13,6 @@ import (
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/icarous"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/uAvionix"
-	"flag"
 	"log"
 	"net"
 	"sync"

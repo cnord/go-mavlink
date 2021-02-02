@@ -1,10 +1,10 @@
 package common
 
 import (
-	mavlink1 "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
-	mavlink2 "github.com/asmyasnikov/go-mavlink/generated/mavlink2"
 	"bufio"
 	"fmt"
+	mavlink1 "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
+	mavlink2 "github.com/asmyasnikov/go-mavlink/generated/mavlink2"
 	"github.com/pkg/errors"
 	"io"
 	"log"
@@ -67,7 +67,7 @@ func Decoders(reader io.Reader) []Decoder {
 	decoders := make([]Decoder, 0)
 	buffers := make([]*Buffer, 0)
 	mavlinkVersion := MavlinkVersion()
-	if mavlinkVersion & MAVLINK_V1 > 0 {
+	if mavlinkVersion&MAVLINK_V1 > 0 {
 		buffer := &Buffer{
 			in: make(chan byte),
 		}
@@ -76,7 +76,7 @@ func Decoders(reader io.Reader) []Decoder {
 			dec: mavlink1.NewDecoder(buffer),
 		})
 	}
-	if mavlinkVersion & MAVLINK_V2 > 0 {
+	if mavlinkVersion&MAVLINK_V2 > 0 {
 		buffer := &Buffer{
 			in: make(chan byte),
 		}

@@ -89,7 +89,7 @@ type MessageField struct {
 }
 
 var funcMap = template.FuncMap{
-	"UpperCamelCase": UpperCamelCase,
+	"UpperCamelCase":   UpperCamelCase,
 	"IsByteArrayField": IsByteArrayField,
 }
 
@@ -475,7 +475,7 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	if needImportParentMavlink || needImportEncodingBinary || needImportFmt || needImportMath {
 		bb.WriteString("import (\n")
 		if needImportParentMavlink {
-			bb.WriteString("mavlink \"github.com/asmyasnikov/go-mavlink/generated/mavlink" + strconv.Itoa(d.MavlinkVersion)+ "\"\n")
+			bb.WriteString("mavlink \"github.com/asmyasnikov/go-mavlink/generated/mavlink" + strconv.Itoa(d.MavlinkVersion) + "\"\n")
 		}
 		if needImportEncodingBinary {
 			bb.WriteString("\"encoding/binary\"\n")

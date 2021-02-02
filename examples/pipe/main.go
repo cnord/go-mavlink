@@ -1,6 +1,9 @@
 package main
 
 import (
+	"bufio"
+	"encoding/hex"
+	"flag"
 	"github.com/asmyasnikov/go-mavlink/common"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
@@ -12,9 +15,6 @@ import (
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/icarous"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/uAvionix"
-	"bufio"
-	"encoding/hex"
-	"flag"
 	"io"
 	"log"
 	"os"
