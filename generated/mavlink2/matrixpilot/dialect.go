@@ -8,9 +8,9 @@
 package matrixpilot
 
 import (
-	mavlink ".."
 	"encoding/binary"
 	"fmt"
+	mavlink "github.com/asmyasnikov/go-mavlink/generated/mavlink2"
 	"math"
 )
 

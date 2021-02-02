@@ -1,17 +1,17 @@
 package main
 
 import (
-	decoders "../../common"
-	mavlink "../../generated/mavlink1"
-	"../../generated/mavlink1/ardupilotmega"
-	"../../generated/mavlink1/common"
-	"../../generated/mavlink1/minimal"
-	_ "../../generated/mavlink1/ardupilotmega"
-	_ "../../generated/mavlink1/common"
-	_ "../../generated/mavlink1/minimal"
-	_ "../../generated/mavlink2/ardupilotmega"
-	_ "../../generated/mavlink2/common"
-	_ "../../generated/mavlink2/minimal"
+	decoders "github.com/asmyasnikov/go-mavlink/common"
+	mavlink "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
+	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
+	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
+	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/ardupilotmega"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/common"
+	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/minimal"
 	"flag"
 	"github.com/tarm/serial"
 	"io"
@@ -51,7 +51,7 @@ func main() {
 		StopBits:    1,
 	})
 	if err != nil {
-		log.Fatalf("Error on opening device %s: %s\n", device, err)
+		log.Fatalf("Error on opening device %s: %s\n", *device, err.Error())
 	}
 	wg := sync.WaitGroup{}
 	wg.Add(1)

@@ -48,7 +48,6 @@ func (d *Decoder) Decode(v interface{}) error {
 		for _, parser := range d.parsers {
 			if p, err := parser.parseChar(c); err != nil {
 				d.clearParser(parser)
-				fmt.Println(err)
 			} else if p != nil {
 				packet.InCompatFlags = p.InCompatFlags
 				packet.CompatFlags = p.CompatFlags

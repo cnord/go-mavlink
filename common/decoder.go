@@ -1,8 +1,8 @@
 package common
 
 import (
-	mavlink1 "../generated/mavlink1"
-	mavlink2 "../generated/mavlink2"
+	mavlink1 "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
+	mavlink2 "github.com/asmyasnikov/go-mavlink/generated/mavlink2"
 	"bufio"
 	"fmt"
 	"github.com/pkg/errors"

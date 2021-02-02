@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../common"
+	"github.com/asmyasnikov/go-mavlink/common"
 	"flag"
 	"log"
 )
