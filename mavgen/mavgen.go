@@ -32,12 +32,12 @@ var (
 // Dialect described root tag of schema
 type Dialect struct {
 	MavlinkVersion int
-	FilePath string
-	XMLName  xml.Name   `xml:"mavlink"`
-	Version  string     `xml:"version"`
-	Include  []string   `xml:"include"`
-	Enums    []*Enum    `xml:"enums>enum"`
-	Messages []*Message `xml:"messages>message"`
+	FilePath       string
+	XMLName        xml.Name   `xml:"mavlink"`
+	Version        string     `xml:"version"`
+	Include        []string   `xml:"include"`
+	Enums          []*Enum    `xml:"enums>enum"`
+	Messages       []*Message `xml:"messages>message"`
 }
 
 // Enum described schema tag enum
@@ -73,7 +73,8 @@ type Message struct {
 
 	// this field is only used during ParseDialect phase,
 	// it contains an empty string after ParseDialect returns
-	Raw string `xml:",innerxml"`
+	Raw         string `xml:",innerxml"`
+	DialectName string
 }
 
 // MessageField described schema tag filed
@@ -608,7 +609,7 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: {{if IsByteArrayField .}}%0X (\"%s\"){{else}}%+v{{end}}{{end}} }", 
+		"&{{.DialectName}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: {{if IsByteArrayField .}}%0X (\"%s\"){{else}}%+v{{end}}{{end}} }", 
 		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}[:]){{end}},
 {{end}}
 	)
@@ -647,7 +648,6 @@ func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 `
 	for _, m := range d.Messages {
 		m.Description = strings.Replace(m.Description, "\n", "\n// ", -1)
-
 		for _, f := range m.Fields {
 			f.Description = strings.Replace(f.Description, "\n", " ", -1)
 			goname, gosz, golen, err := GoTypeInfo(f.CType)
@@ -689,6 +689,7 @@ func (d *Dialect) merge(rhs *Dialect) error {
 	}
 	for _, message := range rhs.Messages {
 		if i := d.messageIdx(message); i < 0 {
+			message.DialectName = baseName(rhs.FilePath)
 			d.Messages = append(d.Messages, message)
 		}
 	}
@@ -721,4 +722,3 @@ func (enum *Enum) entryIdx(entry *EnumEntry) int {
 	}
 	return -1
 }
-
