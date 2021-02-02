@@ -20,76 +20,98 @@ package `go-mavlink/mavlink` is the main package used for encoding/decoding mavl
 
 ### dialects
 
-Several mavlink dialects define messages for overlapping msg ids, so it is required to specify which dialects you'd like to use. `DialectCommon` is included by most of the available dialects, so is included by default.
+Several mavlink dialects define messages for overlapping msg ids, so it is required to specify which dialects you'd like to use with default imports.
 
 ```go
-dec := mavlink.NewDecoder(rdr)
-dec.Dialects.Add(DialectArdupilotmega)
+import (
+    mavlink "github.com/asmyasnikov/go-mavlink/generated/mavlink1" // mavlink common package
+    _ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega" // init support ardupilotmega dialect
+    _ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common" // init support common dialect
+    _ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal" // init support minimal dialect
+)
 ```
 
 Existing dialects are:
-* DialectArdupilotmega
-* DialectAsluav
-* DialectCommon (added to Encoders/Decoders by default, can be removed if desired)
-* DialectMatrixpilot
-* DialectPixhawk
-* DialectUalberta
+* ardupilotmega
+* asluav
+* common
+* minimal
+* matrixpilot
+* ualberta
 
-### decode
+### marshall and unmarshall packet
+
+Marshalling:
+
+```go
+var packet Packet // make packet outside this code
+bytes, err := mavlink.Marshal(&packet)
+if err != nil {
+    // catch error on marshal
+}
+```
+
+Unmarshalling for reliable transport protocol for transfer bytes:
+
+```go
+var packet Packet
+if err := mavlink.Unmarshal([]byte{0xfe, 0x4, 0x0, 0x0, 0x0, 0xde, 0xf, 0x27, 0x0, 0x0, 0xf4, 0xe2}, &packet); err != nil {
+    // catch error on marshal
+}
+// enjoy packet
+```
+
+### decode stream
 
 a typical decode loop might look like:
 
 ```go
-rdr := SomeIoReader() // any io.Reader: UDP, serial port, bytes.Buffer, etc
-dec := mavlink.NewDecoder(rdr)
+reader := SomeIoReader() // any io.Reader: UDP, serial port, bytes.Buffer, etc
+dec := mavlink.NewDecoder(reader)
 
+var packet mavlink.Packet
 for {
-    pkt, err := dec.Decode()
-    if err != nil {
-        log.Fatal("Decode fail:", err)
+    if err := dec.Decode(&packet); err != nil {
+        // catch error on decode
     }
 
     // handle packet types you're interested in...
-    switch pkt.MsgID {
-    case mavlink.MSG_ID_PARAM_VALUE:
+    // you can two ways to get message from packet
+    switch packet.MsgID {
+    case common.MSG_ID_PARAM_VALUE:
         var pv mavlink.ParamValue
-        if err := pv.Unpack(pkt); err == nil {
+        if err := pv.Unpack(&packet); err == nil {
+            // handle param value
+        }
+    case common.MSG_ID_HEARTBEAT:
+        heartbeat, ok := packet.Message().(*common.Heartbeat)
+        if ok {
             // handle param value
         }
     }
 }
 ```
 
-### encode
+### encode stream
 
 the most convenient way to encode is to use `Encoder.Encode()`:
 
 ```go
-w := SomeIoWriter() // any io.Writer: UDP, serial port, bytes.Buffer, etc
-enc := mavlink.NewEncoder(w)
+writer := SomeIoWriter() // any io.Writer: UDP, serial port, bytes.Buffer, etc
+enc := mavlink.NewEncoder(writer)
 
-p := mavlink.Ping{
+packet := mavlink.Packet{
+    SysID: 1,
+    CompID: 2
+}
+
+if err := packet.Encode(&common.Ping{
     Seq: 12345,
+}); err != nil {
+    // catch error on encode message to packet
 }
 
-if err := enc.Encode(0x1, 0x1, &p); err != nil {
-    log.Fatal("Encode fail:", err)
-}
-```
-
-if for some reason you need to pass a `Packet` directly, use `Encoder.EncodePacket()`:
-
-```go
-p := mavlink.Ping{
-    Seq: c.seq,
-}
-
-var pkt Packet
-if err := p.Pack(&pkt); err != nil {
-    log.Fatal("Pack fail:", err)
-}
-
-if err := enc.EncodePacket(&pkt); err != nil {
-    log.Fatal("Encode fail:", err)
+if err := enc.Encode(&packet); err != nil {
+    // catch error on encode packet to encoder (write to writer)
 }
 ```
