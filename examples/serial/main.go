@@ -92,7 +92,7 @@ func makeHeartbeat() *mavlink.Packet {
 	})
 }
 
-func makeRequestDataStream(msgID uint8, rate uint16) *mavlink.Packet {
+func makeRequestDataStream(msgID ardupilotmega.MAV_DATA_STREAM, rate uint16) *mavlink.Packet {
 	return makePacket(&ardupilotmega.RequestDataStream{
 		ReqMessageRate:  rate,
 		TargetSystem:    1,
@@ -119,7 +119,7 @@ func makeStatustext(text string) *mavlink.Packet {
 	})
 }
 
-func makeCommandLong(cmd uint16, param1 uint32) *mavlink.Packet {
+func makeCommandLong(cmd ardupilotmega.MAV_CMD, param1 uint32) *mavlink.Packet {
 	return makePacket(&ardupilotmega.CommandLong{
 		Param1:          1,
 		Param2:          0,
@@ -169,7 +169,7 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 	packet := mavlink.Packet{
 		SeqID:  nextSeq(),
 		SysID:  255,
-		CompID: minimal.MAV_COMP_ID_MISSIONPLANNER,
+		CompID: uint8(ardupilotmega.MAV_COMP_ID_MISSIONPLANNER),
 	}
 	if err := message.Pack(&packet); err != nil {
 		log.Fatalf("Error on pack message: %s\n", err)
