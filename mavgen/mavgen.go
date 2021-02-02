@@ -147,7 +147,7 @@ func (m *Message) Swap(i, j int) {
 	m.Fields[i], m.Fields[j] = m.Fields[j], m.Fields[i]
 }
 
-// UpperCamelCase function convert names to upper camel case
+// IsByteArrayField function check field is bytearray
 func IsByteArrayField(v interface{}) bool {
 	if field, ok := v.(*MessageField); ok {
 		if field.ArrayLen == 0 {
