@@ -55,7 +55,7 @@ func findOutFile(scheme string) string {
 	if err != nil {
 		log.Fatal("Getwd(): ", err)
 	}
-	return filepath.Join(dir, baseName(scheme), baseName(scheme) + ".go")
+	return filepath.Join(dir, baseName(scheme), baseName(scheme)+".go")
 }
 
 func generateDialect(dialectPath *string, schemeFile string, mavlinkVersion int) error {
@@ -80,7 +80,7 @@ func generateDialect(dialectPath *string, schemeFile string, mavlinkVersion int)
 
 	dialectFileName := "dialect.go"
 
-	if err = os.MkdirAll(filepath.Dir(*dialectPath + string(filepath.Separator)), os.ModePerm); err != nil {
+	if err = os.MkdirAll(filepath.Dir(*dialectPath+string(filepath.Separator)), os.ModePerm); err != nil {
 		return err
 	}
 

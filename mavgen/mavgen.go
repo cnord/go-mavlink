@@ -481,7 +481,7 @@ func (d *Dialect) generateGo(w io.Writer, packageName string) error {
 	bb.WriteString("//\n")
 	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
-	bb.WriteString("package " + packageName + "\n\n")
+	bb.WriteString("package " + strings.ToLower(packageName) + "\n\n")
 
 	needImportParentMavlink := d.needImportParentMavlink()
 	needImportEncodingBinary := d.needImportEncodingBinary()
@@ -535,11 +535,12 @@ func (d *Dialect) generateEnums(w io.Writer) error {
 	enumTmpl := `
 {{range .Enums}}
 {{$enumName := .Name}}
-// Type {{$enumName}}{{if .Description}}. {{.Description}}{{end}}
+// {{$enumName}} type{{if .Description}}. {{.Description}}{{end}}
 type {{.Name}} int
 
 const ({{range .Entries}}
-	{{.Name}} {{$enumName}} = {{.Value}} // {{.Description}}{{end}}
+	// {{.Name}} enum{{if .Description}}. {{.Description}}{{end}}
+	{{.Name}} {{$enumName}} = {{.Value}} {{end}}
 )
 {{end}}
 `
@@ -648,6 +649,9 @@ func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 `
 	for _, m := range d.Messages {
 		m.Description = strings.Replace(m.Description, "\n", "\n// ", -1)
+		if len(m.DialectName) == 0 {
+			m.DialectName = baseName(d.FilePath)
+		}
 		for _, f := range m.Fields {
 			f.Description = strings.Replace(f.Description, "\n", " ", -1)
 			goname, gosz, golen, err := GoTypeInfo(f.CType)
