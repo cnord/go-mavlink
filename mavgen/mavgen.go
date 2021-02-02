@@ -481,7 +481,7 @@ func (d *Dialect) generateGo(w io.Writer, packageName string) error {
 	bb.WriteString("//\n")
 	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
-	bb.WriteString("package " + packageName + "\n\n")
+	bb.WriteString("package " + strings.ToLower(packageName) + "\n\n")
 
 	needImportParentMavlink := d.needImportParentMavlink()
 	needImportEncodingBinary := d.needImportEncodingBinary()
