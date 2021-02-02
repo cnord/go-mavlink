@@ -539,7 +539,8 @@ func (d *Dialect) generateEnums(w io.Writer) error {
 type {{.Name}} int
 
 const ({{range .Entries}}
-	{{.Name}} {{$enumName}} = {{.Value}} // {{.Description}}{{end}}
+	// {{.Description}}
+	{{.Name}} {{$enumName}} = {{.Value}} {{end}}
 )
 {{end}}
 `
