@@ -9,9 +9,10 @@ var (
 	Mavlink2 = flag.Bool("2", false, "mavlink v2")
 )
 
+// Mavlink versions
 const (
-	MAVLINK_V1 = 1
-	MAVLINK_V2 = 2
+	MAVLINK_V1 = 1 // v1
+	MAVLINK_V2 = 2 // v2
 )
 
 // MavlinkVersion process user flags and return mavlink version
