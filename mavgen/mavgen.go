@@ -535,7 +535,7 @@ func (d *Dialect) generateEnums(w io.Writer) error {
 	enumTmpl := `
 {{range .Enums}}
 {{$enumName := .Name}}
-// Type {{$enumName}}{{if .Description}}. {{.Description}}{{end}}
+// {{$enumName}} type{{if .Description}}. {{.Description}}{{end}}
 type {{.Name}} int
 
 const ({{range .Entries}}

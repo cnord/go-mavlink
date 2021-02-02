@@ -14,7 +14,7 @@ import (
 	"math"
 )
 
-// Type UALBERTA_AUTOPILOT_MODE. Available autopilot modes for ualberta uav
+// UALBERTA_AUTOPILOT_MODE type. Available autopilot modes for ualberta uav
 type UALBERTA_AUTOPILOT_MODE int
 
 const (
@@ -25,7 +25,7 @@ const (
 	MODE_AUTO_PID_POS  UALBERTA_AUTOPILOT_MODE = 5 // dfsdfsdfs
 )
 
-// Type UALBERTA_NAV_MODE. Navigation filter mode
+// UALBERTA_NAV_MODE type. Navigation filter mode
 type UALBERTA_NAV_MODE int
 
 const (
@@ -35,7 +35,7 @@ const (
 	NAV_INS_GPS      UALBERTA_NAV_MODE = 4 // INS/GPS mode
 )
 
-// Type UALBERTA_PILOT_MODE. Mode currently commanded by pilot
+// UALBERTA_PILOT_MODE type. Mode currently commanded by pilot
 type UALBERTA_PILOT_MODE int
 
 const (
@@ -44,7 +44,7 @@ const (
 	PILOT_ROTO   UALBERTA_PILOT_MODE = 3 // Rotomotion mode
 )
 
-// Type FIRMWARE_VERSION_TYPE. These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.
+// FIRMWARE_VERSION_TYPE type. These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.
 type FIRMWARE_VERSION_TYPE int
 
 const (
@@ -55,7 +55,7 @@ const (
 	FIRMWARE_VERSION_TYPE_OFFICIAL FIRMWARE_VERSION_TYPE = 255 // official stable release
 )
 
-// Type HL_FAILURE_FLAG. Flags to report failure cases over the high latency telemtry.
+// HL_FAILURE_FLAG type. Flags to report failure cases over the high latency telemtry.
 type HL_FAILURE_FLAG int
 
 const (
@@ -75,7 +75,7 @@ const (
 	HL_FAILURE_FLAG_MISSION               HL_FAILURE_FLAG = 8192 // Mission failure
 )
 
-// Type MAV_GOTO. Actions that may be specified in MAV_CMD_OVERRIDE_GOTO to override mission execution.
+// MAV_GOTO type. Actions that may be specified in MAV_CMD_OVERRIDE_GOTO to override mission execution.
 type MAV_GOTO int
 
 const (
@@ -85,7 +85,7 @@ const (
 	MAV_GOTO_HOLD_AT_SPECIFIED_POSITION MAV_GOTO = 3 // Hold at the position specified in the parameters of the DO_HOLD action
 )
 
-// Type MAV_MODE. These defines are predefined OR-combined mode flags. There is no need to use values from this enum, but it                simplifies the use of the mode flags. Note that manual input is enabled in all modes as a safety override.
+// MAV_MODE type. These defines are predefined OR-combined mode flags. There is no need to use values from this enum, but it                simplifies the use of the mode flags. Note that manual input is enabled in all modes as a safety override.
 type MAV_MODE int
 
 const (
@@ -102,7 +102,7 @@ const (
 	MAV_MODE_TEST_ARMED         MAV_MODE = 194 // UNDEFINED mode. This solely depends on the autopilot - use with caution, intended for developers only
 )
 
-// Type MAV_SYS_STATUS_SENSOR. These encode the sensors whose status is sent as part of the SYS_STATUS message.
+// MAV_SYS_STATUS_SENSOR type. These encode the sensors whose status is sent as part of the SYS_STATUS message.
 type MAV_SYS_STATUS_SENSOR int
 
 const (
@@ -138,7 +138,7 @@ const (
 	MAV_SYS_STATUS_OBSTACLE_AVOIDANCE            MAV_SYS_STATUS_SENSOR = 536870912 // 0x20000000 Avoidance/collision prevention
 )
 
-// Type MAV_FRAME
+// MAV_FRAME type
 type MAV_FRAME int
 
 const (
@@ -166,7 +166,7 @@ const (
 	MAV_FRAME_LOCAL_FLU               MAV_FRAME = 21 // Forward, Left, Up coordinate frame. This is a local frame with Z-up and arbitrary F/L alignment (i.e. not aligned with ENU/earth frame)
 )
 
-// Type MAVLINK_DATA_STREAM_TYPE
+// MAVLINK_DATA_STREAM_TYPE type
 type MAVLINK_DATA_STREAM_TYPE int
 
 const (
@@ -178,7 +178,7 @@ const (
 	MAVLINK_DATA_STREAM_IMG_PNG    MAVLINK_DATA_STREAM_TYPE = 5 //
 )
 
-// Type FENCE_ACTION
+// FENCE_ACTION type
 type FENCE_ACTION int
 
 const (
@@ -189,7 +189,7 @@ const (
 	FENCE_ACTION_RTL             FENCE_ACTION = 4 // Switch to RTL (return to launch) mode and head for the return point
 )
 
-// Type FENCE_BREACH
+// FENCE_BREACH type
 type FENCE_BREACH int
 
 const (
@@ -199,7 +199,7 @@ const (
 	FENCE_BREACH_BOUNDARY FENCE_BREACH = 3 // Breached fence boundary
 )
 
-// Type FENCE_MITIGATE. Actions being taken to mitigate/prevent fence breach
+// FENCE_MITIGATE type. Actions being taken to mitigate/prevent fence breach
 type FENCE_MITIGATE int
 
 const (
@@ -208,7 +208,7 @@ const (
 	FENCE_MITIGATE_VEL_LIMIT FENCE_MITIGATE = 2 // Velocity limiting active to prevent breach
 )
 
-// Type MAV_MOUNT_MODE. Enumeration of possible mount operation modes. This message is used by obsolete/deprecated gimbal messages.
+// MAV_MOUNT_MODE type. Enumeration of possible mount operation modes. This message is used by obsolete/deprecated gimbal messages.
 type MAV_MOUNT_MODE int
 
 const (
@@ -221,7 +221,7 @@ const (
 	MAV_MOUNT_MODE_HOME_LOCATION     MAV_MOUNT_MODE = 6 // Gimbal tracks home location
 )
 
-// Type GIMBAL_DEVICE_CAP_FLAGS. Gimbal device (low level) capability flags (bitmap)
+// GIMBAL_DEVICE_CAP_FLAGS type. Gimbal device (low level) capability flags (bitmap)
 type GIMBAL_DEVICE_CAP_FLAGS int
 
 const (
@@ -239,7 +239,7 @@ const (
 	GIMBAL_DEVICE_CAP_FLAGS_SUPPORTS_INFINITE_YAW GIMBAL_DEVICE_CAP_FLAGS = 2048 // Gimbal device supports yawing/panning infinetely (e.g. using slip disk)
 )
 
-// Type GIMBAL_MANAGER_CAP_FLAGS. Gimbal manager high level capability flags (bitmap). The first 16 bits are identical to the GIMBAL_DEVICE_CAP_FLAGS which are identical with GIMBAL_DEVICE_FLAGS. However, the gimbal manager does not need to copy the flags from the gimbal but can also enhance the capabilities and thus add flags.
+// GIMBAL_MANAGER_CAP_FLAGS type. Gimbal manager high level capability flags (bitmap). The first 16 bits are identical to the GIMBAL_DEVICE_CAP_FLAGS which are identical with GIMBAL_DEVICE_FLAGS. However, the gimbal manager does not need to copy the flags from the gimbal but can also enhance the capabilities and thus add flags.
 type GIMBAL_MANAGER_CAP_FLAGS int
 
 const (
@@ -259,7 +259,7 @@ const (
 	GIMBAL_MANAGER_CAP_FLAGS_CAN_POINT_LOCATION_GLOBAL GIMBAL_MANAGER_CAP_FLAGS = 131072 // Gimbal manager supports to point to a global latitude, longitude, altitude position
 )
 
-// Type GIMBAL_DEVICE_FLAGS. Flags for gimbal device (lower level) operation.
+// GIMBAL_DEVICE_FLAGS type. Flags for gimbal device (lower level) operation.
 type GIMBAL_DEVICE_FLAGS int
 
 const (
@@ -270,7 +270,7 @@ const (
 	GIMBAL_DEVICE_FLAGS_YAW_LOCK   GIMBAL_DEVICE_FLAGS = 16 // Lock yaw angle to absolute angle relative to North (not relative to drone). If this flag is set, the quaternion is in the Earth frame with the x-axis pointing North (yaw absolute). If this flag is not set, the quaternion frame is in the Earth frame rotated so that the x-axis is pointing forward (yaw relative to vehicle)
 )
 
-// Type GIMBAL_MANAGER_FLAGS. Flags for high level gimbal manager operation The first 16 bytes are identical to the GIMBAL_DEVICE_FLAGS.
+// GIMBAL_MANAGER_FLAGS type. Flags for high level gimbal manager operation The first 16 bytes are identical to the GIMBAL_DEVICE_FLAGS.
 type GIMBAL_MANAGER_FLAGS int
 
 const (
@@ -281,7 +281,7 @@ const (
 	GIMBAL_MANAGER_FLAGS_YAW_LOCK   GIMBAL_MANAGER_FLAGS = 16 // Based on GIMBAL_DEVICE_FLAGS_YAW_LOCK
 )
 
-// Type GIMBAL_DEVICE_ERROR_FLAGS. Gimbal device (low level) error flags (bitmap, 0 means no error)
+// GIMBAL_DEVICE_ERROR_FLAGS type. Gimbal device (low level) error flags (bitmap, 0 means no error)
 type GIMBAL_DEVICE_ERROR_FLAGS int
 
 const (
@@ -296,7 +296,7 @@ const (
 	GIMBAL_DEVICE_ERROR_FLAGS_CALIBRATION_RUNNING GIMBAL_DEVICE_ERROR_FLAGS = 256 // Gimbal is currently calibrating
 )
 
-// Type GRIPPER_ACTIONS. Gripper actions.
+// GRIPPER_ACTIONS type. Gripper actions.
 type GRIPPER_ACTIONS int
 
 const (
@@ -304,7 +304,7 @@ const (
 	GRIPPER_ACTION_GRAB    GRIPPER_ACTIONS = 1 // Gripper grab onto cargo
 )
 
-// Type WINCH_ACTIONS. Winch actions.
+// WINCH_ACTIONS type. Winch actions.
 type WINCH_ACTIONS int
 
 const (
@@ -313,7 +313,7 @@ const (
 	WINCH_RATE_CONTROL            WINCH_ACTIONS = 2 // Wind or unwind cable at specified rate
 )
 
-// Type UAVCAN_NODE_HEALTH. Generalized UAVCAN node health
+// UAVCAN_NODE_HEALTH type. Generalized UAVCAN node health
 type UAVCAN_NODE_HEALTH int
 
 const (
@@ -323,7 +323,7 @@ const (
 	UAVCAN_NODE_HEALTH_CRITICAL UAVCAN_NODE_HEALTH = 3 // The node has suffered a fatal malfunction
 )
 
-// Type UAVCAN_NODE_MODE. Generalized UAVCAN node mode
+// UAVCAN_NODE_MODE type. Generalized UAVCAN node mode
 type UAVCAN_NODE_MODE int
 
 const (
@@ -334,7 +334,7 @@ const (
 	UAVCAN_NODE_MODE_OFFLINE         UAVCAN_NODE_MODE = 7 // The node is no longer available online
 )
 
-// Type ESC_CONNECTION_TYPE. Indicates the ESC connection type.
+// ESC_CONNECTION_TYPE type. Indicates the ESC connection type.
 type ESC_CONNECTION_TYPE int
 
 const (
@@ -346,7 +346,7 @@ const (
 	ESC_CONNECTION_TYPE_DSHOT   ESC_CONNECTION_TYPE = 5 // DShot ESC
 )
 
-// Type ESC_FAILURE_FLAGS. Flags to report ESC failures.
+// ESC_FAILURE_FLAGS type. Flags to report ESC failures.
 type ESC_FAILURE_FLAGS int
 
 const (
@@ -360,7 +360,7 @@ const (
 	ESC_FAILURE_GENERIC          ESC_FAILURE_FLAGS = 64 // Generic ESC failure
 )
 
-// Type STORAGE_STATUS. Flags to indicate the status of camera storage.
+// STORAGE_STATUS type. Flags to indicate the status of camera storage.
 type STORAGE_STATUS int
 
 const (
@@ -370,7 +370,7 @@ const (
 	STORAGE_STATUS_NOT_SUPPORTED STORAGE_STATUS = 3 // Camera does not supply storage status information. Capacity information in STORAGE_INFORMATION fields will be ignored
 )
 
-// Type STORAGE_TYPE. Flags to indicate the type of storage.
+// STORAGE_TYPE type. Flags to indicate the type of storage.
 type STORAGE_TYPE int
 
 const (
@@ -385,7 +385,7 @@ const (
 	STORAGE_TYPE_OTHER     STORAGE_TYPE = 254 // Storage type is other, not listed type
 )
 
-// Type ORBIT_YAW_BEHAVIOUR. Yaw behaviour during orbit flight.
+// ORBIT_YAW_BEHAVIOUR type. Yaw behaviour during orbit flight.
 type ORBIT_YAW_BEHAVIOUR int
 
 const (
@@ -396,7 +396,7 @@ const (
 	ORBIT_YAW_BEHAVIOUR_RC_CONTROLLED                ORBIT_YAW_BEHAVIOUR = 4 // Yaw controlled by RC input
 )
 
-// Type WIFI_CONFIG_AP_RESPONSE. Possible responses from a WIFI_CONFIG_AP message.
+// WIFI_CONFIG_AP_RESPONSE type. Possible responses from a WIFI_CONFIG_AP message.
 type WIFI_CONFIG_AP_RESPONSE int
 
 const (
@@ -408,7 +408,7 @@ const (
 	WIFI_CONFIG_AP_RESPONSE_PASSWORD_ERROR WIFI_CONFIG_AP_RESPONSE = 5 // Invalid Password
 )
 
-// Type CELLULAR_CONFIG_RESPONSE. Possible responses from a CELLULAR_CONFIG message.
+// CELLULAR_CONFIG_RESPONSE type. Possible responses from a CELLULAR_CONFIG message.
 type CELLULAR_CONFIG_RESPONSE int
 
 const (
@@ -419,7 +419,7 @@ const (
 	CELLULAR_CONFIG_BLOCKED_PUK_REQUIRED CELLULAR_CONFIG_RESPONSE = 4 // PUK is required to unblock SIM card
 )
 
-// Type WIFI_CONFIG_AP_MODE. WiFi Mode.
+// WIFI_CONFIG_AP_MODE type. WiFi Mode.
 type WIFI_CONFIG_AP_MODE int
 
 const (
@@ -429,7 +429,7 @@ const (
 	WIFI_CONFIG_AP_MODE_DISABLED  WIFI_CONFIG_AP_MODE = 3 // WiFi disabled
 )
 
-// Type COMP_METADATA_TYPE. Possible values for COMPONENT_INFORMATION.comp_metadata_type.
+// COMP_METADATA_TYPE type. Possible values for COMPONENT_INFORMATION.comp_metadata_type.
 type COMP_METADATA_TYPE int
 
 const (
@@ -438,7 +438,7 @@ const (
 	COMP_METADATA_TYPE_COMMANDS  COMP_METADATA_TYPE = 2 // Meta data which specifies the commands the vehicle supports. (WIP)
 )
 
-// Type PARAM_TRANSACTION_TRANSPORT. Possible transport layers to set and get parameters via mavlink during a parameter transaction.
+// PARAM_TRANSACTION_TRANSPORT type. Possible transport layers to set and get parameters via mavlink during a parameter transaction.
 type PARAM_TRANSACTION_TRANSPORT int
 
 const (
@@ -446,7 +446,7 @@ const (
 	PARAM_TRANSACTION_TRANSPORT_PARAM_EXT PARAM_TRANSACTION_TRANSPORT = 1 // Transaction over param_ext transport
 )
 
-// Type PARAM_TRANSACTION_ACTION. Possible parameter transaction actions.
+// PARAM_TRANSACTION_ACTION type. Possible parameter transaction actions.
 type PARAM_TRANSACTION_ACTION int
 
 const (
@@ -455,7 +455,7 @@ const (
 	PARAM_TRANSACTION_ACTION_CANCEL PARAM_TRANSACTION_ACTION = 2 // Cancel the current parameter transaction
 )
 
-// Type MAV_CMD. Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data. NaN and INT32_MAX may be used in float/integer params (respectively) to indicate optional/default values (e.g. to use the component's current yaw or latitude rather than a specific value). See https://mavlink.io/en/guide/xml_schema.html#MAV_CMD for information about the structure of the MAV_CMD entries
+// MAV_CMD type. Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data. NaN and INT32_MAX may be used in float/integer params (respectively) to indicate optional/default values (e.g. to use the component's current yaw or latitude rather than a specific value). See https://mavlink.io/en/guide/xml_schema.html#MAV_CMD for information about the structure of the MAV_CMD entries
 type MAV_CMD int
 
 const (
@@ -616,7 +616,7 @@ const (
 	MAV_CMD_USER_5                             MAV_CMD = 31014 // User defined command. Ground Station will not show the Vehicle as flying through this item. Example: MAV_CMD_DO_SET_PARAMETER item. Params: 1) User defined; 2) User defined; 3) User defined; 4) User defined; 5) User defined; 6) User defined; 7) User defined;
 )
 
-// Type MAV_DATA_STREAM. A data stream is not a fixed set of messages, but rather a      recommendation to the autopilot software. Individual autopilots may or may not obey      the recommended messages.
+// MAV_DATA_STREAM type. A data stream is not a fixed set of messages, but rather a      recommendation to the autopilot software. Individual autopilots may or may not obey      the recommended messages.
 type MAV_DATA_STREAM int
 
 const (
@@ -631,7 +631,7 @@ const (
 	MAV_DATA_STREAM_EXTRA3          MAV_DATA_STREAM = 12 // Dependent on the autopilot
 )
 
-// Type MAV_ROI. The ROI (region of interest) for the vehicle. This can be                 be used by the vehicle for camera/vehicle attitude alignment (see                 MAV_CMD_NAV_ROI).
+// MAV_ROI type. The ROI (region of interest) for the vehicle. This can be                 be used by the vehicle for camera/vehicle attitude alignment (see                 MAV_CMD_NAV_ROI).
 type MAV_ROI int
 
 const (
@@ -642,7 +642,7 @@ const (
 	MAV_ROI_TARGET   MAV_ROI = 4 // Point toward of given id
 )
 
-// Type MAV_CMD_ACK. ACK / NACK / ERROR values as a result of MAV_CMDs and for mission item transmission.
+// MAV_CMD_ACK type. ACK / NACK / ERROR values as a result of MAV_CMDs and for mission item transmission.
 type MAV_CMD_ACK int
 
 const (
@@ -657,7 +657,7 @@ const (
 	MAV_CMD_ACK_ERR_Z_ALT_OUT_OF_RANGE             MAV_CMD_ACK = 8 // The Z or altitude value is out of range
 )
 
-// Type MAV_PARAM_TYPE. Specifies the datatype of a MAVLink parameter.
+// MAV_PARAM_TYPE type. Specifies the datatype of a MAVLink parameter.
 type MAV_PARAM_TYPE int
 
 const (
@@ -673,7 +673,7 @@ const (
 	MAV_PARAM_TYPE_REAL64 MAV_PARAM_TYPE = 10 // 64-bit floating-point
 )
 
-// Type MAV_PARAM_EXT_TYPE. Specifies the datatype of a MAVLink extended parameter.
+// MAV_PARAM_EXT_TYPE type. Specifies the datatype of a MAVLink extended parameter.
 type MAV_PARAM_EXT_TYPE int
 
 const (
@@ -690,7 +690,7 @@ const (
 	MAV_PARAM_EXT_TYPE_CUSTOM MAV_PARAM_EXT_TYPE = 11 // Custom Type
 )
 
-// Type MAV_RESULT. Result from a MAVLink command (MAV_CMD)
+// MAV_RESULT type. Result from a MAVLink command (MAV_CMD)
 type MAV_RESULT int
 
 const (
@@ -703,7 +703,7 @@ const (
 	MAV_RESULT_CANCELLED            MAV_RESULT = 6 // Command has been cancelled (as a result of receiving a COMMAND_CANCEL message)
 )
 
-// Type MAV_MISSION_RESULT. Result of mission operation (in a MISSION_ACK message).
+// MAV_MISSION_RESULT type. Result of mission operation (in a MISSION_ACK message).
 type MAV_MISSION_RESULT int
 
 const (
@@ -725,7 +725,7 @@ const (
 	MAV_MISSION_OPERATION_CANCELLED MAV_MISSION_RESULT = 15 // Current mission operation cancelled (e.g. mission upload, mission download)
 )
 
-// Type MAV_SEVERITY. Indicates the severity level, generally used for status messages to indicate their relative urgency. Based on RFC-5424 using expanded definitions at: http://www.kiwisyslog.com/kb/info:-syslog-message-levels/.
+// MAV_SEVERITY type. Indicates the severity level, generally used for status messages to indicate their relative urgency. Based on RFC-5424 using expanded definitions at: http://www.kiwisyslog.com/kb/info:-syslog-message-levels/.
 type MAV_SEVERITY int
 
 const (
@@ -739,7 +739,7 @@ const (
 	MAV_SEVERITY_DEBUG     MAV_SEVERITY = 7 // Useful non-operational messages that can assist in debugging. These should not occur during normal operation
 )
 
-// Type MAV_POWER_STATUS. Power supply status flags (bitmask)
+// MAV_POWER_STATUS type. Power supply status flags (bitmask)
 type MAV_POWER_STATUS int
 
 const (
@@ -751,7 +751,7 @@ const (
 	MAV_POWER_STATUS_CHANGED                    MAV_POWER_STATUS = 32 // Power status has changed since boot
 )
 
-// Type SERIAL_CONTROL_DEV. SERIAL_CONTROL device types
+// SERIAL_CONTROL_DEV type. SERIAL_CONTROL device types
 type SERIAL_CONTROL_DEV int
 
 const (
@@ -772,7 +772,7 @@ const (
 	SERIAL_CONTROL_SERIAL9    SERIAL_CONTROL_DEV = 109 // SERIAL9
 )
 
-// Type SERIAL_CONTROL_FLAG. SERIAL_CONTROL flags (bitmask)
+// SERIAL_CONTROL_FLAG type. SERIAL_CONTROL flags (bitmask)
 type SERIAL_CONTROL_FLAG int
 
 const (
@@ -783,7 +783,7 @@ const (
 	SERIAL_CONTROL_FLAG_MULTI     SERIAL_CONTROL_FLAG = 16 // Send multiple replies until port is drained
 )
 
-// Type MAV_DISTANCE_SENSOR. Enumeration of distance sensor types
+// MAV_DISTANCE_SENSOR type. Enumeration of distance sensor types
 type MAV_DISTANCE_SENSOR int
 
 const (
@@ -794,7 +794,7 @@ const (
 	MAV_DISTANCE_SENSOR_UNKNOWN    MAV_DISTANCE_SENSOR = 4 // Broken or unknown type, e.g. analog units
 )
 
-// Type MAV_SENSOR_ORIENTATION. Enumeration of sensor orientation, according to its rotations
+// MAV_SENSOR_ORIENTATION type. Enumeration of sensor orientation, according to its rotations
 type MAV_SENSOR_ORIENTATION int
 
 const (
@@ -842,7 +842,7 @@ const (
 	MAV_SENSOR_ROTATION_CUSTOM                   MAV_SENSOR_ORIENTATION = 100 // Custom orientation
 )
 
-// Type MAV_PROTOCOL_CAPABILITY. Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
+// MAV_PROTOCOL_CAPABILITY type. Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
 type MAV_PROTOCOL_CAPABILITY int
 
 const (
@@ -865,7 +865,7 @@ const (
 	MAV_PROTOCOL_CAPABILITY_FLIGHT_INFORMATION             MAV_PROTOCOL_CAPABILITY = 65536 // Autopilot supports the flight information protocol
 )
 
-// Type MAV_MISSION_TYPE. Type of mission items being requested/sent in mission protocol.
+// MAV_MISSION_TYPE type. Type of mission items being requested/sent in mission protocol.
 type MAV_MISSION_TYPE int
 
 const (
@@ -875,7 +875,7 @@ const (
 	MAV_MISSION_TYPE_ALL     MAV_MISSION_TYPE = 255 // Only used in MISSION_CLEAR_ALL to clear all mission types
 )
 
-// Type MAV_ESTIMATOR_TYPE. Enumeration of estimator types
+// MAV_ESTIMATOR_TYPE type. Enumeration of estimator types
 type MAV_ESTIMATOR_TYPE int
 
 const (
@@ -890,7 +890,7 @@ const (
 	MAV_ESTIMATOR_TYPE_AUTOPILOT MAV_ESTIMATOR_TYPE = 8 // Estimator on autopilot
 )
 
-// Type MAV_BATTERY_TYPE. Enumeration of battery types
+// MAV_BATTERY_TYPE type. Enumeration of battery types
 type MAV_BATTERY_TYPE int
 
 const (
@@ -901,7 +901,7 @@ const (
 	MAV_BATTERY_TYPE_NIMH    MAV_BATTERY_TYPE = 4 // Nickel metal hydride battery
 )
 
-// Type MAV_BATTERY_FUNCTION. Enumeration of battery functions
+// MAV_BATTERY_FUNCTION type. Enumeration of battery functions
 type MAV_BATTERY_FUNCTION int
 
 const (
@@ -912,7 +912,7 @@ const (
 	MAV_BATTERY_TYPE_PAYLOAD        MAV_BATTERY_FUNCTION = 4 // Payload battery
 )
 
-// Type MAV_BATTERY_CHARGE_STATE. Enumeration for battery charge states.
+// MAV_BATTERY_CHARGE_STATE type. Enumeration for battery charge states.
 type MAV_BATTERY_CHARGE_STATE int
 
 const (
@@ -926,7 +926,7 @@ const (
 	MAV_BATTERY_CHARGE_STATE_CHARGING  MAV_BATTERY_CHARGE_STATE = 7 // Battery is charging
 )
 
-// Type MAV_BATTERY_MODE. Battery mode. Note, the normal operation mode (i.e. when flying) should be reported as MAV_BATTERY_MODE_UNKNOWN to allow message trimming in normal flight.
+// MAV_BATTERY_MODE type. Battery mode. Note, the normal operation mode (i.e. when flying) should be reported as MAV_BATTERY_MODE_UNKNOWN to allow message trimming in normal flight.
 type MAV_BATTERY_MODE int
 
 const (
@@ -935,7 +935,7 @@ const (
 	MAV_BATTERY_MODE_HOT_SWAP         MAV_BATTERY_MODE = 2 // Battery in hot-swap mode (current limited to prevent spikes that might damage sensitive electrical circuits)
 )
 
-// Type MAV_BATTERY_FAULT. Smart battery supply status/fault flags (bitmask) for health indication. The battery must also report either MAV_BATTERY_CHARGE_STATE_FAILED or MAV_BATTERY_CHARGE_STATE_UNHEALTHY if any of these are set.
+// MAV_BATTERY_FAULT type. Smart battery supply status/fault flags (bitmask) for health indication. The battery must also report either MAV_BATTERY_CHARGE_STATE_FAILED or MAV_BATTERY_CHARGE_STATE_UNHEALTHY if any of these are set.
 type MAV_BATTERY_FAULT int
 
 const (
@@ -948,7 +948,7 @@ const (
 	MAV_BATTERY_FAULT_INCOMPATIBLE_VOLTAGE MAV_BATTERY_FAULT = 64 // Vehicle voltage is not compatible with this battery (batteries on same power rail should have similar voltage)
 )
 
-// Type MAV_GENERATOR_STATUS_FLAG. Flags to report status/failure cases for a power generator (used in GENERATOR_STATUS). Note that FAULTS are conditions that cause the generator to fail. Warnings are conditions that require attention before the next use (they indicate the system is not operating properly).
+// MAV_GENERATOR_STATUS_FLAG type. Flags to report status/failure cases for a power generator (used in GENERATOR_STATUS). Note that FAULTS are conditions that cause the generator to fail. Warnings are conditions that require attention before the next use (they indicate the system is not operating properly).
 type MAV_GENERATOR_STATUS_FLAG int
 
 const (
@@ -977,7 +977,7 @@ const (
 	MAV_GENERATOR_STATUS_FLAG_IDLE                             MAV_GENERATOR_STATUS_FLAG = 4194304 // Generator is idle
 )
 
-// Type MAV_VTOL_STATE. Enumeration of VTOL states
+// MAV_VTOL_STATE type. Enumeration of VTOL states
 type MAV_VTOL_STATE int
 
 const (
@@ -988,7 +988,7 @@ const (
 	MAV_VTOL_STATE_FW               MAV_VTOL_STATE = 4 // VTOL is in fixed-wing state
 )
 
-// Type MAV_LANDED_STATE. Enumeration of landed detector states
+// MAV_LANDED_STATE type. Enumeration of landed detector states
 type MAV_LANDED_STATE int
 
 const (
@@ -999,7 +999,7 @@ const (
 	MAV_LANDED_STATE_LANDING   MAV_LANDED_STATE = 4 // MAV currently landing
 )
 
-// Type ADSB_ALTITUDE_TYPE. Enumeration of the ADSB altimeter types
+// ADSB_ALTITUDE_TYPE type. Enumeration of the ADSB altimeter types
 type ADSB_ALTITUDE_TYPE int
 
 const (
@@ -1007,7 +1007,7 @@ const (
 	ADSB_ALTITUDE_TYPE_GEOMETRIC    ADSB_ALTITUDE_TYPE = 1 // Altitude reported from a GNSS source
 )
 
-// Type ADSB_EMITTER_TYPE. ADSB classification for the type of vehicle emitting the transponder signal
+// ADSB_EMITTER_TYPE type. ADSB classification for the type of vehicle emitting the transponder signal
 type ADSB_EMITTER_TYPE int
 
 const (
@@ -1033,7 +1033,7 @@ const (
 	ADSB_EMITTER_TYPE_POINT_OBSTACLE    ADSB_EMITTER_TYPE = 19 //
 )
 
-// Type ADSB_FLAGS. These flags indicate status such as data validity of each data source. Set = data valid
+// ADSB_FLAGS type. These flags indicate status such as data validity of each data source. Set = data valid
 type ADSB_FLAGS int
 
 const (
@@ -1049,14 +1049,14 @@ const (
 	ADSB_FLAGS_SOURCE_UAT              ADSB_FLAGS = 32768 //
 )
 
-// Type MAV_DO_REPOSITION_FLAGS. Bitmap of options for the MAV_CMD_DO_REPOSITION
+// MAV_DO_REPOSITION_FLAGS type. Bitmap of options for the MAV_CMD_DO_REPOSITION
 type MAV_DO_REPOSITION_FLAGS int
 
 const (
 	MAV_DO_REPOSITION_FLAGS_CHANGE_MODE MAV_DO_REPOSITION_FLAGS = 1 // The aircraft should immediately transition into guided. This should not be set for follow me applications
 )
 
-// Type ESTIMATOR_STATUS_FLAGS. Flags in ESTIMATOR_STATUS message
+// ESTIMATOR_STATUS_FLAGS type. Flags in ESTIMATOR_STATUS message
 type ESTIMATOR_STATUS_FLAGS int
 
 const (
@@ -1074,7 +1074,7 @@ const (
 	ESTIMATOR_ACCEL_ERROR        ESTIMATOR_STATUS_FLAGS = 2048 // True if the EKF has detected bad accelerometer data
 )
 
-// Type MOTOR_TEST_ORDER
+// MOTOR_TEST_ORDER type
 type MOTOR_TEST_ORDER int
 
 const (
@@ -1083,7 +1083,7 @@ const (
 	MOTOR_TEST_ORDER_BOARD    MOTOR_TEST_ORDER = 2 // motor numbers are specified as the output as labeled on the board
 )
 
-// Type MOTOR_TEST_THROTTLE_TYPE
+// MOTOR_TEST_THROTTLE_TYPE type
 type MOTOR_TEST_THROTTLE_TYPE int
 
 const (
@@ -1093,7 +1093,7 @@ const (
 	MOTOR_TEST_COMPASS_CAL      MOTOR_TEST_THROTTLE_TYPE = 3 // per-motor compass calibration test
 )
 
-// Type GPS_INPUT_IGNORE_FLAGS
+// GPS_INPUT_IGNORE_FLAGS type
 type GPS_INPUT_IGNORE_FLAGS int
 
 const (
@@ -1107,7 +1107,7 @@ const (
 	GPS_INPUT_IGNORE_FLAG_VERTICAL_ACCURACY   GPS_INPUT_IGNORE_FLAGS = 128 // ignore vertical accuracy field
 )
 
-// Type MAV_COLLISION_ACTION. Possible actions an aircraft can take to avoid a collision.
+// MAV_COLLISION_ACTION type. Possible actions an aircraft can take to avoid a collision.
 type MAV_COLLISION_ACTION int
 
 const (
@@ -1120,7 +1120,7 @@ const (
 	MAV_COLLISION_ACTION_HOVER              MAV_COLLISION_ACTION = 6 // Aircraft to stop in place
 )
 
-// Type MAV_COLLISION_THREAT_LEVEL. Aircraft-rated danger from this threat.
+// MAV_COLLISION_THREAT_LEVEL type. Aircraft-rated danger from this threat.
 type MAV_COLLISION_THREAT_LEVEL int
 
 const (
@@ -1129,7 +1129,7 @@ const (
 	MAV_COLLISION_THREAT_LEVEL_HIGH MAV_COLLISION_THREAT_LEVEL = 2 // Craft is panicking, and may take actions to avoid threat
 )
 
-// Type MAV_COLLISION_SRC. Source of information about this collision.
+// MAV_COLLISION_SRC type. Source of information about this collision.
 type MAV_COLLISION_SRC int
 
 const (
@@ -1137,7 +1137,7 @@ const (
 	MAV_COLLISION_SRC_MAVLINK_GPS_GLOBAL_INT MAV_COLLISION_SRC = 1 // ID field references MAVLink SRC ID
 )
 
-// Type GPS_FIX_TYPE. Type of GPS fix
+// GPS_FIX_TYPE type. Type of GPS fix
 type GPS_FIX_TYPE int
 
 const (
@@ -1152,7 +1152,7 @@ const (
 	GPS_FIX_TYPE_PPP       GPS_FIX_TYPE = 8 // PPP, 3D position
 )
 
-// Type RTK_BASELINE_COORDINATE_SYSTEM. RTK GPS baseline coordinate system, used for RTK corrections
+// RTK_BASELINE_COORDINATE_SYSTEM type. RTK GPS baseline coordinate system, used for RTK corrections
 type RTK_BASELINE_COORDINATE_SYSTEM int
 
 const (
@@ -1160,7 +1160,7 @@ const (
 	RTK_BASELINE_COORDINATE_SYSTEM_NED  RTK_BASELINE_COORDINATE_SYSTEM = 1 // RTK basestation centered, north, east, down
 )
 
-// Type LANDING_TARGET_TYPE. Type of landing target
+// LANDING_TARGET_TYPE type. Type of landing target
 type LANDING_TARGET_TYPE int
 
 const (
@@ -1170,7 +1170,7 @@ const (
 	LANDING_TARGET_TYPE_VISION_OTHER    LANDING_TARGET_TYPE = 3 // Landing target represented by a pre-defined visual shape/feature (ex: X-marker, H-marker, square)
 )
 
-// Type VTOL_TRANSITION_HEADING. Direction of VTOL transition
+// VTOL_TRANSITION_HEADING type. Direction of VTOL transition
 type VTOL_TRANSITION_HEADING int
 
 const (
@@ -1181,7 +1181,7 @@ const (
 	VTOL_TRANSITION_HEADING_ANY             VTOL_TRANSITION_HEADING = 4 // Use the current heading when reaching takeoff altitude (potentially facing the wind when weather-vaning is active)
 )
 
-// Type CAMERA_CAP_FLAGS. Camera capability flags (Bitmap)
+// CAMERA_CAP_FLAGS type. Camera capability flags (Bitmap)
 type CAMERA_CAP_FLAGS int
 
 const (
@@ -1199,7 +1199,7 @@ const (
 	CAMERA_CAP_FLAGS_HAS_TRACKING_GEO_STATUS         CAMERA_CAP_FLAGS = 2048 // Camera supports tracking geo status (CAMERA_TRACKING_GEO_STATUS)
 )
 
-// Type VIDEO_STREAM_STATUS_FLAGS. Stream status flags (Bitmap)
+// VIDEO_STREAM_STATUS_FLAGS type. Stream status flags (Bitmap)
 type VIDEO_STREAM_STATUS_FLAGS int
 
 const (
@@ -1207,7 +1207,7 @@ const (
 	VIDEO_STREAM_STATUS_FLAGS_THERMAL VIDEO_STREAM_STATUS_FLAGS = 2 // Stream is thermal imaging
 )
 
-// Type VIDEO_STREAM_TYPE. Video stream types
+// VIDEO_STREAM_TYPE type. Video stream types
 type VIDEO_STREAM_TYPE int
 
 const (
@@ -1217,7 +1217,7 @@ const (
 	VIDEO_STREAM_TYPE_MPEG_TS_H264 VIDEO_STREAM_TYPE = 3 // Stream is h.264 on MPEG TS (URI gives the port number)
 )
 
-// Type CAMERA_TRACKING_STATUS_FLAGS. Camera tracking status flags
+// CAMERA_TRACKING_STATUS_FLAGS type. Camera tracking status flags
 type CAMERA_TRACKING_STATUS_FLAGS int
 
 const (
@@ -1226,7 +1226,7 @@ const (
 	CAMERA_TRACKING_STATUS_FLAGS_ERROR  CAMERA_TRACKING_STATUS_FLAGS = 2 // Camera tracking in error state
 )
 
-// Type CAMERA_TRACKING_MODE. Camera tracking modes
+// CAMERA_TRACKING_MODE type. Camera tracking modes
 type CAMERA_TRACKING_MODE int
 
 const (
@@ -1235,7 +1235,7 @@ const (
 	CAMERA_TRACKING_RECTANGLE CAMERA_TRACKING_MODE = 2 // Target is a rectangle
 )
 
-// Type CAMERA_TRACKING_TARGET_DATA. Camera tracking target data (shows where tracked target is within image)
+// CAMERA_TRACKING_TARGET_DATA type. Camera tracking target data (shows where tracked target is within image)
 type CAMERA_TRACKING_TARGET_DATA int
 
 const (
@@ -1245,7 +1245,7 @@ const (
 	CAMERA_TRACKING_TARGET_IN_STATUS CAMERA_TRACKING_TARGET_DATA = 4 // Target data within status message (Point or Rectangle)
 )
 
-// Type CAMERA_ZOOM_TYPE. Zoom types for MAV_CMD_SET_CAMERA_ZOOM
+// CAMERA_ZOOM_TYPE type. Zoom types for MAV_CMD_SET_CAMERA_ZOOM
 type CAMERA_ZOOM_TYPE int
 
 const (
@@ -1255,7 +1255,7 @@ const (
 	ZOOM_TYPE_FOCAL_LENGTH CAMERA_ZOOM_TYPE = 3 // Zoom value/variable focal length in milimetres. Note that there is no message to get the valid zoom range of the camera, so this can type can only be used for cameras where the zoom range is known (implying that this cannot reliably be used in a GCS for an arbitrary camera)
 )
 
-// Type SET_FOCUS_TYPE. Focus types for MAV_CMD_SET_CAMERA_FOCUS
+// SET_FOCUS_TYPE type. Focus types for MAV_CMD_SET_CAMERA_FOCUS
 type SET_FOCUS_TYPE int
 
 const (
@@ -1265,7 +1265,7 @@ const (
 	FOCUS_TYPE_METERS     SET_FOCUS_TYPE = 3 // Focus value in metres. Note that there is no message to get the valid focus range of the camera, so this can type can only be used for cameras where the range is known (implying that this cannot reliably be used in a GCS for an arbitrary camera)
 )
 
-// Type PARAM_ACK. Result from PARAM_EXT_SET message (or a PARAM_SET within a transaction).
+// PARAM_ACK type. Result from PARAM_EXT_SET message (or a PARAM_SET within a transaction).
 type PARAM_ACK int
 
 const (
@@ -1275,7 +1275,7 @@ const (
 	PARAM_ACK_IN_PROGRESS       PARAM_ACK = 3 // Parameter value received but not yet set/accepted. A subsequent PARAM_ACK_TRANSACTION or PARAM_EXT_ACK with the final result will follow once operation is completed. This is returned immediately for parameters that take longer to set, indicating taht the the parameter was recieved and does not need to be resent
 )
 
-// Type CAMERA_MODE. Camera Modes.
+// CAMERA_MODE type. Camera Modes.
 type CAMERA_MODE int
 
 const (
@@ -1284,7 +1284,7 @@ const (
 	CAMERA_MODE_IMAGE_SURVEY CAMERA_MODE = 2 // Camera is in image survey capture mode. It allows for camera controller to do specific settings for surveys
 )
 
-// Type MAV_ARM_AUTH_DENIED_REASON
+// MAV_ARM_AUTH_DENIED_REASON type
 type MAV_ARM_AUTH_DENIED_REASON int
 
 const (
@@ -1296,7 +1296,7 @@ const (
 	MAV_ARM_AUTH_DENIED_REASON_BAD_WEATHER      MAV_ARM_AUTH_DENIED_REASON = 5 // Weather is not good to fly
 )
 
-// Type RC_TYPE. RC type
+// RC_TYPE type. RC type
 type RC_TYPE int
 
 const (
@@ -1304,7 +1304,7 @@ const (
 	RC_TYPE_SPEKTRUM_DSMX RC_TYPE = 1 // Spektrum DSMX
 )
 
-// Type POSITION_TARGET_TYPEMASK. Bitmap to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 9 is set the floats afx afy afz should be interpreted as force instead of acceleration.
+// POSITION_TARGET_TYPEMASK type. Bitmap to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 9 is set the floats afx afy afz should be interpreted as force instead of acceleration.
 type POSITION_TARGET_TYPEMASK int
 
 const (
@@ -1322,7 +1322,7 @@ const (
 	POSITION_TARGET_TYPEMASK_YAW_RATE_IGNORE POSITION_TARGET_TYPEMASK = 2048 // Ignore yaw rate
 )
 
-// Type ATTITUDE_TARGET_TYPEMASK. Bitmap to indicate which dimensions should be ignored by the vehicle: a value of 0b00000000 indicates that none of the setpoint dimensions should be ignored.
+// ATTITUDE_TARGET_TYPEMASK type. Bitmap to indicate which dimensions should be ignored by the vehicle: a value of 0b00000000 indicates that none of the setpoint dimensions should be ignored.
 type ATTITUDE_TARGET_TYPEMASK int
 
 const (
@@ -1333,7 +1333,7 @@ const (
 	ATTITUDE_TARGET_TYPEMASK_ATTITUDE_IGNORE        ATTITUDE_TARGET_TYPEMASK = 128 // Ignore attitude
 )
 
-// Type UTM_FLIGHT_STATE. Airborne status of UAS.
+// UTM_FLIGHT_STATE type. Airborne status of UAS.
 type UTM_FLIGHT_STATE int
 
 const (
@@ -1344,7 +1344,7 @@ const (
 	UTM_FLIGHT_STATE_NOCTRL    UTM_FLIGHT_STATE = 32 // UAS has no active controls
 )
 
-// Type UTM_DATA_AVAIL_FLAGS. Flags for the global position report.
+// UTM_DATA_AVAIL_FLAGS type. Flags for the global position report.
 type UTM_DATA_AVAIL_FLAGS int
 
 const (
@@ -1358,7 +1358,7 @@ const (
 	UTM_DATA_AVAIL_FLAGS_NEXT_WAYPOINT_AVAILABLE     UTM_DATA_AVAIL_FLAGS = 128 // The fields next_lat, next_lon and next_alt contain valid data
 )
 
-// Type CELLULAR_NETWORK_RADIO_TYPE. Cellular network radio type
+// CELLULAR_NETWORK_RADIO_TYPE type. Cellular network radio type
 type CELLULAR_NETWORK_RADIO_TYPE int
 
 const (
@@ -1369,7 +1369,7 @@ const (
 	CELLULAR_NETWORK_RADIO_TYPE_LTE   CELLULAR_NETWORK_RADIO_TYPE = 4 //
 )
 
-// Type CELLULAR_STATUS_FLAG. These flags encode the cellular network status
+// CELLULAR_STATUS_FLAG type. These flags encode the cellular network status
 type CELLULAR_STATUS_FLAG int
 
 const (
@@ -1388,7 +1388,7 @@ const (
 	CELLULAR_STATUS_FLAG_CONNECTED     CELLULAR_STATUS_FLAG = 12 // One or more packet data bearers is active and connected
 )
 
-// Type CELLULAR_NETWORK_FAILED_REASON. These flags are used to diagnose the failure state of CELLULAR_STATUS
+// CELLULAR_NETWORK_FAILED_REASON type. These flags are used to diagnose the failure state of CELLULAR_STATUS
 type CELLULAR_NETWORK_FAILED_REASON int
 
 const (
@@ -1398,7 +1398,7 @@ const (
 	CELLULAR_NETWORK_FAILED_REASON_SIM_ERROR   CELLULAR_NETWORK_FAILED_REASON = 3 // SIM is available, but not usuable for connection
 )
 
-// Type PRECISION_LAND_MODE. Precision land modes (used in MAV_CMD_NAV_LAND).
+// PRECISION_LAND_MODE type. Precision land modes (used in MAV_CMD_NAV_LAND).
 type PRECISION_LAND_MODE int
 
 const (
@@ -1407,7 +1407,7 @@ const (
 	PRECISION_LAND_MODE_REQUIRED      PRECISION_LAND_MODE = 2 // Use precision landing, searching for beacon if not found when land command accepted (land normally if beacon cannot be found)
 )
 
-// Type PARACHUTE_ACTION. Parachute actions. Trigger release and enable/disable auto-release.
+// PARACHUTE_ACTION type. Parachute actions. Trigger release and enable/disable auto-release.
 type PARACHUTE_ACTION int
 
 const (
@@ -1416,7 +1416,7 @@ const (
 	PARACHUTE_RELEASE PARACHUTE_ACTION = 2 // Release parachute and kill motors
 )
 
-// Type MAV_TUNNEL_PAYLOAD_TYPE
+// MAV_TUNNEL_PAYLOAD_TYPE type
 type MAV_TUNNEL_PAYLOAD_TYPE int
 
 const (
@@ -1433,7 +1433,7 @@ const (
 	MAV_TUNNEL_PAYLOAD_TYPE_STORM32_RESERVED9 MAV_TUNNEL_PAYLOAD_TYPE = 209 // Registered for STorM32 gimbal controller
 )
 
-// Type MAV_ODID_ID_TYPE
+// MAV_ODID_ID_TYPE type
 type MAV_ODID_ID_TYPE int
 
 const (
@@ -1443,7 +1443,7 @@ const (
 	MAV_ODID_ID_TYPE_UTM_ASSIGNED_UUID   MAV_ODID_ID_TYPE = 3 // UTM (Unmanned Traffic Management) assigned UUID (RFC4122)
 )
 
-// Type MAV_ODID_UA_TYPE
+// MAV_ODID_UA_TYPE type
 type MAV_ODID_UA_TYPE int
 
 const (
@@ -1465,7 +1465,7 @@ const (
 	MAV_ODID_UA_TYPE_OTHER                     MAV_ODID_UA_TYPE = 15 // Other type of aircraft not listed earlier
 )
 
-// Type MAV_ODID_STATUS
+// MAV_ODID_STATUS type
 type MAV_ODID_STATUS int
 
 const (
@@ -1475,7 +1475,7 @@ const (
 	MAV_ODID_STATUS_EMERGENCY  MAV_ODID_STATUS = 3 // The UA is having an emergency
 )
 
-// Type MAV_ODID_HEIGHT_REF
+// MAV_ODID_HEIGHT_REF type
 type MAV_ODID_HEIGHT_REF int
 
 const (
@@ -1483,7 +1483,7 @@ const (
 	MAV_ODID_HEIGHT_REF_OVER_GROUND  MAV_ODID_HEIGHT_REF = 1 // The height field is relative to ground
 )
 
-// Type MAV_ODID_HOR_ACC
+// MAV_ODID_HOR_ACC type
 type MAV_ODID_HOR_ACC int
 
 const (
@@ -1502,7 +1502,7 @@ const (
 	MAV_ODID_HOR_ACC_1_METER  MAV_ODID_HOR_ACC = 12 // The horizontal accuracy is smaller than 1 meter
 )
 
-// Type MAV_ODID_VER_ACC
+// MAV_ODID_VER_ACC type
 type MAV_ODID_VER_ACC int
 
 const (
@@ -1515,7 +1515,7 @@ const (
 	MAV_ODID_VER_ACC_1_METER   MAV_ODID_VER_ACC = 6 // The vertical accuracy is smaller than 1 meter
 )
 
-// Type MAV_ODID_SPEED_ACC
+// MAV_ODID_SPEED_ACC type
 type MAV_ODID_SPEED_ACC int
 
 const (
@@ -1526,7 +1526,7 @@ const (
 	MAV_ODID_SPEED_ACC_0_3_METERS_PER_SECOND MAV_ODID_SPEED_ACC = 4 // The speed accuracy is smaller than 0.3 meters per second
 )
 
-// Type MAV_ODID_TIME_ACC
+// MAV_ODID_TIME_ACC type
 type MAV_ODID_TIME_ACC int
 
 const (
@@ -1548,7 +1548,7 @@ const (
 	MAV_ODID_TIME_ACC_1_5_SECOND MAV_ODID_TIME_ACC = 15 // The timestamp accuracy is smaller than or equal to 1.5 second
 )
 
-// Type MAV_ODID_AUTH_TYPE
+// MAV_ODID_AUTH_TYPE type
 type MAV_ODID_AUTH_TYPE int
 
 const (
@@ -1559,14 +1559,14 @@ const (
 	MAV_ODID_AUTH_TYPE_NETWORK_REMOTE_ID     MAV_ODID_AUTH_TYPE = 4 // Authentication is provided by Network Remote ID
 )
 
-// Type MAV_ODID_DESC_TYPE
+// MAV_ODID_DESC_TYPE type
 type MAV_ODID_DESC_TYPE int
 
 const (
 	MAV_ODID_DESC_TYPE_TEXT MAV_ODID_DESC_TYPE = 0 // Free-form text description of the purpose of the flight
 )
 
-// Type MAV_ODID_OPERATOR_LOCATION_TYPE
+// MAV_ODID_OPERATOR_LOCATION_TYPE type
 type MAV_ODID_OPERATOR_LOCATION_TYPE int
 
 const (
@@ -1575,7 +1575,7 @@ const (
 	MAV_ODID_OPERATOR_LOCATION_TYPE_FIXED     MAV_ODID_OPERATOR_LOCATION_TYPE = 2 // The location of the operator is a fixed location
 )
 
-// Type MAV_ODID_CLASSIFICATION_TYPE
+// MAV_ODID_CLASSIFICATION_TYPE type
 type MAV_ODID_CLASSIFICATION_TYPE int
 
 const (
@@ -1583,7 +1583,7 @@ const (
 	MAV_ODID_CLASSIFICATION_TYPE_EU         MAV_ODID_CLASSIFICATION_TYPE = 1 // The classification type for the UA follows EU (European Union) specifications
 )
 
-// Type MAV_ODID_CATEGORY_EU
+// MAV_ODID_CATEGORY_EU type
 type MAV_ODID_CATEGORY_EU int
 
 const (
@@ -1593,7 +1593,7 @@ const (
 	MAV_ODID_CATEGORY_EU_CERTIFIED  MAV_ODID_CATEGORY_EU = 3 // The category for the UA, according to the EU specification, is the Certified category
 )
 
-// Type MAV_ODID_CLASS_EU
+// MAV_ODID_CLASS_EU type
 type MAV_ODID_CLASS_EU int
 
 const (
@@ -1607,14 +1607,14 @@ const (
 	MAV_ODID_CLASS_EU_CLASS_6    MAV_ODID_CLASS_EU = 7 // The class for the UA, according to the EU specification, is Class 6
 )
 
-// Type MAV_ODID_OPERATOR_ID_TYPE
+// MAV_ODID_OPERATOR_ID_TYPE type
 type MAV_ODID_OPERATOR_ID_TYPE int
 
 const (
 	MAV_ODID_OPERATOR_ID_TYPE_CAA MAV_ODID_OPERATOR_ID_TYPE = 0 // CAA (Civil Aviation Authority) registered operator ID
 )
 
-// Type TUNE_FORMAT. Tune formats (used for vehicle buzzer/tone generation).
+// TUNE_FORMAT type. Tune formats (used for vehicle buzzer/tone generation).
 type TUNE_FORMAT int
 
 const (
@@ -1622,7 +1622,7 @@ const (
 	TUNE_FORMAT_MML_MODERN TUNE_FORMAT = 2 // Format is Modern Music Markup Language (MML): https://en.wikipedia.org/wiki/Music_Macro_Language#Modern_MML
 )
 
-// Type COMPONENT_CAP_FLAGS. Component capability flags (Bitmap)
+// COMPONENT_CAP_FLAGS type. Component capability flags (Bitmap)
 type COMPONENT_CAP_FLAGS int
 
 const (
@@ -1630,7 +1630,7 @@ const (
 	COMPONENT_CAP_FLAGS_PARAM_EXT COMPONENT_CAP_FLAGS = 2 // Component has parameters, and supports the extended parameter protocol (PARAM_EXT messages)
 )
 
-// Type AIS_TYPE. Type of AIS vessel, enum duplicated from AIS standard, https://gpsd.gitlab.io/gpsd/AIVDM.html
+// AIS_TYPE type. Type of AIS vessel, enum duplicated from AIS standard, https://gpsd.gitlab.io/gpsd/AIVDM.html
 type AIS_TYPE int
 
 const (
@@ -1736,7 +1736,7 @@ const (
 	AIS_TYPE_OTHER_UNKNOWN                  AIS_TYPE = 99 //
 )
 
-// Type AIS_NAV_STATUS. Navigational status of AIS vessel, enum duplicated from AIS standard, https://gpsd.gitlab.io/gpsd/AIVDM.html
+// AIS_NAV_STATUS type. Navigational status of AIS vessel, enum duplicated from AIS standard, https://gpsd.gitlab.io/gpsd/AIVDM.html
 type AIS_NAV_STATUS int
 
 const (
@@ -1758,7 +1758,7 @@ const (
 	AIS_NAV_UNKNOWN                     AIS_NAV_STATUS = 15 // Not available (default)
 )
 
-// Type AIS_FLAGS. These flags are used in the AIS_VESSEL.fields bitmask to indicate validity of data in the other message fields. When set, the data is valid.
+// AIS_FLAGS type. These flags are used in the AIS_VESSEL.fields bitmask to indicate validity of data in the other message fields. When set, the data is valid.
 type AIS_FLAGS int
 
 const (
@@ -1777,7 +1777,7 @@ const (
 	AIS_FLAGS_VALID_NAME                AIS_FLAGS = 4096 //
 )
 
-// Type FAILURE_UNIT. List of possible units where failures can be injected.
+// FAILURE_UNIT type. List of possible units where failures can be injected.
 type FAILURE_UNIT int
 
 const (
@@ -1798,7 +1798,7 @@ const (
 	FAILURE_UNIT_SYSTEM_MAVLINK_SIGNAL  FAILURE_UNIT = 105 //
 )
 
-// Type FAILURE_TYPE. List of possible failure type to inject.
+// FAILURE_TYPE type. List of possible failure type to inject.
 type FAILURE_TYPE int
 
 const (
@@ -1812,7 +1812,7 @@ const (
 	FAILURE_TYPE_INTERMITTENT FAILURE_TYPE = 7 // Unit is sometimes working, sometimes not
 )
 
-// Type MAV_WINCH_STATUS_FLAG. Winch status flags used in WINCH_STATUS
+// MAV_WINCH_STATUS_FLAG type. Winch status flags used in WINCH_STATUS
 type MAV_WINCH_STATUS_FLAG int
 
 const (
@@ -1822,7 +1822,7 @@ const (
 	MAV_WINCH_STATUS_CLUTCH_ENGAGED  MAV_WINCH_STATUS_FLAG = 8 // Winch clutch is engaged allowing motor to move freely
 )
 
-// Type MAG_CAL_STATUS
+// MAG_CAL_STATUS type
 type MAG_CAL_STATUS int
 
 const (
@@ -1836,7 +1836,7 @@ const (
 	MAG_CAL_BAD_RADIUS       MAG_CAL_STATUS = 7 //
 )
 
-// Type MAV_AUTOPILOT. Micro air vehicle / autopilot classes. This identifies the individual model.
+// MAV_AUTOPILOT type. Micro air vehicle / autopilot classes. This identifies the individual model.
 type MAV_AUTOPILOT int
 
 const (
@@ -1862,7 +1862,7 @@ const (
 	MAV_AUTOPILOT_AIRRAILS                                     MAV_AUTOPILOT = 19 // AirRails - http://uaventure.com
 )
 
-// Type MAV_TYPE. MAVLINK component type reported in HEARTBEAT message. Flight controllers must report the type of the vehicle on which they are mounted (e.g. MAV_TYPE_OCTOROTOR). All other components must report a value appropriate for their type (e.g. a camera must use MAV_TYPE_CAMERA).
+// MAV_TYPE type. MAVLINK component type reported in HEARTBEAT message. Flight controllers must report the type of the vehicle on which they are mounted (e.g. MAV_TYPE_OCTOROTOR). All other components must report a value appropriate for their type (e.g. a camera must use MAV_TYPE_CAMERA).
 type MAV_TYPE int
 
 const (
@@ -1904,7 +1904,7 @@ const (
 	MAV_TYPE_DECAROTOR          MAV_TYPE = 35 // Decarotor
 )
 
-// Type MAV_MODE_FLAG. These flags encode the MAV mode.
+// MAV_MODE_FLAG type. These flags encode the MAV mode.
 type MAV_MODE_FLAG int
 
 const (
@@ -1918,7 +1918,7 @@ const (
 	MAV_MODE_FLAG_CUSTOM_MODE_ENABLED  MAV_MODE_FLAG = 1   // 0b00000001 Reserved for future use
 )
 
-// Type MAV_MODE_FLAG_DECODE_POSITION. These values encode the bit positions of the decode position. These values can be used to read the value of a flag bit by combining the base_mode variable with AND with the flag position value. The result will be either 0 or 1, depending on if the flag is set or not.
+// MAV_MODE_FLAG_DECODE_POSITION type. These values encode the bit positions of the decode position. These values can be used to read the value of a flag bit by combining the base_mode variable with AND with the flag position value. The result will be either 0 or 1, depending on if the flag is set or not.
 type MAV_MODE_FLAG_DECODE_POSITION int
 
 const (
@@ -1932,7 +1932,7 @@ const (
 	MAV_MODE_FLAG_DECODE_POSITION_CUSTOM_MODE MAV_MODE_FLAG_DECODE_POSITION = 1   // Eighth bit: 00000001
 )
 
-// Type MAV_STATE
+// MAV_STATE type
 type MAV_STATE int
 
 const (
@@ -1947,7 +1947,7 @@ const (
 	MAV_STATE_FLIGHT_TERMINATION MAV_STATE = 8 // System is terminating itself
 )
 
-// Type MAV_COMPONENT. Component ids (values) for the different types and instances of onboard hardware/software that might make up a MAVLink system (autopilot, cameras, servos, GPS systems, avoidance systems etc.).       Components must use the appropriate ID in their source address when sending messages. Components can also use IDs to determine if they are the intended recipient of an incoming message. The MAV_COMP_ID_ALL value is used to indicate messages that must be processed by all components.       When creating new entries, components that can have multiple instances (e.g. cameras, servos etc.) should be allocated sequential values. An appropriate number of values should be left free after these components to allow the number of instances to be expanded.
+// MAV_COMPONENT type. Component ids (values) for the different types and instances of onboard hardware/software that might make up a MAVLink system (autopilot, cameras, servos, GPS systems, avoidance systems etc.).       Components must use the appropriate ID in their source address when sending messages. Components can also use IDs to determine if they are the intended recipient of an incoming message. The MAV_COMP_ID_ALL value is used to indicate messages that must be processed by all components.       When creating new entries, components that can have multiple instances (e.g. cameras, servos etc.) should be allocated sequential values. An appropriate number of values should be left free after these components to allow the number of instances to be expanded.
 type MAV_COMPONENT int
 
 const (
