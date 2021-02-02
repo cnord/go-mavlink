@@ -649,6 +649,9 @@ func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 `
 	for _, m := range d.Messages {
 		m.Description = strings.Replace(m.Description, "\n", "\n// ", -1)
+		if len(m.DialectName) == 0 {
+			m.DialectName = baseName(d.FilePath)
+		}
 		for _, f := range m.Fields {
 			f.Description = strings.Replace(f.Description, "\n", " ", -1)
 			goname, gosz, golen, err := GoTypeInfo(f.CType)

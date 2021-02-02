@@ -4463,7 +4463,7 @@ func (m *SensorOffsets) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *SensorOffsets) String() string {
 	return fmt.Sprintf(
-		"&.SensorOffsets{ MagDeclination: %+v, RawPress: %+v, RawTemp: %+v, GyroCalX: %+v, GyroCalY: %+v, GyroCalZ: %+v, AccelCalX: %+v, AccelCalY: %+v, AccelCalZ: %+v, MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v }",
+		"&ardupilotmega.SensorOffsets{ MagDeclination: %+v, RawPress: %+v, RawTemp: %+v, GyroCalX: %+v, GyroCalY: %+v, GyroCalZ: %+v, AccelCalX: %+v, AccelCalY: %+v, AccelCalZ: %+v, MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v }",
 		m.MagDeclination,
 		m.RawPress,
 		m.RawTemp,
@@ -4543,7 +4543,7 @@ func (m *SetMagOffsets) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *SetMagOffsets) String() string {
 	return fmt.Sprintf(
-		"&.SetMagOffsets{ MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.SetMagOffsets{ MagOfsX: %+v, MagOfsY: %+v, MagOfsZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.MagOfsX,
 		m.MagOfsY,
 		m.MagOfsZ,
@@ -4599,7 +4599,7 @@ func (m *Meminfo) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Meminfo) String() string {
 	return fmt.Sprintf(
-		"&.Meminfo{ Brkval: %+v, Freemem: %+v }",
+		"&ardupilotmega.Meminfo{ Brkval: %+v, Freemem: %+v }",
 		m.Brkval,
 		m.Freemem,
 	)
@@ -4650,7 +4650,7 @@ func (m *ApAdc) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *ApAdc) String() string {
 	return fmt.Sprintf(
-		"&.ApAdc{ Adc1: %+v, Adc2: %+v, Adc3: %+v, Adc4: %+v, Adc5: %+v, Adc6: %+v }",
+		"&ardupilotmega.ApAdc{ Adc1: %+v, Adc2: %+v, Adc3: %+v, Adc4: %+v, Adc5: %+v, Adc6: %+v }",
 		m.Adc1,
 		m.Adc2,
 		m.Adc3,
@@ -4718,7 +4718,7 @@ func (m *DigicamConfigure) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *DigicamConfigure) String() string {
 	return fmt.Sprintf(
-		"&.DigicamConfigure{ ExtraValue: %+v, ShutterSpeed: %+v, TargetSystem: %+v, TargetComponent: %+v, Mode: %+v, Aperture: %+v, Iso: %+v, ExposureType: %+v, CommandID: %+v, EngineCutOff: %+v, ExtraParam: %+v }",
+		"&ardupilotmega.DigicamConfigure{ ExtraValue: %+v, ShutterSpeed: %+v, TargetSystem: %+v, TargetComponent: %+v, Mode: %+v, Aperture: %+v, Iso: %+v, ExposureType: %+v, CommandID: %+v, EngineCutOff: %+v, ExtraParam: %+v }",
 		m.ExtraValue,
 		m.ShutterSpeed,
 		m.TargetSystem,
@@ -4800,7 +4800,7 @@ func (m *DigicamControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *DigicamControl) String() string {
 	return fmt.Sprintf(
-		"&.DigicamControl{ ExtraValue: %+v, TargetSystem: %+v, TargetComponent: %+v, Session: %+v, ZoomPos: %+v, ZoomStep: %+v, FocusLock: %+v, Shot: %+v, CommandID: %+v, ExtraParam: %+v }",
+		"&ardupilotmega.DigicamControl{ ExtraValue: %+v, TargetSystem: %+v, TargetComponent: %+v, Session: %+v, ZoomPos: %+v, ZoomStep: %+v, FocusLock: %+v, Shot: %+v, CommandID: %+v, ExtraParam: %+v }",
 		m.ExtraValue,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -4875,7 +4875,7 @@ func (m *MountConfigure) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *MountConfigure) String() string {
 	return fmt.Sprintf(
-		"&.MountConfigure{ TargetSystem: %+v, TargetComponent: %+v, MountMode: %+v, StabRoll: %+v, StabPitch: %+v, StabYaw: %+v }",
+		"&ardupilotmega.MountConfigure{ TargetSystem: %+v, TargetComponent: %+v, MountMode: %+v, StabRoll: %+v, StabPitch: %+v, StabYaw: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.MountMode,
@@ -4938,7 +4938,7 @@ func (m *MountControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *MountControl) String() string {
 	return fmt.Sprintf(
-		"&.MountControl{ InputA: %+v, InputB: %+v, InputC: %+v, TargetSystem: %+v, TargetComponent: %+v, SavePosition: %+v }",
+		"&ardupilotmega.MountControl{ InputA: %+v, InputB: %+v, InputC: %+v, TargetSystem: %+v, TargetComponent: %+v, SavePosition: %+v }",
 		m.InputA,
 		m.InputB,
 		m.InputC,
@@ -5000,7 +5000,7 @@ func (m *MountStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *MountStatus) String() string {
 	return fmt.Sprintf(
-		"&.MountStatus{ PointingA: %+v, PointingB: %+v, PointingC: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.MountStatus{ PointingA: %+v, PointingB: %+v, PointingC: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.PointingA,
 		m.PointingB,
 		m.PointingC,
@@ -5060,7 +5060,7 @@ func (m *FencePoint) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *FencePoint) String() string {
 	return fmt.Sprintf(
-		"&.FencePoint{ Lat: %+v, Lng: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v }",
+		"&ardupilotmega.FencePoint{ Lat: %+v, Lng: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v }",
 		m.Lat,
 		m.Lng,
 		m.TargetSystem,
@@ -5120,7 +5120,7 @@ func (m *FenceFetchPoint) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *FenceFetchPoint) String() string {
 	return fmt.Sprintf(
-		"&.FenceFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
+		"&ardupilotmega.FenceFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Idx,
@@ -5175,7 +5175,7 @@ func (m *Ahrs) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Ahrs) String() string {
 	return fmt.Sprintf(
-		"&.Ahrs{ Omegaix: %+v, Omegaiy: %+v, Omegaiz: %+v, AccelWeight: %+v, RenormVal: %+v, ErrorRp: %+v, ErrorYaw: %+v }",
+		"&ardupilotmega.Ahrs{ Omegaix: %+v, Omegaiy: %+v, Omegaiz: %+v, AccelWeight: %+v, RenormVal: %+v, ErrorRp: %+v, ErrorYaw: %+v }",
 		m.Omegaix,
 		m.Omegaiy,
 		m.Omegaiz,
@@ -5246,7 +5246,7 @@ func (m *Simstate) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Simstate) String() string {
 	return fmt.Sprintf(
-		"&.Simstate{ Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lng: %+v }",
+		"&ardupilotmega.Simstate{ Roll: %+v, Pitch: %+v, Yaw: %+v, Xacc: %+v, Yacc: %+v, Zacc: %+v, Xgyro: %+v, Ygyro: %+v, Zgyro: %+v, Lat: %+v, Lng: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -5320,7 +5320,7 @@ func (m *Hwstatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Hwstatus) String() string {
 	return fmt.Sprintf(
-		"&.Hwstatus{ Vcc: %+v, I2cerr: %+v }",
+		"&ardupilotmega.Hwstatus{ Vcc: %+v, I2cerr: %+v }",
 		m.Vcc,
 		m.I2cerr,
 	)
@@ -5372,7 +5372,7 @@ func (m *Radio) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Radio) String() string {
 	return fmt.Sprintf(
-		"&.Radio{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
+		"&ardupilotmega.Radio{ Rxerrors: %+v, Fixed: %+v, Rssi: %+v, Remrssi: %+v, Txbuf: %+v, Noise: %+v, Remnoise: %+v }",
 		m.Rxerrors,
 		m.Fixed,
 		m.Rssi,
@@ -5441,7 +5441,7 @@ func (m *LimitsStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *LimitsStatus) String() string {
 	return fmt.Sprintf(
-		"&.LimitsStatus{ LastTrigger: %+v, LastAction: %+v, LastRecovery: %+v, LastClear: %+v, BreachCount: %+v, LimitsState: %+v, ModsEnabled: %+v, ModsRequired: %+v, ModsTriggered: %+v }",
+		"&ardupilotmega.LimitsStatus{ LastTrigger: %+v, LastAction: %+v, LastRecovery: %+v, LastClear: %+v, BreachCount: %+v, LimitsState: %+v, ModsEnabled: %+v, ModsRequired: %+v, ModsTriggered: %+v }",
 		m.LastTrigger,
 		m.LastAction,
 		m.LastRecovery,
@@ -5510,7 +5510,7 @@ func (m *Wind) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Wind) String() string {
 	return fmt.Sprintf(
-		"&.Wind{ Direction: %+v, Speed: %+v, SpeedZ: %+v }",
+		"&ardupilotmega.Wind{ Direction: %+v, Speed: %+v, SpeedZ: %+v }",
 		m.Direction,
 		m.Speed,
 		m.SpeedZ,
@@ -5561,7 +5561,7 @@ func (m *Data16) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data16) String() string {
 	return fmt.Sprintf(
-		"&.Data16{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
+		"&ardupilotmega.Data16{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -5612,7 +5612,7 @@ func (m *Data32) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data32) String() string {
 	return fmt.Sprintf(
-		"&.Data32{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
+		"&ardupilotmega.Data32{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -5663,7 +5663,7 @@ func (m *Data64) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data64) String() string {
 	return fmt.Sprintf(
-		"&.Data64{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
+		"&ardupilotmega.Data64{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -5714,7 +5714,7 @@ func (m *Data96) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Data96) String() string {
 	return fmt.Sprintf(
-		"&.Data96{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
+		"&ardupilotmega.Data96{ Type: %+v, Len: %+v, Data: %0X (\"%s\") }",
 		m.Type,
 		m.Len,
 		m.Data, string(m.Data[:]),
@@ -5764,7 +5764,7 @@ func (m *Rangefinder) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Rangefinder) String() string {
 	return fmt.Sprintf(
-		"&.Rangefinder{ Distance: %+v, Voltage: %+v }",
+		"&ardupilotmega.Rangefinder{ Distance: %+v, Voltage: %+v }",
 		m.Distance,
 		m.Voltage,
 	)
@@ -5821,7 +5821,7 @@ func (m *AirspeedAutocal) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AirspeedAutocal) String() string {
 	return fmt.Sprintf(
-		"&.AirspeedAutocal{ Vx: %+v, Vy: %+v, Vz: %+v, DiffPressure: %+v, Eas2tas: %+v, Ratio: %+v, StateX: %+v, StateY: %+v, StateZ: %+v, Pax: %+v, Pby: %+v, Pcz: %+v }",
+		"&ardupilotmega.AirspeedAutocal{ Vx: %+v, Vy: %+v, Vz: %+v, DiffPressure: %+v, Eas2tas: %+v, Ratio: %+v, StateX: %+v, StateY: %+v, StateZ: %+v, Pax: %+v, Pby: %+v, Pcz: %+v }",
 		m.Vx,
 		m.Vy,
 		m.Vz,
@@ -5906,7 +5906,7 @@ func (m *RallyPoint) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RallyPoint) String() string {
 	return fmt.Sprintf(
-		"&.RallyPoint{ Lat: %+v, Lng: %+v, Alt: %+v, BreakAlt: %+v, LandDir: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v, Flags: %+v }",
+		"&ardupilotmega.RallyPoint{ Lat: %+v, Lng: %+v, Alt: %+v, BreakAlt: %+v, LandDir: %+v, TargetSystem: %+v, TargetComponent: %+v, Idx: %+v, Count: %+v, Flags: %+v }",
 		m.Lat,
 		m.Lng,
 		m.Alt,
@@ -5978,7 +5978,7 @@ func (m *RallyFetchPoint) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RallyFetchPoint) String() string {
 	return fmt.Sprintf(
-		"&.RallyFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
+		"&ardupilotmega.RallyFetchPoint{ TargetSystem: %+v, TargetComponent: %+v, Idx: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Idx,
@@ -6032,7 +6032,7 @@ func (m *CompassmotStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *CompassmotStatus) String() string {
 	return fmt.Sprintf(
-		"&.CompassmotStatus{ Current: %+v, Compensationx: %+v, Compensationy: %+v, Compensationz: %+v, Throttle: %+v, Interference: %+v }",
+		"&ardupilotmega.CompassmotStatus{ Current: %+v, Compensationx: %+v, Compensationy: %+v, Compensationz: %+v, Throttle: %+v, Interference: %+v }",
 		m.Current,
 		m.Compensationx,
 		m.Compensationy,
@@ -6095,7 +6095,7 @@ func (m *Ahrs2) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Ahrs2) String() string {
 	return fmt.Sprintf(
-		"&.Ahrs2{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v }",
+		"&ardupilotmega.Ahrs2{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -6161,7 +6161,7 @@ func (m *CameraStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *CameraStatus) String() string {
 	return fmt.Sprintf(
-		"&.CameraStatus{ TimeUsec: %+v, P1: %+v, P2: %+v, P3: %+v, P4: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, EventID: %+v }",
+		"&ardupilotmega.CameraStatus{ TimeUsec: %+v, P1: %+v, P2: %+v, P3: %+v, P4: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, EventID: %+v }",
 		m.TimeUsec,
 		m.P1,
 		m.P2,
@@ -6240,7 +6240,7 @@ func (m *CameraFeedback) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *CameraFeedback) String() string {
 	return fmt.Sprintf(
-		"&.CameraFeedback{ TimeUsec: %+v, Lat: %+v, Lng: %+v, AltMsl: %+v, AltRel: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, FocLen: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, Flags: %+v }",
+		"&ardupilotmega.CameraFeedback{ TimeUsec: %+v, Lat: %+v, Lng: %+v, AltMsl: %+v, AltRel: %+v, Roll: %+v, Pitch: %+v, Yaw: %+v, FocLen: %+v, ImgIdx: %+v, TargetSystem: %+v, CamIdx: %+v, Flags: %+v }",
 		m.TimeUsec,
 		m.Lat,
 		m.Lng,
@@ -6320,7 +6320,7 @@ func (m *Battery2) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Battery2) String() string {
 	return fmt.Sprintf(
-		"&.Battery2{ Voltage: %+v, CurrentBattery: %+v }",
+		"&ardupilotmega.Battery2{ Voltage: %+v, CurrentBattery: %+v }",
 		m.Voltage,
 		m.CurrentBattery,
 	)
@@ -6375,7 +6375,7 @@ func (m *Ahrs3) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Ahrs3) String() string {
 	return fmt.Sprintf(
-		"&.Ahrs3{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v, V1: %+v, V2: %+v, V3: %+v, V4: %+v }",
+		"&ardupilotmega.Ahrs3{ Roll: %+v, Pitch: %+v, Yaw: %+v, Altitude: %+v, Lat: %+v, Lng: %+v, V1: %+v, V2: %+v, V3: %+v, V4: %+v }",
 		m.Roll,
 		m.Pitch,
 		m.Yaw,
@@ -6446,7 +6446,7 @@ func (m *AutopilotVersionRequest) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *AutopilotVersionRequest) String() string {
 	return fmt.Sprintf(
-		"&.AutopilotVersionRequest{ TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.AutopilotVersionRequest{ TargetSystem: %+v, TargetComponent: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 	)
@@ -6495,7 +6495,7 @@ func (m *RemoteLogDataBlock) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RemoteLogDataBlock) String() string {
 	return fmt.Sprintf(
-		"&.RemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %0X (\"%s\") }",
+		"&ardupilotmega.RemoteLogDataBlock{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Data: %0X (\"%s\") }",
 		m.Seqno,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -6550,7 +6550,7 @@ func (m *RemoteLogBlockStatus) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *RemoteLogBlockStatus) String() string {
 	return fmt.Sprintf(
-		"&.RemoteLogBlockStatus{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Status: %+v }",
+		"&ardupilotmega.RemoteLogBlockStatus{ Seqno: %+v, TargetSystem: %+v, TargetComponent: %+v, Status: %+v }",
 		m.Seqno,
 		m.TargetSystem,
 		m.TargetComponent,
@@ -6607,7 +6607,7 @@ func (m *LedControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *LedControl) String() string {
 	return fmt.Sprintf(
-		"&.LedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %0X (\"%s\") }",
+		"&ardupilotmega.LedControl{ TargetSystem: %+v, TargetComponent: %+v, Instance: %+v, Pattern: %+v, CustomLen: %+v, CustomBytes: %0X (\"%s\") }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.Instance,
@@ -6673,7 +6673,7 @@ func (m *MagCalProgress) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *MagCalProgress) String() string {
 	return fmt.Sprintf(
-		"&.MagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %0X (\"%s\") }",
+		"&ardupilotmega.MagCalProgress{ DirectionX: %+v, DirectionY: %+v, DirectionZ: %+v, CompassID: %+v, CalMask: %+v, CalStatus: %+v, Attempt: %+v, CompletionPct: %+v, CompletionMask: %0X (\"%s\") }",
 		m.DirectionX,
 		m.DirectionY,
 		m.DirectionZ,
@@ -6745,7 +6745,7 @@ func (m *EkfStatusReport) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *EkfStatusReport) String() string {
 	return fmt.Sprintf(
-		"&.EkfStatusReport{ VelocityVariance: %+v, PosHorizVariance: %+v, PosVertVariance: %+v, CompassVariance: %+v, TerrainAltVariance: %+v, Flags: %+v }",
+		"&ardupilotmega.EkfStatusReport{ VelocityVariance: %+v, PosHorizVariance: %+v, PosVertVariance: %+v, CompassVariance: %+v, TerrainAltVariance: %+v, Flags: %+v }",
 		m.VelocityVariance,
 		m.PosHorizVariance,
 		m.PosVertVariance,
@@ -6809,7 +6809,7 @@ func (m *PidTuning) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *PidTuning) String() string {
 	return fmt.Sprintf(
-		"&.PidTuning{ Desired: %+v, Achieved: %+v, Ff: %+v, P: %+v, I: %+v, D: %+v, Axis: %+v }",
+		"&ardupilotmega.PidTuning{ Desired: %+v, Achieved: %+v, Ff: %+v, P: %+v, I: %+v, D: %+v, Axis: %+v }",
 		m.Desired,
 		m.Achieved,
 		m.Ff,
@@ -6879,7 +6879,7 @@ func (m *Deepstall) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Deepstall) String() string {
 	return fmt.Sprintf(
-		"&.Deepstall{ LandingLat: %+v, LandingLon: %+v, PathLat: %+v, PathLon: %+v, ArcEntryLat: %+v, ArcEntryLon: %+v, Altitude: %+v, ExpectedTravelDistance: %+v, CrossTrackError: %+v, Stage: %+v }",
+		"&ardupilotmega.Deepstall{ LandingLat: %+v, LandingLon: %+v, PathLat: %+v, PathLon: %+v, ArcEntryLat: %+v, ArcEntryLon: %+v, Altitude: %+v, ExpectedTravelDistance: %+v, CrossTrackError: %+v, Stage: %+v }",
 		m.LandingLat,
 		m.LandingLon,
 		m.PathLat,
@@ -6960,7 +6960,7 @@ func (m *GimbalReport) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GimbalReport) String() string {
 	return fmt.Sprintf(
-		"&.GimbalReport{ DeltaTime: %+v, DeltaAngleX: %+v, DeltaAngleY: %+v, DeltaAngleZ: %+v, DeltaVelocityX: %+v, DeltaVelocityY: %+v, DeltaVelocityZ: %+v, JointRoll: %+v, JointEl: %+v, JointAz: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.GimbalReport{ DeltaTime: %+v, DeltaAngleX: %+v, DeltaAngleY: %+v, DeltaAngleZ: %+v, DeltaVelocityX: %+v, DeltaVelocityY: %+v, DeltaVelocityZ: %+v, JointRoll: %+v, JointEl: %+v, JointAz: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.DeltaTime,
 		m.DeltaAngleX,
 		m.DeltaAngleY,
@@ -7040,7 +7040,7 @@ func (m *GimbalControl) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GimbalControl) String() string {
 	return fmt.Sprintf(
-		"&.GimbalControl{ DemandedRateX: %+v, DemandedRateY: %+v, DemandedRateZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.GimbalControl{ DemandedRateX: %+v, DemandedRateY: %+v, DemandedRateZ: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.DemandedRateX,
 		m.DemandedRateY,
 		m.DemandedRateZ,
@@ -7099,7 +7099,7 @@ func (m *GimbalTorqueCmdReport) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GimbalTorqueCmdReport) String() string {
 	return fmt.Sprintf(
-		"&.GimbalTorqueCmdReport{ RlTorqueCmd: %+v, ElTorqueCmd: %+v, AzTorqueCmd: %+v, TargetSystem: %+v, TargetComponent: %+v }",
+		"&ardupilotmega.GimbalTorqueCmdReport{ RlTorqueCmd: %+v, ElTorqueCmd: %+v, AzTorqueCmd: %+v, TargetSystem: %+v, TargetComponent: %+v }",
 		m.RlTorqueCmd,
 		m.ElTorqueCmd,
 		m.AzTorqueCmd,
@@ -7156,7 +7156,7 @@ func (m *GoproHeartbeat) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproHeartbeat) String() string {
 	return fmt.Sprintf(
-		"&.GoproHeartbeat{ Status: %+v, CaptureMode: %+v, Flags: %+v }",
+		"&ardupilotmega.GoproHeartbeat{ Status: %+v, CaptureMode: %+v, Flags: %+v }",
 		m.Status,
 		m.CaptureMode,
 		m.Flags,
@@ -7207,7 +7207,7 @@ func (m *GoproGetRequest) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproGetRequest) String() string {
 	return fmt.Sprintf(
-		"&.GoproGetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v }",
+		"&ardupilotmega.GoproGetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CmdID,
@@ -7258,7 +7258,7 @@ func (m *GoproGetResponse) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproGetResponse) String() string {
 	return fmt.Sprintf(
-		"&.GoproGetResponse{ CmdID: %+v, Status: %+v, Value: %0X (\"%s\") }",
+		"&ardupilotmega.GoproGetResponse{ CmdID: %+v, Status: %+v, Value: %0X (\"%s\") }",
 		m.CmdID,
 		m.Status,
 		m.Value, string(m.Value[:]),
@@ -7310,7 +7310,7 @@ func (m *GoproSetRequest) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproSetRequest) String() string {
 	return fmt.Sprintf(
-		"&.GoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %0X (\"%s\") }",
+		"&ardupilotmega.GoproSetRequest{ TargetSystem: %+v, TargetComponent: %+v, CmdID: %+v, Value: %0X (\"%s\") }",
 		m.TargetSystem,
 		m.TargetComponent,
 		m.CmdID,
@@ -7363,7 +7363,7 @@ func (m *GoproSetResponse) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *GoproSetResponse) String() string {
 	return fmt.Sprintf(
-		"&.GoproSetResponse{ CmdID: %+v, Status: %+v }",
+		"&ardupilotmega.GoproSetResponse{ CmdID: %+v, Status: %+v }",
 		m.CmdID,
 		m.Status,
 	)
@@ -7410,7 +7410,7 @@ func (m *Rpm) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *Rpm) String() string {
 	return fmt.Sprintf(
-		"&.Rpm{ Rpm1: %+v, Rpm2: %+v }",
+		"&ardupilotmega.Rpm{ Rpm1: %+v, Rpm2: %+v }",
 		m.Rpm1,
 		m.Rpm2,
 	)
