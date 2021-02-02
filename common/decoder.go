@@ -50,10 +50,12 @@ func (d *mavlink2Decoder) Name() string {
 	return "Mavlink2 decoder"
 }
 
+// Buffer struct provide channel-based io.Reader
 type Buffer struct {
 	in chan byte
 }
 
+// Read read bytes from internal channel and return count of readed bytes or error
 func (b Buffer) Read(p []byte) (n int, err error) {
 	for c := range b.in {
 		p[0] = c
@@ -62,7 +64,7 @@ func (b Buffer) Read(p []byte) (n int, err error) {
 	return 0, errors.New("EOF")
 }
 
-// NewDecoder return decoder depended from mavlink version
+// Decoders return decoder depended from mavlink version
 func Decoders(reader io.Reader) []Decoder {
 	decoders := make([]Decoder, 0)
 	buffers := make([]*Buffer, 0)
