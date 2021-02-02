@@ -30,14 +30,11 @@ import (
 //
 //////////////////////////////////////
 
-const (
-	RETRY_COUNT = 2
-)
-
 var (
 	baudrate = flag.Int("b", 57600, "baudrate of serial port connection")
 	device   = flag.String("d", "/dev/ttyUSB0", "path of serial port device")
 	ro       = flag.Bool("ro", false, "read-only mode")
+	retryCount = flag.Int("retry-count", 2, "retry count for sending packets")
 )
 
 func main() {
@@ -188,7 +185,7 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 }
 
 func sendPacket(writer io.Writer, packet *mavlink.Packet) {
-	for i := 0; i < RETRY_COUNT; i++ {
+	for i := 0; i < *retryCount; i++ {
 		bytes := packet.Bytes()
 		if n, err := writer.Write(bytes); err != nil {
 			log.Fatalf("Error on write packet: %s\n", err)
