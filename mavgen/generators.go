@@ -55,38 +55,43 @@ func findOutFile(scheme string) string {
 	if err != nil {
 		log.Fatal("Getwd(): ", err)
 	}
-	return filepath.Join(dir, baseName(scheme), "dialect.go")
+	return filepath.Join(dir, baseName(scheme), baseName(scheme) + ".go")
 }
 
-func generateDialect(schemeFile string, mavlinkVersion int) error {
-	d, err := ParseDialect(schemeFile, baseName(schemeFile))
+func generateDialect(dialectPath *string, schemeFile string, mavlinkVersion int) error {
+	d, err := ParseDialect(schemeFile)
 	if err != nil {
 		return err
 	}
 
+	d.FilePath = schemeFile
 	d.MavlinkVersion = mavlinkVersion
 
-	dialectFileName := findOutFile(schemeFile)
+	baseName := baseName(schemeFile)
 
-	if err = os.MkdirAll(filepath.Dir(dialectFileName), os.ModePerm); err != nil {
+	if dialectPath == nil {
+		path, err := os.Getwd()
+		if err != nil {
+			log.Fatal("Getwd(): ", err)
+		}
+		path = filepath.Join(path, baseName)
+		dialectPath = &path
+	}
+
+	dialectFileName := "dialect.go"
+
+	if err = os.MkdirAll(filepath.Dir(*dialectPath + string(filepath.Separator)), os.ModePerm); err != nil {
 		return err
 	}
 
-	dialectFile, err := os.Create(dialectFileName)
+	dialectFile, err := os.Create(filepath.Join(*dialectPath, dialectFileName))
 	if err != nil {
 		return err
 	}
 	defer dialectFile.Close()
 
-	if err := d.GenerateGo(dialectFile); err != nil {
+	if err := d.generateGo(dialectFile, baseName); err != nil {
 		return err
-	}
-
-	for _, i := range d.Include {
-		includePath := filepath.Join(filepath.Dir(schemeFile), i)
-		if err := generateDialect(includePath, mavlinkVersion); err != nil {
-			return err
-		}
 	}
 
 	return nil

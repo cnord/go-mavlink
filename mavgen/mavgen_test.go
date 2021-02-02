@@ -103,11 +103,11 @@ func TestParseDialect(t *testing.T) {
 
 	messages := []*Message{
 		{1, "MSG1", "descr1", []*MessageField{
-			{"uint32_t", "f1", "", "descr1", "", 0, 0, 0},
-			{"uint8_t", "f2", "", "descr2", "", 0, 0, 0},
+			{"uint32_t", "f1", "", "descr1", "", "", 0, 0, 0},
+			{"uint8_t", "f2", "", "descr2", "", "", 0, 0, 0},
 		}, ""},
 		{2, "MSG2", "descr2", []*MessageField{
-			{"uint8_t[10]", "f1", "", "descr1", "", 0, 0, 0},
+			{"uint8_t[10]", "f1", "", "descr1", "", "", 0, 0, 0},
 		}, ""},
 	}
 
@@ -266,7 +266,7 @@ func TestParseDialect(t *testing.T) {
 	for ind, c := range cases {
 		t.Run(fmt.Sprintf("%v.%v", ind, c.name), func(t *testing.T) {
 			r := strings.NewReader(c.xml)
-			d, err := parseDialect(r, c.name)
+			d, err := parseDialect(r)
 			if err != c.err {
 				t.Fatalf("expected err to be %+v, got %+v", c.err, err)
 			}
