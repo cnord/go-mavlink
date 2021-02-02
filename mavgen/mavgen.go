@@ -10,6 +10,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -30,9 +31,8 @@ var (
 
 // Dialect described root tag of schema
 type Dialect struct {
-	Name           string
 	MavlinkVersion int
-
+	FilePath string
 	XMLName  xml.Name   `xml:"mavlink"`
 	Version  string     `xml:"version"`
 	Include  []string   `xml:"include"`
@@ -83,6 +83,7 @@ type MessageField struct {
 	Enum        string `xml:"enum,attr"`
 	Description string `xml:",innerxml"`
 	GoType      string
+	Tag         string
 	BitSize     int
 	ArrayLen    int
 	ByteOffset  int // from beginning of payload
@@ -227,6 +228,9 @@ func (f *MessageField) PayloadPackSequence() string {
 func (f *MessageField) payloadUnpackPrimitive(offset string) string {
 
 	if f.BitSize == 8 {
+		if len(f.Enum) > 0 {
+			return fmt.Sprintf("%s(payload[%s])", goArrayType(f.Enum), offset)
+		}
 		return fmt.Sprintf("%s(payload[%s])", goArrayType(f.GoType), offset)
 	}
 
@@ -238,6 +242,9 @@ func (f *MessageField) payloadUnpackPrimitive(offset string) string {
 	} else {
 		switch f.BitSize {
 		case 16, 32, 64:
+			if len(f.Enum) > 0 {
+				return fmt.Sprintf("%s(binary.LittleEndian.Uint%d(payload[%s:]))", goArrayType(f.Enum), f.BitSize, offset)
+			}
 			return fmt.Sprintf("%s(binary.LittleEndian.Uint%d(payload[%s:]))", goArrayType(f.GoType), f.BitSize, offset)
 		}
 	}
@@ -301,15 +308,13 @@ func numBaseFields(rawmsg string) int {
 
 // parseDialect read in an xml-based dialect stream,
 // and populate a Dialect struct with its contents
-func parseDialect(in io.Reader, name string) (*Dialect, error) {
+func parseDialect(in io.Reader) (*Dialect, error) {
 	filebytes, err := ioutil.ReadAll(in)
 	if err != nil {
 		return nil, err
 	}
 
-	dialect := &Dialect{
-		Name: name,
-	}
+	dialect := &Dialect{}
 
 	if err := xml.Unmarshal(filebytes, &dialect); err != nil {
 		return nil, err
@@ -339,15 +344,26 @@ func parseDialect(in io.Reader, name string) (*Dialect, error) {
 
 // ParseDialect read in an xml-based dialect file,
 // and populate a Dialect struct with its contents
-func ParseDialect(schemeFile string, name string) (*Dialect, error) {
+func ParseDialect(schemeFile string) (*Dialect, error) {
 	in, err := os.Open(schemeFile)
 	if err != nil {
 		return nil, err
 	}
 	defer in.Close()
-	d, err := parseDialect(in, name)
+	d, err := parseDialect(in)
 	if err != nil {
 		return nil, err
+	}
+	for _, i := range d.Include {
+		includedPath := filepath.Join(filepath.Dir(schemeFile), i)
+		included, err := ParseDialect(includedPath)
+		if err != nil {
+			return nil, err
+		}
+		included.FilePath = includedPath
+		if err := d.merge(included); err != nil {
+			return nil, err
+		}
 	}
 	return d, nil
 }
@@ -452,8 +468,7 @@ func (d *Dialect) needImportEncodingBinary() bool {
 	return false
 }
 
-// GenerateGo generate a .go source file from the given dialect
-func (d *Dialect) GenerateGo(w io.Writer) error {
+func (d *Dialect) generateGo(w io.Writer, packageName string) error {
 	// templatize to buffer, format it, then write out
 
 	var bb bytes.Buffer
@@ -465,7 +480,7 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 	bb.WriteString("//\n")
 	bb.WriteString("//////////////////////////////////////////////////\n\n")
 
-	bb.WriteString("package " + strings.ToLower(d.Name) + "\n\n")
+	bb.WriteString("package " + packageName + "\n\n")
 
 	needImportParentMavlink := d.needImportParentMavlink()
 	needImportEncodingBinary := d.needImportEncodingBinary()
@@ -518,17 +533,18 @@ func (d *Dialect) GenerateGo(w io.Writer) error {
 func (d *Dialect) generateEnums(w io.Writer) error {
 	enumTmpl := `
 {{range .Enums}}
-// {{.Name}} (generated enum)
-// {{.Description}}
+{{$enumName := .Name}}
+// Type {{$enumName}}{{if .Description}}. {{.Description}}{{end}}
+type {{.Name}} int
+
 const ({{range .Entries}}
-	{{.Name}} = {{.Value}} // {{.Description}}{{end}}
+	{{.Name}} {{$enumName}} = {{.Value}} // {{.Description}}{{end}}
 )
 {{end}}
 `
 	// fill in missing enum values if necessary, and ensure description strings are valid.
 	for _, e := range d.Enums {
 		e.Description = strings.Replace(e.Description, "\n", " ", -1)
-		e.Name = UpperCamelCase(e.Name)
 		for i, ee := range e.Entries {
 			if ee.Value == 0 {
 				ee.Value = uint32(i)
@@ -558,7 +574,7 @@ const ({{range .Messages}}
 )
 {{end}}
 
-{{if .Messages}}// init {{.Name | UpperCamelCase}} dialect 
+{{if .Messages}}
 func init() { {{range .Messages}} 
 	mavlink.Register(MSG_ID_{{.Name}}, "MSG_ID_{{.Name}}", {{.CRCExtra}}, func(p *mavlink.Packet) mavlink.Message {
 		msg := new({{.Name | UpperCamelCase}})
@@ -576,13 +592,12 @@ func init() { {{range .Messages}}
 func (d *Dialect) generateClasses(w io.Writer) error {
 	classesTmpl := `
 {{$mavlinkVersion := .MavlinkVersion}}
-{{$dialect := .Name}}
 {{range .Messages}}
 {{$name := .Name | UpperCamelCase}}
 // {{$name}} struct (generated typeinfo)  
 // {{.Description}}
 type {{$name}} struct { {{range .Fields}}
-  {{.Name | UpperCamelCase}} {{.GoType}} // {{.Description}}{{end}}
+  {{.Name | UpperCamelCase}} {{if .Enum}} {{.Enum}} {{.Tag}} {{ else }} {{.GoType}} {{ end }} // {{.Description}}{{end}}
 }
 
 // MsgID (generated function)
@@ -593,7 +608,7 @@ func (m *{{$name}}) MsgID() mavlink.MessageID {
 // String (generated function)
 func (m *{{$name}}) String() string {
 	return fmt.Sprintf(
-		"&{{$dialect}}.{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: {{if IsByteArrayField .}}%0X (\"%s\"){{else}}%+v{{end}}{{end}} }", 
+		"&{{$name}}{ {{range $i, $v := .Fields}}{{if gt $i 0}}, {{end}}{{.Name | UpperCamelCase}}: {{if IsByteArrayField .}}%0X (\"%s\"){{else}}%+v{{end}}{{end}} }", 
 		{{range .Fields}}m.{{.Name | UpperCamelCase}}{{if IsByteArrayField .}}, string(m.{{.Name | UpperCamelCase}}[:]){{end}},
 {{end}}
 	)
@@ -640,6 +655,9 @@ func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 				return err
 			}
 			f.GoType, f.BitSize, f.ArrayLen = goname, gosz, golen
+			if len(f.Enum) > 0 {
+				f.Tag = "`gotype:\"" + f.GoType + "\"`"
+			}
 		}
 
 		// ensure fields are sorted according to their size,
@@ -656,3 +674,51 @@ func (m *{{$name}}) Unpack(p *mavlink.Packet) error {
 
 	return template.Must(template.New("classesTmpl").Funcs(funcMap).Parse(classesTmpl)).Execute(w, d)
 }
+
+func (d *Dialect) merge(rhs *Dialect) error {
+	for _, enum := range rhs.Enums {
+		if i := d.enumIdx(enum); i < 0 {
+			d.Enums = append(d.Enums, enum)
+		} else {
+			for _, entry := range enum.Entries {
+				if j := d.Enums[i].entryIdx(entry); j < 0 {
+					d.Enums[i].Entries = append(d.Enums[i].Entries, entry)
+				}
+			}
+		}
+	}
+	for _, message := range rhs.Messages {
+		if i := d.messageIdx(message); i < 0 {
+			d.Messages = append(d.Messages, message)
+		}
+	}
+	return nil
+}
+
+func (d *Dialect) messageIdx(message *Message) int {
+	for i, m := range d.Messages {
+		if m.Name == message.Name {
+			return i
+		}
+	}
+	return -1
+}
+
+func (d *Dialect) enumIdx(enum *Enum) int {
+	for i, e := range d.Enums {
+		if e.Name == enum.Name {
+			return i
+		}
+	}
+	return -1
+}
+
+func (enum *Enum) entryIdx(entry *EnumEntry) int {
+	for i, e := range enum.Entries {
+		if e.Name == entry.Name {
+			return i
+		}
+	}
+	return -1
+}
+

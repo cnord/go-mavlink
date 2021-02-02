@@ -5,14 +5,7 @@ import (
 	decoders "github.com/asmyasnikov/go-mavlink/common"
 	mavlink "github.com/asmyasnikov/go-mavlink/generated/mavlink1"
 	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
-	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/ardupilotmega"
-	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
-	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/common"
-	"github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
-	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink1/minimal"
 	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/ardupilotmega"
-	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/common"
-	_ "github.com/asmyasnikov/go-mavlink/generated/mavlink2/minimal"
 	"github.com/tarm/serial"
 	"io"
 	"log"
@@ -75,8 +68,8 @@ func listenAndServe(wg *sync.WaitGroup, device io.ReadWriteCloser) {
 				} else {
 					log.Println("<-", packet.String())
 				}
-				//if packet.MsgID == common.MSG_ID_TIMESYNC {
-				//	ts := common.Timesync{}
+				//if packet.MsgID == ardupilotmega.MSG_ID_TIMESYNC {
+				//	ts := ardupilotmega.Timesync{}
 				//	if err := ts.Unpack(&packet); err != nil {
 				//		log.Fatal(err)
 				//	} else {
@@ -89,18 +82,18 @@ func listenAndServe(wg *sync.WaitGroup, device io.ReadWriteCloser) {
 }
 
 func makeHeartbeat() *mavlink.Packet {
-	return makePacket(&minimal.Heartbeat{
+	return makePacket(&ardupilotmega.Heartbeat{
 		CustomMode:     0,
-		Type:           minimal.MAV_TYPE_GCS,
-		Autopilot:      minimal.MAV_AUTOPILOT_INVALID,
+		Type:           ardupilotmega.MAV_TYPE_GCS,
+		Autopilot:      ardupilotmega.MAV_AUTOPILOT_INVALID,
 		BaseMode:       0,
 		SystemStatus:   0,
 		MavlinkVersion: 3,
 	})
 }
 
-func makeRequestDataStream(msgID uint8, rate uint16) *mavlink.Packet {
-	return makePacket(&common.RequestDataStream{
+func makeRequestDataStream(msgID ardupilotmega.MAV_DATA_STREAM, rate uint16) *mavlink.Packet {
+	return makePacket(&ardupilotmega.RequestDataStream{
 		ReqMessageRate:  rate,
 		TargetSystem:    1,
 		TargetComponent: 1,
@@ -120,14 +113,14 @@ func makePayload(payload []byte) (bytes [251]byte) {
 }
 
 func makeStatustext(text string) *mavlink.Packet {
-	return makePacket(&common.Statustext{
-		Severity: common.MAV_SEVERITY_INFO,
+	return makePacket(&ardupilotmega.Statustext{
+		Severity: ardupilotmega.MAV_SEVERITY_INFO,
 		Text:     makeTextArray(text),
 	})
 }
 
-func makeCommandLong(cmd uint16, param1 uint32) *mavlink.Packet {
-	return makePacket(&common.CommandLong{
+func makeCommandLong(cmd ardupilotmega.MAV_CMD, param1 uint32) *mavlink.Packet {
+	return makePacket(&ardupilotmega.CommandLong{
 		Param1:          1,
 		Param2:          0,
 		Param3:          0,
@@ -143,21 +136,21 @@ func makeCommandLong(cmd uint16, param1 uint32) *mavlink.Packet {
 }
 
 func makeParamRequestList() *mavlink.Packet {
-	return makePacket(&common.ParamRequestList{
+	return makePacket(&ardupilotmega.ParamRequestList{
 		TargetSystem:    1,
 		TargetComponent: 1,
 	})
 }
 
 func makeTimeSync(ts int64) *mavlink.Packet {
-	return makePacket(&common.Timesync{
+	return makePacket(&ardupilotmega.Timesync{
 		Tc1: time.Now().UnixNano(),
 		Ts1: ts,
 	})
 }
 
 func makeFileTransferProtocol(payload []byte) *mavlink.Packet {
-	return makePacket(&common.FileTransferProtocol{
+	return makePacket(&ardupilotmega.FileTransferProtocol{
 		TargetNetwork:   0,
 		TargetSystem:    1,
 		TargetComponent: 1,
@@ -176,7 +169,7 @@ func makePacket(message mavlink.Message) *mavlink.Packet {
 	packet := mavlink.Packet{
 		SeqID:  nextSeq(),
 		SysID:  255,
-		CompID: minimal.MAV_COMP_ID_MISSIONPLANNER,
+		CompID: uint8(ardupilotmega.MAV_COMP_ID_MISSIONPLANNER),
 	}
 	if err := message.Pack(&packet); err != nil {
 		log.Fatalf("Error on pack message: %s\n", err)
@@ -202,15 +195,15 @@ func sendPacket(writer io.Writer, packet *mavlink.Packet) {
 func handshake(wg *sync.WaitGroup, writer io.Writer) {
 	defer wg.Done()
 	time.Sleep(time.Second)
-	sendPacket(writer, makeCommandLong(common.MAV_CMD_REQUEST_PROTOCOL_VERSION, 1))
-	sendPacket(writer, makeCommandLong(common.MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES, 1))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTENDED_STATUS, 2))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_POSITION, 2))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA1, 4))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA2, 4))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_EXTRA3, 4))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RAW_SENSORS, 2))
-	sendPacket(writer, makeRequestDataStream(common.MAV_DATA_STREAM_RC_CHANNELS, 2))
+	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_REQUEST_PROTOCOL_VERSION, 1))
+	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES, 1))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_EXTENDED_STATUS, 2))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_POSITION, 2))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_EXTRA1, 4))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_EXTRA2, 4))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_EXTRA3, 4))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_RAW_SENSORS, 2))
+	sendPacket(writer, makeRequestDataStream(ardupilotmega.MAV_DATA_STREAM_RC_CHANNELS, 2))
 	sendPacket(writer, makeHeartbeat())
 	sendPacket(writer, makeStatustext("Mission Planner 1.3.74"))
 	sendPacket(writer, makeCommandLong(ardupilotmega.MAV_CMD_DO_SEND_BANNER, 0))

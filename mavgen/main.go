@@ -28,7 +28,7 @@ func main() {
 		return
 	}
 
-	if err := generateDialect(*schemeFile, common.MavlinkVersion()); err != nil {
+	if err := generateDialect(nil, *schemeFile, common.MavlinkVersion()); err != nil {
 		log.Fatal(err)
 	}
 
