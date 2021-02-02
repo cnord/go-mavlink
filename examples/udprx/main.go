@@ -15,6 +15,7 @@ import (
 	"flag"
 	"log"
 	"net"
+	"sync"
 )
 
 //////////////////////////////////////
@@ -48,17 +49,21 @@ func listenAndServe(addr string) {
 	}
 	log.Println("listening on", udpAddr)
 
-	dec := common.NewDecoder(conn)
-	if dec == nil {
-		return
-	}
-
-	log.Println("listening packets from decoder")
-	for {
-		if p, err := dec.Decode(); err != nil {
-			log.Fatal(p)
-		} else {
-			log.Println(p)
-		}
+	decs := common.Decoders(conn)
+	wg := sync.WaitGroup{}
+	wg.Add(len(decs))
+	for i := range decs {
+		dec := decs[i]
+		go func() {
+			defer wg.Done()
+			log.Println("listening packets from decoder " + dec.Name())
+			for {
+				if p, err := dec.Decode(); err != nil {
+					log.Fatal(p)
+				} else {
+					log.Println(p)
+				}
+			}
+		}()
 	}
 }
